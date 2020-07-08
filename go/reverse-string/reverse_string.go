@@ -1,9 +1,16 @@
 package reverse
 
+import (
+	"fmt"
+	"unicode/utf8"
+)
+
 func Reverse(s string) string {
 	rstr := ""
-	for i := len(s); i > 0; i-- {
-		rstr += string(s[i-1])
+	for i := 0; i < len(s); {
+		r, size := utf8.DecodeRuneInString(s[i:])
+		rstr = fmt.Sprintf("%c", r) + rstr
+		i += size
 	}
 	return rstr
 }
