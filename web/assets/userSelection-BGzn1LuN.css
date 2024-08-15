@@ -50,6 +50,11 @@
     margin-top: 10px;
 }
 
+.comfy-user-selection input::-moz-placeholder {
+    color: var(--descrip-text);
+    opacity: 1;
+}
+
 .comfy-user-selection input::placeholder {
     color: var(--descrip-text);
     opacity: 1;
@@ -67,12 +72,8 @@
     margin: 10px 0;
     padding: 10px;
     display: block;
-    text-align: center;
     width: 100%;
     color: var(--descrip-text);
-}
-
-.comfy-user-selection-inner .or-separator {
     overflow: hidden;
     text-align: center;
     margin-left: -10px;
