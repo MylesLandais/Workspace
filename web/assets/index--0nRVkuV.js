@@ -20,6 +20,7 @@ var __spreadValues = (a, b) => {
   return a;
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
 var __accessCheck = (obj, member, msg) => member.has(obj) || __typeError("Cannot " + msg);
 var __privateGet = (obj, member, getter) => (__accessCheck(obj, member, "read from private field"), getter ? getter.call(obj) : member.get(obj));
@@ -47,7 +48,7 @@ var __async = (__this, __arguments, generator) => {
   });
 };
 var _PrimitiveNode_instances, onFirstConnection_fn, createWidget_fn, mergeWidgetConfig_fn, isValidConnection_fn, removeWidgets_fn, _convertedToProcess;
-import { C as ComfyDialog, $ as $el, a as ComfyApp, b as app, L as LGraphCanvas, c as LiteGraph, d as applyTextReplacements, e as ComfyWidgets, f as addValueControlWidgets, D as DraggableList, g as api, h as LGraphGroup, i as LGraphNode } from "./index-DIiqwEjy.js";
+import { C as ComfyDialog, $ as $el, a as ComfyApp, b as app, L as LGraphCanvas, c as LiteGraph, d as applyTextReplacements, e as ComfyWidgets, f as addValueControlWidgets, D as DraggableList, g as api, h as LGraphGroup, i as LGraphNode } from "./index-D8Zp4vRl.js";
 const _ClipspaceDialog = class _ClipspaceDialog extends ComfyDialog {
   static registerButton(name, contextPredicate, callback) {
     const item = $el("button", {
@@ -109,9 +110,9 @@ const _ClipspaceDialog = class _ClipspaceDialog extends ComfyDialog {
       $el("button", {
         type: "button",
         textContent: "Close",
-        onclick: () => {
+        onclick: /* @__PURE__ */ __name(() => {
           this.close();
-        }
+        }, "onclick")
       })
     );
     return buttons;
@@ -127,10 +128,10 @@ const _ClipspaceDialog = class _ClipspaceDialog extends ComfyDialog {
         "select",
         {
           id: "clipspace_img_selector",
-          onchange: (event) => {
+          onchange: /* @__PURE__ */ __name((event) => {
             ComfyApp.clipspace["selectedIndex"] = event.target.selectedIndex;
             _ClipspaceDialog.invalidatePreview();
-          }
+          }, "onchange")
         },
         combo_items
       );
@@ -142,9 +143,9 @@ const _ClipspaceDialog = class _ClipspaceDialog extends ComfyDialog {
         "select",
         {
           id: "clipspace_img_paste_mode",
-          onchange: (event) => {
+          onchange: /* @__PURE__ */ __name((event) => {
             ComfyApp.clipspace["img_paste_mode"] = event.target.value;
-          }
+          }, "onchange")
         },
         [
           $el("option", { value: "selected" }, "selected"),
@@ -159,7 +160,7 @@ const _ClipspaceDialog = class _ClipspaceDialog extends ComfyDialog {
       const td = $el(
         "td",
         { align: "center", width: "100px", height: "100px", colSpan: "2" },
-        [$el("img", { id: "clipspace_preview", ondragstart: () => false }, [])]
+        [$el("img", { id: "clipspace_preview", ondragstart: /* @__PURE__ */ __name(() => false, "ondragstart") }, [])]
       );
       const row3 = $el("tr", {}, [td]);
       return $el("table", {}, [row1, row2, row3]);
@@ -169,7 +170,7 @@ const _ClipspaceDialog = class _ClipspaceDialog extends ComfyDialog {
   }
   createImgPreview() {
     if (ComfyApp.clipspace.imgs) {
-      return $el("img", { id: "clipspace_preview", ondragstart: () => false });
+      return $el("img", { id: "clipspace_preview", ondragstart: /* @__PURE__ */ __name(() => false, "ondragstart") });
     } else return [];
   }
   show() {
@@ -178,6 +179,7 @@ const _ClipspaceDialog = class _ClipspaceDialog extends ComfyDialog {
     this.element.style.display = "block";
   }
 };
+__name(_ClipspaceDialog, "ClipspaceDialog");
 __publicField(_ClipspaceDialog, "items", []);
 __publicField(_ClipspaceDialog, "instance", null);
 let ClipspaceDialog = _ClipspaceDialog;
@@ -683,12 +685,12 @@ app.registerExtension({
     };
   },
   addCustomNodeDefs(node_defs) {
-    const sortObjectKeys = (unordered) => {
+    const sortObjectKeys = /* @__PURE__ */ __name((unordered) => {
       return Object.keys(unordered).sort().reduce((obj, key) => {
         obj[key] = unordered[key];
         return obj;
       }, {});
-    };
+    }, "sortObjectKeys");
     function getSlotTypes() {
       var types = [];
       const defs = node_defs;
@@ -716,6 +718,7 @@ app.registerExtension({
       }
       return types;
     }
+    __name(getSlotTypes, "getSlotTypes");
     function completeColorPalette(colorPalette) {
       var types = getSlotTypes();
       for (const type of types) {
@@ -728,7 +731,8 @@ app.registerExtension({
       );
       return colorPalette;
     }
-    const getColorPaletteTemplate = () => __async(this, null, function* () {
+    __name(completeColorPalette, "completeColorPalette");
+    const getColorPaletteTemplate = /* @__PURE__ */ __name(() => __async(this, null, function* () {
       let colorPalette = {
         id: "my_color_palette_unique_id",
         name: "My Color Palette",
@@ -750,17 +754,17 @@ app.registerExtension({
         }
       }
       return completeColorPalette(colorPalette);
-    });
-    const getCustomColorPalettes = () => {
+    }), "getColorPaletteTemplate");
+    const getCustomColorPalettes = /* @__PURE__ */ __name(() => {
       return app.ui.settings.getSettingValue(idCustomColorPalettes, {});
-    };
-    const setCustomColorPalettes = (customColorPalettes) => {
+    }, "getCustomColorPalettes");
+    const setCustomColorPalettes = /* @__PURE__ */ __name((customColorPalettes) => {
       return app.ui.settings.setSettingValue(
         idCustomColorPalettes,
         customColorPalettes
       );
-    };
-    const addCustomColorPalette = (colorPalette) => __async(this, null, function* () {
+    }, "setCustomColorPalettes");
+    const addCustomColorPalette = /* @__PURE__ */ __name((colorPalette) => __async(this, null, function* () {
       if (typeof colorPalette !== "object") {
         alert("Invalid color palette.");
         return;
@@ -798,8 +802,8 @@ app.registerExtension({
       );
       setColorPalette("custom_" + colorPalette.id);
       yield loadColorPalette(colorPalette);
-    });
-    const deleteCustomColorPalette = (colorPaletteId) => __async(this, null, function* () {
+    }), "addCustomColorPalette");
+    const deleteCustomColorPalette = /* @__PURE__ */ __name((colorPaletteId) => __async(this, null, function* () {
       const customColorPalettes = getCustomColorPalettes();
       delete customColorPalettes[colorPaletteId];
       setCustomColorPalettes(customColorPalettes);
@@ -814,8 +818,8 @@ app.registerExtension({
       }
       setColorPalette(defaultColorPaletteId);
       yield loadColorPalette(getColorPalette());
-    });
-    const loadColorPalette = (colorPalette) => __async(this, null, function* () {
+    }), "deleteCustomColorPalette");
+    const loadColorPalette = /* @__PURE__ */ __name((colorPalette) => __async(this, null, function* () {
       colorPalette = yield completeColorPalette(colorPalette);
       if (colorPalette.colors) {
         if (colorPalette.colors.node_slot) {
@@ -849,8 +853,8 @@ app.registerExtension({
         }
         app.canvas.draw(true, true);
       }
-    });
-    const getColorPalette = (colorPaletteId) => {
+    }), "loadColorPalette");
+    const getColorPalette = /* @__PURE__ */ __name((colorPaletteId) => {
       if (!colorPaletteId) {
         colorPaletteId = app.ui.settings.getSettingValue(
           id$4,
@@ -865,16 +869,16 @@ app.registerExtension({
         }
       }
       return colorPalettes[colorPaletteId];
-    };
-    const setColorPalette = (colorPaletteId) => {
+    }, "getColorPalette");
+    const setColorPalette = /* @__PURE__ */ __name((colorPaletteId) => {
       app.ui.settings.setSettingValue(id$4, colorPaletteId);
-    };
+    }, "setColorPalette");
     const fileInput = $el("input", {
       type: "file",
       accept: ".json",
       style: { display: "none" },
       parent: document.body,
-      onchange: () => {
+      onchange: /* @__PURE__ */ __name(() => {
         const file2 = fileInput.files[0];
         if (file2.type === "application/json" || file2.name.endsWith(".json")) {
           const reader = new FileReader();
@@ -883,12 +887,12 @@ app.registerExtension({
           });
           reader.readAsText(file2);
         }
-      }
+      }, "onchange")
     });
     app.ui.settings.addSetting({
       id: id$4,
       name: "Color Palette",
-      type: (name, setter, value) => {
+      type: /* @__PURE__ */ __name((name, setter, value) => {
         const options = [
           ...Object.values(colorPalettes).map(
             (c) => $el("option", {
@@ -912,9 +916,9 @@ app.registerExtension({
               marginBottom: "0.15rem",
               width: "100%"
             },
-            onchange: (e) => {
+            onchange: /* @__PURE__ */ __name((e) => {
               setter(e.target.value);
-            }
+            }, "onchange")
           },
           options
         );
@@ -940,7 +944,7 @@ app.registerExtension({
                 $el("input", {
                   type: "button",
                   value: "Export",
-                  onclick: () => __async(this, null, function* () {
+                  onclick: /* @__PURE__ */ __name(() => __async(this, null, function* () {
                     const colorPaletteId = app.ui.settings.getSettingValue(
                       id$4,
                       defaultColorPaletteId
@@ -962,19 +966,19 @@ app.registerExtension({
                       a.remove();
                       window.URL.revokeObjectURL(url);
                     }, 0);
-                  })
+                  }), "onclick")
                 }),
                 $el("input", {
                   type: "button",
                   value: "Import",
-                  onclick: () => {
+                  onclick: /* @__PURE__ */ __name(() => {
                     fileInput.click();
-                  }
+                  }, "onclick")
                 }),
                 $el("input", {
                   type: "button",
                   value: "Template",
-                  onclick: () => __async(this, null, function* () {
+                  onclick: /* @__PURE__ */ __name(() => __async(this, null, function* () {
                     const colorPalette = yield getColorPaletteTemplate();
                     const json = JSON.stringify(colorPalette, null, 2);
                     const blob = new Blob([json], { type: "application/json" });
@@ -990,12 +994,12 @@ app.registerExtension({
                       a.remove();
                       window.URL.revokeObjectURL(url);
                     }, 0);
-                  })
+                  }), "onclick")
                 }),
                 $el("input", {
                   type: "button",
                   value: "Delete",
-                  onclick: () => __async(this, null, function* () {
+                  onclick: /* @__PURE__ */ __name(() => __async(this, null, function* () {
                     let colorPaletteId = app.ui.settings.getSettingValue(
                       id$4,
                       defaultColorPaletteId
@@ -1008,13 +1012,13 @@ app.registerExtension({
                       colorPaletteId = colorPaletteId.substr(7);
                     }
                     yield deleteCustomColorPalette(colorPaletteId);
-                  })
+                  }), "onclick")
                 })
               ]
             )
           ])
         ]);
-      },
+      }, "type"),
       defaultValue: defaultColorPaletteId,
       onChange(value) {
         return __async(this, null, function* () {
@@ -1085,14 +1089,15 @@ const ext$2 = {
             );
             selectedItem == null ? void 0 : selectedItem.style.setProperty("color", "#000", "important");
           }
-          const positionList = () => {
+          __name(updateSelected, "updateSelected");
+          const positionList = /* @__PURE__ */ __name(() => {
             const rect = this.root.getBoundingClientRect();
             if (rect.top < 0) {
               const scale = 1 - this.root.getBoundingClientRect().height / this.root.clientHeight;
               const shift = this.root.clientHeight * scale / 2;
               this.root.style.top = -shift + "px";
             }
-          };
+          }, "positionList");
           filter.addEventListener("keydown", (event) => {
             switch (event.key) {
               case "ArrowUp":
@@ -1172,6 +1177,7 @@ app.registerExtension(ext$2);
 function stripComments(str) {
   return str.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, "");
 }
+__name(stripComments, "stripComments");
 app.registerExtension({
   name: "Comfy.DynamicPrompts",
   nodeCreated(node) {
@@ -1218,6 +1224,7 @@ app.registerExtension({
       if (newWeight < 0) return "0";
       return String(Number(newWeight.toFixed(10)));
     }
+    __name(incrementWeight, "incrementWeight");
     function findNearestEnclosure(text, cursorPos) {
       let start = cursorPos, end = cursorPos;
       let openCount = 0, closeCount = 0;
@@ -1239,6 +1246,7 @@ app.registerExtension({
       if (end === text.length) return false;
       return { start: start + 1, end };
     }
+    __name(findNearestEnclosure, "findNearestEnclosure");
     function addWeightToParentheses(text) {
       const parenRegex = /^\((.*)\)$/;
       const parenMatch = text.match(parenRegex);
@@ -1250,6 +1258,7 @@ app.registerExtension({
         return text;
       }
     }
+    __name(addWeightToParentheses, "addWeightToParentheses");
     function editAttention(event) {
       const inputField = event.composedPath()[0];
       const delta = parseFloat(editAttentionDelta.value);
@@ -1305,6 +1314,7 @@ app.registerExtension({
       );
       inputField.setRangeText(updatedText, start, end, "select");
     }
+    __name(editAttention, "editAttention");
     window.addEventListener("keydown", editAttention);
   }
 });
@@ -1314,7 +1324,7 @@ const CONFIG = Symbol();
 const GET_CONFIG = Symbol();
 const TARGET = Symbol();
 const replacePropertyName = "Run widget replace on values";
-class PrimitiveNode {
+const _PrimitiveNode = class _PrimitiveNode {
   constructor() {
     __privateAdd(this, _PrimitiveNode_instances);
     __publicField(this, "controlValues");
@@ -1342,6 +1352,7 @@ class PrimitiveNode {
       }
       return links2;
     }
+    __name(get_links, "get_links");
     let links = [
       ...get_links(this).map((l) => app.graph.links[l]),
       ...extraLinks
@@ -1449,9 +1460,9 @@ class PrimitiveNode {
     delete this.outputs[0].widget;
     __privateMethod(this, _PrimitiveNode_instances, removeWidgets_fn).call(this);
   }
-}
+};
 _PrimitiveNode_instances = new WeakSet();
-onFirstConnection_fn = function(recreating) {
+onFirstConnection_fn = /* @__PURE__ */ __name(function(recreating) {
   var _a, _b;
   if (!this.outputs[0].links) {
     this.onLastDisconnect();
@@ -1478,8 +1489,8 @@ onFirstConnection_fn = function(recreating) {
   this.outputs[0].name = type;
   this.outputs[0].widget = widget;
   __privateMethod(this, _PrimitiveNode_instances, createWidget_fn).call(this, (_b = widget[CONFIG]) != null ? _b : config, theirNode, widget.name, recreating, widget[TARGET]);
-};
-createWidget_fn = function(inputData, node, widgetName, recreating, targetWidget) {
+}, "#onFirstConnection");
+createWidget_fn = /* @__PURE__ */ __name(function(inputData, node, widgetName, recreating, targetWidget) {
   var _a, _b, _c;
   let type = inputData[0];
   if (type instanceof Array) {
@@ -1544,8 +1555,8 @@ createWidget_fn = function(inputData, node, widgetName, recreating, targetWidget
       }
     });
   }
-};
-mergeWidgetConfig_fn = function() {
+}, "#createWidget");
+mergeWidgetConfig_fn = /* @__PURE__ */ __name(function() {
   const output = this.outputs[0];
   const links = output.links;
   const hasConfig = !!output.widget[CONFIG];
@@ -1568,8 +1579,8 @@ mergeWidgetConfig_fn = function() {
     const theirInput = theirNode.inputs[link.target_slot];
     __privateMethod(this, _PrimitiveNode_instances, isValidConnection_fn).call(this, theirInput, hasConfig);
   }
-};
-isValidConnection_fn = function(input, forceUpdate) {
+}, "#mergeWidgetConfig");
+isValidConnection_fn = /* @__PURE__ */ __name(function(input, forceUpdate) {
   const output = this.outputs[0];
   const config2 = input.widget[GET_CONFIG]();
   return !!mergeIfValid.call(
@@ -1579,8 +1590,8 @@ isValidConnection_fn = function(input, forceUpdate) {
     forceUpdate,
     this.recreateWidget
   );
-};
-removeWidgets_fn = function() {
+}, "#isValidConnection");
+removeWidgets_fn = /* @__PURE__ */ __name(function() {
   var _a;
   if (this.widgets) {
     for (const w of this.widgets) {
@@ -1599,21 +1610,26 @@ removeWidgets_fn = function() {
     }, 15);
     this.widgets.length = 0;
   }
-};
-__publicField(PrimitiveNode, "category");
+}, "#removeWidgets");
+__name(_PrimitiveNode, "PrimitiveNode");
+__publicField(_PrimitiveNode, "category");
+let PrimitiveNode = _PrimitiveNode;
 function getWidgetConfig(slot) {
   var _a;
   return (_a = slot.widget[CONFIG]) != null ? _a : slot.widget[GET_CONFIG]();
 }
+__name(getWidgetConfig, "getWidgetConfig");
 function getConfig(widgetName) {
   var _a, _b, _c, _d;
   const { nodeData } = this.constructor;
   return (_d = (_a = nodeData == null ? void 0 : nodeData.input) == null ? void 0 : _a.required[widgetName]) != null ? _d : (_c = (_b = nodeData == null ? void 0 : nodeData.input) == null ? void 0 : _b.optional) == null ? void 0 : _c[widgetName];
 }
+__name(getConfig, "getConfig");
 function isConvertibleWidget(widget, config) {
   var _a;
   return (VALID_TYPES.includes(widget.type) || VALID_TYPES.includes(config[0])) && !((_a = widget.options) == null ? void 0 : _a.forceInput);
 }
+__name(isConvertibleWidget, "isConvertibleWidget");
 function hideWidget(node, widget, suffix = "") {
   var _a;
   if ((_a = widget.type) == null ? void 0 : _a.startsWith(CONVERTED_TYPE)) return;
@@ -1641,6 +1657,7 @@ function hideWidget(node, widget, suffix = "") {
     }
   }
 }
+__name(hideWidget, "hideWidget");
 function showWidget(widget) {
   widget.type = widget.origType;
   widget.computeSize = widget.origComputeSize;
@@ -1654,6 +1671,7 @@ function showWidget(widget) {
     }
   }
 }
+__name(showWidget, "showWidget");
 function convertToInput(node, widget, config) {
   hideWidget(node, widget);
   const { type } = getWidgetType(config);
@@ -1666,6 +1684,7 @@ function convertToInput(node, widget, config) {
   }
   node.setSize([Math.max(sz[0], node.size[0]), Math.max(sz[1], node.size[1])]);
 }
+__name(convertToInput, "convertToInput");
 function convertToWidget(node, widget) {
   showWidget(widget);
   const sz = node.size;
@@ -1678,6 +1697,7 @@ function convertToWidget(node, widget) {
   }
   node.setSize([Math.max(sz[0], node.size[0]), Math.max(sz[1], node.size[1])]);
 }
+__name(convertToWidget, "convertToWidget");
 function getWidgetType(config) {
   let type = config[0];
   if (type instanceof Array) {
@@ -1685,6 +1705,7 @@ function getWidgetType(config) {
   }
   return { type };
 }
+__name(getWidgetType, "getWidgetType");
 function isValidCombo(combo, obj) {
   if (!(obj instanceof Array)) {
     console.log(`connection rejected: tried to connect combo to ${obj}`);
@@ -1700,9 +1721,11 @@ function isValidCombo(combo, obj) {
   }
   return true;
 }
+__name(isValidCombo, "isValidCombo");
 function isPrimitiveNode(node) {
   return node.type === "PrimitiveNode";
 }
+__name(isPrimitiveNode, "isPrimitiveNode");
 function setWidgetConfig(slot, config, target) {
   if (!slot.widget) return;
   if (config) {
@@ -1726,6 +1749,7 @@ function setWidgetConfig(slot, config, target) {
     }
   }
 }
+__name(setWidgetConfig, "setWidgetConfig");
 function mergeIfValid(output, config2, forceUpdate, recreateWidget, config1) {
   var _a, _b, _c, _d, _e, _f;
   if (!config1) {
@@ -1742,7 +1766,7 @@ function mergeIfValid(output, config2, forceUpdate, recreateWidget, config1) {
     ...Object.keys((_c = config2[1]) != null ? _c : {})
   ]);
   let customConfig;
-  const getCustomConfig = () => {
+  const getCustomConfig = /* @__PURE__ */ __name(() => {
     var _a2, _b2;
     if (!customConfig) {
       if (typeof structuredClone === "undefined") {
@@ -1752,7 +1776,7 @@ function mergeIfValid(output, config2, forceUpdate, recreateWidget, config1) {
       }
     }
     return customConfig;
-  };
+  }, "getCustomConfig");
   const isNumber = config1[0] === "INT" || config1[0] === "FLOAT";
   for (const k of keys.values()) {
     if (k !== "default" && k !== "forceInput" && k !== "defaultInput" && k !== "control_after_generate" && k !== "multiline" && k !== "tooltip") {
@@ -1823,6 +1847,7 @@ function mergeIfValid(output, config2, forceUpdate, recreateWidget, config1) {
   }
   return { customConfig };
 }
+__name(mergeIfValid, "mergeIfValid");
 let useConversionSubmenusSetting;
 app.registerExtension({
   name: "Comfy.WidgetInputs",
@@ -1861,7 +1886,7 @@ app.registerExtension({
             if (w.type === CONVERTED_TYPE) {
               toWidget.push({
                 content: `Convert ${w.name} to widget`,
-                callback: () => convertToWidget(this, w)
+                callback: /* @__PURE__ */ __name(() => convertToWidget(this, w), "callback")
               });
             } else {
               const config = (_b = getConfig.call(this, w.name)) != null ? _b : [
@@ -1871,7 +1896,7 @@ app.registerExtension({
               if (isConvertibleWidget(w, config)) {
                 toInput.push({
                   content: `Convert ${w.name} to input`,
-                  callback: () => convertToInput(this, w, config)
+                  callback: /* @__PURE__ */ __name(() => convertToInput(this, w, config), "callback")
                 });
               }
             }
@@ -1970,6 +1995,7 @@ app.registerExtension({
         }
         return false;
       }
+      __name(isNodeAtPos, "isNodeAtPos");
       const origOnInputDblClick = nodeType.prototype.onInputDblClick;
       const ignoreDblClick = Symbol();
       nodeType.prototype.onInputDblClick = function(slot) {
@@ -2046,7 +2072,8 @@ function merge(target, source) {
   }
   return target;
 }
-class ManageGroupDialog extends ComfyDialog {
+__name(merge, "merge");
+const _ManageGroupDialog = class _ManageGroupDialog extends ComfyDialog {
   constructor(app2) {
     super();
     __publicField(this, "tabs");
@@ -2116,9 +2143,9 @@ class ManageGroupDialog extends ComfyDialog {
             dataset: {
               nodeindex: n.index + ""
             },
-            onclick: () => {
+            onclick: /* @__PURE__ */ __name(() => {
               this.changeNode(i);
-            }
+            }, "onclick")
           },
           [
             $el("span.drag-handle"),
@@ -2195,26 +2222,26 @@ class ManageGroupDialog extends ComfyDialog {
         value,
         placeholder,
         type: "text",
-        onchange: (e) => {
+        onchange: /* @__PURE__ */ __name((e) => {
           this.storeModification({
             section,
             prop,
             value: { name: e.target.value }
           });
-        }
+        }, "onchange")
       }),
       $el("label", { textContent: "Visible" }, [
         $el("input", {
           type: "checkbox",
           checked,
           disabled: !checkable,
-          onchange: (e) => {
+          onchange: /* @__PURE__ */ __name((e) => {
             this.storeModification({
               section,
               prop,
               value: { visible: !!e.target.checked }
             });
-          }
+          }, "onchange")
         })
       ])
     ]);
@@ -2320,9 +2347,9 @@ class ManageGroupDialog extends ComfyDialog {
     ].reduce((p, [name, page]) => {
       p[name] = {
         tab: $el("a", {
-          onclick: () => {
+          onclick: /* @__PURE__ */ __name(() => {
             this.changeTab(name);
-          },
+          }, "onclick"),
           textContent: name
         }),
         page
@@ -2335,9 +2362,9 @@ class ManageGroupDialog extends ComfyDialog {
         $el(
           "select",
           {
-            onchange: (e) => {
+            onchange: /* @__PURE__ */ __name((e) => {
               this.changeGroup(e.target.value);
-            }
+            }, "onchange")
           },
           groupNodes.map(
             (g) => $el("option", {
@@ -2362,7 +2389,7 @@ class ManageGroupDialog extends ComfyDialog {
         $el(
           "button.comfy-btn",
           {
-            onclick: (e) => {
+            onclick: /* @__PURE__ */ __name((e) => {
               const node = app.graph._nodes.find(
                 (n) => n.type === "workflow/" + this.selectedGroup
               );
@@ -2379,14 +2406,14 @@ class ManageGroupDialog extends ComfyDialog {
                 LiteGraph.unregisterNodeType("workflow/" + this.selectedGroup);
               }
               this.show();
-            }
+            }, "onclick")
           },
           "Delete Group Node"
         ),
         $el(
           "button.comfy-btn",
           {
-            onclick: () => __async(this, null, function* () {
+            onclick: /* @__PURE__ */ __name(() => __async(this, null, function* () {
               var _a2, _b2;
               let nodesByType;
               let recreateNodes = [];
@@ -2447,13 +2474,13 @@ class ManageGroupDialog extends ComfyDialog {
               this.modifications = {};
               this.app.graph.setDirtyCanvas(true, true);
               this.changeGroup(this.selectedGroup, false);
-            })
+            }), "onclick")
           },
           "Save"
         ),
         $el(
           "button.comfy-btn",
-          { onclick: () => this.element.close() },
+          { onclick: /* @__PURE__ */ __name(() => this.element.close(), "onclick") },
           "Close"
         )
       ])
@@ -2468,7 +2495,9 @@ class ManageGroupDialog extends ComfyDialog {
       (_a2 = this.draggable) == null ? void 0 : _a2.dispose();
     });
   }
-}
+};
+__name(_ManageGroupDialog, "ManageGroupDialog");
+let ManageGroupDialog = _ManageGroupDialog;
 window.comfyAPI = window.comfyAPI || {};
 window.comfyAPI.groupNodeManage = window.comfyAPI.groupNodeManage || {};
 window.comfyAPI.groupNodeManage.ManageGroupDialog = ManageGroupDialog;
@@ -2499,7 +2528,7 @@ const Workflow = {
     groupNodes[name] = data;
   }
 };
-class GroupNodeBuilder {
+const _GroupNodeBuilder = class _GroupNodeBuilder {
   constructor(nodes) {
     __publicField(this, "nodes");
     __publicField(this, "nodeData");
@@ -2538,14 +2567,14 @@ class GroupNodeBuilder {
     this.nodes = this.nodes.map((node) => ({ index: nodesInOrder.indexOf(node), node })).sort((a, b) => a.index - b.index || a.node.id - b.node.id).map(({ node }) => node);
   }
   getNodeData() {
-    const storeLinkTypes = (config) => {
+    const storeLinkTypes = /* @__PURE__ */ __name((config) => {
       for (const link of config.links) {
         const origin = app.graph.getNodeById(link[4]);
         const type = origin.outputs[link[1]].type;
         link.push(type);
       }
-    };
-    const storeExternalLinks = (config) => {
+    }, "storeLinkTypes");
+    const storeExternalLinks = /* @__PURE__ */ __name((config) => {
       var _a, _b;
       config.external = [];
       for (let i = 0; i < this.nodes.length; i++) {
@@ -2570,7 +2599,7 @@ class GroupNodeBuilder {
           }
         }
       }
-    };
+    }, "storeExternalLinks");
     const backup = localStorage.getItem("litegrapheditor_clipboard");
     try {
       app.canvas.copyToClipboard(this.nodes);
@@ -2584,7 +2613,9 @@ class GroupNodeBuilder {
       localStorage.setItem("litegrapheditor_clipboard", backup);
     }
   }
-}
+};
+__name(_GroupNodeBuilder, "GroupNodeBuilder");
+let GroupNodeBuilder = _GroupNodeBuilder;
 const _GroupNodeConfig = class _GroupNodeConfig {
   constructor(name, nodeData) {
     __publicField(this, "name");
@@ -3013,12 +3044,12 @@ const _GroupNodeConfig = class _GroupNodeConfig {
               type: "workflow/" + g,
               action: {
                 text: "Remove from workflow",
-                callback: (e) => {
+                callback: /* @__PURE__ */ __name((e) => {
                   delete groupNodes[g];
                   e.target.textContent = "Removed";
                   e.target.style.pointerEvents = "none";
                   e.target.style.opacity = 0.7;
-                }
+                }, "callback")
               }
             });
             hasMissing = true;
@@ -3032,8 +3063,9 @@ const _GroupNodeConfig = class _GroupNodeConfig {
   }
 };
 _convertedToProcess = new WeakMap();
+__name(_GroupNodeConfig, "GroupNodeConfig");
 let GroupNodeConfig = _GroupNodeConfig;
-class GroupNodeHandler {
+const _GroupNodeHandler = class _GroupNodeHandler {
   constructor(node) {
     __publicField(this, "node");
     __publicField(this, "groupData");
@@ -3101,7 +3133,7 @@ class GroupNodeHandler {
       if (!innerNode) {
         return null;
       }
-      if (l && GroupNodeHandler.isGroupNode(innerNode)) {
+      if (l && _GroupNodeHandler.isGroupNode(innerNode)) {
         return innerNode.updateLink(l);
       }
       link.origin_id = innerNode.id;
@@ -3139,7 +3171,7 @@ class GroupNodeHandler {
       return groupNode;
     });
     this.node.convertToNodes = () => {
-      const addInnerNodes = () => {
+      const addInnerNodes = /* @__PURE__ */ __name(() => {
         var _a2, _b2;
         const backup = localStorage.getItem("litegrapheditor_clipboard");
         const c = __spreadValues({}, this.groupData.nodeData);
@@ -3210,8 +3242,8 @@ class GroupNodeHandler {
           ];
         }
         return { newNodes: newNodes2, selectedIds: selectedIds2 };
-      };
-      const reconnectInputs = (selectedIds2) => {
+      }, "addInnerNodes");
+      const reconnectInputs = /* @__PURE__ */ __name((selectedIds2) => {
         for (const innerNodeIndex in this.groupData.oldToNewInputMap) {
           const id2 = selectedIds2[innerNodeIndex];
           const newNode = app.graph.getNodeById(id2);
@@ -3227,8 +3259,8 @@ class GroupNodeHandler {
             originNode.connect(link.origin_slot, newNode, +innerInputId);
           }
         }
-      };
-      const reconnectOutputs = (selectedIds2) => {
+      }, "reconnectInputs");
+      const reconnectOutputs = /* @__PURE__ */ __name((selectedIds2) => {
         var _a2;
         for (let groupOutputId = 0; groupOutputId < ((_a2 = node.outputs) == null ? void 0 : _a2.length); groupOutputId++) {
           const output = node.outputs[groupOutputId];
@@ -3242,7 +3274,7 @@ class GroupNodeHandler {
             newNode.connect(slot.slot, targetNode, link.target_slot);
           }
         }
-      };
+      }, "reconnectOutputs");
       const { newNodes, selectedIds } = addInnerNodes();
       reconnectInputs(selectedIds);
       reconnectOutputs(selectedIds);
@@ -3261,15 +3293,15 @@ class GroupNodeHandler {
         null,
         {
           content: "Convert to nodes",
-          callback: () => {
+          callback: /* @__PURE__ */ __name(() => {
             return this.convertToNodes();
-          }
+          }, "callback")
         },
         {
           content: "Manage Group Node",
-          callback: () => {
+          callback: /* @__PURE__ */ __name(() => {
             new ManageGroupDialog(app).show(this.type);
-          }
+          }, "callback")
         }
       );
     };
@@ -3348,7 +3380,7 @@ class GroupNodeHandler {
       return onNodeCreated == null ? void 0 : onNodeCreated.apply(this, arguments);
     };
     function handleEvent(type, getId, getEvent) {
-      const handler = ({ detail }) => {
+      const handler = /* @__PURE__ */ __name(({ detail }) => {
         var _a2;
         const id2 = getId(detail);
         if (!id2) return;
@@ -3363,10 +3395,11 @@ class GroupNodeHandler {
             })
           );
         }
-      };
+      }, "handler");
       api.addEventListener(type, handler);
       return handler;
     }
+    __name(handleEvent, "handleEvent");
     const executing = handleEvent.call(
       this,
       "executing",
@@ -3594,7 +3627,9 @@ class GroupNodeHandler {
       return groupNode;
     });
   }
-}
+};
+__name(_GroupNodeHandler, "GroupNodeHandler");
+let GroupNodeHandler = _GroupNodeHandler;
 function addConvertToGroupOptions() {
   function addConvertOption(options, index) {
     var _a;
@@ -3603,11 +3638,12 @@ function addConvertToGroupOptions() {
     options.splice(index + 1, null, {
       content: `Convert to Group Node`,
       disabled,
-      callback: () => __async(this, null, function* () {
+      callback: /* @__PURE__ */ __name(() => __async(this, null, function* () {
         return yield GroupNodeHandler.fromNodes(selected);
-      })
+      }), "callback")
     });
   }
+  __name(addConvertOption, "addConvertOption");
   function addManageOption(options, index) {
     var _a;
     const groups = (_a = app.graph.extra) == null ? void 0 : _a.groupNodes;
@@ -3615,11 +3651,12 @@ function addConvertToGroupOptions() {
     options.splice(index + 1, null, {
       content: `Manage Group Nodes`,
       disabled,
-      callback: () => {
+      callback: /* @__PURE__ */ __name(() => {
         new ManageGroupDialog(app).show();
-      }
+      }, "callback")
     });
   }
+  __name(addManageOption, "addManageOption");
   const getCanvasMenuOptions = LGraphCanvas.prototype.getCanvasMenuOptions;
   LGraphCanvas.prototype.getCanvasMenuOptions = function() {
     const options = getCanvasMenuOptions.apply(this, arguments);
@@ -3638,6 +3675,7 @@ function addConvertToGroupOptions() {
     return options;
   };
 }
+__name(addConvertToGroupOptions, "addConvertToGroupOptions");
 const id$3 = "Comfy.GroupNode";
 let globalDefs;
 const ext$1 = {
@@ -3682,6 +3720,7 @@ function setNodeMode(node, mode) {
   node.mode = mode;
   node.graph.change();
 }
+__name(setNodeMode, "setNodeMode");
 function addNodesToGroup(group, nodes = []) {
   var _a;
   var x1, y1, x2, y2;
@@ -3724,6 +3763,7 @@ function addNodesToGroup(group, nodes = []) {
   group.pos = [x1 - padding, y1 - padding];
   group.size = [x2 - x1 + padding * 2, y2 - y1 + padding * 2];
 }
+__name(addNodesToGroup, "addNodesToGroup");
 app.registerExtension({
   name: "Comfy.GroupOptions",
   setup() {
@@ -3738,12 +3778,12 @@ app.registerExtension({
         options.push({
           content: "Add Group For Selected Nodes",
           disabled: !Object.keys(app.canvas.selected_nodes || {}).length,
-          callback: () => {
+          callback: /* @__PURE__ */ __name(() => {
             var group2 = new LiteGraph.LGraphGroup();
             addNodesToGroup(group2, this.selected_nodes);
             app.canvas.graph.add(group2);
             this.graph.change();
-          }
+          }, "callback")
         });
         return options;
       }
@@ -3752,10 +3792,10 @@ app.registerExtension({
       options.push({
         content: "Add Selected Nodes To Group",
         disabled: !Object.keys(app.canvas.selected_nodes || {}).length,
-        callback: () => {
+        callback: /* @__PURE__ */ __name(() => {
           addNodesToGroup(group, this.selected_nodes);
           this.graph.change();
-        }
+        }, "callback")
       });
       if (nodesInGroup.length === 0) {
         return options;
@@ -3771,18 +3811,18 @@ app.registerExtension({
       }
       options.push({
         content: "Fit Group To Nodes",
-        callback: () => {
+        callback: /* @__PURE__ */ __name(() => {
           addNodesToGroup(group);
           this.graph.change();
-        }
+        }, "callback")
       });
       options.push({
         content: "Select Nodes",
-        callback: () => {
+        callback: /* @__PURE__ */ __name(() => {
           this.selectNodes(nodesInGroup);
           this.graph.change();
           this.canvas.focus();
-        }
+        }, "callback")
       });
       if (allNodesAreSameMode) {
         const mode = nodesInGroup[0].mode;
@@ -3790,108 +3830,108 @@ app.registerExtension({
           case 0:
             options.push({
               content: "Set Group Nodes to Never",
-              callback: () => {
+              callback: /* @__PURE__ */ __name(() => {
                 for (const node of nodesInGroup) {
                   setNodeMode(node, 2);
                 }
-              }
+              }, "callback")
             });
             options.push({
               content: "Bypass Group Nodes",
-              callback: () => {
+              callback: /* @__PURE__ */ __name(() => {
                 for (const node of nodesInGroup) {
                   setNodeMode(node, 4);
                 }
-              }
+              }, "callback")
             });
             break;
           case 2:
             options.push({
               content: "Set Group Nodes to Always",
-              callback: () => {
+              callback: /* @__PURE__ */ __name(() => {
                 for (const node of nodesInGroup) {
                   setNodeMode(node, 0);
                 }
-              }
+              }, "callback")
             });
             options.push({
               content: "Bypass Group Nodes",
-              callback: () => {
+              callback: /* @__PURE__ */ __name(() => {
                 for (const node of nodesInGroup) {
                   setNodeMode(node, 4);
                 }
-              }
+              }, "callback")
             });
             break;
           case 4:
             options.push({
               content: "Set Group Nodes to Always",
-              callback: () => {
+              callback: /* @__PURE__ */ __name(() => {
                 for (const node of nodesInGroup) {
                   setNodeMode(node, 0);
                 }
-              }
+              }, "callback")
             });
             options.push({
               content: "Set Group Nodes to Never",
-              callback: () => {
+              callback: /* @__PURE__ */ __name(() => {
                 for (const node of nodesInGroup) {
                   setNodeMode(node, 2);
                 }
-              }
+              }, "callback")
             });
             break;
           default:
             options.push({
               content: "Set Group Nodes to Always",
-              callback: () => {
+              callback: /* @__PURE__ */ __name(() => {
                 for (const node of nodesInGroup) {
                   setNodeMode(node, 0);
                 }
-              }
+              }, "callback")
             });
             options.push({
               content: "Set Group Nodes to Never",
-              callback: () => {
+              callback: /* @__PURE__ */ __name(() => {
                 for (const node of nodesInGroup) {
                   setNodeMode(node, 2);
                 }
-              }
+              }, "callback")
             });
             options.push({
               content: "Bypass Group Nodes",
-              callback: () => {
+              callback: /* @__PURE__ */ __name(() => {
                 for (const node of nodesInGroup) {
                   setNodeMode(node, 4);
                 }
-              }
+              }, "callback")
             });
             break;
         }
       } else {
         options.push({
           content: "Set Group Nodes to Always",
-          callback: () => {
+          callback: /* @__PURE__ */ __name(() => {
             for (const node of nodesInGroup) {
               setNodeMode(node, 0);
             }
-          }
+          }, "callback")
         });
         options.push({
           content: "Set Group Nodes to Never",
-          callback: () => {
+          callback: /* @__PURE__ */ __name(() => {
             for (const node of nodesInGroup) {
               setNodeMode(node, 2);
             }
-          }
+          }, "callback")
         });
         options.push({
           content: "Bypass Group Nodes",
-          callback: () => {
+          callback: /* @__PURE__ */ __name(() => {
             for (const node of nodesInGroup) {
               setNodeMode(node, 4);
             }
-          }
+          }, "callback")
         });
       }
       return options;
@@ -3903,7 +3943,7 @@ app.registerExtension({
   name: id$2,
   init() {
     const ctxMenu = LiteGraph.ContextMenu;
-    const replace = () => {
+    const replace = /* @__PURE__ */ __name(() => {
       LiteGraph.ContextMenu = function(values, options) {
         options = options || {};
         if (options.scroll_speed) {
@@ -3914,7 +3954,7 @@ app.registerExtension({
         return ctxMenu.call(this, values, options);
       };
       LiteGraph.ContextMenu.prototype = ctxMenu.prototype;
-    };
+    }, "replace");
     app.ui.settings.addSetting({
       id: id$2,
       name: "Invert Menu Scrolling",
@@ -3933,7 +3973,7 @@ app.registerExtension({
 app.registerExtension({
   name: "Comfy.Keybinds",
   init() {
-    const keybindListener = function(event) {
+    const keybindListener = /* @__PURE__ */ __name(function(event) {
       const modifierPressed = event.ctrlKey || event.metaKey;
       if (modifierPressed && event.key === "Enter") {
         if (event.altKey) {
@@ -3986,7 +4026,7 @@ app.registerExtension({
         const button = document.querySelector(buttonId);
         button.click();
       }
-    };
+    }, "keybindListener");
     window.addEventListener("keydown", keybindListener, true);
   }
 });
@@ -4026,6 +4066,7 @@ function dataURLToBlob(dataURL) {
   }
   return new Blob([arrayBuffer], { type: contentType });
 }
+__name(dataURLToBlob, "dataURLToBlob");
 function loadedImageToBlob(image) {
   const canvas = document.createElement("canvas");
   canvas.width = image.width;
@@ -4036,6 +4077,7 @@ function loadedImageToBlob(image) {
   const blob = dataURLToBlob(dataURL);
   return blob;
 }
+__name(loadedImageToBlob, "loadedImageToBlob");
 function loadImage(imagePath) {
   return new Promise((resolve, reject) => {
     const image = new Image();
@@ -4045,6 +4087,7 @@ function loadImage(imagePath) {
     image.src = imagePath;
   });
 }
+__name(loadImage, "loadImage");
 function uploadMask(filepath, formData) {
   return __async(this, null, function* () {
     yield api.fetchApi("/upload/mask", {
@@ -4063,6 +4106,7 @@ function uploadMask(filepath, formData) {
     ClipspaceDialog.invalidatePreview();
   });
 }
+__name(uploadMask, "uploadMask");
 function prepare_mask(image, maskCanvas, maskCtx, maskColor) {
   maskCtx.drawImage(image, 0, 0, maskCanvas.width, maskCanvas.height);
   const maskData = maskCtx.getImageData(
@@ -4081,6 +4125,7 @@ function prepare_mask(image, maskCanvas, maskCtx, maskColor) {
   maskCtx.globalCompositeOperation = "source-over";
   maskCtx.putImageData(maskData, 0, 0);
 }
+__name(prepare_mask, "prepare_mask");
 const _MaskEditorDialog = class _MaskEditorDialog extends ComfyDialog {
   constructor() {
     super();
@@ -4827,6 +4872,7 @@ const _MaskEditorDialog = class _MaskEditorDialog extends ComfyDialog {
     });
   }
 };
+__name(_MaskEditorDialog, "MaskEditorDialog");
 __publicField(_MaskEditorDialog, "instance", null);
 __publicField(_MaskEditorDialog, "mousedown_x", null);
 __publicField(_MaskEditorDialog, "mousedown_y", null);
@@ -4840,7 +4886,7 @@ app.registerExtension({
         dlg.show();
       }
     };
-    const context_predicate = () => ComfyApp.clipspace && ComfyApp.clipspace.imgs && ComfyApp.clipspace.imgs.length > 0;
+    const context_predicate = /* @__PURE__ */ __name(() => ComfyApp.clipspace && ComfyApp.clipspace.imgs && ComfyApp.clipspace.imgs.length > 0, "context_predicate");
     ClipspaceDialog.registerButton(
       "MaskEditor",
       context_predicate,
@@ -4850,7 +4896,7 @@ app.registerExtension({
 });
 const id = "Comfy.NodeTemplates";
 const file = "comfy.templates.json";
-class ManageTemplates extends ComfyDialog {
+const _ManageTemplates = class _ManageTemplates extends ComfyDialog {
   constructor() {
     super();
     __publicField(this, "templates");
@@ -4872,7 +4918,7 @@ class ManageTemplates extends ComfyDialog {
       multiple: true,
       style: { display: "none" },
       parent: document.body,
-      onchange: () => this.importAll()
+      onchange: /* @__PURE__ */ __name(() => this.importAll(), "onchange")
     });
   }
   createButtons() {
@@ -4886,16 +4932,16 @@ class ManageTemplates extends ComfyDialog {
       $el("button", {
         type: "button",
         textContent: "Export",
-        onclick: () => this.exportAll()
+        onclick: /* @__PURE__ */ __name(() => this.exportAll(), "onclick")
       })
     );
     btns.unshift(
       $el("button", {
         type: "button",
         textContent: "Import",
-        onclick: () => {
+        onclick: /* @__PURE__ */ __name(() => {
           this.importInput.click();
-        }
+        }, "onclick")
       })
     );
     return btns;
@@ -5009,14 +5055,14 @@ class ManageTemplates extends ComfyDialog {
                   gap: "5px",
                   backgroundColor: "var(--comfy-menu-bg)"
                 },
-                ondragstart: (e) => {
+                ondragstart: /* @__PURE__ */ __name((e) => {
                   this.draggedEl = e.currentTarget;
                   e.currentTarget.style.opacity = "0.6";
                   e.currentTarget.style.border = "1px dashed yellow";
                   e.dataTransfer.effectAllowed = "move";
                   e.dataTransfer.setDragImage(this.emptyImg, 0, 0);
-                },
-                ondragend: (e) => {
+                }, "ondragstart"),
+                ondragend: /* @__PURE__ */ __name((e) => {
                   e.target.style.opacity = "1";
                   e.currentTarget.style.border = "1px dashed transparent";
                   e.currentTarget.removeAttribute("draggable");
@@ -5032,8 +5078,8 @@ class ManageTemplates extends ComfyDialog {
                     el.dataset.id = i2.toString();
                   });
                   this.store();
-                },
-                ondragover: (e) => {
+                }, "ondragend"),
+                ondragover: /* @__PURE__ */ __name((e) => {
                   e.preventDefault();
                   if (e.currentTarget == this.draggedEl) return;
                   let rect = e.currentTarget.getBoundingClientRect();
@@ -5048,7 +5094,7 @@ class ManageTemplates extends ComfyDialog {
                       e.currentTarget
                     );
                   }
-                }
+                }, "ondragover")
               },
               [
                 $el(
@@ -5058,10 +5104,10 @@ class ManageTemplates extends ComfyDialog {
                     style: {
                       cursor: "grab"
                     },
-                    onmousedown: (e) => {
+                    onmousedown: /* @__PURE__ */ __name((e) => {
                       if (e.target.localName == "label")
                         e.currentTarget.parentNode.draggable = "true";
-                    }
+                    }, "onmousedown")
                   },
                   [
                     $el("input", {
@@ -5071,7 +5117,7 @@ class ManageTemplates extends ComfyDialog {
                         transitionProperty: "background-color",
                         transitionDuration: "0s"
                       },
-                      onchange: (e) => {
+                      onchange: /* @__PURE__ */ __name((e) => {
                         clearTimeout(this.saveVisualCue);
                         var el = e.target;
                         var row = el.parentNode.parentNode;
@@ -5083,14 +5129,14 @@ class ManageTemplates extends ComfyDialog {
                           el.style.transitionDuration = ".7s";
                           el.style.backgroundColor = "var(--comfy-input-bg)";
                         }, 15);
-                      },
-                      onkeypress: (e) => {
+                      }, "onchange"),
+                      onkeypress: /* @__PURE__ */ __name((e) => {
                         var el = e.target;
                         clearTimeout(this.saveVisualCue);
                         el.style.transitionDuration = "0s";
                         el.style.backgroundColor = "var(--comfy-input-bg)";
-                      },
-                      $: (el) => nameInput = el
+                      }, "onkeypress"),
+                      $: /* @__PURE__ */ __name((el) => nameInput = el, "$")
                     })
                   ]
                 ),
@@ -5101,7 +5147,7 @@ class ManageTemplates extends ComfyDialog {
                       fontSize: "12px",
                       fontWeight: "normal"
                     },
-                    onclick: (e) => {
+                    onclick: /* @__PURE__ */ __name((e) => {
                       const json = JSON.stringify({ templates: [t] }, null, 2);
                       const blob = new Blob([json], {
                         type: "application/json"
@@ -5118,7 +5164,7 @@ class ManageTemplates extends ComfyDialog {
                         a.remove();
                         window.URL.revokeObjectURL(url);
                       }, 0);
-                    }
+                    }, "onclick")
                   }),
                   $el("button", {
                     textContent: "Delete",
@@ -5127,7 +5173,7 @@ class ManageTemplates extends ComfyDialog {
                       color: "red",
                       fontWeight: "normal"
                     },
-                    onclick: (e) => {
+                    onclick: /* @__PURE__ */ __name((e) => {
                       const item = e.target.parentNode.parentNode;
                       item.parentNode.removeChild(item);
                       this.templates.splice(item.dataset.id * 1, 1);
@@ -5138,7 +5184,7 @@ class ManageTemplates extends ComfyDialog {
                           el.dataset.id = i2.toString();
                         });
                       }, 0);
-                    }
+                    }, "onclick")
                   })
                 ])
               ]
@@ -5148,16 +5194,18 @@ class ManageTemplates extends ComfyDialog {
       )
     );
   }
-}
+};
+__name(_ManageTemplates, "ManageTemplates");
+let ManageTemplates = _ManageTemplates;
 app.registerExtension({
   name: id,
   setup() {
     const manage = new ManageTemplates();
-    const clipboardAction = (cb) => __async(this, null, function* () {
+    const clipboardAction = /* @__PURE__ */ __name((cb) => __async(this, null, function* () {
       const old = localStorage.getItem("litegrapheditor_clipboard");
       yield cb();
       localStorage.setItem("litegrapheditor_clipboard", old);
-    });
+    }), "clipboardAction");
     const orig = LGraphCanvas.prototype.getCanvasMenuOptions;
     LGraphCanvas.prototype.getCanvasMenuOptions = function() {
       const options = orig.apply(this, arguments);
@@ -5165,7 +5213,7 @@ app.registerExtension({
       options.push({
         content: `Save Selected as Template`,
         disabled: !Object.keys(app.canvas.selected_nodes || {}).length,
-        callback: () => {
+        callback: /* @__PURE__ */ __name(() => {
           const name = prompt("Enter name");
           if (!(name == null ? void 0 : name.trim())) return;
           clipboardAction(() => {
@@ -5192,24 +5240,24 @@ app.registerExtension({
             });
             manage.store();
           });
-        }
+        }, "callback")
       });
       const subItems = manage.templates.map((t) => {
         return {
           content: t.name,
-          callback: () => {
+          callback: /* @__PURE__ */ __name(() => {
             clipboardAction(() => __async(this, null, function* () {
               const data = JSON.parse(t.data);
               yield GroupNodeConfig.registerFromWorkflow(data.groupNodes, {});
               localStorage.setItem("litegrapheditor_clipboard", t.data);
               app.canvas.pasteFromClipboard();
             }));
-          }
+          }, "callback")
         };
       });
       subItems.push(null, {
         content: "Manage",
-        callback: () => manage.show()
+        callback: /* @__PURE__ */ __name(() => manage.show(), "callback")
       });
       options.push({
         content: "Node Templates",
@@ -5224,7 +5272,7 @@ app.registerExtension({
 app.registerExtension({
   name: "Comfy.NoteNode",
   registerCustomNodes() {
-    class NoteNode {
+    const _NoteNode = class _NoteNode {
       constructor() {
         __publicField(this, "color", LGraphCanvas.node_colors.yellow.color);
         __publicField(this, "bgcolor", LGraphCanvas.node_colors.yellow.bgcolor);
@@ -5248,8 +5296,10 @@ app.registerExtension({
         this.serialize_widgets = true;
         this.isVirtualNode = true;
       }
-    }
-    __publicField(NoteNode, "category");
+    };
+    __name(_NoteNode, "NoteNode");
+    __publicField(_NoteNode, "category");
+    let NoteNode = _NoteNode;
     LiteGraph.registerNodeType(
       "Note",
       // @ts-expect-error
@@ -5426,7 +5476,7 @@ app.registerExtension({
         options.unshift(
           {
             content: (this.properties.showOutputText ? "Hide" : "Show") + " Type",
-            callback: () => {
+            callback: /* @__PURE__ */ __name(() => {
               this.properties.showOutputText = !this.properties.showOutputText;
               if (this.properties.showOutputText) {
                 this.outputs[0].name = this.__outputType || this.outputs[0].type;
@@ -5436,15 +5486,15 @@ app.registerExtension({
               this.size = this.computeSize();
               this.applyOrientation();
               app2.graph.setDirtyCanvas(true, true);
-            }
+            }, "callback")
           },
           {
             content: (_RerouteNode.defaultVisibility ? "Hide" : "Show") + " Type By Default",
-            callback: () => {
+            callback: /* @__PURE__ */ __name(() => {
               _RerouteNode.setDefaultTextVisibility(
                 !_RerouteNode.defaultVisibility
               );
-            }
+            }, "callback")
           },
           {
             // naming is inverted with respect to LiteGraphNode.horizontal
@@ -5452,10 +5502,10 @@ app.registerExtension({
             // each slot in the inputs and outputs are laid out horizontally,
             // which is the opposite of the visual orientation of the inputs and outputs as a node
             content: "Set " + (this.properties.horizontal ? "Horizontal" : "Vertical"),
-            callback: () => {
+            callback: /* @__PURE__ */ __name(() => {
               this.properties.horizontal = !this.properties.horizontal;
               this.applyOrientation();
-            }
+            }, "callback")
           }
         );
       }
@@ -5486,6 +5536,7 @@ app.registerExtension({
         }
       }
     };
+    __name(_RerouteNode, "RerouteNode");
     __publicField(_RerouteNode, "category");
     __publicField(_RerouteNode, "defaultVisibility", false);
     let RerouteNode = _RerouteNode;
@@ -5544,6 +5595,7 @@ app.registerExtension({
         e.touches[0].clientY - e.touches[1].clientY
       );
     }
+    __name(getMultiTouchPos, "getMultiTouchPos");
     app.canvasEl.addEventListener(
       "touchstart",
       (e) => {
@@ -5640,9 +5692,9 @@ app.registerExtension({
         step: 1
       },
       defaultValue: 5,
-      onChange: (newVal, oldVal) => {
+      onChange: /* @__PURE__ */ __name((newVal, oldVal) => {
         this.setDefaults(newVal);
-      }
+      }, "onChange")
     });
   },
   slot_types_default_out: {},
@@ -5708,6 +5760,7 @@ function roundVectorToGrid(vec) {
   vec[1] = LiteGraph.CANVAS_GRID_SIZE * Math.round(vec[1] / LiteGraph.CANVAS_GRID_SIZE);
   return vec;
 }
+__name(roundVectorToGrid, "roundVectorToGrid");
 app.registerExtension({
   name: "Comfy.SnapToGrid",
   init() {
@@ -5849,7 +5902,7 @@ app.registerExtension({
         container.style.textAlign = "center";
         const video = document.createElement("video");
         video.style.height = video.style.width = "100%";
-        const loadVideo = () => __async(this, null, function* () {
+        const loadVideo = /* @__PURE__ */ __name(() => __async(this, null, function* () {
           try {
             const stream = yield navigator.mediaDevices.getUserMedia({
               video: true,
@@ -5873,7 +5926,7 @@ app.registerExtension({
             }
             container.replaceChildren(label);
           }
-        });
+        }), "loadVideo");
         loadVideo();
         return { widget: node.addDOMWidget(inputName, "WEBCAM", container) };
       }
@@ -5889,7 +5942,7 @@ app.registerExtension({
       (w2) => w2.name === "capture_on_queue"
     );
     const canvas = document.createElement("canvas");
-    const capture = () => {
+    const capture = /* @__PURE__ */ __name(() => {
       canvas.width = w.value;
       canvas.height = h.value;
       const ctx = canvas.getContext("2d");
@@ -5905,7 +5958,7 @@ app.registerExtension({
         });
       };
       img.src = data;
-    };
+    }, "capture");
     const btn = node.addWidget(
       "button",
       "waiting for camera...",
@@ -5962,6 +6015,7 @@ function splitFilePath(path) {
     path.substring(folder_separator + 1)
   ];
 }
+__name(splitFilePath, "splitFilePath");
 function getResourceURL(subfolder, filename, type = "input") {
   const params = [
     "filename=" + encodeURIComponent(filename),
@@ -5971,6 +6025,7 @@ function getResourceURL(subfolder, filename, type = "input") {
   ].join("&");
   return `/view?${params}`;
 }
+__name(getResourceURL, "getResourceURL");
 function uploadFile(audioWidget, audioUIWidget, file2, updateNode, pasted = false) {
   return __async(this, null, function* () {
     try {
@@ -6002,6 +6057,7 @@ function uploadFile(audioWidget, audioUIWidget, file2, updateNode, pasted = fals
     }
   });
 }
+__name(uploadFile, "uploadFile");
 app.registerExtension({
   name: "Comfy.AudioWidget",
   beforeRegisterNodeDef(nodeType, nodeData) {
@@ -6079,11 +6135,11 @@ app.registerExtension({
         const audioUIWidget = node.widgets.find(
           (w) => w.name === "audioUI"
         );
-        const onAudioWidgetUpdate = () => {
+        const onAudioWidgetUpdate = /* @__PURE__ */ __name(() => {
           audioUIWidget.element.src = api.apiURL(
             getResourceURL(...splitFilePath(audioWidget.value))
           );
-        };
+        }, "onAudioWidgetUpdate");
         if (audioWidget.value) {
           onAudioWidgetUpdate();
         }
@@ -6120,4 +6176,4 @@ app.registerExtension({
     };
   }
 });
-//# sourceMappingURL=index-DJRcbqp_.js.map
+//# sourceMappingURL=index--0nRVkuV.js.map

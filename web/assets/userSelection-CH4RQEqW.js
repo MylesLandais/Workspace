@@ -1,3 +1,5 @@
+var __defProp = Object.defineProperty;
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 var __async = (__this, __arguments, generator) => {
   return new Promise((resolve, reject) => {
     var fulfilled = (value) => {
@@ -18,8 +20,8 @@ var __async = (__this, __arguments, generator) => {
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
-import { j as createSpinner, g as api, $ as $el } from "./index-DIiqwEjy.js";
-class UserSelectionScreen {
+import { j as createSpinner, g as api, $ as $el } from "./index-D8Zp4vRl.js";
+const _UserSelectionScreen = class _UserSelectionScreen {
   show(users, user) {
     return __async(this, null, function* () {
       const userSelection = document.getElementById("comfy-user-selection");
@@ -128,11 +130,13 @@ class UserSelectionScreen {
       });
     });
   }
-}
+};
+__name(_UserSelectionScreen, "UserSelectionScreen");
+let UserSelectionScreen = _UserSelectionScreen;
 window.comfyAPI = window.comfyAPI || {};
 window.comfyAPI.userSelection = window.comfyAPI.userSelection || {};
 window.comfyAPI.userSelection.UserSelectionScreen = UserSelectionScreen;
 export {
   UserSelectionScreen
 };
-//# sourceMappingURL=userSelection-BifVfRyx.js.map
+//# sourceMappingURL=userSelection-CH4RQEqW.js.map
