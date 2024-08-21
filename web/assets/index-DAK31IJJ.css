@@ -1,8 +1,8 @@
 @font-face {
     font-family: 'primeicons';
     font-display: block;
-    src: url('/assets/primeicons-DMOk5skT.eot');
-    src: url('/assets/primeicons-DMOk5skT.eot?#iefix') format('embedded-opentype'), url('/assets/primeicons-C6QP2o4f.woff2') format('woff2'), url('/assets/primeicons-WjwUDZjB.woff') format('woff'), url('/assets/primeicons-MpK4pl85.ttf') format('truetype'), url('/assets/primeicons-Dr5RGzOO.svg?#primeicons') format('svg');
+    src: url('./primeicons-DMOk5skT.eot');
+    src: url('./primeicons-DMOk5skT.eot?#iefix') format('embedded-opentype'), url('./primeicons-C6QP2o4f.woff2') format('woff2'), url('./primeicons-WjwUDZjB.woff') format('woff'), url('./primeicons-MpK4pl85.ttf') format('truetype'), url('./primeicons-Dr5RGzOO.svg?#primeicons') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -1329,6 +1329,184 @@
 .comfyui-body-right .side-bar-button.side-bar-button-selected[data-v-7a0b94a3],
 .comfyui-body-right .side-bar-button.side-bar-button-selected[data-v-7a0b94a3]:hover {
   border-right: 4px solid var(--p-button-text-primary-color);
+}
+
+:root {
+  --red-600: #dc3545;
+}
+
+.comfy-missing-nodes[data-v-286402f2] {
+  font-family: monospace;
+  color: var(--red-600);
+  padding: 1.5rem;
+  background-color: var(--surface-ground);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+}
+.warning-title[data-v-286402f2] {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.warning-description[data-v-286402f2] {
+  margin-bottom: 1rem;
+}
+.missing-nodes-list[data-v-286402f2] {
+  max-height: 300px;
+  overflow-y: auto;
+}
+.missing-nodes-list.maximized[data-v-286402f2] {
+  max-height: unset;
+}
+.missing-node-item[data-v-286402f2] {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
+.node-type[data-v-286402f2] {
+  font-weight: 600;
+  color: var(--text-color);
+}
+.node-hint[data-v-286402f2] {
+  margin-left: 0.5rem;
+  font-style: italic;
+  color: var(--text-color-secondary);
+}
+[data-v-286402f2] .p-button {
+  margin-left: auto;
+}
+.added-nodes-warning[data-v-286402f2] {
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+.input-slider[data-v-fbaf7a8c] {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.slider-part[data-v-fbaf7a8c] {
+  flex-grow: 1;
+}
+.input-part[data-v-fbaf7a8c] {
+  width: 5rem !important;
+}
+
+.info-chip[data-v-6361f2fb] {
+  background: transparent;
+}
+.setting-item[data-v-6361f2fb] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.setting-label[data-v-6361f2fb] {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+.setting-input[data-v-6361f2fb] {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 1rem;
+}
+
+/* Ensure PrimeVue components take full width of their container */
+.setting-input[data-v-6361f2fb] .p-inputtext,
+.setting-input[data-v-6361f2fb] .input-slider,
+.setting-input[data-v-6361f2fb] .p-select,
+.setting-input[data-v-6361f2fb] .p-togglebutton {
+  width: 100%;
+  max-width: 200px;
+}
+.setting-input[data-v-6361f2fb] .p-inputtext {
+  max-width: unset;
+}
+
+/* Special case for ToggleSwitch to align it to the right */
+.setting-input[data-v-6361f2fb] .p-toggleswitch {
+  margin-left: auto;
+}
+
+.search-box-input[data-v-8160f15b] {
+  width: 100%;
+}
+
+.no-results-placeholder[data-v-5a7d148a] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 2rem;
+}
+.no-results-placeholder[data-v-5a7d148a] .p-card {
+  background-color: var(--surface-ground);
+  text-align: center;
+}
+.no-results-placeholder h3[data-v-5a7d148a] {
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+}
+.no-results-placeholder p[data-v-5a7d148a] {
+  color: var(--text-color-secondary);
+  margin-bottom: 1rem;
+}
+
+/* Remove after we have tailwind setup */
+.border-none {
+  border: none !important;
+}
+.settings-tab-panels {
+  padding-top: 0px !important;
+}
+
+.settings-container[data-v-29723d1f] {
+  display: flex;
+  height: 70vh;
+  width: 60vw;
+  max-width: 1000px;
+  overflow: hidden;
+  /* Prevents container from scrolling */
+}
+.settings-sidebar[data-v-29723d1f] {
+  width: 250px;
+  flex-shrink: 0;
+  /* Prevents sidebar from shrinking */
+  overflow-y: auto;
+  padding: 10px;
+}
+.settings-search-box[data-v-29723d1f] {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.settings-content[data-v-29723d1f] {
+  flex-grow: 1;
+  overflow-y: auto;
+  /* Allows vertical scrolling */
+}
+
+/* Ensure the Listbox takes full width of the sidebar */
+.settings-sidebar[data-v-29723d1f] .p-listbox {
+  width: 100%;
+}
+
+/* Optional: Style scrollbars for webkit browsers */
+.settings-sidebar[data-v-29723d1f]::-webkit-scrollbar,
+.settings-content[data-v-29723d1f]::-webkit-scrollbar {
+  width: 1px;
+}
+.settings-sidebar[data-v-29723d1f]::-webkit-scrollbar-thumb,
+.settings-content[data-v-29723d1f]::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+.pi-cog[data-v-969a1066] {
+  font-size: 1.25rem;
+  margin-right: 0.5rem;
+}
+.version-tag[data-v-969a1066] {
+  margin-left: 0.5rem;
 }
 .lds-ring {
   display: inline-block;
@@ -2881,6 +3059,7 @@ body {
 #graph-canvas {
   width: 100%;
   height: 100%;
+  touch-action: none;
 }
 
 .comfyui-body-right {
@@ -3483,184 +3662,6 @@ audio.comfy-audio.empty-audio-widget {
 }
 
 :root {
-  --red-600: #dc3545;
-}
-
-.comfy-missing-nodes[data-v-286402f2] {
-  font-family: monospace;
-  color: var(--red-600);
-  padding: 1.5rem;
-  background-color: var(--surface-ground);
-  border-radius: var(--border-radius);
-  box-shadow: var(--card-shadow);
-}
-.warning-title[data-v-286402f2] {
-  margin-top: 0;
-  margin-bottom: 1rem;
-}
-.warning-description[data-v-286402f2] {
-  margin-bottom: 1rem;
-}
-.missing-nodes-list[data-v-286402f2] {
-  max-height: 300px;
-  overflow-y: auto;
-}
-.missing-nodes-list.maximized[data-v-286402f2] {
-  max-height: unset;
-}
-.missing-node-item[data-v-286402f2] {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem;
-}
-.node-type[data-v-286402f2] {
-  font-weight: 600;
-  color: var(--text-color);
-}
-.node-hint[data-v-286402f2] {
-  margin-left: 0.5rem;
-  font-style: italic;
-  color: var(--text-color-secondary);
-}
-[data-v-286402f2] .p-button {
-  margin-left: auto;
-}
-.added-nodes-warning[data-v-286402f2] {
-  margin-top: 1rem;
-  font-style: italic;
-}
-
-.input-slider[data-v-fbaf7a8c] {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.slider-part[data-v-fbaf7a8c] {
-  flex-grow: 1;
-}
-.input-part[data-v-fbaf7a8c] {
-  width: 5rem !important;
-}
-
-.info-chip[data-v-4feeb3d2] {
-  background: transparent;
-}
-.setting-item[data-v-4feeb3d2] {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-.setting-label[data-v-4feeb3d2] {
-  display: flex;
-  align-items: center;
-  flex: 1;
-}
-.setting-input[data-v-4feeb3d2] {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-  margin-left: 1rem;
-}
-
-/* Ensure PrimeVue components take full width of their container */
-.setting-input[data-v-4feeb3d2] .p-inputtext,
-.setting-input[data-v-4feeb3d2] .input-slider,
-.setting-input[data-v-4feeb3d2] .p-select,
-.setting-input[data-v-4feeb3d2] .p-togglebutton {
-  width: 100%;
-  max-width: 200px;
-}
-.setting-input[data-v-4feeb3d2] .p-inputtext {
-  max-width: unset;
-}
-
-/* Special case for ToggleSwitch to align it to the right */
-.setting-input[data-v-4feeb3d2] .p-toggleswitch {
-  margin-left: auto;
-}
-
-.search-box-input[data-v-3bbe5335] {
-  width: 100%;
-}
-
-.no-results-placeholder[data-v-5a7d148a] {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  padding: 2rem;
-}
-.no-results-placeholder[data-v-5a7d148a] .p-card {
-  background-color: var(--surface-ground);
-  text-align: center;
-}
-.no-results-placeholder h3[data-v-5a7d148a] {
-  color: var(--text-color);
-  margin-bottom: 0.5rem;
-}
-.no-results-placeholder p[data-v-5a7d148a] {
-  color: var(--text-color-secondary);
-  margin-bottom: 1rem;
-}
-
-/* Remove after we have tailwind setup */
-.border-none {
-  border: none !important;
-}
-.settings-tab-panels {
-  padding-top: 0px !important;
-}
-
-.settings-container[data-v-833dbfbb] {
-  display: flex;
-  height: 70vh;
-  width: 60vw;
-  max-width: 1000px;
-  overflow: hidden;
-  /* Prevents container from scrolling */
-}
-.settings-sidebar[data-v-833dbfbb] {
-  width: 250px;
-  flex-shrink: 0;
-  /* Prevents sidebar from shrinking */
-  overflow-y: auto;
-  padding: 10px;
-}
-.settings-search-box[data-v-833dbfbb] {
-  width: 100%;
-  margin-bottom: 10px;
-}
-.settings-content[data-v-833dbfbb] {
-  flex-grow: 1;
-  overflow-y: auto;
-  /* Allows vertical scrolling */
-}
-
-/* Ensure the Listbox takes full width of the sidebar */
-.settings-sidebar[data-v-833dbfbb] .p-listbox {
-  width: 100%;
-}
-
-/* Optional: Style scrollbars for webkit browsers */
-.settings-sidebar[data-v-833dbfbb]::-webkit-scrollbar,
-.settings-content[data-v-833dbfbb]::-webkit-scrollbar {
-  width: 1px;
-}
-.settings-sidebar[data-v-833dbfbb]::-webkit-scrollbar-thumb,
-.settings-content[data-v-833dbfbb]::-webkit-scrollbar-thumb {
-  background-color: transparent;
-}
-
-.pi-cog[data-v-969a1066] {
-  font-size: 1.25rem;
-  margin-right: 0.5rem;
-}
-.version-tag[data-v-969a1066] {
-  margin-left: 0.5rem;
-}
-
-:root {
   --sidebar-width: 64px;
   --sidebar-icon-size: 1.5rem;
 }
@@ -3869,77 +3870,81 @@ audio.comfy-audio.empty-audio-widget {
   color: var(--error-text);
 }
 
-.comfy-vue-node-search-container[data-v-b8a4ffdc] {
+.comfy-vue-node-search-container[data-v-ba2c5897] {
   display: flex;
   width: 100%;
   min-width: 24rem;
   align-items: center;
   justify-content: center;
 }
-.comfy-vue-node-search-container[data-v-b8a4ffdc] * {
+.comfy-vue-node-search-container[data-v-ba2c5897] * {
   pointer-events: auto;
 }
-.comfy-vue-node-preview-container[data-v-b8a4ffdc] {
+.comfy-vue-node-preview-container[data-v-ba2c5897] {
   position: absolute;
   left: -350px;
   top: 50px;
 }
-.comfy-vue-node-search-box[data-v-b8a4ffdc] {
+.comfy-vue-node-search-box[data-v-ba2c5897] {
   z-index: 10;
   flex-grow: 1;
 }
-.option-container[data-v-b8a4ffdc] {
+.option-container[data-v-ba2c5897] {
   display: flex;
   width: 100%;
   cursor: pointer;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   overflow: hidden;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
-.option-display-name[data-v-b8a4ffdc] {
+.option-display-name[data-v-ba2c5897] {
+  display: flex;
+  flex-direction: column;
   font-weight: 600;
 }
-.option-category[data-v-b8a4ffdc] {
+.option-category[data-v-ba2c5897] {
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 0.875rem;
   line-height: 1.25rem;
+  font-weight: 300;
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
   /* Keeps the text on a single line by default */
   white-space: nowrap;
 }
-.i-badge[data-v-b8a4ffdc] {
+.i-badge[data-v-ba2c5897] {
   --tw-bg-opacity: 1;
   background-color: rgb(34 197 94 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
-.o-badge[data-v-b8a4ffdc] {
+.o-badge[data-v-ba2c5897] {
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
-.c-badge[data-v-b8a4ffdc] {
+.c-badge[data-v-ba2c5897] {
   --tw-bg-opacity: 1;
   background-color: rgb(59 130 246 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
-.s-badge[data-v-b8a4ffdc] {
+.s-badge[data-v-ba2c5897] {
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity));
 }
-[data-v-b8a4ffdc] .highlight {
+[data-v-ba2c5897] .highlight {
   background-color: var(--p-primary-color);
   color: var(--p-primary-contrast-color);
   font-weight: bold;
   border-radius: 0.25rem;
-  padding: 0.125rem 0.25rem;
+  padding: 0rem 0.125rem;
   margin: -0.125rem 0.125rem;
 }
 
@@ -3971,46 +3976,57 @@ audio.comfy-audio.empty-audio-widget {
   z-index: 99999;
 }
 
-.result-container[data-v-0fac61d9] {
+.broken-image[data-v-1a883642] {
+  display: none;
+}
+.broken-image-placeholder[data-v-1a883642] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin: 2rem;
+}
+.broken-image-placeholder i[data-v-1a883642] {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.result-container[data-v-7ceacc88] {
+  width: 100%;
+  height: 100%;
   aspect-ratio: 1 / 1;
   overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-[data-v-0fac61d9] img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+[data-v-7ceacc88] .task-output-image {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
 }
-.p-image-preview[data-v-0fac61d9] {
-  position: static;
-  display: contents;
-}
-[data-v-0fac61d9] .image-preview-mask {
+.image-preview-mask[data-v-7ceacc88] {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: auto;
-  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  padding: 10px;
-  cursor: pointer;
-  background: rgba(0, 0, 0, 0.5);
-  color: var(--p-image-preview-mask-color);
-  transition:
-    opacity var(--p-image-transition-duration),
-    background var(--p-image-transition-duration);
-  border-radius: 50%;
+  transition: opacity 0.3s ease;
+}
+.result-container:hover .image-preview-mask[data-v-7ceacc88] {
+  opacity: 1;
 }
 
-.task-result-preview[data-v-6cf8179c] {
+.task-result-preview[data-v-7c099cb7] {
   aspect-ratio: 1 / 1;
   overflow: hidden;
   display: flex;
@@ -4019,18 +4035,18 @@ audio.comfy-audio.empty-audio-widget {
   width: 100%;
   height: 100%;
 }
-.task-result-preview i[data-v-6cf8179c],
-.task-result-preview span[data-v-6cf8179c] {
+.task-result-preview i[data-v-7c099cb7],
+.task-result-preview span[data-v-7c099cb7] {
   font-size: 2rem;
 }
-.task-item[data-v-6cf8179c] {
+.task-item[data-v-7c099cb7] {
   display: flex;
   flex-direction: column;
   border-radius: 4px;
   overflow: hidden;
   position: relative;
 }
-.task-item-details[data-v-6cf8179c] {
+.task-item-details[data-v-7c099cb7] {
   position: absolute;
   bottom: 0;
   padding: 0.6rem;
@@ -4041,10 +4057,21 @@ audio.comfy-audio.empty-audio-widget {
 
 /* In dark mode, transparent background color for tags is not ideal for tags that
 are floating on top of images. */
-.tag-wrapper[data-v-6cf8179c] {
+.tag-wrapper[data-v-7c099cb7] {
   background-color: var(--p-primary-contrast-color);
   border-radius: 6px;
   display: inline-flex;
+}
+
+/* PrimeVue's galleria teleports the fullscreen gallery out of subtree so we
+cannot use scoped style here. */
+img.galleria-image {
+  max-width: 100vw;
+  max-height: 100vh;
+  -o-object-fit: contain;
+     object-fit: contain;
+  /* Set z-index so the close button doesn't get hidden behind the image when image is large */
+  z-index: -1;
 }
 
 .comfy-vue-side-bar-container[data-v-bde767d2] {
@@ -4078,14 +4105,33 @@ are floating on top of images. */
   background-color: transparent;
 }
 
-.queue-grid[data-v-7f831ee9] {
+.scroll-container[data-v-bd027c46] {
+  height: 100%;
+  overflow-y: auto;
+}
+.queue-grid[data-v-bd027c46] {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   padding: 0.5rem;
   gap: 0.5rem;
 }
 
-.spinner[data-v-40c18658] {
+.node-lib-tree-node-label {
+  display: flex;
+  align-items: center;
+  margin-left: var(--p-tree-node-gap);
+}
+
+[data-v-11e12183] .node-lib-search-box {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 1rem;
+}
+[data-v-11e12183] .comfy-vue-side-bar-body {
+  background: var(--p-tree-background);
+}
+
+.spinner[data-v-afce9bd6] {
     position: absolute;
     inset: 0px;
     display: flex;

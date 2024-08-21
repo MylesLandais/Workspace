@@ -48,7 +48,7 @@ var __async = (__this, __arguments, generator) => {
   });
 };
 var _PrimitiveNode_instances, onFirstConnection_fn, createWidget_fn, mergeWidgetConfig_fn, isValidConnection_fn, removeWidgets_fn, _convertedToProcess;
-import { C as ComfyDialog, $ as $el, a as ComfyApp, b as app, L as LGraphCanvas, c as LiteGraph, d as applyTextReplacements, e as ComfyWidgets, f as addValueControlWidgets, D as DraggableList, g as api, h as LGraphGroup, i as LGraphNode } from "./index-D8Zp4vRl.js";
+import { C as ComfyDialog, $ as $el, a as ComfyApp, b as app, L as LGraphCanvas, c as LiteGraph, d as applyTextReplacements, e as ComfyWidgets, f as addValueControlWidgets, D as DraggableList, g as api, u as useToastStore, h as LGraphGroup, i as LGraphNode } from "./index-CaD4RONs.js";
 const _ClipspaceDialog = class _ClipspaceDialog extends ComfyDialog {
   static registerButton(name, contextPredicate, callback) {
     const item = $el("button", {
@@ -891,6 +891,7 @@ app.registerExtension({
     });
     app.ui.settings.addSetting({
       id: id$4,
+      category: ["Comfy", "ColorPalette"],
       name: "Color Palette",
       type: /* @__PURE__ */ __name((name, setter, value) => {
         const options = [
@@ -923,12 +924,6 @@ app.registerExtension({
           options
         );
         return $el("tr", [
-          $el("td", [
-            $el("label", {
-              for: id$4.replaceAll(".", "-"),
-              textContent: "Color palette"
-            })
-          ]),
           $el("td", [
             els.select,
             $el(
@@ -1221,7 +1216,6 @@ app.registerExtension({
       const floatWeight = parseFloat(weight);
       if (isNaN(floatWeight)) return weight;
       const newWeight = floatWeight + delta;
-      if (newWeight < 0) return "0";
       return String(Number(newWeight.toFixed(10)));
     }
     __name(incrementWeight, "incrementWeight");
@@ -1302,7 +1296,7 @@ app.registerExtension({
       selectedText = addWeightToParentheses(selectedText);
       const weightDelta = event.key === "ArrowUp" ? delta : -delta;
       const updatedText = selectedText.replace(
-        /\((.*):(\d+(?:\.\d+)?)\)/,
+        /\((.*):([+-]?\d+(?:\.\d+)?)\)/,
         (match, text, weight) => {
           weight = incrementWeight(weight, weightDelta);
           if (weight == 1) {
@@ -1620,9 +1614,9 @@ function getWidgetConfig(slot) {
 }
 __name(getWidgetConfig, "getWidgetConfig");
 function getConfig(widgetName) {
-  var _a, _b, _c, _d;
+  var _a, _b, _c, _d, _e;
   const { nodeData } = this.constructor;
-  return (_d = (_a = nodeData == null ? void 0 : nodeData.input) == null ? void 0 : _a.required[widgetName]) != null ? _d : (_c = (_b = nodeData == null ? void 0 : nodeData.input) == null ? void 0 : _b.optional) == null ? void 0 : _c[widgetName];
+  return (_e = (_b = (_a = nodeData == null ? void 0 : nodeData.input) == null ? void 0 : _a.required) == null ? void 0 : _b[widgetName]) != null ? _e : (_d = (_c = nodeData == null ? void 0 : nodeData.input) == null ? void 0 : _c.optional) == null ? void 0 : _d[widgetName];
 }
 __name(getConfig, "getConfig");
 function isConvertibleWidget(widget, config) {
@@ -1854,8 +1848,7 @@ app.registerExtension({
   init() {
     useConversionSubmenusSetting = app.ui.settings.addSetting({
       id: "Comfy.NodeInputConversionSubmenus",
-      name: "Node widget/input conversion sub-menus",
-      tooltip: "In the node context menu, place the entries that convert between input/widget in sub-menus.",
+      name: "In the node context menu, place the entries that convert between input/widget in sub-menus.",
       type: "boolean",
       defaultValue: true
     });
@@ -3957,7 +3950,8 @@ app.registerExtension({
     }, "replace");
     app.ui.settings.addSetting({
       id: id$2,
-      name: "Invert Menu Scrolling",
+      category: ["Comfy", "Graph", "InvertMenuScrolling"],
+      name: "Invert Context Menu Scrolling",
       type: "boolean",
       defaultValue: false,
       onChange(value) {
@@ -3974,58 +3968,66 @@ app.registerExtension({
   name: "Comfy.Keybinds",
   init() {
     const keybindListener = /* @__PURE__ */ __name(function(event) {
-      const modifierPressed = event.ctrlKey || event.metaKey;
-      if (modifierPressed && event.key === "Enter") {
-        if (event.altKey) {
-          api.interrupt();
+      return __async(this, null, function* () {
+        const modifierPressed = event.ctrlKey || event.metaKey;
+        if (modifierPressed && event.key === "Enter") {
+          if (event.altKey) {
+            yield api.interrupt();
+            useToastStore().add({
+              severity: "info",
+              summary: "Interrupted",
+              detail: "Execution has been interrupted",
+              life: 1e3
+            });
+            return;
+          }
+          app.queuePrompt(event.shiftKey ? -1 : 0).then();
           return;
         }
-        app.queuePrompt(event.shiftKey ? -1 : 0).then();
-        return;
-      }
-      const target = event.composedPath()[0];
-      if (["INPUT", "TEXTAREA"].includes(target.tagName)) {
-        return;
-      }
-      const modifierKeyIdMap = {
-        s: "#comfy-save-button",
-        o: "#comfy-file-input",
-        Backspace: "#comfy-clear-button",
-        d: "#comfy-load-default-button"
-      };
-      const modifierKeybindId = modifierKeyIdMap[event.key];
-      if (modifierPressed && modifierKeybindId) {
-        event.preventDefault();
-        const elem = document.querySelector(modifierKeybindId);
-        elem.click();
-        return;
-      }
-      if (event.ctrlKey || event.altKey || event.metaKey) {
-        return;
-      }
-      if (event.key === "Escape") {
-        const modals = document.querySelectorAll(".comfy-modal");
-        const modal = Array.from(modals).find(
-          (modal2) => window.getComputedStyle(modal2).getPropertyValue("display") !== "none"
-        );
-        if (modal) {
-          modal.style.display = "none";
+        const target = event.composedPath()[0];
+        if (["INPUT", "TEXTAREA"].includes(target.tagName)) {
+          return;
         }
-        ;
-        [...document.querySelectorAll("dialog")].forEach((d) => {
-          d.close();
-        });
-      }
-      const keyIdMap = {
-        q: ".queue-tab-button.side-bar-button",
-        h: ".queue-tab-button.side-bar-button",
-        r: "#comfy-refresh-button"
-      };
-      const buttonId = keyIdMap[event.key];
-      if (buttonId) {
-        const button = document.querySelector(buttonId);
-        button.click();
-      }
+        const modifierKeyIdMap = {
+          s: "#comfy-save-button",
+          o: "#comfy-file-input",
+          Backspace: "#comfy-clear-button",
+          d: "#comfy-load-default-button"
+        };
+        const modifierKeybindId = modifierKeyIdMap[event.key];
+        if (modifierPressed && modifierKeybindId) {
+          event.preventDefault();
+          const elem = document.querySelector(modifierKeybindId);
+          elem.click();
+          return;
+        }
+        if (event.ctrlKey || event.altKey || event.metaKey) {
+          return;
+        }
+        if (event.key === "Escape") {
+          const modals = document.querySelectorAll(".comfy-modal");
+          const modal = Array.from(modals).find(
+            (modal2) => window.getComputedStyle(modal2).getPropertyValue("display") !== "none"
+          );
+          if (modal) {
+            modal.style.display = "none";
+          }
+          ;
+          [...document.querySelectorAll("dialog")].forEach((d) => {
+            d.close();
+          });
+        }
+        const keyIdMap = {
+          q: ".queue-tab-button.side-bar-button",
+          h: ".queue-tab-button.side-bar-button",
+          r: "#comfy-refresh-button"
+        };
+        const buttonId = keyIdMap[event.key];
+        if (buttonId) {
+          const button = document.querySelector(buttonId);
+          button.click();
+        }
+      });
     }, "keybindListener");
     window.addEventListener("keydown", keybindListener, true);
   }
@@ -4037,6 +4039,7 @@ const ext = {
     return __async(this, null, function* () {
       app2.ui.settings.addSetting({
         id: id$1,
+        category: ["Comfy", "Graph", "LinkRenderMode"],
         name: "Link Render Mode",
         defaultValue: 2,
         type: "combo",
@@ -5684,7 +5687,9 @@ app.registerExtension({
     LiteGraph.middle_click_slot_add_default_node = true;
     this.suggestionsNumber = app.ui.settings.addSetting({
       id: "Comfy.NodeSuggestions.number",
+      category: ["Comfy", "Node Search Box", "NodeSuggestions"],
       name: "Number of nodes suggestions",
+      tooltip: "Only for litegraph searchbox/context menu",
       type: "slider",
       attrs: {
         min: 1,
@@ -5766,7 +5771,8 @@ app.registerExtension({
   init() {
     app.ui.settings.addSetting({
       id: "Comfy.SnapToGrid.GridSize",
-      name: "Grid Size",
+      category: ["Comfy", "Graph", "GridSize"],
+      name: "Snap to gird size",
       type: "slider",
       attrs: {
         min: 1,
@@ -6176,4 +6182,4 @@ app.registerExtension({
     };
   }
 });
-//# sourceMappingURL=index--0nRVkuV.js.map
+//# sourceMappingURL=index-DkvOTKox.js.map

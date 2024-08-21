@@ -20,7 +20,7 @@ var __async = (__this, __arguments, generator) => {
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
-import { j as createSpinner, g as api, $ as $el } from "./index-D8Zp4vRl.js";
+import { j as createSpinner, g as api, $ as $el } from "./index-CaD4RONs.js";
 const _UserSelectionScreen = class _UserSelectionScreen {
   show(users, user) {
     return __async(this, null, function* () {
@@ -139,4 +139,4 @@ window.comfyAPI.userSelection.UserSelectionScreen = UserSelectionScreen;
 export {
   UserSelectionScreen
 };
-//# sourceMappingURL=userSelection-CH4RQEqW.js.map
+//# sourceMappingURL=userSelection-GRU1gtOt.js.map
