@@ -1,55 +1,12 @@
 var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __typeError = (msg) => {
-  throw TypeError(msg);
-};
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-var __accessCheck = (obj, member, msg) => member.has(obj) || __typeError("Cannot " + msg);
-var __privateGet = (obj, member, getter) => (__accessCheck(obj, member, "read from private field"), getter ? getter.call(obj) : member.get(obj));
-var __privateAdd = (obj, member, value) => member.has(obj) ? __typeError("Cannot add the same private member more than once") : member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
-var __privateSet = (obj, member, value, setter) => (__accessCheck(obj, member, "write to private field"), setter ? setter.call(obj, value) : member.set(obj, value), value);
-var __privateMethod = (obj, member, method) => (__accessCheck(obj, member, "access private method"), method);
-var __async = (__this, __arguments, generator) => {
-  return new Promise((resolve, reject) => {
-    var fulfilled = (value) => {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    };
-    var rejected = (value) => {
-      try {
-        step(generator.throw(value));
-      } catch (e) {
-        reject(e);
-      }
-    };
-    var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
-    step((generator = generator.apply(__this, __arguments)).next());
-  });
-};
-var _PrimitiveNode_instances, onFirstConnection_fn, createWidget_fn, mergeWidgetConfig_fn, isValidConnection_fn, removeWidgets_fn, _convertedToProcess;
-import { C as ComfyDialog, $ as $el, a as ComfyApp, b as app, L as LGraphCanvas, c as LiteGraph, d as applyTextReplacements, e as ComfyWidgets, f as addValueControlWidgets, D as DraggableList, g as api, u as useToastStore, h as LGraphGroup, i as LGraphNode } from "./index-CaD4RONs.js";
-const _ClipspaceDialog = class _ClipspaceDialog extends ComfyDialog {
+import { C as ComfyDialog, $ as $el, a as ComfyApp, b as app, L as LGraphCanvas, c as LiteGraph, d as LGraphNode, e as applyTextReplacements, f as ComfyWidgets, g as addValueControlWidgets, D as DraggableList, h as api, u as useToastStore, i as LGraphGroup } from "./index-CI3N807S.js";
+class ClipspaceDialog extends ComfyDialog {
+  static {
+    __name(this, "ClipspaceDialog");
+  }
+  static items = [];
+  static instance = null;
   static registerButton(name, contextPredicate, callback) {
     const item = $el("button", {
       type: "button",
@@ -57,7 +14,7 @@ const _ClipspaceDialog = class _ClipspaceDialog extends ComfyDialog {
       contextPredicate,
       onclick: callback
     });
-    _ClipspaceDialog.items.push(item);
+    ClipspaceDialog.items.push(item);
   }
   static invalidatePreview() {
     if (ComfyApp.clipspace && ComfyApp.clipspace.imgs && ComfyApp.clipspace.imgs.length > 0) {
@@ -72,8 +29,8 @@ const _ClipspaceDialog = class _ClipspaceDialog extends ComfyDialog {
     }
   }
   static invalidate() {
-    if (_ClipspaceDialog.instance) {
-      const self = _ClipspaceDialog.instance;
+    if (ClipspaceDialog.instance) {
+      const self = ClipspaceDialog.instance;
       const children = $el("div.comfy-modal-content", [
         self.createImgSettings(),
         ...self.createButtons()
@@ -93,7 +50,7 @@ const _ClipspaceDialog = class _ClipspaceDialog extends ComfyDialog {
           ])
         );
       }
-      _ClipspaceDialog.invalidatePreview();
+      ClipspaceDialog.invalidatePreview();
     }
   }
   constructor() {
@@ -101,10 +58,10 @@ const _ClipspaceDialog = class _ClipspaceDialog extends ComfyDialog {
   }
   createButtons() {
     const buttons = [];
-    for (let idx in _ClipspaceDialog.items) {
-      const item = _ClipspaceDialog.items[idx];
+    for (let idx in ClipspaceDialog.items) {
+      const item = ClipspaceDialog.items[idx];
       if (!item.contextPredicate || item.contextPredicate())
-        buttons.push(_ClipspaceDialog.items[idx]);
+        buttons.push(ClipspaceDialog.items[idx]);
     }
     buttons.push(
       $el("button", {
@@ -130,7 +87,7 @@ const _ClipspaceDialog = class _ClipspaceDialog extends ComfyDialog {
           id: "clipspace_img_selector",
           onchange: /* @__PURE__ */ __name((event) => {
             ComfyApp.clipspace["selectedIndex"] = event.target.selectedIndex;
-            _ClipspaceDialog.invalidatePreview();
+            ClipspaceDialog.invalidatePreview();
           }, "onchange")
         },
         combo_items
@@ -175,14 +132,10 @@ const _ClipspaceDialog = class _ClipspaceDialog extends ComfyDialog {
   }
   show() {
     const img_preview = document.getElementById("clipspace_preview");
-    _ClipspaceDialog.invalidate();
+    ClipspaceDialog.invalidate();
     this.element.style.display = "block";
   }
-};
-__name(_ClipspaceDialog, "ClipspaceDialog");
-__publicField(_ClipspaceDialog, "items", []);
-__publicField(_ClipspaceDialog, "instance", null);
-let ClipspaceDialog = _ClipspaceDialog;
+}
 app.registerExtension({
   name: "Comfy.Clipspace",
   init(app2) {
@@ -732,7 +685,7 @@ app.registerExtension({
       return colorPalette;
     }
     __name(completeColorPalette, "completeColorPalette");
-    const getColorPaletteTemplate = /* @__PURE__ */ __name(() => __async(this, null, function* () {
+    const getColorPaletteTemplate = /* @__PURE__ */ __name(async () => {
       let colorPalette = {
         id: "my_color_palette_unique_id",
         name: "My Color Palette",
@@ -754,7 +707,7 @@ app.registerExtension({
         }
       }
       return completeColorPalette(colorPalette);
-    }), "getColorPaletteTemplate");
+    }, "getColorPaletteTemplate");
     const getCustomColorPalettes = /* @__PURE__ */ __name(() => {
       return app.ui.settings.getSettingValue(idCustomColorPalettes, {});
     }, "getCustomColorPalettes");
@@ -764,7 +717,7 @@ app.registerExtension({
         customColorPalettes
       );
     }, "setCustomColorPalettes");
-    const addCustomColorPalette = /* @__PURE__ */ __name((colorPalette) => __async(this, null, function* () {
+    const addCustomColorPalette = /* @__PURE__ */ __name(async (colorPalette) => {
       if (typeof colorPalette !== "object") {
         alert("Invalid color palette.");
         return;
@@ -801,9 +754,9 @@ app.registerExtension({
         })
       );
       setColorPalette("custom_" + colorPalette.id);
-      yield loadColorPalette(colorPalette);
-    }), "addCustomColorPalette");
-    const deleteCustomColorPalette = /* @__PURE__ */ __name((colorPaletteId) => __async(this, null, function* () {
+      await loadColorPalette(colorPalette);
+    }, "addCustomColorPalette");
+    const deleteCustomColorPalette = /* @__PURE__ */ __name(async (colorPaletteId) => {
       const customColorPalettes = getCustomColorPalettes();
       delete customColorPalettes[colorPaletteId];
       setCustomColorPalettes(customColorPalettes);
@@ -817,10 +770,10 @@ app.registerExtension({
         }
       }
       setColorPalette(defaultColorPaletteId);
-      yield loadColorPalette(getColorPalette());
-    }), "deleteCustomColorPalette");
-    const loadColorPalette = /* @__PURE__ */ __name((colorPalette) => __async(this, null, function* () {
-      colorPalette = yield completeColorPalette(colorPalette);
+      await loadColorPalette(getColorPalette());
+    }, "deleteCustomColorPalette");
+    const loadColorPalette = /* @__PURE__ */ __name(async (colorPalette) => {
+      colorPalette = await completeColorPalette(colorPalette);
       if (colorPalette.colors) {
         if (colorPalette.colors.node_slot) {
           Object.assign(
@@ -853,7 +806,7 @@ app.registerExtension({
         }
         app.canvas.draw(true, true);
       }
-    }), "loadColorPalette");
+    }, "loadColorPalette");
     const getColorPalette = /* @__PURE__ */ __name((colorPaletteId) => {
       if (!colorPaletteId) {
         colorPaletteId = app.ui.settings.getSettingValue(
@@ -882,9 +835,9 @@ app.registerExtension({
         const file2 = fileInput.files[0];
         if (file2.type === "application/json" || file2.name.endsWith(".json")) {
           const reader = new FileReader();
-          reader.onload = () => __async(this, null, function* () {
-            yield addCustomColorPalette(JSON.parse(reader.result));
-          });
+          reader.onload = async () => {
+            await addCustomColorPalette(JSON.parse(reader.result));
+          };
           reader.readAsText(file2);
         }
       }, "onchange")
@@ -939,12 +892,12 @@ app.registerExtension({
                 $el("input", {
                   type: "button",
                   value: "Export",
-                  onclick: /* @__PURE__ */ __name(() => __async(this, null, function* () {
+                  onclick: /* @__PURE__ */ __name(async () => {
                     const colorPaletteId = app.ui.settings.getSettingValue(
                       id$4,
                       defaultColorPaletteId
                     );
-                    const colorPalette = yield completeColorPalette(
+                    const colorPalette = await completeColorPalette(
                       getColorPalette(colorPaletteId)
                     );
                     const json = JSON.stringify(colorPalette, null, 2);
@@ -961,7 +914,7 @@ app.registerExtension({
                       a.remove();
                       window.URL.revokeObjectURL(url);
                     }, 0);
-                  }), "onclick")
+                  }, "onclick")
                 }),
                 $el("input", {
                   type: "button",
@@ -973,8 +926,8 @@ app.registerExtension({
                 $el("input", {
                   type: "button",
                   value: "Template",
-                  onclick: /* @__PURE__ */ __name(() => __async(this, null, function* () {
-                    const colorPalette = yield getColorPaletteTemplate();
+                  onclick: /* @__PURE__ */ __name(async () => {
+                    const colorPalette = await getColorPaletteTemplate();
                     const json = JSON.stringify(colorPalette, null, 2);
                     const blob = new Blob([json], { type: "application/json" });
                     const url = URL.createObjectURL(blob);
@@ -989,12 +942,12 @@ app.registerExtension({
                       a.remove();
                       window.URL.revokeObjectURL(url);
                     }, 0);
-                  }), "onclick")
+                  }, "onclick")
                 }),
                 $el("input", {
                   type: "button",
                   value: "Delete",
-                  onclick: /* @__PURE__ */ __name(() => __async(this, null, function* () {
+                  onclick: /* @__PURE__ */ __name(async () => {
                     let colorPaletteId = app.ui.settings.getSettingValue(
                       id$4,
                       defaultColorPaletteId
@@ -1006,8 +959,8 @@ app.registerExtension({
                     if (colorPaletteId.startsWith("custom_")) {
                       colorPaletteId = colorPaletteId.substr(7);
                     }
-                    yield deleteCustomColorPalette(colorPaletteId);
-                  }), "onclick")
+                    await deleteCustomColorPalette(colorPaletteId);
+                  }, "onclick")
                 })
               ]
             )
@@ -1015,30 +968,28 @@ app.registerExtension({
         ]);
       }, "type"),
       defaultValue: defaultColorPaletteId,
-      onChange(value) {
-        return __async(this, null, function* () {
-          if (!value) {
-            return;
+      async onChange(value) {
+        if (!value) {
+          return;
+        }
+        let palette = colorPalettes[value];
+        if (palette) {
+          await loadColorPalette(palette);
+        } else if (value.startsWith("custom_")) {
+          value = value.substr(7);
+          let customColorPalettes = getCustomColorPalettes();
+          if (customColorPalettes[value]) {
+            palette = customColorPalettes[value];
+            await loadColorPalette(customColorPalettes[value]);
           }
-          let palette = colorPalettes[value];
-          if (palette) {
-            yield loadColorPalette(palette);
-          } else if (value.startsWith("custom_")) {
-            value = value.substr(7);
-            let customColorPalettes = getCustomColorPalettes();
-            if (customColorPalettes[value]) {
-              palette = customColorPalettes[value];
-              yield loadColorPalette(customColorPalettes[value]);
-            }
-          }
-          let { BACKGROUND_IMAGE, CLEAR_BACKGROUND_COLOR } = palette.colors.litegraph_base;
-          if (BACKGROUND_IMAGE === void 0 || CLEAR_BACKGROUND_COLOR === void 0) {
-            const base = colorPalettes["dark"].colors.litegraph_base;
-            BACKGROUND_IMAGE = base.BACKGROUND_IMAGE;
-            CLEAR_BACKGROUND_COLOR = base.CLEAR_BACKGROUND_COLOR;
-          }
-          app.canvas.updateBackground(BACKGROUND_IMAGE, CLEAR_BACKGROUND_COLOR);
-        });
+        }
+        let { BACKGROUND_IMAGE, CLEAR_BACKGROUND_COLOR } = palette.colors.litegraph_base;
+        if (BACKGROUND_IMAGE === void 0 || CLEAR_BACKGROUND_COLOR === void 0) {
+          const base = colorPalettes["dark"].colors.litegraph_base;
+          BACKGROUND_IMAGE = base.BACKGROUND_IMAGE;
+          CLEAR_BACKGROUND_COLOR = base.CLEAR_BACKGROUND_COLOR;
+        }
+        app.canvas.updateBackground(BACKGROUND_IMAGE, CLEAR_BACKGROUND_COLOR);
       }
     });
   }
@@ -1048,25 +999,24 @@ const ext$2 = {
   init() {
     const ctxMenu = LiteGraph.ContextMenu;
     LiteGraph.ContextMenu = function(values, options) {
-      const ctx = ctxMenu.call(this, values, options);
-      if ((options == null ? void 0 : options.className) === "dark" && (values == null ? void 0 : values.length) > 10) {
+      const ctx = new ctxMenu(values, options);
+      if (options?.className === "dark" && values?.length > 4) {
         const filter = document.createElement("input");
         filter.classList.add("comfy-context-menu-filter");
         filter.placeholder = "Filter list";
-        this.root.prepend(filter);
+        ctx.root.prepend(filter);
         const items = Array.from(
-          this.root.querySelectorAll(".litemenu-entry")
+          ctx.root.querySelectorAll(".litemenu-entry")
         );
         let displayedItems = [...items];
         let itemCount = displayedItems.length;
         requestAnimationFrame(() => {
-          var _a, _b;
           const currentNode = LGraphCanvas.active_canvas.current_node;
-          const clickedComboValue = (_b = (_a = currentNode.widgets) == null ? void 0 : _a.filter(
+          const clickedComboValue = currentNode.widgets?.filter(
             (w) => w.type === "combo" && w.options.values.length === values.length
           ).find(
             (w) => w.options.values.every((v, i) => v === values[i])
-          )) == null ? void 0 : _b.value;
+          )?.value;
           let selectedIndex = clickedComboValue ? values.findIndex((v) => v === clickedComboValue) : 0;
           if (selectedIndex < 0) {
             selectedIndex = 0;
@@ -1074,23 +1024,23 @@ const ext$2 = {
           let selectedItem = displayedItems[selectedIndex];
           updateSelected();
           function updateSelected() {
-            selectedItem == null ? void 0 : selectedItem.style.setProperty("background-color", "");
-            selectedItem == null ? void 0 : selectedItem.style.setProperty("color", "");
+            selectedItem?.style.setProperty("background-color", "");
+            selectedItem?.style.setProperty("color", "");
             selectedItem = displayedItems[selectedIndex];
-            selectedItem == null ? void 0 : selectedItem.style.setProperty(
+            selectedItem?.style.setProperty(
               "background-color",
               "#ccc",
               "important"
             );
-            selectedItem == null ? void 0 : selectedItem.style.setProperty("color", "#000", "important");
+            selectedItem?.style.setProperty("color", "#000", "important");
           }
           __name(updateSelected, "updateSelected");
           const positionList = /* @__PURE__ */ __name(() => {
-            const rect = this.root.getBoundingClientRect();
+            const rect = ctx.root.getBoundingClientRect();
             if (rect.top < 0) {
-              const scale = 1 - this.root.getBoundingClientRect().height / this.root.clientHeight;
-              const shift = this.root.clientHeight * scale / 2;
-              this.root.style.top = -shift + "px";
+              const scale = 1 - ctx.root.getBoundingClientRect().height / ctx.root.clientHeight;
+              const shift = ctx.root.clientHeight * scale / 2;
+              ctx.root.style.top = -shift + "px";
             }
           }, "positionList");
           filter.addEventListener("keydown", (event) => {
@@ -1124,10 +1074,10 @@ const ext$2 = {
                 updateSelected();
                 break;
               case "Enter":
-                selectedItem == null ? void 0 : selectedItem.click();
+                selectedItem?.click();
                 break;
               case "Escape":
-                this.close();
+                ctx.close();
                 break;
             }
           });
@@ -1149,11 +1099,11 @@ const ext$2 = {
             if (options.event) {
               let top = options.event.clientY - 10;
               const bodyRect = document.body.getBoundingClientRect();
-              const rootRect = this.root.getBoundingClientRect();
+              const rootRect = ctx.root.getBoundingClientRect();
               if (bodyRect.height && top > bodyRect.height - rootRect.height - 10) {
                 top = Math.max(0, bodyRect.height - rootRect.height - 10);
               }
-              this.root.style.top = top + "px";
+              ctx.root.style.top = top + "px";
               positionList();
             }
           });
@@ -1190,7 +1140,7 @@ app.registerExtension({
             const randomOption = options[randomIndex];
             prompt2 = prompt2.substring(0, startIndex) + randomOption + prompt2.substring(endIndex + 1);
           }
-          if (workflowNode == null ? void 0 : workflowNode.widgets_values)
+          if (workflowNode?.widgets_values)
             workflowNode.widgets_values[widgetIndex] = prompt2;
           return prompt2;
         };
@@ -1306,7 +1256,9 @@ app.registerExtension({
           }
         }
       );
-      inputField.setRangeText(updatedText, start, end, "select");
+      inputField.setSelectionRange(start, end);
+      document.execCommand("insertText", false, updatedText);
+      inputField.setSelectionRange(start, start + updatedText.length);
     }
     __name(editAttention, "editAttention");
     window.addEventListener("keydown", editAttention);
@@ -1318,11 +1270,15 @@ const CONFIG = Symbol();
 const GET_CONFIG = Symbol();
 const TARGET = Symbol();
 const replacePropertyName = "Run widget replace on values";
-const _PrimitiveNode = class _PrimitiveNode {
-  constructor() {
-    __privateAdd(this, _PrimitiveNode_instances);
-    __publicField(this, "controlValues");
-    __publicField(this, "lastType");
+class PrimitiveNode extends LGraphNode {
+  static {
+    __name(this, "PrimitiveNode");
+  }
+  controlValues;
+  lastType;
+  static category;
+  constructor(title) {
+    super(title);
     this.addOutput("connect to widget input", "*");
     this.serialize_widgets = true;
     this.isVirtualNode = true;
@@ -1331,8 +1287,7 @@ const _PrimitiveNode = class _PrimitiveNode {
     }
   }
   applyToGraph(extraLinks = []) {
-    var _a, _b;
-    if (!((_a = this.outputs[0].links) == null ? void 0 : _a.length)) return;
+    if (!this.outputs[0].links?.length) return;
     function get_links(node) {
       let links2 = [];
       for (const l of node.outputs[0].links) {
@@ -1351,7 +1306,7 @@ const _PrimitiveNode = class _PrimitiveNode {
       ...get_links(this).map((l) => app.graph.links[l]),
       ...extraLinks
     ];
-    let v = (_b = this.widgets) == null ? void 0 : _b[0].value;
+    let v = this.widgets?.[0].value;
     if (v && this.properties[replacePropertyName]) {
       v = applyTextReplacements(app, v);
     }
@@ -1382,9 +1337,8 @@ const _PrimitiveNode = class _PrimitiveNode {
     }
   }
   refreshComboInNode() {
-    var _a;
-    const widget = (_a = this.widgets) == null ? void 0 : _a[0];
-    if ((widget == null ? void 0 : widget.type) === "combo") {
+    const widget = this.widgets?.[0];
+    if (widget?.type === "combo") {
       widget.options.values = this.outputs[0].widget[GET_CONFIG]()[0];
       if (!widget.options.values.includes(widget.value)) {
         widget.value = widget.options.values[0];
@@ -1393,9 +1347,8 @@ const _PrimitiveNode = class _PrimitiveNode {
     }
   }
   onAfterGraphConfigured() {
-    var _a, _b;
-    if (((_a = this.outputs[0].links) == null ? void 0 : _a.length) && !((_b = this.widgets) == null ? void 0 : _b.length)) {
-      if (!__privateMethod(this, _PrimitiveNode_instances, onFirstConnection_fn).call(this)) return;
+    if (this.outputs[0].links?.length && !this.widgets?.length) {
+      if (!this.#onFirstConnection()) return;
       if (this.widgets) {
         for (let i = 0; i < this.widgets_values.length; i++) {
           const w = this.widgets[i];
@@ -1404,229 +1357,226 @@ const _PrimitiveNode = class _PrimitiveNode {
           }
         }
       }
-      __privateMethod(this, _PrimitiveNode_instances, mergeWidgetConfig_fn).call(this);
+      this.#mergeWidgetConfig();
     }
   }
   onConnectionsChange(_, index, connected) {
-    var _a;
     if (app.configuringGraph) {
       return;
     }
     const links = this.outputs[0].links;
     if (connected) {
-      if ((links == null ? void 0 : links.length) && !((_a = this.widgets) == null ? void 0 : _a.length)) {
-        __privateMethod(this, _PrimitiveNode_instances, onFirstConnection_fn).call(this);
+      if (links?.length && !this.widgets?.length) {
+        this.#onFirstConnection();
       }
     } else {
-      __privateMethod(this, _PrimitiveNode_instances, mergeWidgetConfig_fn).call(this);
-      if (!(links == null ? void 0 : links.length)) {
+      this.#mergeWidgetConfig();
+      if (!links?.length) {
         this.onLastDisconnect();
       }
     }
   }
   onConnectOutput(slot, type, input, target_node, target_slot) {
-    var _a;
     if (!input.widget) {
       if (!(input.type in ComfyWidgets)) return false;
     }
-    if ((_a = this.outputs[slot].links) == null ? void 0 : _a.length) {
-      const valid = __privateMethod(this, _PrimitiveNode_instances, isValidConnection_fn).call(this, input);
+    if (this.outputs[slot].links?.length) {
+      const valid = this.#isValidConnection(input);
       if (valid) {
         this.applyToGraph([{ target_id: target_node.id, target_slot }]);
       }
       return valid;
     }
   }
+  #onFirstConnection(recreating) {
+    if (!this.outputs[0].links) {
+      this.onLastDisconnect();
+      return;
+    }
+    const linkId = this.outputs[0].links[0];
+    const link = this.graph.links[linkId];
+    if (!link) return;
+    const theirNode = this.graph.getNodeById(link.target_id);
+    if (!theirNode || !theirNode.inputs) return;
+    const input = theirNode.inputs[link.target_slot];
+    if (!input) return;
+    let widget;
+    if (!input.widget) {
+      if (!(input.type in ComfyWidgets)) return;
+      widget = { name: input.name, [GET_CONFIG]: () => [input.type, {}] };
+    } else {
+      widget = input.widget;
+    }
+    const config = widget[GET_CONFIG]?.();
+    if (!config) return;
+    const { type } = getWidgetType(config);
+    this.outputs[0].type = type;
+    this.outputs[0].name = type;
+    this.outputs[0].widget = widget;
+    this.#createWidget(
+      widget[CONFIG] ?? config,
+      theirNode,
+      widget.name,
+      recreating,
+      widget[TARGET]
+    );
+  }
+  #createWidget(inputData, node, widgetName, recreating, targetWidget) {
+    let type = inputData[0];
+    if (type instanceof Array) {
+      type = "COMBO";
+    }
+    const size = this.size;
+    let widget;
+    if (type in ComfyWidgets) {
+      widget = (ComfyWidgets[type](this, "value", inputData, app) || {}).widget;
+    } else {
+      widget = this.addWidget(type, "value", null, () => {
+      }, {});
+    }
+    if (targetWidget) {
+      widget.value = targetWidget.value;
+    } else if (node?.widgets && widget) {
+      const theirWidget = node.widgets.find((w) => w.name === widgetName);
+      if (theirWidget) {
+        widget.value = theirWidget.value;
+      }
+    }
+    if (!inputData?.[1]?.control_after_generate && (widget.type === "number" || widget.type === "combo")) {
+      let control_value = this.widgets_values?.[1];
+      if (!control_value) {
+        control_value = "fixed";
+      }
+      addValueControlWidgets(
+        this,
+        widget,
+        control_value,
+        void 0,
+        inputData
+      );
+      let filter = this.widgets_values?.[2];
+      if (filter && this.widgets.length === 3) {
+        this.widgets[2].value = filter;
+      }
+    }
+    const controlValues = this.controlValues;
+    if (this.lastType === this.widgets[0].type && controlValues?.length === this.widgets.length - 1) {
+      for (let i = 0; i < controlValues.length; i++) {
+        this.widgets[i + 1].value = controlValues[i];
+      }
+    }
+    const callback = widget.callback;
+    const self = this;
+    widget.callback = function() {
+      const r = callback ? callback.apply(this, arguments) : void 0;
+      self.applyToGraph();
+      return r;
+    };
+    this.size = [
+      Math.max(this.size[0], size[0]),
+      Math.max(this.size[1], size[1])
+    ];
+    if (!recreating) {
+      const sz = this.computeSize();
+      if (this.size[0] < sz[0]) {
+        this.size[0] = sz[0];
+      }
+      if (this.size[1] < sz[1]) {
+        this.size[1] = sz[1];
+      }
+      requestAnimationFrame(() => {
+        if (this.onResize) {
+          this.onResize(this.size);
+        }
+      });
+    }
+  }
   recreateWidget() {
-    var _a, _b, _c;
-    const values = (_a = this.widgets) == null ? void 0 : _a.map((w) => w.value);
-    __privateMethod(this, _PrimitiveNode_instances, removeWidgets_fn).call(this);
-    __privateMethod(this, _PrimitiveNode_instances, onFirstConnection_fn).call(this, true);
-    if (values == null ? void 0 : values.length) {
-      for (let i = 0; i < ((_b = this.widgets) == null ? void 0 : _b.length); i++)
+    const values = this.widgets?.map((w) => w.value);
+    this.#removeWidgets();
+    this.#onFirstConnection(true);
+    if (values?.length) {
+      for (let i = 0; i < this.widgets?.length; i++)
         this.widgets[i].value = values[i];
     }
-    return (_c = this.widgets) == null ? void 0 : _c[0];
+    return this.widgets?.[0];
+  }
+  #mergeWidgetConfig() {
+    const output = this.outputs[0];
+    const links = output.links;
+    const hasConfig = !!output.widget[CONFIG];
+    if (hasConfig) {
+      delete output.widget[CONFIG];
+    }
+    if (links?.length < 2 && hasConfig) {
+      if (links.length) {
+        this.recreateWidget();
+      }
+      return;
+    }
+    const config1 = output.widget[GET_CONFIG]();
+    const isNumber = config1[0] === "INT" || config1[0] === "FLOAT";
+    if (!isNumber) return;
+    for (const linkId of links) {
+      const link = app.graph.links[linkId];
+      if (!link) continue;
+      const theirNode = app.graph.getNodeById(link.target_id);
+      const theirInput = theirNode.inputs[link.target_slot];
+      this.#isValidConnection(theirInput, hasConfig);
+    }
+  }
+  #isValidConnection(input, forceUpdate) {
+    const output = this.outputs[0];
+    const config2 = input.widget[GET_CONFIG]();
+    return !!mergeIfValid.call(
+      this,
+      output,
+      config2,
+      forceUpdate,
+      this.recreateWidget
+    );
+  }
+  #removeWidgets() {
+    if (this.widgets) {
+      for (const w of this.widgets) {
+        if (w.onRemove) {
+          w.onRemove();
+        }
+      }
+      this.controlValues = [];
+      this.lastType = this.widgets[0]?.type;
+      for (let i = 1; i < this.widgets.length; i++) {
+        this.controlValues.push(this.widgets[i].value);
+      }
+      setTimeout(() => {
+        delete this.lastType;
+        delete this.controlValues;
+      }, 15);
+      this.widgets.length = 0;
+    }
   }
   onLastDisconnect() {
     this.outputs[0].type = "*";
     this.outputs[0].name = "connect to widget input";
     delete this.outputs[0].widget;
-    __privateMethod(this, _PrimitiveNode_instances, removeWidgets_fn).call(this);
+    this.#removeWidgets();
   }
-};
-_PrimitiveNode_instances = new WeakSet();
-onFirstConnection_fn = /* @__PURE__ */ __name(function(recreating) {
-  var _a, _b;
-  if (!this.outputs[0].links) {
-    this.onLastDisconnect();
-    return;
-  }
-  const linkId = this.outputs[0].links[0];
-  const link = this.graph.links[linkId];
-  if (!link) return;
-  const theirNode = this.graph.getNodeById(link.target_id);
-  if (!theirNode || !theirNode.inputs) return;
-  const input = theirNode.inputs[link.target_slot];
-  if (!input) return;
-  let widget;
-  if (!input.widget) {
-    if (!(input.type in ComfyWidgets)) return;
-    widget = { name: input.name, [GET_CONFIG]: () => [input.type, {}] };
-  } else {
-    widget = input.widget;
-  }
-  const config = (_a = widget[GET_CONFIG]) == null ? void 0 : _a.call(widget);
-  if (!config) return;
-  const { type } = getWidgetType(config);
-  this.outputs[0].type = type;
-  this.outputs[0].name = type;
-  this.outputs[0].widget = widget;
-  __privateMethod(this, _PrimitiveNode_instances, createWidget_fn).call(this, (_b = widget[CONFIG]) != null ? _b : config, theirNode, widget.name, recreating, widget[TARGET]);
-}, "#onFirstConnection");
-createWidget_fn = /* @__PURE__ */ __name(function(inputData, node, widgetName, recreating, targetWidget) {
-  var _a, _b, _c;
-  let type = inputData[0];
-  if (type instanceof Array) {
-    type = "COMBO";
-  }
-  let widget;
-  if (type in ComfyWidgets) {
-    widget = (ComfyWidgets[type](this, "value", inputData, app) || {}).widget;
-  } else {
-    widget = this.addWidget(type, "value", null, () => {
-    }, {});
-  }
-  if (targetWidget) {
-    widget.value = targetWidget.value;
-  } else if ((node == null ? void 0 : node.widgets) && widget) {
-    const theirWidget = node.widgets.find((w) => w.name === widgetName);
-    if (theirWidget) {
-      widget.value = theirWidget.value;
-    }
-  }
-  if (!((_a = inputData == null ? void 0 : inputData[1]) == null ? void 0 : _a.control_after_generate) && (widget.type === "number" || widget.type === "combo")) {
-    let control_value = (_b = this.widgets_values) == null ? void 0 : _b[1];
-    if (!control_value) {
-      control_value = "fixed";
-    }
-    addValueControlWidgets(
-      this,
-      widget,
-      control_value,
-      void 0,
-      inputData
-    );
-    let filter = (_c = this.widgets_values) == null ? void 0 : _c[2];
-    if (filter && this.widgets.length === 3) {
-      this.widgets[2].value = filter;
-    }
-  }
-  const controlValues = this.controlValues;
-  if (this.lastType === this.widgets[0].type && (controlValues == null ? void 0 : controlValues.length) === this.widgets.length - 1) {
-    for (let i = 0; i < controlValues.length; i++) {
-      this.widgets[i + 1].value = controlValues[i];
-    }
-  }
-  const callback = widget.callback;
-  const self = this;
-  widget.callback = function() {
-    const r = callback ? callback.apply(this, arguments) : void 0;
-    self.applyToGraph();
-    return r;
-  };
-  if (!recreating) {
-    const sz = this.computeSize();
-    if (this.size[0] < sz[0]) {
-      this.size[0] = sz[0];
-    }
-    if (this.size[1] < sz[1]) {
-      this.size[1] = sz[1];
-    }
-    requestAnimationFrame(() => {
-      if (this.onResize) {
-        this.onResize(this.size);
-      }
-    });
-  }
-}, "#createWidget");
-mergeWidgetConfig_fn = /* @__PURE__ */ __name(function() {
-  const output = this.outputs[0];
-  const links = output.links;
-  const hasConfig = !!output.widget[CONFIG];
-  if (hasConfig) {
-    delete output.widget[CONFIG];
-  }
-  if ((links == null ? void 0 : links.length) < 2 && hasConfig) {
-    if (links.length) {
-      this.recreateWidget();
-    }
-    return;
-  }
-  const config1 = output.widget[GET_CONFIG]();
-  const isNumber = config1[0] === "INT" || config1[0] === "FLOAT";
-  if (!isNumber) return;
-  for (const linkId of links) {
-    const link = app.graph.links[linkId];
-    if (!link) continue;
-    const theirNode = app.graph.getNodeById(link.target_id);
-    const theirInput = theirNode.inputs[link.target_slot];
-    __privateMethod(this, _PrimitiveNode_instances, isValidConnection_fn).call(this, theirInput, hasConfig);
-  }
-}, "#mergeWidgetConfig");
-isValidConnection_fn = /* @__PURE__ */ __name(function(input, forceUpdate) {
-  const output = this.outputs[0];
-  const config2 = input.widget[GET_CONFIG]();
-  return !!mergeIfValid.call(
-    this,
-    output,
-    config2,
-    forceUpdate,
-    this.recreateWidget
-  );
-}, "#isValidConnection");
-removeWidgets_fn = /* @__PURE__ */ __name(function() {
-  var _a;
-  if (this.widgets) {
-    for (const w of this.widgets) {
-      if (w.onRemove) {
-        w.onRemove();
-      }
-    }
-    this.controlValues = [];
-    this.lastType = (_a = this.widgets[0]) == null ? void 0 : _a.type;
-    for (let i = 1; i < this.widgets.length; i++) {
-      this.controlValues.push(this.widgets[i].value);
-    }
-    setTimeout(() => {
-      delete this.lastType;
-      delete this.controlValues;
-    }, 15);
-    this.widgets.length = 0;
-  }
-}, "#removeWidgets");
-__name(_PrimitiveNode, "PrimitiveNode");
-__publicField(_PrimitiveNode, "category");
-let PrimitiveNode = _PrimitiveNode;
+}
 function getWidgetConfig(slot) {
-  var _a;
-  return (_a = slot.widget[CONFIG]) != null ? _a : slot.widget[GET_CONFIG]();
+  return slot.widget[CONFIG] ?? slot.widget[GET_CONFIG]();
 }
 __name(getWidgetConfig, "getWidgetConfig");
 function getConfig(widgetName) {
-  var _a, _b, _c, _d, _e;
   const { nodeData } = this.constructor;
-  return (_e = (_b = (_a = nodeData == null ? void 0 : nodeData.input) == null ? void 0 : _a.required) == null ? void 0 : _b[widgetName]) != null ? _e : (_d = (_c = nodeData == null ? void 0 : nodeData.input) == null ? void 0 : _c.optional) == null ? void 0 : _d[widgetName];
+  return nodeData?.input?.required?.[widgetName] ?? nodeData?.input?.optional?.[widgetName];
 }
 __name(getConfig, "getConfig");
 function isConvertibleWidget(widget, config) {
-  var _a;
-  return (VALID_TYPES.includes(widget.type) || VALID_TYPES.includes(config[0])) && !((_a = widget.options) == null ? void 0 : _a.forceInput);
+  return (VALID_TYPES.includes(widget.type) || VALID_TYPES.includes(config[0])) && !widget.options?.forceInput;
 }
 __name(isConvertibleWidget, "isConvertibleWidget");
 function hideWidget(node, widget, suffix = "") {
-  var _a;
-  if ((_a = widget.type) == null ? void 0 : _a.startsWith(CONVERTED_TYPE)) return;
+  if (widget.type?.startsWith(CONVERTED_TYPE)) return;
   widget.origType = widget.type;
   widget.origComputeSize = widget.computeSize;
   widget.origSerializeValue = widget.serializeValue;
@@ -1636,10 +1586,7 @@ function hideWidget(node, widget, suffix = "") {
     if (!node.inputs) {
       return void 0;
     }
-    let node_input = node.inputs.find((i) => {
-      var _a2;
-      return ((_a2 = i.widget) == null ? void 0 : _a2.name) === widget.name;
-    });
+    let node_input = node.inputs.find((i) => i.widget?.name === widget.name);
     if (!node_input || !node_input.link) {
       return void 0;
     }
@@ -1682,10 +1629,7 @@ __name(convertToInput, "convertToInput");
 function convertToWidget(node, widget) {
   showWidget(widget);
   const sz = node.size;
-  node.removeInput(node.inputs.findIndex((i) => {
-    var _a;
-    return ((_a = i.widget) == null ? void 0 : _a.name) === widget.name;
-  }));
+  node.removeInput(node.inputs.findIndex((i) => i.widget?.name === widget.name));
   for (const widget2 of node.widgets) {
     widget2.last_y -= LiteGraph.NODE_SLOT_HEIGHT;
   }
@@ -1745,9 +1689,8 @@ function setWidgetConfig(slot, config, target) {
 }
 __name(setWidgetConfig, "setWidgetConfig");
 function mergeIfValid(output, config2, forceUpdate, recreateWidget, config1) {
-  var _a, _b, _c, _d, _e, _f;
   if (!config1) {
-    config1 = (_a = output.widget[CONFIG]) != null ? _a : output.widget[GET_CONFIG]();
+    config1 = output.widget[CONFIG] ?? output.widget[GET_CONFIG]();
   }
   if (config1[0] instanceof Array) {
     if (!isValidCombo(config1[0], config2[0])) return;
@@ -1756,17 +1699,16 @@ function mergeIfValid(output, config2, forceUpdate, recreateWidget, config1) {
     return;
   }
   const keys = /* @__PURE__ */ new Set([
-    ...Object.keys((_b = config1[1]) != null ? _b : {}),
-    ...Object.keys((_c = config2[1]) != null ? _c : {})
+    ...Object.keys(config1[1] ?? {}),
+    ...Object.keys(config2[1] ?? {})
   ]);
   let customConfig;
   const getCustomConfig = /* @__PURE__ */ __name(() => {
-    var _a2, _b2;
     if (!customConfig) {
       if (typeof structuredClone === "undefined") {
-        customConfig = JSON.parse(JSON.stringify((_a2 = config1[1]) != null ? _a2 : {}));
+        customConfig = JSON.parse(JSON.stringify(config1[1] ?? {}));
       } else {
-        customConfig = structuredClone((_b2 = config1[1]) != null ? _b2 : {});
+        customConfig = structuredClone(config1[1] ?? {});
       }
     }
     return customConfig;
@@ -1775,11 +1717,11 @@ function mergeIfValid(output, config2, forceUpdate, recreateWidget, config1) {
   for (const k of keys.values()) {
     if (k !== "default" && k !== "forceInput" && k !== "defaultInput" && k !== "control_after_generate" && k !== "multiline" && k !== "tooltip") {
       let v1 = config1[1][k];
-      let v2 = (_d = config2[1]) == null ? void 0 : _d[k];
+      let v2 = config2[1]?.[k];
       if (v1 === v2 || !v1 && !v2) continue;
       if (isNumber) {
         if (k === "min") {
-          const theirMax = (_e = config2[1]) == null ? void 0 : _e["max"];
+          const theirMax = config2[1]?.["max"];
           if (theirMax != null && v1 > theirMax) {
             console.log("connection rejected: min > max", v1, theirMax);
             return;
@@ -1787,7 +1729,7 @@ function mergeIfValid(output, config2, forceUpdate, recreateWidget, config1) {
           getCustomConfig()[k] = v1 == null ? v2 : v2 == null ? v1 : Math.max(v1, v2);
           continue;
         } else if (k === "max") {
-          const theirMin = (_f = config2[1]) == null ? void 0 : _f["min"];
+          const theirMin = config2[1]?.["min"];
           if (theirMin != null && v1 < theirMin) {
             console.log("connection rejected: max < min", v1, theirMin);
             return;
@@ -1830,7 +1772,7 @@ function mergeIfValid(output, config2, forceUpdate, recreateWidget, config1) {
     if (customConfig) {
       output.widget[CONFIG] = [config1[0], customConfig];
     }
-    const widget = recreateWidget == null ? void 0 : recreateWidget.call(this);
+    const widget = recreateWidget?.call(this);
     if (widget) {
       const min = widget.options.min;
       const max = widget.options.max;
@@ -1853,186 +1795,179 @@ app.registerExtension({
       defaultValue: true
     });
   },
-  beforeRegisterNodeDef(nodeType, nodeData, app2) {
-    return __async(this, null, function* () {
-      const origGetExtraMenuOptions = nodeType.prototype.getExtraMenuOptions;
-      nodeType.prototype.convertWidgetToInput = function(widget) {
-        var _a;
-        const config = (_a = getConfig.call(this, widget.name)) != null ? _a : [
-          widget.type,
-          widget.options || {}
-        ];
-        if (!isConvertibleWidget(widget, config)) return false;
-        convertToInput(this, widget, config);
-        return true;
-      };
-      nodeType.prototype.getExtraMenuOptions = function(_, options) {
-        var _a, _b;
-        const r = origGetExtraMenuOptions ? origGetExtraMenuOptions.apply(this, arguments) : void 0;
-        if (this.widgets) {
-          let toInput = [];
-          let toWidget = [];
-          for (const w of this.widgets) {
-            if ((_a = w.options) == null ? void 0 : _a.forceInput) {
-              continue;
-            }
-            if (w.type === CONVERTED_TYPE) {
-              toWidget.push({
-                content: `Convert ${w.name} to widget`,
-                callback: /* @__PURE__ */ __name(() => convertToWidget(this, w), "callback")
-              });
-            } else {
-              const config = (_b = getConfig.call(this, w.name)) != null ? _b : [
-                w.type,
-                w.options || {}
-              ];
-              if (isConvertibleWidget(w, config)) {
-                toInput.push({
-                  content: `Convert ${w.name} to input`,
-                  callback: /* @__PURE__ */ __name(() => convertToInput(this, w, config), "callback")
-                });
-              }
-            }
+  async beforeRegisterNodeDef(nodeType, nodeData, app2) {
+    const origGetExtraMenuOptions = nodeType.prototype.getExtraMenuOptions;
+    nodeType.prototype.convertWidgetToInput = function(widget) {
+      const config = getConfig.call(this, widget.name) ?? [
+        widget.type,
+        widget.options || {}
+      ];
+      if (!isConvertibleWidget(widget, config)) return false;
+      convertToInput(this, widget, config);
+      return true;
+    };
+    nodeType.prototype.getExtraMenuOptions = function(_, options) {
+      const r = origGetExtraMenuOptions ? origGetExtraMenuOptions.apply(this, arguments) : void 0;
+      if (this.widgets) {
+        let toInput = [];
+        let toWidget = [];
+        for (const w of this.widgets) {
+          if (w.options?.forceInput) {
+            continue;
           }
-          if (toInput.length) {
-            if (useConversionSubmenusSetting.value) {
-              options.push({
-                content: "Convert Widget to Input",
-                submenu: {
-                  options: toInput
-                }
+          if (w.type === CONVERTED_TYPE) {
+            toWidget.push({
+              content: `Convert ${w.name} to widget`,
+              callback: /* @__PURE__ */ __name(() => convertToWidget(this, w), "callback")
+            });
+          } else {
+            const config = getConfig.call(this, w.name) ?? [
+              w.type,
+              w.options || {}
+            ];
+            if (isConvertibleWidget(w, config)) {
+              toInput.push({
+                content: `Convert ${w.name} to input`,
+                callback: /* @__PURE__ */ __name(() => convertToInput(this, w, config), "callback")
               });
-            } else {
-              options.push(...toInput, null);
-            }
-          }
-          if (toWidget.length) {
-            if (useConversionSubmenusSetting.value) {
-              options.push({
-                content: "Convert Input to Widget",
-                submenu: {
-                  options: toWidget
-                }
-              });
-            } else {
-              options.push(...toWidget, null);
             }
           }
         }
-        return r;
-      };
-      nodeType.prototype.onGraphConfigured = function() {
-        if (!this.inputs) return;
-        for (const input of this.inputs) {
-          if (input.widget) {
-            if (!input.widget[GET_CONFIG]) {
-              input.widget[GET_CONFIG] = () => getConfig.call(this, input.widget.name);
-            }
-            if (input.widget.config) {
-              if (input.widget.config[0] instanceof Array) {
-                input.type = "COMBO";
-                const link = app2.graph.links[input.link];
-                if (link) {
-                  link.type = input.type;
-                }
+        if (toInput.length) {
+          if (useConversionSubmenusSetting.value) {
+            options.push({
+              content: "Convert Widget to Input",
+              submenu: {
+                options: toInput
               }
-              delete input.widget.config;
+            });
+          } else {
+            options.push(...toInput, null);
+          }
+        }
+        if (toWidget.length) {
+          if (useConversionSubmenusSetting.value) {
+            options.push({
+              content: "Convert Input to Widget",
+              submenu: {
+                options: toWidget
+              }
+            });
+          } else {
+            options.push(...toWidget, null);
+          }
+        }
+      }
+      return r;
+    };
+    nodeType.prototype.onGraphConfigured = function() {
+      if (!this.inputs) return;
+      for (const input of this.inputs) {
+        if (input.widget) {
+          if (!input.widget[GET_CONFIG]) {
+            input.widget[GET_CONFIG] = () => getConfig.call(this, input.widget.name);
+          }
+          if (input.widget.config) {
+            if (input.widget.config[0] instanceof Array) {
+              input.type = "COMBO";
+              const link = app2.graph.links[input.link];
+              if (link) {
+                link.type = input.type;
+              }
             }
+            delete input.widget.config;
+          }
+          const w = this.widgets.find((w2) => w2.name === input.widget.name);
+          if (w) {
+            hideWidget(this, w);
+          } else {
+            convertToWidget(this, input);
+          }
+        }
+      }
+    };
+    const origOnNodeCreated = nodeType.prototype.onNodeCreated;
+    nodeType.prototype.onNodeCreated = function() {
+      const r = origOnNodeCreated ? origOnNodeCreated.apply(this) : void 0;
+      if (!app2.configuringGraph && this.widgets) {
+        for (const w of this.widgets) {
+          if (w?.options?.forceInput || w?.options?.defaultInput) {
+            const config = getConfig.call(this, w.name) ?? [
+              w.type,
+              w.options || {}
+            ];
+            convertToInput(this, w, config);
+          }
+        }
+      }
+      return r;
+    };
+    const origOnConfigure = nodeType.prototype.onConfigure;
+    nodeType.prototype.onConfigure = function() {
+      const r = origOnConfigure ? origOnConfigure.apply(this, arguments) : void 0;
+      if (!app2.configuringGraph && this.inputs) {
+        for (const input of this.inputs) {
+          if (input.widget && !input.widget[GET_CONFIG]) {
+            input.widget[GET_CONFIG] = () => getConfig.call(this, input.widget.name);
             const w = this.widgets.find((w2) => w2.name === input.widget.name);
             if (w) {
               hideWidget(this, w);
-            } else {
-              convertToWidget(this, input);
             }
           }
         }
-      };
-      const origOnNodeCreated = nodeType.prototype.onNodeCreated;
-      nodeType.prototype.onNodeCreated = function() {
-        var _a, _b, _c;
-        const r = origOnNodeCreated ? origOnNodeCreated.apply(this) : void 0;
-        if (!app2.configuringGraph && this.widgets) {
-          for (const w of this.widgets) {
-            if (((_a = w == null ? void 0 : w.options) == null ? void 0 : _a.forceInput) || ((_b = w == null ? void 0 : w.options) == null ? void 0 : _b.defaultInput)) {
-              const config = (_c = getConfig.call(this, w.name)) != null ? _c : [
-                w.type,
-                w.options || {}
-              ];
-              convertToInput(this, w, config);
-            }
-          }
+      }
+      return r;
+    };
+    function isNodeAtPos(pos) {
+      for (const n of app2.graph._nodes) {
+        if (n.pos[0] === pos[0] && n.pos[1] === pos[1]) {
+          return true;
         }
-        return r;
-      };
-      const origOnConfigure = nodeType.prototype.onConfigure;
-      nodeType.prototype.onConfigure = function() {
-        const r = origOnConfigure ? origOnConfigure.apply(this, arguments) : void 0;
-        if (!app2.configuringGraph && this.inputs) {
-          for (const input of this.inputs) {
-            if (input.widget && !input.widget[GET_CONFIG]) {
-              input.widget[GET_CONFIG] = () => getConfig.call(this, input.widget.name);
-              const w = this.widgets.find((w2) => w2.name === input.widget.name);
-              if (w) {
-                hideWidget(this, w);
-              }
-            }
-          }
+      }
+      return false;
+    }
+    __name(isNodeAtPos, "isNodeAtPos");
+    const origOnInputDblClick = nodeType.prototype.onInputDblClick;
+    const ignoreDblClick = Symbol();
+    nodeType.prototype.onInputDblClick = function(slot) {
+      const r = origOnInputDblClick ? origOnInputDblClick.apply(this, arguments) : void 0;
+      const input = this.inputs[slot];
+      if (!input.widget || !input[ignoreDblClick]) {
+        if (!(input.type in ComfyWidgets) && !(input.widget[GET_CONFIG]?.()?.[0] instanceof Array)) {
+          return r;
         }
-        return r;
-      };
-      function isNodeAtPos(pos) {
-        for (const n of app2.graph._nodes) {
-          if (n.pos[0] === pos[0] && n.pos[1] === pos[1]) {
-            return true;
-          }
-        }
+      }
+      const node = LiteGraph.createNode("PrimitiveNode");
+      app2.graph.add(node);
+      const pos = [
+        this.pos[0] - node.size[0] - 30,
+        this.pos[1]
+      ];
+      while (isNodeAtPos(pos)) {
+        pos[1] += LiteGraph.NODE_TITLE_HEIGHT;
+      }
+      node.pos = pos;
+      node.connect(0, this, slot);
+      node.title = input.name;
+      input[ignoreDblClick] = true;
+      setTimeout(() => {
+        delete input[ignoreDblClick];
+      }, 300);
+      return r;
+    };
+    const onConnectInput = nodeType.prototype.onConnectInput;
+    nodeType.prototype.onConnectInput = function(targetSlot, type, output, originNode, originSlot) {
+      const v = onConnectInput?.(this, arguments);
+      if (type !== "COMBO") return v;
+      if (originNode.outputs[originSlot].widget) return v;
+      const targetCombo = this.inputs[targetSlot].widget?.[GET_CONFIG]?.()?.[0];
+      if (!targetCombo || !(targetCombo instanceof Array)) return v;
+      const originConfig = originNode.constructor?.nodeData?.output?.[originSlot];
+      if (!originConfig || !isValidCombo(targetCombo, originConfig)) {
         return false;
       }
-      __name(isNodeAtPos, "isNodeAtPos");
-      const origOnInputDblClick = nodeType.prototype.onInputDblClick;
-      const ignoreDblClick = Symbol();
-      nodeType.prototype.onInputDblClick = function(slot) {
-        var _a, _b, _c;
-        const r = origOnInputDblClick ? origOnInputDblClick.apply(this, arguments) : void 0;
-        const input = this.inputs[slot];
-        if (!input.widget || !input[ignoreDblClick]) {
-          if (!(input.type in ComfyWidgets) && !(((_c = (_b = (_a = input.widget)[GET_CONFIG]) == null ? void 0 : _b.call(_a)) == null ? void 0 : _c[0]) instanceof Array)) {
-            return r;
-          }
-        }
-        const node = LiteGraph.createNode("PrimitiveNode");
-        app2.graph.add(node);
-        const pos = [
-          this.pos[0] - node.size[0] - 30,
-          this.pos[1]
-        ];
-        while (isNodeAtPos(pos)) {
-          pos[1] += LiteGraph.NODE_TITLE_HEIGHT;
-        }
-        node.pos = pos;
-        node.connect(0, this, slot);
-        node.title = input.name;
-        input[ignoreDblClick] = true;
-        setTimeout(() => {
-          delete input[ignoreDblClick];
-        }, 300);
-        return r;
-      };
-      const onConnectInput = nodeType.prototype.onConnectInput;
-      nodeType.prototype.onConnectInput = function(targetSlot, type, output, originNode, originSlot) {
-        var _a, _b, _c, _d, _e, _f;
-        const v = onConnectInput == null ? void 0 : onConnectInput(this, arguments);
-        if (type !== "COMBO") return v;
-        if (originNode.outputs[originSlot].widget) return v;
-        const targetCombo = (_c = (_b = (_a = this.inputs[targetSlot].widget) == null ? void 0 : _a[GET_CONFIG]) == null ? void 0 : _b.call(_a)) == null ? void 0 : _c[0];
-        if (!targetCombo || !(targetCombo instanceof Array)) return v;
-        const originConfig = (_f = (_e = (_d = originNode.constructor) == null ? void 0 : _d.nodeData) == null ? void 0 : _e.output) == null ? void 0 : _f[originSlot];
-        if (!originConfig || !isValidCombo(targetCombo, originConfig)) {
-          return false;
-        }
-        return v;
-      };
-    });
+      return v;
+    };
   },
   registerCustomNodes() {
     LiteGraph.registerNodeType(
@@ -2066,31 +2001,34 @@ function merge(target, source) {
   return target;
 }
 __name(merge, "merge");
-const _ManageGroupDialog = class _ManageGroupDialog extends ComfyDialog {
+class ManageGroupDialog extends ComfyDialog {
+  static {
+    __name(this, "ManageGroupDialog");
+  }
+  tabs;
+  selectedNodeIndex;
+  selectedTab = "Inputs";
+  selectedGroup;
+  modifications = {};
+  nodeItems;
+  app;
+  groupNodeType;
+  groupNodeDef;
+  groupData;
+  innerNodesList;
+  widgetsPage;
+  inputsPage;
+  outputsPage;
+  draggable;
+  get selectedNodeInnerIndex() {
+    return +this.nodeItems[this.selectedNodeIndex].dataset.nodeindex;
+  }
   constructor(app2) {
     super();
-    __publicField(this, "tabs");
-    __publicField(this, "selectedNodeIndex");
-    __publicField(this, "selectedTab", "Inputs");
-    __publicField(this, "selectedGroup");
-    __publicField(this, "modifications", {});
-    __publicField(this, "nodeItems");
-    __publicField(this, "app");
-    __publicField(this, "groupNodeType");
-    __publicField(this, "groupNodeDef");
-    __publicField(this, "groupData");
-    __publicField(this, "innerNodesList");
-    __publicField(this, "widgetsPage");
-    __publicField(this, "inputsPage");
-    __publicField(this, "outputsPage");
-    __publicField(this, "draggable");
     this.app = app2;
     this.element = $el("dialog.comfy-group-manage", {
       parent: document.body
     });
-  }
-  get selectedNodeInnerIndex() {
-    return +this.nodeItems[this.selectedNodeIndex].dataset.nodeindex;
   }
   changeTab(tab) {
     this.tabs[this.selectedTab].tab.classList.remove("active");
@@ -2123,37 +2061,33 @@ const _ManageGroupDialog = class _ManageGroupDialog extends ComfyDialog {
     this.groupData = GroupNodeHandler.getGroupData(this.groupNodeType);
   }
   changeGroup(group, reset = true) {
-    var _a;
     this.selectedGroup = group;
     this.getGroupData();
     const nodes = this.groupData.nodeData.nodes;
     this.nodeItems = nodes.map(
-      (n, i) => {
-        var _a2;
-        return $el(
-          "li.draggable-item",
-          {
-            dataset: {
-              nodeindex: n.index + ""
-            },
-            onclick: /* @__PURE__ */ __name(() => {
-              this.changeNode(i);
-            }, "onclick")
+      (n, i) => $el(
+        "li.draggable-item",
+        {
+          dataset: {
+            nodeindex: n.index + ""
           },
-          [
-            $el("span.drag-handle"),
-            $el(
-              "div",
-              {
-                textContent: (_a2 = n.title) != null ? _a2 : n.type
-              },
-              n.title ? $el("span", {
-                textContent: n.type
-              }) : []
-            )
-          ]
-        );
-      }
+          onclick: /* @__PURE__ */ __name(() => {
+            this.changeNode(i);
+          }, "onclick")
+        },
+        [
+          $el("span.drag-handle"),
+          $el(
+            "div",
+            {
+              textContent: n.title ?? n.type
+            },
+            n.title ? $el("span", {
+              textContent: n.type
+            }) : []
+          )
+        ]
+      )
     );
     this.innerNodesList.replaceChildren(...this.nodeItems);
     if (reset) {
@@ -2166,7 +2100,7 @@ const _ManageGroupDialog = class _ManageGroupDialog extends ComfyDialog {
       this.changeNode(index, true);
     }
     const ordered = [...nodes];
-    (_a = this.draggable) == null ? void 0 : _a.dispose();
+    this.draggable?.dispose();
     this.draggable = new DraggableList(this.innerNodesList, "li");
     this.draggable.addEventListener(
       "dragend",
@@ -2185,23 +2119,21 @@ const _ManageGroupDialog = class _ManageGroupDialog extends ComfyDialog {
     );
   }
   storeModification(props) {
-    var _a, _b, _c, _d, _e, _f, _g, _h;
     const { nodeIndex, section, prop, value } = props;
-    const groupMod = (_c = (_a = this.modifications)[_b = this.selectedGroup]) != null ? _c : _a[_b] = {};
-    const nodesMod = (_d = groupMod.nodes) != null ? _d : groupMod.nodes = {};
-    const nodeMod = (_f = nodesMod[_e = nodeIndex != null ? nodeIndex : this.selectedNodeInnerIndex]) != null ? _f : nodesMod[_e] = {};
-    const typeMod = (_g = nodeMod[section]) != null ? _g : nodeMod[section] = {};
+    const groupMod = this.modifications[this.selectedGroup] ??= {};
+    const nodesMod = groupMod.nodes ??= {};
+    const nodeMod = nodesMod[nodeIndex ?? this.selectedNodeInnerIndex] ??= {};
+    const typeMod = nodeMod[section] ??= {};
     if (typeof value === "object") {
-      const objMod = (_h = typeMod[prop]) != null ? _h : typeMod[prop] = {};
+      const objMod = typeMod[prop] ??= {};
       Object.assign(objMod, value);
     } else {
       typeMod[prop] = value;
     }
   }
   getEditElement(section, prop, value, placeholder, checked, checkable = true) {
-    var _a, _b, _c, _d;
     if (value === placeholder) value = "";
-    const mods = (_d = (_c = (_b = (_a = this.modifications[this.selectedGroup]) == null ? void 0 : _a.nodes) == null ? void 0 : _b[this.selectedNodeInnerIndex]) == null ? void 0 : _c[section]) == null ? void 0 : _d[prop];
+    const mods = this.modifications[this.selectedGroup]?.nodes?.[this.selectedNodeInnerIndex]?.[section]?.[prop];
     if (mods) {
       if (mods.name != null) {
         value = mods.name;
@@ -2240,34 +2172,30 @@ const _ManageGroupDialog = class _ManageGroupDialog extends ComfyDialog {
     ]);
   }
   buildWidgetsPage() {
-    var _a, _b;
     const widgets = this.groupData.oldToNewWidgetMap[this.selectedNodeInnerIndex];
-    const items = Object.keys(widgets != null ? widgets : {});
+    const items = Object.keys(widgets ?? {});
     const type = app.graph.extra.groupNodes[this.selectedGroup];
-    const config = (_b = (_a = type.config) == null ? void 0 : _a[this.selectedNodeInnerIndex]) == null ? void 0 : _b.input;
+    const config = type.config?.[this.selectedNodeInnerIndex]?.input;
     this.widgetsPage.replaceChildren(
       ...items.map((oldName) => {
-        var _a2;
         return this.getEditElement(
           "input",
           oldName,
           widgets[oldName],
           oldName,
-          ((_a2 = config == null ? void 0 : config[oldName]) == null ? void 0 : _a2.visible) !== false
+          config?.[oldName]?.visible !== false
         );
       })
     );
     return !!items.length;
   }
   buildInputsPage() {
-    var _a, _b;
     const inputs = this.groupData.nodeInputs[this.selectedNodeInnerIndex];
-    const items = Object.keys(inputs != null ? inputs : {});
+    const items = Object.keys(inputs ?? {});
     const type = app.graph.extra.groupNodes[this.selectedGroup];
-    const config = (_b = (_a = type.config) == null ? void 0 : _a[this.selectedNodeInnerIndex]) == null ? void 0 : _b.input;
+    const config = type.config?.[this.selectedNodeInnerIndex]?.input;
     this.inputsPage.replaceChildren(
       ...items.map((oldName) => {
-        var _a2;
         let value = inputs[oldName];
         if (!value) {
           return;
@@ -2277,31 +2205,29 @@ const _ManageGroupDialog = class _ManageGroupDialog extends ComfyDialog {
           oldName,
           value,
           oldName,
-          ((_a2 = config == null ? void 0 : config[oldName]) == null ? void 0 : _a2.visible) !== false
+          config?.[oldName]?.visible !== false
         );
       }).filter(Boolean)
     );
     return !!items.length;
   }
   buildOutputsPage() {
-    var _a, _b, _c;
     const nodes = this.groupData.nodeData.nodes;
     const innerNodeDef = this.groupData.getNodeDef(
       nodes[this.selectedNodeInnerIndex]
     );
-    const outputs = (_a = innerNodeDef == null ? void 0 : innerNodeDef.output) != null ? _a : [];
+    const outputs = innerNodeDef?.output ?? [];
     const groupOutputs = this.groupData.oldToNewOutputMap[this.selectedNodeInnerIndex];
     const type = app.graph.extra.groupNodes[this.selectedGroup];
-    const config = (_c = (_b = type.config) == null ? void 0 : _b[this.selectedNodeInnerIndex]) == null ? void 0 : _c.output;
+    const config = type.config?.[this.selectedNodeInnerIndex]?.output;
     const node = this.groupData.nodeData.nodes[this.selectedNodeInnerIndex];
     const checkable = node.type !== "PrimitiveNode";
     this.outputsPage.replaceChildren(
       ...outputs.map((type2, slot) => {
-        var _a2, _b2, _c2, _d;
-        const groupOutputIndex = groupOutputs == null ? void 0 : groupOutputs[slot];
-        const oldName = (_b2 = (_a2 = innerNodeDef.output_name) == null ? void 0 : _a2[slot]) != null ? _b2 : type2;
-        let value = (_c2 = config == null ? void 0 : config[slot]) == null ? void 0 : _c2.name;
-        const visible = ((_d = config == null ? void 0 : config[slot]) == null ? void 0 : _d.visible) || groupOutputIndex != null;
+        const groupOutputIndex = groupOutputs?.[slot];
+        const oldName = innerNodeDef.output_name?.[slot] ?? type2;
+        let value = config?.[slot]?.name;
+        const visible = config?.[slot]?.visible || groupOutputIndex != null;
         if (!value || value === oldName) {
           value = "";
         }
@@ -2318,8 +2244,7 @@ const _ManageGroupDialog = class _ManageGroupDialog extends ComfyDialog {
     return !!outputs.length;
   }
   show(type) {
-    var _a, _b;
-    const groupNodes = Object.keys((_b = (_a = app.graph.extra) == null ? void 0 : _a.groupNodes) != null ? _b : {}).sort(
+    const groupNodes = Object.keys(app.graph.extra?.groupNodes ?? {}).sort(
       (a, b) => a.localeCompare(b)
     );
     this.innerNodesList = $el(
@@ -2406,15 +2331,14 @@ const _ManageGroupDialog = class _ManageGroupDialog extends ComfyDialog {
         $el(
           "button.comfy-btn",
           {
-            onclick: /* @__PURE__ */ __name(() => __async(this, null, function* () {
-              var _a2, _b2;
+            onclick: /* @__PURE__ */ __name(async () => {
               let nodesByType;
               let recreateNodes = [];
               const types = {};
               for (const g in this.modifications) {
                 const type2 = app.graph.extra.groupNodes[g];
-                let config = (_a2 = type2.config) != null ? _a2 : type2.config = {};
-                let nodeMods = (_b2 = this.modifications[g]) == null ? void 0 : _b2.nodes;
+                let config = type2.config ??= {};
+                let nodeMods = this.modifications[g]?.nodes;
                 if (nodeMods) {
                   const keys = Object.keys(nodeMods);
                   if (nodeMods[keys[0]][ORDER]) {
@@ -2451,8 +2375,7 @@ const _ManageGroupDialog = class _ManageGroupDialog extends ComfyDialog {
                 types[g] = type2;
                 if (!nodesByType) {
                   nodesByType = app.graph._nodes.reduce((p, n) => {
-                    var _a3, _b3;
-                    (_b3 = p[_a3 = n.type]) != null ? _b3 : p[_a3] = [];
+                    p[n.type] ??= [];
                     p[n.type].push(n);
                     return p;
                   }, {});
@@ -2460,14 +2383,14 @@ const _ManageGroupDialog = class _ManageGroupDialog extends ComfyDialog {
                 const nodes = nodesByType["workflow/" + g];
                 if (nodes) recreateNodes.push(...nodes);
               }
-              yield GroupNodeConfig.registerFromWorkflow(types, {});
+              await GroupNodeConfig.registerFromWorkflow(types, {});
               for (const node of recreateNodes) {
                 node.recreate();
               }
               this.modifications = {};
               this.app.graph.setDirtyCanvas(true, true);
               this.changeGroup(this.selectedGroup, false);
-            }), "onclick")
+            }, "onclick")
           },
           "Save"
         ),
@@ -2484,13 +2407,10 @@ const _ManageGroupDialog = class _ManageGroupDialog extends ComfyDialog {
     );
     this.element.showModal();
     this.element.addEventListener("close", () => {
-      var _a2;
-      (_a2 = this.draggable) == null ? void 0 : _a2.dispose();
+      this.draggable?.dispose();
     });
   }
-};
-__name(_ManageGroupDialog, "ManageGroupDialog");
-let ManageGroupDialog = _ManageGroupDialog;
+}
 window.comfyAPI = window.comfyAPI || {};
 window.comfyAPI.groupNodeManage = window.comfyAPI.groupNodeManage || {};
 window.comfyAPI.groupNodeManage.ManageGroupDialog = ManageGroupDialog;
@@ -2502,9 +2422,8 @@ const Workflow = {
     InWorkflow: 2
   },
   isInUseGroupNode(name) {
-    var _a, _b;
     const id2 = `workflow/${name}`;
-    if ((_b = (_a = app.graph.extra) == null ? void 0 : _a.groupNodes) == null ? void 0 : _b[name]) {
+    if (app.graph.extra?.groupNodes?.[name]) {
       if (app.graph._nodes.find((n) => n.type === id2)) {
         return Workflow.InUse.InWorkflow;
       } else {
@@ -2521,10 +2440,13 @@ const Workflow = {
     groupNodes[name] = data;
   }
 };
-const _GroupNodeBuilder = class _GroupNodeBuilder {
+class GroupNodeBuilder {
+  static {
+    __name(this, "GroupNodeBuilder");
+  }
+  nodes;
+  nodeData;
   constructor(nodes) {
-    __publicField(this, "nodes");
-    __publicField(this, "nodeData");
     this.nodes = nodes;
   }
   build() {
@@ -2568,16 +2490,15 @@ const _GroupNodeBuilder = class _GroupNodeBuilder {
       }
     }, "storeLinkTypes");
     const storeExternalLinks = /* @__PURE__ */ __name((config) => {
-      var _a, _b;
       config.external = [];
       for (let i = 0; i < this.nodes.length; i++) {
         const node = this.nodes[i];
-        if (!((_a = node.outputs) == null ? void 0 : _a.length)) continue;
+        if (!node.outputs?.length) continue;
         for (let slot = 0; slot < node.outputs.length; slot++) {
           let hasExternal = false;
           const output = node.outputs[slot];
           let type = output.type;
-          if (!((_b = output.links) == null ? void 0 : _b.length)) continue;
+          if (!output.links?.length) continue;
           for (const l of output.links) {
             const link = app.graph.links[l];
             if (!link) continue;
@@ -2606,30 +2527,30 @@ const _GroupNodeBuilder = class _GroupNodeBuilder {
       localStorage.setItem("litegrapheditor_clipboard", backup);
     }
   }
-};
-__name(_GroupNodeBuilder, "GroupNodeBuilder");
-let GroupNodeBuilder = _GroupNodeBuilder;
-const _GroupNodeConfig = class _GroupNodeConfig {
+}
+class GroupNodeConfig {
+  static {
+    __name(this, "GroupNodeConfig");
+  }
+  name;
+  nodeData;
+  inputCount;
+  oldToNewOutputMap;
+  newToOldOutputMap;
+  oldToNewInputMap;
+  oldToNewWidgetMap;
+  newToOldWidgetMap;
+  primitiveDefs;
+  widgetToPrimitive;
+  primitiveToWidget;
+  nodeInputs;
+  outputVisibility;
+  nodeDef;
+  inputs;
+  linksFrom;
+  linksTo;
+  externalFrom;
   constructor(name, nodeData) {
-    __publicField(this, "name");
-    __publicField(this, "nodeData");
-    __publicField(this, "inputCount");
-    __publicField(this, "oldToNewOutputMap");
-    __publicField(this, "newToOldOutputMap");
-    __publicField(this, "oldToNewInputMap");
-    __publicField(this, "oldToNewWidgetMap");
-    __publicField(this, "newToOldWidgetMap");
-    __publicField(this, "primitiveDefs");
-    __publicField(this, "widgetToPrimitive");
-    __publicField(this, "primitiveToWidget");
-    __publicField(this, "nodeInputs");
-    __publicField(this, "outputVisibility");
-    __publicField(this, "nodeDef");
-    __publicField(this, "inputs");
-    __publicField(this, "linksFrom");
-    __publicField(this, "linksTo");
-    __publicField(this, "externalFrom");
-    __privateAdd(this, _convertedToProcess, []);
     this.name = name;
     this.nodeData = nodeData;
     this.getLinks();
@@ -2645,33 +2566,31 @@ const _GroupNodeConfig = class _GroupNodeConfig {
     this.nodeInputs = {};
     this.outputVisibility = [];
   }
-  registerType(source = "workflow") {
-    return __async(this, null, function* () {
-      this.nodeDef = {
-        output: [],
-        output_name: [],
-        output_is_list: [],
-        output_is_hidden: [],
-        name: source + "/" + this.name,
-        display_name: this.name,
-        category: "group nodes" + ("/" + source),
-        input: { required: {} },
-        [GROUP]: this
-      };
-      this.inputs = [];
-      const seenInputs = {};
-      const seenOutputs = {};
-      for (let i = 0; i < this.nodeData.nodes.length; i++) {
-        const node = this.nodeData.nodes[i];
-        node.index = i;
-        this.processNode(node, seenInputs, seenOutputs);
-      }
-      for (const p of __privateGet(this, _convertedToProcess)) {
-        p();
-      }
-      __privateSet(this, _convertedToProcess, null);
-      yield app.registerNodeDef("workflow/" + this.name, this.nodeDef);
-    });
+  async registerType(source = "workflow") {
+    this.nodeDef = {
+      output: [],
+      output_name: [],
+      output_is_list: [],
+      output_is_hidden: [],
+      name: source + "/" + this.name,
+      display_name: this.name,
+      category: "group nodes" + ("/" + source),
+      input: { required: {} },
+      [GROUP]: this
+    };
+    this.inputs = [];
+    const seenInputs = {};
+    const seenOutputs = {};
+    for (let i = 0; i < this.nodeData.nodes.length; i++) {
+      const node = this.nodeData.nodes[i];
+      node.index = i;
+      this.processNode(node, seenInputs, seenOutputs);
+    }
+    for (const p of this.#convertedToProcess) {
+      p();
+    }
+    this.#convertedToProcess = null;
+    await app.registerNodeDef("workflow/" + this.name, this.nodeDef);
   }
   getLinks() {
     this.linksFrom = {};
@@ -2703,15 +2622,13 @@ const _GroupNodeConfig = class _GroupNodeConfig {
     }
   }
   processNode(node, seenInputs, seenOutputs) {
-    var _a, _b, _c;
     const def = this.getNodeDef(node);
     if (!def) return;
-    const inputs = __spreadValues(__spreadValues({}, (_a = def.input) == null ? void 0 : _a.required), (_b = def.input) == null ? void 0 : _b.optional);
+    const inputs = { ...def.input?.required, ...def.input?.optional };
     this.inputs.push(this.processNodeInputs(node, seenInputs, inputs));
-    if ((_c = def.output) == null ? void 0 : _c.length) this.processNodeOutputs(node, seenOutputs, def);
+    if (def.output?.length) this.processNodeOutputs(node, seenOutputs, def);
   }
   getNodeDef(node) {
-    var _a, _b, _c, _d, _e;
     const def = globalDefs[node.type];
     if (def) return def;
     const linksFrom = this.linksFrom[node.index];
@@ -2722,7 +2639,7 @@ const _GroupNodeConfig = class _GroupNodeConfig {
         const source = node.outputs[0].widget.name;
         const fromTypeName = this.nodeData.nodes[linksFrom["0"][0][2]].type;
         const fromType = globalDefs[fromTypeName];
-        const input = (_a = fromType.input.required[source]) != null ? _a : fromType.input.optional[source];
+        const input = fromType.input.required[source] ?? fromType.input.optional[source];
         type = input[0];
       }
       const def2 = this.primitiveDefs[node.index] = {
@@ -2738,7 +2655,7 @@ const _GroupNodeConfig = class _GroupNodeConfig {
       return def2;
     } else if (node.type === "Reroute") {
       const linksTo = this.linksTo[node.index];
-      if (linksTo && linksFrom && !((_b = this.externalFrom[node.index]) == null ? void 0 : _b[0])) {
+      if (linksTo && linksFrom && !this.externalFrom[node.index]?.[0]) {
         return null;
       }
       let config = {};
@@ -2752,7 +2669,7 @@ const _GroupNodeConfig = class _GroupNodeConfig {
           }
           if (input.widget) {
             const targetDef = globalDefs[node2.type];
-            const targetWidget = (_c = targetDef.input.required[input.widget.name]) != null ? _c : targetDef.input.optional[input.widget.name];
+            const targetWidget = targetDef.input.required[input.widget.name] ?? targetDef.input.optional[input.widget.name];
             const widget = [targetWidget[0], config];
             const res = mergeIfValid(
               {
@@ -2763,7 +2680,7 @@ const _GroupNodeConfig = class _GroupNodeConfig {
               null,
               widget
             );
-            config = (_d = res == null ? void 0 : res.customConfig) != null ? _d : config;
+            config = res?.customConfig ?? config;
           }
         }
       } else if (linksTo) {
@@ -2777,7 +2694,7 @@ const _GroupNodeConfig = class _GroupNodeConfig {
           }
         }
         if (rerouteType === "*") {
-          const t = (_e = this.externalFrom[node.index]) == null ? void 0 : _e[0];
+          const t = this.externalFrom[node.index]?.[0];
           if (t) {
             rerouteType = t;
           }
@@ -2800,45 +2717,40 @@ const _GroupNodeConfig = class _GroupNodeConfig {
     );
   }
   getInputConfig(node, inputName, seenInputs, config, extra) {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m;
-    const customConfig = (_c = (_b = (_a = this.nodeData.config) == null ? void 0 : _a[node.index]) == null ? void 0 : _b.input) == null ? void 0 : _c[inputName];
-    let name = (_g = (_f = customConfig == null ? void 0 : customConfig.name) != null ? _f : (_e = (_d = node.inputs) == null ? void 0 : _d.find((inp) => inp.name === inputName)) == null ? void 0 : _e.label) != null ? _g : inputName;
+    const customConfig = this.nodeData.config?.[node.index]?.input?.[inputName];
+    let name = customConfig?.name ?? node.inputs?.find((inp) => inp.name === inputName)?.label ?? inputName;
     let key = name;
     let prefix = "";
     if (node.type === "PrimitiveNode" && node.title || name in seenInputs) {
-      prefix = `${(_h = node.title) != null ? _h : node.type} `;
+      prefix = `${node.title ?? node.type} `;
       key = name = `${prefix}${inputName}`;
       if (name in seenInputs) {
         name = `${prefix}${seenInputs[name]} ${inputName}`;
       }
     }
-    seenInputs[key] = ((_i = seenInputs[key]) != null ? _i : 1) + 1;
+    seenInputs[key] = (seenInputs[key] ?? 1) + 1;
     if (inputName === "seed" || inputName === "noise_seed") {
       if (!extra) extra = {};
       extra.control_after_generate = `${prefix}control_after_generate`;
     }
     if (config[0] === "IMAGEUPLOAD") {
       if (!extra) extra = {};
-      extra.widget = (_m = (_l = this.oldToNewWidgetMap[node.index]) == null ? void 0 : _l[(_k = (_j = config[1]) == null ? void 0 : _j.widget) != null ? _k : "image"]) != null ? _m : "image";
+      extra.widget = this.oldToNewWidgetMap[node.index]?.[config[1]?.widget ?? "image"] ?? "image";
     }
     if (extra) {
-      config = [config[0], __spreadValues(__spreadValues({}, config[1]), extra)];
+      config = [config[0], { ...config[1], ...extra }];
     }
     return { name, config, customConfig };
   }
   processWidgetInputs(inputs, node, inputNames, seenInputs) {
-    var _a;
     const slots = [];
     const converted = /* @__PURE__ */ new Map();
     const widgetMap = this.oldToNewWidgetMap[node.index] = {};
     for (const inputName of inputNames) {
       let widgetType = app.getWidgetType(inputs[inputName], inputName);
       if (widgetType) {
-        const convertedIndex = (_a = node.inputs) == null ? void 0 : _a.findIndex(
-          (inp) => {
-            var _a2;
-            return inp.name === inputName && ((_a2 = inp.widget) == null ? void 0 : _a2.name) === inputName;
-          }
+        const convertedIndex = node.inputs?.findIndex(
+          (inp) => inp.name === inputName && inp.widget?.name === inputName
         );
         if (convertedIndex > -1) {
           converted.set(convertedIndex, inputName);
@@ -2861,7 +2773,6 @@ const _GroupNodeConfig = class _GroupNodeConfig {
     return { converted, slots };
   }
   checkPrimitiveConnection(link, inputName, inputs) {
-    var _a;
     const sourceNode = this.nodeData.nodes[link[0]];
     if (sourceNode.type === "PrimitiveNode") {
       const [sourceNodeId, _, targetNodeId, __] = link;
@@ -2876,7 +2787,7 @@ const _GroupNodeConfig = class _GroupNodeConfig {
         null,
         primitiveConfig
       );
-      primitiveConfig[1] = ((_a = config == null ? void 0 : config.customConfig) != null ? _a : inputs[inputName][1]) ? __spreadValues({}, inputs[inputName][1]) : {};
+      primitiveConfig[1] = config?.customConfig ?? inputs[inputName][1] ? { ...inputs[inputName][1] } : {};
       let name = this.oldToNewWidgetMap[sourceNodeId]["value"];
       name = name.substr(0, name.length - 6);
       primitiveConfig[1].control_after_generate = true;
@@ -2911,7 +2822,7 @@ const _GroupNodeConfig = class _GroupNodeConfig {
         inputs[inputName]
       );
       this.nodeInputs[node.index][inputName] = name;
-      if ((customConfig == null ? void 0 : customConfig.visible) === false) continue;
+      if (customConfig?.visible === false) continue;
       this.nodeDef.input.required[name] = config;
       inputMap[i] = this.inputCount++;
     }
@@ -2946,8 +2857,8 @@ const _GroupNodeConfig = class _GroupNodeConfig {
       inputMap[slots.length + i] = this.inputCount++;
     }
   }
+  #convertedToProcess = [];
   processNodeInputs(node, seenInputs, inputs) {
-    var _a;
     const inputMapping = [];
     const inputNames = Object.keys(inputs);
     if (!inputNames.length) return;
@@ -2957,10 +2868,10 @@ const _GroupNodeConfig = class _GroupNodeConfig {
       inputNames,
       seenInputs
     );
-    const linksTo = (_a = this.linksTo[node.index]) != null ? _a : {};
+    const linksTo = this.linksTo[node.index] ?? {};
     const inputMap = this.oldToNewInputMap[node.index] = {};
     this.processInputSlots(inputs, node, slots, linksTo, inputMap, seenInputs);
-    __privateGet(this, _convertedToProcess).push(
+    this.#convertedToProcess.push(
       () => this.processConvertedWidgets(
         inputs,
         node,
@@ -2974,13 +2885,12 @@ const _GroupNodeConfig = class _GroupNodeConfig {
     return inputMapping;
   }
   processNodeOutputs(node, seenOutputs, def) {
-    var _a, _b, _c, _d, _e, _f, _g, _h;
     const oldToNew = this.oldToNewOutputMap[node.index] = {};
     for (let outputId = 0; outputId < def.output.length; outputId++) {
       const linksFrom = this.linksFrom[node.index];
-      const hasLink = (linksFrom == null ? void 0 : linksFrom[outputId]) && !((_a = this.externalFrom[node.index]) == null ? void 0 : _a[outputId]);
-      const customConfig = (_d = (_c = (_b = this.nodeData.config) == null ? void 0 : _b[node.index]) == null ? void 0 : _c.output) == null ? void 0 : _d[outputId];
-      const visible = (_e = customConfig == null ? void 0 : customConfig.visible) != null ? _e : !hasLink;
+      const hasLink = linksFrom?.[outputId] && !this.externalFrom[node.index]?.[outputId];
+      const customConfig = this.nodeData.config?.[node.index]?.output?.[outputId];
+      const visible = customConfig?.visible ?? !hasLink;
       this.outputVisibility.push(visible);
       if (!visible) {
         continue;
@@ -2992,17 +2902,17 @@ const _GroupNodeConfig = class _GroupNodeConfig {
       };
       this.nodeDef.output.push(def.output[outputId]);
       this.nodeDef.output_is_list.push(def.output_is_list[outputId]);
-      let label = customConfig == null ? void 0 : customConfig.name;
+      let label = customConfig?.name;
       if (!label) {
-        label = (_g = (_f = def.output_name) == null ? void 0 : _f[outputId]) != null ? _g : def.output[outputId];
+        label = def.output_name?.[outputId] ?? def.output[outputId];
         const output = node.outputs.find((o) => o.name === label);
-        if (output == null ? void 0 : output.label) {
+        if (output?.label) {
           label = output.label;
         }
       }
       let name = label;
       if (name in seenOutputs) {
-        const prefix = `${(_h = node.title) != null ? _h : node.type} `;
+        const prefix = `${node.title ?? node.type} `;
         name = `${prefix}${label}`;
         if (name in seenOutputs) {
           name = `${prefix}${node.index} ${label}`;
@@ -3012,96 +2922,91 @@ const _GroupNodeConfig = class _GroupNodeConfig {
       this.nodeDef.output_name.push(name);
     }
   }
-  static registerFromWorkflow(groupNodes, missingNodeTypes) {
-    return __async(this, null, function* () {
-      const clean = app.clean;
-      app.clean = function() {
-        for (const g in groupNodes) {
-          try {
-            LiteGraph.unregisterNodeType("workflow/" + g);
-          } catch (error) {
-          }
-        }
-        app.clean = clean;
-      };
+  static async registerFromWorkflow(groupNodes, missingNodeTypes) {
+    const clean = app.clean;
+    app.clean = function() {
       for (const g in groupNodes) {
-        const groupData = groupNodes[g];
-        let hasMissing = false;
-        for (const n of groupData.nodes) {
-          if (!(n.type in LiteGraph.registered_node_types)) {
-            missingNodeTypes.push({
-              type: n.type,
-              hint: ` (In group node 'workflow/${g}')`
-            });
-            missingNodeTypes.push({
-              type: "workflow/" + g,
-              action: {
-                text: "Remove from workflow",
-                callback: /* @__PURE__ */ __name((e) => {
-                  delete groupNodes[g];
-                  e.target.textContent = "Removed";
-                  e.target.style.pointerEvents = "none";
-                  e.target.style.opacity = 0.7;
-                }, "callback")
-              }
-            });
-            hasMissing = true;
-          }
+        try {
+          LiteGraph.unregisterNodeType("workflow/" + g);
+        } catch (error) {
         }
-        if (hasMissing) continue;
-        const config = new _GroupNodeConfig(g, groupData);
-        yield config.registerType();
       }
-    });
+      app.clean = clean;
+    };
+    for (const g in groupNodes) {
+      const groupData = groupNodes[g];
+      let hasMissing = false;
+      for (const n of groupData.nodes) {
+        if (!(n.type in LiteGraph.registered_node_types)) {
+          missingNodeTypes.push({
+            type: n.type,
+            hint: ` (In group node 'workflow/${g}')`
+          });
+          missingNodeTypes.push({
+            type: "workflow/" + g,
+            action: {
+              text: "Remove from workflow",
+              callback: /* @__PURE__ */ __name((e) => {
+                delete groupNodes[g];
+                e.target.textContent = "Removed";
+                e.target.style.pointerEvents = "none";
+                e.target.style.opacity = 0.7;
+              }, "callback")
+            }
+          });
+          hasMissing = true;
+        }
+      }
+      if (hasMissing) continue;
+      const config = new GroupNodeConfig(g, groupData);
+      await config.registerType();
+    }
   }
-};
-_convertedToProcess = new WeakMap();
-__name(_GroupNodeConfig, "GroupNodeConfig");
-let GroupNodeConfig = _GroupNodeConfig;
-const _GroupNodeHandler = class _GroupNodeHandler {
+}
+class GroupNodeHandler {
+  static {
+    __name(this, "GroupNodeHandler");
+  }
+  node;
+  groupData;
+  innerNodes;
   constructor(node) {
-    __publicField(this, "node");
-    __publicField(this, "groupData");
-    __publicField(this, "innerNodes");
-    var _a, _b;
     this.node = node;
-    this.groupData = (_b = (_a = node.constructor) == null ? void 0 : _a.nodeData) == null ? void 0 : _b[GROUP];
+    this.groupData = node.constructor?.nodeData?.[GROUP];
     this.node.setInnerNodes = (innerNodes) => {
-      var _a2;
       this.innerNodes = innerNodes;
       for (let innerNodeIndex = 0; innerNodeIndex < this.innerNodes.length; innerNodeIndex++) {
         const innerNode = this.innerNodes[innerNodeIndex];
-        for (const w of (_a2 = innerNode.widgets) != null ? _a2 : []) {
+        for (const w of innerNode.widgets ?? []) {
           if (w.type === "converted-widget") {
             w.serializeValue = w.origSerializeValue;
           }
         }
         innerNode.index = innerNodeIndex;
         innerNode.getInputNode = (slot) => {
-          var _a3, _b2;
-          const externalSlot = (_a3 = this.groupData.oldToNewInputMap[innerNode.index]) == null ? void 0 : _a3[slot];
+          const externalSlot = this.groupData.oldToNewInputMap[innerNode.index]?.[slot];
           if (externalSlot != null) {
             return this.node.getInputNode(externalSlot);
           }
-          const innerLink = (_b2 = this.groupData.linksTo[innerNode.index]) == null ? void 0 : _b2[slot];
+          const innerLink = this.groupData.linksTo[innerNode.index]?.[slot];
           if (!innerLink) return null;
           const inputNode = innerNodes[innerLink[0]];
           if (inputNode.type === "PrimitiveNode") return null;
           return inputNode;
         };
         innerNode.getInputLink = (slot) => {
-          var _a3, _b2;
-          const externalSlot = (_a3 = this.groupData.oldToNewInputMap[innerNode.index]) == null ? void 0 : _a3[slot];
+          const externalSlot = this.groupData.oldToNewInputMap[innerNode.index]?.[slot];
           if (externalSlot != null) {
             const linkId = this.node.inputs[externalSlot].link;
             let link2 = app.graph.links[linkId];
-            link2 = __spreadProps(__spreadValues({}, link2), {
+            link2 = {
+              ...link2,
               target_id: innerNode.id,
               target_slot: +slot
-            });
+            };
             return link2;
           }
-          let link = (_b2 = this.groupData.linksTo[innerNode.index]) == null ? void 0 : _b2[slot];
+          let link = this.groupData.linksTo[innerNode.index]?.[slot];
           if (!link) return null;
           link = {
             origin_id: innerNodes[link[0]].id,
@@ -3114,23 +3019,22 @@ const _GroupNodeHandler = class _GroupNodeHandler {
       }
     };
     this.node.updateLink = (link) => {
-      var _a2;
-      link = __spreadValues({}, link);
+      link = { ...link };
       const output = this.groupData.newToOldOutputMap[link.origin_slot];
       let innerNode = this.innerNodes[output.node.index];
       let l;
-      while ((innerNode == null ? void 0 : innerNode.type) === "Reroute") {
+      while (innerNode?.type === "Reroute") {
         l = innerNode.getInputLink(0);
         innerNode = innerNode.getInputNode(0);
       }
       if (!innerNode) {
         return null;
       }
-      if (l && _GroupNodeHandler.isGroupNode(innerNode)) {
+      if (l && GroupNodeHandler.isGroupNode(innerNode)) {
         return innerNode.updateLink(l);
       }
       link.origin_id = innerNode.id;
-      link.origin_slot = (_a2 = l == null ? void 0 : l.origin_slot) != null ? _a2 : output.slot;
+      link.origin_slot = l?.origin_slot ?? output.slot;
       return link;
     };
     this.node.getInnerNodes = () => {
@@ -3147,7 +3051,7 @@ const _GroupNodeHandler = class _GroupNodeHandler {
       this.updateInnerWidgets();
       return this.innerNodes;
     };
-    this.node.recreate = () => __async(this, null, function* () {
+    this.node.recreate = async () => {
       const id2 = this.node.id;
       const sz = this.node.size;
       const nodes = this.node.convertToNodes();
@@ -3162,23 +3066,22 @@ const _GroupNodeHandler = class _GroupNodeHandler {
       ];
       groupNode[GROUP].replaceNodes(nodes);
       return groupNode;
-    });
+    };
     this.node.convertToNodes = () => {
       const addInnerNodes = /* @__PURE__ */ __name(() => {
-        var _a2, _b2;
         const backup = localStorage.getItem("litegrapheditor_clipboard");
-        const c = __spreadValues({}, this.groupData.nodeData);
+        const c = { ...this.groupData.nodeData };
         c.nodes = [...c.nodes];
         const innerNodes = this.node.getInnerNodes();
         let ids = [];
         for (let i = 0; i < c.nodes.length; i++) {
-          let id2 = (_a2 = innerNodes == null ? void 0 : innerNodes[i]) == null ? void 0 : _a2.id;
+          let id2 = innerNodes?.[i]?.id;
           if (id2 == null || isNaN(id2)) {
             id2 = void 0;
           } else {
             ids.push(id2);
           }
-          c.nodes[i] = __spreadProps(__spreadValues({}, c.nodes[i]), { id: id2 });
+          c.nodes[i] = { ...c.nodes[i], id: id2 };
         }
         localStorage.setItem("litegrapheditor_clipboard", JSON.stringify(c));
         app.canvas.pasteFromClipboard();
@@ -3221,7 +3124,7 @@ const _GroupNodeHandler = class _GroupNodeHandler {
                 );
                 if (!newWidget) continue;
                 newWidget.value = outerWidget.value;
-                for (let w = 0; w < ((_b2 = outerWidget.linkedWidgets) == null ? void 0 : _b2.length); w++) {
+                for (let w = 0; w < outerWidget.linkedWidgets?.length; w++) {
                   newWidget.linkedWidgets[w].value = outerWidget.linkedWidgets[w].value;
                 }
               }
@@ -3254,8 +3157,7 @@ const _GroupNodeHandler = class _GroupNodeHandler {
         }
       }, "reconnectInputs");
       const reconnectOutputs = /* @__PURE__ */ __name((selectedIds2) => {
-        var _a2;
-        for (let groupOutputId = 0; groupOutputId < ((_a2 = node.outputs) == null ? void 0 : _a2.length); groupOutputId++) {
+        for (let groupOutputId = 0; groupOutputId < node.outputs?.length; groupOutputId++) {
           const output = node.outputs[groupOutputId];
           if (!output.links) continue;
           const links = [...output.links];
@@ -3276,7 +3178,7 @@ const _GroupNodeHandler = class _GroupNodeHandler {
     };
     const getExtraMenuOptions = this.node.getExtraMenuOptions;
     this.node.getExtraMenuOptions = function(_, options) {
-      getExtraMenuOptions == null ? void 0 : getExtraMenuOptions.apply(this, arguments);
+      getExtraMenuOptions?.apply(this, arguments);
       let optionIndex = options.findIndex((o) => o.content === "Outputs");
       if (optionIndex === -1) optionIndex = options.length;
       else optionIndex++;
@@ -3300,7 +3202,7 @@ const _GroupNodeHandler = class _GroupNodeHandler {
     };
     const onDrawTitleBox = this.node.onDrawTitleBox;
     this.node.onDrawTitleBox = function(ctx, height, size, scale) {
-      onDrawTitleBox == null ? void 0 : onDrawTitleBox.apply(this, arguments);
+      onDrawTitleBox?.apply(this, arguments);
       const fill = ctx.fillStyle;
       ctx.beginPath();
       ctx.rect(11, -height + 11, 2, 2);
@@ -3319,8 +3221,7 @@ const _GroupNodeHandler = class _GroupNodeHandler {
     const onDrawForeground = node.onDrawForeground;
     const groupData = this.groupData.nodeData;
     node.onDrawForeground = function(ctx) {
-      var _a2;
-      const r = (_a2 = onDrawForeground == null ? void 0 : onDrawForeground.apply) == null ? void 0 : _a2.call(onDrawForeground, this, arguments);
+      const r = onDrawForeground?.apply?.(this, arguments);
       if (+app.runningNodeId === this.id && this.runningInternalNodeId !== null) {
         const n = groupData.nodes[this.runningInternalNodeId];
         if (!n) return;
@@ -3346,19 +3247,18 @@ const _GroupNodeHandler = class _GroupNodeHandler {
     const onExecutionStart = this.node.onExecutionStart;
     this.node.onExecutionStart = function() {
       this.resetExecution = true;
-      return onExecutionStart == null ? void 0 : onExecutionStart.apply(this, arguments);
+      return onExecutionStart?.apply(this, arguments);
     };
     const self = this;
     const onNodeCreated = this.node.onNodeCreated;
     this.node.onNodeCreated = function() {
-      var _a2;
       if (!this.widgets) {
         return;
       }
       const config = self.groupData.nodeData.config;
       if (config) {
         for (const n in config) {
-          const inputs = (_a2 = config[n]) == null ? void 0 : _a2.input;
+          const inputs = config[n]?.input;
           for (const w in inputs) {
             if (inputs[w].visible !== false) continue;
             const widgetName = self.groupData.oldToNewWidgetMap[n][w];
@@ -3370,16 +3270,15 @@ const _GroupNodeHandler = class _GroupNodeHandler {
           }
         }
       }
-      return onNodeCreated == null ? void 0 : onNodeCreated.apply(this, arguments);
+      return onNodeCreated?.apply(this, arguments);
     };
     function handleEvent(type, getId, getEvent) {
       const handler = /* @__PURE__ */ __name(({ detail }) => {
-        var _a2;
         const id2 = getId(detail);
         if (!id2) return;
         const node2 = app.graph.getNodeById(id2);
         if (node2) return;
-        const innerNodeIndex = (_a2 = this.innerNodes) == null ? void 0 : _a2.findIndex((n) => n.id == id2);
+        const innerNodeIndex = this.innerNodes?.findIndex((n) => n.id == id2);
         if (innerNodeIndex > -1) {
           this.node.runningInternalNodeId = innerNodeIndex;
           api.dispatchEvent(
@@ -3402,8 +3301,9 @@ const _GroupNodeHandler = class _GroupNodeHandler {
     const executed = handleEvent.call(
       this,
       "executed",
-      (d) => (d == null ? void 0 : d.display_node) || (d == null ? void 0 : d.node),
-      (d, id2, node2) => __spreadProps(__spreadValues({}, d), {
+      (d) => d?.display_node || d?.node,
+      (d, id2, node2) => ({
+        ...d,
         node: id2,
         display_node: id2,
         merge: !node2.resetExecution
@@ -3411,18 +3311,17 @@ const _GroupNodeHandler = class _GroupNodeHandler {
     );
     const onRemoved = node.onRemoved;
     this.node.onRemoved = function() {
-      onRemoved == null ? void 0 : onRemoved.apply(this, arguments);
+      onRemoved?.apply(this, arguments);
       api.removeEventListener("executing", executing);
       api.removeEventListener("executed", executed);
     };
     this.node.refreshComboInNode = (defs) => {
-      var _a2, _b2, _c, _d, _e;
       for (const widgetName in this.groupData.newToOldWidgetMap) {
         const widget = this.node.widgets.find((w) => w.name === widgetName);
-        if ((widget == null ? void 0 : widget.type) === "combo") {
+        if (widget?.type === "combo") {
           const old = this.groupData.newToOldWidgetMap[widgetName];
           const def = defs[old.node.type];
-          const input = (_e = (_b2 = (_a2 = def == null ? void 0 : def.input) == null ? void 0 : _a2.required) == null ? void 0 : _b2[old.inputName]) != null ? _e : (_d = (_c = def == null ? void 0 : def.input) == null ? void 0 : _c.optional) == null ? void 0 : _d[old.inputName];
+          const input = def?.input?.required?.[old.inputName] ?? def?.input?.optional?.[old.inputName];
           if (!input) continue;
           widget.options.values = input[0];
           if (old.inputName !== "image" && !widget.options.values.includes(widget.value)) {
@@ -3434,7 +3333,6 @@ const _GroupNodeHandler = class _GroupNodeHandler {
     };
   }
   updateInnerWidgets() {
-    var _a, _b;
     for (const newWidgetName in this.groupData.newToOldWidgetMap) {
       const newWidget = this.node.widgets.find((w) => w.name === newWidgetName);
       if (!newWidget) continue;
@@ -3444,7 +3342,7 @@ const _GroupNodeHandler = class _GroupNodeHandler {
       if (innerNode.type === "PrimitiveNode") {
         innerNode.primitiveValue = newValue;
         const primitiveLinked = this.groupData.primitiveToWidget[old.node.index];
-        for (const linked of primitiveLinked != null ? primitiveLinked : []) {
+        for (const linked of primitiveLinked ?? []) {
           const node = this.innerNodes[linked.nodeId];
           const widget2 = node.widgets.find((w) => w.name === linked.inputName);
           if (widget2) {
@@ -3459,7 +3357,7 @@ const _GroupNodeHandler = class _GroupNodeHandler {
             const node = this.innerNodes[targetNodeId];
             const input = node.inputs[targetSlot];
             if (input.widget) {
-              const widget2 = (_a = node.widgets) == null ? void 0 : _a.find(
+              const widget2 = node.widgets?.find(
                 (w) => w.name === input.widget.name
               );
               if (widget2) {
@@ -3469,15 +3367,14 @@ const _GroupNodeHandler = class _GroupNodeHandler {
           }
         }
       }
-      const widget = (_b = innerNode.widgets) == null ? void 0 : _b.find((w) => w.name === old.inputName);
+      const widget = innerNode.widgets?.find((w) => w.name === old.inputName);
       if (widget) {
         widget.value = newValue;
       }
     }
   }
   populatePrimitive(node, nodeId, oldName, i, linkedShift) {
-    var _a, _b;
-    const primitiveId = (_a = this.groupData.widgetToPrimitive[nodeId]) == null ? void 0 : _a[oldName];
+    const primitiveId = this.groupData.widgetToPrimitive[nodeId]?.[oldName];
     if (primitiveId == null) return;
     const targetWidgetName = this.groupData.oldToNewWidgetMap[primitiveId]["value"];
     const targetWidgetIndex = this.node.widgets.findIndex(
@@ -3486,7 +3383,7 @@ const _GroupNodeHandler = class _GroupNodeHandler {
     if (targetWidgetIndex > -1) {
       const primitiveNode = this.innerNodes[primitiveId];
       let len = primitiveNode.widgets.length;
-      if (len - 1 !== ((_b = this.node.widgets[targetWidgetIndex].linkedWidgets) == null ? void 0 : _b.length)) {
+      if (len - 1 !== this.node.widgets[targetWidgetIndex].linkedWidgets?.length) {
         len = 1;
       }
       for (let i2 = 0; i2 < len; i2++) {
@@ -3496,17 +3393,16 @@ const _GroupNodeHandler = class _GroupNodeHandler {
     return true;
   }
   populateReroute(node, nodeId, map) {
-    var _a, _b, _c, _d, _e, _f;
     if (node.type !== "Reroute") return;
-    const link = (_b = (_a = this.groupData.linksFrom[nodeId]) == null ? void 0 : _a[0]) == null ? void 0 : _b[0];
+    const link = this.groupData.linksFrom[nodeId]?.[0]?.[0];
     if (!link) return;
     const [, , targetNodeId, targetNodeSlot] = link;
     const targetNode = this.groupData.nodeData.nodes[targetNodeId];
     const inputs = targetNode.inputs;
-    const targetWidget = (_c = inputs == null ? void 0 : inputs[targetNodeSlot]) == null ? void 0 : _c.widget;
+    const targetWidget = inputs?.[targetNodeSlot]?.widget;
     if (!targetWidget) return;
-    const offset = inputs.length - ((_e = (_d = targetNode.widgets_values) == null ? void 0 : _d.length) != null ? _e : 0);
-    const v = (_f = targetNode.widgets_values) == null ? void 0 : _f[targetNodeSlot - offset];
+    const offset = inputs.length - (targetNode.widgets_values?.length ?? 0);
+    const v = targetNode.widgets_values?.[targetNodeSlot - offset];
     if (v == null) return;
     const widgetName = Object.values(map)[0];
     const widget = this.node.widgets.find((w) => w.name === widgetName);
@@ -3515,13 +3411,12 @@ const _GroupNodeHandler = class _GroupNodeHandler {
     }
   }
   populateWidgets() {
-    var _a, _b, _c, _d, _e, _f;
     if (!this.node.widgets) return;
     for (let nodeId = 0; nodeId < this.groupData.nodeData.nodes.length; nodeId++) {
       const node = this.groupData.nodeData.nodes[nodeId];
-      const map = (_a = this.groupData.oldToNewWidgetMap[nodeId]) != null ? _a : {};
+      const map = this.groupData.oldToNewWidgetMap[nodeId] ?? {};
       const widgets = Object.keys(map);
-      if (!((_b = node.widgets_values) == null ? void 0 : _b.length)) {
+      if (!node.widgets_values?.length) {
         this.populateReroute(node, nodeId, map);
         continue;
       }
@@ -3534,16 +3429,16 @@ const _GroupNodeHandler = class _GroupNodeHandler {
         );
         const mainWidget = this.node.widgets[widgetIndex];
         if (this.populatePrimitive(node, nodeId, oldName, i, linkedShift) || widgetIndex === -1) {
-          const innerWidget = (_c = this.innerNodes[nodeId].widgets) == null ? void 0 : _c.find(
+          const innerWidget = this.innerNodes[nodeId].widgets?.find(
             (w) => w.name === oldName
           );
-          linkedShift += (_e = (_d = innerWidget == null ? void 0 : innerWidget.linkedWidgets) == null ? void 0 : _d.length) != null ? _e : 0;
+          linkedShift += innerWidget?.linkedWidgets?.length ?? 0;
         }
         if (widgetIndex === -1) {
           continue;
         }
         mainWidget.value = node.widgets_values[i + linkedShift];
-        for (let w = 0; w < ((_f = mainWidget.linkedWidgets) == null ? void 0 : _f.length); w++) {
+        for (let w = 0; w < mainWidget.linkedWidgets?.length; w++) {
           this.node.widgets[widgetIndex + w + 1].value = node.widgets_values[i + ++linkedShift];
         }
       }
@@ -3567,7 +3462,6 @@ const _GroupNodeHandler = class _GroupNodeHandler {
     this.node.pos = [left, top];
   }
   linkOutputs(originalNode, nodeId) {
-    var _a;
     if (!originalNode.outputs) return;
     for (const output of originalNode.outputs) {
       if (!output.links) continue;
@@ -3576,7 +3470,7 @@ const _GroupNodeHandler = class _GroupNodeHandler {
         const link = app.graph.links[l];
         if (!link) continue;
         const targetNode = app.graph.getNodeById(link.target_id);
-        const newSlot = (_a = this.groupData.oldToNewOutputMap[nodeId]) == null ? void 0 : _a[link.origin_slot];
+        const newSlot = this.groupData.oldToNewOutputMap[nodeId]?.[link.origin_slot];
         if (newSlot != null) {
           this.node.connect(newSlot, targetNode, link.target_slot);
         }
@@ -3584,8 +3478,7 @@ const _GroupNodeHandler = class _GroupNodeHandler {
     }
   }
   linkInputs() {
-    var _a;
-    for (const link of (_a = this.groupData.nodeData.links) != null ? _a : []) {
+    for (const link of this.groupData.nodeData.links ?? []) {
       const [, originSlot, targetId, targetSlot, actualOriginId] = link;
       const originNode = app.graph.getNodeById(actualOriginId);
       if (!originNode) continue;
@@ -3597,49 +3490,41 @@ const _GroupNodeHandler = class _GroupNodeHandler {
     }
   }
   static getGroupData(node) {
-    var _a, _b, _c;
-    return (_c = (_b = node.nodeData) != null ? _b : (_a = node.constructor) == null ? void 0 : _a.nodeData) == null ? void 0 : _c[GROUP];
+    return (node.nodeData ?? node.constructor?.nodeData)?.[GROUP];
   }
   static isGroupNode(node) {
-    var _a, _b;
-    return !!((_b = (_a = node.constructor) == null ? void 0 : _a.nodeData) == null ? void 0 : _b[GROUP]);
+    return !!node.constructor?.nodeData?.[GROUP];
   }
-  static fromNodes(nodes) {
-    return __async(this, null, function* () {
-      const builder = new GroupNodeBuilder(nodes);
-      const res = builder.build();
-      if (!res) return;
-      const { name, nodeData } = res;
-      const config = new GroupNodeConfig(name, nodeData);
-      yield config.registerType();
-      const groupNode = LiteGraph.createNode(`workflow/${name}`);
-      groupNode.setInnerNodes(builder.nodes);
-      groupNode[GROUP].populateWidgets();
-      app.graph.add(groupNode);
-      groupNode[GROUP].replaceNodes(builder.nodes);
-      return groupNode;
-    });
+  static async fromNodes(nodes) {
+    const builder = new GroupNodeBuilder(nodes);
+    const res = builder.build();
+    if (!res) return;
+    const { name, nodeData } = res;
+    const config = new GroupNodeConfig(name, nodeData);
+    await config.registerType();
+    const groupNode = LiteGraph.createNode(`workflow/${name}`);
+    groupNode.setInnerNodes(builder.nodes);
+    groupNode[GROUP].populateWidgets();
+    app.graph.add(groupNode);
+    groupNode[GROUP].replaceNodes(builder.nodes);
+    return groupNode;
   }
-};
-__name(_GroupNodeHandler, "GroupNodeHandler");
-let GroupNodeHandler = _GroupNodeHandler;
+}
 function addConvertToGroupOptions() {
   function addConvertOption(options, index) {
-    var _a;
-    const selected = Object.values((_a = app.canvas.selected_nodes) != null ? _a : {});
+    const selected = Object.values(app.canvas.selected_nodes ?? {});
     const disabled = selected.length < 2 || selected.find((n) => GroupNodeHandler.isGroupNode(n));
     options.splice(index + 1, null, {
       content: `Convert to Group Node`,
       disabled,
-      callback: /* @__PURE__ */ __name(() => __async(this, null, function* () {
-        return yield GroupNodeHandler.fromNodes(selected);
-      }), "callback")
+      callback: /* @__PURE__ */ __name(async () => {
+        return await GroupNodeHandler.fromNodes(selected);
+      }, "callback")
     });
   }
   __name(addConvertOption, "addConvertOption");
   function addManageOption(options, index) {
-    var _a;
-    const groups = (_a = app.graph.extra) == null ? void 0 : _a.groupNodes;
+    const groups = app.graph.extra?.groupNodes;
     const disabled = !groups || !Object.keys(groups).length;
     options.splice(index + 1, null, {
       content: `Manage Group Nodes`,
@@ -3653,7 +3538,7 @@ function addConvertToGroupOptions() {
   const getCanvasMenuOptions = LGraphCanvas.prototype.getCanvasMenuOptions;
   LGraphCanvas.prototype.getCanvasMenuOptions = function() {
     const options = getCanvasMenuOptions.apply(this, arguments);
-    const index = options.findIndex((o) => (o == null ? void 0 : o.content) === "Add Group") + 1 || options.length;
+    const index = options.findIndex((o) => o?.content === "Add Group") + 1 || options.length;
     addConvertOption(options, index);
     addManageOption(options, index + 1);
     return options;
@@ -3662,7 +3547,7 @@ function addConvertToGroupOptions() {
   LGraphCanvas.prototype.getNodeMenuOptions = function(node) {
     const options = getNodeMenuOptions.apply(this, arguments);
     if (!GroupNodeHandler.isGroupNode(node)) {
-      const index = options.findIndex((o) => (o == null ? void 0 : o.content) === "Outputs") + 1 || options.length - 1;
+      const index = options.findIndex((o) => o?.content === "Outputs") + 1 || options.length - 1;
       addConvertOption(options, index);
     }
     return options;
@@ -3676,14 +3561,11 @@ const ext$1 = {
   setup() {
     addConvertToGroupOptions();
   },
-  beforeConfigureGraph(graphData, missingNodeTypes) {
-    return __async(this, null, function* () {
-      var _a;
-      const nodes = (_a = graphData == null ? void 0 : graphData.extra) == null ? void 0 : _a.groupNodes;
-      if (nodes) {
-        yield GroupNodeConfig.registerFromWorkflow(nodes, missingNodeTypes);
-      }
-    });
+  async beforeConfigureGraph(graphData, missingNodeTypes) {
+    const nodes = graphData?.extra?.groupNodes;
+    if (nodes) {
+      await GroupNodeConfig.registerFromWorkflow(nodes, missingNodeTypes);
+    }
   },
   addCustomNodeDefs(defs) {
     globalDefs = defs;
@@ -3693,15 +3575,12 @@ const ext$1 = {
       node[GROUP] = new GroupNodeHandler(node);
     }
   },
-  refreshComboInNodes(defs) {
-    return __async(this, null, function* () {
-      var _a;
-      Object.assign(globalDefs, defs);
-      const nodes = (_a = app.graph.extra) == null ? void 0 : _a.groupNodes;
-      if (nodes) {
-        yield GroupNodeConfig.registerFromWorkflow(nodes, {});
-      }
-    });
+  async refreshComboInNodes(defs) {
+    Object.assign(globalDefs, defs);
+    const nodes = app.graph.extra?.groupNodes;
+    if (nodes) {
+      await GroupNodeConfig.registerFromWorkflow(nodes, {});
+    }
   }
 };
 app.registerExtension(ext$1);
@@ -3715,7 +3594,6 @@ function setNodeMode(node, mode) {
 }
 __name(setNodeMode, "setNodeMode");
 function addNodesToGroup(group, nodes = []) {
-  var _a;
   var x1, y1, x2, y2;
   var nx1, ny1, nx2, ny2;
   var node;
@@ -3731,9 +3609,9 @@ function addNodesToGroup(group, nodes = []) {
       if (node.type != "Reroute") {
         ny1 -= LiteGraph.NODE_TITLE_HEIGHT;
       }
-      if ((_a = node.flags) == null ? void 0 : _a.collapsed) {
+      if (node.flags?.collapsed) {
         ny2 = ny1 + LiteGraph.NODE_TITLE_HEIGHT;
-        if (node == null ? void 0 : node._collapsed_width) {
+        if (node?._collapsed_width) {
           nx2 = nx1 + Math.round(node._collapsed_width);
         }
       }
@@ -3967,67 +3845,66 @@ app.registerExtension({
 app.registerExtension({
   name: "Comfy.Keybinds",
   init() {
-    const keybindListener = /* @__PURE__ */ __name(function(event) {
-      return __async(this, null, function* () {
-        const modifierPressed = event.ctrlKey || event.metaKey;
-        if (modifierPressed && event.key === "Enter") {
-          if (event.altKey) {
-            yield api.interrupt();
-            useToastStore().add({
-              severity: "info",
-              summary: "Interrupted",
-              detail: "Execution has been interrupted",
-              life: 1e3
-            });
-            return;
-          }
-          app.queuePrompt(event.shiftKey ? -1 : 0).then();
-          return;
-        }
-        const target = event.composedPath()[0];
-        if (["INPUT", "TEXTAREA"].includes(target.tagName)) {
-          return;
-        }
-        const modifierKeyIdMap = {
-          s: "#comfy-save-button",
-          o: "#comfy-file-input",
-          Backspace: "#comfy-clear-button",
-          d: "#comfy-load-default-button"
-        };
-        const modifierKeybindId = modifierKeyIdMap[event.key];
-        if (modifierPressed && modifierKeybindId) {
-          event.preventDefault();
-          const elem = document.querySelector(modifierKeybindId);
-          elem.click();
-          return;
-        }
-        if (event.ctrlKey || event.altKey || event.metaKey) {
-          return;
-        }
-        if (event.key === "Escape") {
-          const modals = document.querySelectorAll(".comfy-modal");
-          const modal = Array.from(modals).find(
-            (modal2) => window.getComputedStyle(modal2).getPropertyValue("display") !== "none"
-          );
-          if (modal) {
-            modal.style.display = "none";
-          }
-          ;
-          [...document.querySelectorAll("dialog")].forEach((d) => {
-            d.close();
+    const keybindListener = /* @__PURE__ */ __name(async function(event) {
+      const modifierPressed = event.ctrlKey || event.metaKey;
+      if (modifierPressed && event.key === "Enter") {
+        if (event.altKey) {
+          await api.interrupt();
+          useToastStore().add({
+            severity: "info",
+            summary: "Interrupted",
+            detail: "Execution has been interrupted",
+            life: 1e3
           });
+          return;
         }
-        const keyIdMap = {
-          q: ".queue-tab-button.side-bar-button",
-          h: ".queue-tab-button.side-bar-button",
-          r: "#comfy-refresh-button"
-        };
-        const buttonId = keyIdMap[event.key];
-        if (buttonId) {
-          const button = document.querySelector(buttonId);
-          button.click();
+        app.queuePrompt(event.shiftKey ? -1 : 0).then();
+        return;
+      }
+      const target = event.composedPath()[0];
+      if (target.tagName === "TEXTAREA" || target.tagName === "INPUT" || target.tagName === "SPAN" && target.classList.contains("property_value")) {
+        return;
+      }
+      const modifierKeyIdMap = {
+        s: "#comfy-save-button",
+        o: "#comfy-file-input",
+        Backspace: "#comfy-clear-button",
+        d: "#comfy-load-default-button",
+        g: "#comfy-group-selected-nodes-button"
+      };
+      const modifierKeybindId = modifierKeyIdMap[event.key];
+      if (modifierPressed && modifierKeybindId) {
+        event.preventDefault();
+        const elem = document.querySelector(modifierKeybindId);
+        elem.click();
+        return;
+      }
+      if (event.ctrlKey || event.altKey || event.metaKey) {
+        return;
+      }
+      if (event.key === "Escape") {
+        const modals = document.querySelectorAll(".comfy-modal");
+        const modal = Array.from(modals).find(
+          (modal2) => window.getComputedStyle(modal2).getPropertyValue("display") !== "none"
+        );
+        if (modal) {
+          modal.style.display = "none";
         }
-      });
+        ;
+        [...document.querySelectorAll("dialog")].forEach((d) => {
+          d.close();
+        });
+      }
+      const keyIdMap = {
+        q: ".queue-tab-button.side-bar-button",
+        h: ".queue-tab-button.side-bar-button",
+        r: "#comfy-refresh-button"
+      };
+      const buttonId = keyIdMap[event.key];
+      if (buttonId) {
+        const button = document.querySelector(buttonId);
+        button.click();
+      }
     }, "keybindListener");
     window.addEventListener("keydown", keybindListener, true);
   }
@@ -4035,25 +3912,23 @@ app.registerExtension({
 const id$1 = "Comfy.LinkRenderMode";
 const ext = {
   name: id$1,
-  setup(app2) {
-    return __async(this, null, function* () {
-      app2.ui.settings.addSetting({
-        id: id$1,
-        category: ["Comfy", "Graph", "LinkRenderMode"],
-        name: "Link Render Mode",
-        defaultValue: 2,
-        type: "combo",
-        // @ts-expect-error
-        options: [...LiteGraph.LINK_RENDER_MODES, "Hidden"].map((m, i) => ({
-          value: i,
-          text: m,
-          selected: i == app2.canvas.links_render_mode
-        })),
-        onChange(value) {
-          app2.canvas.links_render_mode = +value;
-          app2.graph.setDirtyCanvas(true);
-        }
-      });
+  async setup(app2) {
+    app2.ui.settings.addSetting({
+      id: id$1,
+      category: ["Comfy", "Graph", "LinkRenderMode"],
+      name: "Link Render Mode",
+      defaultValue: 2,
+      type: "combo",
+      // @ts-expect-error
+      options: [...LiteGraph.LINK_RENDER_MODES, "Hidden"].map((m, i) => ({
+        value: i,
+        text: m,
+        selected: i == app2.canvas.links_render_mode
+      })),
+      onChange(value) {
+        app2.canvas.links_render_mode = +value;
+        app2.graph.setDirtyCanvas(true);
+      }
     });
   }
 };
@@ -4091,23 +3966,21 @@ function loadImage(imagePath) {
   });
 }
 __name(loadImage, "loadImage");
-function uploadMask(filepath, formData) {
-  return __async(this, null, function* () {
-    yield api.fetchApi("/upload/mask", {
-      method: "POST",
-      body: formData
-    }).then((response) => {
-    }).catch((error) => {
-      console.error("Error:", error);
-    });
-    ComfyApp.clipspace.imgs[ComfyApp.clipspace["selectedIndex"]] = new Image();
-    ComfyApp.clipspace.imgs[ComfyApp.clipspace["selectedIndex"]].src = api.apiURL(
-      "/view?" + new URLSearchParams(filepath).toString() + app.getPreviewFormatParam() + app.getRandParam()
-    );
-    if (ComfyApp.clipspace.images)
-      ComfyApp.clipspace.images[ComfyApp.clipspace["selectedIndex"]] = filepath;
-    ClipspaceDialog.invalidatePreview();
+async function uploadMask(filepath, formData) {
+  await api.fetchApi("/upload/mask", {
+    method: "POST",
+    body: formData
+  }).then((response) => {
+  }).catch((error) => {
+    console.error("Error:", error);
   });
+  ComfyApp.clipspace.imgs[ComfyApp.clipspace["selectedIndex"]] = new Image();
+  ComfyApp.clipspace.imgs[ComfyApp.clipspace["selectedIndex"]].src = api.apiURL(
+    "/view?" + new URLSearchParams(filepath).toString() + app.getPreviewFormatParam() + app.getRandParam()
+  );
+  if (ComfyApp.clipspace.images)
+    ComfyApp.clipspace.images[ComfyApp.clipspace["selectedIndex"]] = filepath;
+  ClipspaceDialog.invalidatePreview();
 }
 __name(uploadMask, "uploadMask");
 function prepare_mask(image, maskCanvas, maskCtx, maskColor) {
@@ -4129,47 +4002,46 @@ function prepare_mask(image, maskCanvas, maskCtx, maskColor) {
   maskCtx.putImageData(maskData, 0, 0);
 }
 __name(prepare_mask, "prepare_mask");
-const _MaskEditorDialog = class _MaskEditorDialog extends ComfyDialog {
+class MaskEditorDialog extends ComfyDialog {
+  static {
+    __name(this, "MaskEditorDialog");
+  }
+  static instance = null;
+  static mousedown_x = null;
+  static mousedown_y = null;
+  brush;
+  maskCtx;
+  maskCanvas;
+  brush_size_slider;
+  brush_opacity_slider;
+  colorButton;
+  saveButton;
+  zoom_ratio;
+  pan_x;
+  pan_y;
+  imgCanvas;
+  last_display_style;
+  is_visible;
+  image;
+  handler_registered;
+  brush_slider_input;
+  cursorX;
+  cursorY;
+  mousedown_pan_x;
+  mousedown_pan_y;
+  last_pressure;
+  static getInstance() {
+    if (!MaskEditorDialog.instance) {
+      MaskEditorDialog.instance = new MaskEditorDialog();
+    }
+    return MaskEditorDialog.instance;
+  }
+  is_layout_created = false;
   constructor() {
     super();
-    __publicField(this, "brush");
-    __publicField(this, "maskCtx");
-    __publicField(this, "maskCanvas");
-    __publicField(this, "brush_size_slider");
-    __publicField(this, "brush_opacity_slider");
-    __publicField(this, "colorButton");
-    __publicField(this, "saveButton");
-    __publicField(this, "zoom_ratio");
-    __publicField(this, "pan_x");
-    __publicField(this, "pan_y");
-    __publicField(this, "imgCanvas");
-    __publicField(this, "last_display_style");
-    __publicField(this, "is_visible");
-    __publicField(this, "image");
-    __publicField(this, "handler_registered");
-    __publicField(this, "brush_slider_input");
-    __publicField(this, "cursorX");
-    __publicField(this, "cursorY");
-    __publicField(this, "mousedown_pan_x");
-    __publicField(this, "mousedown_pan_y");
-    __publicField(this, "last_pressure");
-    __publicField(this, "is_layout_created", false);
-    __publicField(this, "brush_opacity", 0.7);
-    __publicField(this, "brush_size", 10);
-    __publicField(this, "brush_color_mode", "black");
-    __publicField(this, "drawing_mode", false);
-    __publicField(this, "lastx", -1);
-    __publicField(this, "lasty", -1);
-    __publicField(this, "lasttime", 0);
     this.element = $el("div.comfy-modal", { parent: document.body }, [
       $el("div.comfy-modal-content", [...this.createButtons()])
     ]);
-  }
-  static getInstance() {
-    if (!_MaskEditorDialog.instance) {
-      _MaskEditorDialog.instance = new _MaskEditorDialog();
-    }
-    return _MaskEditorDialog.instance;
   }
   createButtons() {
     return [];
@@ -4316,11 +4188,11 @@ const _MaskEditorDialog = class _MaskEditorDialog extends ComfyDialog {
       self.updateWhenBrushColorModeChanged();
     });
     var cancelButton = this.createRightButton("Cancel", () => {
-      document.removeEventListener("keydown", _MaskEditorDialog.handleKeyDown);
+      document.removeEventListener("keydown", MaskEditorDialog.handleKeyDown);
       self.close();
     });
     this.saveButton = this.createRightButton("Save", () => {
-      document.removeEventListener("keydown", _MaskEditorDialog.handleKeyDown);
+      document.removeEventListener("keydown", MaskEditorDialog.handleKeyDown);
       self.save();
     });
     this.element.appendChild(imgCanvas);
@@ -4342,54 +4214,52 @@ const _MaskEditorDialog = class _MaskEditorDialog extends ComfyDialog {
     maskCanvas.style.mixBlendMode = maskCanvasStyle.mixBlendMode;
     maskCanvas.style.opacity = maskCanvasStyle.opacity.toString();
   }
-  show() {
-    return __async(this, null, function* () {
-      this.zoom_ratio = 1;
-      this.pan_x = 0;
-      this.pan_y = 0;
-      if (!this.is_layout_created) {
-        const imgCanvas = document.createElement("canvas");
-        const maskCanvas = document.createElement("canvas");
-        imgCanvas.id = "imageCanvas";
-        maskCanvas.id = "maskCanvas";
-        this.setlayout(imgCanvas, maskCanvas);
-        this.imgCanvas = imgCanvas;
-        this.maskCanvas = maskCanvas;
-        this.maskCtx = maskCanvas.getContext("2d", { willReadFrequently: true });
-        this.setEventHandler(maskCanvas);
-        this.is_layout_created = true;
-        const self = this;
-        const observer = new MutationObserver(function(mutations) {
-          mutations.forEach(function(mutation) {
-            if (mutation.type === "attributes" && mutation.attributeName === "style") {
-              if (self.last_display_style && self.last_display_style != "none" && self.element.style.display == "none") {
-                self.brush.style.display = "none";
-                ComfyApp.onClipspaceEditorClosed();
-              }
-              self.last_display_style = self.element.style.display;
+  async show() {
+    this.zoom_ratio = 1;
+    this.pan_x = 0;
+    this.pan_y = 0;
+    if (!this.is_layout_created) {
+      const imgCanvas = document.createElement("canvas");
+      const maskCanvas = document.createElement("canvas");
+      imgCanvas.id = "imageCanvas";
+      maskCanvas.id = "maskCanvas";
+      this.setlayout(imgCanvas, maskCanvas);
+      this.imgCanvas = imgCanvas;
+      this.maskCanvas = maskCanvas;
+      this.maskCtx = maskCanvas.getContext("2d", { willReadFrequently: true });
+      this.setEventHandler(maskCanvas);
+      this.is_layout_created = true;
+      const self = this;
+      const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === "attributes" && mutation.attributeName === "style") {
+            if (self.last_display_style && self.last_display_style != "none" && self.element.style.display == "none") {
+              self.brush.style.display = "none";
+              ComfyApp.onClipspaceEditorClosed();
             }
-          });
+            self.last_display_style = self.element.style.display;
+          }
         });
-        const config = { attributes: true };
-        observer.observe(this.element, config);
-      }
-      document.addEventListener("keydown", _MaskEditorDialog.handleKeyDown);
-      if (ComfyApp.clipspace_return_node) {
-        this.saveButton.innerText = "Save to node";
-      } else {
-        this.saveButton.innerText = "Save";
-      }
-      this.saveButton.disabled = false;
-      this.element.style.display = "block";
-      this.element.style.width = "85%";
-      this.element.style.margin = "0 7.5%";
-      this.element.style.height = "100vh";
-      this.element.style.top = "50%";
-      this.element.style.left = "42%";
-      this.element.style.zIndex = "8888";
-      yield this.setImages(this.imgCanvas);
-      this.is_visible = true;
-    });
+      });
+      const config = { attributes: true };
+      observer.observe(this.element, config);
+    }
+    document.addEventListener("keydown", MaskEditorDialog.handleKeyDown);
+    if (ComfyApp.clipspace_return_node) {
+      this.saveButton.innerText = "Save to node";
+    } else {
+      this.saveButton.innerText = "Save";
+    }
+    this.saveButton.disabled = false;
+    this.element.style.display = "block";
+    this.element.style.width = "85%";
+    this.element.style.margin = "0 7.5%";
+    this.element.style.height = "100vh";
+    this.element.style.top = "50%";
+    this.element.style.left = "42%";
+    this.element.style.zIndex = "8888";
+    await this.setImages(this.imgCanvas);
+    this.is_visible = true;
   }
   isOpened() {
     return this.element.style.display == "block";
@@ -4406,36 +4276,34 @@ const _MaskEditorDialog = class _MaskEditorDialog extends ComfyDialog {
     imgCtx.drawImage(orig_image, 0, 0, orig_image.width, orig_image.height);
     prepare_mask(mask_image, this.maskCanvas, maskCtx, this.getMaskColor());
   }
-  setImages(imgCanvas) {
-    return __async(this, null, function* () {
-      let self = this;
-      const imgCtx = imgCanvas.getContext("2d", { willReadFrequently: true });
-      const maskCtx = this.maskCtx;
-      const maskCanvas = this.maskCanvas;
-      imgCtx.clearRect(0, 0, this.imgCanvas.width, this.imgCanvas.height);
-      maskCtx.clearRect(0, 0, this.maskCanvas.width, this.maskCanvas.height);
-      const filepath = ComfyApp.clipspace.images;
-      const alpha_url = new URL(
-        ComfyApp.clipspace.imgs[ComfyApp.clipspace["selectedIndex"]].src
-      );
-      alpha_url.searchParams.delete("channel");
-      alpha_url.searchParams.delete("preview");
-      alpha_url.searchParams.set("channel", "a");
-      let mask_image = yield loadImage(alpha_url);
-      const rgb_url = new URL(
-        ComfyApp.clipspace.imgs[ComfyApp.clipspace["selectedIndex"]].src
-      );
-      rgb_url.searchParams.delete("channel");
-      rgb_url.searchParams.set("channel", "rgb");
-      this.image = new Image();
-      this.image.onload = function() {
-        maskCanvas.width = self.image.width;
-        maskCanvas.height = self.image.height;
-        self.invalidateCanvas(self.image, mask_image);
-        self.initializeCanvasPanZoom();
-      };
-      this.image.src = rgb_url.toString();
-    });
+  async setImages(imgCanvas) {
+    let self = this;
+    const imgCtx = imgCanvas.getContext("2d", { willReadFrequently: true });
+    const maskCtx = this.maskCtx;
+    const maskCanvas = this.maskCanvas;
+    imgCtx.clearRect(0, 0, this.imgCanvas.width, this.imgCanvas.height);
+    maskCtx.clearRect(0, 0, this.maskCanvas.width, this.maskCanvas.height);
+    const filepath = ComfyApp.clipspace.images;
+    const alpha_url = new URL(
+      ComfyApp.clipspace.imgs[ComfyApp.clipspace["selectedIndex"]].src
+    );
+    alpha_url.searchParams.delete("channel");
+    alpha_url.searchParams.delete("preview");
+    alpha_url.searchParams.set("channel", "a");
+    let mask_image = await loadImage(alpha_url);
+    const rgb_url = new URL(
+      ComfyApp.clipspace.imgs[ComfyApp.clipspace["selectedIndex"]].src
+    );
+    rgb_url.searchParams.delete("channel");
+    rgb_url.searchParams.set("channel", "rgb");
+    this.image = new Image();
+    this.image.onload = function() {
+      maskCanvas.width = self.image.width;
+      maskCanvas.height = self.image.height;
+      self.invalidateCanvas(self.image, mask_image);
+      self.initializeCanvasPanZoom();
+    };
+    this.image.src = rgb_url.toString();
   }
   initializeCanvasPanZoom() {
     let drawWidth = this.image.width;
@@ -4520,7 +4388,7 @@ const _MaskEditorDialog = class _MaskEditorDialog extends ComfyDialog {
       maskCanvas.addEventListener("pointerleave", (event) => {
         this.brush.style.display = "none";
       });
-      document.addEventListener("pointerup", _MaskEditorDialog.handlePointerUp);
+      document.addEventListener("pointerup", MaskEditorDialog.handlePointerUp);
       this.handler_registered = true;
     }
   }
@@ -4583,8 +4451,15 @@ const _MaskEditorDialog = class _MaskEditorDialog extends ComfyDialog {
     }
     this.maskCtx.putImageData(maskData, 0, 0);
   }
+  brush_opacity = 0.7;
+  brush_size = 10;
+  brush_color_mode = "black";
+  drawing_mode = false;
+  lastx = -1;
+  lasty = -1;
+  lasttime = 0;
   static handleKeyDown(event) {
-    const self = _MaskEditorDialog.instance;
+    const self = MaskEditorDialog.instance;
     if (event.key === "]") {
       self.brush_size = Math.min(self.brush_size + 2, 100);
       self.brush_slider_input.value = self.brush_size;
@@ -4600,7 +4475,7 @@ const _MaskEditorDialog = class _MaskEditorDialog extends ComfyDialog {
     event.preventDefault();
     this.mousedown_x = null;
     this.mousedown_y = null;
-    _MaskEditorDialog.instance.drawing_mode = false;
+    MaskEditorDialog.instance.drawing_mode = false;
   }
   updateBrushPreview(self) {
     const brush = self.brush;
@@ -4650,9 +4525,9 @@ const _MaskEditorDialog = class _MaskEditorDialog extends ComfyDialog {
   }
   pan_move(self, event) {
     if (event.buttons == 1) {
-      if (_MaskEditorDialog.mousedown_x) {
-        let deltaX = _MaskEditorDialog.mousedown_x - event.clientX;
-        let deltaY = _MaskEditorDialog.mousedown_y - event.clientY;
+      if (MaskEditorDialog.mousedown_x) {
+        let deltaX = MaskEditorDialog.mousedown_x - event.clientX;
+        let deltaY = MaskEditorDialog.mousedown_y - event.clientY;
         self.pan_x = this.mousedown_pan_x - deltaX;
         self.pan_y = this.mousedown_pan_y - deltaY;
         self.invalidatePanZoom();
@@ -4767,8 +4642,8 @@ const _MaskEditorDialog = class _MaskEditorDialog extends ComfyDialog {
   handlePointerDown(self, event) {
     if (event.ctrlKey) {
       if (event.buttons == 1) {
-        _MaskEditorDialog.mousedown_x = event.clientX;
-        _MaskEditorDialog.mousedown_y = event.clientY;
+        MaskEditorDialog.mousedown_x = event.clientX;
+        MaskEditorDialog.mousedown_y = event.clientY;
         this.mousedown_pan_x = this.pan_x;
         this.mousedown_pan_y = this.pan_y;
       }
@@ -4804,82 +4679,75 @@ const _MaskEditorDialog = class _MaskEditorDialog extends ComfyDialog {
       self.lasttime = performance.now();
     }
   }
-  save() {
-    return __async(this, null, function* () {
-      const backupCanvas = document.createElement("canvas");
-      const backupCtx = backupCanvas.getContext("2d", {
-        willReadFrequently: true
-      });
-      backupCanvas.width = this.image.width;
-      backupCanvas.height = this.image.height;
-      backupCtx.clearRect(0, 0, backupCanvas.width, backupCanvas.height);
-      backupCtx.drawImage(
-        this.maskCanvas,
-        0,
-        0,
-        this.maskCanvas.width,
-        this.maskCanvas.height,
-        0,
-        0,
-        backupCanvas.width,
-        backupCanvas.height
-      );
-      const backupData = backupCtx.getImageData(
-        0,
-        0,
-        backupCanvas.width,
-        backupCanvas.height
-      );
-      for (let i = 0; i < backupData.data.length; i += 4) {
-        if (backupData.data[i + 3] == 255) backupData.data[i + 3] = 0;
-        else backupData.data[i + 3] = 255;
-        backupData.data[i] = 0;
-        backupData.data[i + 1] = 0;
-        backupData.data[i + 2] = 0;
-      }
-      backupCtx.globalCompositeOperation = "source-over";
-      backupCtx.putImageData(backupData, 0, 0);
-      const formData = new FormData();
-      const filename = "clipspace-mask-" + performance.now() + ".png";
-      const item = {
-        filename,
-        subfolder: "clipspace",
-        type: "input"
-      };
-      if (ComfyApp.clipspace.images) ComfyApp.clipspace.images[0] = item;
-      if (ComfyApp.clipspace.widgets) {
-        const index = ComfyApp.clipspace.widgets.findIndex(
-          (obj) => obj.name === "image"
-        );
-        if (index >= 0) ComfyApp.clipspace.widgets[index].value = item;
-      }
-      const dataURL = backupCanvas.toDataURL();
-      const blob = dataURLToBlob(dataURL);
-      let original_url = new URL(this.image.src);
-      const original_ref = {
-        filename: original_url.searchParams.get("filename")
-      };
-      let original_subfolder = original_url.searchParams.get("subfolder");
-      if (original_subfolder) original_ref.subfolder = original_subfolder;
-      let original_type = original_url.searchParams.get("type");
-      if (original_type) original_ref.type = original_type;
-      formData.append("image", blob, filename);
-      formData.append("original_ref", JSON.stringify(original_ref));
-      formData.append("type", "input");
-      formData.append("subfolder", "clipspace");
-      this.saveButton.innerText = "Saving...";
-      this.saveButton.disabled = true;
-      yield uploadMask(item, formData);
-      ComfyApp.onClipspaceEditorSave();
-      this.close();
+  async save() {
+    const backupCanvas = document.createElement("canvas");
+    const backupCtx = backupCanvas.getContext("2d", {
+      willReadFrequently: true
     });
+    backupCanvas.width = this.image.width;
+    backupCanvas.height = this.image.height;
+    backupCtx.clearRect(0, 0, backupCanvas.width, backupCanvas.height);
+    backupCtx.drawImage(
+      this.maskCanvas,
+      0,
+      0,
+      this.maskCanvas.width,
+      this.maskCanvas.height,
+      0,
+      0,
+      backupCanvas.width,
+      backupCanvas.height
+    );
+    const backupData = backupCtx.getImageData(
+      0,
+      0,
+      backupCanvas.width,
+      backupCanvas.height
+    );
+    for (let i = 0; i < backupData.data.length; i += 4) {
+      if (backupData.data[i + 3] == 255) backupData.data[i + 3] = 0;
+      else backupData.data[i + 3] = 255;
+      backupData.data[i] = 0;
+      backupData.data[i + 1] = 0;
+      backupData.data[i + 2] = 0;
+    }
+    backupCtx.globalCompositeOperation = "source-over";
+    backupCtx.putImageData(backupData, 0, 0);
+    const formData = new FormData();
+    const filename = "clipspace-mask-" + performance.now() + ".png";
+    const item = {
+      filename,
+      subfolder: "clipspace",
+      type: "input"
+    };
+    if (ComfyApp.clipspace.images) ComfyApp.clipspace.images[0] = item;
+    if (ComfyApp.clipspace.widgets) {
+      const index = ComfyApp.clipspace.widgets.findIndex(
+        (obj) => obj.name === "image"
+      );
+      if (index >= 0) ComfyApp.clipspace.widgets[index].value = item;
+    }
+    const dataURL = backupCanvas.toDataURL();
+    const blob = dataURLToBlob(dataURL);
+    let original_url = new URL(this.image.src);
+    const original_ref = {
+      filename: original_url.searchParams.get("filename")
+    };
+    let original_subfolder = original_url.searchParams.get("subfolder");
+    if (original_subfolder) original_ref.subfolder = original_subfolder;
+    let original_type = original_url.searchParams.get("type");
+    if (original_type) original_ref.type = original_type;
+    formData.append("image", blob, filename);
+    formData.append("original_ref", JSON.stringify(original_ref));
+    formData.append("type", "input");
+    formData.append("subfolder", "clipspace");
+    this.saveButton.innerText = "Saving...";
+    this.saveButton.disabled = true;
+    await uploadMask(item, formData);
+    ComfyApp.onClipspaceEditorSave();
+    this.close();
   }
-};
-__name(_MaskEditorDialog, "MaskEditorDialog");
-__publicField(_MaskEditorDialog, "instance", null);
-__publicField(_MaskEditorDialog, "mousedown_x", null);
-__publicField(_MaskEditorDialog, "mousedown_y", null);
-let MaskEditorDialog = _MaskEditorDialog;
+}
 app.registerExtension({
   name: "Comfy.MaskEditor",
   init(app2) {
@@ -4899,14 +4767,17 @@ app.registerExtension({
 });
 const id = "Comfy.NodeTemplates";
 const file = "comfy.templates.json";
-const _ManageTemplates = class _ManageTemplates extends ComfyDialog {
+class ManageTemplates extends ComfyDialog {
+  static {
+    __name(this, "ManageTemplates");
+  }
+  templates;
+  draggedEl;
+  saveVisualCue;
+  emptyImg;
+  importInput;
   constructor() {
     super();
-    __publicField(this, "templates");
-    __publicField(this, "draggedEl");
-    __publicField(this, "saveVisualCue");
-    __publicField(this, "emptyImg");
-    __publicField(this, "importInput");
     this.load().then((v) => {
       this.templates = v;
     });
@@ -4949,74 +4820,68 @@ const _ManageTemplates = class _ManageTemplates extends ComfyDialog {
     );
     return btns;
   }
-  load() {
-    return __async(this, null, function* () {
-      let templates = [];
-      if (app.storageLocation === "server") {
-        if (app.isNewUserSession) {
-          const json = localStorage.getItem(id);
-          if (json) {
-            templates = JSON.parse(json);
-          }
-          yield api.storeUserData(file, json, { stringify: false });
-        } else {
-          const res = yield api.getUserData(file);
-          if (res.status === 200) {
-            try {
-              templates = yield res.json();
-            } catch (error) {
-            }
-          } else if (res.status !== 404) {
-            console.error(res.status + " " + res.statusText);
-          }
-        }
-      } else {
+  async load() {
+    let templates = [];
+    if (app.storageLocation === "server") {
+      if (app.isNewUserSession) {
         const json = localStorage.getItem(id);
         if (json) {
           templates = JSON.parse(json);
         }
-      }
-      return templates != null ? templates : [];
-    });
-  }
-  store() {
-    return __async(this, null, function* () {
-      if (app.storageLocation === "server") {
-        const templates = JSON.stringify(this.templates, void 0, 4);
-        localStorage.setItem(id, templates);
-        try {
-          yield api.storeUserData(file, templates, { stringify: false });
-        } catch (error) {
-          console.error(error);
-          alert(error.message);
-        }
+        await api.storeUserData(file, json, { stringify: false });
       } else {
-        localStorage.setItem(id, JSON.stringify(this.templates));
-      }
-    });
-  }
-  importAll() {
-    return __async(this, null, function* () {
-      for (const file2 of this.importInput.files) {
-        if (file2.type === "application/json" || file2.name.endsWith(".json")) {
-          const reader = new FileReader();
-          reader.onload = () => __async(this, null, function* () {
-            const importFile = JSON.parse(reader.result);
-            if (importFile == null ? void 0 : importFile.templates) {
-              for (const template of importFile.templates) {
-                if ((template == null ? void 0 : template.name) && (template == null ? void 0 : template.data)) {
-                  this.templates.push(template);
-                }
-              }
-              yield this.store();
-            }
-          });
-          yield reader.readAsText(file2);
+        const res = await api.getUserData(file);
+        if (res.status === 200) {
+          try {
+            templates = await res.json();
+          } catch (error) {
+          }
+        } else if (res.status !== 404) {
+          console.error(res.status + " " + res.statusText);
         }
       }
-      this.importInput.value = null;
-      this.close();
-    });
+    } else {
+      const json = localStorage.getItem(id);
+      if (json) {
+        templates = JSON.parse(json);
+      }
+    }
+    return templates ?? [];
+  }
+  async store() {
+    if (app.storageLocation === "server") {
+      const templates = JSON.stringify(this.templates, void 0, 4);
+      localStorage.setItem(id, templates);
+      try {
+        await api.storeUserData(file, templates, { stringify: false });
+      } catch (error) {
+        console.error(error);
+        alert(error.message);
+      }
+    } else {
+      localStorage.setItem(id, JSON.stringify(this.templates));
+    }
+  }
+  async importAll() {
+    for (const file2 of this.importInput.files) {
+      if (file2.type === "application/json" || file2.name.endsWith(".json")) {
+        const reader = new FileReader();
+        reader.onload = async () => {
+          const importFile = JSON.parse(reader.result);
+          if (importFile?.templates) {
+            for (const template of importFile.templates) {
+              if (template?.name && template?.data) {
+                this.templates.push(template);
+              }
+            }
+            await this.store();
+          }
+        };
+        await reader.readAsText(file2);
+      }
+    }
+    this.importInput.value = null;
+    this.close();
   }
   exportAll() {
     if (this.templates.length == 0) {
@@ -5197,18 +5062,16 @@ const _ManageTemplates = class _ManageTemplates extends ComfyDialog {
       )
     );
   }
-};
-__name(_ManageTemplates, "ManageTemplates");
-let ManageTemplates = _ManageTemplates;
+}
 app.registerExtension({
   name: id,
   setup() {
     const manage = new ManageTemplates();
-    const clipboardAction = /* @__PURE__ */ __name((cb) => __async(this, null, function* () {
+    const clipboardAction = /* @__PURE__ */ __name(async (cb) => {
       const old = localStorage.getItem("litegrapheditor_clipboard");
-      yield cb();
+      await cb();
       localStorage.setItem("litegrapheditor_clipboard", old);
-    }), "clipboardAction");
+    }, "clipboardAction");
     const orig = LGraphCanvas.prototype.getCanvasMenuOptions;
     LGraphCanvas.prototype.getCanvasMenuOptions = function() {
       const options = orig.apply(this, arguments);
@@ -5218,7 +5081,7 @@ app.registerExtension({
         disabled: !Object.keys(app.canvas.selected_nodes || {}).length,
         callback: /* @__PURE__ */ __name(() => {
           const name = prompt("Enter name");
-          if (!(name == null ? void 0 : name.trim())) return;
+          if (!name?.trim()) return;
           clipboardAction(() => {
             app.canvas.copyToClipboard();
             let data = localStorage.getItem("litegrapheditor_clipboard");
@@ -5226,7 +5089,7 @@ app.registerExtension({
             const nodeIds = Object.keys(app.canvas.selected_nodes);
             for (let i = 0; i < nodeIds.length; i++) {
               const node = app.graph.getNodeById(Number.parseInt(nodeIds[i]));
-              const nodeData = node == null ? void 0 : node.constructor.nodeData;
+              const nodeData = node?.constructor.nodeData;
               let groupData = GroupNodeHandler.getGroupData(node);
               if (groupData) {
                 groupData = groupData.nodeData;
@@ -5249,12 +5112,12 @@ app.registerExtension({
         return {
           content: t.name,
           callback: /* @__PURE__ */ __name(() => {
-            clipboardAction(() => __async(this, null, function* () {
+            clipboardAction(async () => {
               const data = JSON.parse(t.data);
-              yield GroupNodeConfig.registerFromWorkflow(data.groupNodes, {});
+              await GroupNodeConfig.registerFromWorkflow(data.groupNodes, {});
               localStorage.setItem("litegrapheditor_clipboard", t.data);
               app.canvas.pasteFromClipboard();
-            }));
+            });
           }, "callback")
         };
       });
@@ -5275,37 +5138,36 @@ app.registerExtension({
 app.registerExtension({
   name: "Comfy.NoteNode",
   registerCustomNodes() {
-    const _NoteNode = class _NoteNode {
-      constructor() {
-        __publicField(this, "color", LGraphCanvas.node_colors.yellow.color);
-        __publicField(this, "bgcolor", LGraphCanvas.node_colors.yellow.bgcolor);
-        __publicField(this, "groupcolor", LGraphCanvas.node_colors.yellow.groupcolor);
-        __publicField(this, "properties");
-        __publicField(this, "serialize_widgets");
-        __publicField(this, "isVirtualNode");
-        __publicField(this, "collapsable");
-        __publicField(this, "title_mode");
+    class NoteNode extends LGraphNode {
+      static {
+        __name(this, "NoteNode");
+      }
+      static category;
+      color = LGraphCanvas.node_colors.yellow.color;
+      bgcolor = LGraphCanvas.node_colors.yellow.bgcolor;
+      groupcolor = LGraphCanvas.node_colors.yellow.groupcolor;
+      isVirtualNode;
+      collapsable;
+      title_mode;
+      constructor(title) {
+        super(title);
         if (!this.properties) {
           this.properties = { text: "" };
         }
         ComfyWidgets.STRING(
-          // @ts-expect-error
-          // Should we extends LGraphNode?
+          // Should we extends LGraphNode?  Yesss
           this,
           "",
+          // @ts-expect-error
           ["", { default: this.properties.text, multiline: true }],
           app
         );
         this.serialize_widgets = true;
         this.isVirtualNode = true;
       }
-    };
-    __name(_NoteNode, "NoteNode");
-    __publicField(_NoteNode, "category");
-    let NoteNode = _NoteNode;
+    }
     LiteGraph.registerNodeType(
       "Note",
-      // @ts-expect-error
       Object.assign(NoteNode, {
         title_mode: LiteGraph.NORMAL_TITLE,
         title: "Note",
@@ -5318,12 +5180,18 @@ app.registerExtension({
 app.registerExtension({
   name: "Comfy.RerouteNode",
   registerCustomNodes(app2) {
-    const _RerouteNode = class _RerouteNode {
-      constructor() {
+    class RerouteNode extends LGraphNode {
+      static {
+        __name(this, "RerouteNode");
+      }
+      static category;
+      static defaultVisibility = false;
+      constructor(title) {
+        super(title);
         if (!this.properties) {
           this.properties = {};
         }
-        this.properties.showOutputText = _RerouteNode.defaultVisibility;
+        this.properties.showOutputText = RerouteNode.defaultVisibility;
         this.properties.horizontal = false;
         this.addInput("", "*");
         this.addOutput(this.properties.showOutputText ? "*" : "", "*");
@@ -5333,7 +5201,6 @@ app.registerExtension({
           });
         };
         this.onConnectionsChange = function(type, index, connected, link_info) {
-          var _a, _b, _c, _d, _e;
           this.applyOrientation();
           if (connected && type === LiteGraph.OUTPUT) {
             const types = new Set(
@@ -5373,7 +5240,7 @@ app.registerExtension({
                 }
               } else {
                 inputNode = currentNode;
-                inputType = (_b = (_a = node.outputs[link.origin_slot]) == null ? void 0 : _a.type) != null ? _b : null;
+                inputType = node.outputs[link.origin_slot]?.type ?? null;
                 break;
               }
             } else {
@@ -5396,7 +5263,7 @@ app.registerExtension({
                   nodes.push(node);
                   updateNodes.push(node);
                 } else {
-                  const nodeOutType = node.inputs && node.inputs[link == null ? void 0 : link.target_slot] && node.inputs[link.target_slot].type ? node.inputs[link.target_slot].type : null;
+                  const nodeOutType = node.inputs && node.inputs[link?.target_slot] && node.inputs[link.target_slot].type ? node.inputs[link.target_slot].type : null;
                   if (inputType && inputType !== "*" && nodeOutType !== inputType) {
                     node.disconnectInput(link.target_slot);
                   } else {
@@ -5424,15 +5291,15 @@ app.registerExtension({
                 link.color = color;
                 if (app2.configuringGraph) continue;
                 const targetNode = app2.graph.getNodeById(link.target_id);
-                const targetInput = (_c = targetNode.inputs) == null ? void 0 : _c[link.target_slot];
-                if (targetInput == null ? void 0 : targetInput.widget) {
+                const targetInput = targetNode.inputs?.[link.target_slot];
+                if (targetInput?.widget) {
                   const config = getWidgetConfig(targetInput);
                   if (!widgetConfig) {
-                    widgetConfig = (_d = config[1]) != null ? _d : {};
+                    widgetConfig = config[1] ?? {};
                     widgetType = config[0];
                   }
                   if (!targetWidget) {
-                    targetWidget = (_e = targetNode.widgets) == null ? void 0 : _e.find(
+                    targetWidget = targetNode.widgets?.find(
                       (w) => w.name === targetInput.widget.name
                     );
                   }
@@ -5452,7 +5319,7 @@ app.registerExtension({
               node.inputs[0].widget = { name: "value" };
               setWidgetConfig(
                 node.inputs[0],
-                [widgetType != null ? widgetType : displayType, widgetConfig],
+                [widgetType ?? displayType, widgetConfig],
                 targetWidget
               );
             } else {
@@ -5467,7 +5334,7 @@ app.registerExtension({
           }
         };
         this.clone = function() {
-          const cloned = _RerouteNode.prototype.clone.apply(this);
+          const cloned = RerouteNode.prototype.clone.apply(this);
           cloned.removeOutput(0);
           cloned.addOutput(this.properties.showOutputText ? "*" : "", "*");
           cloned.size = cloned.computeSize();
@@ -5492,10 +5359,10 @@ app.registerExtension({
             }, "callback")
           },
           {
-            content: (_RerouteNode.defaultVisibility ? "Hide" : "Show") + " Type By Default",
+            content: (RerouteNode.defaultVisibility ? "Hide" : "Show") + " Type By Default",
             callback: /* @__PURE__ */ __name(() => {
-              _RerouteNode.setDefaultTextVisibility(
-                !_RerouteNode.defaultVisibility
+              RerouteNode.setDefaultTextVisibility(
+                !RerouteNode.defaultVisibility
               );
             }, "callback")
           },
@@ -5531,18 +5398,14 @@ app.registerExtension({
         ];
       }
       static setDefaultTextVisibility(visible) {
-        _RerouteNode.defaultVisibility = visible;
+        RerouteNode.defaultVisibility = visible;
         if (visible) {
           localStorage["Comfy.RerouteNode.DefaultVisibility"] = "true";
         } else {
           delete localStorage["Comfy.RerouteNode.DefaultVisibility"];
         }
       }
-    };
-    __name(_RerouteNode, "RerouteNode");
-    __publicField(_RerouteNode, "category");
-    __publicField(_RerouteNode, "defaultVisibility", false);
-    let RerouteNode = _RerouteNode;
+    }
     RerouteNode.setDefaultTextVisibility(
       !!localStorage["Comfy.RerouteNode.DefaultVisibility"]
     );
@@ -5559,29 +5422,27 @@ app.registerExtension({
 });
 app.registerExtension({
   name: "Comfy.SaveImageExtraOutput",
-  beforeRegisterNodeDef(nodeType, nodeData, app2) {
-    return __async(this, null, function* () {
-      if (nodeData.name === "SaveImage" || nodeData.name === "SaveAnimatedWEBP") {
-        const onNodeCreated = nodeType.prototype.onNodeCreated;
-        nodeType.prototype.onNodeCreated = function() {
-          const r = onNodeCreated ? onNodeCreated.apply(this, arguments) : void 0;
-          const widget = this.widgets.find((w) => w.name === "filename_prefix");
-          widget.serializeValue = () => {
-            return applyTextReplacements(app2, widget.value);
-          };
-          return r;
+  async beforeRegisterNodeDef(nodeType, nodeData, app2) {
+    if (nodeData.name === "SaveImage" || nodeData.name === "SaveAnimatedWEBP") {
+      const onNodeCreated = nodeType.prototype.onNodeCreated;
+      nodeType.prototype.onNodeCreated = function() {
+        const r = onNodeCreated ? onNodeCreated.apply(this, arguments) : void 0;
+        const widget = this.widgets.find((w) => w.name === "filename_prefix");
+        widget.serializeValue = () => {
+          return applyTextReplacements(app2, widget.value);
         };
-      } else {
-        const onNodeCreated = nodeType.prototype.onNodeCreated;
-        nodeType.prototype.onNodeCreated = function() {
-          const r = onNodeCreated ? onNodeCreated.apply(this, arguments) : void 0;
-          if (!this.properties || !("Node name for S&R" in this.properties)) {
-            this.addProperty("Node name for S&R", this.constructor.type, "string");
-          }
-          return r;
-        };
-      }
-    });
+        return r;
+      };
+    } else {
+      const onNodeCreated = nodeType.prototype.onNodeCreated;
+      nodeType.prototype.onNodeCreated = function() {
+        const r = onNodeCreated ? onNodeCreated.apply(this, arguments) : void 0;
+        if (!this.properties || !("Node name for S&R" in this.properties)) {
+          this.addProperty("Node name for S&R", this.constructor.type, "string");
+        }
+        return r;
+      };
+    }
   }
 });
 let touchZooming;
@@ -5602,15 +5463,14 @@ app.registerExtension({
     app.canvasEl.addEventListener(
       "touchstart",
       (e) => {
-        var _a, _b;
         touchCount++;
         lastTouch = null;
-        if (((_a = e.touches) == null ? void 0 : _a.length) === 1) {
+        if (e.touches?.length === 1) {
           touchTime = /* @__PURE__ */ new Date();
           lastTouch = e.touches[0];
         } else {
           touchTime = null;
-          if (((_b = e.touches) == null ? void 0 : _b.length) === 2) {
+          if (e.touches?.length === 2) {
             zoomPos = getMultiTouchPos(e);
             app.canvas.pointer_is_down = false;
           }
@@ -5619,10 +5479,9 @@ app.registerExtension({
       true
     );
     app.canvasEl.addEventListener("touchend", (e) => {
-      var _a, _b, _c;
       touchZooming = false;
-      touchCount = (_b = (_a = e.touches) == null ? void 0 : _a.length) != null ? _b : touchCount - 1;
-      if (touchTime && !((_c = e.touches) == null ? void 0 : _c.length)) {
+      touchCount = e.touches?.length ?? touchCount - 1;
+      if (touchTime && !e.touches?.length) {
         if ((/* @__PURE__ */ new Date()).getTime() - touchTime > 600) {
           try {
             e.constructor = CustomEvent;
@@ -5639,13 +5498,12 @@ app.registerExtension({
     app.canvasEl.addEventListener(
       "touchmove",
       (e) => {
-        var _a, _b;
         touchTime = null;
-        if (((_a = e.touches) == null ? void 0 : _a.length) === 2) {
+        if (e.touches?.length === 2) {
           app.canvas.pointer_is_down = false;
           touchZooming = true;
           LiteGraph.closeAllContextMenus();
-          (_b = app.canvas.search_box) == null ? void 0 : _b.close();
+          app.canvas.search_box?.close();
           const newZoomPos = getMultiTouchPos(e);
           const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
           const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
@@ -5704,50 +5562,48 @@ app.registerExtension({
   },
   slot_types_default_out: {},
   slot_types_default_in: {},
-  beforeRegisterNodeDef(nodeType, nodeData, app2) {
-    return __async(this, null, function* () {
-      var nodeId = nodeData.name;
-      var inputs = [];
-      inputs = nodeData["input"]["required"];
-      for (const inputKey in inputs) {
-        var input = inputs[inputKey];
-        if (typeof input[0] !== "string") continue;
-        var type = input[0];
-        if (type in ComfyWidgets) {
-          var customProperties = input[1];
-          if (!(customProperties == null ? void 0 : customProperties.forceInput)) continue;
-        }
-        if (!(type in this.slot_types_default_out)) {
-          this.slot_types_default_out[type] = ["Reroute"];
-        }
-        if (this.slot_types_default_out[type].includes(nodeId)) continue;
-        this.slot_types_default_out[type].push(nodeId);
-        const lowerType = type.toLocaleLowerCase();
-        if (!(lowerType in LiteGraph.registered_slot_in_types)) {
-          LiteGraph.registered_slot_in_types[lowerType] = { nodes: [] };
-        }
-        LiteGraph.registered_slot_in_types[lowerType].nodes.push(
-          nodeType.comfyClass
-        );
+  async beforeRegisterNodeDef(nodeType, nodeData, app2) {
+    var nodeId = nodeData.name;
+    var inputs = [];
+    inputs = nodeData["input"]["required"];
+    for (const inputKey in inputs) {
+      var input = inputs[inputKey];
+      if (typeof input[0] !== "string") continue;
+      var type = input[0];
+      if (type in ComfyWidgets) {
+        var customProperties = input[1];
+        if (!customProperties?.forceInput) continue;
       }
-      var outputs = nodeData["output"];
-      for (const key in outputs) {
-        var type = outputs[key];
-        if (!(type in this.slot_types_default_in)) {
-          this.slot_types_default_in[type] = ["Reroute"];
-        }
-        this.slot_types_default_in[type].push(nodeId);
-        if (!(type in LiteGraph.registered_slot_out_types)) {
-          LiteGraph.registered_slot_out_types[type] = { nodes: [] };
-        }
-        LiteGraph.registered_slot_out_types[type].nodes.push(nodeType.comfyClass);
-        if (!LiteGraph.slot_types_out.includes(type)) {
-          LiteGraph.slot_types_out.push(type);
-        }
+      if (!(type in this.slot_types_default_out)) {
+        this.slot_types_default_out[type] = ["Reroute"];
       }
-      var maxNum = this.suggestionsNumber.value;
-      this.setDefaults(maxNum);
-    });
+      if (this.slot_types_default_out[type].includes(nodeId)) continue;
+      this.slot_types_default_out[type].push(nodeId);
+      const lowerType = type.toLocaleLowerCase();
+      if (!(lowerType in LiteGraph.registered_slot_in_types)) {
+        LiteGraph.registered_slot_in_types[lowerType] = { nodes: [] };
+      }
+      LiteGraph.registered_slot_in_types[lowerType].nodes.push(
+        nodeType.comfyClass
+      );
+    }
+    var outputs = nodeData["output"];
+    for (const key in outputs) {
+      var type = outputs[key];
+      if (!(type in this.slot_types_default_in)) {
+        this.slot_types_default_in[type] = ["Reroute"];
+      }
+      this.slot_types_default_in[type].push(nodeId);
+      if (!(type in LiteGraph.registered_slot_out_types)) {
+        LiteGraph.registered_slot_out_types[type] = { nodes: [] };
+      }
+      LiteGraph.registered_slot_out_types[type].nodes.push(nodeType.comfyClass);
+      if (!LiteGraph.slot_types_out.includes(type)) {
+        LiteGraph.slot_types_out.push(type);
+      }
+    }
+    var maxNum = this.suggestionsNumber.value;
+    this.setDefaults(maxNum);
   },
   setDefaults(maxNum) {
     LiteGraph.slot_types_default_out = {};
@@ -5772,7 +5628,7 @@ app.registerExtension({
     app.ui.settings.addSetting({
       id: "Comfy.SnapToGrid.GridSize",
       category: ["Comfy", "Graph", "GridSize"],
-      name: "Snap to gird size",
+      name: "Snap to grid size",
       type: "slider",
       attrs: {
         min: 1,
@@ -5786,7 +5642,7 @@ app.registerExtension({
     });
     const onNodeMoved = app.canvas.onNodeMoved;
     app.canvas.onNodeMoved = function(node) {
-      const r = onNodeMoved == null ? void 0 : onNodeMoved.apply(this, arguments);
+      const r = onNodeMoved?.apply(this, arguments);
       if (app.shiftDown) {
         for (const id2 in this.selected_nodes) {
           this.selected_nodes[id2].alignToGrid();
@@ -5801,9 +5657,9 @@ app.registerExtension({
         if (app.shiftDown) {
           roundVectorToGrid(node.size);
         }
-        return onResize == null ? void 0 : onResize.apply(this, arguments);
+        return onResize?.apply(this, arguments);
       };
-      return onNodeAdded == null ? void 0 : onNodeAdded.apply(this, arguments);
+      return onNodeAdded?.apply(this, arguments);
     };
     const origDrawNode = LGraphCanvas.prototype.drawNode;
     LGraphCanvas.prototype.drawNode = function(node, ctx) {
@@ -5886,13 +5742,10 @@ app.registerExtension({
 });
 app.registerExtension({
   name: "Comfy.UploadImage",
-  beforeRegisterNodeDef(nodeType, nodeData, app2) {
-    return __async(this, null, function* () {
-      var _a, _b, _c, _d;
-      if (((_d = (_c = (_b = (_a = nodeData == null ? void 0 : nodeData.input) == null ? void 0 : _a.required) == null ? void 0 : _b.image) == null ? void 0 : _c[1]) == null ? void 0 : _d.image_upload) === true) {
-        nodeData.input.required.upload = ["IMAGEUPLOAD"];
-      }
-    });
+  async beforeRegisterNodeDef(nodeType, nodeData, app2) {
+    if (nodeData?.input?.required?.image?.[1]?.image_upload === true) {
+      nodeData.input.required.upload = ["IMAGEUPLOAD"];
+    }
   }
 });
 const WEBCAM_READY = Symbol();
@@ -5908,9 +5761,9 @@ app.registerExtension({
         container.style.textAlign = "center";
         const video = document.createElement("video");
         video.style.height = video.style.width = "100%";
-        const loadVideo = /* @__PURE__ */ __name(() => __async(this, null, function* () {
+        const loadVideo = /* @__PURE__ */ __name(async () => {
           try {
-            const stream = yield navigator.mediaDevices.getUserMedia({
+            const stream = await navigator.mediaDevices.getUserMedia({
               video: true,
               audio: false
             });
@@ -5932,7 +5785,7 @@ app.registerExtension({
             }
             container.replaceChildren(label);
           }
-        }), "loadVideo");
+        }, "loadVideo");
         loadVideo();
         return { widget: node.addDOMWidget(inputName, "WEBCAM", container) };
       }
@@ -5959,8 +5812,7 @@ app.registerExtension({
         node.imgs = [img];
         app.graph.setDirtyCanvas(true);
         requestAnimationFrame(() => {
-          var _a;
-          (_a = node.setSizeForImage) == null ? void 0 : _a.call(node);
+          node.setSizeForImage?.();
         });
       };
       img.src = data;
@@ -5973,23 +5825,22 @@ app.registerExtension({
     );
     btn.disabled = true;
     btn.serializeValue = () => void 0;
-    camera.serializeValue = () => __async(this, null, function* () {
-      var _a;
+    camera.serializeValue = async () => {
       if (captureOnQueue.value) {
         capture();
-      } else if (!((_a = node.imgs) == null ? void 0 : _a.length)) {
+      } else if (!node.imgs?.length) {
         const err = `No webcam image captured`;
         alert(err);
         throw new Error(err);
       }
-      const blob = yield new Promise((r) => canvas.toBlob(r));
+      const blob = await new Promise((r) => canvas.toBlob(r));
       const name = `${+/* @__PURE__ */ new Date()}.png`;
       const file2 = new File([blob], name);
       const body = new FormData();
       body.append("image", file2);
       body.append("subfolder", "webcam");
       body.append("type", "temp");
-      const resp = yield api.fetchApi("/upload/image", {
+      const resp = await api.fetchApi("/upload/image", {
         method: "POST",
         body
       });
@@ -5999,7 +5850,7 @@ app.registerExtension({
         throw new Error(err);
       }
       return `webcam/${name} [temp]`;
-    });
+    };
     node[WEBCAM_READY].then((v) => {
       video = v;
       if (!w.value) {
@@ -6032,46 +5883,42 @@ function getResourceURL(subfolder, filename, type = "input") {
   return `/view?${params}`;
 }
 __name(getResourceURL, "getResourceURL");
-function uploadFile(audioWidget, audioUIWidget, file2, updateNode, pasted = false) {
-  return __async(this, null, function* () {
-    try {
-      const body = new FormData();
-      body.append("image", file2);
-      if (pasted) body.append("subfolder", "pasted");
-      const resp = yield api.fetchApi("/upload/image", {
-        method: "POST",
-        body
-      });
-      if (resp.status === 200) {
-        const data = yield resp.json();
-        let path = data.name;
-        if (data.subfolder) path = data.subfolder + "/" + path;
-        if (!audioWidget.options.values.includes(path)) {
-          audioWidget.options.values.push(path);
-        }
-        if (updateNode) {
-          audioUIWidget.element.src = api.apiURL(
-            getResourceURL(...splitFilePath(path))
-          );
-          audioWidget.value = path;
-        }
-      } else {
-        alert(resp.status + " - " + resp.statusText);
+async function uploadFile(audioWidget, audioUIWidget, file2, updateNode, pasted = false) {
+  try {
+    const body = new FormData();
+    body.append("image", file2);
+    if (pasted) body.append("subfolder", "pasted");
+    const resp = await api.fetchApi("/upload/image", {
+      method: "POST",
+      body
+    });
+    if (resp.status === 200) {
+      const data = await resp.json();
+      let path = data.name;
+      if (data.subfolder) path = data.subfolder + "/" + path;
+      if (!audioWidget.options.values.includes(path)) {
+        audioWidget.options.values.push(path);
       }
-    } catch (error) {
-      alert(error);
+      if (updateNode) {
+        audioUIWidget.element.src = api.apiURL(
+          getResourceURL(...splitFilePath(path))
+        );
+        audioWidget.value = path;
+      }
+    } else {
+      alert(resp.status + " - " + resp.statusText);
     }
-  });
+  } catch (error) {
+    alert(error);
+  }
 }
 __name(uploadFile, "uploadFile");
 app.registerExtension({
   name: "Comfy.AudioWidget",
-  beforeRegisterNodeDef(nodeType, nodeData) {
-    return __async(this, null, function* () {
-      if (["LoadAudio", "SaveAudio", "PreviewAudio"].includes(nodeType.comfyClass)) {
-        nodeData.input.required.audioUI = ["AUDIO_UI"];
-      }
-    });
+  async beforeRegisterNodeDef(nodeType, nodeData) {
+    if (["LoadAudio", "SaveAudio", "PreviewAudio"].includes(nodeType.comfyClass)) {
+      nodeData.input.required.audioUI = ["AUDIO_UI"];
+    }
   },
   getCustomWidgets() {
     return {
@@ -6092,7 +5939,7 @@ app.registerExtension({
           audioUIWidget.element.classList.add("empty-audio-widget");
           const onExecuted = node.onExecuted;
           node.onExecuted = function(message) {
-            onExecuted == null ? void 0 : onExecuted.apply(this, arguments);
+            onExecuted?.apply(this, arguments);
             const audios = message.audio;
             if (!audios) return;
             const audio2 = audios[0];
@@ -6124,13 +5971,10 @@ app.registerExtension({
 });
 app.registerExtension({
   name: "Comfy.UploadAudio",
-  beforeRegisterNodeDef(nodeType, nodeData) {
-    return __async(this, null, function* () {
-      var _a, _b, _c, _d;
-      if (((_d = (_c = (_b = (_a = nodeData == null ? void 0 : nodeData.input) == null ? void 0 : _a.required) == null ? void 0 : _b.audio) == null ? void 0 : _c[1]) == null ? void 0 : _d.audio_upload) === true) {
-        nodeData.input.required.upload = ["AUDIOUPLOAD"];
-      }
-    });
+  async beforeRegisterNodeDef(nodeType, nodeData) {
+    if (nodeData?.input?.required?.audio?.[1]?.audio_upload === true) {
+      nodeData.input.required.upload = ["AUDIOUPLOAD"];
+    }
   },
   getCustomWidgets() {
     return {
@@ -6152,7 +5996,7 @@ app.registerExtension({
         audioWidget.callback = onAudioWidgetUpdate;
         const onGraphConfigured = node.onGraphConfigured;
         node.onGraphConfigured = function() {
-          onGraphConfigured == null ? void 0 : onGraphConfigured.apply(this, arguments);
+          onGraphConfigured?.apply(this, arguments);
           if (audioWidget.value) {
             onAudioWidgetUpdate();
           }
@@ -6182,4 +6026,4 @@ app.registerExtension({
     };
   }
 });
-//# sourceMappingURL=index-DkvOTKox.js.map
+//# sourceMappingURL=index-BD-Ia1C4.js.map
