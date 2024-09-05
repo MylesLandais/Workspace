@@ -1,6 +1,6 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { C as ComfyDialog, $ as $el, a as ComfyApp, b as app, L as LGraphCanvas, c as LiteGraph, d as LGraphNode, e as applyTextReplacements, f as ComfyWidgets, g as addValueControlWidgets, D as DraggableList, h as api, u as useToastStore, i as LGraphGroup } from "./index-CI3N807S.js";
+import { C as ComfyDialog, $ as $el, a as ComfyApp, b as app, L as LGraphCanvas, c as LiteGraph, d as LGraphNode, e as applyTextReplacements, f as ComfyWidgets, g as addValueControlWidgets, D as DraggableList, h as api, i as LGraphGroup, u as useToastStore } from "./index-Dfv2aLsq.js";
 class ClipspaceDialog extends ComfyDialog {
   static {
     __name(this, "ClipspaceDialog");
@@ -3650,7 +3650,7 @@ app.registerExtension({
           content: "Add Group For Selected Nodes",
           disabled: !Object.keys(app.canvas.selected_nodes || {}).length,
           callback: /* @__PURE__ */ __name(() => {
-            var group2 = new LiteGraph.LGraphGroup();
+            const group2 = new LGraphGroup();
             addNodesToGroup(group2, this.selected_nodes);
             app.canvas.graph.add(group2);
             this.graph.change();
@@ -5088,7 +5088,7 @@ app.registerExtension({
             data = JSON.parse(data);
             const nodeIds = Object.keys(app.canvas.selected_nodes);
             for (let i = 0; i < nodeIds.length; i++) {
-              const node = app.graph.getNodeById(Number.parseInt(nodeIds[i]));
+              const node = app.graph.getNodeById(nodeIds[i]);
               const nodeData = node?.constructor.nodeData;
               let groupData = GroupNodeHandler.getGroupData(node);
               if (groupData) {
@@ -5955,7 +5955,7 @@ app.registerExtension({
   },
   onNodeOutputsUpdated(nodeOutputs) {
     for (const [nodeId, output] of Object.entries(nodeOutputs)) {
-      const node = app.graph.getNodeById(Number.parseInt(nodeId));
+      const node = app.graph.getNodeById(nodeId);
       if ("audio" in output) {
         const audioUIWidget = node.widgets.find(
           (w) => w.name === "audioUI"
@@ -6026,4 +6026,4 @@ app.registerExtension({
     };
   }
 });
-//# sourceMappingURL=index-BD-Ia1C4.js.map
+//# sourceMappingURL=index-CrROdkG4.js.map
