@@ -1,6 +1,6 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { C as ComfyDialog, $ as $el, a as ComfyApp, b as app, L as LGraphCanvas, c as LiteGraph, d as LGraphNode, e as applyTextReplacements, f as ComfyWidgets, g as addValueControlWidgets, D as DraggableList, h as api, i as LGraphGroup, u as useToastStore } from "./index-Dfv2aLsq.js";
+import { aM as ComfyDialog, aN as $el, aO as ComfyApp, c as app, aH as LGraphCanvas, k as LiteGraph, e as LGraphNode, aP as applyTextReplacements, aQ as ComfyWidgets, aR as addValueControlWidgets, aS as DraggableList, av as useNodeDefStore, aT as api, L as LGraphGroup, aU as useToastStore, at as NodeSourceType, aV as NodeBadgeMode, u as useSettingStore, q as computed, w as watch, aW as BadgePosition, aJ as LGraphBadge$1, aX as _ } from "./index-Drc_oD2f.js";
 class ClipspaceDialog extends ComfyDialog {
   static {
     __name(this, "ClipspaceDialog");
@@ -213,7 +213,9 @@ const colorPalettes = {
         WIDGET_SECONDARY_TEXT_COLOR: "#999",
         LINK_COLOR: "#9A9",
         EVENT_LINK_COLOR: "#A86",
-        CONNECTING_LINK_COLOR: "#AFA"
+        CONNECTING_LINK_COLOR: "#AFA",
+        BADGE_FG_COLOR: "#FFF",
+        BADGE_BG_COLOR: "#0F1F0F"
       },
       comfy_base: {
         "fg-color": "#fff",
@@ -283,7 +285,9 @@ const colorPalettes = {
         WIDGET_SECONDARY_TEXT_COLOR: "#555",
         LINK_COLOR: "#4CAF50",
         EVENT_LINK_COLOR: "#FF9800",
-        CONNECTING_LINK_COLOR: "#2196F3"
+        CONNECTING_LINK_COLOR: "#2196F3",
+        BADGE_FG_COLOR: "#000",
+        BADGE_BG_COLOR: "#FFF"
       },
       comfy_base: {
         "fg-color": "#222",
@@ -621,6 +625,32 @@ const defaultColorPaletteId = "dark";
 const els = {
   select: null
 };
+const getCustomColorPalettes = /* @__PURE__ */ __name(() => {
+  return app.ui.settings.getSettingValue(idCustomColorPalettes, {});
+}, "getCustomColorPalettes");
+const setCustomColorPalettes = /* @__PURE__ */ __name((customColorPalettes) => {
+  return app.ui.settings.setSettingValue(
+    idCustomColorPalettes,
+    customColorPalettes
+  );
+}, "setCustomColorPalettes");
+const defaultColorPalette = colorPalettes[defaultColorPaletteId];
+const getColorPalette = /* @__PURE__ */ __name((colorPaletteId) => {
+  if (!colorPaletteId) {
+    colorPaletteId = app.ui.settings.getSettingValue(id$4, defaultColorPaletteId);
+  }
+  if (colorPaletteId.startsWith("custom_")) {
+    colorPaletteId = colorPaletteId.substr(7);
+    let customColorPalettes = getCustomColorPalettes();
+    if (customColorPalettes[colorPaletteId]) {
+      return customColorPalettes[colorPaletteId];
+    }
+  }
+  return colorPalettes[colorPaletteId];
+}, "getColorPalette");
+const setColorPalette = /* @__PURE__ */ __name((colorPaletteId) => {
+  app.ui.settings.setSettingValue(id$4, colorPaletteId);
+}, "setColorPalette");
 app.registerExtension({
   name: id$4,
   init() {
@@ -695,28 +725,19 @@ app.registerExtension({
           comfy_base: {}
         }
       };
-      const defaultColorPalette = colorPalettes[defaultColorPaletteId];
-      for (const key in defaultColorPalette.colors.litegraph_base) {
+      const defaultColorPalette2 = colorPalettes[defaultColorPaletteId];
+      for (const key in defaultColorPalette2.colors.litegraph_base) {
         if (!colorPalette.colors.litegraph_base[key]) {
           colorPalette.colors.litegraph_base[key] = "";
         }
       }
-      for (const key in defaultColorPalette.colors.comfy_base) {
+      for (const key in defaultColorPalette2.colors.comfy_base) {
         if (!colorPalette.colors.comfy_base[key]) {
           colorPalette.colors.comfy_base[key] = "";
         }
       }
       return completeColorPalette(colorPalette);
     }, "getColorPaletteTemplate");
-    const getCustomColorPalettes = /* @__PURE__ */ __name(() => {
-      return app.ui.settings.getSettingValue(idCustomColorPalettes, {});
-    }, "getCustomColorPalettes");
-    const setCustomColorPalettes = /* @__PURE__ */ __name((customColorPalettes) => {
-      return app.ui.settings.setSettingValue(
-        idCustomColorPalettes,
-        customColorPalettes
-      );
-    }, "setCustomColorPalettes");
     const addCustomColorPalette = /* @__PURE__ */ __name(async (colorPalette) => {
       if (typeof colorPalette !== "object") {
         alert("Invalid color palette.");
@@ -807,25 +828,6 @@ app.registerExtension({
         app.canvas.draw(true, true);
       }
     }, "loadColorPalette");
-    const getColorPalette = /* @__PURE__ */ __name((colorPaletteId) => {
-      if (!colorPaletteId) {
-        colorPaletteId = app.ui.settings.getSettingValue(
-          id$4,
-          defaultColorPaletteId
-        );
-      }
-      if (colorPaletteId.startsWith("custom_")) {
-        colorPaletteId = colorPaletteId.substr(7);
-        let customColorPalettes = getCustomColorPalettes();
-        if (customColorPalettes[colorPaletteId]) {
-          return customColorPalettes[colorPaletteId];
-        }
-      }
-      return colorPalettes[colorPaletteId];
-    }, "getColorPalette");
-    const setColorPalette = /* @__PURE__ */ __name((colorPaletteId) => {
-      app.ui.settings.setSettingValue(id$4, colorPaletteId);
-    }, "setColorPalette");
     const fileInput = $el("input", {
       type: "file",
       accept: ".json",
@@ -994,6 +996,10 @@ app.registerExtension({
     });
   }
 });
+window.comfyAPI = window.comfyAPI || {};
+window.comfyAPI.colorPalette = window.comfyAPI.colorPalette || {};
+window.comfyAPI.colorPalette.defaultColorPalette = defaultColorPalette;
+window.comfyAPI.colorPalette.getColorPalette = getColorPalette;
 const ext$2 = {
   name: "Comfy.ContextMenuFilter",
   init() {
@@ -1360,7 +1366,7 @@ class PrimitiveNode extends LGraphNode {
       this.#mergeWidgetConfig();
     }
   }
-  onConnectionsChange(_, index, connected) {
+  onConnectionsChange(_2, index, connected) {
     if (app.configuringGraph) {
       return;
     }
@@ -1806,7 +1812,7 @@ app.registerExtension({
       convertToInput(this, widget, config);
       return true;
     };
-    nodeType.prototype.getExtraMenuOptions = function(_, options) {
+    nodeType.prototype.getExtraMenuOptions = function(_2, options) {
       const r = origGetExtraMenuOptions ? origGetExtraMenuOptions.apply(this, arguments) : void 0;
       if (this.widgets) {
         let toInput = [];
@@ -1862,6 +1868,7 @@ app.registerExtension({
     };
     nodeType.prototype.onGraphConfigured = function() {
       if (!this.inputs) return;
+      this.widgets ??= [];
       for (const input of this.inputs) {
         if (input.widget) {
           if (!input.widget[GET_CONFIG]) {
@@ -1919,7 +1926,7 @@ app.registerExtension({
       return r;
     };
     function isNodeAtPos(pos) {
-      for (const n of app2.graph._nodes) {
+      for (const n of app2.graph.nodes) {
         if (n.pos[0] === pos[0] && n.pos[1] === pos[1]) {
           return true;
         }
@@ -2308,7 +2315,7 @@ class ManageGroupDialog extends ComfyDialog {
           "button.comfy-btn",
           {
             onclick: /* @__PURE__ */ __name((e) => {
-              const node = app.graph._nodes.find(
+              const node = app.graph.nodes.find(
                 (n) => n.type === "workflow/" + this.selectedGroup
               );
               if (node) {
@@ -2374,7 +2381,7 @@ class ManageGroupDialog extends ComfyDialog {
                 }
                 types[g] = type2;
                 if (!nodesByType) {
-                  nodesByType = app.graph._nodes.reduce((p, n) => {
+                  nodesByType = app.graph.nodes.reduce((p, n) => {
                     p[n.type] ??= [];
                     p[n.type].push(n);
                     return p;
@@ -2424,7 +2431,7 @@ const Workflow = {
   isInUseGroupNode(name) {
     const id2 = `workflow/${name}`;
     if (app.graph.extra?.groupNodes?.[name]) {
-      if (app.graph._nodes.find((n) => n.type === id2)) {
+      if (app.graph.nodes.find((n) => n.type === id2)) {
         return Workflow.InUse.InWorkflow;
       } else {
         return Workflow.InUse.Registered;
@@ -2576,6 +2583,8 @@ class GroupNodeConfig {
       display_name: this.name,
       category: "group nodes" + ("/" + source),
       input: { required: {} },
+      description: `Group node combining ${this.nodeData.nodes.map((n) => n.type).join(", ")}`,
+      python_module: "custom_nodes." + this.name,
       [GROUP]: this
     };
     this.inputs = [];
@@ -2591,6 +2600,7 @@ class GroupNodeConfig {
     }
     this.#convertedToProcess = null;
     await app.registerNodeDef("workflow/" + this.name, this.nodeDef);
+    useNodeDefStore().addNodeDef(this.nodeDef);
   }
   getLinks() {
     this.linksFrom = {};
@@ -2775,7 +2785,7 @@ class GroupNodeConfig {
   checkPrimitiveConnection(link, inputName, inputs) {
     const sourceNode = this.nodeData.nodes[link[0]];
     if (sourceNode.type === "PrimitiveNode") {
-      const [sourceNodeId, _, targetNodeId, __] = link;
+      const [sourceNodeId, _2, targetNodeId, __] = link;
       const primitiveDef = this.primitiveDefs[sourceNodeId];
       const targetWidget = inputs[inputName];
       const primitiveConfig = primitiveDef.input.required.value;
@@ -3177,7 +3187,7 @@ class GroupNodeHandler {
       return newNodes;
     };
     const getExtraMenuOptions = this.node.getExtraMenuOptions;
-    this.node.getExtraMenuOptions = function(_, options) {
+    this.node.getExtraMenuOptions = function(_2, options) {
       getExtraMenuOptions?.apply(this, arguments);
       let optionIndex = options.findIndex((o) => o.content === "Outputs");
       if (optionIndex === -1) optionIndex = options.length;
@@ -3353,7 +3363,7 @@ class GroupNodeHandler {
       } else if (innerNode.type === "Reroute") {
         const rerouteLinks = this.groupData.linksFrom[old.node.index];
         if (rerouteLinks) {
-          for (const [_, , targetNodeId, targetSlot] of rerouteLinks["0"]) {
+          for (const [_2, , targetNodeId, targetSlot] of rerouteLinks["0"]) {
             const node = this.innerNodes[targetNodeId];
             const input = node.inputs[targetSlot];
             if (input.widget) {
@@ -3599,7 +3609,7 @@ function addNodesToGroup(group, nodes = []) {
   var node;
   x1 = y1 = x2 = y2 = -1;
   nx1 = ny1 = nx2 = ny2 = -1;
-  for (var n of [group._nodes, nodes]) {
+  for (var n of [group.nodes, nodes]) {
     for (var i in n) {
       node = n[i];
       nx1 = node.pos[0];
@@ -3659,7 +3669,7 @@ app.registerExtension({
         return options;
       }
       group.recomputeInsideNodes();
-      const nodesInGroup = group._nodes;
+      const nodesInGroup = group.nodes;
       options.push({
         content: "Add Selected Nodes To Group",
         disabled: !Object.keys(app.canvas.selected_nodes || {}).length,
@@ -4002,6 +4012,16 @@ function prepare_mask(image, maskCanvas, maskCtx, maskColor) {
   maskCtx.putImageData(maskData, 0, 0);
 }
 __name(prepare_mask, "prepare_mask");
+var PointerType = /* @__PURE__ */ ((PointerType2) => {
+  PointerType2["Arc"] = "arc";
+  PointerType2["Rect"] = "rect";
+  return PointerType2;
+})(PointerType || {});
+var CompositionOperation = /* @__PURE__ */ ((CompositionOperation2) => {
+  CompositionOperation2["SourceOver"] = "source-over";
+  CompositionOperation2["DestinationOut"] = "destination-out";
+  return CompositionOperation2;
+})(CompositionOperation || {});
 class MaskEditorDialog extends ComfyDialog {
   static {
     __name(this, "MaskEditorDialog");
@@ -4030,6 +4050,8 @@ class MaskEditorDialog extends ComfyDialog {
   mousedown_pan_x;
   mousedown_pan_y;
   last_pressure;
+  pointer_type;
+  brush_pointer_type_select;
   static getInstance() {
     if (!MaskEditorDialog.instance) {
       MaskEditorDialog.instance = new MaskEditorDialog();
@@ -4077,7 +4099,7 @@ class MaskEditorDialog extends ComfyDialog {
     divElement.style.borderColor = "var(--border-color)";
     divElement.style.borderStyle = "solid";
     divElement.style.fontSize = "15px";
-    divElement.style.height = "21px";
+    divElement.style.height = "25px";
     divElement.style.padding = "1px 6px";
     divElement.style.display = "flex";
     divElement.style.position = "relative";
@@ -4107,7 +4129,7 @@ class MaskEditorDialog extends ComfyDialog {
     divElement.style.borderColor = "var(--border-color)";
     divElement.style.borderStyle = "solid";
     divElement.style.fontSize = "15px";
-    divElement.style.height = "21px";
+    divElement.style.height = "25px";
     divElement.style.padding = "1px 6px";
     divElement.style.display = "flex";
     divElement.style.position = "relative";
@@ -4126,8 +4148,63 @@ class MaskEditorDialog extends ComfyDialog {
     self.opacity_slider_input.addEventListener("input", callback);
     return divElement;
   }
+  createPointerTypeSelect(self) {
+    const divElement = document.createElement("div");
+    divElement.id = "maskeditor-pointer-type";
+    divElement.style.cssFloat = "left";
+    divElement.style.fontFamily = "sans-serif";
+    divElement.style.marginRight = "4px";
+    divElement.style.color = "var(--input-text)";
+    divElement.style.backgroundColor = "var(--comfy-input-bg)";
+    divElement.style.borderRadius = "8px";
+    divElement.style.borderColor = "var(--border-color)";
+    divElement.style.borderStyle = "solid";
+    divElement.style.fontSize = "15px";
+    divElement.style.height = "25px";
+    divElement.style.padding = "1px 6px";
+    divElement.style.display = "flex";
+    divElement.style.position = "relative";
+    divElement.style.top = "2px";
+    divElement.style.pointerEvents = "auto";
+    const labelElement = document.createElement("label");
+    labelElement.textContent = "Pointer Type:";
+    const selectElement = document.createElement("select");
+    selectElement.style.borderRadius = "0";
+    selectElement.style.borderColor = "transparent";
+    selectElement.style.borderStyle = "unset";
+    selectElement.style.fontSize = "0.9em";
+    const optionArc = document.createElement("option");
+    optionArc.value = "arc";
+    optionArc.text = "Circle";
+    optionArc.selected = true;
+    const optionRect = document.createElement("option");
+    optionRect.value = "rect";
+    optionRect.text = "Square";
+    selectElement.appendChild(optionArc);
+    selectElement.appendChild(optionRect);
+    selectElement.addEventListener("change", (event) => {
+      const target = event.target;
+      self.pointer_type = target.value;
+      this.setBrushBorderRadius(self);
+    });
+    divElement.appendChild(labelElement);
+    divElement.appendChild(selectElement);
+    return divElement;
+  }
+  setBrushBorderRadius(self) {
+    if (self.pointer_type === "rect") {
+      this.brush.style.borderRadius = "0%";
+      this.brush.style.MozBorderRadius = "0%";
+      this.brush.style.WebkitBorderRadius = "0%";
+    } else {
+      this.brush.style.borderRadius = "50%";
+      this.brush.style.MozBorderRadius = "50%";
+      this.brush.style.WebkitBorderRadius = "50%";
+    }
+  }
   setlayout(imgCanvas, maskCanvas) {
     const self = this;
+    self.pointer_type = "arc";
     var bottom_panel = document.createElement("div");
     bottom_panel.style.position = "absolute";
     bottom_panel.style.bottom = "0px";
@@ -4140,13 +4217,11 @@ class MaskEditorDialog extends ComfyDialog {
     brush.style.backgroundColor = "transparent";
     brush.style.outline = "1px dashed black";
     brush.style.boxShadow = "0 0 0 1px white";
-    brush.style.borderRadius = "50%";
-    brush.style.MozBorderRadius = "50%";
-    brush.style.WebkitBorderRadius = "50%";
     brush.style.position = "absolute";
     brush.style.zIndex = "8889";
     brush.style.pointerEvents = "none";
     this.brush = brush;
+    this.setBrushBorderRadius(self);
     this.element.appendChild(imgCanvas);
     this.element.appendChild(maskCanvas);
     this.element.appendChild(bottom_panel);
@@ -4177,6 +4252,7 @@ class MaskEditorDialog extends ComfyDialog {
         }
       }
     );
+    this.brush_pointer_type_select = this.createPointerTypeSelect(self);
     this.colorButton = this.createLeftButton(this.getColorButtonText(), () => {
       if (self.brush_color_mode === "black") {
         self.brush_color_mode = "white";
@@ -4203,6 +4279,7 @@ class MaskEditorDialog extends ComfyDialog {
     bottom_panel.appendChild(cancelButton);
     bottom_panel.appendChild(this.brush_size_slider);
     bottom_panel.appendChild(this.brush_opacity_slider);
+    bottom_panel.appendChild(this.brush_pointer_type_select);
     bottom_panel.appendChild(this.colorButton);
     imgCanvas.style.position = "absolute";
     maskCanvas.style.position = "absolute";
@@ -4568,19 +4645,22 @@ class MaskEditorDialog extends ComfyDialog {
       }
       if (diff > 20 && !this.drawing_mode)
         requestAnimationFrame(() => {
-          self.maskCtx.beginPath();
-          self.maskCtx.fillStyle = this.getMaskFillStyle();
-          self.maskCtx.globalCompositeOperation = "source-over";
-          self.maskCtx.arc(x, y, brush_size, 0, Math.PI * 2, false);
-          self.maskCtx.fill();
+          self.init_shape(
+            self,
+            "source-over"
+            /* SourceOver */
+          );
+          self.draw_shape(self, x, y, brush_size);
           self.lastx = x;
           self.lasty = y;
         });
       else
         requestAnimationFrame(() => {
-          self.maskCtx.beginPath();
-          self.maskCtx.fillStyle = this.getMaskFillStyle();
-          self.maskCtx.globalCompositeOperation = "source-over";
+          self.init_shape(
+            self,
+            "source-over"
+            /* SourceOver */
+          );
           var dx = x - self.lastx;
           var dy = y - self.lasty;
           var distance = Math.sqrt(dx * dx + dy * dy);
@@ -4589,8 +4669,7 @@ class MaskEditorDialog extends ComfyDialog {
           for (var i = 0; i < distance; i += 5) {
             var px = self.lastx + directionX * i;
             var py = self.lasty + directionY * i;
-            self.maskCtx.arc(px, py, brush_size, 0, Math.PI * 2, false);
-            self.maskCtx.fill();
+            self.draw_shape(self, px, py, brush_size);
           }
           self.lastx = x;
           self.lasty = y;
@@ -4611,17 +4690,22 @@ class MaskEditorDialog extends ComfyDialog {
       }
       if (diff > 20 && !this.drawing_mode)
         requestAnimationFrame(() => {
-          self.maskCtx.beginPath();
-          self.maskCtx.globalCompositeOperation = "destination-out";
-          self.maskCtx.arc(x2, y2, brush_size, 0, Math.PI * 2, false);
-          self.maskCtx.fill();
+          self.init_shape(
+            self,
+            "destination-out"
+            /* DestinationOut */
+          );
+          self.draw_shape(self, x2, y2, brush_size);
           self.lastx = x2;
           self.lasty = y2;
         });
       else
         requestAnimationFrame(() => {
-          self.maskCtx.beginPath();
-          self.maskCtx.globalCompositeOperation = "destination-out";
+          self.init_shape(
+            self,
+            "destination-out"
+            /* DestinationOut */
+          );
           var dx = x2 - self.lastx;
           var dy = y2 - self.lasty;
           var distance = Math.sqrt(dx * dx + dy * dy);
@@ -4630,8 +4714,7 @@ class MaskEditorDialog extends ComfyDialog {
           for (var i = 0; i < distance; i += 5) {
             var px = self.lastx + directionX * i;
             var py = self.lasty + directionY * i;
-            self.maskCtx.arc(px, py, brush_size, 0, Math.PI * 2, false);
-            self.maskCtx.fill();
+            self.draw_shape(self, px, py, brush_size);
           }
           self.lastx = x2;
           self.lasty = y2;
@@ -4665,19 +4748,46 @@ class MaskEditorDialog extends ComfyDialog {
       const maskRect = self.maskCanvas.getBoundingClientRect();
       const x = (event.offsetX || event.targetTouches[0].clientX - maskRect.left) / self.zoom_ratio;
       const y = (event.offsetY || event.targetTouches[0].clientY - maskRect.top) / self.zoom_ratio;
-      self.maskCtx.beginPath();
       if (!event.altKey && event.button == 0) {
-        self.maskCtx.fillStyle = this.getMaskFillStyle();
-        self.maskCtx.globalCompositeOperation = "source-over";
+        self.init_shape(
+          self,
+          "source-over"
+          /* SourceOver */
+        );
       } else {
-        self.maskCtx.globalCompositeOperation = "destination-out";
+        self.init_shape(
+          self,
+          "destination-out"
+          /* DestinationOut */
+        );
       }
-      self.maskCtx.arc(x, y, brush_size, 0, Math.PI * 2, false);
-      self.maskCtx.fill();
+      self.draw_shape(self, x, y, brush_size);
       self.lastx = x;
       self.lasty = y;
       self.lasttime = performance.now();
     }
+  }
+  init_shape(self, compositionOperation) {
+    self.maskCtx.beginPath();
+    if (compositionOperation == "source-over") {
+      self.maskCtx.fillStyle = this.getMaskFillStyle();
+      self.maskCtx.globalCompositeOperation = "source-over";
+    } else if (compositionOperation == "destination-out") {
+      self.maskCtx.globalCompositeOperation = "destination-out";
+    }
+  }
+  draw_shape(self, x, y, brush_size) {
+    if (self.pointer_type === "rect") {
+      self.maskCtx.rect(
+        x - brush_size,
+        y - brush_size,
+        brush_size * 2,
+        brush_size * 2
+      );
+    } else {
+      self.maskCtx.arc(x, y, brush_size, 0, Math.PI * 2, false);
+    }
+    self.maskCtx.fill();
   }
   async save() {
     const backupCanvas = document.createElement("canvas");
@@ -5264,7 +5374,7 @@ app.registerExtension({
                   updateNodes.push(node);
                 } else {
                   const nodeOutType = node.inputs && node.inputs[link?.target_slot] && node.inputs[link.target_slot].type ? node.inputs[link.target_slot].type : null;
-                  if (inputType && inputType !== "*" && nodeOutType !== inputType) {
+                  if (inputType && !LiteGraph.isValidConnection(inputType, nodeOutType)) {
                     node.disconnectInput(link.target_slot);
                   } else {
                     outputType = nodeOutType;
@@ -5300,6 +5410,7 @@ app.registerExtension({
                   }
                   if (!targetWidget) {
                     targetWidget = targetNode.widgets?.find(
+                      // @ts-expect-error fix widget types
                       (w) => w.name === targetInput.widget.name
                     );
                   }
@@ -5342,7 +5453,7 @@ app.registerExtension({
         };
         this.isVirtualNode = true;
       }
-      getExtraMenuOptions(_, options) {
+      getExtraMenuOptions(_2, options) {
         options.unshift(
           {
             content: (this.properties.showOutputText ? "Hide" : "Show") + " Type",
@@ -5564,8 +5675,7 @@ app.registerExtension({
   slot_types_default_in: {},
   async beforeRegisterNodeDef(nodeType, nodeData, app2) {
     var nodeId = nodeData.name;
-    var inputs = [];
-    inputs = nodeData["input"]["required"];
+    const inputs = nodeData["input"]["required"];
     for (const inputKey in inputs) {
       var input = inputs[inputKey];
       if (typeof input[0] !== "string") continue;
@@ -5637,7 +5747,7 @@ app.registerExtension({
       tooltip: "When dragging and resizing nodes while holding shift they will be aligned to the grid, this controls the size of that grid.",
       defaultValue: LiteGraph.CANVAS_GRID_SIZE,
       onChange(value) {
-        LiteGraph.CANVAS_GRID_SIZE = +value;
+        LiteGraph.CANVAS_GRID_SIZE = +value || 10;
       }
     });
     const onNodeMoved = app.canvas.onNodeMoved;
@@ -5697,7 +5807,7 @@ app.registerExtension({
       }
       if (app.canvas.last_mouse_dragging === false && app.shiftDown) {
         this.recomputeInsideNodes();
-        for (const node of this._nodes) {
+        for (const node of this.nodes) {
           node.alignToGrid();
         }
         LGraphNode.prototype.alignToGrid.apply(this);
@@ -5730,7 +5840,7 @@ app.registerExtension({
     LGraphCanvas.onGroupAdd = function() {
       const v = onGroupAdd.apply(app.canvas, arguments);
       if (app.shiftDown) {
-        const lastGroup = app.graph._groups[app.graph._groups.length - 1];
+        const lastGroup = app.graph.groups[app.graph.groups.length - 1];
         if (lastGroup) {
           roundVectorToGrid(lastGroup.pos);
           roundVectorToGrid(lastGroup.size);
@@ -6026,4 +6136,108 @@ app.registerExtension({
     };
   }
 });
-//# sourceMappingURL=index-CrROdkG4.js.map
+function getNodeSource(node) {
+  const nodeDef = node.constructor.nodeData;
+  if (!nodeDef) {
+    return null;
+  }
+  const nodeDefStore = useNodeDefStore();
+  return nodeDefStore.nodeDefsByName[nodeDef.name]?.nodeSource ?? null;
+}
+__name(getNodeSource, "getNodeSource");
+function isCoreNode(node) {
+  return getNodeSource(node)?.type === NodeSourceType.Core;
+}
+__name(isCoreNode, "isCoreNode");
+function badgeTextVisible(node, badgeMode) {
+  return badgeMode === NodeBadgeMode.None || isCoreNode(node) && badgeMode === NodeBadgeMode.HideBuiltIn;
+}
+__name(badgeTextVisible, "badgeTextVisible");
+function getNodeIdBadgeText(node, nodeIdBadgeMode) {
+  return badgeTextVisible(node, nodeIdBadgeMode) ? "" : `#${node.id}`;
+}
+__name(getNodeIdBadgeText, "getNodeIdBadgeText");
+function getNodeSourceBadgeText(node, nodeSourceBadgeMode) {
+  const nodeSource = getNodeSource(node);
+  return badgeTextVisible(node, nodeSourceBadgeMode) ? "" : nodeSource?.badgeText ?? "";
+}
+__name(getNodeSourceBadgeText, "getNodeSourceBadgeText");
+function getNodeLifeCycleBadgeText(node, nodeLifeCycleBadgeMode) {
+  let text = "";
+  const nodeDef = node.constructor.nodeData;
+  if (!nodeDef) {
+    return "";
+  }
+  if (nodeDef.deprecated) {
+    text = "[DEPR]";
+  }
+  if (nodeDef.experimental) {
+    text = "[BETA]";
+  }
+  return badgeTextVisible(node, nodeLifeCycleBadgeMode) ? "" : text;
+}
+__name(getNodeLifeCycleBadgeText, "getNodeLifeCycleBadgeText");
+class NodeBadgeExtension {
+  static {
+    __name(this, "NodeBadgeExtension");
+  }
+  constructor(nodeIdBadgeMode = null, nodeSourceBadgeMode = null, nodeLifeCycleBadgeMode = null, colorPalette = null) {
+    this.nodeIdBadgeMode = nodeIdBadgeMode;
+    this.nodeSourceBadgeMode = nodeSourceBadgeMode;
+    this.nodeLifeCycleBadgeMode = nodeLifeCycleBadgeMode;
+    this.colorPalette = colorPalette;
+  }
+  name = "Comfy.NodeBadge";
+  init(app2) {
+    const settingStore = useSettingStore();
+    this.nodeSourceBadgeMode = computed(
+      () => settingStore.get("Comfy.NodeBadge.NodeSourceBadgeMode")
+    );
+    this.nodeIdBadgeMode = computed(
+      () => settingStore.get("Comfy.NodeBadge.NodeIdBadgeMode")
+    );
+    this.nodeLifeCycleBadgeMode = computed(
+      () => settingStore.get(
+        "Comfy.NodeBadge.NodeLifeCycleBadgeMode"
+      )
+    );
+    this.colorPalette = computed(
+      () => getColorPalette(settingStore.get("Comfy.ColorPalette"))
+    );
+    watch(this.nodeSourceBadgeMode, () => {
+      app2.graph.setDirtyCanvas(true, true);
+    });
+    watch(this.nodeIdBadgeMode, () => {
+      app2.graph.setDirtyCanvas(true, true);
+    });
+    watch(this.nodeLifeCycleBadgeMode, () => {
+      app2.graph.setDirtyCanvas(true, true);
+    });
+  }
+  nodeCreated(node, app2) {
+    node.badgePosition = BadgePosition.TopRight;
+    node.badge_enabled = true;
+    const badge = computed(
+      () => new LGraphBadge$1({
+        text: _.truncate(
+          [
+            getNodeIdBadgeText(node, this.nodeIdBadgeMode.value),
+            getNodeLifeCycleBadgeText(
+              node,
+              this.nodeLifeCycleBadgeMode.value
+            ),
+            getNodeSourceBadgeText(node, this.nodeSourceBadgeMode.value)
+          ].filter((s) => s.length > 0).join(" "),
+          {
+            length: 31
+          }
+        ),
+        fgColor: this.colorPalette.value.colors.litegraph_base?.BADGE_FG_COLOR || defaultColorPalette.colors.litegraph_base.BADGE_FG_COLOR,
+        bgColor: this.colorPalette.value.colors.litegraph_base?.BADGE_BG_COLOR || defaultColorPalette.colors.litegraph_base.BADGE_BG_COLOR
+      })
+    );
+    node.badges.push(() => badge.value);
+  }
+}
+app.registerExtension(new NodeBadgeExtension());
+//# sourceMappingURL=index-BDBCRrlL.js.map
