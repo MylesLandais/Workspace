@@ -1,6 +1,6 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, u as useSettingStore, r as ref, a as useTitleEditorStore, b as useCanvasStore, w as watch, L as LGraphGroup, c as app, e as LGraphNode, o as onMounted, f as onUnmounted, g as openBlock, h as createElementBlock, i as createVNode, E as EditableText, n as normalizeStyle, j as createCommentVNode, k as LiteGraph, _ as _export_sfc, B as BaseStyle, s as script$5, l as resolveComponent, m as mergeProps, p as renderSlot, q as computed, t as resolveDirective, v as withDirectives, x as createBlock, y as withCtx, z as unref, A as createBaseVNode, C as normalizeClass, D as script$6, F as useDialogStore, S as SettingDialogHeader, G as SettingDialogContent, H as useWorkspaceStore, I as onBeforeUnmount, J as Fragment, K as renderList, T as Teleport, M as resolveDynamicComponent, N as pushScopeId, O as popScopeId, P as script$7, Q as getWidth, R as getHeight, U as getOuterWidth, V as getOuterHeight, W as getVNodeProp, X as isArray, Y as vShow, Z as isNotEmpty, $ as UniqueComponentId, a0 as ZIndex, a1 as resolveFieldData, a2 as focus, a3 as OverlayEventBus, a4 as isEmpty, a5 as addStyle, a6 as relativePosition, a7 as absolutePosition, a8 as ConnectedOverlayScrollHandler, a9 as isTouchDevice, aa as equals, ab as findLastIndex, ac as findSingle, ad as script$8, ae as script$9, af as script$a, ag as script$b, ah as script$c, ai as script$d, aj as Ripple, ak as toDisplayString, al as Transition, am as createSlots, an as createTextVNode, ao as useNodeFrequencyStore, ap as useNodeBookmarkStore, aq as highlightQuery, ar as script$e, as as formatNumberWithSuffix, at as NodeSourceType, au as useI18n, av as useNodeDefStore, aw as NodePreview, ax as NodeSearchFilter, ay as script$f, az as SearchFilterChip, aA as watchEffect, aB as toRaw, aC as LinkReleaseTriggerAction, aD as nextTick, aE as LGraph, aF as LLink, aG as DragAndScale, aH as LGraphCanvas, aI as ContextMenu, aJ as LGraphBadge$1, aK as dropTargetForElements, aL as ComfyNodeDefImpl } from "./index-Drc_oD2f.js";
+import { d as defineComponent, u as useSettingStore, r as ref, a as useTitleEditorStore, b as useCanvasStore, w as watch, L as LGraphGroup, c as app, e as LGraphNode, o as onMounted, f as onUnmounted, g as openBlock, h as createElementBlock, i as createVNode, E as EditableText, n as normalizeStyle, j as createCommentVNode, k as LiteGraph, _ as _export_sfc, B as BaseStyle, s as script$5, l as resolveComponent, m as mergeProps, p as renderSlot, q as computed, t as resolveDirective, v as withDirectives, x as createBlock, y as withCtx, z as unref, A as createBaseVNode, C as normalizeClass, D as script$6, F as useDialogStore, S as SettingDialogHeader, G as SettingDialogContent, H as useWorkspaceStore, I as onBeforeUnmount, J as Fragment, K as renderList, T as Teleport, M as resolveDynamicComponent, N as pushScopeId, O as popScopeId, P as script$7, Q as getWidth, R as getHeight, U as getOuterWidth, V as getOuterHeight, W as getVNodeProp, X as isArray, Y as vShow, Z as isNotEmpty, $ as UniqueComponentId, a0 as ZIndex, a1 as resolveFieldData, a2 as focus, a3 as OverlayEventBus, a4 as isEmpty, a5 as addStyle, a6 as relativePosition, a7 as absolutePosition, a8 as ConnectedOverlayScrollHandler, a9 as isTouchDevice, aa as equals, ab as findLastIndex, ac as findSingle, ad as script$8, ae as script$9, af as script$a, ag as script$b, ah as script$c, ai as script$d, aj as Ripple, ak as toDisplayString, al as Transition, am as createSlots, an as createTextVNode, ao as useNodeFrequencyStore, ap as useNodeBookmarkStore, aq as highlightQuery, ar as script$e, as as formatNumberWithSuffix, at as NodeSourceType, au as useI18n, av as useNodeDefStore, aw as NodePreview, ax as NodeSearchFilter, ay as script$f, az as SearchFilterChip, aA as watchEffect, aB as toRaw, aC as LinkReleaseTriggerAction, aD as nextTick, aE as LGraph, aF as LLink, aG as DragAndScale, aH as LGraphCanvas, aI as ContextMenu, aJ as LGraphBadge$1, aK as dropTargetForElements, aL as ComfyNodeDefImpl } from "./index-exUB01hM.js";
 const _sfc_main$c = /* @__PURE__ */ defineComponent({
   __name: "TitleEditor",
   setup(__props) {
@@ -2974,7 +2974,7 @@ const _sfc_main$2 = /* @__PURE__ */ defineComponent({
         [0, 0]
       );
       if (outputSlot !== -1) {
-        return showTooltip(nodeDef.output.all?.[outputSlot].tooltip);
+        return showTooltip(nodeDef.output.all?.[outputSlot]?.tooltip);
       }
       const widget = getHoveredWidget();
       if (widget && !widget.element) {
@@ -3017,7 +3017,7 @@ const _sfc_main$2 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const NodeTooltip = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-e0597bf9"]]);
+const NodeTooltip = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-0a4402f9"]]);
 const _sfc_main$1 = /* @__PURE__ */ defineComponent({
   __name: "GraphCanvas",
   emits: ["ready"],
@@ -3139,4 +3139,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as default
 };
-//# sourceMappingURL=GraphView-DN9xGvF3.js.map
+//# sourceMappingURL=GraphView-BeahKroI.js.map

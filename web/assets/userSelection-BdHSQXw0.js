@@ -1,6 +1,6 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { aY as createSpinner, aT as api, aN as $el } from "./index-Drc_oD2f.js";
+import { a_ as createSpinner, aT as api, aN as $el } from "./index-exUB01hM.js";
 class UserSelectionScreen {
   static {
     __name(this, "UserSelectionScreen");
@@ -117,4 +117,4 @@ window.comfyAPI.userSelection.UserSelectionScreen = UserSelectionScreen;
 export {
   UserSelectionScreen
 };
-//# sourceMappingURL=userSelection-BM5u5JIA.js.map
+//# sourceMappingURL=userSelection-BdHSQXw0.js.map
