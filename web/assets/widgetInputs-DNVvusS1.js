@@ -1,6 +1,6 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { l as LGraphNode, k as app, cf as applyTextReplacements, ce as ComfyWidgets, ci as addValueControlWidgets, z as LiteGraph } from "./index-DGAbdBYF.js";
+import { e as LGraphNode, c as app, bA as applyTextReplacements, bz as ComfyWidgets, bG as addValueControlWidgets, k as LiteGraph } from "./index-CgU1oKZt.js";
 const CONVERTED_TYPE = "converted-widget";
 const VALID_TYPES = [
   "STRING",
@@ -753,4 +753,4 @@ export {
   mergeIfValid,
   setWidgetConfig
 };
-//# sourceMappingURL=widgetInputs-DdoWwzg5.js.map
+//# sourceMappingURL=widgetInputs-DNVvusS1.js.map

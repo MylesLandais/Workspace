@@ -1,8 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { c9 as ComfyDialog, ca as $el, cb as ComfyApp, k as app, z as LiteGraph, aP as LGraphCanvas, cc as DraggableList, bO as useToastStore, aq as useNodeDefStore, b4 as api, L as LGraphGroup, cd as KeyComboImpl, aT as useKeybindingStore, aL as useCommandStore, l as LGraphNode, ce as ComfyWidgets, cf as applyTextReplacements, aA as NodeSourceType, cg as NodeBadgeMode, h as useSettingStore, F as computed, w as watch, ch as BadgePosition, aR as LGraphBadge, au as _ } from "./index-DGAbdBYF.js";
-import { g as getColorPalette, d as defaultColorPalette } from "./colorPalette-D5oi2-2V.js";
-import { mergeIfValid, getWidgetConfig, setWidgetConfig } from "./widgetInputs-DdoWwzg5.js";
+import { bu as ComfyDialog, bv as $el, bw as ComfyApp, c as app, k as LiteGraph, aP as LGraphCanvas, bx as DraggableList, a_ as useToastStore, ax as useNodeDefStore, bq as api, L as LGraphGroup, by as KeyComboImpl, K as useKeybindingStore, F as useCommandStore, e as LGraphNode, bz as ComfyWidgets, bA as applyTextReplacements, av as NodeSourceType, bB as NodeBadgeMode, u as useSettingStore, q as computed, bC as getColorPalette, w as watch, bD as BadgePosition, aR as LGraphBadge, bE as _, bF as defaultColorPalette } from "./index-CgU1oKZt.js";
+import { mergeIfValid, getWidgetConfig, setWidgetConfig } from "./widgetInputs-DNVvusS1.js";
 class ClipspaceDialog extends ComfyDialog {
   static {
     __name(this, "ClipspaceDialog");
@@ -339,7 +338,7 @@ app.registerExtension({
         if (text[start] === "(") openCount++;
         if (text[start] === ")") closeCount++;
       }
-      if (start < 0) return false;
+      if (start < 0) return null;
       openCount = 0;
       closeCount = 0;
       while (end < text.length) {
@@ -348,7 +347,7 @@ app.registerExtension({
         if (text[end] === ")") closeCount++;
         end++;
       }
-      if (end === text.length) return false;
+      if (end === text.length) return null;
       return { start: start + 1, end };
     }
     __name(findNearestEnclosure, "findNearestEnclosure");
@@ -1637,9 +1636,7 @@ class GroupNodeHandler {
         },
         {
           content: "Manage Group Node",
-          callback: /* @__PURE__ */ __name(() => {
-            new ManageGroupDialog(app).show(this.type);
-          }, "callback")
+          callback: manageGroupNodes
         }
       );
     };
@@ -1960,9 +1957,7 @@ function addConvertToGroupOptions() {
     options.splice(index + 1, null, {
       content: `Convert to Group Node`,
       disabled,
-      callback: /* @__PURE__ */ __name(async () => {
-        return await GroupNodeHandler.fromNodes(selected);
-      }, "callback")
+      callback: convertSelectedNodesToGroupNode
     });
   }
   __name(addConvertOption, "addConvertOption");
@@ -1972,9 +1967,7 @@ function addConvertToGroupOptions() {
     options.splice(index + 1, null, {
       content: `Manage Group Nodes`,
       disabled,
-      callback: /* @__PURE__ */ __name(() => {
-        new ManageGroupDialog(app).show();
-      }, "callback")
+      callback: manageGroupNodes
     });
   }
   __name(addManageOption, "addManageOption");
@@ -2004,10 +1997,77 @@ const replaceLegacySeparators = /* @__PURE__ */ __name((nodes) => {
     }
   }
 }, "replaceLegacySeparators");
+async function convertSelectedNodesToGroupNode() {
+  const nodes = Object.values(app.canvas.selected_nodes ?? {});
+  if (nodes.length === 0) {
+    throw new Error("No nodes selected");
+  }
+  if (nodes.length === 1) {
+    throw new Error("Please select multiple nodes to convert to group node");
+  }
+  if (nodes.some((n) => GroupNodeHandler.isGroupNode(n))) {
+    throw new Error("Selected nodes contain a group node");
+  }
+  return await GroupNodeHandler.fromNodes(nodes);
+}
+__name(convertSelectedNodesToGroupNode, "convertSelectedNodesToGroupNode");
+function ungroupSelectedGroupNodes() {
+  const nodes = Object.values(app.canvas.selected_nodes ?? {});
+  for (const node of nodes) {
+    if (GroupNodeHandler.isGroupNode(node)) {
+      node["convertToNodes"]?.();
+    }
+  }
+}
+__name(ungroupSelectedGroupNodes, "ungroupSelectedGroupNodes");
+function manageGroupNodes() {
+  new ManageGroupDialog(app).show();
+}
+__name(manageGroupNodes, "manageGroupNodes");
 const id$3 = "Comfy.GroupNode";
 let globalDefs;
 const ext$1 = {
   name: id$3,
+  commands: [
+    {
+      id: "Comfy.GroupNode.ConvertSelectedNodesToGroupNode",
+      label: "Convert selected nodes to group node",
+      icon: "pi pi-sitemap",
+      versionAdded: "1.3.17",
+      function: convertSelectedNodesToGroupNode
+    },
+    {
+      id: "Comfy.GroupNode.UngroupSelectedGroupNodes",
+      label: "Ungroup selected group nodes",
+      icon: "pi pi-sitemap",
+      versionAdded: "1.3.17",
+      function: ungroupSelectedGroupNodes
+    },
+    {
+      id: "Comfy.GroupNode.ManageGroupNodes",
+      label: "Manage group nodes",
+      icon: "pi pi-cog",
+      versionAdded: "1.3.17",
+      function: manageGroupNodes
+    }
+  ],
+  keybindings: [
+    {
+      commandId: "Comfy.GroupNode.ConvertSelectedNodesToGroupNode",
+      combo: {
+        alt: true,
+        key: "g"
+      }
+    },
+    {
+      commandId: "Comfy.GroupNode.UngroupSelectedGroupNodes",
+      combo: {
+        alt: true,
+        shift: true,
+        key: "G"
+      }
+    }
+  ],
   setup() {
     addConvertToGroupOptions();
   },
@@ -4172,10 +4232,19 @@ app.registerExtension({
         LiteGraph.CANVAS_GRID_SIZE = +value || 10;
       }
     });
+    const alwaysSnapToGrid = app.ui.settings.addSetting({
+      id: "pysssss.SnapToGrid",
+      category: ["Comfy", "Graph", "AlwaysSnapToGrid"],
+      name: "Always snap to grid",
+      type: "boolean",
+      defaultValue: false,
+      versionAdded: "1.3.13"
+    });
+    const shouldSnapToGrid = /* @__PURE__ */ __name(() => app.shiftDown || alwaysSnapToGrid.value, "shouldSnapToGrid");
     const onNodeMoved = app.canvas.onNodeMoved;
     app.canvas.onNodeMoved = function(node) {
       const r = onNodeMoved?.apply(this, arguments);
-      if (app.shiftDown) {
+      if (shouldSnapToGrid()) {
         for (const id2 in this.selected_nodes) {
           this.selected_nodes[id2].alignToGrid();
         }
@@ -4186,7 +4255,7 @@ app.registerExtension({
     app.graph.onNodeAdded = function(node) {
       const onResize = node.onResize;
       node.onResize = function() {
-        if (app.shiftDown) {
+        if (shouldSnapToGrid()) {
           roundVectorToGrid(node.size);
         }
         return onResize?.apply(this, arguments);
@@ -4195,7 +4264,7 @@ app.registerExtension({
     };
     const origDrawNode = LGraphCanvas.prototype.drawNode;
     LGraphCanvas.prototype.drawNode = function(node, ctx) {
-      if (app.shiftDown && this.node_dragged && node.id in this.selected_nodes) {
+      if (shouldSnapToGrid() && this.node_dragged && node.id in this.selected_nodes) {
         const [x, y] = roundVectorToGrid([...node.pos]);
         const shiftX = x - node.pos[0];
         let shiftY = y - node.pos[1];
@@ -4227,7 +4296,7 @@ app.registerExtension({
       if (!selectedAndMovingGroup && app.canvas.selected_group === this && (deltax || deltay)) {
         selectedAndMovingGroup = this;
       }
-      if (app.canvas.last_mouse_dragging === false && app.shiftDown) {
+      if (app.canvas.last_mouse_dragging === false && shouldSnapToGrid()) {
         this.recomputeInsideNodes();
         for (const node of this.nodes) {
           node.alignToGrid();
@@ -4238,7 +4307,7 @@ app.registerExtension({
     };
     const drawGroups = LGraphCanvas.prototype.drawGroups;
     LGraphCanvas.prototype.drawGroups = function(canvas, ctx) {
-      if (this.selected_group && app.shiftDown) {
+      if (this.selected_group && shouldSnapToGrid()) {
         if (this.selected_group_resizing) {
           roundVectorToGrid(this.selected_group.size);
         } else if (selectedAndMovingGroup) {
@@ -4261,7 +4330,7 @@ app.registerExtension({
     const onGroupAdd = LGraphCanvas.onGroupAdd;
     LGraphCanvas.onGroupAdd = function() {
       const v = onGroupAdd.apply(app.canvas, arguments);
-      if (app.shiftDown) {
+      if (shouldSnapToGrid()) {
         const lastGroup = app.graph.groups[app.graph.groups.length - 1];
         if (lastGroup) {
           roundVectorToGrid(lastGroup.pos);
@@ -4274,7 +4343,7 @@ app.registerExtension({
 });
 app.registerExtension({
   name: "Comfy.UploadImage",
-  async beforeRegisterNodeDef(nodeType, nodeData, app2) {
+  beforeRegisterNodeDef(nodeType, nodeData) {
     if (nodeData?.input?.required?.image?.[1]?.image_upload === true) {
       nodeData.input.required.upload = ["IMAGEUPLOAD"];
     }
@@ -4662,4 +4731,4 @@ class NodeBadgeExtension {
   }
 }
 app.registerExtension(new NodeBadgeExtension());
-//# sourceMappingURL=index-BMC1ey-i.js.map
+//# sourceMappingURL=index-D36_Nnai.js.map
