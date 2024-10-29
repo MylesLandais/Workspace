@@ -1,8 +1,8 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, bK as useExtensionStore, u as useSettingStore, r as ref, o as onMounted, q as computed, g as openBlock, h as createElementBlock, i as createVNode, y as withCtx, z as unref, bL as script$1, A as createBaseVNode, x as createBlock, M as Fragment, N as renderList, am as toDisplayString, ap as createTextVNode, j as createCommentVNode, D as script$4 } from "./index-CgU1oKZt.js";
-import { s as script, a as script$2, b as script$3 } from "./index-DBWDcZsl.js";
-import "./index-DYEEBf64.js";
+import { d as defineComponent, bQ as useExtensionStore, u as useSettingStore, r as ref, o as onMounted, q as computed, g as openBlock, h as createElementBlock, i as createVNode, y as withCtx, z as unref, bR as script$1, A as createBaseVNode, x as createBlock, N as Fragment, O as renderList, a6 as toDisplayString, aw as createTextVNode, j as createCommentVNode, D as script$4 } from "./index-BHayQCxv.js";
+import { s as script, a as script$2, b as script$3 } from "./index-CwRXxFdA.js";
+import "./index-C_wOqB0f.js";
 const _hoisted_1 = { class: "extension-panel" };
 const _hoisted_2 = { class: "mt-4" };
 const _sfc_main = /* @__PURE__ */ defineComponent({
@@ -100,4 +100,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as default
 };
-//# sourceMappingURL=ExtensionPanel-DZLYjWBj.js.map
+//# sourceMappingURL=ExtensionPanel-BmKi_NKS.js.map

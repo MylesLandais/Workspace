@@ -1,6 +1,6 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { bM as script$4, A as createBaseVNode, g as openBlock, h as createElementBlock, m as mergeProps } from "./index-CgU1oKZt.js";
+import { bS as script$4, A as createBaseVNode, g as openBlock, h as createElementBlock, m as mergeProps } from "./index-BHayQCxv.js";
 var script$3 = {
   name: "BarsIcon",
   "extends": script$4
@@ -99,4 +99,4 @@ export {
   script$2 as c,
   script as s
 };
-//# sourceMappingURL=index-DYEEBf64.js.map
+//# sourceMappingURL=index-C_wOqB0f.js.map

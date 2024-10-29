@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { bu as ComfyDialog, bv as $el, bw as ComfyApp, c as app, k as LiteGraph, aP as LGraphCanvas, bx as DraggableList, a_ as useToastStore, ax as useNodeDefStore, bq as api, L as LGraphGroup, by as KeyComboImpl, K as useKeybindingStore, F as useCommandStore, e as LGraphNode, bz as ComfyWidgets, bA as applyTextReplacements, av as NodeSourceType, bB as NodeBadgeMode, u as useSettingStore, q as computed, bC as getColorPalette, w as watch, bD as BadgePosition, aR as LGraphBadge, bE as _, bF as defaultColorPalette } from "./index-CgU1oKZt.js";
-import { mergeIfValid, getWidgetConfig, setWidgetConfig } from "./widgetInputs-DNVvusS1.js";
+import { bF as ComfyDialog, bG as $el, bH as ComfyApp, c as app, k as LiteGraph, b0 as LGraphCanvas, bI as DraggableList, ba as useToastStore, aE as useNodeDefStore, bC as api, L as LGraphGroup, bJ as KeyComboImpl, M as useKeybindingStore, F as useCommandStore, e as LGraphNode, bK as ComfyWidgets, bL as applyTextReplacements } from "./index-BHayQCxv.js";
+import { mergeIfValid, getWidgetConfig, setWidgetConfig } from "./widgetInputs-DdecKYqd.js";
 class ClipspaceDialog extends ComfyDialog {
   static {
     __name(this, "ClipspaceDialog");
@@ -37,7 +37,9 @@ class ClipspaceDialog extends ComfyDialog {
         ...self.createButtons()
       ]);
       if (self.element) {
-        self.element.removeChild(self.element.firstChild);
+        if (self.element.firstChild) {
+          self.element.removeChild(self.element.firstChild);
+        }
         self.element.appendChild(children);
       } else {
         self.element = $el("div.comfy-modal", { parent: document.body }, [
@@ -76,7 +78,7 @@ class ClipspaceDialog extends ComfyDialog {
     return buttons;
   }
   createImgSettings() {
-    if (ComfyApp.clipspace.imgs) {
+    if (ComfyApp.clipspace?.imgs) {
       const combo_items = [];
       const imgs = ComfyApp.clipspace.imgs;
       for (let i = 0; i < imgs.length; i++) {
@@ -87,8 +89,10 @@ class ClipspaceDialog extends ComfyDialog {
         {
           id: "clipspace_img_selector",
           onchange: /* @__PURE__ */ __name((event) => {
-            ComfyApp.clipspace["selectedIndex"] = event.target.selectedIndex;
-            ClipspaceDialog.invalidatePreview();
+            if (event.target && ComfyApp.clipspace) {
+              ComfyApp.clipspace["selectedIndex"] = event.target.selectedIndex;
+              ClipspaceDialog.invalidatePreview();
+            }
           }, "onchange")
         },
         combo_items
@@ -102,7 +106,9 @@ class ClipspaceDialog extends ComfyDialog {
         {
           id: "clipspace_img_paste_mode",
           onchange: /* @__PURE__ */ __name((event) => {
-            ComfyApp.clipspace["img_paste_mode"] = event.target.value;
+            if (event.target && ComfyApp.clipspace) {
+              ComfyApp.clipspace["img_paste_mode"] = event.target.value;
+            }
           }, "onchange")
         },
         [
@@ -127,7 +133,7 @@ class ClipspaceDialog extends ComfyDialog {
     }
   }
   createImgPreview() {
-    if (ComfyApp.clipspace.imgs) {
+    if (ComfyApp.clipspace?.imgs) {
       return $el("img", { id: "clipspace_preview", ondragstart: /* @__PURE__ */ __name(() => false, "ondragstart") });
     } else return [];
   }
@@ -173,9 +179,9 @@ const ext$2 = {
         requestAnimationFrame(() => {
           const currentNode = LGraphCanvas.active_canvas.current_node;
           const clickedComboValue = currentNode.widgets?.filter(
-            (w) => w.type === "combo" && w.options.values.length === values.length
+            (w) => w.type === "combo" && w.options.values?.length === values.length
           ).find(
-            (w) => w.options.values.every((v, i) => v === values[i])
+            (w) => w.options.values?.every((v, i) => v === values[i])
           )?.value;
           let selectedIndex = clickedComboValue ? values.findIndex((v) => v === clickedComboValue) : 0;
           if (selectedIndex < 0) {
@@ -244,7 +250,7 @@ const ext$2 = {
           filter.addEventListener("input", () => {
             const term = filter.value.toLocaleLowerCase();
             displayedItems = items.filter((item) => {
-              const isVisible = !term || item.textContent.toLocaleLowerCase().includes(term);
+              const isVisible = !term || item.textContent?.toLocaleLowerCase().includes(term);
               item.style.display = isVisible ? "block" : "none";
               return isVisible;
             });
@@ -1224,7 +1230,7 @@ class GroupNodeConfig {
   checkPrimitiveConnection(link, inputName, inputs) {
     const sourceNode = this.nodeData.nodes[link[0]];
     if (sourceNode.type === "PrimitiveNode") {
-      const [sourceNodeId, _2, targetNodeId, __] = link;
+      const [sourceNodeId, _, targetNodeId, __] = link;
       const primitiveDef = this.primitiveDefs[sourceNodeId];
       const targetWidget = inputs[inputName];
       const primitiveConfig = primitiveDef.input.required.value;
@@ -1619,7 +1625,7 @@ class GroupNodeHandler {
       return newNodes;
     };
     const getExtraMenuOptions = this.node.getExtraMenuOptions;
-    this.node.getExtraMenuOptions = function(_2, options) {
+    this.node.getExtraMenuOptions = function(_, options) {
       getExtraMenuOptions?.apply(this, arguments);
       let optionIndex = options.findIndex((o) => o.content === "Outputs");
       if (optionIndex === -1) optionIndex = options.length;
@@ -1793,7 +1799,7 @@ class GroupNodeHandler {
       } else if (innerNode.type === "Reroute") {
         const rerouteLinks = this.groupData.linksFrom[old.node.index];
         if (rerouteLinks) {
-          for (const [_2, , targetNodeId, targetSlot] of rerouteLinks["0"]) {
+          for (const [_, , targetNodeId, targetSlot] of rerouteLinks["0"]) {
             const node = this.innerNodes[targetNodeId];
             const input = node.inputs[targetSlot];
             if (input.widget) {
@@ -2408,10 +2414,10 @@ const ext = {
       defaultValue: 2,
       type: "combo",
       options: [
-        { value: LiteGraph.STRAIGHT_LINK, text: "Straight" },
-        { value: LiteGraph.LINEAR_LINK, text: "Linear" },
-        { value: LiteGraph.SPLINE_LINK, text: "Spline" },
-        { value: LiteGraph.HIDDEN_LINK, text: "Hidden" }
+        { value: LiteGraph.STRAIGHT_LINK.toString(), text: "Straight" },
+        { value: LiteGraph.LINEAR_LINK.toString(), text: "Linear" },
+        { value: LiteGraph.SPLINE_LINK.toString(), text: "Spline" },
+        { value: LiteGraph.HIDDEN_LINK.toString(), text: "Hidden" }
       ],
       onChange(value) {
         app2.canvas.links_render_mode = +value;
@@ -3934,7 +3940,7 @@ app.registerExtension({
         };
         this.isVirtualNode = true;
       }
-      getExtraMenuOptions(_2, options) {
+      getExtraMenuOptions(_, options) {
         options.unshift(
           {
             content: (this.properties.showOutputText ? "Hide" : "Show") + " Type",
@@ -4157,7 +4163,7 @@ app.registerExtension({
   slot_types_default_in: {},
   async beforeRegisterNodeDef(nodeType, nodeData, app2) {
     var nodeId = nodeData.name;
-    const inputs = nodeData["input"]["required"];
+    const inputs = nodeData["input"]?.["required"];
     for (const inputKey in inputs) {
       var input = inputs[inputKey];
       if (typeof input[0] !== "string") continue;
@@ -4179,19 +4185,19 @@ app.registerExtension({
         nodeType.comfyClass
       );
     }
-    var outputs = nodeData["output"];
-    for (const key in outputs) {
-      var type = outputs[key];
-      if (!(type in this.slot_types_default_in)) {
-        this.slot_types_default_in[type] = ["Reroute"];
+    var outputs = nodeData["output"] ?? [];
+    for (const el of outputs) {
+      const type2 = el;
+      if (!(type2 in this.slot_types_default_in)) {
+        this.slot_types_default_in[type2] = ["Reroute"];
       }
-      this.slot_types_default_in[type].push(nodeId);
-      if (!(type in LiteGraph.registered_slot_out_types)) {
-        LiteGraph.registered_slot_out_types[type] = { nodes: [] };
+      this.slot_types_default_in[type2].push(nodeId);
+      if (!(type2 in LiteGraph.registered_slot_out_types)) {
+        LiteGraph.registered_slot_out_types[type2] = { nodes: [] };
       }
-      LiteGraph.registered_slot_out_types[type].nodes.push(nodeType.comfyClass);
-      if (!LiteGraph.slot_types_out.includes(type)) {
-        LiteGraph.slot_types_out.push(type);
+      LiteGraph.registered_slot_out_types[type2].nodes.push(nodeType.comfyClass);
+      if (!LiteGraph.slot_types_out.includes(type2)) {
+        LiteGraph.slot_types_out.push(type2);
       }
     }
     var maxNum = this.suggestionsNumber.value;
@@ -4276,7 +4282,7 @@ app.registerExtension({
         } else {
           w = node.size[0];
           h = node.size[1];
-          let titleMode = node.constructor.title_mode;
+          const titleMode = node.constructor.title_mode;
           if (titleMode !== LiteGraph.TRANSPARENT_TITLE && titleMode !== LiteGraph.NO_TITLE) {
             h += LiteGraph.NODE_TITLE_HEIGHT;
             shiftY -= LiteGraph.NODE_TITLE_HEIGHT;
@@ -4627,108 +4633,4 @@ app.registerExtension({
     };
   }
 });
-function getNodeSource(node) {
-  const nodeDef = node.constructor.nodeData;
-  if (!nodeDef) {
-    return null;
-  }
-  const nodeDefStore = useNodeDefStore();
-  return nodeDefStore.nodeDefsByName[nodeDef.name]?.nodeSource ?? null;
-}
-__name(getNodeSource, "getNodeSource");
-function isCoreNode(node) {
-  return getNodeSource(node)?.type === NodeSourceType.Core;
-}
-__name(isCoreNode, "isCoreNode");
-function badgeTextVisible(node, badgeMode) {
-  return badgeMode === NodeBadgeMode.None || isCoreNode(node) && badgeMode === NodeBadgeMode.HideBuiltIn;
-}
-__name(badgeTextVisible, "badgeTextVisible");
-function getNodeIdBadgeText(node, nodeIdBadgeMode) {
-  return badgeTextVisible(node, nodeIdBadgeMode) ? "" : `#${node.id}`;
-}
-__name(getNodeIdBadgeText, "getNodeIdBadgeText");
-function getNodeSourceBadgeText(node, nodeSourceBadgeMode) {
-  const nodeSource = getNodeSource(node);
-  return badgeTextVisible(node, nodeSourceBadgeMode) ? "" : nodeSource?.badgeText ?? "";
-}
-__name(getNodeSourceBadgeText, "getNodeSourceBadgeText");
-function getNodeLifeCycleBadgeText(node, nodeLifeCycleBadgeMode) {
-  let text = "";
-  const nodeDef = node.constructor.nodeData;
-  if (!nodeDef) {
-    return "";
-  }
-  if (nodeDef.deprecated) {
-    text = "[DEPR]";
-  }
-  if (nodeDef.experimental) {
-    text = "[BETA]";
-  }
-  return badgeTextVisible(node, nodeLifeCycleBadgeMode) ? "" : text;
-}
-__name(getNodeLifeCycleBadgeText, "getNodeLifeCycleBadgeText");
-class NodeBadgeExtension {
-  static {
-    __name(this, "NodeBadgeExtension");
-  }
-  constructor(nodeIdBadgeMode = null, nodeSourceBadgeMode = null, nodeLifeCycleBadgeMode = null, colorPalette = null) {
-    this.nodeIdBadgeMode = nodeIdBadgeMode;
-    this.nodeSourceBadgeMode = nodeSourceBadgeMode;
-    this.nodeLifeCycleBadgeMode = nodeLifeCycleBadgeMode;
-    this.colorPalette = colorPalette;
-  }
-  name = "Comfy.NodeBadge";
-  init(app2) {
-    const settingStore = useSettingStore();
-    this.nodeSourceBadgeMode = computed(
-      () => settingStore.get("Comfy.NodeBadge.NodeSourceBadgeMode")
-    );
-    this.nodeIdBadgeMode = computed(
-      () => settingStore.get("Comfy.NodeBadge.NodeIdBadgeMode")
-    );
-    this.nodeLifeCycleBadgeMode = computed(
-      () => settingStore.get(
-        "Comfy.NodeBadge.NodeLifeCycleBadgeMode"
-      )
-    );
-    this.colorPalette = computed(
-      () => getColorPalette(settingStore.get("Comfy.ColorPalette"))
-    );
-    watch(this.nodeSourceBadgeMode, () => {
-      app2.graph.setDirtyCanvas(true, true);
-    });
-    watch(this.nodeIdBadgeMode, () => {
-      app2.graph.setDirtyCanvas(true, true);
-    });
-    watch(this.nodeLifeCycleBadgeMode, () => {
-      app2.graph.setDirtyCanvas(true, true);
-    });
-  }
-  nodeCreated(node, app2) {
-    node.badgePosition = BadgePosition.TopRight;
-    node.badge_enabled = true;
-    const badge = computed(
-      () => new LGraphBadge({
-        text: _.truncate(
-          [
-            getNodeIdBadgeText(node, this.nodeIdBadgeMode.value),
-            getNodeLifeCycleBadgeText(
-              node,
-              this.nodeLifeCycleBadgeMode.value
-            ),
-            getNodeSourceBadgeText(node, this.nodeSourceBadgeMode.value)
-          ].filter((s) => s.length > 0).join(" "),
-          {
-            length: 31
-          }
-        ),
-        fgColor: this.colorPalette.value.colors.litegraph_base?.BADGE_FG_COLOR || defaultColorPalette.colors.litegraph_base.BADGE_FG_COLOR,
-        bgColor: this.colorPalette.value.colors.litegraph_base?.BADGE_BG_COLOR || defaultColorPalette.colors.litegraph_base.BADGE_BG_COLOR
-      })
-    );
-    node.badges.push(() => badge.value);
-  }
-}
-app.registerExtension(new NodeBadgeExtension());
-//# sourceMappingURL=index-D36_Nnai.js.map
+//# sourceMappingURL=index-BReiUkk9.js.map

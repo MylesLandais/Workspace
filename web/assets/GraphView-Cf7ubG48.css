@@ -1,13 +1,13 @@
 
-.group-title-editor.node-title-editor[data-v-fc3f26e3] {
+.group-title-editor.node-title-editor[data-v-8a100d5a] {
   z-index: 9999;
   padding: 0.25rem;
 }
-[data-v-fc3f26e3] .editable-text {
+[data-v-8a100d5a] .editable-text {
   width: 100%;
   height: 100%;
 }
-[data-v-fc3f26e3] .editable-text input {
+[data-v-8a100d5a] .editable-text input {
   width: 100%;
   height: 100%;
   /* Override the default font size */
@@ -45,7 +45,7 @@
   --sidebar-icon-size: 1rem;
 }
 
-.side-tool-bar-container[data-v-b6bfc188] {
+.side-tool-bar-container[data-v-37fd2fa4] {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,36 +58,39 @@
   background-color: var(--comfy-menu-bg);
   color: var(--fg-color);
 }
-.side-tool-bar-end[data-v-b6bfc188] {
+.side-tool-bar-end[data-v-37fd2fa4] {
   align-self: flex-end;
   margin-top: auto;
 }
 
-.p-splitter-gutter {
+[data-v-b49f20b1] .p-splitter-gutter {
   pointer-events: auto;
 }
-.gutter-hidden {
-  display: none !important;
-}
-
-.side-bar-panel[data-v-b9df3042] {
+.side-bar-panel[data-v-b49f20b1] {
   background-color: var(--bg-color);
   pointer-events: auto;
 }
-.splitter-overlay[data-v-b9df3042] {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: transparent;
+.bottom-panel[data-v-b49f20b1] {
+  background-color: var(--bg-color);
+  pointer-events: auto;
+}
+.splitter-overlay[data-v-b49f20b1] {
   pointer-events: none;
+  border-style: none;
+  background-color: transparent;
+}
+.splitter-overlay-root[data-v-b49f20b1] {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+
   /* Set it the same as the ComfyUI menu */
   /* Note: Lite-graph DOM widgets have the same z-index as the node id, so
   999 should be sufficient to make sure splitter overlays on node's DOM
   widgets */
   z-index: 999;
-  border: none;
 }
 
 [data-v-37f672ab] .highlight {
@@ -251,7 +254,7 @@
   display: none;
 }
 
-.comfyui-menu[data-v-b13fdc92] {
+.comfyui-menu[data-v-ad2c662b] {
   width: 100vw;
   background: var(--comfy-menu-bg);
   color: var(--fg-color);
@@ -263,13 +266,13 @@
   grid-column: 1/-1;
   max-height: 90vh;
 }
-.comfyui-menu.dropzone[data-v-b13fdc92] {
+.comfyui-menu.dropzone[data-v-ad2c662b] {
   background: var(--p-highlight-background);
 }
-.comfyui-menu.dropzone-active[data-v-b13fdc92] {
+.comfyui-menu.dropzone-active[data-v-ad2c662b] {
   background: var(--p-highlight-background-focus);
 }
-.comfyui-logo[data-v-b13fdc92] {
+.comfyui-logo[data-v-ad2c662b] {
   font-size: 1.2em;
   -webkit-user-select: none;
      -moz-user-select: none;

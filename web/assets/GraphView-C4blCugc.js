@@ -1,8 +1,8 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, u as useSettingStore, r as ref, a as useTitleEditorStore, b as useCanvasStore, w as watch, L as LGraphGroup, c as app, e as LGraphNode, o as onMounted, f as onUnmounted, g as openBlock, h as createElementBlock, i as createVNode, E as EditableText, n as normalizeStyle, j as createCommentVNode, k as LiteGraph, _ as _export_sfc, B as BaseStyle, s as script$c, l as resolveComponent, m as mergeProps, p as renderSlot, q as computed, t as resolveDirective, v as withDirectives, x as createBlock, y as withCtx, z as unref, A as createBaseVNode, C as normalizeClass, D as script$d, F as useCommandStore, G as useDialogStore, S as SettingDialogHeader, H as SettingDialogContent, I as useWorkspaceStore, J as onBeforeUnmount, K as useKeybindingStore, M as Fragment, N as renderList, T as Teleport, O as resolveDynamicComponent, P as pushScopeId, Q as popScopeId, R as script$e, U as getWidth, V as getHeight, W as getOuterWidth, X as getOuterHeight, Y as getVNodeProp, Z as isArray, $ as vShow, a0 as isNotEmpty, a1 as UniqueComponentId, a2 as ZIndex, a3 as resolveFieldData, a4 as focus, a5 as OverlayEventBus, a6 as isEmpty, a7 as addStyle, a8 as relativePosition, a9 as absolutePosition, aa as ConnectedOverlayScrollHandler, ab as isTouchDevice, ac as equals, ad as findLastIndex, ae as findSingle, af as script$f, ag as script$g, ah as script$h, ai as script$i, aj as script$j, ak as script$k, al as Ripple, am as toDisplayString, an as Transition, ao as createSlots, ap as createTextVNode, aq as useNodeFrequencyStore, ar as useNodeBookmarkStore, as as highlightQuery, at as script$l, au as formatNumberWithSuffix, av as NodeSourceType, aw as useI18n, ax as useNodeDefStore, ay as NodePreview, az as NodeSearchFilter, aA as script$m, aB as SearchFilterChip, aC as watchEffect, aD as toRaw, aE as LinkReleaseTriggerAction, aF as useEventListener, aG as nextTick, aH as markRaw, aI as useModelToNodeStore, aJ as usePragmaticDroppable, aK as ComfyNodeDefImpl, aL as ComfyModelDef, aM as LGraph, aN as LLink, aO as DragAndScale, aP as LGraphCanvas, aQ as ContextMenu, aR as LGraphBadge, aS as script$o, aT as script$q, aU as script$r, aV as normalizeProps, aW as ToastEventBus, aX as setAttribute, aY as TransitionGroup, aZ as useToast, a_ as useToastStore, a$ as useExecutionStore, b0 as useWorkflowStore, b1 as useTitle, b2 as withModifiers, b3 as script$s, b4 as resolve, b5 as script$t, b6 as script$u, b7 as isPrintableCharacter, b8 as guardReactiveProps, b9 as useMenuItemStore, ba as script$x, bb as nestedPosition, bc as useQueueSettingsStore, bd as storeToRefs, be as isRef, bf as script$y, bg as useQueuePendingTaskCountStore, bh as useLocalStorage, bi as useDraggable, bj as watchDebounced, bk as inject, bl as useElementBounding, bm as script$z, bn as lodashExports, bo as useEventBus, bp as provide, bq as api, br as i18n, bs as useWorkflowBookmarkStore, bt as useSidebarTabStore } from "./index-CgU1oKZt.js";
-import { s as script$n, a as script$p, b as script$v, c as script$w } from "./index-DYEEBf64.js";
-const _sfc_main$m = /* @__PURE__ */ defineComponent({
+import { d as defineComponent, u as useSettingStore, r as ref, a as useTitleEditorStore, b as useCanvasStore, w as watch, L as LGraphGroup, c as app, e as LGraphNode, o as onMounted, f as onUnmounted, g as openBlock, h as createElementBlock, i as createVNode, E as EditableText, n as normalizeStyle, j as createCommentVNode, k as LiteGraph, _ as _export_sfc, B as BaseStyle, s as script$e, l as resolveComponent, m as mergeProps, p as renderSlot, q as computed, t as resolveDirective, v as withDirectives, x as createBlock, y as withCtx, z as unref, A as createBaseVNode, C as normalizeClass, D as script$f, F as useCommandStore, G as useDialogStore, S as SettingDialogHeader, H as SettingDialogContent, I as onBeforeUnmount, J as resolveDynamicComponent, K as useWorkspaceStore, M as useKeybindingStore, N as Fragment, O as renderList, T as Teleport, P as pushScopeId, Q as popScopeId, R as script$g, U as getWidth, V as findSingle, W as getOuterHeight, X as getOffset, Y as getOuterWidth, Z as getHeight, $ as script$h, a0 as script$i, a1 as Ripple, a2 as getAttribute, a3 as focus, a4 as equals, a5 as useBottomPanelStore, a6 as toDisplayString, a7 as script$j, a8 as getVNodeProp, a9 as isArray, aa as useSidebarTabStore, ab as vShow, ac as isNotEmpty, ad as UniqueComponentId, ae as ZIndex, af as resolveFieldData, ag as OverlayEventBus, ah as isEmpty, ai as addStyle, aj as relativePosition, ak as absolutePosition, al as ConnectedOverlayScrollHandler, am as isTouchDevice, an as findLastIndex, ao as script$k, ap as script$l, aq as script$m, ar as script$n, as as script$o, at as script$p, au as Transition, av as createSlots, aw as createTextVNode, ax as useNodeFrequencyStore, ay as useNodeBookmarkStore, az as highlightQuery, aA as script$q, aB as formatNumberWithSuffix, aC as NodeSourceType, aD as useI18n, aE as useNodeDefStore, aF as NodePreview, aG as NodeSearchFilter, aH as script$r, aI as SearchFilterChip, aJ as watchEffect, aK as toRaw, aL as LinkReleaseTriggerAction, aM as useEventListener, aN as nextTick, aO as getColorPalette, aP as BadgePosition, aQ as LGraphBadge, aR as _, aS as defaultColorPalette, aT as NodeBadgeMode, aU as markRaw, aV as useModelToNodeStore, aW as usePragmaticDroppable, aX as ComfyNodeDefImpl, aY as ComfyModelDef, aZ as LGraph, a_ as LLink, a$ as DragAndScale, b0 as LGraphCanvas, b1 as ContextMenu, b2 as script$t, b3 as script$v, b4 as script$w, b5 as normalizeProps, b6 as ToastEventBus, b7 as setAttribute, b8 as TransitionGroup, b9 as useToast, ba as useToastStore, bb as useExecutionStore, bc as useWorkflowStore, bd as useTitle, be as withModifiers, bf as script$x, bg as resolve, bh as script$y, bi as script$z, bj as isPrintableCharacter, bk as guardReactiveProps, bl as useMenuItemStore, bm as script$C, bn as nestedPosition, bo as useQueueSettingsStore, bp as storeToRefs, bq as isRef, br as script$D, bs as useQueuePendingTaskCountStore, bt as useLocalStorage, bu as useDraggable, bv as watchDebounced, bw as inject, bx as useElementBounding, by as script$E, bz as lodashExports, bA as useEventBus, bB as provide, bC as api, bD as i18n, bE as useWorkflowBookmarkStore } from "./index-BHayQCxv.js";
+import { s as script$s, a as script$u, b as script$A, c as script$B } from "./index-C_wOqB0f.js";
+const _sfc_main$q = /* @__PURE__ */ defineComponent({
   __name: "TitleEditor",
   setup(__props) {
     const settingStore = useSettingStore();
@@ -120,22 +120,22 @@ const _sfc_main$m = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const TitleEditor = /* @__PURE__ */ _export_sfc(_sfc_main$m, [["__scopeId", "data-v-fc3f26e3"]]);
+const TitleEditor = /* @__PURE__ */ _export_sfc(_sfc_main$q, [["__scopeId", "data-v-8a100d5a"]]);
 var theme$8 = /* @__PURE__ */ __name(function theme(_ref) {
   var dt = _ref.dt;
   return "\n.p-overlaybadge {\n    position: relative;\n}\n\n.p-overlaybadge .p-badge {\n    position: absolute;\n    top: 0;\n    right: 0;\n    transform: translate(50%, -50%);\n    transform-origin: 100% 0;\n    margin: 0;\n    outline-width: ".concat(dt("overlaybadge.outline.width"), ";\n    outline-style: solid;\n    outline-color: ").concat(dt("overlaybadge.outline.color"), ";\n}\n");
 }, "theme");
-var classes$9 = {
+var classes$b = {
   root: "p-overlaybadge"
 };
 var OverlayBadgeStyle = BaseStyle.extend({
   name: "overlaybadge",
   theme: theme$8,
-  classes: classes$9
+  classes: classes$b
 });
-var script$1$9 = {
+var script$1$b = {
   name: "OverlayBadge",
-  "extends": script$c,
+  "extends": script$e,
   style: OverlayBadgeStyle,
   provide: /* @__PURE__ */ __name(function provide2() {
     return {
@@ -144,15 +144,15 @@ var script$1$9 = {
     };
   }, "provide")
 };
-var script$b = {
+var script$d = {
   name: "OverlayBadge",
-  "extends": script$1$9,
+  "extends": script$1$b,
   inheritAttrs: false,
   components: {
-    Badge: script$c
+    Badge: script$e
   }
 };
-function render$d(_ctx, _cache, $props, $setup, $data, $options) {
+function render$g(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Badge = resolveComponent("Badge");
   return openBlock(), createElementBlock("div", mergeProps({
     "class": _ctx.cx("root")
@@ -160,9 +160,9 @@ function render$d(_ctx, _cache, $props, $setup, $data, $options) {
     pt: _ctx.ptm("pcBadge")
   }), null, 16, ["pt"])], 16);
 }
-__name(render$d, "render$d");
-script$b.render = render$d;
-const _sfc_main$l = /* @__PURE__ */ defineComponent({
+__name(render$g, "render$g");
+script$d.render = render$g;
+const _sfc_main$p = /* @__PURE__ */ defineComponent({
   __name: "SidebarIcon",
   props: {
     icon: String,
@@ -190,7 +190,7 @@ const _sfc_main$l = /* @__PURE__ */ defineComponent({
     const shouldShowBadge = computed(() => !!overlayValue.value);
     return (_ctx, _cache) => {
       const _directive_tooltip = resolveDirective("tooltip");
-      return withDirectives((openBlock(), createBlock(unref(script$d), {
+      return withDirectives((openBlock(), createBlock(unref(script$f), {
         class: normalizeClass(props.class),
         text: "",
         pt: {
@@ -202,7 +202,7 @@ const _sfc_main$l = /* @__PURE__ */ defineComponent({
         onClick: _cache[0] || (_cache[0] = ($event) => emit("click", $event))
       }, {
         icon: withCtx(() => [
-          shouldShowBadge.value ? (openBlock(), createBlock(unref(script$b), {
+          shouldShowBadge.value ? (openBlock(), createBlock(unref(script$d), {
             key: 0,
             value: overlayValue.value
           }, {
@@ -224,8 +224,8 @@ const _sfc_main$l = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const SidebarIcon = /* @__PURE__ */ _export_sfc(_sfc_main$l, [["__scopeId", "data-v-caa3ee9c"]]);
-const _sfc_main$k = /* @__PURE__ */ defineComponent({
+const SidebarIcon = /* @__PURE__ */ _export_sfc(_sfc_main$p, [["__scopeId", "data-v-caa3ee9c"]]);
+const _sfc_main$o = /* @__PURE__ */ defineComponent({
   __name: "SidebarThemeToggleIcon",
   setup(__props) {
     const settingStore = useSettingStore();
@@ -247,7 +247,7 @@ const _sfc_main$k = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _sfc_main$j = /* @__PURE__ */ defineComponent({
+const _sfc_main$n = /* @__PURE__ */ defineComponent({
   __name: "SidebarSettingsToggleIcon",
   setup(__props) {
     const dialogStore = useDialogStore();
@@ -267,13 +267,42 @@ const _sfc_main$j = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _withScopeId$6 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-b6bfc188"), n = n(), popScopeId(), n), "_withScopeId$6");
-const _hoisted_1$g = { class: "side-tool-bar-end" };
-const _hoisted_2$d = {
+const _sfc_main$m = /* @__PURE__ */ defineComponent({
+  __name: "ExtensionSlot",
+  props: {
+    extension: {}
+  },
+  setup(__props) {
+    const props = __props;
+    const mountCustomExtension = /* @__PURE__ */ __name((extension, el) => {
+      extension.render(el);
+    }, "mountCustomExtension");
+    onBeforeUnmount(() => {
+      if (props.extension.type === "custom" && props.extension.destroy) {
+        props.extension.destroy();
+      }
+    });
+    return (_ctx, _cache) => {
+      return _ctx.extension.type === "vue" ? (openBlock(), createBlock(resolveDynamicComponent(_ctx.extension.component), { key: 0 })) : (openBlock(), createElementBlock("div", {
+        key: 1,
+        ref: /* @__PURE__ */ __name((el) => {
+          if (el)
+            mountCustomExtension(
+              props.extension,
+              el
+            );
+        }, "ref")
+      }, null, 512));
+    };
+  }
+});
+const _withScopeId$6 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-37fd2fa4"), n = n(), popScopeId(), n), "_withScopeId$6");
+const _hoisted_1$k = { class: "side-tool-bar-end" };
+const _hoisted_2$h = {
   key: 0,
   class: "sidebar-content-container h-full overflow-y-auto overflow-x-hidden"
 };
-const _sfc_main$i = /* @__PURE__ */ defineComponent({
+const _sfc_main$l = /* @__PURE__ */ defineComponent({
   __name: "SideToolbar",
   setup(__props) {
     const workspaceStore = useWorkspaceStore();
@@ -286,19 +315,9 @@ const _sfc_main$i = /* @__PURE__ */ defineComponent({
     );
     const tabs = computed(() => workspaceStore.getSidebarTabs());
     const selectedTab = computed(() => workspaceStore.sidebarTab.activeSidebarTab);
-    const mountCustomTab = /* @__PURE__ */ __name((tab, el) => {
-      tab.render(el);
-    }, "mountCustomTab");
     const onTabClick = /* @__PURE__ */ __name((item3) => {
       workspaceStore.sidebarTab.toggleSidebarTab(item3.id);
     }, "onTabClick");
-    onBeforeUnmount(() => {
-      tabs.value.forEach((tab) => {
-        if (tab.type === "custom" && tab.destroy) {
-          tab.destroy();
-        }
-      });
-    });
     const keybindingStore = useKeybindingStore();
     const getTabTooltipSuffix = /* @__PURE__ */ __name((tab) => {
       const keybinding = keybindingStore.getKeybindingByCommandId(
@@ -323,35 +342,503 @@ const _sfc_main$i = /* @__PURE__ */ defineComponent({
                 onClick: /* @__PURE__ */ __name(($event) => onTabClick(tab), "onClick")
               }, null, 8, ["icon", "iconBadge", "tooltip", "selected", "class", "onClick"]);
             }), 128)),
-            createBaseVNode("div", _hoisted_1$g, [
-              createVNode(_sfc_main$k),
-              createVNode(_sfc_main$j)
+            createBaseVNode("div", _hoisted_1$k, [
+              createVNode(_sfc_main$o),
+              createVNode(_sfc_main$n)
             ])
           ], 2)
         ], 8, ["to"])),
-        selectedTab.value ? (openBlock(), createElementBlock("div", _hoisted_2$d, [
-          selectedTab.value.type === "vue" ? (openBlock(), createBlock(resolveDynamicComponent(selectedTab.value.component), { key: 0 })) : (openBlock(), createElementBlock("div", {
-            key: 1,
-            ref: /* @__PURE__ */ __name((el) => {
-              if (el)
-                mountCustomTab(
-                  selectedTab.value,
-                  el
-                );
-            }, "ref")
-          }, null, 512))
+        selectedTab.value ? (openBlock(), createElementBlock("div", _hoisted_2$h, [
+          createVNode(_sfc_main$m, { extension: selectedTab.value }, null, 8, ["extension"])
         ])) : createCommentVNode("", true)
       ], 64);
     };
   }
 });
-const SideToolbar = /* @__PURE__ */ _export_sfc(_sfc_main$i, [["__scopeId", "data-v-b6bfc188"]]);
+const SideToolbar = /* @__PURE__ */ _export_sfc(_sfc_main$l, [["__scopeId", "data-v-37fd2fa4"]]);
+var classes$a = {
+  root: "p-tablist",
+  content: /* @__PURE__ */ __name(function content(_ref) {
+    var instance = _ref.instance;
+    return ["p-tablist-content", {
+      "p-tablist-viewport": instance.$pcTabs.scrollable
+    }];
+  }, "content"),
+  tabList: "p-tablist-tab-list",
+  activeBar: "p-tablist-active-bar",
+  prevButton: "p-tablist-prev-button p-tablist-nav-button",
+  nextButton: "p-tablist-next-button p-tablist-nav-button"
+};
+var TabListStyle = BaseStyle.extend({
+  name: "tablist",
+  classes: classes$a
+});
+var script$1$a = {
+  name: "BaseTabList",
+  "extends": script$g,
+  props: {},
+  style: TabListStyle,
+  provide: /* @__PURE__ */ __name(function provide3() {
+    return {
+      $pcTabList: this,
+      $parentInstance: this
+    };
+  }, "provide")
+};
+var script$c = {
+  name: "TabList",
+  "extends": script$1$a,
+  inheritAttrs: false,
+  inject: ["$pcTabs"],
+  data: /* @__PURE__ */ __name(function data() {
+    return {
+      isPrevButtonEnabled: false,
+      isNextButtonEnabled: true
+    };
+  }, "data"),
+  resizeObserver: void 0,
+  watch: {
+    showNavigators: /* @__PURE__ */ __name(function showNavigators(newValue) {
+      newValue ? this.bindResizeObserver() : this.unbindResizeObserver();
+    }, "showNavigators"),
+    activeValue: {
+      flush: "post",
+      handler: /* @__PURE__ */ __name(function handler() {
+        this.updateInkBar();
+      }, "handler")
+    }
+  },
+  mounted: /* @__PURE__ */ __name(function mounted() {
+    var _this = this;
+    this.$nextTick(function() {
+      _this.updateInkBar();
+    });
+    if (this.showNavigators) {
+      this.updateButtonState();
+      this.bindResizeObserver();
+    }
+  }, "mounted"),
+  updated: /* @__PURE__ */ __name(function updated() {
+    this.showNavigators && this.updateButtonState();
+  }, "updated"),
+  beforeUnmount: /* @__PURE__ */ __name(function beforeUnmount() {
+    this.unbindResizeObserver();
+  }, "beforeUnmount"),
+  methods: {
+    onScroll: /* @__PURE__ */ __name(function onScroll(event) {
+      this.showNavigators && this.updateButtonState();
+      event.preventDefault();
+    }, "onScroll"),
+    onPrevButtonClick: /* @__PURE__ */ __name(function onPrevButtonClick() {
+      var content2 = this.$refs.content;
+      var width = getWidth(content2);
+      var pos = content2.scrollLeft - width;
+      content2.scrollLeft = pos <= 0 ? 0 : pos;
+    }, "onPrevButtonClick"),
+    onNextButtonClick: /* @__PURE__ */ __name(function onNextButtonClick() {
+      var content2 = this.$refs.content;
+      var width = getWidth(content2) - this.getVisibleButtonWidths();
+      var pos = content2.scrollLeft + width;
+      var lastPos = content2.scrollWidth - width;
+      content2.scrollLeft = pos >= lastPos ? lastPos : pos;
+    }, "onNextButtonClick"),
+    bindResizeObserver: /* @__PURE__ */ __name(function bindResizeObserver() {
+      var _this2 = this;
+      this.resizeObserver = new ResizeObserver(function() {
+        return _this2.updateButtonState();
+      });
+      this.resizeObserver.observe(this.$refs.list);
+    }, "bindResizeObserver"),
+    unbindResizeObserver: /* @__PURE__ */ __name(function unbindResizeObserver() {
+      var _this$resizeObserver;
+      (_this$resizeObserver = this.resizeObserver) === null || _this$resizeObserver === void 0 || _this$resizeObserver.unobserve(this.$refs.list);
+      this.resizeObserver = void 0;
+    }, "unbindResizeObserver"),
+    updateInkBar: /* @__PURE__ */ __name(function updateInkBar() {
+      var _this$$refs = this.$refs, content2 = _this$$refs.content, inkbar = _this$$refs.inkbar, tabs = _this$$refs.tabs;
+      var activeTab = findSingle(content2, '[data-pc-name="tab"][data-p-active="true"]');
+      if (this.$pcTabs.isVertical()) {
+        inkbar.style.height = getOuterHeight(activeTab) + "px";
+        inkbar.style.top = getOffset(activeTab).top - getOffset(tabs).top + "px";
+      } else {
+        inkbar.style.width = getOuterWidth(activeTab) + "px";
+        inkbar.style.left = getOffset(activeTab).left - getOffset(tabs).left + "px";
+      }
+    }, "updateInkBar"),
+    updateButtonState: /* @__PURE__ */ __name(function updateButtonState() {
+      var _this$$refs2 = this.$refs, list = _this$$refs2.list, content2 = _this$$refs2.content;
+      var scrollLeft = content2.scrollLeft, scrollTop = content2.scrollTop, scrollWidth = content2.scrollWidth, scrollHeight = content2.scrollHeight, offsetWidth = content2.offsetWidth, offsetHeight = content2.offsetHeight;
+      var _ref = [getWidth(content2), getHeight(content2)], width = _ref[0], height = _ref[1];
+      if (this.$pcTabs.isVertical()) {
+        this.isPrevButtonEnabled = scrollTop !== 0;
+        this.isNextButtonEnabled = list.offsetHeight >= offsetHeight && parseInt(scrollTop) !== scrollHeight - height;
+      } else {
+        this.isPrevButtonEnabled = scrollLeft !== 0;
+        this.isNextButtonEnabled = list.offsetWidth >= offsetWidth && parseInt(scrollLeft) !== scrollWidth - width;
+      }
+    }, "updateButtonState"),
+    getVisibleButtonWidths: /* @__PURE__ */ __name(function getVisibleButtonWidths() {
+      var _this$$refs3 = this.$refs, prevBtn = _this$$refs3.prevBtn, nextBtn = _this$$refs3.nextBtn;
+      return [prevBtn, nextBtn].reduce(function(acc, el) {
+        return el ? acc + getWidth(el) : acc;
+      }, 0);
+    }, "getVisibleButtonWidths")
+  },
+  computed: {
+    templates: /* @__PURE__ */ __name(function templates() {
+      return this.$pcTabs.$slots;
+    }, "templates"),
+    activeValue: /* @__PURE__ */ __name(function activeValue() {
+      return this.$pcTabs.d_value;
+    }, "activeValue"),
+    showNavigators: /* @__PURE__ */ __name(function showNavigators2() {
+      return this.$pcTabs.scrollable && this.$pcTabs.showNavigators;
+    }, "showNavigators"),
+    prevButtonAriaLabel: /* @__PURE__ */ __name(function prevButtonAriaLabel() {
+      return this.$primevue.config.locale.aria ? this.$primevue.config.locale.aria.previous : void 0;
+    }, "prevButtonAriaLabel"),
+    nextButtonAriaLabel: /* @__PURE__ */ __name(function nextButtonAriaLabel() {
+      return this.$primevue.config.locale.aria ? this.$primevue.config.locale.aria.next : void 0;
+    }, "nextButtonAriaLabel")
+  },
+  components: {
+    ChevronLeftIcon: script$h,
+    ChevronRightIcon: script$i
+  },
+  directives: {
+    ripple: Ripple
+  }
+};
+var _hoisted_1$j = ["aria-label", "tabindex"];
+var _hoisted_2$g = ["aria-orientation"];
+var _hoisted_3$d = ["aria-label", "tabindex"];
+function render$f(_ctx, _cache, $props, $setup, $data, $options) {
+  var _directive_ripple = resolveDirective("ripple");
+  return openBlock(), createElementBlock("div", mergeProps({
+    ref: "list",
+    "class": _ctx.cx("root")
+  }, _ctx.ptmi("root")), [$options.showNavigators && $data.isPrevButtonEnabled ? withDirectives((openBlock(), createElementBlock("button", mergeProps({
+    key: 0,
+    ref: "prevButton",
+    "class": _ctx.cx("prevButton"),
+    "aria-label": $options.prevButtonAriaLabel,
+    tabindex: $options.$pcTabs.tabindex,
+    onClick: _cache[0] || (_cache[0] = function() {
+      return $options.onPrevButtonClick && $options.onPrevButtonClick.apply($options, arguments);
+    })
+  }, _ctx.ptm("prevButton"), {
+    "data-pc-group-section": "navigator"
+  }), [(openBlock(), createBlock(resolveDynamicComponent($options.templates.previcon || "ChevronLeftIcon"), mergeProps({
+    "aria-hidden": "true"
+  }, _ctx.ptm("prevIcon")), null, 16))], 16, _hoisted_1$j)), [[_directive_ripple]]) : createCommentVNode("", true), createBaseVNode("div", mergeProps({
+    ref: "content",
+    "class": _ctx.cx("content"),
+    onScroll: _cache[1] || (_cache[1] = function() {
+      return $options.onScroll && $options.onScroll.apply($options, arguments);
+    })
+  }, _ctx.ptm("content")), [createBaseVNode("div", mergeProps({
+    ref: "tabs",
+    "class": _ctx.cx("tabList"),
+    role: "tablist",
+    "aria-orientation": $options.$pcTabs.orientation || "horizontal"
+  }, _ctx.ptm("tabList")), [renderSlot(_ctx.$slots, "default"), createBaseVNode("span", mergeProps({
+    ref: "inkbar",
+    "class": _ctx.cx("activeBar"),
+    role: "presentation",
+    "aria-hidden": "true"
+  }, _ctx.ptm("activeBar")), null, 16)], 16, _hoisted_2$g)], 16), $options.showNavigators && $data.isNextButtonEnabled ? withDirectives((openBlock(), createElementBlock("button", mergeProps({
+    key: 1,
+    ref: "nextButton",
+    "class": _ctx.cx("nextButton"),
+    "aria-label": $options.nextButtonAriaLabel,
+    tabindex: $options.$pcTabs.tabindex,
+    onClick: _cache[2] || (_cache[2] = function() {
+      return $options.onNextButtonClick && $options.onNextButtonClick.apply($options, arguments);
+    })
+  }, _ctx.ptm("nextButton"), {
+    "data-pc-group-section": "navigator"
+  }), [(openBlock(), createBlock(resolveDynamicComponent($options.templates.nexticon || "ChevronRightIcon"), mergeProps({
+    "aria-hidden": "true"
+  }, _ctx.ptm("nextIcon")), null, 16))], 16, _hoisted_3$d)), [[_directive_ripple]]) : createCommentVNode("", true)], 16);
+}
+__name(render$f, "render$f");
+script$c.render = render$f;
+var classes$9 = {
+  root: /* @__PURE__ */ __name(function root(_ref) {
+    var instance = _ref.instance, props = _ref.props;
+    return ["p-tab", {
+      "p-tab-active": instance.active,
+      "p-disabled": props.disabled
+    }];
+  }, "root")
+};
+var TabStyle = BaseStyle.extend({
+  name: "tab",
+  classes: classes$9
+});
+var script$1$9 = {
+  name: "BaseTab",
+  "extends": script$g,
+  props: {
+    value: {
+      type: [String, Number],
+      "default": void 0
+    },
+    disabled: {
+      type: Boolean,
+      "default": false
+    },
+    as: {
+      type: [String, Object],
+      "default": "BUTTON"
+    },
+    asChild: {
+      type: Boolean,
+      "default": false
+    }
+  },
+  style: TabStyle,
+  provide: /* @__PURE__ */ __name(function provide4() {
+    return {
+      $pcTab: this,
+      $parentInstance: this
+    };
+  }, "provide")
+};
+var script$b = {
+  name: "Tab",
+  "extends": script$1$9,
+  inheritAttrs: false,
+  inject: ["$pcTabs", "$pcTabList"],
+  methods: {
+    onFocus: /* @__PURE__ */ __name(function onFocus() {
+      this.$pcTabs.selectOnFocus && this.changeActiveValue();
+    }, "onFocus"),
+    onClick: /* @__PURE__ */ __name(function onClick() {
+      this.changeActiveValue();
+    }, "onClick"),
+    onKeydown: /* @__PURE__ */ __name(function onKeydown(event) {
+      switch (event.code) {
+        case "ArrowRight":
+          this.onArrowRightKey(event);
+          break;
+        case "ArrowLeft":
+          this.onArrowLeftKey(event);
+          break;
+        case "Home":
+          this.onHomeKey(event);
+          break;
+        case "End":
+          this.onEndKey(event);
+          break;
+        case "PageDown":
+          this.onPageDownKey(event);
+          break;
+        case "PageUp":
+          this.onPageUpKey(event);
+          break;
+        case "Enter":
+        case "NumpadEnter":
+        case "Space":
+          this.onEnterKey(event);
+          break;
+      }
+    }, "onKeydown"),
+    onArrowRightKey: /* @__PURE__ */ __name(function onArrowRightKey(event) {
+      var nextTab = this.findNextTab(event.currentTarget);
+      nextTab ? this.changeFocusedTab(event, nextTab) : this.onHomeKey(event);
+      event.preventDefault();
+    }, "onArrowRightKey"),
+    onArrowLeftKey: /* @__PURE__ */ __name(function onArrowLeftKey(event) {
+      var prevTab = this.findPrevTab(event.currentTarget);
+      prevTab ? this.changeFocusedTab(event, prevTab) : this.onEndKey(event);
+      event.preventDefault();
+    }, "onArrowLeftKey"),
+    onHomeKey: /* @__PURE__ */ __name(function onHomeKey(event) {
+      var firstTab = this.findFirstTab();
+      this.changeFocusedTab(event, firstTab);
+      event.preventDefault();
+    }, "onHomeKey"),
+    onEndKey: /* @__PURE__ */ __name(function onEndKey(event) {
+      var lastTab = this.findLastTab();
+      this.changeFocusedTab(event, lastTab);
+      event.preventDefault();
+    }, "onEndKey"),
+    onPageDownKey: /* @__PURE__ */ __name(function onPageDownKey(event) {
+      this.scrollInView(this.findLastTab());
+      event.preventDefault();
+    }, "onPageDownKey"),
+    onPageUpKey: /* @__PURE__ */ __name(function onPageUpKey(event) {
+      this.scrollInView(this.findFirstTab());
+      event.preventDefault();
+    }, "onPageUpKey"),
+    onEnterKey: /* @__PURE__ */ __name(function onEnterKey(event) {
+      this.changeActiveValue();
+      event.preventDefault();
+    }, "onEnterKey"),
+    findNextTab: /* @__PURE__ */ __name(function findNextTab(tabElement) {
+      var selfCheck = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : false;
+      var element = selfCheck ? tabElement : tabElement.nextElementSibling;
+      return element ? getAttribute(element, "data-p-disabled") || getAttribute(element, "data-pc-section") === "inkbar" ? this.findNextTab(element) : findSingle(element, '[data-pc-name="tab"]') : null;
+    }, "findNextTab"),
+    findPrevTab: /* @__PURE__ */ __name(function findPrevTab(tabElement) {
+      var selfCheck = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : false;
+      var element = selfCheck ? tabElement : tabElement.previousElementSibling;
+      return element ? getAttribute(element, "data-p-disabled") || getAttribute(element, "data-pc-section") === "inkbar" ? this.findPrevTab(element) : findSingle(element, '[data-pc-name="tab"]') : null;
+    }, "findPrevTab"),
+    findFirstTab: /* @__PURE__ */ __name(function findFirstTab() {
+      return this.findNextTab(this.$pcTabList.$refs.content.firstElementChild, true);
+    }, "findFirstTab"),
+    findLastTab: /* @__PURE__ */ __name(function findLastTab() {
+      return this.findPrevTab(this.$pcTabList.$refs.content.lastElementChild, true);
+    }, "findLastTab"),
+    changeActiveValue: /* @__PURE__ */ __name(function changeActiveValue() {
+      this.$pcTabs.updateValue(this.value);
+    }, "changeActiveValue"),
+    changeFocusedTab: /* @__PURE__ */ __name(function changeFocusedTab(event, element) {
+      focus(element);
+      this.scrollInView(element);
+    }, "changeFocusedTab"),
+    scrollInView: /* @__PURE__ */ __name(function scrollInView(element) {
+      var _element$scrollIntoVi;
+      element === null || element === void 0 || (_element$scrollIntoVi = element.scrollIntoView) === null || _element$scrollIntoVi === void 0 || _element$scrollIntoVi.call(element, {
+        block: "nearest"
+      });
+    }, "scrollInView")
+  },
+  computed: {
+    active: /* @__PURE__ */ __name(function active() {
+      var _this$$pcTabs;
+      return equals((_this$$pcTabs = this.$pcTabs) === null || _this$$pcTabs === void 0 ? void 0 : _this$$pcTabs.d_value, this.value);
+    }, "active"),
+    id: /* @__PURE__ */ __name(function id() {
+      var _this$$pcTabs2;
+      return "".concat((_this$$pcTabs2 = this.$pcTabs) === null || _this$$pcTabs2 === void 0 ? void 0 : _this$$pcTabs2.id, "_tab_").concat(this.value);
+    }, "id"),
+    ariaControls: /* @__PURE__ */ __name(function ariaControls() {
+      var _this$$pcTabs3;
+      return "".concat((_this$$pcTabs3 = this.$pcTabs) === null || _this$$pcTabs3 === void 0 ? void 0 : _this$$pcTabs3.id, "_tabpanel_").concat(this.value);
+    }, "ariaControls"),
+    attrs: /* @__PURE__ */ __name(function attrs() {
+      return mergeProps(this.asAttrs, this.a11yAttrs, this.ptmi("root", this.ptParams));
+    }, "attrs"),
+    asAttrs: /* @__PURE__ */ __name(function asAttrs() {
+      return this.as === "BUTTON" ? {
+        type: "button",
+        disabled: this.disabled
+      } : void 0;
+    }, "asAttrs"),
+    a11yAttrs: /* @__PURE__ */ __name(function a11yAttrs() {
+      return {
+        id: this.id,
+        tabindex: this.active ? this.$pcTabs.tabindex : -1,
+        role: "tab",
+        "aria-selected": this.active,
+        "aria-controls": this.ariaControls,
+        "data-pc-name": "tab",
+        "data-p-disabled": this.disabled,
+        "data-p-active": this.active,
+        onFocus: this.onFocus,
+        onKeydown: this.onKeydown
+      };
+    }, "a11yAttrs"),
+    ptParams: /* @__PURE__ */ __name(function ptParams() {
+      return {
+        context: {
+          active: this.active
+        }
+      };
+    }, "ptParams")
+  },
+  directives: {
+    ripple: Ripple
+  }
+};
+function render$e(_ctx, _cache, $props, $setup, $data, $options) {
+  var _directive_ripple = resolveDirective("ripple");
+  return !_ctx.asChild ? withDirectives((openBlock(), createBlock(resolveDynamicComponent(_ctx.as), mergeProps({
+    key: 0,
+    "class": _ctx.cx("root"),
+    onClick: $options.onClick
+  }, $options.attrs), {
+    "default": withCtx(function() {
+      return [renderSlot(_ctx.$slots, "default")];
+    }),
+    _: 3
+  }, 16, ["class", "onClick"])), [[_directive_ripple]]) : renderSlot(_ctx.$slots, "default", {
+    key: 1,
+    "class": normalizeClass(_ctx.cx("root")),
+    active: $options.active,
+    a11yAttrs: $options.a11yAttrs,
+    onClick: $options.onClick
+  });
+}
+__name(render$e, "render$e");
+script$b.render = render$e;
+const _hoisted_1$i = { class: "flex flex-col h-full" };
+const _hoisted_2$f = { class: "w-full flex justify-between" };
+const _hoisted_3$c = { class: "tabs-container" };
+const _hoisted_4$5 = { class: "font-bold" };
+const _hoisted_5$4 = { class: "flex-grow h-0" };
+const _sfc_main$k = /* @__PURE__ */ defineComponent({
+  __name: "BottomPanel",
+  setup(__props) {
+    const bottomPanelStore = useBottomPanelStore();
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock("div", _hoisted_1$i, [
+        createVNode(unref(script$j), {
+          value: unref(bottomPanelStore).activeBottomPanelTabId,
+          "onUpdate:value": _cache[1] || (_cache[1] = ($event) => unref(bottomPanelStore).activeBottomPanelTabId = $event)
+        }, {
+          default: withCtx(() => [
+            createVNode(unref(script$c), { "pt:tabList": "border-none" }, {
+              default: withCtx(() => [
+                createBaseVNode("div", _hoisted_2$f, [
+                  createBaseVNode("div", _hoisted_3$c, [
+                    (openBlock(true), createElementBlock(Fragment, null, renderList(unref(bottomPanelStore).bottomPanelTabs, (tab) => {
+                      return openBlock(), createBlock(unref(script$b), {
+                        key: tab.id,
+                        value: tab.id,
+                        class: "p-3 border-none"
+                      }, {
+                        default: withCtx(() => [
+                          createBaseVNode("span", _hoisted_4$5, toDisplayString(tab.title.toUpperCase()), 1)
+                        ]),
+                        _: 2
+                      }, 1032, ["value"]);
+                    }), 128))
+                  ]),
+                  createVNode(unref(script$f), {
+                    class: "justify-self-end",
+                    icon: "pi pi-times",
+                    severity: "secondary",
+                    size: "small",
+                    text: "",
+                    onClick: _cache[0] || (_cache[0] = ($event) => unref(bottomPanelStore).bottomPanelVisible = false)
+                  })
+                ])
+              ]),
+              _: 1
+            })
+          ]),
+          _: 1
+        }, 8, ["value"]),
+        createBaseVNode("div", _hoisted_5$4, [
+          unref(bottomPanelStore).bottomPanelVisible && unref(bottomPanelStore).activeBottomPanelTab ? (openBlock(), createBlock(_sfc_main$m, {
+            key: 0,
+            extension: unref(bottomPanelStore).activeBottomPanelTab
+          }, null, 8, ["extension"])) : createCommentVNode("", true)
+        ])
+      ]);
+    };
+  }
+});
 var theme$7 = /* @__PURE__ */ __name(function theme2(_ref) {
   var dt = _ref.dt;
   return "\n.p-splitter {\n    display: flex;\n    flex-wrap: nowrap;\n    border: 1px solid ".concat(dt("splitter.border.color"), ";\n    background: ").concat(dt("splitter.background"), ";\n    border-radius: ").concat(dt("border.radius.md"), ";\n    color: ").concat(dt("splitter.color"), ";\n}\n\n.p-splitter-vertical {\n    flex-direction: column;\n}\n\n.p-splitter-gutter {\n    flex-grow: 0;\n    flex-shrink: 0;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    z-index: 1;\n    background: ").concat(dt("splitter.gutter.background"), ";\n}\n\n.p-splitter-gutter-handle {\n    border-radius: ").concat(dt("splitter.handle.border.radius"), ";\n    background: ").concat(dt("splitter.handle.background"), ";\n    transition: outline-color ").concat(dt("splitter.transition.duration"), ", box-shadow ").concat(dt("splitter.transition.duration"), ";\n    outline-color: transparent;\n}\n\n.p-splitter-gutter-handle:focus-visible {\n    box-shadow: ").concat(dt("splitter.handle.focus.ring.shadow"), ";\n    outline: ").concat(dt("splitter.handle.focus.ring.width"), " ").concat(dt("splitter.handle.focus.ring.style"), " ").concat(dt("splitter.handle.focus.ring.color"), ";\n    outline-offset: ").concat(dt("splitter.handle.focus.ring.offset"), ";\n}\n\n.p-splitter-horizontal.p-splitter-resizing {\n    cursor: col-resize;\n    user-select: none;\n}\n\n.p-splitter-vertical.p-splitter-resizing {\n    cursor: row-resize;\n    user-select: none;\n}\n\n.p-splitter-horizontal > .p-splitter-gutter > .p-splitter-gutter-handle {\n    height: ").concat(dt("splitter.handle.size"), ";\n    width: 100%;\n}\n\n.p-splitter-vertical > .p-splitter-gutter > .p-splitter-gutter-handle {\n    width: ").concat(dt("splitter.handle.size"), ";\n    height: 100%;\n}\n\n.p-splitter-horizontal > .p-splitter-gutter {\n    cursor: col-resize;\n}\n\n.p-splitter-vertical > .p-splitter-gutter {\n    cursor: row-resize;\n}\n\n.p-splitterpanel {\n    flex-grow: 1;\n    overflow: hidden;\n}\n\n.p-splitterpanel-nested {\n    display: flex;\n}\n\n.p-splitterpanel .p-splitter {\n    flex-grow: 1;\n    border: 0 none;\n}\n");
 }, "theme");
 var classes$8 = {
-  root: /* @__PURE__ */ __name(function root(_ref2) {
+  root: /* @__PURE__ */ __name(function root2(_ref2) {
     var props = _ref2.props;
     return ["p-splitter p-component", "p-splitter-" + props.layout];
   }, "root"),
@@ -359,7 +846,7 @@ var classes$8 = {
   gutterHandle: "p-splitter-gutter-handle"
 };
 var inlineStyles$4 = {
-  root: /* @__PURE__ */ __name(function root2(_ref3) {
+  root: /* @__PURE__ */ __name(function root3(_ref3) {
     var props = _ref3.props;
     return [{
       display: "flex",
@@ -377,7 +864,7 @@ var SplitterStyle = BaseStyle.extend({
 });
 var script$1$8 = {
   name: "BaseSplitter",
-  "extends": script$e,
+  "extends": script$g,
   props: {
     layout: {
       type: String,
@@ -401,7 +888,7 @@ var script$1$8 = {
     }
   },
   style: SplitterStyle,
-  provide: /* @__PURE__ */ __name(function provide3() {
+  provide: /* @__PURE__ */ __name(function provide5() {
     return {
       $pcSplitter: this,
       $parentInstance: this
@@ -458,12 +945,12 @@ var script$a = {
   panelSizes: null,
   prevPanelIndex: null,
   timer: null,
-  data: /* @__PURE__ */ __name(function data() {
+  data: /* @__PURE__ */ __name(function data2() {
     return {
       prevSize: null
     };
   }, "data"),
-  mounted: /* @__PURE__ */ __name(function mounted() {
+  mounted: /* @__PURE__ */ __name(function mounted2() {
     var _this = this;
     if (this.panels && this.panels.length) {
       var initialized = false;
@@ -486,7 +973,7 @@ var script$a = {
       }
     }
   }, "mounted"),
-  beforeUnmount: /* @__PURE__ */ __name(function beforeUnmount() {
+  beforeUnmount: /* @__PURE__ */ __name(function beforeUnmount2() {
     this.clear();
     this.unbindMouseListeners();
   }, "beforeUnmount"),
@@ -781,9 +1268,9 @@ var script$a = {
     }, "getPTOptions")
   }
 };
-var _hoisted_1$f = ["onMousedown", "onTouchstart", "onTouchmove", "onTouchend"];
-var _hoisted_2$c = ["aria-orientation", "aria-valuenow", "onKeydown"];
-function render$c(_ctx, _cache, $props, $setup, $data, $options) {
+var _hoisted_1$h = ["onMousedown", "onTouchstart", "onTouchmove", "onTouchend"];
+var _hoisted_2$e = ["aria-orientation", "aria-valuenow", "onKeydown"];
+function render$d(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", mergeProps({
     "class": _ctx.cx("root"),
     style: _ctx.sx("root"),
@@ -822,17 +1309,17 @@ function render$c(_ctx, _cache, $props, $setup, $data, $options) {
       onKeyup: _cache[0] || (_cache[0] = function() {
         return $options.onGutterKeyUp && $options.onGutterKeyUp.apply($options, arguments);
       }),
-      onKeydown: /* @__PURE__ */ __name(function onKeydown($event) {
+      onKeydown: /* @__PURE__ */ __name(function onKeydown2($event) {
         return $options.onGutterKeyDown($event, i);
       }, "onKeydown"),
       ref_for: true
-    }, _ctx.ptm("gutterHandle")), null, 16, _hoisted_2$c)], 16, _hoisted_1$f)) : createCommentVNode("", true)], 64);
+    }, _ctx.ptm("gutterHandle")), null, 16, _hoisted_2$e)], 16, _hoisted_1$h)) : createCommentVNode("", true)], 64);
   }), 128))], 16);
 }
-__name(render$c, "render$c");
-script$a.render = render$c;
+__name(render$d, "render$d");
+script$a.render = render$d;
 var classes$7 = {
-  root: /* @__PURE__ */ __name(function root3(_ref) {
+  root: /* @__PURE__ */ __name(function root4(_ref) {
     var instance = _ref.instance;
     return ["p-splitterpanel", {
       "p-splitterpanel-nested": instance.isNested
@@ -845,7 +1332,7 @@ var SplitterPanelStyle = BaseStyle.extend({
 });
 var script$1$7 = {
   name: "BaseSplitterPanel",
-  "extends": script$e,
+  "extends": script$g,
   props: {
     size: {
       type: Number,
@@ -857,7 +1344,7 @@ var script$1$7 = {
     }
   },
   style: SplitterPanelStyle,
-  provide: /* @__PURE__ */ __name(function provide4() {
+  provide: /* @__PURE__ */ __name(function provide6() {
     return {
       $pcSplitterPanel: this,
       $parentInstance: this
@@ -868,7 +1355,7 @@ var script$9 = {
   name: "SplitterPanel",
   "extends": script$1$7,
   inheritAttrs: false,
-  data: /* @__PURE__ */ __name(function data2() {
+  data: /* @__PURE__ */ __name(function data3() {
     return {
       nestedState: null
     };
@@ -890,15 +1377,15 @@ var script$9 = {
     }, "getPTOptions")
   }
 };
-function render$b(_ctx, _cache, $props, $setup, $data, $options) {
+function render$c(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", mergeProps({
     ref: "container",
     "class": _ctx.cx("root")
   }, _ctx.ptmi("root", $options.getPTOptions)), [renderSlot(_ctx.$slots, "default")], 16);
 }
-__name(render$b, "render$b");
-script$9.render = render$b;
-const _sfc_main$h = /* @__PURE__ */ defineComponent({
+__name(render$c, "render$c");
+script$9.render = render$c;
+const _sfc_main$j = /* @__PURE__ */ defineComponent({
   __name: "LiteGraphCanvasSplitterOverlay",
   setup(__props) {
     const settingStore = useSettingStore();
@@ -906,15 +1393,15 @@ const _sfc_main$h = /* @__PURE__ */ defineComponent({
       () => settingStore.get("Comfy.Sidebar.Location")
     );
     const sidebarPanelVisible = computed(
-      () => useWorkspaceStore().sidebarTab.activeSidebarTab !== null
+      () => useSidebarTabStore().activeSidebarTab !== null
     );
-    const gutterClass = computed(() => {
-      return sidebarPanelVisible.value ? "" : "gutter-hidden";
-    });
+    const bottomPanelVisible = computed(
+      () => useBottomPanelStore().bottomPanelVisible
+    );
     return (_ctx, _cache) => {
       return openBlock(), createBlock(unref(script$a), {
-        class: "splitter-overlay",
-        "pt:gutter": gutterClass.value
+        class: "splitter-overlay-root splitter-overlay",
+        "pt:gutter": sidebarPanelVisible.value ? "" : "hidden"
       }, {
         default: withCtx(() => [
           sidebarLocation.value === "left" ? withDirectives((openBlock(), createBlock(unref(script$9), {
@@ -930,12 +1417,31 @@ const _sfc_main$h = /* @__PURE__ */ defineComponent({
           }, 512)), [
             [vShow, sidebarPanelVisible.value]
           ]) : createCommentVNode("", true),
-          createVNode(unref(script$9), {
-            class: "graph-canvas-panel relative",
-            size: 100
-          }, {
+          createVNode(unref(script$9), { size: 100 }, {
             default: withCtx(() => [
-              renderSlot(_ctx.$slots, "graph-canvas-panel", {}, void 0, true)
+              createVNode(unref(script$a), {
+                class: "splitter-overlay",
+                layout: "vertical",
+                "pt:gutter": bottomPanelVisible.value ? "" : "hidden"
+              }, {
+                default: withCtx(() => [
+                  createVNode(unref(script$9), { class: "graph-canvas-panel relative" }, {
+                    default: withCtx(() => [
+                      renderSlot(_ctx.$slots, "graph-canvas-panel", {}, void 0, true)
+                    ]),
+                    _: 3
+                  }),
+                  withDirectives(createVNode(unref(script$9), { class: "bottom-panel" }, {
+                    default: withCtx(() => [
+                      renderSlot(_ctx.$slots, "bottom-panel", {}, void 0, true)
+                    ]),
+                    _: 3
+                  }, 512), [
+                    [vShow, bottomPanelVisible.value]
+                  ])
+                ]),
+                _: 3
+              }, 8, ["pt:gutter"])
             ]),
             _: 3
           }),
@@ -958,7 +1464,7 @@ const _sfc_main$h = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const LiteGraphCanvasSplitterOverlay = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["__scopeId", "data-v-b9df3042"]]);
+const LiteGraphCanvasSplitterOverlay = /* @__PURE__ */ _export_sfc(_sfc_main$j, [["__scopeId", "data-v-b49f20b1"]]);
 var theme$6 = /* @__PURE__ */ __name(function theme3(_ref) {
   var dt = _ref.dt;
   return "\n.p-autocomplete {\n    display: inline-flex;\n}\n\n.p-autocomplete-loader {\n    position: absolute;\n    top: 50%;\n    margin-top: -0.5rem;\n    right: ".concat(dt("autocomplete.padding.x"), ";\n}\n\n.p-autocomplete:has(.p-autocomplete-dropdown) .p-autocomplete-loader {\n    right: calc(").concat(dt("autocomplete.dropdown.width"), " + ").concat(dt("autocomplete.padding.x"), ");\n}\n\n.p-autocomplete:has(.p-autocomplete-dropdown) .p-autocomplete-input {\n    flex: 1 1 auto;\n    width: 1%;\n}\n\n.p-autocomplete:has(.p-autocomplete-dropdown) .p-autocomplete-input,\n.p-autocomplete:has(.p-autocomplete-dropdown) .p-autocomplete-input-multiple {\n    border-top-right-radius: 0;\n    border-bottom-right-radius: 0;\n}\n\n.p-autocomplete-dropdown {\n    cursor: pointer;\n    display: inline-flex;\n    cursor: pointer;\n    user-select: none;\n    align-items: center;\n    justify-content: center;\n    overflow: hidden;\n    position: relative;\n    width: ").concat(dt("autocomplete.dropdown.width"), ";\n    border-top-right-radius: ").concat(dt("autocomplete.dropdown.border.radius"), ";\n    border-bottom-right-radius: ").concat(dt("autocomplete.dropdown.border.radius"), ";\n    background: ").concat(dt("autocomplete.dropdown.background"), ";\n    border: 1px solid ").concat(dt("autocomplete.dropdown.border.color"), ";\n    border-left: 0 none;\n    color: ").concat(dt("autocomplete.dropdown.color"), ";\n    transition: background ").concat(dt("autocomplete.transition.duration"), ", color ").concat(dt("autocomplete.transition.duration"), ", border-color ").concat(dt("autocomplete.transition.duration"), ", outline-color ").concat(dt("autocomplete.transition.duration"), ", box-shadow ").concat(dt("autocomplete.transition.duration"), ";\n    outline-color: transparent;\n}\n\n.p-autocomplete-dropdown:not(:disabled):hover {\n    background: ").concat(dt("autocomplete.dropdown.hover.background"), ";\n    border-color: ").concat(dt("autocomplete.dropdown.hover.border.color"), ";\n    color: ").concat(dt("autocomplete.dropdown.hover.color"), ";\n}\n\n.p-autocomplete-dropdown:not(:disabled):active {\n    background: ").concat(dt("autocomplete.dropdown.active.background"), ";\n    border-color: ").concat(dt("autocomplete.dropdown.active.border.color"), ";\n    color: ").concat(dt("autocomplete.dropdown.active.color"), ";\n}\n\n.p-autocomplete-dropdown:focus-visible {\n    box-shadow: ").concat(dt("autocomplete.dropdown.focus.ring.shadow"), ";\n    outline: ").concat(dt("autocomplete.dropdown.focus.ring.width"), " ").concat(dt("autocomplete.dropdown.focus.ring.style"), " ").concat(dt("autocomplete.dropdown.focus.ring.color"), ";\n    outline-offset: ").concat(dt("autocomplete.dropdown.focus.ring.offset"), ";\n}\n\n.p-autocomplete .p-autocomplete-overlay {\n    min-width: 100%;\n}\n\n.p-autocomplete-overlay {\n    position: absolute;\n    overflow: auto;\n    top: 0;\n    left: 0;\n    background: ").concat(dt("autocomplete.overlay.background"), ";\n    color: ").concat(dt("autocomplete.overlay.color"), ";\n    border: 1px solid ").concat(dt("autocomplete.overlay.border.color"), ";\n    border-radius: ").concat(dt("autocomplete.overlay.border.radius"), ";\n    box-shadow: ").concat(dt("autocomplete.overlay.shadow"), ";\n}\n\n.p-autocomplete-list {\n    margin: 0;\n    padding: 0;\n    list-style-type: none;\n    display: flex;\n    flex-direction: column;\n    gap: ").concat(dt("autocomplete.list.gap"), ";\n    padding: ").concat(dt("autocomplete.list.padding"), ";\n}\n\n.p-autocomplete-option {\n    cursor: pointer;\n    white-space: nowrap;\n    position: relative;\n    overflow: hidden;\n    display: flex;\n    align-items: center;\n    padding: ").concat(dt("autocomplete.option.padding"), ";\n    border: 0 none;\n    color: ").concat(dt("autocomplete.option.color"), ";\n    background: transparent;\n    transition: background ").concat(dt("autocomplete.transition.duration"), ", color ").concat(dt("autocomplete.transition.duration"), ", border-color ").concat(dt("autocomplete.transition.duration"), ";\n    border-radius: ").concat(dt("autocomplete.option.border.radius"), ";\n}\n\n.p-autocomplete-option:not(.p-autocomplete-option-selected):not(.p-disabled).p-focus {\n    background: ").concat(dt("autocomplete.option.focus.background"), ";\n    color: ").concat(dt("autocomplete.option.focus.color"), ";\n}\n\n.p-autocomplete-option-selected {\n    background: ").concat(dt("autocomplete.option.selected.background"), ";\n    color: ").concat(dt("autocomplete.option.selected.color"), ";\n}\n\n.p-autocomplete-option-selected.p-focus {\n    background: ").concat(dt("autocomplete.option.selected.focus.background"), ";\n    color: ").concat(dt("autocomplete.option.selected.focus.color"), ";\n}\n\n.p-autocomplete-option-group {\n    margin: 0;\n    padding: ").concat(dt("autocomplete.option.group.padding"), ";\n    color: ").concat(dt("autocomplete.option.group.color"), ";\n    background: ").concat(dt("autocomplete.option.group.background"), ";\n    font-weight: ").concat(dt("autocomplete.option.group.font.weight"), ";\n}\n\n.p-autocomplete-input-multiple {\n    margin: 0;\n    list-style-type: none;\n    cursor: text;\n    overflow: hidden;\n    display: flex;\n    align-items: center;\n    flex-wrap: wrap;\n    padding: calc(").concat(dt("autocomplete.padding.y"), " / 2) ").concat(dt("autocomplete.padding.x"), ";\n    gap: calc(").concat(dt("autocomplete.padding.y"), " / 2);\n    color: ").concat(dt("autocomplete.color"), ";\n    background: ").concat(dt("autocomplete.background"), ";\n    border: 1px solid ").concat(dt("autocomplete.border.color"), ";\n    border-radius: ").concat(dt("autocomplete.border.radius"), ";\n    width: 100%;\n    transition: background ").concat(dt("autocomplete.transition.duration"), ", color ").concat(dt("autocomplete.transition.duration"), ", border-color ").concat(dt("autocomplete.transition.duration"), ", outline-color ").concat(dt("autocomplete.transition.duration"), ", box-shadow ").concat(dt("autocomplete.transition.duration"), ";\n    outline-color: transparent;\n    box-shadow: ").concat(dt("autocomplete.shadow"), ";\n}\n\n.p-autocomplete:not(.p-disabled):hover .p-autocomplete-input-multiple {\n    border-color: ").concat(dt("autocomplete.hover.border.color"), ";\n}\n\n.p-autocomplete:not(.p-disabled).p-focus .p-autocomplete-input-multiple {\n    border-color: ").concat(dt("autocomplete.focus.border.color"), ";\n    box-shadow: ").concat(dt("autocomplete.focus.ring.shadow"), ";\n    outline: ").concat(dt("autocomplete.focus.ring.width"), " ").concat(dt("autocomplete.focus.ring.style"), " ").concat(dt("autocomplete.focus.ring.color"), ";\n    outline-offset: ").concat(dt("autocomplete.focus.ring.offset"), ";\n}\n\n.p-autocomplete.p-invalid .p-autocomplete-input-multiple {\n    border-color: ").concat(dt("autocomplete.invalid.border.color"), ";\n}\n\n.p-variant-filled.p-autocomplete-input-multiple {\n    background: ").concat(dt("autocomplete.filled.background"), ";\n}\n\n.p-autocomplete:not(.p-disabled).p-focus .p-variant-filled.p-autocomplete-input-multiple  {\n    background: ").concat(dt("autocomplete.filled.focus.background"), ";\n}\n\n.p-autocomplete.p-disabled .p-autocomplete-input-multiple {\n    opacity: 1;\n    background: ").concat(dt("autocomplete.disabled.background"), ";\n    color: ").concat(dt("autocomplete.disabled.color"), ";\n}\n\n.p-autocomplete-chip.p-chip {\n    padding-top: calc(").concat(dt("autocomplete.padding.y"), " / 2);\n    padding-bottom: calc(").concat(dt("autocomplete.padding.y"), " / 2);\n    border-radius: ").concat(dt("autocomplete.chip.border.radius"), ";\n}\n\n.p-autocomplete-input-multiple:has(.p-autocomplete-chip) {\n    padding-left: calc(").concat(dt("autocomplete.padding.y"), " / 2);\n    padding-right: calc(").concat(dt("autocomplete.padding.y"), " / 2);\n}\n\n.p-autocomplete-chip-item.p-focus .p-autocomplete-chip {\n    background: ").concat(dt("inputchips.chip.focus.background"), ";\n    color: ").concat(dt("inputchips.chip.focus.color"), ";\n}\n\n.p-autocomplete-input-chip {\n    flex: 1 1 auto;\n    display: inline-flex;\n    padding-top: calc(").concat(dt("autocomplete.padding.y"), " / 2);\n    padding-bottom: calc(").concat(dt("autocomplete.padding.y"), " / 2);\n}\n\n.p-autocomplete-input-chip input {\n    border: 0 none;\n    outline: 0 none;\n    background: transparent;\n    margin: 0;\n    padding: 0;\n    box-shadow: none;\n    border-radius: 0;\n    width: 100%;\n    font-family: inherit;\n    font-feature-settings: inherit;\n    font-size: 1rem;\n    color: inherit;\n}\n\n.p-autocomplete-input-chip input::placeholder {\n    color: ").concat(dt("autocomplete.placeholder.color"), ";\n}\n\n.p-autocomplete-empty-message {\n    padding: ").concat(dt("autocomplete.empty.message.padding"), ";\n}\n\n.p-autocomplete-fluid {\n    display: flex;\n}\n\n.p-autocomplete-fluid:has(.p-autocomplete-dropdown) .p-autocomplete-input {\n    width: 1%;\n}\n");
@@ -969,7 +1475,7 @@ var inlineStyles$3 = {
   }
 };
 var classes$6 = {
-  root: /* @__PURE__ */ __name(function root4(_ref2) {
+  root: /* @__PURE__ */ __name(function root5(_ref2) {
     var instance = _ref2.instance, props = _ref2.props;
     return ["p-autocomplete p-component p-inputwrapper", {
       "p-disabled": props.disabled,
@@ -1020,7 +1526,7 @@ var AutoCompleteStyle = BaseStyle.extend({
 });
 var script$1$6 = {
   name: "BaseAutoComplete",
-  "extends": script$e,
+  "extends": script$g,
   props: {
     modelValue: null,
     suggestions: {
@@ -1201,7 +1707,7 @@ var script$1$6 = {
     }
   },
   style: AutoCompleteStyle,
-  provide: /* @__PURE__ */ __name(function provide5() {
+  provide: /* @__PURE__ */ __name(function provide7() {
     return {
       $pcAutoComplete: this,
       $parentInstance: this
@@ -1264,7 +1770,7 @@ var script$8 = {
   virtualScroller: null,
   searchTimeout: null,
   dirty: false,
-  data: /* @__PURE__ */ __name(function data3() {
+  data: /* @__PURE__ */ __name(function data4() {
     return {
       id: this.$attrs.id,
       clicked: false,
@@ -1288,16 +1794,16 @@ var script$8 = {
       this.autoUpdateModel();
     }, "suggestions")
   },
-  mounted: /* @__PURE__ */ __name(function mounted2() {
+  mounted: /* @__PURE__ */ __name(function mounted3() {
     this.id = this.id || UniqueComponentId();
     this.autoUpdateModel();
   }, "mounted"),
-  updated: /* @__PURE__ */ __name(function updated() {
+  updated: /* @__PURE__ */ __name(function updated2() {
     if (this.overlayVisible) {
       this.alignOverlay();
     }
   }, "updated"),
-  beforeUnmount: /* @__PURE__ */ __name(function beforeUnmount2() {
+  beforeUnmount: /* @__PURE__ */ __name(function beforeUnmount3() {
     this.unbindOutsideClickListener();
     this.unbindResizeListener();
     if (this.scrollHandler) {
@@ -1370,7 +1876,7 @@ var script$8 = {
         _hide();
       }, 0);
     }, "hide"),
-    onFocus: /* @__PURE__ */ __name(function onFocus(event) {
+    onFocus: /* @__PURE__ */ __name(function onFocus2(event) {
       if (this.disabled) {
         return;
       }
@@ -1599,7 +2105,7 @@ var script$8 = {
         event.preventDefault();
       }
     }, "onArrowUpKey"),
-    onArrowLeftKey: /* @__PURE__ */ __name(function onArrowLeftKey(event) {
+    onArrowLeftKey: /* @__PURE__ */ __name(function onArrowLeftKey2(event) {
       var target = event.currentTarget;
       this.focusedOptionIndex = -1;
       if (this.multiple) {
@@ -1611,33 +2117,33 @@ var script$8 = {
         }
       }
     }, "onArrowLeftKey"),
-    onArrowRightKey: /* @__PURE__ */ __name(function onArrowRightKey(event) {
+    onArrowRightKey: /* @__PURE__ */ __name(function onArrowRightKey2(event) {
       this.focusedOptionIndex = -1;
       this.multiple && event.stopPropagation();
     }, "onArrowRightKey"),
-    onHomeKey: /* @__PURE__ */ __name(function onHomeKey(event) {
+    onHomeKey: /* @__PURE__ */ __name(function onHomeKey2(event) {
       var currentTarget = event.currentTarget;
       var len = currentTarget.value.length;
       currentTarget.setSelectionRange(0, event.shiftKey ? len : 0);
       this.focusedOptionIndex = -1;
       event.preventDefault();
     }, "onHomeKey"),
-    onEndKey: /* @__PURE__ */ __name(function onEndKey(event) {
+    onEndKey: /* @__PURE__ */ __name(function onEndKey2(event) {
       var currentTarget = event.currentTarget;
       var len = currentTarget.value.length;
       currentTarget.setSelectionRange(event.shiftKey ? 0 : len, len);
       this.focusedOptionIndex = -1;
       event.preventDefault();
     }, "onEndKey"),
-    onPageUpKey: /* @__PURE__ */ __name(function onPageUpKey(event) {
+    onPageUpKey: /* @__PURE__ */ __name(function onPageUpKey2(event) {
       this.scrollInView(0);
       event.preventDefault();
     }, "onPageUpKey"),
-    onPageDownKey: /* @__PURE__ */ __name(function onPageDownKey(event) {
+    onPageDownKey: /* @__PURE__ */ __name(function onPageDownKey2(event) {
       this.scrollInView(this.visibleOptions.length - 1);
       event.preventDefault();
     }, "onPageDownKey"),
-    onEnterKey: /* @__PURE__ */ __name(function onEnterKey(event) {
+    onEnterKey: /* @__PURE__ */ __name(function onEnterKey2(event) {
       if (!this.typeahead) {
         if (this.multiple) {
           this.updateModel(event, [].concat(_toConsumableArray$1(this.modelValue || []), [event.target.value]));
@@ -1868,7 +2374,7 @@ var script$8 = {
     removeOption: /* @__PURE__ */ __name(function removeOption(event, index) {
       var _this14 = this;
       var removedOption = this.modelValue[index];
-      var value = this.modelValue.filter(function(_, i) {
+      var value = this.modelValue.filter(function(_2, i) {
         return i !== index;
       }).map(function(option2) {
         return _this14.getOptionValue(option2);
@@ -1894,12 +2400,12 @@ var script$8 = {
         }
       }
     }, "changeFocusedOptionIndex"),
-    scrollInView: /* @__PURE__ */ __name(function scrollInView() {
+    scrollInView: /* @__PURE__ */ __name(function scrollInView2() {
       var _this15 = this;
       var index = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : -1;
       this.$nextTick(function() {
-        var id = index !== -1 ? "".concat(_this15.id, "_").concat(index) : _this15.focusedOptionId;
-        var element = findSingle(_this15.list, 'li[id="'.concat(id, '"]'));
+        var id2 = index !== -1 ? "".concat(_this15.id, "_").concat(index) : _this15.focusedOptionId;
+        var element = findSingle(_this15.list, 'li[id="'.concat(id2, '"]'));
         if (element) {
           element.scrollIntoView && element.scrollIntoView({
             block: "nearest",
@@ -2015,12 +2521,12 @@ var script$8 = {
     }, "hasFluid")
   },
   components: {
-    InputText: script$f,
-    VirtualScroller: script$g,
-    Portal: script$h,
-    ChevronDownIcon: script$i,
-    SpinnerIcon: script$j,
-    Chip: script$k
+    InputText: script$k,
+    VirtualScroller: script$l,
+    Portal: script$m,
+    ChevronDownIcon: script$n,
+    SpinnerIcon: script$o,
+    Chip: script$p
   },
   directives: {
     ripple: Ripple
@@ -2078,15 +2584,15 @@ function _toPrimitive$4(t, r) {
   return ("string" === r ? String : Number)(t);
 }
 __name(_toPrimitive$4, "_toPrimitive$4");
-var _hoisted_1$e = ["aria-activedescendant"];
-var _hoisted_2$b = ["id", "aria-label", "aria-setsize", "aria-posinset"];
-var _hoisted_3$9 = ["id", "placeholder", "tabindex", "disabled", "aria-label", "aria-labelledby", "aria-expanded", "aria-controls", "aria-activedescendant", "aria-invalid"];
+var _hoisted_1$g = ["aria-activedescendant"];
+var _hoisted_2$d = ["id", "aria-label", "aria-setsize", "aria-posinset"];
+var _hoisted_3$b = ["id", "placeholder", "tabindex", "disabled", "aria-label", "aria-labelledby", "aria-expanded", "aria-controls", "aria-activedescendant", "aria-invalid"];
 var _hoisted_4$4 = ["disabled", "aria-expanded", "aria-controls"];
 var _hoisted_5$3 = ["id"];
 var _hoisted_6$2 = ["id", "aria-label"];
 var _hoisted_7$1 = ["id"];
 var _hoisted_8$1 = ["id", "aria-label", "aria-selected", "aria-disabled", "aria-setsize", "aria-posinset", "onClick", "onMousemove", "data-p-selected", "data-p-focus", "data-p-disabled"];
-function render$a(_ctx, _cache, $props, $setup, $data, $options) {
+function render$b(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_InputText = resolveComponent("InputText");
   var _component_Chip = resolveComponent("Chip");
   var _component_SpinnerIcon = resolveComponent("SpinnerIcon");
@@ -2191,7 +2697,7 @@ function render$a(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         _: 2
       }, 1032, ["class", "label", "removeIcon", "unstyled", "onRemove", "pt"])];
-    })], 16, _hoisted_2$b);
+    })], 16, _hoisted_2$d);
   }), 128)), createBaseVNode("li", mergeProps({
     "class": _ctx.cx("inputChip"),
     role: "option"
@@ -2229,7 +2735,7 @@ function render$a(_ctx, _cache, $props, $setup, $data, $options) {
     onChange: _cache[4] || (_cache[4] = function() {
       return $options.onChange && $options.onChange.apply($options, arguments);
     })
-  }, _ctx.ptm("input")), null, 16, _hoisted_3$9)], 16)], 16, _hoisted_1$e)) : createCommentVNode("", true), $data.searching || _ctx.loading ? renderSlot(_ctx.$slots, _ctx.$slots.loader ? "loader" : "loadingicon", {
+  }, _ctx.ptm("input")), null, 16, _hoisted_3$b)], 16)], 16, _hoisted_1$g)) : createCommentVNode("", true), $data.searching || _ctx.loading ? renderSlot(_ctx.$slots, _ctx.$slots.loader ? "loader" : "loadingicon", {
     key: 2,
     "class": normalizeClass(_ctx.cx("loader"))
   }, function() {
@@ -2358,7 +2864,7 @@ function render$a(_ctx, _cache, $props, $setup, $data, $options) {
                   "aria-disabled": $options.isOptionDisabled(option2),
                   "aria-setsize": $options.ariaSetSize,
                   "aria-posinset": $options.getAriaPosInset($options.getOptionIndex(i, getItemOptions)),
-                  onClick: /* @__PURE__ */ __name(function onClick($event) {
+                  onClick: /* @__PURE__ */ __name(function onClick2($event) {
                     return $options.onOptionSelect($event, option2);
                   }, "onClick"),
                   onMousemove: /* @__PURE__ */ __name(function onMousemove($event) {
@@ -2409,9 +2915,9 @@ function render$a(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["appendTo"])], 16);
 }
-__name(render$a, "render$a");
-script$8.render = render$a;
-const _sfc_main$g = {
+__name(render$b, "render$b");
+script$8.render = render$b;
+const _sfc_main$i = {
   name: "AutoCompletePlus",
   extends: script$8,
   emits: ["focused-option-changed"],
@@ -2428,9 +2934,9 @@ const _sfc_main$g = {
   }
 };
 const _withScopeId$5 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-37f672ab"), n = n(), popScopeId(), n), "_withScopeId$5");
-const _hoisted_1$d = { class: "option-container flex justify-between items-center px-2 py-0 cursor-pointer overflow-hidden w-full" };
-const _hoisted_2$a = { class: "option-display-name font-semibold flex flex-col" };
-const _hoisted_3$8 = { key: 0 };
+const _hoisted_1$f = { class: "option-container flex justify-between items-center px-2 py-0 cursor-pointer overflow-hidden w-full" };
+const _hoisted_2$c = { class: "option-display-name font-semibold flex flex-col" };
+const _hoisted_3$a = { key: 0 };
 const _hoisted_4$3 = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ createBaseVNode("i", { class: "pi pi-bookmark-fill text-sm mr-1" }, null, -1));
 const _hoisted_5$2 = [
   _hoisted_4$3
@@ -2443,7 +2949,7 @@ const _hoisted_9 = {
   class: "option-category font-light text-sm text-gray-400 overflow-hidden text-ellipsis whitespace-nowrap"
 };
 const _hoisted_10 = { class: "option-badges" };
-const _sfc_main$f = /* @__PURE__ */ defineComponent({
+const _sfc_main$h = /* @__PURE__ */ defineComponent({
   __name: "NodeSearchItem",
   props: {
     nodeDef: {},
@@ -2470,15 +2976,15 @@ const _sfc_main$f = /* @__PURE__ */ defineComponent({
     );
     const props = __props;
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", _hoisted_1$d, [
-        createBaseVNode("div", _hoisted_2$a, [
+      return openBlock(), createElementBlock("div", _hoisted_1$f, [
+        createBaseVNode("div", _hoisted_2$c, [
           createBaseVNode("div", null, [
-            isBookmarked.value ? (openBlock(), createElementBlock("span", _hoisted_3$8, _hoisted_5$2)) : createCommentVNode("", true),
+            isBookmarked.value ? (openBlock(), createElementBlock("span", _hoisted_3$a, _hoisted_5$2)) : createCommentVNode("", true),
             createBaseVNode("span", {
               innerHTML: unref(highlightQuery)(_ctx.nodeDef.display_name, _ctx.currentQuery)
             }, null, 8, _hoisted_6$1),
             _hoisted_7,
-            showIdName.value ? (openBlock(), createBlock(unref(script$l), {
+            showIdName.value ? (openBlock(), createBlock(unref(script$q), {
               key: 1,
               severity: "secondary"
             }, {
@@ -2493,22 +2999,22 @@ const _sfc_main$f = /* @__PURE__ */ defineComponent({
           showCategory.value ? (openBlock(), createElementBlock("div", _hoisted_9, toDisplayString(_ctx.nodeDef.category.replaceAll("/", " > ")), 1)) : createCommentVNode("", true)
         ]),
         createBaseVNode("div", _hoisted_10, [
-          _ctx.nodeDef.experimental ? (openBlock(), createBlock(unref(script$l), {
+          _ctx.nodeDef.experimental ? (openBlock(), createBlock(unref(script$q), {
             key: 0,
             value: _ctx.$t("experimental"),
             severity: "primary"
           }, null, 8, ["value"])) : createCommentVNode("", true),
-          _ctx.nodeDef.deprecated ? (openBlock(), createBlock(unref(script$l), {
+          _ctx.nodeDef.deprecated ? (openBlock(), createBlock(unref(script$q), {
             key: 1,
             value: _ctx.$t("deprecated"),
             severity: "danger"
           }, null, 8, ["value"])) : createCommentVNode("", true),
-          showNodeFrequency.value && nodeFrequency.value > 0 ? (openBlock(), createBlock(unref(script$l), {
+          showNodeFrequency.value && nodeFrequency.value > 0 ? (openBlock(), createBlock(unref(script$q), {
             key: 2,
             value: unref(formatNumberWithSuffix)(nodeFrequency.value, { roundToInt: true }),
             severity: "secondary"
           }, null, 8, ["value"])) : createCommentVNode("", true),
-          _ctx.nodeDef.nodeSource.type !== unref(NodeSourceType).Unknown ? (openBlock(), createBlock(unref(script$k), {
+          _ctx.nodeDef.nodeSource.type !== unref(NodeSourceType).Unknown ? (openBlock(), createBlock(unref(script$p), {
             key: 3,
             class: "text-sm font-light"
           }, {
@@ -2522,16 +3028,16 @@ const _sfc_main$f = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const NodeSearchItem = /* @__PURE__ */ _export_sfc(_sfc_main$f, [["__scopeId", "data-v-37f672ab"]]);
+const NodeSearchItem = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["__scopeId", "data-v-37f672ab"]]);
 const _withScopeId$4 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-2d409367"), n = n(), popScopeId(), n), "_withScopeId$4");
-const _hoisted_1$c = { class: "comfy-vue-node-search-container" };
-const _hoisted_2$9 = {
+const _hoisted_1$e = { class: "comfy-vue-node-search-container" };
+const _hoisted_2$b = {
   key: 0,
   class: "comfy-vue-node-preview-container"
 };
-const _hoisted_3$7 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createBaseVNode("h3", null, "Add node filter condition", -1));
+const _hoisted_3$9 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createBaseVNode("h3", null, "Add node filter condition", -1));
 const _hoisted_4$2 = { class: "_dialog-body" };
-const _sfc_main$e = /* @__PURE__ */ defineComponent({
+const _sfc_main$g = /* @__PURE__ */ defineComponent({
   __name: "NodeSearchBox",
   props: {
     filters: {},
@@ -2593,26 +3099,26 @@ const _sfc_main$e = /* @__PURE__ */ defineComponent({
       hoveredSuggestion.value = value;
     }, "setHoverSuggestion");
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", _hoisted_1$c, [
-        enableNodePreview.value ? (openBlock(), createElementBlock("div", _hoisted_2$9, [
+      return openBlock(), createElementBlock("div", _hoisted_1$e, [
+        enableNodePreview.value ? (openBlock(), createElementBlock("div", _hoisted_2$b, [
           hoveredSuggestion.value ? (openBlock(), createBlock(NodePreview, {
             nodeDef: hoveredSuggestion.value,
             key: hoveredSuggestion.value?.name || ""
           }, null, 8, ["nodeDef"])) : createCommentVNode("", true)
         ])) : createCommentVNode("", true),
-        createVNode(unref(script$d), {
+        createVNode(unref(script$f), {
           icon: "pi pi-filter",
           severity: "secondary",
           class: "_filter-button",
           onClick: _cache[0] || (_cache[0] = ($event) => nodeSearchFilterVisible.value = true)
         }),
-        createVNode(unref(script$m), {
+        createVNode(unref(script$r), {
           visible: nodeSearchFilterVisible.value,
           "onUpdate:visible": _cache[1] || (_cache[1] = ($event) => nodeSearchFilterVisible.value = $event),
           class: "_dialog"
         }, {
           header: withCtx(() => [
-            _hoisted_3$7
+            _hoisted_3$9
           ]),
           default: withCtx(() => [
             createBaseVNode("div", _hoisted_4$2, [
@@ -2621,7 +3127,7 @@ const _sfc_main$e = /* @__PURE__ */ defineComponent({
           ]),
           _: 1
         }, 8, ["visible"]),
-        createVNode(_sfc_main$g, {
+        createVNode(_sfc_main$i, {
           "model-value": props.filters,
           class: "comfy-vue-node-search-box",
           scrollHeight: "40vh",
@@ -2661,7 +3167,7 @@ const _sfc_main$e = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const NodeSearchBox = /* @__PURE__ */ _export_sfc(_sfc_main$e, [["__scopeId", "data-v-2d409367"]]);
+const NodeSearchBox = /* @__PURE__ */ _export_sfc(_sfc_main$g, [["__scopeId", "data-v-2d409367"]]);
 class ConnectingLinkImpl {
   static {
     __name(this, "ConnectingLinkImpl");
@@ -2717,7 +3223,7 @@ class ConnectingLinkImpl {
     }
   }
 }
-const _sfc_main$d = /* @__PURE__ */ defineComponent({
+const _sfc_main$f = /* @__PURE__ */ defineComponent({
   __name: "NodeSearchBoxPopover",
   setup(__props) {
     const settingStore = useSettingStore();
@@ -2866,7 +3372,7 @@ const _sfc_main$d = /* @__PURE__ */ defineComponent({
     });
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock("div", null, [
-        createVNode(unref(script$m), {
+        createVNode(unref(script$r), {
           visible: visible.value,
           "onUpdate:visible": _cache[0] || (_cache[0] = ($event) => visible.value = $event),
           modal: "",
@@ -2901,7 +3407,7 @@ const _sfc_main$d = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _sfc_main$c = /* @__PURE__ */ defineComponent({
+const _sfc_main$e = /* @__PURE__ */ defineComponent({
   __name: "NodeTooltip",
   setup(__props) {
     let idleTimeout;
@@ -3000,41 +3506,96 @@ const _sfc_main$c = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const NodeTooltip = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["__scopeId", "data-v-79ec8c53"]]);
-const _hoisted_1$b = {
+const NodeTooltip = /* @__PURE__ */ _export_sfc(_sfc_main$e, [["__scopeId", "data-v-79ec8c53"]]);
+const _sfc_main$d = /* @__PURE__ */ defineComponent({
+  __name: "NodeBadge",
+  setup(__props) {
+    const settingStore = useSettingStore();
+    const nodeSourceBadgeMode = computed(
+      () => settingStore.get("Comfy.NodeBadge.NodeSourceBadgeMode")
+    );
+    const nodeIdBadgeMode = computed(
+      () => settingStore.get("Comfy.NodeBadge.NodeIdBadgeMode")
+    );
+    const nodeLifeCycleBadgeMode = computed(
+      () => settingStore.get("Comfy.NodeBadge.NodeLifeCycleBadgeMode")
+    );
+    watch([nodeSourceBadgeMode, nodeIdBadgeMode, nodeLifeCycleBadgeMode], () => {
+      app.graph?.setDirtyCanvas(true, true);
+    });
+    const colorPalette = computed(
+      () => getColorPalette(settingStore.get("Comfy.ColorPalette"))
+    );
+    const nodeDefStore = useNodeDefStore();
+    function badgeTextVisible(nodeDef, badgeMode) {
+      return !(badgeMode === NodeBadgeMode.None || nodeDef?.isCoreNode && badgeMode === NodeBadgeMode.HideBuiltIn);
+    }
+    __name(badgeTextVisible, "badgeTextVisible");
+    onMounted(() => {
+      app.registerExtension({
+        name: "Comfy.NodeBadge",
+        nodeCreated(node) {
+          node.badgePosition = BadgePosition.TopRight;
+          const badge = computed(() => {
+            const nodeDef = nodeDefStore.fromLGraphNode(node);
+            return new LGraphBadge({
+              text: _.truncate(
+                [
+                  badgeTextVisible(nodeDef, nodeIdBadgeMode.value) ? `#${node.id}` : "",
+                  badgeTextVisible(nodeDef, nodeLifeCycleBadgeMode.value) ? nodeDef?.nodeLifeCycleBadgeText ?? "" : "",
+                  badgeTextVisible(nodeDef, nodeSourceBadgeMode.value) ? nodeDef?.nodeSource?.badgeText ?? "" : ""
+                ].filter((s) => s.length > 0).join(" "),
+                {
+                  length: 31
+                }
+              ),
+              fgColor: colorPalette.value.colors.litegraph_base?.BADGE_FG_COLOR || defaultColorPalette.colors.litegraph_base.BADGE_FG_COLOR,
+              bgColor: colorPalette.value.colors.litegraph_base?.BADGE_BG_COLOR || defaultColorPalette.colors.litegraph_base.BADGE_BG_COLOR
+            });
+          });
+          node.badges.push(() => badge.value);
+        }
+      });
+    });
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock("div");
+    };
+  }
+});
+const _hoisted_1$d = {
   viewBox: "0 0 1024 1024",
   width: "1.2em",
   height: "1.2em"
 };
-const _hoisted_2$8 = /* @__PURE__ */ createBaseVNode("path", {
+const _hoisted_2$a = /* @__PURE__ */ createBaseVNode("path", {
   fill: "currentColor",
   d: "M921.088 103.232L584.832 889.024L465.52 544.512L121.328 440.48zM1004.46.769c-6.096 0-13.52 1.728-22.096 5.36L27.708 411.2c-34.383 14.592-36.56 42.704-4.847 62.464l395.296 123.584l129.36 403.264c9.28 15.184 20.496 22.72 31.263 22.72c11.936 0 23.296-9.152 31.04-27.248l408.272-953.728C1029.148 16.368 1022.86.769 1004.46.769"
 }, null, -1);
-const _hoisted_3$6 = [
-  _hoisted_2$8
+const _hoisted_3$8 = [
+  _hoisted_2$a
 ];
-function render$9(_ctx, _cache) {
-  return openBlock(), createElementBlock("svg", _hoisted_1$b, [..._hoisted_3$6]);
+function render$a(_ctx, _cache) {
+  return openBlock(), createElementBlock("svg", _hoisted_1$d, [..._hoisted_3$8]);
 }
-__name(render$9, "render$9");
-const __unplugin_components_1 = markRaw({ name: "simple-line-icons-cursor", render: render$9 });
-const _hoisted_1$a = {
+__name(render$a, "render$a");
+const __unplugin_components_1$1 = markRaw({ name: "simple-line-icons-cursor", render: render$a });
+const _hoisted_1$c = {
   viewBox: "0 0 24 24",
   width: "1.2em",
   height: "1.2em"
 };
-const _hoisted_2$7 = /* @__PURE__ */ createBaseVNode("path", {
+const _hoisted_2$9 = /* @__PURE__ */ createBaseVNode("path", {
   fill: "currentColor",
   d: "M10.05 23q-.75 0-1.4-.337T7.575 21.7L1.2 12.375l.6-.575q.475-.475 1.125-.55t1.175.3L7 13.575V4q0-.425.288-.712T8 3t.713.288T9 4v13.425l-3.7-2.6l3.925 5.725q.125.2.35.325t.475.125H17q.825 0 1.413-.587T19 19V5q0-.425.288-.712T20 4t.713.288T21 5v14q0 1.65-1.175 2.825T17 23zM11 12V2q0-.425.288-.712T12 1t.713.288T13 2v10zm4 0V3q0-.425.288-.712T16 2t.713.288T17 3v9zm-2.85 4.5"
 }, null, -1);
-const _hoisted_3$5 = [
-  _hoisted_2$7
+const _hoisted_3$7 = [
+  _hoisted_2$9
 ];
-function render$8(_ctx, _cache) {
-  return openBlock(), createElementBlock("svg", _hoisted_1$a, [..._hoisted_3$5]);
+function render$9(_ctx, _cache) {
+  return openBlock(), createElementBlock("svg", _hoisted_1$c, [..._hoisted_3$7]);
 }
-__name(render$8, "render$8");
-const __unplugin_components_0$1 = markRaw({ name: "material-symbols-pan-tool-outline", render: render$8 });
+__name(render$9, "render$9");
+const __unplugin_components_0$2 = markRaw({ name: "material-symbols-pan-tool-outline", render: render$9 });
 var theme$5 = /* @__PURE__ */ __name(function theme4(_ref) {
   _ref.dt;
   return "\n.p-buttongroup .p-button {\n    margin: 0;\n}\n\n.p-buttongroup .p-button:not(:last-child),\n.p-buttongroup .p-button:not(:last-child):hover {\n    border-right: 0 none;\n}\n\n.p-buttongroup .p-button:not(:first-of-type):not(:last-of-type) {\n    border-radius: 0;\n}\n\n.p-buttongroup .p-button:first-of-type:not(:only-of-type) {\n    border-top-right-radius: 0;\n    border-bottom-right-radius: 0;\n}\n\n.p-buttongroup .p-button:last-of-type:not(:only-of-type) {\n    border-top-left-radius: 0;\n    border-bottom-left-radius: 0;\n}\n\n.p-buttongroup .p-button:focus {\n    position: relative;\n    z-index: 1;\n}\n";
@@ -3049,9 +3610,9 @@ var ButtonGroupStyle = BaseStyle.extend({
 });
 var script$1$5 = {
   name: "BaseButtonGroup",
-  "extends": script$e,
+  "extends": script$g,
   style: ButtonGroupStyle,
-  provide: /* @__PURE__ */ __name(function provide6() {
+  provide: /* @__PURE__ */ __name(function provide8() {
     return {
       $pcButtonGroup: this,
       $parentInstance: this
@@ -3063,15 +3624,15 @@ var script$7 = {
   "extends": script$1$5,
   inheritAttrs: false
 };
-function render$7(_ctx, _cache, $props, $setup, $data, $options) {
+function render$8(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("span", mergeProps({
     "class": _ctx.cx("root"),
     role: "group"
   }, _ctx.ptmi("root")), [renderSlot(_ctx.$slots, "default")], 16);
 }
-__name(render$7, "render$7");
-script$7.render = render$7;
-const _sfc_main$b = /* @__PURE__ */ defineComponent({
+__name(render$8, "render$8");
+script$7.render = render$8;
+const _sfc_main$c = /* @__PURE__ */ defineComponent({
   __name: "GraphCanvasMenu",
   setup(__props) {
     const { t } = useI18n();
@@ -3095,12 +3656,12 @@ const _sfc_main$b = /* @__PURE__ */ defineComponent({
       }
     }, "stopRepeat");
     return (_ctx, _cache) => {
-      const _component_i_material_symbols58pan_tool_outline = __unplugin_components_0$1;
-      const _component_i_simple_line_icons58cursor = __unplugin_components_1;
+      const _component_i_material_symbols58pan_tool_outline = __unplugin_components_0$2;
+      const _component_i_simple_line_icons58cursor = __unplugin_components_1$1;
       const _directive_tooltip = resolveDirective("tooltip");
       return openBlock(), createBlock(unref(script$7), { class: "p-buttongroup-vertical absolute bottom-[10px] right-[10px] z-[1000] pointer-events-auto" }, {
         default: withCtx(() => [
-          withDirectives(createVNode(unref(script$d), {
+          withDirectives(createVNode(unref(script$f), {
             severity: "secondary",
             icon: "pi pi-plus",
             onMousedown: _cache[0] || (_cache[0] = ($event) => repeat2("Comfy.Canvas.ZoomIn")),
@@ -3113,7 +3674,7 @@ const _sfc_main$b = /* @__PURE__ */ defineComponent({
               { left: true }
             ]
           ]),
-          withDirectives(createVNode(unref(script$d), {
+          withDirectives(createVNode(unref(script$f), {
             severity: "secondary",
             icon: "pi pi-minus",
             onMousedown: _cache[1] || (_cache[1] = ($event) => repeat2("Comfy.Canvas.ZoomOut")),
@@ -3126,7 +3687,7 @@ const _sfc_main$b = /* @__PURE__ */ defineComponent({
               { left: true }
             ]
           ]),
-          withDirectives(createVNode(unref(script$d), {
+          withDirectives(createVNode(unref(script$f), {
             severity: "secondary",
             icon: "pi pi-expand",
             onClick: _cache[2] || (_cache[2] = () => unref(commandStore).execute("Comfy.Canvas.ResetView"))
@@ -3138,7 +3699,7 @@ const _sfc_main$b = /* @__PURE__ */ defineComponent({
               { left: true }
             ]
           ]),
-          withDirectives((openBlock(), createBlock(unref(script$d), {
+          withDirectives((openBlock(), createBlock(unref(script$f), {
             severity: "secondary",
             onClick: _cache[3] || (_cache[3] = () => unref(commandStore).execute("Comfy.Canvas.ToggleLock"))
           }, {
@@ -3156,7 +3717,7 @@ const _sfc_main$b = /* @__PURE__ */ defineComponent({
               { left: true }
             ]
           ]),
-          withDirectives(createVNode(unref(script$d), {
+          withDirectives(createVNode(unref(script$f), {
             severity: "secondary",
             icon: linkHidden.value ? "pi pi-eye-slash" : "pi pi-eye",
             onClick: _cache[4] || (_cache[4] = () => unref(commandStore).execute("Comfy.Canvas.ToggleLinkVisibility")),
@@ -3175,8 +3736,8 @@ const _sfc_main$b = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const GraphCanvasMenu = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["__scopeId", "data-v-444d3768"]]);
-const _sfc_main$a = /* @__PURE__ */ defineComponent({
+const GraphCanvasMenu = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["__scopeId", "data-v-444d3768"]]);
+const _sfc_main$b = /* @__PURE__ */ defineComponent({
   __name: "GraphCanvas",
   emits: ["ready"],
   setup(__props, { emit: __emit }) {
@@ -3312,6 +3873,9 @@ const _sfc_main$a = /* @__PURE__ */ defineComponent({
             "side-bar-panel": withCtx(() => [
               createVNode(SideToolbar)
             ]),
+            "bottom-panel": withCtx(() => [
+              createVNode(_sfc_main$k)
+            ]),
             "graph-canvas-panel": withCtx(() => [
               canvasMenuEnabled.value ? (openBlock(), createBlock(GraphCanvasMenu, { key: 0 })) : createCommentVNode("", true)
             ]),
@@ -3326,8 +3890,9 @@ const _sfc_main$a = /* @__PURE__ */ defineComponent({
             tabindex: "1"
           }, null, 512)
         ])),
-        createVNode(_sfc_main$d),
-        tooltipEnabled.value ? (openBlock(), createBlock(NodeTooltip, { key: 0 })) : createCommentVNode("", true)
+        createVNode(_sfc_main$f),
+        tooltipEnabled.value ? (openBlock(), createBlock(NodeTooltip, { key: 0 })) : createCommentVNode("", true),
+        createVNode(_sfc_main$d)
       ], 64);
     };
   }
@@ -3366,7 +3931,7 @@ var theme$4 = /* @__PURE__ */ __name(function theme5(_ref) {
   return "\n.p-toast {\n    width: ".concat(dt("toast.width"), ";\n    white-space: pre-line;\n    word-break: break-word;\n}\n\n.p-toast-message {\n    margin: 0 0 1rem 0;\n}\n\n.p-toast-message-icon {\n    flex-shrink: 0;\n    font-size: ").concat(dt("toast.icon.size"), ";\n    width: ").concat(dt("toast.icon.size"), ";\n    height: ").concat(dt("toast.icon.size"), ";\n}\n\n.p-toast-message-content {\n    display: flex;\n    align-items: flex-start;\n    padding: ").concat(dt("toast.content.padding"), ";\n    gap: ").concat(dt("toast.content.gap"), ";\n}\n\n.p-toast-message-text {\n    flex: 1 1 auto;\n    display: flex;\n    flex-direction: column;\n    gap: ").concat(dt("toast.text.gap"), ";\n}\n\n.p-toast-summary {\n    font-weight: ").concat(dt("toast.summary.font.weight"), ";\n    font-size: ").concat(dt("toast.summary.font.size"), ";\n}\n\n.p-toast-detail {\n    font-weight: ").concat(dt("toast.detail.font.weight"), ";\n    font-size: ").concat(dt("toast.detail.font.size"), ";\n}\n\n.p-toast-close-button {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    overflow: hidden;\n    position: relative;\n    cursor: pointer;\n    background: transparent;\n    transition: background ").concat(dt("toast.transition.duration"), ", color ").concat(dt("toast.transition.duration"), ", outline-color ").concat(dt("toast.transition.duration"), ", box-shadow ").concat(dt("toast.transition.duration"), ";\n    outline-color: transparent;\n    color: inherit;\n    width: ").concat(dt("toast.close.button.width"), ";\n    height: ").concat(dt("toast.close.button.height"), ";\n    border-radius: ").concat(dt("toast.close.button.border.radius"), ";\n    margin: -25% 0 0 0;\n    right: -25%;\n    padding: 0;\n    border: none;\n    user-select: none;\n}\n\n.p-toast-message-info,\n.p-toast-message-success,\n.p-toast-message-warn,\n.p-toast-message-error,\n.p-toast-message-secondary,\n.p-toast-message-contrast {\n    border-width: ").concat(dt("toast.border.width"), ";\n    border-style: solid;\n    backdrop-filter: blur(").concat(dt("toast.blur"), ");\n    border-radius: ").concat(dt("toast.border.radius"), ";\n}\n\n.p-toast-close-icon {\n    font-size: ").concat(dt("toast.close.icon.size"), ";\n    width: ").concat(dt("toast.close.icon.size"), ";\n    height: ").concat(dt("toast.close.icon.size"), ";\n}\n\n.p-toast-close-button:focus-visible {\n    outline-width: ").concat(dt("focus.ring.width"), ";\n    outline-style: ").concat(dt("focus.ring.style"), ";\n    outline-offset: ").concat(dt("focus.ring.offset"), ";\n}\n\n.p-toast-message-info {\n    background: ").concat(dt("toast.info.background"), ";\n    border-color: ").concat(dt("toast.info.border.color"), ";\n    color: ").concat(dt("toast.info.color"), ";\n    box-shadow: ").concat(dt("toast.info.shadow"), ";\n}\n\n.p-toast-message-info .p-toast-detail {\n    color: ").concat(dt("toast.info.detail.color"), ";\n}\n\n.p-toast-message-info .p-toast-close-button:focus-visible {\n    outline-color: ").concat(dt("toast.info.close.button.focus.ring.color"), ";\n    box-shadow: ").concat(dt("toast.info.close.button.focus.ring.shadow"), ";\n}\n\n.p-toast-message-info .p-toast-close-button:hover {\n    background: ").concat(dt("toast.info.close.button.hover.background"), ";\n}\n\n.p-toast-message-success {\n    background: ").concat(dt("toast.success.background"), ";\n    border-color: ").concat(dt("toast.success.border.color"), ";\n    color: ").concat(dt("toast.success.color"), ";\n    box-shadow: ").concat(dt("toast.success.shadow"), ";\n}\n\n.p-toast-message-success .p-toast-detail {\n    color: ").concat(dt("toast.success.detail.color"), ";\n}\n\n.p-toast-message-success .p-toast-close-button:focus-visible {\n    outline-color: ").concat(dt("toast.success.close.button.focus.ring.color"), ";\n    box-shadow: ").concat(dt("toast.success.close.button.focus.ring.shadow"), ";\n}\n\n.p-toast-message-success .p-toast-close-button:hover {\n    background: ").concat(dt("toast.success.close.button.hover.background"), ";\n}\n\n.p-toast-message-warn {\n    background: ").concat(dt("toast.warn.background"), ";\n    border-color: ").concat(dt("toast.warn.border.color"), ";\n    color: ").concat(dt("toast.warn.color"), ";\n    box-shadow: ").concat(dt("toast.warn.shadow"), ";\n}\n\n.p-toast-message-warn .p-toast-detail {\n    color: ").concat(dt("toast.warn.detail.color"), ";\n}\n\n.p-toast-message-warn .p-toast-close-button:focus-visible {\n    outline-color: ").concat(dt("toast.warn.close.button.focus.ring.color"), ";\n    box-shadow: ").concat(dt("toast.warn.close.button.focus.ring.shadow"), ";\n}\n\n.p-toast-message-warn .p-toast-close-button:hover {\n    background: ").concat(dt("toast.warn.close.button.hover.background"), ";\n}\n\n.p-toast-message-error {\n    background: ").concat(dt("toast.error.background"), ";\n    border-color: ").concat(dt("toast.error.border.color"), ";\n    color: ").concat(dt("toast.error.color"), ";\n    box-shadow: ").concat(dt("toast.error.shadow"), ";\n}\n\n.p-toast-message-error .p-toast-detail {\n    color: ").concat(dt("toast.error.detail.color"), ";\n}\n\n.p-toast-message-error .p-toast-close-button:focus-visible {\n    outline-color: ").concat(dt("toast.error.close.button.focus.ring.color"), ";\n    box-shadow: ").concat(dt("toast.error.close.button.focus.ring.shadow"), ";\n}\n\n.p-toast-message-error .p-toast-close-button:hover {\n    background: ").concat(dt("toast.error.close.button.hover.background"), ";\n}\n\n.p-toast-message-secondary {\n    background: ").concat(dt("toast.secondary.background"), ";\n    border-color: ").concat(dt("toast.secondary.border.color"), ";\n    color: ").concat(dt("toast.secondary.color"), ";\n    box-shadow: ").concat(dt("toast.secondary.shadow"), ";\n}\n\n.p-toast-message-secondary .p-toast-detail {\n    color: ").concat(dt("toast.secondary.detail.color"), ";\n}\n\n.p-toast-message-secondary .p-toast-close-button:focus-visible {\n    outline-color: ").concat(dt("toast.secondary.close.button.focus.ring.color"), ";\n    box-shadow: ").concat(dt("toast.secondary.close.button.focus.ring.shadow"), ";\n}\n\n.p-toast-message-secondary .p-toast-close-button:hover {\n    background: ").concat(dt("toast.secondary.close.button.hover.background"), ";\n}\n\n.p-toast-message-contrast {\n    background: ").concat(dt("toast.contrast.background"), ";\n    border-color: ").concat(dt("toast.contrast.border.color"), ";\n    color: ").concat(dt("toast.contrast.color"), ";\n    box-shadow: ").concat(dt("toast.contrast.shadow"), ";\n}\n\n.p-toast-message-contrast .p-toast-detail {\n    color: ").concat(dt("toast.contrast.detail.color"), ";\n}\n\n.p-toast-message-contrast .p-toast-close-button:focus-visible {\n    outline-color: ").concat(dt("toast.contrast.close.button.focus.ring.color"), ";\n    box-shadow: ").concat(dt("toast.contrast.close.button.focus.ring.shadow"), ";\n}\n\n.p-toast-message-contrast .p-toast-close-button:hover {\n    background: ").concat(dt("toast.contrast.close.button.hover.background"), ";\n}\n\n.p-toast-top-center {\n    transform: translateX(-50%);\n}\n\n.p-toast-bottom-center {\n    transform: translateX(-50%);\n}\n\n.p-toast-center {\n    min-width: 20vw;\n    transform: translate(-50%, -50%);\n}\n\n.p-toast-message-enter-from {\n    opacity: 0;\n    transform: translateY(50%);\n}\n\n.p-toast-message-leave-from {\n    max-height: 1000px;\n}\n\n.p-toast .p-toast-message.p-toast-message-leave-to {\n    max-height: 0;\n    opacity: 0;\n    margin-bottom: 0;\n    overflow: hidden;\n}\n\n.p-toast-message-enter-active {\n    transition: transform 0.3s, opacity 0.3s;\n}\n\n.p-toast-message-leave-active {\n    transition: max-height 0.45s cubic-bezier(0, 1, 0, 1), opacity 0.3s, margin-bottom 0.3s;\n}\n");
 }, "theme");
 var inlineStyles$2 = {
-  root: /* @__PURE__ */ __name(function root5(_ref2) {
+  root: /* @__PURE__ */ __name(function root6(_ref2) {
     var position = _ref2.position;
     return {
       position: "fixed",
@@ -3378,7 +3943,7 @@ var inlineStyles$2 = {
   }, "root")
 };
 var classes$4 = {
-  root: /* @__PURE__ */ __name(function root6(_ref3) {
+  root: /* @__PURE__ */ __name(function root7(_ref3) {
     var props = _ref3.props;
     return ["p-toast p-component p-toast-" + props.position];
   }, "root"),
@@ -3412,7 +3977,7 @@ var ToastStyle = BaseStyle.extend({
 });
 var script$2$2 = {
   name: "BaseToast",
-  "extends": script$e,
+  "extends": script$g,
   props: {
     group: {
       type: String,
@@ -3460,7 +4025,7 @@ var script$2$2 = {
     }
   },
   style: ToastStyle,
-  provide: /* @__PURE__ */ __name(function provide7() {
+  provide: /* @__PURE__ */ __name(function provide9() {
     return {
       $pcToast: this,
       $parentInstance: this
@@ -3470,7 +4035,7 @@ var script$2$2 = {
 var script$1$4 = {
   name: "ToastMessage",
   hostName: "Toast",
-  "extends": script$e,
+  "extends": script$g,
   emits: ["close"],
   closeTimeout: null,
   props: {
@@ -3507,7 +4072,7 @@ var script$1$4 = {
       "default": null
     }
   },
-  mounted: /* @__PURE__ */ __name(function mounted3() {
+  mounted: /* @__PURE__ */ __name(function mounted4() {
     var _this = this;
     if (this.message.life) {
       this.closeTimeout = setTimeout(function() {
@@ -3518,7 +4083,7 @@ var script$1$4 = {
       }, this.message.life);
     }
   }, "mounted"),
-  beforeUnmount: /* @__PURE__ */ __name(function beforeUnmount3() {
+  beforeUnmount: /* @__PURE__ */ __name(function beforeUnmount4() {
     this.clearCloseTimeout();
   }, "beforeUnmount"),
   methods: {
@@ -3542,10 +4107,10 @@ var script$1$4 = {
   computed: {
     iconComponent: /* @__PURE__ */ __name(function iconComponent() {
       return {
-        info: !this.infoIcon && script$n,
-        success: !this.successIcon && script$o,
-        warn: !this.warnIcon && script$p,
-        error: !this.errorIcon && script$q
+        info: !this.infoIcon && script$s,
+        success: !this.successIcon && script$t,
+        warn: !this.warnIcon && script$u,
+        error: !this.errorIcon && script$v
       }[this.message.severity];
     }, "iconComponent"),
     closeAriaLabel: /* @__PURE__ */ __name(function closeAriaLabel() {
@@ -3553,11 +4118,11 @@ var script$1$4 = {
     }, "closeAriaLabel")
   },
   components: {
-    TimesIcon: script$r,
-    InfoCircleIcon: script$n,
-    CheckIcon: script$o,
-    ExclamationTriangleIcon: script$p,
-    TimesCircleIcon: script$q
+    TimesIcon: script$w,
+    InfoCircleIcon: script$s,
+    CheckIcon: script$t,
+    ExclamationTriangleIcon: script$u,
+    TimesCircleIcon: script$v
   },
   directives: {
     ripple: Ripple
@@ -3615,8 +4180,8 @@ function _toPrimitive$1(t, r) {
   return ("string" === r ? String : Number)(t);
 }
 __name(_toPrimitive$1, "_toPrimitive$1");
-var _hoisted_1$9 = ["aria-label"];
-function render$1$2(_ctx, _cache, $props, $setup, $data, $options) {
+var _hoisted_1$b = ["aria-label"];
+function render$1$3(_ctx, _cache, $props, $setup, $data, $options) {
   var _directive_ripple = resolveDirective("ripple");
   return openBlock(), createElementBlock("div", mergeProps({
     "class": [_ctx.cx("message"), $props.message.styleClass],
@@ -3655,10 +4220,10 @@ function render$1$2(_ctx, _cache, $props, $setup, $data, $options) {
     autofocus: ""
   }, _objectSpread$1(_objectSpread$1({}, $props.closeButtonProps), _ctx.ptm("closeButton"))), [(openBlock(), createBlock(resolveDynamicComponent($props.templates.closeicon || "TimesIcon"), mergeProps({
     "class": [_ctx.cx("closeIcon"), $props.closeIcon]
-  }, _ctx.ptm("closeIcon")), null, 16, ["class"]))], 16, _hoisted_1$9)), [[_directive_ripple]])], 16)) : createCommentVNode("", true)], 16))], 16);
+  }, _ctx.ptm("closeIcon")), null, 16, ["class"]))], 16, _hoisted_1$b)), [[_directive_ripple]])], 16)) : createCommentVNode("", true)], 16))], 16);
 }
-__name(render$1$2, "render$1$2");
-script$1$4.render = render$1$2;
+__name(render$1$3, "render$1$3");
+script$1$4.render = render$1$3;
 function _toConsumableArray(r) {
   return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
 }
@@ -3695,13 +4260,13 @@ var script$6 = {
   "extends": script$2$2,
   inheritAttrs: false,
   emits: ["close", "life-end"],
-  data: /* @__PURE__ */ __name(function data4() {
+  data: /* @__PURE__ */ __name(function data5() {
     return {
       messages: []
     };
   }, "data"),
   styleElement: null,
-  mounted: /* @__PURE__ */ __name(function mounted4() {
+  mounted: /* @__PURE__ */ __name(function mounted5() {
     ToastEventBus.on("add", this.onAdd);
     ToastEventBus.on("remove", this.onRemove);
     ToastEventBus.on("remove-group", this.onRemoveGroup);
@@ -3710,7 +4275,7 @@ var script$6 = {
       this.createStyle();
     }
   }, "mounted"),
-  beforeUnmount: /* @__PURE__ */ __name(function beforeUnmount4() {
+  beforeUnmount: /* @__PURE__ */ __name(function beforeUnmount5() {
     this.destroyStyle();
     if (this.$refs.container && this.autoZIndex) {
       ZIndex.clear(this.$refs.container);
@@ -3803,7 +4368,7 @@ var script$6 = {
   },
   components: {
     ToastMessage: script$1$4,
-    Portal: script$h
+    Portal: script$m
   }
 };
 function _typeof$2(o) {
@@ -3858,7 +4423,7 @@ function _toPrimitive$2(t, r) {
   return ("string" === r ? String : Number)(t);
 }
 __name(_toPrimitive$2, "_toPrimitive$2");
-function render$6(_ctx, _cache, $props, $setup, $data, $options) {
+function render$7(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ToastMessage = resolveComponent("ToastMessage");
   var _component_Portal = resolveComponent("Portal");
   return openBlock(), createBlock(_component_Portal, null, {
@@ -3901,9 +4466,9 @@ function render$6(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-__name(render$6, "render$6");
-script$6.render = render$6;
-const _sfc_main$9 = /* @__PURE__ */ defineComponent({
+__name(render$7, "render$7");
+script$6.render = render$7;
+const _sfc_main$a = /* @__PURE__ */ defineComponent({
   __name: "GlobalToast",
   setup(__props) {
     const toast = useToast();
@@ -3977,7 +4542,7 @@ const _sfc_main$9 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _sfc_main$8 = /* @__PURE__ */ defineComponent({
+const _sfc_main$9 = /* @__PURE__ */ defineComponent({
   __name: "UnloadWindowConfirmDialog",
   setup(__props) {
     const settingStore = useSettingStore();
@@ -4001,7 +4566,7 @@ const _sfc_main$8 = /* @__PURE__ */ defineComponent({
 });
 const DEFAULT_TITLE = "ComfyUI";
 const TITLE_SUFFIX = " - ComfyUI";
-const _sfc_main$7 = /* @__PURE__ */ defineComponent({
+const _sfc_main$8 = /* @__PURE__ */ defineComponent({
   __name: "BrowserTabTitle",
   setup(__props) {
     const executionStore = useExecutionStore();
@@ -4034,13 +4599,13 @@ const _sfc_main$7 = /* @__PURE__ */ defineComponent({
   }
 });
 const _withScopeId$3 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-84e785b8"), n = n(), popScopeId(), n), "_withScopeId$3");
-const _hoisted_1$8 = { class: "workflow-label text-sm max-w-[150px] truncate inline-block" };
-const _hoisted_2$6 = { class: "relative" };
-const _hoisted_3$4 = {
+const _hoisted_1$a = { class: "workflow-label text-sm max-w-[150px] truncate inline-block" };
+const _hoisted_2$8 = { class: "relative" };
+const _hoisted_3$6 = {
   key: 0,
   class: "status-indicator"
 };
-const _sfc_main$6 = /* @__PURE__ */ defineComponent({
+const _sfc_main$7 = /* @__PURE__ */ defineComponent({
   __name: "WorkflowTabs",
   props: {
     class: {}
@@ -4077,7 +4642,7 @@ const _sfc_main$6 = /* @__PURE__ */ defineComponent({
     }, "onCloseWorkflow");
     return (_ctx, _cache) => {
       const _directive_tooltip = resolveDirective("tooltip");
-      return openBlock(), createBlock(unref(script$s), {
+      return openBlock(), createBlock(unref(script$x), {
         class: normalizeClass(["workflow-tabs bg-transparent flex flex-wrap", props.class]),
         modelValue: selectedWorkflow.value,
         "onUpdate:modelValue": onWorkflowChange,
@@ -4086,14 +4651,14 @@ const _sfc_main$6 = /* @__PURE__ */ defineComponent({
         dataKey: "value"
       }, {
         option: withCtx(({ option: option2 }) => [
-          withDirectives((openBlock(), createElementBlock("span", _hoisted_1$8, [
+          withDirectives((openBlock(), createElementBlock("span", _hoisted_1$a, [
             createTextVNode(toDisplayString(option2.label), 1)
           ])), [
             [_directive_tooltip, option2.tooltip]
           ]),
-          createBaseVNode("div", _hoisted_2$6, [
-            option2.unsaved ? (openBlock(), createElementBlock("span", _hoisted_3$4, "•")) : createCommentVNode("", true),
-            createVNode(unref(script$d), {
+          createBaseVNode("div", _hoisted_2$8, [
+            option2.unsaved ? (openBlock(), createElementBlock("span", _hoisted_3$6, "•")) : createCommentVNode("", true),
+            createVNode(unref(script$f), {
               class: "close-button p-0 w-auto",
               icon: "pi pi-times",
               text: "",
@@ -4108,7 +4673,7 @@ const _sfc_main$6 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const WorkflowTabs = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__scopeId", "data-v-84e785b8"]]);
+const WorkflowTabs = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__scopeId", "data-v-84e785b8"]]);
 var theme$3 = /* @__PURE__ */ __name(function theme6(_ref) {
   var dt = _ref.dt;
   return "\n.p-menubar {\n    display: flex;\n    align-items: center;\n    background: ".concat(dt("menubar.background"), ";\n    border: 1px solid ").concat(dt("menubar.border.color"), ";\n    border-radius: ").concat(dt("menubar.border.radius"), ";\n    color: ").concat(dt("menubar.color"), ";\n    padding: ").concat(dt("menubar.padding"), ";\n    gap: ").concat(dt("menubar.gap"), ";\n}\n\n.p-menubar-start,\n.p-megamenu-end {\n    display: flex;\n    align-items: center;\n}\n\n.p-menubar-root-list,\n.p-menubar-submenu {\n    display: flex;\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    outline: 0 none;\n}\n\n.p-menubar-root-list {\n    align-items: center;\n    flex-wrap: wrap;\n    gap: ").concat(dt("menubar.gap"), ";\n}\n\n.p-menubar-root-list > .p-menubar-item > .p-menubar-item-content {\n    border-radius: ").concat(dt("menubar.base.item.border.radius"), ";\n}\n\n.p-menubar-root-list > .p-menubar-item > .p-menubar-item-content > .p-menubar-item-link {\n    padding: ").concat(dt("menubar.base.item.padding"), ";\n}\n\n.p-menubar-item-content {\n    transition: background ").concat(dt("menubar.transition.duration"), ", color ").concat(dt("menubar.transition.duration"), ";\n    border-radius: ").concat(dt("menubar.item.border.radius"), ";\n    color: ").concat(dt("menubar.item.color"), ";\n}\n\n.p-menubar-item-link {\n    cursor: pointer;\n    display: flex;\n    align-items: center;\n    text-decoration: none;\n    overflow: hidden;\n    position: relative;\n    color: inherit;\n    padding: ").concat(dt("menubar.item.padding"), ";\n    gap: ").concat(dt("menubar.item.gap"), ";\n    user-select: none;\n    outline: 0 none;\n}\n\n.p-menubar-item-label {\n    line-height: 1;\n}\n\n.p-menubar-item-icon {\n    color: ").concat(dt("menubar.item.icon.color"), ";\n}\n\n.p-menubar-submenu-icon {\n    color: ").concat(dt("menubar.submenu.icon.color"), ";\n    margin-left: auto;\n    font-size: ").concat(dt("menubar.submenu.icon.size"), ";\n    width: ").concat(dt("menubar.submenu.icon.size"), ";\n    height: ").concat(dt("menubar.submenu.icon.size"), ";\n}\n\n.p-menubar-item.p-focus > .p-menubar-item-content {\n    color: ").concat(dt("menubar.item.focus.color"), ";\n    background: ").concat(dt("menubar.item.focus.background"), ";\n}\n\n.p-menubar-item.p-focus > .p-menubar-item-content .p-menubar-item-icon {\n    color: ").concat(dt("menubar.item.icon.focus.color"), ";\n}\n\n.p-menubar-item.p-focus > .p-menubar-item-content .p-menubar-submenu-icon {\n    color: ").concat(dt("menubar.submenu.icon.focus.color"), ";\n}\n\n.p-menubar-item:not(.p-disabled) > .p-menubar-item-content:hover {\n    color: ").concat(dt("menubar.item.focus.color"), ";\n    background: ").concat(dt("menubar.item.focus.background"), ";\n}\n\n.p-menubar-item:not(.p-disabled) > .p-menubar-item-content:hover .p-menubar-item-icon {\n    color: ").concat(dt("menubar.item.icon.focus.color"), ";\n}\n\n.p-menubar-item:not(.p-disabled) > .p-menubar-item-content:hover .p-menubar-submenu-icon {\n    color: ").concat(dt("menubar.submenu.icon.focus.color"), ";\n}\n\n.p-menubar-item-active > .p-menubar-item-content {\n    color: ").concat(dt("menubar.item.active.color"), ";\n    background: ").concat(dt("menubar.item.active.background"), ";\n}\n\n.p-menubar-item-active > .p-menubar-item-content .p-menubar-item-icon {\n    color: ").concat(dt("menubar.item.icon.active.color"), ";\n}\n\n.p-menubar-item-active > .p-menubar-item-content .p-menubar-submenu-icon {\n    color: ").concat(dt("menubar.submenu.icon.active.color"), ";\n}\n\n.p-menubar-submenu {\n    display: none;\n    position: absolute;\n    min-width: 12.5rem;\n    z-index: 1;\n    background: ").concat(dt("menubar.submenu.background"), ";\n    border: 1px solid ").concat(dt("menubar.submenu.border.color"), ";\n    border-radius: ").concat(dt("menubar.border.radius"), ";\n    box-shadow: ").concat(dt("menubar.submenu.shadow"), ";\n    color: ").concat(dt("menubar.submenu.color"), ";\n    flex-direction: column;\n    padding: ").concat(dt("menubar.submenu.padding"), ";\n    gap: ").concat(dt("menubar.submenu.gap"), ";\n}\n\n.p-menubar-submenu .p-menubar-separator {\n    border-top: 1px solid ").concat(dt("menubar.separator.border.color"), ";\n}\n\n.p-menubar-submenu .p-menubar-item {\n    position: relative;\n}\n\n .p-menubar-submenu > .p-menubar-item-active > .p-menubar-submenu {\n    display: block;\n    left: 100%;\n    top: 0;\n}\n\n.p-menubar-end {\n    margin-left: auto;\n    align-self: center;\n}\n\n.p-menubar-button {\n    display: none;\n    justify-content: center;\n    align-items: center;\n    cursor: pointer;\n    width: ").concat(dt("menubar.mobile.button.size"), ";\n    height: ").concat(dt("menubar.mobile.button.size"), ";\n    position: relative;\n    color: ").concat(dt("menubar.mobile.button.color"), ";\n    border: 0 none;\n    background: transparent;\n    border-radius: ").concat(dt("menubar.mobile.button.border.radius"), ";\n    transition: background ").concat(dt("menubar.transition.duration"), ", color ").concat(dt("menubar.transition.duration"), ", outline-color ").concat(dt("menubar.transition.duration"), ";\n    outline-color: transparent;\n}\n\n.p-menubar-button:hover {\n    color: ").concat(dt("menubar.mobile.button.hover.color"), ";\n    background: ").concat(dt("menubar.mobile.button.hover.background"), ";\n}\n\n.p-menubar-button:focus-visible {\n    box-shadow: ").concat(dt("menubar.mobile.button.focus.ring.shadow"), ";\n    outline: ").concat(dt("menubar.mobile.button.focus.ring.width"), " ").concat(dt("menubar.mobile.button.focus.ring.style"), " ").concat(dt("menubar.mobile.button.focus.ring.color"), ";\n    outline-offset: ").concat(dt("menubar.mobile.button.focus.ring.offset"), ";\n}\n\n.p-menubar-mobile {\n    position: relative;\n}\n\n.p-menubar-mobile .p-menubar-button {\n    display: flex;\n}\n\n.p-menubar-mobile .p-menubar-root-list {\n    position: absolute;\n    display: none;\n    width: 100%;\n    padding: ").concat(dt("menubar.submenu.padding"), ";\n    background: ").concat(dt("menubar.submenu.background"), ";\n    border: 1px solid ").concat(dt("menubar.submenu.border.color"), ";\n    box-shadow: ").concat(dt("menubar.submenu.shadow"), ";\n}\n\n.p-menubar-mobile .p-menubar-root-list > .p-menubar-item > .p-menubar-item-content {\n    border-radius: ").concat(dt("menubar.item.border.radius"), ";\n}\n\n.p-menubar-mobile .p-menubar-root-list > .p-menubar-item > .p-menubar-item-content > .p-menubar-item-link {\n    padding: ").concat(dt("menubar.item.padding"), ";\n}\n\n.p-menubar-mobile-active .p-menubar-root-list {\n    display: flex;\n    flex-direction: column;\n    top: 100%;\n    left: 0;\n    z-index: 1;\n}\n\n.p-menubar-mobile .p-menubar-root-list .p-menubar-item {\n    width: 100%;\n    position: static;\n}\n\n.p-menubar-mobile .p-menubar-root-list .p-menubar-separator {\n    border-top: 1px solid ").concat(dt("menubar.separator.border.color"), ";\n}\n\n.p-menubar-mobile .p-menubar-root-list > .p-menubar-item > .p-menubar-item-content .p-menubar-submenu-icon {\n    margin-left: auto;\n    transition: transform 0.2s;\n}\n\n.p-menubar-mobile .p-menubar-root-list > .p-menubar-item-active > .p-menubar-item-content .p-menubar-submenu-icon {\n    transform: rotate(-180deg);\n}\n\n.p-menubar-mobile .p-menubar-submenu .p-menubar-submenu-icon {\n    transition: transform 0.2s;\n    transform: rotate(90deg);\n}\n\n.p-menubar-mobile  .p-menubar-item-active > .p-menubar-item-content .p-menubar-submenu-icon {\n    transform: rotate(-90deg);\n}\n\n.p-menubar-mobile .p-menubar-submenu {\n    width: 100%;\n    position: static;\n    box-shadow: none;\n    border: 0 none;\n    padding-left: ").concat(dt("menubar.submenu.mobile.indent"), ";\n}\n");
@@ -4122,7 +4687,7 @@ var inlineStyles$1 = {
   }, "submenu")
 };
 var classes$3 = {
-  root: /* @__PURE__ */ __name(function root7(_ref3) {
+  root: /* @__PURE__ */ __name(function root8(_ref3) {
     var instance = _ref3.instance;
     return ["p-menubar p-component", {
       "p-menubar-mobile": instance.queryMatches,
@@ -4157,7 +4722,7 @@ var MenubarStyle = BaseStyle.extend({
 });
 var script$2$1 = {
   name: "BaseMenubar",
-  "extends": script$e,
+  "extends": script$g,
   props: {
     model: {
       type: Array,
@@ -4181,7 +4746,7 @@ var script$2$1 = {
     }
   },
   style: MenubarStyle,
-  provide: /* @__PURE__ */ __name(function provide8() {
+  provide: /* @__PURE__ */ __name(function provide10() {
     return {
       $pcMenubar: this,
       $parentInstance: this
@@ -4191,7 +4756,7 @@ var script$2$1 = {
 var script$1$3 = {
   name: "MenubarSub",
   hostName: "Menubar",
-  "extends": script$e,
+  "extends": script$g,
   emits: ["item-mouseenter", "item-click", "item-mousemove"],
   props: {
     items: {
@@ -4337,19 +4902,19 @@ var script$1$3 = {
     }, "getAriaSetSize")
   },
   components: {
-    AngleRightIcon: script$t,
-    AngleDownIcon: script$u
+    AngleRightIcon: script$y,
+    AngleDownIcon: script$z
   },
   directives: {
     ripple: Ripple
   }
 };
 var _hoisted_1$1$2 = ["id", "aria-label", "aria-disabled", "aria-expanded", "aria-haspopup", "aria-level", "aria-setsize", "aria-posinset", "data-p-active", "data-p-focused", "data-p-disabled"];
-var _hoisted_2$5 = ["onClick", "onMouseenter", "onMousemove"];
-var _hoisted_3$3 = ["href", "target"];
+var _hoisted_2$7 = ["onClick", "onMouseenter", "onMousemove"];
+var _hoisted_3$5 = ["href", "target"];
 var _hoisted_4$1 = ["id"];
 var _hoisted_5$1 = ["id"];
-function render$1$1(_ctx, _cache, $props, $setup, $data, $options) {
+function render$1$2(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_MenubarSub = resolveComponent("MenubarSub", true);
   var _directive_ripple = resolveDirective("ripple");
   return openBlock(), createElementBlock("ul", mergeProps({
@@ -4379,7 +4944,7 @@ function render$1$1(_ctx, _cache, $props, $setup, $data, $options) {
       "data-p-disabled": $options.isItemDisabled(processedItem)
     }), [createBaseVNode("div", mergeProps({
       "class": _ctx.cx("itemContent"),
-      onClick: /* @__PURE__ */ __name(function onClick($event) {
+      onClick: /* @__PURE__ */ __name(function onClick2($event) {
         return $options.onItemClick($event, processedItem);
       }, "onClick"),
       onMouseenter: /* @__PURE__ */ __name(function onMouseenter($event) {
@@ -4419,14 +4984,14 @@ function render$1$1(_ctx, _cache, $props, $setup, $data, $options) {
       key: 1,
       "class": _ctx.cx("submenuIcon"),
       ref_for: true
-    }, $options.getPTOptions(processedItem, index, "submenuIcon")), null, 16, ["class"]))], 64)) : createCommentVNode("", true)], 16, _hoisted_3$3)), [[_directive_ripple]]) : (openBlock(), createBlock(resolveDynamicComponent($props.templates.item), {
+    }, $options.getPTOptions(processedItem, index, "submenuIcon")), null, 16, ["class"]))], 64)) : createCommentVNode("", true)], 16, _hoisted_3$5)), [[_directive_ripple]]) : (openBlock(), createBlock(resolveDynamicComponent($props.templates.item), {
       key: 1,
       item: processedItem.item,
       root: $props.root,
       hasSubmenu: $options.getItemProp(processedItem, "items"),
       label: $options.getItemLabel(processedItem),
       props: $options.getMenuItemProps(processedItem, index)
-    }, null, 8, ["item", "root", "hasSubmenu", "label", "props"]))], 16, _hoisted_2$5), $options.isItemVisible(processedItem) && $options.isItemGroup(processedItem) ? (openBlock(), createBlock(_component_MenubarSub, {
+    }, null, 8, ["item", "root", "hasSubmenu", "label", "props"]))], 16, _hoisted_2$7), $options.isItemVisible(processedItem) && $options.isItemGroup(processedItem) ? (openBlock(), createBlock(_component_MenubarSub, {
       key: 0,
       id: $options.getItemId(processedItem) + "_list",
       menuId: $props.menuId,
@@ -4462,15 +5027,15 @@ function render$1$1(_ctx, _cache, $props, $setup, $data, $options) {
     }, _ctx.ptm("separator")), null, 16, _hoisted_5$1)) : createCommentVNode("", true)], 64);
   }), 128))], 16);
 }
-__name(render$1$1, "render$1$1");
-script$1$3.render = render$1$1;
+__name(render$1$2, "render$1$2");
+script$1$3.render = render$1$2;
 var script$5 = {
   name: "Menubar",
   "extends": script$2$1,
   inheritAttrs: false,
   emits: ["focus", "blur"],
   matchMediaListener: null,
-  data: /* @__PURE__ */ __name(function data5() {
+  data: /* @__PURE__ */ __name(function data6() {
     return {
       id: this.$attrs.id,
       mobileActive: false,
@@ -4503,11 +5068,11 @@ var script$5 = {
   outsideClickListener: null,
   container: null,
   menubar: null,
-  mounted: /* @__PURE__ */ __name(function mounted5() {
+  mounted: /* @__PURE__ */ __name(function mounted6() {
     this.id = this.id || UniqueComponentId();
     this.bindMatchMediaListener();
   }, "mounted"),
-  beforeUnmount: /* @__PURE__ */ __name(function beforeUnmount5() {
+  beforeUnmount: /* @__PURE__ */ __name(function beforeUnmount6() {
     this.mobileActive = false;
     this.unbindOutsideClickListener();
     this.unbindResizeListener();
@@ -4578,7 +5143,7 @@ var script$5 = {
       isFocus && focus(this.menubar);
       this.dirty = false;
     }, "hide"),
-    onFocus: /* @__PURE__ */ __name(function onFocus2(event) {
+    onFocus: /* @__PURE__ */ __name(function onFocus3(event) {
       this.focused = true;
       this.focusedItemInfo = this.focusedItemInfo.index !== -1 ? this.focusedItemInfo : {
         index: this.findFirstFocusedItemIndex(),
@@ -4666,7 +5231,7 @@ var script$5 = {
     onItemClick: /* @__PURE__ */ __name(function onItemClick2(event) {
       var originalEvent = event.originalEvent, processedItem = event.processedItem;
       var grouped = this.isProccessedItemGroup(processedItem);
-      var root11 = isEmpty(processedItem.parent);
+      var root12 = isEmpty(processedItem.parent);
       var selected = this.isSelected(processedItem);
       if (selected) {
         var index = processedItem.index, key = processedItem.key, level = processedItem.level, parentKey = processedItem.parentKey;
@@ -4678,13 +5243,13 @@ var script$5 = {
           level,
           parentKey
         };
-        this.dirty = !root11;
+        this.dirty = !root12;
         focus(this.menubar);
       } else {
         if (grouped) {
           this.onItemChange(event);
         } else {
-          var rootProcessedItem = root11 ? processedItem : this.activeItemPath.find(function(p) {
+          var rootProcessedItem = root12 ? processedItem : this.activeItemPath.find(function(p) {
             return p.parentKey === "";
           });
           this.hide(originalEvent);
@@ -4712,8 +5277,8 @@ var script$5 = {
     }, "menuButtonKeydown"),
     onArrowDownKey: /* @__PURE__ */ __name(function onArrowDownKey2(event) {
       var processedItem = this.visibleItems[this.focusedItemInfo.index];
-      var root11 = processedItem ? isEmpty(processedItem.parent) : null;
-      if (root11) {
+      var root12 = processedItem ? isEmpty(processedItem.parent) : null;
+      if (root12) {
         var grouped = this.isProccessedItemGroup(processedItem);
         if (grouped) {
           this.onItemChange({
@@ -4735,8 +5300,8 @@ var script$5 = {
     onArrowUpKey: /* @__PURE__ */ __name(function onArrowUpKey2(event) {
       var _this3 = this;
       var processedItem = this.visibleItems[this.focusedItemInfo.index];
-      var root11 = isEmpty(processedItem.parent);
-      if (root11) {
+      var root12 = isEmpty(processedItem.parent);
+      if (root12) {
         var grouped = this.isProccessedItemGroup(processedItem);
         if (grouped) {
           this.onItemChange({
@@ -4771,7 +5336,7 @@ var script$5 = {
       }
       event.preventDefault();
     }, "onArrowUpKey"),
-    onArrowLeftKey: /* @__PURE__ */ __name(function onArrowLeftKey2(event) {
+    onArrowLeftKey: /* @__PURE__ */ __name(function onArrowLeftKey3(event) {
       var _this4 = this;
       var processedItem = this.visibleItems[this.focusedItemInfo.index];
       var parentItem = processedItem ? this.activeItemPath.find(function(p) {
@@ -4792,7 +5357,7 @@ var script$5 = {
         event.preventDefault();
       }
     }, "onArrowLeftKey"),
-    onArrowRightKey: /* @__PURE__ */ __name(function onArrowRightKey2(event) {
+    onArrowRightKey: /* @__PURE__ */ __name(function onArrowRightKey3(event) {
       var processedItem = this.visibleItems[this.focusedItemInfo.index];
       var parentItem = processedItem ? this.activeItemPath.find(function(p) {
         return p.key === processedItem.parentKey;
@@ -4816,15 +5381,15 @@ var script$5 = {
         event.preventDefault();
       }
     }, "onArrowRightKey"),
-    onHomeKey: /* @__PURE__ */ __name(function onHomeKey2(event) {
+    onHomeKey: /* @__PURE__ */ __name(function onHomeKey3(event) {
       this.changeFocusedItemIndex(event, this.findFirstItemIndex());
       event.preventDefault();
     }, "onHomeKey"),
-    onEndKey: /* @__PURE__ */ __name(function onEndKey2(event) {
+    onEndKey: /* @__PURE__ */ __name(function onEndKey3(event) {
       this.changeFocusedItemIndex(event, this.findLastItemIndex());
       event.preventDefault();
     }, "onEndKey"),
-    onEnterKey: /* @__PURE__ */ __name(function onEnterKey2(event) {
+    onEnterKey: /* @__PURE__ */ __name(function onEnterKey3(event) {
       if (this.focusedItemInfo.index !== -1) {
         var element = findSingle(this.menubar, 'li[id="'.concat("".concat(this.focusedItemId), '"]'));
         var anchorElement = element && findSingle(element, 'a[data-pc-section="itemlink"]');
@@ -5013,10 +5578,10 @@ var script$5 = {
         this.scrollInView();
       }
     }, "changeFocusedItemIndex"),
-    scrollInView: /* @__PURE__ */ __name(function scrollInView2() {
+    scrollInView: /* @__PURE__ */ __name(function scrollInView3() {
       var index = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : -1;
-      var id = index !== -1 ? "".concat(this.id, "_").concat(index) : this.focusedItemId;
-      var element = findSingle(this.menubar, 'li[id="'.concat(id, '"]'));
+      var id2 = index !== -1 ? "".concat(this.id, "_").concat(index) : this.focusedItemId;
+      var element = findSingle(this.menubar, 'li[id="'.concat(id2, '"]'));
       if (element) {
         element.scrollIntoView && element.scrollIntoView({
           block: "nearest",
@@ -5069,7 +5634,7 @@ var script$5 = {
   },
   components: {
     MenubarSub: script$1$3,
-    BarsIcon: script$v
+    BarsIcon: script$A
   }
 };
 function _typeof(o) {
@@ -5124,8 +5689,8 @@ function _toPrimitive(t, r) {
   return ("string" === r ? String : Number)(t);
 }
 __name(_toPrimitive, "_toPrimitive");
-var _hoisted_1$7 = ["aria-haspopup", "aria-expanded", "aria-controls", "aria-label"];
-function render$5(_ctx, _cache, $props, $setup, $data, $options) {
+var _hoisted_1$9 = ["aria-haspopup", "aria-expanded", "aria-controls", "aria-label"];
+function render$6(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_BarsIcon = resolveComponent("BarsIcon");
   var _component_MenubarSub = resolveComponent("MenubarSub");
   return openBlock(), createElementBlock("div", mergeProps({
@@ -5160,7 +5725,7 @@ function render$5(_ctx, _cache, $props, $setup, $data, $options) {
       })
     }, _objectSpread(_objectSpread({}, _ctx.buttonProps), _ctx.ptm("button"))), [renderSlot(_ctx.$slots, _ctx.$slots.buttonicon ? "buttonicon" : "menubuttonicon", {}, function() {
       return [createVNode(_component_BarsIcon, normalizeProps(guardReactiveProps(_ctx.ptm("buttonicon"))), null, 16)];
-    })], 16, _hoisted_1$7)) : createCommentVNode("", true)];
+    })], 16, _hoisted_1$9)) : createCommentVNode("", true)];
   }), createVNode(_component_MenubarSub, {
     ref: $options.menubarRef,
     id: $data.id + "_list",
@@ -5190,16 +5755,16 @@ function render$5(_ctx, _cache, $props, $setup, $data, $options) {
     "class": _ctx.cx("end")
   }, _ctx.ptm("end")), [renderSlot(_ctx.$slots, "end")], 16)) : createCommentVNode("", true)], 16);
 }
-__name(render$5, "render$5");
-script$5.render = render$5;
+__name(render$6, "render$6");
+script$5.render = render$6;
 const _withScopeId$2 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-9646ca0a"), n = n(), popScopeId(), n), "_withScopeId$2");
-const _hoisted_1$6 = ["href"];
-const _hoisted_2$4 = { class: "p-menubar-item-label" };
-const _hoisted_3$2 = {
+const _hoisted_1$8 = ["href"];
+const _hoisted_2$6 = { class: "p-menubar-item-label" };
+const _hoisted_3$4 = {
   key: 1,
   class: "ml-auto border border-surface rounded text-muted text-xs p-1 keybinding-tag"
 };
-const _sfc_main$5 = /* @__PURE__ */ defineComponent({
+const _sfc_main$6 = /* @__PURE__ */ defineComponent({
   __name: "CommandMenubar",
   setup(__props) {
     const settingStore = useSettingStore();
@@ -5227,22 +5792,22 @@ const _sfc_main$5 = /* @__PURE__ */ defineComponent({
               key: 0,
               class: normalizeClass(["p-menubar-item-icon", item3.icon])
             }, null, 2)) : createCommentVNode("", true),
-            createBaseVNode("span", _hoisted_2$4, toDisplayString(item3.label), 1),
-            item3?.comfyCommand?.keybinding ? (openBlock(), createElementBlock("span", _hoisted_3$2, toDisplayString(item3.comfyCommand.keybinding.combo.toString()), 1)) : createCommentVNode("", true)
-          ], 16, _hoisted_1$6)
+            createBaseVNode("span", _hoisted_2$6, toDisplayString(item3.label), 1),
+            item3?.comfyCommand?.keybinding ? (openBlock(), createElementBlock("span", _hoisted_3$4, toDisplayString(item3.comfyCommand.keybinding.combo.toString()), 1)) : createCommentVNode("", true)
+          ], 16, _hoisted_1$8)
         ]),
         _: 1
       }, 8, ["model", "pt"]);
     };
   }
 });
-const CommandMenubar = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["__scopeId", "data-v-9646ca0a"]]);
+const CommandMenubar = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__scopeId", "data-v-9646ca0a"]]);
 var theme$2 = /* @__PURE__ */ __name(function theme7(_ref) {
   var dt = _ref.dt;
   return "\n.p-panel {\n    border: 1px solid ".concat(dt("panel.border.color"), ";\n    border-radius: ").concat(dt("panel.border.radius"), ";\n    background: ").concat(dt("panel.background"), ";\n    color: ").concat(dt("panel.color"), ";\n}\n\n.p-panel-header {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    padding: ").concat(dt("panel.header.padding"), ";\n    background: ").concat(dt("panel.header.background"), ";\n    color: ").concat(dt("panel.header.color"), ";\n    border-style: solid;\n    border-width: ").concat(dt("panel.header.border.width"), ";\n    border-color: ").concat(dt("panel.header.border.color"), ";\n    border-radius: ").concat(dt("panel.header.border.radius"), ";\n}\n\n.p-panel-toggleable .p-panel-header {\n    padding: ").concat(dt("panel.toggleable.header.padding"), ";\n}\n\n.p-panel-title {\n    line-height: 1;\n    font-weight: ").concat(dt("panel.title.font.weight"), ";\n}\n\n.p-panel-content {\n    padding: ").concat(dt("panel.content.padding"), ";\n}\n\n.p-panel-footer {\n    padding: ").concat(dt("panel.footer.padding"), ";\n}\n");
 }, "theme");
 var classes$2 = {
-  root: /* @__PURE__ */ __name(function root8(_ref2) {
+  root: /* @__PURE__ */ __name(function root9(_ref2) {
     var props = _ref2.props;
     return ["p-panel p-component", {
       "p-panel-toggleable": props.toggleable
@@ -5263,7 +5828,7 @@ var PanelStyle = BaseStyle.extend({
 });
 var script$1$2 = {
   name: "BasePanel",
-  "extends": script$e,
+  "extends": script$g,
   props: {
     header: String,
     toggleable: Boolean,
@@ -5280,7 +5845,7 @@ var script$1$2 = {
     }
   },
   style: PanelStyle,
-  provide: /* @__PURE__ */ __name(function provide9() {
+  provide: /* @__PURE__ */ __name(function provide11() {
     return {
       $pcPanel: this,
       $parentInstance: this
@@ -5292,7 +5857,7 @@ var script$4 = {
   "extends": script$1$2,
   inheritAttrs: false,
   emits: ["update:collapsed", "toggle"],
-  data: /* @__PURE__ */ __name(function data6() {
+  data: /* @__PURE__ */ __name(function data7() {
     return {
       id: this.$attrs.id,
       d_collapsed: this.collapsed
@@ -5306,7 +5871,7 @@ var script$4 = {
       this.d_collapsed = newValue;
     }, "collapsed")
   },
-  mounted: /* @__PURE__ */ __name(function mounted6() {
+  mounted: /* @__PURE__ */ __name(function mounted7() {
     this.id = this.id || UniqueComponentId();
   }, "mounted"),
   methods: {
@@ -5331,17 +5896,17 @@ var script$4 = {
     }, "buttonAriaLabel")
   },
   components: {
-    PlusIcon: script$w,
-    MinusIcon: script$x,
-    Button: script$d
+    PlusIcon: script$B,
+    MinusIcon: script$C,
+    Button: script$f
   },
   directives: {
     ripple: Ripple
   }
 };
-var _hoisted_1$5 = ["id"];
-var _hoisted_2$3 = ["id", "aria-labelledby"];
-function render$4(_ctx, _cache, $props, $setup, $data, $options) {
+var _hoisted_1$7 = ["id"];
+var _hoisted_2$5 = ["id", "aria-labelledby"];
+function render$5(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Button = resolveComponent("Button");
   return openBlock(), createElementBlock("div", mergeProps({
     "class": _ctx.cx("root")
@@ -5355,7 +5920,7 @@ function render$4(_ctx, _cache, $props, $setup, $data, $options) {
       key: 0,
       id: $data.id + "_header",
       "class": _ctx.cx("title")
-    }, _ctx.ptm("title")), toDisplayString(_ctx.header), 17, _hoisted_1$5)) : createCommentVNode("", true)];
+    }, _ctx.ptm("title")), toDisplayString(_ctx.header), 17, _hoisted_1$7)) : createCommentVNode("", true)];
   }), createBaseVNode("div", mergeProps({
     "class": _ctx.cx("headerActions")
   }, _ctx.ptm("headerActions")), [renderSlot(_ctx.$slots, "icons"), _ctx.toggleable ? (openBlock(), createBlock(_component_Button, mergeProps({
@@ -5395,19 +5960,19 @@ function render$4(_ctx, _cache, $props, $setup, $data, $options) {
       }, _ctx.ptm("content")), [renderSlot(_ctx.$slots, "default")], 16), _ctx.$slots.footer ? (openBlock(), createElementBlock("div", mergeProps({
         key: 0,
         "class": _ctx.cx("footer")
-      }, _ctx.ptm("footer")), [renderSlot(_ctx.$slots, "footer")], 16)) : createCommentVNode("", true)], 16, _hoisted_2$3), [[vShow, !$data.d_collapsed]])];
+      }, _ctx.ptm("footer")), [renderSlot(_ctx.$slots, "footer")], 16)) : createCommentVNode("", true)], 16, _hoisted_2$5), [[vShow, !$data.d_collapsed]])];
     }),
     _: 3
   }, 16)], 16);
 }
-__name(render$4, "render$4");
-script$4.render = render$4;
-const _hoisted_1$4 = {
+__name(render$5, "render$5");
+script$4.render = render$5;
+const _hoisted_1$6 = {
   viewBox: "0 0 24 24",
   width: "1.2em",
   height: "1.2em"
 };
-const _hoisted_2$2 = /* @__PURE__ */ createBaseVNode("g", {
+const _hoisted_2$4 = /* @__PURE__ */ createBaseVNode("g", {
   fill: "none",
   stroke: "currentColor",
   "stroke-linecap": "round",
@@ -5417,14 +5982,14 @@ const _hoisted_2$2 = /* @__PURE__ */ createBaseVNode("g", {
   /* @__PURE__ */ createBaseVNode("path", { d: "M16 12H3m13 6H3m7-12H3m18 12V8a2 2 0 0 0-2-2h-5" }),
   /* @__PURE__ */ createBaseVNode("path", { d: "m16 8l-2-2l2-2" })
 ], -1);
-const _hoisted_3$1 = [
-  _hoisted_2$2
+const _hoisted_3$3 = [
+  _hoisted_2$4
 ];
-function render$3(_ctx, _cache) {
-  return openBlock(), createElementBlock("svg", _hoisted_1$4, [..._hoisted_3$1]);
+function render$4(_ctx, _cache) {
+  return openBlock(), createElementBlock("svg", _hoisted_1$6, [..._hoisted_3$3]);
 }
-__name(render$3, "render$3");
-const __unplugin_components_0 = markRaw({ name: "lucide-list-start", render: render$3 });
+__name(render$4, "render$4");
+const __unplugin_components_0$1 = markRaw({ name: "lucide-list-start", render: render$4 });
 var theme$1 = /* @__PURE__ */ __name(function theme8(_ref) {
   var dt = _ref.dt;
   return "\n.p-tieredmenu {\n    background: ".concat(dt("tieredmenu.background"), ";\n    color: ").concat(dt("tieredmenu.color"), ";\n    border: 1px solid ").concat(dt("tieredmenu.border.color"), ";\n    border-radius: ").concat(dt("tieredmenu.border.radius"), ";\n    min-width: 12.5rem;\n}\n\n.p-tieredmenu-root-list,\n.p-tieredmenu-submenu {\n    margin: 0;\n    padding: ").concat(dt("tieredmenu.list.padding"), ";\n    list-style: none;\n    outline: 0 none;\n    display: flex;\n    flex-direction: column;\n    gap: ").concat(dt("tieredmenu.list.gap"), ";\n}\n\n.p-tieredmenu-submenu {\n    position: absolute;\n    min-width: 100%;\n    z-index: 1;\n    background: ").concat(dt("tieredmenu.background"), ";\n    color: ").concat(dt("tieredmenu.color"), ";\n    border: 1px solid ").concat(dt("tieredmenu.border.color"), ";\n    border-radius: ").concat(dt("tieredmenu.border.radius"), ";\n    box-shadow: ").concat(dt("tieredmenu.shadow"), ";\n}\n\n.p-tieredmenu-item {\n    position: relative;\n}\n\n.p-tieredmenu-item-content {\n    transition: background ").concat(dt("tieredmenu.transition.duration"), ", color ").concat(dt("tieredmenu.transition.duration"), ";\n    border-radius: ").concat(dt("tieredmenu.item.border.radius"), ";\n    color: ").concat(dt("tieredmenu.item.color"), ";\n}\n\n.p-tieredmenu-item-link {\n    cursor: pointer;\n    display: flex;\n    align-items: center;\n    text-decoration: none;\n    overflow: hidden;\n    position: relative;\n    color: inherit;\n    padding: ").concat(dt("tieredmenu.item.padding"), ";\n    gap: ").concat(dt("tieredmenu.item.gap"), ";\n    user-select: none;\n    outline: 0 none;\n}\n\n.p-tieredmenu-item-label {\n    line-height: 1;\n}\n\n.p-tieredmenu-item-icon {\n    color: ").concat(dt("tieredmenu.item.icon.color"), ";\n}\n\n.p-tieredmenu-submenu-icon {\n    color: ").concat(dt("tieredmenu.submenu.icon.color"), ";\n    margin-left: auto;\n    font-size: ").concat(dt("tieredmenu.submenu.icon.size"), ";\n    width: ").concat(dt("tieredmenu.submenu.icon.size"), ";\n    height: ").concat(dt("tieredmenu.submenu.icon.size"), ";\n}\n\n.p-tieredmenu-item.p-focus > .p-tieredmenu-item-content {\n    color: ").concat(dt("tieredmenu.item.focus.color"), ";\n    background: ").concat(dt("tieredmenu.item.focus.background"), ";\n}\n\n.p-tieredmenu-item.p-focus > .p-tieredmenu-item-content .p-tieredmenu-item-icon {\n    color: ").concat(dt("tieredmenu.item.icon.focus.color"), ";\n}\n\n.p-tieredmenu-item.p-focus > .p-tieredmenu-item-content .p-tieredmenu-submenu-icon {\n    color: ").concat(dt("tieredmenu.submenu.icon.focus.color"), ";\n}\n\n.p-tieredmenu-item:not(.p-disabled) > .p-tieredmenu-item-content:hover {\n    color: ").concat(dt("tieredmenu.item.focus.color"), ";\n    background: ").concat(dt("tieredmenu.item.focus.background"), ";\n}\n\n.p-tieredmenu-item:not(.p-disabled) > .p-tieredmenu-item-content:hover .p-tieredmenu-item-icon {\n    color: ").concat(dt("tieredmenu.item.icon.focus.color"), ";\n}\n\n.p-tieredmenu-item:not(.p-disabled) > .p-tieredmenu-item-content:hover .p-tieredmenu-submenu-icon {\n    color: ").concat(dt("tieredmenu.submenu.icon.focus.color"), ";\n}\n\n.p-tieredmenu-item-active > .p-tieredmenu-item-content {\n    color: ").concat(dt("tieredmenu.item.active.color"), ";\n    background: ").concat(dt("tieredmenu.item.active.background"), ";\n}\n\n.p-tieredmenu-item-active > .p-tieredmenu-item-content .p-tieredmenu-item-icon {\n    color: ").concat(dt("tieredmenu.item.icon.active.color"), ";\n}\n\n.p-tieredmenu-item-active > .p-tieredmenu-item-content .p-tieredmenu-submenu-icon {\n    color: ").concat(dt("tieredmenu.submenu.icon.active.color"), ";\n}\n\n.p-tieredmenu-separator {\n    border-top: 1px solid ").concat(dt("tieredmenu.separator.border.color"), ";\n}\n\n.p-tieredmenu-overlay {\n    box-shadow: ").concat(dt("tieredmenu.shadow"), ";\n}\n\n.p-tieredmenu-enter-from,\n.p-tieredmenu-leave-active {\n    opacity: 0;\n}\n\n.p-tieredmenu-enter-active {\n    transition: opacity 250ms;\n}\n");
@@ -5438,7 +6003,7 @@ var inlineStyles = {
   }, "submenu")
 };
 var classes$1 = {
-  root: /* @__PURE__ */ __name(function root9(_ref3) {
+  root: /* @__PURE__ */ __name(function root10(_ref3) {
     _ref3.instance;
     var props = _ref3.props;
     return ["p-tieredmenu p-component", {
@@ -5472,7 +6037,7 @@ var TieredMenuStyle = BaseStyle.extend({
 });
 var script$2 = {
   name: "BaseTieredMenu",
-  "extends": script$e,
+  "extends": script$g,
   props: {
     popup: {
       type: Boolean,
@@ -5512,7 +6077,7 @@ var script$2 = {
     }
   },
   style: TieredMenuStyle,
-  provide: /* @__PURE__ */ __name(function provide10() {
+  provide: /* @__PURE__ */ __name(function provide12() {
     return {
       $pcTieredMenu: this,
       $parentInstance: this
@@ -5522,7 +6087,7 @@ var script$2 = {
 var script$1$1 = {
   name: "TieredMenuSub",
   hostName: "TieredMenu",
-  "extends": script$e,
+  "extends": script$g,
   emits: ["item-click", "item-mouseenter", "item-mousemove"],
   container: null,
   props: {
@@ -5664,19 +6229,19 @@ var script$1$1 = {
     }, "containerRef")
   },
   components: {
-    AngleRightIcon: script$t
+    AngleRightIcon: script$y
   },
   directives: {
     ripple: Ripple
   }
 };
 var _hoisted_1$1$1 = ["tabindex"];
-var _hoisted_2$1 = ["id", "aria-label", "aria-disabled", "aria-expanded", "aria-haspopup", "aria-level", "aria-setsize", "aria-posinset", "data-p-active", "data-p-focused", "data-p-disabled"];
-var _hoisted_3 = ["onClick", "onMouseenter", "onMousemove"];
+var _hoisted_2$3 = ["id", "aria-label", "aria-disabled", "aria-expanded", "aria-haspopup", "aria-level", "aria-setsize", "aria-posinset", "data-p-active", "data-p-focused", "data-p-disabled"];
+var _hoisted_3$2 = ["onClick", "onMouseenter", "onMousemove"];
 var _hoisted_4 = ["href", "target"];
 var _hoisted_5 = ["id"];
 var _hoisted_6 = ["id"];
-function render$1(_ctx, _cache, $props, $setup, $data, $options) {
+function render$1$1(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_AngleRightIcon = resolveComponent("AngleRightIcon");
   var _component_TieredMenuSub = resolveComponent("TieredMenuSub", true);
   var _directive_ripple = resolveDirective("ripple");
@@ -5715,7 +6280,7 @@ function render$1(_ctx, _cache, $props, $setup, $data, $options) {
           "data-p-disabled": $options.isItemDisabled(processedItem)
         }), [createBaseVNode("div", mergeProps({
           "class": _ctx.cx("itemContent"),
-          onClick: /* @__PURE__ */ __name(function onClick($event) {
+          onClick: /* @__PURE__ */ __name(function onClick2($event) {
             return $options.onItemClick($event, processedItem);
           }, "onClick"),
           onMouseenter: /* @__PURE__ */ __name(function onMouseenter($event) {
@@ -5761,7 +6326,7 @@ function render$1(_ctx, _cache, $props, $setup, $data, $options) {
           hasSubmenu: $options.getItemProp(processedItem, "items"),
           label: $options.getItemLabel(processedItem),
           props: $options.getMenuItemProps(processedItem, index)
-        }, null, 8, ["item", "hasSubmenu", "label", "props"]))], 16, _hoisted_3), $options.isItemVisible(processedItem) && $options.isItemGroup(processedItem) ? (openBlock(), createBlock(_component_TieredMenuSub, {
+        }, null, 8, ["item", "hasSubmenu", "label", "props"]))], 16, _hoisted_3$2), $options.isItemVisible(processedItem) && $options.isItemGroup(processedItem) ? (openBlock(), createBlock(_component_TieredMenuSub, {
           key: 0,
           id: $options.getItemId(processedItem) + "_list",
           style: normalizeStyle(_ctx.sx("submenu", true, {
@@ -5787,7 +6352,7 @@ function render$1(_ctx, _cache, $props, $setup, $data, $options) {
           onItemMousemove: _cache[2] || (_cache[2] = function($event) {
             return _ctx.$emit("item-mousemove", $event);
           })
-        }, null, 8, ["id", "style", "aria-labelledby", "menuId", "focusedItemId", "items", "templates", "activeItemPath", "level", "visible", "pt", "unstyled"])) : createCommentVNode("", true)], 16, _hoisted_2$1)) : createCommentVNode("", true), $options.isItemVisible(processedItem) && $options.getItemProp(processedItem, "separator") ? (openBlock(), createElementBlock("li", mergeProps({
+        }, null, 8, ["id", "style", "aria-labelledby", "menuId", "focusedItemId", "items", "templates", "activeItemPath", "level", "visible", "pt", "unstyled"])) : createCommentVNode("", true)], 16, _hoisted_2$3)) : createCommentVNode("", true), $options.isItemVisible(processedItem) && $options.getItemProp(processedItem, "separator") ? (openBlock(), createElementBlock("li", mergeProps({
           key: 1,
           id: $options.getItemId(processedItem),
           style: $options.getItemProp(processedItem, "style"),
@@ -5800,8 +6365,8 @@ function render$1(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 16, ["onEnter"]);
 }
-__name(render$1, "render$1");
-script$1$1.render = render$1;
+__name(render$1$1, "render$1$1");
+script$1$1.render = render$1$1;
 var script$3 = {
   name: "TieredMenu",
   "extends": script$2,
@@ -5815,7 +6380,7 @@ var script$3 = {
   menubar: null,
   searchTimeout: null,
   searchValue: null,
-  data: /* @__PURE__ */ __name(function data7() {
+  data: /* @__PURE__ */ __name(function data8() {
     return {
       id: this.$attrs.id,
       focused: false,
@@ -5846,10 +6411,10 @@ var script$3 = {
       }
     }, "activeItemPath")
   },
-  mounted: /* @__PURE__ */ __name(function mounted7() {
+  mounted: /* @__PURE__ */ __name(function mounted8() {
     this.id = this.id || UniqueComponentId();
   }, "mounted"),
-  beforeUnmount: /* @__PURE__ */ __name(function beforeUnmount6() {
+  beforeUnmount: /* @__PURE__ */ __name(function beforeUnmount7() {
     this.unbindOutsideClickListener();
     this.unbindResizeListener();
     if (this.scrollHandler) {
@@ -5913,7 +6478,7 @@ var script$3 = {
       isFocus && focus(this.relatedTarget || this.target || this.menubar);
       this.dirty = false;
     }, "hide"),
-    onFocus: /* @__PURE__ */ __name(function onFocus3(event) {
+    onFocus: /* @__PURE__ */ __name(function onFocus4(event) {
       this.focused = true;
       if (!this.popup) {
         this.focusedItemInfo = this.focusedItemInfo.index !== -1 ? this.focusedItemInfo : {
@@ -6016,7 +6581,7 @@ var script$3 = {
     onItemClick: /* @__PURE__ */ __name(function onItemClick4(event) {
       var originalEvent = event.originalEvent, processedItem = event.processedItem;
       var grouped = this.isProccessedItemGroup(processedItem);
-      var root11 = isEmpty(processedItem.parent);
+      var root12 = isEmpty(processedItem.parent);
       var selected = this.isSelected(processedItem);
       if (selected) {
         var index = processedItem.index, key = processedItem.key, level = processedItem.level, parentKey = processedItem.parentKey;
@@ -6028,13 +6593,13 @@ var script$3 = {
           level,
           parentKey
         };
-        this.dirty = !root11;
+        this.dirty = !root12;
         focus(this.menubar);
       } else {
         if (grouped) {
           this.onItemChange(event);
         } else {
-          var rootProcessedItem = root11 ? processedItem : this.activeItemPath.find(function(p) {
+          var rootProcessedItem = root12 ? processedItem : this.activeItemPath.find(function(p) {
             return p.parentKey === "";
           });
           this.hide(originalEvent);
@@ -6076,14 +6641,14 @@ var script$3 = {
         event.preventDefault();
       }
     }, "onArrowUpKey"),
-    onArrowLeftKey: /* @__PURE__ */ __name(function onArrowLeftKey3(event) {
+    onArrowLeftKey: /* @__PURE__ */ __name(function onArrowLeftKey4(event) {
       var _this = this;
       var processedItem = this.visibleItems[this.focusedItemInfo.index];
       var parentItem = this.activeItemPath.find(function(p) {
         return p.key === processedItem.parentKey;
       });
-      var root11 = isEmpty(processedItem.parent);
-      if (!root11) {
+      var root12 = isEmpty(processedItem.parent);
+      if (!root12) {
         this.focusedItemInfo = {
           index: -1,
           parentKey: parentItem ? parentItem.parentKey : ""
@@ -6096,7 +6661,7 @@ var script$3 = {
       });
       event.preventDefault();
     }, "onArrowLeftKey"),
-    onArrowRightKey: /* @__PURE__ */ __name(function onArrowRightKey3(event) {
+    onArrowRightKey: /* @__PURE__ */ __name(function onArrowRightKey4(event) {
       var processedItem = this.visibleItems[this.focusedItemInfo.index];
       var grouped = this.isProccessedItemGroup(processedItem);
       if (grouped) {
@@ -6113,15 +6678,15 @@ var script$3 = {
       }
       event.preventDefault();
     }, "onArrowRightKey"),
-    onHomeKey: /* @__PURE__ */ __name(function onHomeKey3(event) {
+    onHomeKey: /* @__PURE__ */ __name(function onHomeKey4(event) {
       this.changeFocusedItemIndex(event, this.findFirstItemIndex());
       event.preventDefault();
     }, "onHomeKey"),
-    onEndKey: /* @__PURE__ */ __name(function onEndKey3(event) {
+    onEndKey: /* @__PURE__ */ __name(function onEndKey4(event) {
       this.changeFocusedItemIndex(event, this.findLastItemIndex());
       event.preventDefault();
     }, "onEndKey"),
-    onEnterKey: /* @__PURE__ */ __name(function onEnterKey3(event) {
+    onEnterKey: /* @__PURE__ */ __name(function onEnterKey4(event) {
       if (this.focusedItemInfo.index !== -1) {
         var element = findSingle(this.menubar, 'li[id="'.concat("".concat(this.focusedItemId), '"]'));
         var anchorElement = element && findSingle(element, '[data-pc-section="itemlink"]');
@@ -6346,10 +6911,10 @@ var script$3 = {
         this.scrollInView();
       }
     }, "changeFocusedItemIndex"),
-    scrollInView: /* @__PURE__ */ __name(function scrollInView3() {
+    scrollInView: /* @__PURE__ */ __name(function scrollInView4() {
       var index = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : -1;
-      var id = index !== -1 ? "".concat(this.id, "_").concat(index) : this.focusedItemId;
-      var element = findSingle(this.menubar, 'li[id="'.concat(id, '"]'));
+      var id2 = index !== -1 ? "".concat(this.id, "_").concat(index) : this.focusedItemId;
+      var element = findSingle(this.menubar, 'li[id="'.concat(id2, '"]'));
       if (element) {
         element.scrollIntoView && element.scrollIntoView({
           block: "nearest",
@@ -6402,11 +6967,11 @@ var script$3 = {
   },
   components: {
     TieredMenuSub: script$1$1,
-    Portal: script$h
+    Portal: script$m
   }
 };
-var _hoisted_1$3 = ["id"];
-function render$2(_ctx, _cache, $props, $setup, $data, $options) {
+var _hoisted_1$5 = ["id"];
+function render$3(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_TieredMenuSub = resolveComponent("TieredMenuSub");
   var _component_Portal = resolveComponent("Portal");
   return openBlock(), createBlock(_component_Portal, {
@@ -6461,7 +7026,7 @@ function render$2(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8, ["id", "tabindex", "aria-label", "aria-labelledby", "aria-disabled", "aria-activedescendant", "menuId", "focusedItemId", "items", "templates", "activeItemPath", "visible", "pt", "unstyled", "onFocus", "onBlur", "onKeydown", "onItemClick", "onItemMouseenter", "onItemMousemove"]), _ctx.$slots.end ? (openBlock(), createElementBlock("div", mergeProps({
             key: 1,
             "class": _ctx.cx("end")
-          }, _ctx.ptm("end")), [renderSlot(_ctx.$slots, "end")], 16)) : createCommentVNode("", true)], 16, _hoisted_1$3)) : createCommentVNode("", true)];
+          }, _ctx.ptm("end")), [renderSlot(_ctx.$slots, "end")], 16)) : createCommentVNode("", true)], 16, _hoisted_1$5)) : createCommentVNode("", true)];
         }),
         _: 3
       }, 16, ["onEnter", "onAfterEnter", "onLeave", "onAfterLeave"])];
@@ -6469,14 +7034,14 @@ function render$2(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["appendTo", "disabled"]);
 }
-__name(render$2, "render$2");
-script$3.render = render$2;
+__name(render$3, "render$3");
+script$3.render = render$3;
 var theme9 = /* @__PURE__ */ __name(function theme10(_ref) {
   var dt = _ref.dt;
   return "\n.p-splitbutton {\n    display: inline-flex;\n    position: relative;\n    border-radius: ".concat(dt("splitbutton.border.radius"), ";\n}\n\n.p-splitbutton-button {\n    border-top-right-radius: 0;\n    border-bottom-right-radius: 0;\n    border-right: 0 none;\n}\n\n.p-splitbutton-button:focus-visible,\n.p-splitbutton-dropdown:focus-visible {\n    z-index: 1;\n}\n\n.p-splitbutton-button:not(:disabled):hover,\n.p-splitbutton-button:not(:disabled):active {\n    border-right: 0 none;\n}\n\n.p-splitbutton-dropdown {\n    border-top-left-radius: 0;\n    border-bottom-left-radius: 0;\n}\n\n.p-splitbutton .p-menu {\n    min-width: 100%;\n}\n\n.p-splitbutton-fluid {\n    display: flex;\n}\n\n.p-splitbutton-rounded .p-splitbutton-dropdown {\n    border-top-right-radius: ").concat(dt("splitbutton.rounded.border.radius"), ";\n    border-bottom-right-radius: ").concat(dt("splitbutton.rounded.border.radius"), ";\n}\n\n.p-splitbutton-rounded .p-splitbutton-button {\n    border-top-left-radius: ").concat(dt("splitbutton.rounded.border.radius"), ";\n    border-bottom-left-radius: ").concat(dt("splitbutton.rounded.border.radius"), ";\n}\n\n.p-splitbutton-raised {\n    box-shadow: ").concat(dt("splitbutton.raised.shadow"), ";\n}\n");
 }, "theme");
 var classes = {
-  root: /* @__PURE__ */ __name(function root10(_ref2) {
+  root: /* @__PURE__ */ __name(function root11(_ref2) {
     var instance = _ref2.instance, props = _ref2.props;
     return ["p-splitbutton p-component", {
       "p-splitbutton-raised": props.raised,
@@ -6494,7 +7059,7 @@ var SplitButtonStyle = BaseStyle.extend({
 });
 var script$1 = {
   name: "BaseSplitButton",
-  "extends": script$e,
+  "extends": script$g,
   props: {
     label: {
       type: String,
@@ -6582,7 +7147,7 @@ var script$1 = {
     }
   },
   style: SplitButtonStyle,
-  provide: /* @__PURE__ */ __name(function provide11() {
+  provide: /* @__PURE__ */ __name(function provide13() {
     return {
       $pcSplitButton: this,
       $parentInstance: this
@@ -6599,7 +7164,7 @@ var script = {
       "default": null
     }
   },
-  data: /* @__PURE__ */ __name(function data8() {
+  data: /* @__PURE__ */ __name(function data9() {
     return {
       id: this.$attrs.id,
       isExpanded: false
@@ -6610,7 +7175,7 @@ var script = {
       this.id = newValue || UniqueComponentId();
     }, "$attrsId")
   },
-  mounted: /* @__PURE__ */ __name(function mounted8() {
+  mounted: /* @__PURE__ */ __name(function mounted9() {
     var _this = this;
     this.id = this.id || UniqueComponentId();
     this.$watch("$refs.menu.visible", function(newValue) {
@@ -6650,13 +7215,13 @@ var script = {
     }, "hasFluid")
   },
   components: {
-    PVSButton: script$d,
+    PVSButton: script$f,
     PVSMenu: script$3,
-    ChevronDownIcon: script$i
+    ChevronDownIcon: script$n
   }
 };
-var _hoisted_1$2 = ["data-p-severity"];
-function render(_ctx, _cache, $props, $setup, $data, $options) {
+var _hoisted_1$4 = ["data-p-severity"];
+function render$2(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_PVSButton = resolveComponent("PVSButton");
   var _component_PVSMenu = resolveComponent("PVSMenu");
   return openBlock(), createElementBlock("div", mergeProps({
@@ -6761,12 +7326,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       })];
     }),
     key: "1"
-  } : void 0]), 1032, ["id", "model", "autoZIndex", "baseZIndex", "appendTo", "unstyled", "pt"])], 16, _hoisted_1$2);
+  } : void 0]), 1032, ["id", "model", "autoZIndex", "baseZIndex", "appendTo", "unstyled", "pt"])], 16, _hoisted_1$4);
 }
-__name(render, "render");
-script.render = render;
+__name(render$2, "render$2");
+script.render = render$2;
 const minQueueCount = 1;
-const _sfc_main$4 = /* @__PURE__ */ defineComponent({
+const _sfc_main$5 = /* @__PURE__ */ defineComponent({
   __name: "BatchCountEdit",
   props: {
     class: { default: "" }
@@ -6795,7 +7360,7 @@ const _sfc_main$4 = /* @__PURE__ */ defineComponent({
       return withDirectives((openBlock(), createElementBlock("div", {
         class: normalizeClass(["batch-count", props.class])
       }, [
-        createVNode(unref(script$y), {
+        createVNode(unref(script$D), {
           class: "w-14",
           modelValue: unref(batchCount),
           "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => isRef(batchCount) ? batchCount.value = $event : null),
@@ -6829,10 +7394,10 @@ const _sfc_main$4 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const BatchCountEdit = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-713442be"]]);
+const BatchCountEdit = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["__scopeId", "data-v-713442be"]]);
 const _withScopeId$1 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-2b80bf74"), n = n(), popScopeId(), n), "_withScopeId$1");
-const _hoisted_1$1 = { class: "queue-button-group flex" };
-const _sfc_main$3 = /* @__PURE__ */ defineComponent({
+const _hoisted_1$3 = { class: "queue-button-group flex" };
+const _sfc_main$4 = /* @__PURE__ */ defineComponent({
   __name: "ComfyQueueButton",
   setup(__props) {
     const workspaceStore = useWorkspaceStore();
@@ -6882,9 +7447,9 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
       commandStore.execute(commandId);
     }, "queuePrompt");
     return (_ctx, _cache) => {
-      const _component_i_lucide58list_start = __unplugin_components_0;
+      const _component_i_lucide58list_start = __unplugin_components_0$1;
       const _directive_tooltip = resolveDirective("tooltip");
-      return openBlock(), createElementBlock("div", _hoisted_1$1, [
+      return openBlock(), createElementBlock("div", _hoisted_1$3, [
         withDirectives((openBlock(), createBlock(unref(script), {
           class: "comfyui-queue-button",
           label: activeQueueModeMenuItem.value.label,
@@ -6900,7 +7465,7 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
             }, null, 2))
           ]),
           item: withCtx(({ item: item3 }) => [
-            withDirectives(createVNode(unref(script$d), {
+            withDirectives(createVNode(unref(script$f), {
               label: item3.label,
               icon: item3.icon,
               severity: item3.key === unref(queueMode) ? "primary" : "secondary",
@@ -6921,7 +7486,7 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
         createVNode(BatchCountEdit),
         createVNode(unref(script$7), { class: "execution-actions flex flex-nowrap" }, {
           default: withCtx(() => [
-            withDirectives(createVNode(unref(script$d), {
+            withDirectives(createVNode(unref(script$f), {
               icon: "pi pi-times",
               severity: executingPrompt.value ? "danger" : "secondary",
               disabled: !executingPrompt.value,
@@ -6935,7 +7500,7 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
                 { bottom: true }
               ]
             ]),
-            withDirectives(createVNode(unref(script$d), {
+            withDirectives(createVNode(unref(script$f), {
               icon: "pi pi-stop",
               severity: hasPendingTasks.value ? "danger" : "secondary",
               disabled: !hasPendingTasks.value,
@@ -6956,9 +7521,9 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const ComfyQueueButton = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-2b80bf74"]]);
+const ComfyQueueButton = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-2b80bf74"]]);
 const overlapThreshold = 20;
-const _sfc_main$2 = /* @__PURE__ */ defineComponent({
+const _sfc_main$3 = /* @__PURE__ */ defineComponent({
   __name: "ComfyActionbar",
   setup(__props) {
     const settingsStore = useSettingStore();
@@ -7111,13 +7676,13 @@ const _sfc_main$2 = /* @__PURE__ */ defineComponent({
               ref: dragHandleRef
             }, null, 512),
             createVNode(ComfyQueueButton),
-            createVNode(unref(script$z), {
+            createVNode(unref(script$E), {
               layout: "vertical",
               class: "mx-1"
             }),
             createVNode(unref(script$7), { class: "flex flex-nowrap" }, {
               default: withCtx(() => [
-                withDirectives(createVNode(unref(script$d), {
+                withDirectives(createVNode(unref(script$f), {
                   icon: "pi pi-refresh",
                   severity: "secondary",
                   text: "",
@@ -7140,8 +7705,66 @@ const _sfc_main$2 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const Actionbar = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-2e54db00"]]);
-const _withScopeId = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-b13fdc92"), n = n(), popScopeId(), n), "_withScopeId");
+const Actionbar = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-2e54db00"]]);
+const _hoisted_1$2 = {
+  viewBox: "0 0 24 24",
+  width: "1.2em",
+  height: "1.2em"
+};
+const _hoisted_2$2 = /* @__PURE__ */ createBaseVNode("path", {
+  fill: "currentColor",
+  d: "M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm0-5v3h14v-3zm0-2h14V5H5zm0 2v3z"
+}, null, -1);
+const _hoisted_3$1 = [
+  _hoisted_2$2
+];
+function render$1(_ctx, _cache) {
+  return openBlock(), createElementBlock("svg", _hoisted_1$2, [..._hoisted_3$1]);
+}
+__name(render$1, "render$1");
+const __unplugin_components_1 = markRaw({ name: "material-symbols-dock-to-bottom-outline", render: render$1 });
+const _hoisted_1$1 = {
+  viewBox: "0 0 24 24",
+  width: "1.2em",
+  height: "1.2em"
+};
+const _hoisted_2$1 = /* @__PURE__ */ createBaseVNode("path", {
+  fill: "currentColor",
+  d: "M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm0-7h14V5H5z"
+}, null, -1);
+const _hoisted_3 = [
+  _hoisted_2$1
+];
+function render(_ctx, _cache) {
+  return openBlock(), createElementBlock("svg", _hoisted_1$1, [..._hoisted_3]);
+}
+__name(render, "render");
+const __unplugin_components_0 = markRaw({ name: "material-symbols-dock-to-bottom", render });
+const _sfc_main$2 = /* @__PURE__ */ defineComponent({
+  __name: "BottomPanelToggleButton",
+  setup(__props) {
+    const bottomPanelStore = useBottomPanelStore();
+    return (_ctx, _cache) => {
+      const _component_i_material_symbols58dock_to_bottom = __unplugin_components_0;
+      const _component_i_material_symbols58dock_to_bottom_outline = __unplugin_components_1;
+      const _directive_tooltip = resolveDirective("tooltip");
+      return withDirectives((openBlock(), createBlock(unref(script$f), {
+        severity: "secondary",
+        text: "",
+        onClick: unref(bottomPanelStore).toggleBottomPanel
+      }, {
+        icon: withCtx(() => [
+          unref(bottomPanelStore).bottomPanelVisible ? (openBlock(), createBlock(_component_i_material_symbols58dock_to_bottom, { key: 0 })) : (openBlock(), createBlock(_component_i_material_symbols58dock_to_bottom_outline, { key: 1 }))
+        ]),
+        _: 1
+      }, 8, ["onClick"])), [
+        [vShow, unref(bottomPanelStore).bottomPanelTabs.length > 0],
+        [_directive_tooltip, { value: _ctx.$t("menu.toggleBottomPanel"), showDelay: 300 }]
+      ]);
+    };
+  }
+});
+const _withScopeId = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-ad2c662b"), n = n(), popScopeId(), n), "_withScopeId");
 const _hoisted_1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("h1", { class: "comfyui-logo mx-2" }, "ComfyUI", -1));
 const _hoisted_2 = { class: "flex-grow" };
 const _sfc_main$1 = /* @__PURE__ */ defineComponent({
@@ -7183,7 +7806,7 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
         }, [
           _hoisted_1,
           createVNode(CommandMenubar),
-          createVNode(unref(script$z), {
+          createVNode(unref(script$E), {
             layout: "vertical",
             class: "mx-2"
           }),
@@ -7195,7 +7818,8 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
             ref_key: "menuRight",
             ref: menuRight
           }, null, 512),
-          createVNode(Actionbar)
+          createVNode(Actionbar),
+          createVNode(_sfc_main$2)
         ], 2), [
           [vShow, betaMenuEnabled.value]
         ])
@@ -7203,7 +7827,7 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const TopMenubar = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-b13fdc92"]]);
+const TopMenubar = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-ad2c662b"]]);
 function setupAutoQueueHandler() {
   const queueCountStore = useQueuePendingTaskCountStore();
   const queueSettingsStore = useQueueSettingsStore();
@@ -7289,6 +7913,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
       settingStore.addSettings(app.ui.settings);
       useKeybindingStore().loadCoreKeybindings();
       useSidebarTabStore().registerCoreSidebarTabs();
+      useBottomPanelStore().registerCoreBottomPanelTabs();
       app.extensionManager = useWorkspaceStore();
     }, "init");
     const queuePendingTaskCountStore = useQueuePendingTaskCountStore();
@@ -7347,10 +7972,10 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock(Fragment, null, [
         createVNode(TopMenubar),
-        createVNode(_sfc_main$a, { onReady: onGraphReady }),
+        createVNode(_sfc_main$b, { onReady: onGraphReady }),
+        createVNode(_sfc_main$a),
         createVNode(_sfc_main$9),
-        createVNode(_sfc_main$8),
-        createVNode(_sfc_main$7)
+        createVNode(_sfc_main$8)
       ], 64);
     };
   }
@@ -7358,4 +7983,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as default
 };
-//# sourceMappingURL=GraphView-DmeOoKWv.js.map
+//# sourceMappingURL=GraphView-C4blCugc.js.map

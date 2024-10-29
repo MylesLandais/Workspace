@@ -1,8 +1,8 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, q as computed, g as openBlock, h as createElementBlock, M as Fragment, N as renderList, i as createVNode, y as withCtx, ap as createTextVNode, am as toDisplayString, z as unref, at as script, j as createCommentVNode, r as ref, bH as FilterMatchMode, K as useKeybindingStore, F as useCommandStore, aC as watchEffect, aZ as useToast, t as resolveDirective, bI as SearchBox, A as createBaseVNode, D as script$2, x as createBlock, af as script$4, b2 as withModifiers, aA as script$6, v as withDirectives, P as pushScopeId, Q as popScopeId, by as KeyComboImpl, bJ as KeybindingImpl, _ as _export_sfc } from "./index-CgU1oKZt.js";
-import { s as script$1, a as script$3, b as script$5 } from "./index-DBWDcZsl.js";
-import "./index-DYEEBf64.js";
+import { d as defineComponent, q as computed, g as openBlock, h as createElementBlock, N as Fragment, O as renderList, i as createVNode, y as withCtx, aw as createTextVNode, a6 as toDisplayString, z as unref, aA as script, j as createCommentVNode, r as ref, bN as FilterMatchMode, M as useKeybindingStore, F as useCommandStore, aJ as watchEffect, b9 as useToast, t as resolveDirective, bO as SearchBox, A as createBaseVNode, D as script$2, x as createBlock, ao as script$4, be as withModifiers, aH as script$6, v as withDirectives, P as pushScopeId, Q as popScopeId, bJ as KeyComboImpl, bP as KeybindingImpl, _ as _export_sfc } from "./index-BHayQCxv.js";
+import { s as script$1, a as script$3, b as script$5 } from "./index-CwRXxFdA.js";
+import "./index-C_wOqB0f.js";
 const _hoisted_1$1 = {
   key: 0,
   class: "px-2"
@@ -261,4 +261,4 @@ const KeybindingPanel = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "d
 export {
   KeybindingPanel as default
 };
-//# sourceMappingURL=KeybindingPanel-YkUFoiMw.js.map
+//# sourceMappingURL=KeybindingPanel-Dm_3sBT5.js.map
