@@ -1,8 +1,8 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, q as computed, g as openBlock, h as createElementBlock, N as Fragment, O as renderList, i as createVNode, y as withCtx, aw as createTextVNode, a6 as toDisplayString, z as unref, aA as script, j as createCommentVNode, r as ref, bN as FilterMatchMode, M as useKeybindingStore, F as useCommandStore, aJ as watchEffect, b9 as useToast, t as resolveDirective, bO as SearchBox, A as createBaseVNode, D as script$2, x as createBlock, ao as script$4, be as withModifiers, aH as script$6, v as withDirectives, P as pushScopeId, Q as popScopeId, bJ as KeyComboImpl, bP as KeybindingImpl, _ as _export_sfc } from "./index-BHayQCxv.js";
-import { s as script$1, a as script$3, b as script$5 } from "./index-CwRXxFdA.js";
-import "./index-C_wOqB0f.js";
+import { d as defineComponent, q as computed, g as openBlock, h as createElementBlock, N as Fragment, O as renderList, i as createVNode, y as withCtx, aw as createTextVNode, a6 as toDisplayString, z as unref, aA as script, j as createCommentVNode, r as ref, c3 as FilterMatchMode, M as useKeybindingStore, F as useCommandStore, aJ as watchEffect, be as useToast, t as resolveDirective, c4 as SearchBox, A as createBaseVNode, D as script$2, x as createBlock, ao as script$4, bi as withModifiers, bR as script$5, aH as script$6, v as withDirectives, P as pushScopeId, Q as popScopeId, b$ as KeyComboImpl, c5 as KeybindingImpl, _ as _export_sfc } from "./index-B6dYHNhg.js";
+import { s as script$1, a as script$3 } from "./index-CjwCGacA.js";
+import "./index-MX9DEi8Q.js";
 const _hoisted_1$1 = {
   key: 0,
   class: "px-2"
@@ -35,10 +35,11 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _withScopeId = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-e5724e4d"), n = n(), popScopeId(), n), "_withScopeId");
+const _withScopeId = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-2d8b3a76"), n = n(), popScopeId(), n), "_withScopeId");
 const _hoisted_1 = { class: "keybinding-panel" };
-const _hoisted_2 = { class: "actions invisible" };
-const _hoisted_3 = { key: 1 };
+const _hoisted_2 = { class: "actions invisible flex flex-row" };
+const _hoisted_3 = ["title"];
+const _hoisted_4 = { key: 1 };
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "KeybindingPanel",
   setup(__props) {
@@ -177,7 +178,16 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
             createVNode(unref(script$1), {
               field: "id",
               header: "Command ID",
-              sortable: ""
+              sortable: "",
+              class: "max-w-64 2xl:max-w-full"
+            }, {
+              body: withCtx((slotProps) => [
+                createBaseVNode("div", {
+                  class: "overflow-hidden text-ellipsis whitespace-nowrap",
+                  title: slotProps.data.id
+                }, toDisplayString(slotProps.data.id), 9, _hoisted_3)
+              ]),
+              _: 1
             }),
             createVNode(unref(script$1), {
               field: "keybinding",
@@ -188,7 +198,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
                   key: 0,
                   keyCombo: slotProps.data.keybinding.combo,
                   isModified: unref(keybindingStore).isCommandKeybindingModified(slotProps.data.id)
-                }, null, 8, ["keyCombo", "isModified"])) : (openBlock(), createElementBlock("span", _hoisted_3, "-"))
+                }, null, 8, ["keyCombo", "isModified"])) : (openBlock(), createElementBlock("span", _hoisted_4, "-"))
               ]),
               _: 1
             })
@@ -257,8 +267,8 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const KeybindingPanel = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-e5724e4d"]]);
+const KeybindingPanel = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-2d8b3a76"]]);
 export {
   KeybindingPanel as default
 };
-//# sourceMappingURL=KeybindingPanel-Dm_3sBT5.js.map
+//# sourceMappingURL=KeybindingPanel-DcEfyPZZ.js.map

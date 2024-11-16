@@ -1,6 +1,6 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { e as LGraphNode, c as app, bL as applyTextReplacements, bK as ComfyWidgets, bM as addValueControlWidgets, k as LiteGraph } from "./index-BHayQCxv.js";
+import { e as LGraphNode, c as app, c1 as applyTextReplacements, c0 as ComfyWidgets, c2 as addValueControlWidgets, k as LiteGraph } from "./index-B6dYHNhg.js";
 const CONVERTED_TYPE = "converted-widget";
 const VALID_TYPES = [
   "STRING",
@@ -171,7 +171,7 @@ class PrimitiveNode extends LGraphNode {
     if (type instanceof Array) {
       type = "COMBO";
     }
-    const size = this.size;
+    const [oldWidth, oldHeight] = this.size;
     let widget;
     if (type in ComfyWidgets) {
       widget = (ComfyWidgets[type](this, "value", inputData, app) || {}).widget;
@@ -218,8 +218,8 @@ class PrimitiveNode extends LGraphNode {
       return r;
     };
     this.size = [
-      Math.max(this.size[0], size[0]),
-      Math.max(this.size[1], size[1])
+      Math.max(this.size[0], oldWidth),
+      Math.max(this.size[1], oldHeight)
     ];
     if (!recreating) {
       const sz = this.computeSize();
@@ -320,7 +320,7 @@ class PrimitiveNode extends LGraphNode {
   }
 }
 function getWidgetConfig(slot) {
-  return slot.widget[CONFIG] ?? slot.widget[GET_CONFIG]();
+  return slot.widget[CONFIG] ?? slot.widget[GET_CONFIG]?.() ?? ["*", {}];
 }
 __name(getWidgetConfig, "getWidgetConfig");
 function getConfig(widgetName) {
@@ -373,7 +373,7 @@ __name(showWidget, "showWidget");
 function convertToInput(node, widget, config) {
   hideWidget(node, widget);
   const { type } = getWidgetType(config);
-  const sz = node.size;
+  const [oldWidth, oldHeight] = node.size;
   const inputIsOptional = !!widget.options?.inputIsOptional;
   const input = node.addInput(widget.name, type, {
     widget: { name: widget.name, [GET_CONFIG]: () => config },
@@ -382,18 +382,24 @@ function convertToInput(node, widget, config) {
   for (const widget2 of node.widgets) {
     widget2.last_y += LiteGraph.NODE_SLOT_HEIGHT;
   }
-  node.setSize([Math.max(sz[0], node.size[0]), Math.max(sz[1], node.size[1])]);
+  node.setSize([
+    Math.max(oldWidth, node.size[0]),
+    Math.max(oldHeight, node.size[1])
+  ]);
   return input;
 }
 __name(convertToInput, "convertToInput");
 function convertToWidget(node, widget) {
   showWidget(widget);
-  const sz = node.size;
+  const [oldWidth, oldHeight] = node.size;
   node.removeInput(node.inputs.findIndex((i) => i.widget?.name === widget.name));
   for (const widget2 of node.widgets) {
     widget2.last_y -= LiteGraph.NODE_SLOT_HEIGHT;
   }
-  node.setSize([Math.max(sz[0], node.size[0]), Math.max(sz[1], node.size[1])]);
+  node.setSize([
+    Math.max(oldWidth, node.size[0]),
+    Math.max(oldHeight, node.size[1])
+  ]);
 }
 __name(convertToWidget, "convertToWidget");
 function getWidgetType(config) {
@@ -450,7 +456,7 @@ function setWidgetConfig(slot, config, target) {
 __name(setWidgetConfig, "setWidgetConfig");
 function mergeIfValid(output, config2, forceUpdate, recreateWidget, config1) {
   if (!config1) {
-    config1 = output.widget[CONFIG] ?? output.widget[GET_CONFIG]();
+    config1 = getWidgetConfig(output);
   }
   if (config1[0] instanceof Array) {
     if (!isValidCombo(config1[0], config2[0])) return;
@@ -753,4 +759,4 @@ export {
   mergeIfValid,
   setWidgetConfig
 };
-//# sourceMappingURL=widgetInputs-DdecKYqd.js.map
+//# sourceMappingURL=widgetInputs-BJ21PG7d.js.map

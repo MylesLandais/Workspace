@@ -1,8 +1,8 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, u as useSettingStore, r as ref, a as useTitleEditorStore, b as useCanvasStore, w as watch, L as LGraphGroup, c as app, e as LGraphNode, o as onMounted, f as onUnmounted, g as openBlock, h as createElementBlock, i as createVNode, E as EditableText, n as normalizeStyle, j as createCommentVNode, k as LiteGraph, _ as _export_sfc, B as BaseStyle, s as script$e, l as resolveComponent, m as mergeProps, p as renderSlot, q as computed, t as resolveDirective, v as withDirectives, x as createBlock, y as withCtx, z as unref, A as createBaseVNode, C as normalizeClass, D as script$f, F as useCommandStore, G as useDialogStore, S as SettingDialogHeader, H as SettingDialogContent, I as onBeforeUnmount, J as resolveDynamicComponent, K as useWorkspaceStore, M as useKeybindingStore, N as Fragment, O as renderList, T as Teleport, P as pushScopeId, Q as popScopeId, R as script$g, U as getWidth, V as findSingle, W as getOuterHeight, X as getOffset, Y as getOuterWidth, Z as getHeight, $ as script$h, a0 as script$i, a1 as Ripple, a2 as getAttribute, a3 as focus, a4 as equals, a5 as useBottomPanelStore, a6 as toDisplayString, a7 as script$j, a8 as getVNodeProp, a9 as isArray, aa as useSidebarTabStore, ab as vShow, ac as isNotEmpty, ad as UniqueComponentId, ae as ZIndex, af as resolveFieldData, ag as OverlayEventBus, ah as isEmpty, ai as addStyle, aj as relativePosition, ak as absolutePosition, al as ConnectedOverlayScrollHandler, am as isTouchDevice, an as findLastIndex, ao as script$k, ap as script$l, aq as script$m, ar as script$n, as as script$o, at as script$p, au as Transition, av as createSlots, aw as createTextVNode, ax as useNodeFrequencyStore, ay as useNodeBookmarkStore, az as highlightQuery, aA as script$q, aB as formatNumberWithSuffix, aC as NodeSourceType, aD as useI18n, aE as useNodeDefStore, aF as NodePreview, aG as NodeSearchFilter, aH as script$r, aI as SearchFilterChip, aJ as watchEffect, aK as toRaw, aL as LinkReleaseTriggerAction, aM as useEventListener, aN as nextTick, aO as getColorPalette, aP as BadgePosition, aQ as LGraphBadge, aR as _, aS as defaultColorPalette, aT as NodeBadgeMode, aU as markRaw, aV as useModelToNodeStore, aW as usePragmaticDroppable, aX as ComfyNodeDefImpl, aY as ComfyModelDef, aZ as LGraph, a_ as LLink, a$ as DragAndScale, b0 as LGraphCanvas, b1 as ContextMenu, b2 as script$t, b3 as script$v, b4 as script$w, b5 as normalizeProps, b6 as ToastEventBus, b7 as setAttribute, b8 as TransitionGroup, b9 as useToast, ba as useToastStore, bb as useExecutionStore, bc as useWorkflowStore, bd as useTitle, be as withModifiers, bf as script$x, bg as resolve, bh as script$y, bi as script$z, bj as isPrintableCharacter, bk as guardReactiveProps, bl as useMenuItemStore, bm as script$C, bn as nestedPosition, bo as useQueueSettingsStore, bp as storeToRefs, bq as isRef, br as script$D, bs as useQueuePendingTaskCountStore, bt as useLocalStorage, bu as useDraggable, bv as watchDebounced, bw as inject, bx as useElementBounding, by as script$E, bz as lodashExports, bA as useEventBus, bB as provide, bC as api, bD as i18n, bE as useWorkflowBookmarkStore } from "./index-BHayQCxv.js";
-import { s as script$s, a as script$u, b as script$A, c as script$B } from "./index-C_wOqB0f.js";
-const _sfc_main$q = /* @__PURE__ */ defineComponent({
+import { d as defineComponent, u as useSettingStore, r as ref, a as useTitleEditorStore, b as useCanvasStore, w as watch, L as LGraphGroup, c as app, e as LGraphNode, o as onMounted, f as onUnmounted, g as openBlock, h as createElementBlock, i as createVNode, E as EditableText, n as normalizeStyle, j as createCommentVNode, k as LiteGraph, _ as _export_sfc, B as BaseStyle, s as script$e, l as resolveComponent, m as mergeProps, p as renderSlot, q as computed, t as resolveDirective, v as withDirectives, x as createBlock, y as withCtx, z as unref, A as createBaseVNode, C as normalizeClass, D as script$f, F as useCommandStore, G as useDialogStore, S as SettingDialogHeader, H as SettingDialogContent, I as onBeforeUnmount, J as resolveDynamicComponent, K as useWorkspaceStore, M as useKeybindingStore, N as Fragment, O as renderList, T as Teleport, P as pushScopeId, Q as popScopeId, R as script$g, U as getWidth, V as findSingle, W as getOuterHeight, X as getOffset, Y as getOuterWidth, Z as getHeight, $ as script$h, a0 as script$i, a1 as Ripple, a2 as getAttribute, a3 as focus, a4 as equals, a5 as useBottomPanelStore, a6 as toDisplayString, a7 as script$j, a8 as getVNodeProp, a9 as isArray, aa as useSidebarTabStore, ab as vShow, ac as isNotEmpty, ad as UniqueComponentId, ae as ZIndex, af as resolveFieldData, ag as OverlayEventBus, ah as isEmpty, ai as addStyle, aj as relativePosition, ak as absolutePosition, al as ConnectedOverlayScrollHandler, am as isTouchDevice, an as findLastIndex, ao as script$k, ap as script$l, aq as script$m, ar as script$n, as as script$o, at as script$p, au as Transition, av as createSlots, aw as createTextVNode, ax as useNodeFrequencyStore, ay as useNodeBookmarkStore, az as highlightQuery, aA as script$q, aB as formatNumberWithSuffix, aC as NodeSourceType, aD as useI18n, aE as useNodeDefStore, aF as NodePreview, aG as NodeSearchFilter, aH as script$r, aI as SearchFilterChip, aJ as watchEffect, aK as toRaw, aL as LinkReleaseTriggerAction, aM as useEventListener, aN as nextTick, aO as getColorPalette, aP as BadgePosition, aQ as LGraphBadge, aR as _, aS as defaultColorPalette, aT as NodeBadgeMode, aU as markRaw, aV as useModelToNodeStore, aW as useWorkflowStore, aX as setStorageValue, aY as usePragmaticDroppable, aZ as ComfyNodeDefImpl, a_ as ComfyModelDef, a$ as LGraph, b0 as LLink, b1 as DragAndScale, b2 as LGraphCanvas, b3 as ContextMenu, b4 as ChangeTracker, b5 as script$s, b6 as script$t, b7 as script$u, b8 as script$v, b9 as script$w, ba as normalizeProps, bb as ToastEventBus, bc as setAttribute, bd as TransitionGroup, be as useToast, bf as useToastStore, bg as useExecutionStore, bh as useTitle, bi as withModifiers, bj as script$x, bk as workflowService, bl as resolve, bm as script$y, bn as script$z, bo as isPrintableCharacter, bp as guardReactiveProps, bq as useMenuItemStore, br as script$C, bs as nestedPosition, bt as useQueueSettingsStore, bu as storeToRefs, bv as isRef, bw as script$D, bx as useQueuePendingTaskCountStore, by as useLocalStorage, bz as useDraggable, bA as watchDebounced, bB as inject, bC as useElementBounding, bD as lodashExports, bE as useEventBus, bF as provide, bG as script$E, bH as api, bI as i18n, bJ as useModelStore } from "./index-B6dYHNhg.js";
+import { s as script$A, a as script$B } from "./index-MX9DEi8Q.js";
+const _sfc_main$r = /* @__PURE__ */ defineComponent({
   __name: "TitleEditor",
   setup(__props) {
     const settingStore = useSettingStore();
@@ -120,7 +120,7 @@ const _sfc_main$q = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const TitleEditor = /* @__PURE__ */ _export_sfc(_sfc_main$q, [["__scopeId", "data-v-8a100d5a"]]);
+const TitleEditor = /* @__PURE__ */ _export_sfc(_sfc_main$r, [["__scopeId", "data-v-8a100d5a"]]);
 var theme$8 = /* @__PURE__ */ __name(function theme(_ref) {
   var dt = _ref.dt;
   return "\n.p-overlaybadge {\n    position: relative;\n}\n\n.p-overlaybadge .p-badge {\n    position: absolute;\n    top: 0;\n    right: 0;\n    transform: translate(50%, -50%);\n    transform-origin: 100% 0;\n    margin: 0;\n    outline-width: ".concat(dt("overlaybadge.outline.width"), ";\n    outline-style: solid;\n    outline-color: ").concat(dt("overlaybadge.outline.color"), ";\n}\n");
@@ -152,7 +152,7 @@ var script$d = {
     Badge: script$e
   }
 };
-function render$g(_ctx, _cache, $props, $setup, $data, $options) {
+function render$j(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Badge = resolveComponent("Badge");
   return openBlock(), createElementBlock("div", mergeProps({
     "class": _ctx.cx("root")
@@ -160,9 +160,9 @@ function render$g(_ctx, _cache, $props, $setup, $data, $options) {
     pt: _ctx.ptm("pcBadge")
   }), null, 16, ["pt"])], 16);
 }
-__name(render$g, "render$g");
-script$d.render = render$g;
-const _sfc_main$p = /* @__PURE__ */ defineComponent({
+__name(render$j, "render$j");
+script$d.render = render$j;
+const _sfc_main$q = /* @__PURE__ */ defineComponent({
   __name: "SidebarIcon",
   props: {
     icon: String,
@@ -224,8 +224,8 @@ const _sfc_main$p = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const SidebarIcon = /* @__PURE__ */ _export_sfc(_sfc_main$p, [["__scopeId", "data-v-caa3ee9c"]]);
-const _sfc_main$o = /* @__PURE__ */ defineComponent({
+const SidebarIcon = /* @__PURE__ */ _export_sfc(_sfc_main$q, [["__scopeId", "data-v-caa3ee9c"]]);
+const _sfc_main$p = /* @__PURE__ */ defineComponent({
   __name: "SidebarThemeToggleIcon",
   setup(__props) {
     const settingStore = useSettingStore();
@@ -247,7 +247,7 @@ const _sfc_main$o = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _sfc_main$n = /* @__PURE__ */ defineComponent({
+const _sfc_main$o = /* @__PURE__ */ defineComponent({
   __name: "SidebarSettingsToggleIcon",
   setup(__props) {
     const dialogStore = useDialogStore();
@@ -267,7 +267,7 @@ const _sfc_main$n = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _sfc_main$m = /* @__PURE__ */ defineComponent({
+const _sfc_main$n = /* @__PURE__ */ defineComponent({
   __name: "ExtensionSlot",
   props: {
     extension: {}
@@ -296,13 +296,13 @@ const _sfc_main$m = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _withScopeId$6 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-37fd2fa4"), n = n(), popScopeId(), n), "_withScopeId$6");
-const _hoisted_1$k = { class: "side-tool-bar-end" };
-const _hoisted_2$h = {
+const _withScopeId$6 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-e0812a25"), n = n(), popScopeId(), n), "_withScopeId$6");
+const _hoisted_1$n = { class: "side-tool-bar-end" };
+const _hoisted_2$k = {
   key: 0,
   class: "sidebar-content-container h-full overflow-y-auto overflow-x-hidden"
 };
-const _sfc_main$l = /* @__PURE__ */ defineComponent({
+const _sfc_main$m = /* @__PURE__ */ defineComponent({
   __name: "SideToolbar",
   setup(__props) {
     const workspaceStore = useWorkspaceStore();
@@ -342,20 +342,20 @@ const _sfc_main$l = /* @__PURE__ */ defineComponent({
                 onClick: /* @__PURE__ */ __name(($event) => onTabClick(tab), "onClick")
               }, null, 8, ["icon", "iconBadge", "tooltip", "selected", "class", "onClick"]);
             }), 128)),
-            createBaseVNode("div", _hoisted_1$k, [
-              createVNode(_sfc_main$o),
-              createVNode(_sfc_main$n)
+            createBaseVNode("div", _hoisted_1$n, [
+              createVNode(_sfc_main$p),
+              createVNode(_sfc_main$o)
             ])
           ], 2)
         ], 8, ["to"])),
-        selectedTab.value ? (openBlock(), createElementBlock("div", _hoisted_2$h, [
-          createVNode(_sfc_main$m, { extension: selectedTab.value }, null, 8, ["extension"])
+        selectedTab.value ? (openBlock(), createElementBlock("div", _hoisted_2$k, [
+          createVNode(_sfc_main$n, { extension: selectedTab.value }, null, 8, ["extension"])
         ])) : createCommentVNode("", true)
       ], 64);
     };
   }
 });
-const SideToolbar = /* @__PURE__ */ _export_sfc(_sfc_main$l, [["__scopeId", "data-v-37fd2fa4"]]);
+const SideToolbar = /* @__PURE__ */ _export_sfc(_sfc_main$m, [["__scopeId", "data-v-e0812a25"]]);
 var classes$a = {
   root: "p-tablist",
   content: /* @__PURE__ */ __name(function content(_ref) {
@@ -509,10 +509,10 @@ var script$c = {
     ripple: Ripple
   }
 };
-var _hoisted_1$j = ["aria-label", "tabindex"];
-var _hoisted_2$g = ["aria-orientation"];
-var _hoisted_3$d = ["aria-label", "tabindex"];
-function render$f(_ctx, _cache, $props, $setup, $data, $options) {
+var _hoisted_1$m = ["aria-label", "tabindex"];
+var _hoisted_2$j = ["aria-orientation"];
+var _hoisted_3$g = ["aria-label", "tabindex"];
+function render$i(_ctx, _cache, $props, $setup, $data, $options) {
   var _directive_ripple = resolveDirective("ripple");
   return openBlock(), createElementBlock("div", mergeProps({
     ref: "list",
@@ -530,7 +530,7 @@ function render$f(_ctx, _cache, $props, $setup, $data, $options) {
     "data-pc-group-section": "navigator"
   }), [(openBlock(), createBlock(resolveDynamicComponent($options.templates.previcon || "ChevronLeftIcon"), mergeProps({
     "aria-hidden": "true"
-  }, _ctx.ptm("prevIcon")), null, 16))], 16, _hoisted_1$j)), [[_directive_ripple]]) : createCommentVNode("", true), createBaseVNode("div", mergeProps({
+  }, _ctx.ptm("prevIcon")), null, 16))], 16, _hoisted_1$m)), [[_directive_ripple]]) : createCommentVNode("", true), createBaseVNode("div", mergeProps({
     ref: "content",
     "class": _ctx.cx("content"),
     onScroll: _cache[1] || (_cache[1] = function() {
@@ -546,7 +546,7 @@ function render$f(_ctx, _cache, $props, $setup, $data, $options) {
     "class": _ctx.cx("activeBar"),
     role: "presentation",
     "aria-hidden": "true"
-  }, _ctx.ptm("activeBar")), null, 16)], 16, _hoisted_2$g)], 16), $options.showNavigators && $data.isNextButtonEnabled ? withDirectives((openBlock(), createElementBlock("button", mergeProps({
+  }, _ctx.ptm("activeBar")), null, 16)], 16, _hoisted_2$j)], 16), $options.showNavigators && $data.isNextButtonEnabled ? withDirectives((openBlock(), createElementBlock("button", mergeProps({
     key: 1,
     ref: "nextButton",
     "class": _ctx.cx("nextButton"),
@@ -559,10 +559,10 @@ function render$f(_ctx, _cache, $props, $setup, $data, $options) {
     "data-pc-group-section": "navigator"
   }), [(openBlock(), createBlock(resolveDynamicComponent($options.templates.nexticon || "ChevronRightIcon"), mergeProps({
     "aria-hidden": "true"
-  }, _ctx.ptm("nextIcon")), null, 16))], 16, _hoisted_3$d)), [[_directive_ripple]]) : createCommentVNode("", true)], 16);
+  }, _ctx.ptm("nextIcon")), null, 16))], 16, _hoisted_3$g)), [[_directive_ripple]]) : createCommentVNode("", true)], 16);
 }
-__name(render$f, "render$f");
-script$c.render = render$f;
+__name(render$i, "render$i");
+script$c.render = render$i;
 var classes$9 = {
   root: /* @__PURE__ */ __name(function root(_ref) {
     var instance = _ref.instance, props = _ref.props;
@@ -754,7 +754,7 @@ var script$b = {
     ripple: Ripple
   }
 };
-function render$e(_ctx, _cache, $props, $setup, $data, $options) {
+function render$h(_ctx, _cache, $props, $setup, $data, $options) {
   var _directive_ripple = resolveDirective("ripple");
   return !_ctx.asChild ? withDirectives((openBlock(), createBlock(resolveDynamicComponent(_ctx.as), mergeProps({
     key: 0,
@@ -773,19 +773,19 @@ function render$e(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: $options.onClick
   });
 }
-__name(render$e, "render$e");
-script$b.render = render$e;
-const _hoisted_1$i = { class: "flex flex-col h-full" };
-const _hoisted_2$f = { class: "w-full flex justify-between" };
-const _hoisted_3$c = { class: "tabs-container" };
+__name(render$h, "render$h");
+script$b.render = render$h;
+const _hoisted_1$l = { class: "flex flex-col h-full" };
+const _hoisted_2$i = { class: "w-full flex justify-between" };
+const _hoisted_3$f = { class: "tabs-container" };
 const _hoisted_4$5 = { class: "font-bold" };
 const _hoisted_5$4 = { class: "flex-grow h-0" };
-const _sfc_main$k = /* @__PURE__ */ defineComponent({
+const _sfc_main$l = /* @__PURE__ */ defineComponent({
   __name: "BottomPanel",
   setup(__props) {
     const bottomPanelStore = useBottomPanelStore();
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", _hoisted_1$i, [
+      return openBlock(), createElementBlock("div", _hoisted_1$l, [
         createVNode(unref(script$j), {
           value: unref(bottomPanelStore).activeBottomPanelTabId,
           "onUpdate:value": _cache[1] || (_cache[1] = ($event) => unref(bottomPanelStore).activeBottomPanelTabId = $event)
@@ -793,8 +793,8 @@ const _sfc_main$k = /* @__PURE__ */ defineComponent({
           default: withCtx(() => [
             createVNode(unref(script$c), { "pt:tabList": "border-none" }, {
               default: withCtx(() => [
-                createBaseVNode("div", _hoisted_2$f, [
-                  createBaseVNode("div", _hoisted_3$c, [
+                createBaseVNode("div", _hoisted_2$i, [
+                  createBaseVNode("div", _hoisted_3$f, [
                     (openBlock(true), createElementBlock(Fragment, null, renderList(unref(bottomPanelStore).bottomPanelTabs, (tab) => {
                       return openBlock(), createBlock(unref(script$b), {
                         key: tab.id,
@@ -824,7 +824,7 @@ const _sfc_main$k = /* @__PURE__ */ defineComponent({
           _: 1
         }, 8, ["value"]),
         createBaseVNode("div", _hoisted_5$4, [
-          unref(bottomPanelStore).bottomPanelVisible && unref(bottomPanelStore).activeBottomPanelTab ? (openBlock(), createBlock(_sfc_main$m, {
+          unref(bottomPanelStore).bottomPanelVisible && unref(bottomPanelStore).activeBottomPanelTab ? (openBlock(), createBlock(_sfc_main$n, {
             key: 0,
             extension: unref(bottomPanelStore).activeBottomPanelTab
           }, null, 8, ["extension"])) : createCommentVNode("", true)
@@ -1268,9 +1268,9 @@ var script$a = {
     }, "getPTOptions")
   }
 };
-var _hoisted_1$h = ["onMousedown", "onTouchstart", "onTouchmove", "onTouchend"];
-var _hoisted_2$e = ["aria-orientation", "aria-valuenow", "onKeydown"];
-function render$d(_ctx, _cache, $props, $setup, $data, $options) {
+var _hoisted_1$k = ["onMousedown", "onTouchstart", "onTouchmove", "onTouchend"];
+var _hoisted_2$h = ["aria-orientation", "aria-valuenow", "onKeydown"];
+function render$g(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", mergeProps({
     "class": _ctx.cx("root"),
     style: _ctx.sx("root"),
@@ -1313,11 +1313,11 @@ function render$d(_ctx, _cache, $props, $setup, $data, $options) {
         return $options.onGutterKeyDown($event, i);
       }, "onKeydown"),
       ref_for: true
-    }, _ctx.ptm("gutterHandle")), null, 16, _hoisted_2$e)], 16, _hoisted_1$h)) : createCommentVNode("", true)], 64);
+    }, _ctx.ptm("gutterHandle")), null, 16, _hoisted_2$h)], 16, _hoisted_1$k)) : createCommentVNode("", true)], 64);
   }), 128))], 16);
 }
-__name(render$d, "render$d");
-script$a.render = render$d;
+__name(render$g, "render$g");
+script$a.render = render$g;
 var classes$7 = {
   root: /* @__PURE__ */ __name(function root4(_ref) {
     var instance = _ref.instance;
@@ -1377,15 +1377,15 @@ var script$9 = {
     }, "getPTOptions")
   }
 };
-function render$c(_ctx, _cache, $props, $setup, $data, $options) {
+function render$f(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", mergeProps({
     ref: "container",
     "class": _ctx.cx("root")
   }, _ctx.ptmi("root", $options.getPTOptions)), [renderSlot(_ctx.$slots, "default")], 16);
 }
-__name(render$c, "render$c");
-script$9.render = render$c;
-const _sfc_main$j = /* @__PURE__ */ defineComponent({
+__name(render$f, "render$f");
+script$9.render = render$f;
+const _sfc_main$k = /* @__PURE__ */ defineComponent({
   __name: "LiteGraphCanvasSplitterOverlay",
   setup(__props) {
     const settingStore = useSettingStore();
@@ -1401,7 +1401,9 @@ const _sfc_main$j = /* @__PURE__ */ defineComponent({
     return (_ctx, _cache) => {
       return openBlock(), createBlock(unref(script$a), {
         class: "splitter-overlay-root splitter-overlay",
-        "pt:gutter": sidebarPanelVisible.value ? "" : "hidden"
+        "pt:gutter": sidebarPanelVisible.value ? "" : "hidden",
+        stateKey: "sidebar-splitter",
+        stateStorage: "local"
       }, {
         default: withCtx(() => [
           sidebarLocation.value === "left" ? withDirectives((openBlock(), createBlock(unref(script$9), {
@@ -1420,9 +1422,11 @@ const _sfc_main$j = /* @__PURE__ */ defineComponent({
           createVNode(unref(script$9), { size: 100 }, {
             default: withCtx(() => [
               createVNode(unref(script$a), {
-                class: "splitter-overlay",
+                class: "splitter-overlay max-w-full",
                 layout: "vertical",
-                "pt:gutter": bottomPanelVisible.value ? "" : "hidden"
+                "pt:gutter": bottomPanelVisible.value ? "" : "hidden",
+                stateKey: "bottom-panel-splitter",
+                stateStorage: "local"
               }, {
                 default: withCtx(() => [
                   createVNode(unref(script$9), { class: "graph-canvas-panel relative" }, {
@@ -1464,7 +1468,7 @@ const _sfc_main$j = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const LiteGraphCanvasSplitterOverlay = /* @__PURE__ */ _export_sfc(_sfc_main$j, [["__scopeId", "data-v-b49f20b1"]]);
+const LiteGraphCanvasSplitterOverlay = /* @__PURE__ */ _export_sfc(_sfc_main$k, [["__scopeId", "data-v-7c3279c1"]]);
 var theme$6 = /* @__PURE__ */ __name(function theme3(_ref) {
   var dt = _ref.dt;
   return "\n.p-autocomplete {\n    display: inline-flex;\n}\n\n.p-autocomplete-loader {\n    position: absolute;\n    top: 50%;\n    margin-top: -0.5rem;\n    right: ".concat(dt("autocomplete.padding.x"), ";\n}\n\n.p-autocomplete:has(.p-autocomplete-dropdown) .p-autocomplete-loader {\n    right: calc(").concat(dt("autocomplete.dropdown.width"), " + ").concat(dt("autocomplete.padding.x"), ");\n}\n\n.p-autocomplete:has(.p-autocomplete-dropdown) .p-autocomplete-input {\n    flex: 1 1 auto;\n    width: 1%;\n}\n\n.p-autocomplete:has(.p-autocomplete-dropdown) .p-autocomplete-input,\n.p-autocomplete:has(.p-autocomplete-dropdown) .p-autocomplete-input-multiple {\n    border-top-right-radius: 0;\n    border-bottom-right-radius: 0;\n}\n\n.p-autocomplete-dropdown {\n    cursor: pointer;\n    display: inline-flex;\n    cursor: pointer;\n    user-select: none;\n    align-items: center;\n    justify-content: center;\n    overflow: hidden;\n    position: relative;\n    width: ").concat(dt("autocomplete.dropdown.width"), ";\n    border-top-right-radius: ").concat(dt("autocomplete.dropdown.border.radius"), ";\n    border-bottom-right-radius: ").concat(dt("autocomplete.dropdown.border.radius"), ";\n    background: ").concat(dt("autocomplete.dropdown.background"), ";\n    border: 1px solid ").concat(dt("autocomplete.dropdown.border.color"), ";\n    border-left: 0 none;\n    color: ").concat(dt("autocomplete.dropdown.color"), ";\n    transition: background ").concat(dt("autocomplete.transition.duration"), ", color ").concat(dt("autocomplete.transition.duration"), ", border-color ").concat(dt("autocomplete.transition.duration"), ", outline-color ").concat(dt("autocomplete.transition.duration"), ", box-shadow ").concat(dt("autocomplete.transition.duration"), ";\n    outline-color: transparent;\n}\n\n.p-autocomplete-dropdown:not(:disabled):hover {\n    background: ").concat(dt("autocomplete.dropdown.hover.background"), ";\n    border-color: ").concat(dt("autocomplete.dropdown.hover.border.color"), ";\n    color: ").concat(dt("autocomplete.dropdown.hover.color"), ";\n}\n\n.p-autocomplete-dropdown:not(:disabled):active {\n    background: ").concat(dt("autocomplete.dropdown.active.background"), ";\n    border-color: ").concat(dt("autocomplete.dropdown.active.border.color"), ";\n    color: ").concat(dt("autocomplete.dropdown.active.color"), ";\n}\n\n.p-autocomplete-dropdown:focus-visible {\n    box-shadow: ").concat(dt("autocomplete.dropdown.focus.ring.shadow"), ";\n    outline: ").concat(dt("autocomplete.dropdown.focus.ring.width"), " ").concat(dt("autocomplete.dropdown.focus.ring.style"), " ").concat(dt("autocomplete.dropdown.focus.ring.color"), ";\n    outline-offset: ").concat(dt("autocomplete.dropdown.focus.ring.offset"), ";\n}\n\n.p-autocomplete .p-autocomplete-overlay {\n    min-width: 100%;\n}\n\n.p-autocomplete-overlay {\n    position: absolute;\n    overflow: auto;\n    top: 0;\n    left: 0;\n    background: ").concat(dt("autocomplete.overlay.background"), ";\n    color: ").concat(dt("autocomplete.overlay.color"), ";\n    border: 1px solid ").concat(dt("autocomplete.overlay.border.color"), ";\n    border-radius: ").concat(dt("autocomplete.overlay.border.radius"), ";\n    box-shadow: ").concat(dt("autocomplete.overlay.shadow"), ";\n}\n\n.p-autocomplete-list {\n    margin: 0;\n    padding: 0;\n    list-style-type: none;\n    display: flex;\n    flex-direction: column;\n    gap: ").concat(dt("autocomplete.list.gap"), ";\n    padding: ").concat(dt("autocomplete.list.padding"), ";\n}\n\n.p-autocomplete-option {\n    cursor: pointer;\n    white-space: nowrap;\n    position: relative;\n    overflow: hidden;\n    display: flex;\n    align-items: center;\n    padding: ").concat(dt("autocomplete.option.padding"), ";\n    border: 0 none;\n    color: ").concat(dt("autocomplete.option.color"), ";\n    background: transparent;\n    transition: background ").concat(dt("autocomplete.transition.duration"), ", color ").concat(dt("autocomplete.transition.duration"), ", border-color ").concat(dt("autocomplete.transition.duration"), ";\n    border-radius: ").concat(dt("autocomplete.option.border.radius"), ";\n}\n\n.p-autocomplete-option:not(.p-autocomplete-option-selected):not(.p-disabled).p-focus {\n    background: ").concat(dt("autocomplete.option.focus.background"), ";\n    color: ").concat(dt("autocomplete.option.focus.color"), ";\n}\n\n.p-autocomplete-option-selected {\n    background: ").concat(dt("autocomplete.option.selected.background"), ";\n    color: ").concat(dt("autocomplete.option.selected.color"), ";\n}\n\n.p-autocomplete-option-selected.p-focus {\n    background: ").concat(dt("autocomplete.option.selected.focus.background"), ";\n    color: ").concat(dt("autocomplete.option.selected.focus.color"), ";\n}\n\n.p-autocomplete-option-group {\n    margin: 0;\n    padding: ").concat(dt("autocomplete.option.group.padding"), ";\n    color: ").concat(dt("autocomplete.option.group.color"), ";\n    background: ").concat(dt("autocomplete.option.group.background"), ";\n    font-weight: ").concat(dt("autocomplete.option.group.font.weight"), ";\n}\n\n.p-autocomplete-input-multiple {\n    margin: 0;\n    list-style-type: none;\n    cursor: text;\n    overflow: hidden;\n    display: flex;\n    align-items: center;\n    flex-wrap: wrap;\n    padding: calc(").concat(dt("autocomplete.padding.y"), " / 2) ").concat(dt("autocomplete.padding.x"), ";\n    gap: calc(").concat(dt("autocomplete.padding.y"), " / 2);\n    color: ").concat(dt("autocomplete.color"), ";\n    background: ").concat(dt("autocomplete.background"), ";\n    border: 1px solid ").concat(dt("autocomplete.border.color"), ";\n    border-radius: ").concat(dt("autocomplete.border.radius"), ";\n    width: 100%;\n    transition: background ").concat(dt("autocomplete.transition.duration"), ", color ").concat(dt("autocomplete.transition.duration"), ", border-color ").concat(dt("autocomplete.transition.duration"), ", outline-color ").concat(dt("autocomplete.transition.duration"), ", box-shadow ").concat(dt("autocomplete.transition.duration"), ";\n    outline-color: transparent;\n    box-shadow: ").concat(dt("autocomplete.shadow"), ";\n}\n\n.p-autocomplete:not(.p-disabled):hover .p-autocomplete-input-multiple {\n    border-color: ").concat(dt("autocomplete.hover.border.color"), ";\n}\n\n.p-autocomplete:not(.p-disabled).p-focus .p-autocomplete-input-multiple {\n    border-color: ").concat(dt("autocomplete.focus.border.color"), ";\n    box-shadow: ").concat(dt("autocomplete.focus.ring.shadow"), ";\n    outline: ").concat(dt("autocomplete.focus.ring.width"), " ").concat(dt("autocomplete.focus.ring.style"), " ").concat(dt("autocomplete.focus.ring.color"), ";\n    outline-offset: ").concat(dt("autocomplete.focus.ring.offset"), ";\n}\n\n.p-autocomplete.p-invalid .p-autocomplete-input-multiple {\n    border-color: ").concat(dt("autocomplete.invalid.border.color"), ";\n}\n\n.p-variant-filled.p-autocomplete-input-multiple {\n    background: ").concat(dt("autocomplete.filled.background"), ";\n}\n\n.p-autocomplete:not(.p-disabled).p-focus .p-variant-filled.p-autocomplete-input-multiple  {\n    background: ").concat(dt("autocomplete.filled.focus.background"), ";\n}\n\n.p-autocomplete.p-disabled .p-autocomplete-input-multiple {\n    opacity: 1;\n    background: ").concat(dt("autocomplete.disabled.background"), ";\n    color: ").concat(dt("autocomplete.disabled.color"), ";\n}\n\n.p-autocomplete-chip.p-chip {\n    padding-top: calc(").concat(dt("autocomplete.padding.y"), " / 2);\n    padding-bottom: calc(").concat(dt("autocomplete.padding.y"), " / 2);\n    border-radius: ").concat(dt("autocomplete.chip.border.radius"), ";\n}\n\n.p-autocomplete-input-multiple:has(.p-autocomplete-chip) {\n    padding-left: calc(").concat(dt("autocomplete.padding.y"), " / 2);\n    padding-right: calc(").concat(dt("autocomplete.padding.y"), " / 2);\n}\n\n.p-autocomplete-chip-item.p-focus .p-autocomplete-chip {\n    background: ").concat(dt("inputchips.chip.focus.background"), ";\n    color: ").concat(dt("inputchips.chip.focus.color"), ";\n}\n\n.p-autocomplete-input-chip {\n    flex: 1 1 auto;\n    display: inline-flex;\n    padding-top: calc(").concat(dt("autocomplete.padding.y"), " / 2);\n    padding-bottom: calc(").concat(dt("autocomplete.padding.y"), " / 2);\n}\n\n.p-autocomplete-input-chip input {\n    border: 0 none;\n    outline: 0 none;\n    background: transparent;\n    margin: 0;\n    padding: 0;\n    box-shadow: none;\n    border-radius: 0;\n    width: 100%;\n    font-family: inherit;\n    font-feature-settings: inherit;\n    font-size: 1rem;\n    color: inherit;\n}\n\n.p-autocomplete-input-chip input::placeholder {\n    color: ").concat(dt("autocomplete.placeholder.color"), ";\n}\n\n.p-autocomplete-empty-message {\n    padding: ").concat(dt("autocomplete.empty.message.padding"), ";\n}\n\n.p-autocomplete-fluid {\n    display: flex;\n}\n\n.p-autocomplete-fluid:has(.p-autocomplete-dropdown) .p-autocomplete-input {\n    width: 1%;\n}\n");
@@ -2584,15 +2588,15 @@ function _toPrimitive$4(t, r) {
   return ("string" === r ? String : Number)(t);
 }
 __name(_toPrimitive$4, "_toPrimitive$4");
-var _hoisted_1$g = ["aria-activedescendant"];
-var _hoisted_2$d = ["id", "aria-label", "aria-setsize", "aria-posinset"];
-var _hoisted_3$b = ["id", "placeholder", "tabindex", "disabled", "aria-label", "aria-labelledby", "aria-expanded", "aria-controls", "aria-activedescendant", "aria-invalid"];
+var _hoisted_1$j = ["aria-activedescendant"];
+var _hoisted_2$g = ["id", "aria-label", "aria-setsize", "aria-posinset"];
+var _hoisted_3$e = ["id", "placeholder", "tabindex", "disabled", "aria-label", "aria-labelledby", "aria-expanded", "aria-controls", "aria-activedescendant", "aria-invalid"];
 var _hoisted_4$4 = ["disabled", "aria-expanded", "aria-controls"];
 var _hoisted_5$3 = ["id"];
 var _hoisted_6$2 = ["id", "aria-label"];
 var _hoisted_7$1 = ["id"];
 var _hoisted_8$1 = ["id", "aria-label", "aria-selected", "aria-disabled", "aria-setsize", "aria-posinset", "onClick", "onMousemove", "data-p-selected", "data-p-focus", "data-p-disabled"];
-function render$b(_ctx, _cache, $props, $setup, $data, $options) {
+function render$e(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_InputText = resolveComponent("InputText");
   var _component_Chip = resolveComponent("Chip");
   var _component_SpinnerIcon = resolveComponent("SpinnerIcon");
@@ -2697,7 +2701,7 @@ function render$b(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         _: 2
       }, 1032, ["class", "label", "removeIcon", "unstyled", "onRemove", "pt"])];
-    })], 16, _hoisted_2$d);
+    })], 16, _hoisted_2$g);
   }), 128)), createBaseVNode("li", mergeProps({
     "class": _ctx.cx("inputChip"),
     role: "option"
@@ -2735,7 +2739,7 @@ function render$b(_ctx, _cache, $props, $setup, $data, $options) {
     onChange: _cache[4] || (_cache[4] = function() {
       return $options.onChange && $options.onChange.apply($options, arguments);
     })
-  }, _ctx.ptm("input")), null, 16, _hoisted_3$b)], 16)], 16, _hoisted_1$g)) : createCommentVNode("", true), $data.searching || _ctx.loading ? renderSlot(_ctx.$slots, _ctx.$slots.loader ? "loader" : "loadingicon", {
+  }, _ctx.ptm("input")), null, 16, _hoisted_3$e)], 16)], 16, _hoisted_1$j)) : createCommentVNode("", true), $data.searching || _ctx.loading ? renderSlot(_ctx.$slots, _ctx.$slots.loader ? "loader" : "loadingicon", {
     key: 2,
     "class": normalizeClass(_ctx.cx("loader"))
   }, function() {
@@ -2915,9 +2919,9 @@ function render$b(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["appendTo"])], 16);
 }
-__name(render$b, "render$b");
-script$8.render = render$b;
-const _sfc_main$i = {
+__name(render$e, "render$e");
+script$8.render = render$e;
+const _sfc_main$j = {
   name: "AutoCompletePlus",
   extends: script$8,
   emits: ["focused-option-changed"],
@@ -2934,9 +2938,9 @@ const _sfc_main$i = {
   }
 };
 const _withScopeId$5 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-37f672ab"), n = n(), popScopeId(), n), "_withScopeId$5");
-const _hoisted_1$f = { class: "option-container flex justify-between items-center px-2 py-0 cursor-pointer overflow-hidden w-full" };
-const _hoisted_2$c = { class: "option-display-name font-semibold flex flex-col" };
-const _hoisted_3$a = { key: 0 };
+const _hoisted_1$i = { class: "option-container flex justify-between items-center px-2 py-0 cursor-pointer overflow-hidden w-full" };
+const _hoisted_2$f = { class: "option-display-name font-semibold flex flex-col" };
+const _hoisted_3$d = { key: 0 };
 const _hoisted_4$3 = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ createBaseVNode("i", { class: "pi pi-bookmark-fill text-sm mr-1" }, null, -1));
 const _hoisted_5$2 = [
   _hoisted_4$3
@@ -2949,7 +2953,7 @@ const _hoisted_9 = {
   class: "option-category font-light text-sm text-gray-400 overflow-hidden text-ellipsis whitespace-nowrap"
 };
 const _hoisted_10 = { class: "option-badges" };
-const _sfc_main$h = /* @__PURE__ */ defineComponent({
+const _sfc_main$i = /* @__PURE__ */ defineComponent({
   __name: "NodeSearchItem",
   props: {
     nodeDef: {},
@@ -2976,10 +2980,10 @@ const _sfc_main$h = /* @__PURE__ */ defineComponent({
     );
     const props = __props;
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", _hoisted_1$f, [
-        createBaseVNode("div", _hoisted_2$c, [
+      return openBlock(), createElementBlock("div", _hoisted_1$i, [
+        createBaseVNode("div", _hoisted_2$f, [
           createBaseVNode("div", null, [
-            isBookmarked.value ? (openBlock(), createElementBlock("span", _hoisted_3$a, _hoisted_5$2)) : createCommentVNode("", true),
+            isBookmarked.value ? (openBlock(), createElementBlock("span", _hoisted_3$d, _hoisted_5$2)) : createCommentVNode("", true),
             createBaseVNode("span", {
               innerHTML: unref(highlightQuery)(_ctx.nodeDef.display_name, _ctx.currentQuery)
             }, null, 8, _hoisted_6$1),
@@ -3028,16 +3032,16 @@ const _sfc_main$h = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const NodeSearchItem = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["__scopeId", "data-v-37f672ab"]]);
+const NodeSearchItem = /* @__PURE__ */ _export_sfc(_sfc_main$i, [["__scopeId", "data-v-37f672ab"]]);
 const _withScopeId$4 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-2d409367"), n = n(), popScopeId(), n), "_withScopeId$4");
-const _hoisted_1$e = { class: "comfy-vue-node-search-container" };
-const _hoisted_2$b = {
+const _hoisted_1$h = { class: "comfy-vue-node-search-container" };
+const _hoisted_2$e = {
   key: 0,
   class: "comfy-vue-node-preview-container"
 };
-const _hoisted_3$9 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createBaseVNode("h3", null, "Add node filter condition", -1));
+const _hoisted_3$c = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createBaseVNode("h3", null, "Add node filter condition", -1));
 const _hoisted_4$2 = { class: "_dialog-body" };
-const _sfc_main$g = /* @__PURE__ */ defineComponent({
+const _sfc_main$h = /* @__PURE__ */ defineComponent({
   __name: "NodeSearchBox",
   props: {
     filters: {},
@@ -3099,8 +3103,8 @@ const _sfc_main$g = /* @__PURE__ */ defineComponent({
       hoveredSuggestion.value = value;
     }, "setHoverSuggestion");
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", _hoisted_1$e, [
-        enableNodePreview.value ? (openBlock(), createElementBlock("div", _hoisted_2$b, [
+      return openBlock(), createElementBlock("div", _hoisted_1$h, [
+        enableNodePreview.value ? (openBlock(), createElementBlock("div", _hoisted_2$e, [
           hoveredSuggestion.value ? (openBlock(), createBlock(NodePreview, {
             nodeDef: hoveredSuggestion.value,
             key: hoveredSuggestion.value?.name || ""
@@ -3118,7 +3122,7 @@ const _sfc_main$g = /* @__PURE__ */ defineComponent({
           class: "_dialog"
         }, {
           header: withCtx(() => [
-            _hoisted_3$9
+            _hoisted_3$c
           ]),
           default: withCtx(() => [
             createBaseVNode("div", _hoisted_4$2, [
@@ -3127,7 +3131,7 @@ const _sfc_main$g = /* @__PURE__ */ defineComponent({
           ]),
           _: 1
         }, 8, ["visible"]),
-        createVNode(_sfc_main$i, {
+        createVNode(_sfc_main$j, {
           "model-value": props.filters,
           class: "comfy-vue-node-search-box",
           scrollHeight: "40vh",
@@ -3167,22 +3171,18 @@ const _sfc_main$g = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const NodeSearchBox = /* @__PURE__ */ _export_sfc(_sfc_main$g, [["__scopeId", "data-v-2d409367"]]);
+const NodeSearchBox = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["__scopeId", "data-v-2d409367"]]);
 class ConnectingLinkImpl {
   static {
     __name(this, "ConnectingLinkImpl");
   }
-  node;
-  slot;
-  input;
-  output;
-  pos;
-  constructor(node, slot, input, output, pos) {
+  constructor(node, slot, input, output, pos, afterRerouteId) {
     this.node = node;
     this.slot = slot;
     this.input = input;
     this.output = output;
     this.pos = pos;
+    this.afterRerouteId = afterRerouteId;
   }
   static createFromPlainObject(obj) {
     return new ConnectingLinkImpl(
@@ -3190,11 +3190,12 @@ class ConnectingLinkImpl {
       obj.slot,
       obj.input,
       obj.output,
-      obj.pos
+      obj.pos,
+      obj.afterRerouteId
     );
   }
   get type() {
-    const result = this.input ? this.input.type : this.output.type;
+    const result = this.input ? this.input.type : this.output?.type ?? null;
     return result === -1 ? null : result;
   }
   /**
@@ -3217,13 +3218,13 @@ class ConnectingLinkImpl {
       return;
     }
     if (this.releaseSlotType === "input") {
-      this.node.connect(this.slot, newNode, newNodeSlot);
+      this.node.connect(this.slot, newNode, newNodeSlot, this.afterRerouteId);
     } else {
-      newNode.connect(newNodeSlot, this.node, this.slot);
+      newNode.connect(newNodeSlot, this.node, this.slot, this.afterRerouteId);
     }
   }
 }
-const _sfc_main$f = /* @__PURE__ */ defineComponent({
+const _sfc_main$g = /* @__PURE__ */ defineComponent({
   __name: "NodeSearchBoxPopover",
   setup(__props) {
     const settingStore = useSettingStore();
@@ -3315,7 +3316,15 @@ const _sfc_main$f = /* @__PURE__ */ defineComponent({
         allow_searchbox: true,
         showSearchBox: /* @__PURE__ */ __name(() => showSearchBox(e), "showSearchBox")
       };
-      const connectionOptions = firstLink.output ? { nodeFrom: firstLink.node, slotFrom: firstLink.output } : { nodeTo: firstLink.node, slotTo: firstLink.input };
+      const connectionOptions = firstLink.output ? {
+        nodeFrom: firstLink.node,
+        slotFrom: firstLink.output,
+        afterRerouteId: firstLink.afterRerouteId
+      } : {
+        nodeTo: firstLink.node,
+        slotTo: firstLink.input,
+        afterRerouteId: firstLink.afterRerouteId
+      };
       canvasStore.canvas.showConnectionMenu({
         ...connectionOptions,
         ...commonOptions
@@ -3407,7 +3416,7 @@ const _sfc_main$f = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _sfc_main$e = /* @__PURE__ */ defineComponent({
+const _sfc_main$f = /* @__PURE__ */ defineComponent({
   __name: "NodeTooltip",
   setup(__props) {
     let idleTimeout;
@@ -3416,26 +3425,6 @@ const _sfc_main$e = /* @__PURE__ */ defineComponent({
     const tooltipText = ref("");
     const left = ref();
     const top = ref();
-    const getHoveredWidget = /* @__PURE__ */ __name(() => {
-      const node = app.canvas.node_over;
-      if (!node.widgets) return;
-      const graphPos = app.canvas.graph_mouse;
-      const x = graphPos[0] - node.pos[0];
-      const y = graphPos[1] - node.pos[1];
-      for (const w of node.widgets) {
-        let widgetWidth, widgetHeight;
-        if (w.computeSize) {
-          ;
-          [widgetWidth, widgetHeight] = w.computeSize(node.size[0]);
-        } else {
-          widgetWidth = w.width || node.size[0];
-          widgetHeight = LiteGraph.NODE_WIDGET_HEIGHT;
-        }
-        if (w.last_y !== void 0 && x >= 6 && x <= widgetWidth - 12 && y >= w.last_y && y <= w.last_y + widgetHeight) {
-          return w;
-        }
-      }
-    }, "getHoveredWidget");
     const hideTooltip = /* @__PURE__ */ __name(() => tooltipText.value = null, "hideTooltip");
     const showTooltip = /* @__PURE__ */ __name(async (tooltip) => {
       if (!tooltip) return;
@@ -3480,7 +3469,7 @@ const _sfc_main$e = /* @__PURE__ */ defineComponent({
       if (outputSlot !== -1) {
         return showTooltip(nodeDef.output.all?.[outputSlot]?.tooltip);
       }
-      const widget = getHoveredWidget();
+      const widget = app.canvas.getWidgetAtCursor();
       if (widget && !widget.element) {
         return showTooltip(
           widget.tooltip ?? nodeDef.input.getInput(widget.name)?.tooltip
@@ -3506,8 +3495,8 @@ const _sfc_main$e = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const NodeTooltip = /* @__PURE__ */ _export_sfc(_sfc_main$e, [["__scopeId", "data-v-79ec8c53"]]);
-const _sfc_main$d = /* @__PURE__ */ defineComponent({
+const NodeTooltip = /* @__PURE__ */ _export_sfc(_sfc_main$f, [["__scopeId", "data-v-c2e0098f"]]);
+const _sfc_main$e = /* @__PURE__ */ defineComponent({
   __name: "NodeBadge",
   setup(__props) {
     const settingStore = useSettingStore();
@@ -3549,8 +3538,8 @@ const _sfc_main$d = /* @__PURE__ */ defineComponent({
                   length: 31
                 }
               ),
-              fgColor: colorPalette.value.colors.litegraph_base?.BADGE_FG_COLOR || defaultColorPalette.colors.litegraph_base.BADGE_FG_COLOR,
-              bgColor: colorPalette.value.colors.litegraph_base?.BADGE_BG_COLOR || defaultColorPalette.colors.litegraph_base.BADGE_BG_COLOR
+              fgColor: colorPalette.value?.colors?.litegraph_base?.BADGE_FG_COLOR || defaultColorPalette.colors.litegraph_base.BADGE_FG_COLOR,
+              bgColor: colorPalette.value?.colors?.litegraph_base?.BADGE_BG_COLOR || defaultColorPalette.colors.litegraph_base.BADGE_BG_COLOR
             });
           });
           node.badges.push(() => badge.value);
@@ -3562,40 +3551,40 @@ const _sfc_main$d = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _hoisted_1$d = {
+const _hoisted_1$g = {
   viewBox: "0 0 1024 1024",
   width: "1.2em",
   height: "1.2em"
 };
-const _hoisted_2$a = /* @__PURE__ */ createBaseVNode("path", {
+const _hoisted_2$d = /* @__PURE__ */ createBaseVNode("path", {
   fill: "currentColor",
   d: "M921.088 103.232L584.832 889.024L465.52 544.512L121.328 440.48zM1004.46.769c-6.096 0-13.52 1.728-22.096 5.36L27.708 411.2c-34.383 14.592-36.56 42.704-4.847 62.464l395.296 123.584l129.36 403.264c9.28 15.184 20.496 22.72 31.263 22.72c11.936 0 23.296-9.152 31.04-27.248l408.272-953.728C1029.148 16.368 1022.86.769 1004.46.769"
 }, null, -1);
-const _hoisted_3$8 = [
-  _hoisted_2$a
+const _hoisted_3$b = [
+  _hoisted_2$d
 ];
-function render$a(_ctx, _cache) {
-  return openBlock(), createElementBlock("svg", _hoisted_1$d, [..._hoisted_3$8]);
+function render$d(_ctx, _cache) {
+  return openBlock(), createElementBlock("svg", _hoisted_1$g, [..._hoisted_3$b]);
 }
-__name(render$a, "render$a");
-const __unplugin_components_1$1 = markRaw({ name: "simple-line-icons-cursor", render: render$a });
-const _hoisted_1$c = {
+__name(render$d, "render$d");
+const __unplugin_components_1$2 = markRaw({ name: "simple-line-icons-cursor", render: render$d });
+const _hoisted_1$f = {
   viewBox: "0 0 24 24",
   width: "1.2em",
   height: "1.2em"
 };
-const _hoisted_2$9 = /* @__PURE__ */ createBaseVNode("path", {
+const _hoisted_2$c = /* @__PURE__ */ createBaseVNode("path", {
   fill: "currentColor",
   d: "M10.05 23q-.75 0-1.4-.337T7.575 21.7L1.2 12.375l.6-.575q.475-.475 1.125-.55t1.175.3L7 13.575V4q0-.425.288-.712T8 3t.713.288T9 4v13.425l-3.7-2.6l3.925 5.725q.125.2.35.325t.475.125H17q.825 0 1.413-.587T19 19V5q0-.425.288-.712T20 4t.713.288T21 5v14q0 1.65-1.175 2.825T17 23zM11 12V2q0-.425.288-.712T12 1t.713.288T13 2v10zm4 0V3q0-.425.288-.712T16 2t.713.288T17 3v9zm-2.85 4.5"
 }, null, -1);
-const _hoisted_3$7 = [
-  _hoisted_2$9
+const _hoisted_3$a = [
+  _hoisted_2$c
 ];
-function render$9(_ctx, _cache) {
-  return openBlock(), createElementBlock("svg", _hoisted_1$c, [..._hoisted_3$7]);
+function render$c(_ctx, _cache) {
+  return openBlock(), createElementBlock("svg", _hoisted_1$f, [..._hoisted_3$a]);
 }
-__name(render$9, "render$9");
-const __unplugin_components_0$2 = markRaw({ name: "material-symbols-pan-tool-outline", render: render$9 });
+__name(render$c, "render$c");
+const __unplugin_components_0$2 = markRaw({ name: "material-symbols-pan-tool-outline", render: render$c });
 var theme$5 = /* @__PURE__ */ __name(function theme4(_ref) {
   _ref.dt;
   return "\n.p-buttongroup .p-button {\n    margin: 0;\n}\n\n.p-buttongroup .p-button:not(:last-child),\n.p-buttongroup .p-button:not(:last-child):hover {\n    border-right: 0 none;\n}\n\n.p-buttongroup .p-button:not(:first-of-type):not(:last-of-type) {\n    border-radius: 0;\n}\n\n.p-buttongroup .p-button:first-of-type:not(:only-of-type) {\n    border-top-right-radius: 0;\n    border-bottom-right-radius: 0;\n}\n\n.p-buttongroup .p-button:last-of-type:not(:only-of-type) {\n    border-top-left-radius: 0;\n    border-bottom-left-radius: 0;\n}\n\n.p-buttongroup .p-button:focus {\n    position: relative;\n    z-index: 1;\n}\n";
@@ -3624,15 +3613,15 @@ var script$7 = {
   "extends": script$1$5,
   inheritAttrs: false
 };
-function render$8(_ctx, _cache, $props, $setup, $data, $options) {
+function render$b(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("span", mergeProps({
     "class": _ctx.cx("root"),
     role: "group"
   }, _ctx.ptmi("root")), [renderSlot(_ctx.$slots, "default")], 16);
 }
-__name(render$8, "render$8");
-script$7.render = render$8;
-const _sfc_main$c = /* @__PURE__ */ defineComponent({
+__name(render$b, "render$b");
+script$7.render = render$b;
+const _sfc_main$d = /* @__PURE__ */ defineComponent({
   __name: "GraphCanvasMenu",
   setup(__props) {
     const { t } = useI18n();
@@ -3657,7 +3646,7 @@ const _sfc_main$c = /* @__PURE__ */ defineComponent({
     }, "stopRepeat");
     return (_ctx, _cache) => {
       const _component_i_material_symbols58pan_tool_outline = __unplugin_components_0$2;
-      const _component_i_simple_line_icons58cursor = __unplugin_components_1$1;
+      const _component_i_simple_line_icons58cursor = __unplugin_components_1$2;
       const _directive_tooltip = resolveDirective("tooltip");
       return openBlock(), createBlock(unref(script$7), { class: "p-buttongroup-vertical absolute bottom-[10px] right-[10px] z-[1000] pointer-events-auto" }, {
         default: withCtx(() => [
@@ -3690,11 +3679,11 @@ const _sfc_main$c = /* @__PURE__ */ defineComponent({
           withDirectives(createVNode(unref(script$f), {
             severity: "secondary",
             icon: "pi pi-expand",
-            onClick: _cache[2] || (_cache[2] = () => unref(commandStore).execute("Comfy.Canvas.ResetView"))
+            onClick: _cache[2] || (_cache[2] = () => unref(commandStore).execute("Comfy.Canvas.FitView"))
           }, null, 512), [
             [
               _directive_tooltip,
-              unref(t)("graphCanvasMenu.resetView"),
+              unref(t)("graphCanvasMenu.fitView"),
               void 0,
               { left: true }
             ]
@@ -3736,8 +3725,8 @@ const _sfc_main$c = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const GraphCanvasMenu = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["__scopeId", "data-v-444d3768"]]);
-const _sfc_main$b = /* @__PURE__ */ defineComponent({
+const GraphCanvasMenu = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["__scopeId", "data-v-94481f39"]]);
+const _sfc_main$c = /* @__PURE__ */ defineComponent({
   __name: "GraphCanvas",
   emits: ["ready"],
   setup(__props, { emit: __emit }) {
@@ -3768,6 +3757,24 @@ const _sfc_main$b = /* @__PURE__ */ defineComponent({
       }
     });
     watchEffect(() => {
+      LiteGraph.snaps_for_comfy = settingStore.get("Comfy.Node.AutoSnapLinkToSlot");
+    });
+    watchEffect(() => {
+      LiteGraph.snap_highlights_node = settingStore.get(
+        "Comfy.Node.SnapHighlightsNode"
+      );
+    });
+    watchEffect(() => {
+      LGraphNode.keepAllLinksOnBypass = settingStore.get(
+        "Comfy.Node.BypassAllLinksOnDelete"
+      );
+    });
+    watchEffect(() => {
+      LiteGraph.middle_click_slot_add_default_node = settingStore.get(
+        "Comfy.Node.MiddleClickRerouteNode"
+      );
+    });
+    watchEffect(() => {
       nodeDefStore.showDeprecated = settingStore.get("Comfy.Node.ShowDeprecated");
     });
     watchEffect(() => {
@@ -3785,16 +3792,51 @@ const _sfc_main$b = /* @__PURE__ */ defineComponent({
       });
     });
     watchEffect(() => {
+      const linkRenderMode = settingStore.get("Comfy.LinkRenderMode");
+      if (canvasStore.canvas) {
+        canvasStore.canvas.links_render_mode = linkRenderMode;
+        canvasStore.canvas.setDirty(
+          /* fg */
+          false,
+          /* bg */
+          true
+        );
+      }
+    });
+    watchEffect(() => {
+      const linkMarkerShape = settingStore.get("Comfy.Graph.LinkMarkers");
+      const { canvas } = canvasStore;
+      if (canvas) {
+        canvas.linkMarkerShape = linkMarkerShape;
+        canvas.setDirty(false, true);
+      }
+    });
+    watchEffect(() => {
+      const reroutesEnabled = settingStore.get("Comfy.RerouteBeta");
+      const { canvas } = canvasStore;
+      if (canvas) {
+        canvas.reroutesEnabled = reroutesEnabled;
+        canvas.setDirty(false, true);
+      }
+    });
+    watchEffect(() => {
       if (!canvasStore.canvas) return;
-      if (canvasStore.canvas.dragging_canvas) {
+      if (canvasStore.canvas.state.draggingCanvas) {
         canvasStore.canvas.canvas.style.cursor = "grabbing";
         return;
       }
-      if (canvasStore.canvas.read_only) {
+      if (canvasStore.canvas.state.readOnly) {
         canvasStore.canvas.canvas.style.cursor = "grab";
         return;
       }
       canvasStore.canvas.canvas.style.cursor = "default";
+    });
+    const workflowStore = useWorkflowStore();
+    watchEffect(() => {
+      if (workflowStore.activeWorkflow) {
+        const workflow = workflowStore.activeWorkflow;
+        setStorageValue("Comfy.PreviousWorkflow", workflow.key);
+      }
     });
     usePragmaticDroppable(() => canvasRef.value, {
       onDrop: /* @__PURE__ */ __name((event) => {
@@ -3847,6 +3889,7 @@ const _sfc_main$b = /* @__PURE__ */ defineComponent({
         }
       }, "onDrop")
     });
+    const comfyAppReady = ref(false);
     onMounted(async () => {
       window["LiteGraph"] = LiteGraph;
       window["LGraph"] = LGraph;
@@ -3859,22 +3902,24 @@ const _sfc_main$b = /* @__PURE__ */ defineComponent({
       window["LGraphBadge"] = LGraphBadge;
       app.vueAppReady = true;
       workspaceStore.spinner = true;
+      ChangeTracker.init(app);
       await app.setup(canvasRef.value);
       canvasStore.canvas = app.canvas;
       workspaceStore.spinner = false;
       window["app"] = app;
       window["graph"] = app.graph;
+      comfyAppReady.value = true;
       emit("ready");
     });
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock(Fragment, null, [
         (openBlock(), createBlock(Teleport, { to: ".graph-canvas-container" }, [
-          betaMenuEnabled.value ? (openBlock(), createBlock(LiteGraphCanvasSplitterOverlay, { key: 0 }, {
+          comfyAppReady.value && betaMenuEnabled.value && !unref(workspaceStore).focusMode ? (openBlock(), createBlock(LiteGraphCanvasSplitterOverlay, { key: 0 }, {
             "side-bar-panel": withCtx(() => [
               createVNode(SideToolbar)
             ]),
             "bottom-panel": withCtx(() => [
-              createVNode(_sfc_main$k)
+              createVNode(_sfc_main$l)
             ]),
             "graph-canvas-panel": withCtx(() => [
               canvasMenuEnabled.value ? (openBlock(), createBlock(GraphCanvasMenu, { key: 0 })) : createCommentVNode("", true)
@@ -3890,13 +3935,57 @@ const _sfc_main$b = /* @__PURE__ */ defineComponent({
             tabindex: "1"
           }, null, 512)
         ])),
-        createVNode(_sfc_main$f),
+        createVNode(_sfc_main$g),
         tooltipEnabled.value ? (openBlock(), createBlock(NodeTooltip, { key: 0 })) : createCommentVNode("", true),
-        createVNode(_sfc_main$d)
+        createVNode(_sfc_main$e)
       ], 64);
     };
   }
 });
+const _sfc_main$b = /* @__PURE__ */ defineComponent({
+  __name: "MenuHamburger",
+  setup(__props) {
+    const workspaceState = useWorkspaceStore();
+    const settingStore = useSettingStore();
+    const exitFocusMode = /* @__PURE__ */ __name(() => {
+      workspaceState.focusMode = false;
+    }, "exitFocusMode");
+    watchEffect(() => {
+      if (settingStore.get("Comfy.UseNewMenu") !== "Disabled") {
+        return;
+      }
+      if (workspaceState.focusMode) {
+        app.ui.menuContainer.style.display = "none";
+      } else {
+        app.ui.menuContainer.style.display = "block";
+      }
+    });
+    const menuSetting = computed(() => settingStore.get("Comfy.UseNewMenu"));
+    const positionCSS = computed(
+      () => (
+        // 'Bottom' menuSetting shows the hamburger button in the bottom right corner
+        // 'Disabled', 'Top' menuSetting shows the hamburger button in the top right corner
+        menuSetting.value === "Bottom" ? { bottom: "0px", right: "0px" } : { top: "0px", right: "0px" }
+      )
+    );
+    return (_ctx, _cache) => {
+      const _directive_tooltip = resolveDirective("tooltip");
+      return withDirectives((openBlock(), createBlock(unref(script$f), {
+        class: "comfy-menu-hamburger",
+        style: normalizeStyle(positionCSS.value),
+        icon: "pi pi-bars",
+        severity: "secondary",
+        text: "",
+        size: "large",
+        onClick: exitFocusMode
+      }, null, 8, ["style"])), [
+        [vShow, unref(workspaceState).focusMode],
+        [_directive_tooltip, { value: _ctx.$t("menu.showMenu"), showDelay: 300 }]
+      ]);
+    };
+  }
+});
+const MenuHamburger = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["__scopeId", "data-v-2ddd26e8"]]);
 function _typeof$3(o) {
   "@babel/helpers - typeof";
   return _typeof$3 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
@@ -4180,7 +4269,7 @@ function _toPrimitive$1(t, r) {
   return ("string" === r ? String : Number)(t);
 }
 __name(_toPrimitive$1, "_toPrimitive$1");
-var _hoisted_1$b = ["aria-label"];
+var _hoisted_1$e = ["aria-label"];
 function render$1$3(_ctx, _cache, $props, $setup, $data, $options) {
   var _directive_ripple = resolveDirective("ripple");
   return openBlock(), createElementBlock("div", mergeProps({
@@ -4220,7 +4309,7 @@ function render$1$3(_ctx, _cache, $props, $setup, $data, $options) {
     autofocus: ""
   }, _objectSpread$1(_objectSpread$1({}, $props.closeButtonProps), _ctx.ptm("closeButton"))), [(openBlock(), createBlock(resolveDynamicComponent($props.templates.closeicon || "TimesIcon"), mergeProps({
     "class": [_ctx.cx("closeIcon"), $props.closeIcon]
-  }, _ctx.ptm("closeIcon")), null, 16, ["class"]))], 16, _hoisted_1$b)), [[_directive_ripple]])], 16)) : createCommentVNode("", true)], 16))], 16);
+  }, _ctx.ptm("closeIcon")), null, 16, ["class"]))], 16, _hoisted_1$e)), [[_directive_ripple]])], 16)) : createCommentVNode("", true)], 16))], 16);
 }
 __name(render$1$3, "render$1$3");
 script$1$4.render = render$1$3;
@@ -4423,7 +4512,7 @@ function _toPrimitive$2(t, r) {
   return ("string" === r ? String : Number)(t);
 }
 __name(_toPrimitive$2, "_toPrimitive$2");
-function render$7(_ctx, _cache, $props, $setup, $data, $options) {
+function render$a(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ToastMessage = resolveComponent("ToastMessage");
   var _component_Portal = resolveComponent("Portal");
   return openBlock(), createBlock(_component_Portal, null, {
@@ -4466,8 +4555,8 @@ function render$7(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-__name(render$7, "render$7");
-script$6.render = render$7;
+__name(render$a, "render$a");
+script$6.render = render$a;
 const _sfc_main$a = /* @__PURE__ */ defineComponent({
   __name: "GlobalToast",
   setup(__props) {
@@ -4579,10 +4668,10 @@ const _sfc_main$8 = /* @__PURE__ */ defineComponent({
     );
     const workflowStore = useWorkflowStore();
     const isUnsavedText = computed(
-      () => workflowStore.activeWorkflow?.unsaved ? " *" : ""
+      () => workflowStore.activeWorkflow?.isModified ? " *" : ""
     );
     const workflowNameText = computed(() => {
-      const workflowName = workflowStore.activeWorkflow?.name;
+      const workflowName = workflowStore.activeWorkflow?.filename;
       return workflowName ? isUnsavedText.value + workflowName + TITLE_SUFFIX : DEFAULT_TITLE;
     });
     const nodeExecutionTitle = computed(
@@ -4598,10 +4687,10 @@ const _sfc_main$8 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _withScopeId$3 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-84e785b8"), n = n(), popScopeId(), n), "_withScopeId$3");
-const _hoisted_1$a = { class: "workflow-label text-sm max-w-[150px] truncate inline-block" };
-const _hoisted_2$8 = { class: "relative" };
-const _hoisted_3$6 = {
+const _withScopeId$3 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-9eb975c3"), n = n(), popScopeId(), n), "_withScopeId$3");
+const _hoisted_1$d = { class: "workflow-label text-sm max-w-[150px] truncate inline-block" };
+const _hoisted_2$b = { class: "relative" };
+const _hoisted_3$9 = {
   key: 0,
   class: "status-indicator"
 };
@@ -4612,14 +4701,12 @@ const _sfc_main$7 = /* @__PURE__ */ defineComponent({
   },
   setup(__props) {
     const props = __props;
+    const workspaceStore = useWorkspaceStore();
     const workflowStore = useWorkflowStore();
     const workflowToOption = /* @__PURE__ */ __name((workflow) => ({
-      label: workflow.name,
-      tooltip: workflow.path,
-      value: workflow.key,
-      unsaved: workflow.unsaved
+      value: workflow.path,
+      workflow
     }), "workflowToOption");
-    const optionToWorkflow = /* @__PURE__ */ __name((option2) => workflowStore.workflowLookup[option2.value], "optionToWorkflow");
     const options = computed(
       () => workflowStore.openWorkflows.map(workflowToOption)
     );
@@ -4633,12 +4720,12 @@ const _sfc_main$7 = /* @__PURE__ */ defineComponent({
       if (selectedWorkflow.value?.value === option2.value) {
         return;
       }
-      const workflow = optionToWorkflow(option2);
-      workflow.load();
+      workflowService.openWorkflow(option2.workflow);
     }, "onWorkflowChange");
     const onCloseWorkflow = /* @__PURE__ */ __name((option2) => {
-      const workflow = optionToWorkflow(option2);
-      app.workflowManager.closeWorkflow(workflow);
+      workflowService.closeWorkflow(option2.workflow, {
+        warnIfUnsaved: !workspaceStore.shiftDown
+      });
     }, "onCloseWorkflow");
     return (_ctx, _cache) => {
       const _directive_tooltip = resolveDirective("tooltip");
@@ -4651,13 +4738,18 @@ const _sfc_main$7 = /* @__PURE__ */ defineComponent({
         dataKey: "value"
       }, {
         option: withCtx(({ option: option2 }) => [
-          withDirectives((openBlock(), createElementBlock("span", _hoisted_1$a, [
-            createTextVNode(toDisplayString(option2.label), 1)
+          withDirectives((openBlock(), createElementBlock("span", _hoisted_1$d, [
+            createTextVNode(toDisplayString(option2.workflow.filename), 1)
           ])), [
-            [_directive_tooltip, option2.tooltip]
+            [
+              _directive_tooltip,
+              option2.workflow.key,
+              void 0,
+              { bottom: true }
+            ]
           ]),
-          createBaseVNode("div", _hoisted_2$8, [
-            option2.unsaved ? (openBlock(), createElementBlock("span", _hoisted_3$6, "•")) : createCommentVNode("", true),
+          createBaseVNode("div", _hoisted_2$b, [
+            !unref(workspaceStore).shiftDown && option2.workflow.isModified ? (openBlock(), createElementBlock("span", _hoisted_3$9, "•")) : createCommentVNode("", true),
             createVNode(unref(script$f), {
               class: "close-button p-0 w-auto",
               icon: "pi pi-times",
@@ -4673,7 +4765,7 @@ const _sfc_main$7 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const WorkflowTabs = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__scopeId", "data-v-84e785b8"]]);
+const WorkflowTabs = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__scopeId", "data-v-9eb975c3"]]);
 var theme$3 = /* @__PURE__ */ __name(function theme6(_ref) {
   var dt = _ref.dt;
   return "\n.p-menubar {\n    display: flex;\n    align-items: center;\n    background: ".concat(dt("menubar.background"), ";\n    border: 1px solid ").concat(dt("menubar.border.color"), ";\n    border-radius: ").concat(dt("menubar.border.radius"), ";\n    color: ").concat(dt("menubar.color"), ";\n    padding: ").concat(dt("menubar.padding"), ";\n    gap: ").concat(dt("menubar.gap"), ";\n}\n\n.p-menubar-start,\n.p-megamenu-end {\n    display: flex;\n    align-items: center;\n}\n\n.p-menubar-root-list,\n.p-menubar-submenu {\n    display: flex;\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    outline: 0 none;\n}\n\n.p-menubar-root-list {\n    align-items: center;\n    flex-wrap: wrap;\n    gap: ").concat(dt("menubar.gap"), ";\n}\n\n.p-menubar-root-list > .p-menubar-item > .p-menubar-item-content {\n    border-radius: ").concat(dt("menubar.base.item.border.radius"), ";\n}\n\n.p-menubar-root-list > .p-menubar-item > .p-menubar-item-content > .p-menubar-item-link {\n    padding: ").concat(dt("menubar.base.item.padding"), ";\n}\n\n.p-menubar-item-content {\n    transition: background ").concat(dt("menubar.transition.duration"), ", color ").concat(dt("menubar.transition.duration"), ";\n    border-radius: ").concat(dt("menubar.item.border.radius"), ";\n    color: ").concat(dt("menubar.item.color"), ";\n}\n\n.p-menubar-item-link {\n    cursor: pointer;\n    display: flex;\n    align-items: center;\n    text-decoration: none;\n    overflow: hidden;\n    position: relative;\n    color: inherit;\n    padding: ").concat(dt("menubar.item.padding"), ";\n    gap: ").concat(dt("menubar.item.gap"), ";\n    user-select: none;\n    outline: 0 none;\n}\n\n.p-menubar-item-label {\n    line-height: 1;\n}\n\n.p-menubar-item-icon {\n    color: ").concat(dt("menubar.item.icon.color"), ";\n}\n\n.p-menubar-submenu-icon {\n    color: ").concat(dt("menubar.submenu.icon.color"), ";\n    margin-left: auto;\n    font-size: ").concat(dt("menubar.submenu.icon.size"), ";\n    width: ").concat(dt("menubar.submenu.icon.size"), ";\n    height: ").concat(dt("menubar.submenu.icon.size"), ";\n}\n\n.p-menubar-item.p-focus > .p-menubar-item-content {\n    color: ").concat(dt("menubar.item.focus.color"), ";\n    background: ").concat(dt("menubar.item.focus.background"), ";\n}\n\n.p-menubar-item.p-focus > .p-menubar-item-content .p-menubar-item-icon {\n    color: ").concat(dt("menubar.item.icon.focus.color"), ";\n}\n\n.p-menubar-item.p-focus > .p-menubar-item-content .p-menubar-submenu-icon {\n    color: ").concat(dt("menubar.submenu.icon.focus.color"), ";\n}\n\n.p-menubar-item:not(.p-disabled) > .p-menubar-item-content:hover {\n    color: ").concat(dt("menubar.item.focus.color"), ";\n    background: ").concat(dt("menubar.item.focus.background"), ";\n}\n\n.p-menubar-item:not(.p-disabled) > .p-menubar-item-content:hover .p-menubar-item-icon {\n    color: ").concat(dt("menubar.item.icon.focus.color"), ";\n}\n\n.p-menubar-item:not(.p-disabled) > .p-menubar-item-content:hover .p-menubar-submenu-icon {\n    color: ").concat(dt("menubar.submenu.icon.focus.color"), ";\n}\n\n.p-menubar-item-active > .p-menubar-item-content {\n    color: ").concat(dt("menubar.item.active.color"), ";\n    background: ").concat(dt("menubar.item.active.background"), ";\n}\n\n.p-menubar-item-active > .p-menubar-item-content .p-menubar-item-icon {\n    color: ").concat(dt("menubar.item.icon.active.color"), ";\n}\n\n.p-menubar-item-active > .p-menubar-item-content .p-menubar-submenu-icon {\n    color: ").concat(dt("menubar.submenu.icon.active.color"), ";\n}\n\n.p-menubar-submenu {\n    display: none;\n    position: absolute;\n    min-width: 12.5rem;\n    z-index: 1;\n    background: ").concat(dt("menubar.submenu.background"), ";\n    border: 1px solid ").concat(dt("menubar.submenu.border.color"), ";\n    border-radius: ").concat(dt("menubar.border.radius"), ";\n    box-shadow: ").concat(dt("menubar.submenu.shadow"), ";\n    color: ").concat(dt("menubar.submenu.color"), ";\n    flex-direction: column;\n    padding: ").concat(dt("menubar.submenu.padding"), ";\n    gap: ").concat(dt("menubar.submenu.gap"), ";\n}\n\n.p-menubar-submenu .p-menubar-separator {\n    border-top: 1px solid ").concat(dt("menubar.separator.border.color"), ";\n}\n\n.p-menubar-submenu .p-menubar-item {\n    position: relative;\n}\n\n .p-menubar-submenu > .p-menubar-item-active > .p-menubar-submenu {\n    display: block;\n    left: 100%;\n    top: 0;\n}\n\n.p-menubar-end {\n    margin-left: auto;\n    align-self: center;\n}\n\n.p-menubar-button {\n    display: none;\n    justify-content: center;\n    align-items: center;\n    cursor: pointer;\n    width: ").concat(dt("menubar.mobile.button.size"), ";\n    height: ").concat(dt("menubar.mobile.button.size"), ";\n    position: relative;\n    color: ").concat(dt("menubar.mobile.button.color"), ";\n    border: 0 none;\n    background: transparent;\n    border-radius: ").concat(dt("menubar.mobile.button.border.radius"), ";\n    transition: background ").concat(dt("menubar.transition.duration"), ", color ").concat(dt("menubar.transition.duration"), ", outline-color ").concat(dt("menubar.transition.duration"), ";\n    outline-color: transparent;\n}\n\n.p-menubar-button:hover {\n    color: ").concat(dt("menubar.mobile.button.hover.color"), ";\n    background: ").concat(dt("menubar.mobile.button.hover.background"), ";\n}\n\n.p-menubar-button:focus-visible {\n    box-shadow: ").concat(dt("menubar.mobile.button.focus.ring.shadow"), ";\n    outline: ").concat(dt("menubar.mobile.button.focus.ring.width"), " ").concat(dt("menubar.mobile.button.focus.ring.style"), " ").concat(dt("menubar.mobile.button.focus.ring.color"), ";\n    outline-offset: ").concat(dt("menubar.mobile.button.focus.ring.offset"), ";\n}\n\n.p-menubar-mobile {\n    position: relative;\n}\n\n.p-menubar-mobile .p-menubar-button {\n    display: flex;\n}\n\n.p-menubar-mobile .p-menubar-root-list {\n    position: absolute;\n    display: none;\n    width: 100%;\n    padding: ").concat(dt("menubar.submenu.padding"), ";\n    background: ").concat(dt("menubar.submenu.background"), ";\n    border: 1px solid ").concat(dt("menubar.submenu.border.color"), ";\n    box-shadow: ").concat(dt("menubar.submenu.shadow"), ";\n}\n\n.p-menubar-mobile .p-menubar-root-list > .p-menubar-item > .p-menubar-item-content {\n    border-radius: ").concat(dt("menubar.item.border.radius"), ";\n}\n\n.p-menubar-mobile .p-menubar-root-list > .p-menubar-item > .p-menubar-item-content > .p-menubar-item-link {\n    padding: ").concat(dt("menubar.item.padding"), ";\n}\n\n.p-menubar-mobile-active .p-menubar-root-list {\n    display: flex;\n    flex-direction: column;\n    top: 100%;\n    left: 0;\n    z-index: 1;\n}\n\n.p-menubar-mobile .p-menubar-root-list .p-menubar-item {\n    width: 100%;\n    position: static;\n}\n\n.p-menubar-mobile .p-menubar-root-list .p-menubar-separator {\n    border-top: 1px solid ").concat(dt("menubar.separator.border.color"), ";\n}\n\n.p-menubar-mobile .p-menubar-root-list > .p-menubar-item > .p-menubar-item-content .p-menubar-submenu-icon {\n    margin-left: auto;\n    transition: transform 0.2s;\n}\n\n.p-menubar-mobile .p-menubar-root-list > .p-menubar-item-active > .p-menubar-item-content .p-menubar-submenu-icon {\n    transform: rotate(-180deg);\n}\n\n.p-menubar-mobile .p-menubar-submenu .p-menubar-submenu-icon {\n    transition: transform 0.2s;\n    transform: rotate(90deg);\n}\n\n.p-menubar-mobile  .p-menubar-item-active > .p-menubar-item-content .p-menubar-submenu-icon {\n    transform: rotate(-90deg);\n}\n\n.p-menubar-mobile .p-menubar-submenu {\n    width: 100%;\n    position: static;\n    box-shadow: none;\n    border: 0 none;\n    padding-left: ").concat(dt("menubar.submenu.mobile.indent"), ";\n}\n");
@@ -4910,8 +5002,8 @@ var script$1$3 = {
   }
 };
 var _hoisted_1$1$2 = ["id", "aria-label", "aria-disabled", "aria-expanded", "aria-haspopup", "aria-level", "aria-setsize", "aria-posinset", "data-p-active", "data-p-focused", "data-p-disabled"];
-var _hoisted_2$7 = ["onClick", "onMouseenter", "onMousemove"];
-var _hoisted_3$5 = ["href", "target"];
+var _hoisted_2$a = ["onClick", "onMouseenter", "onMousemove"];
+var _hoisted_3$8 = ["href", "target"];
 var _hoisted_4$1 = ["id"];
 var _hoisted_5$1 = ["id"];
 function render$1$2(_ctx, _cache, $props, $setup, $data, $options) {
@@ -4984,14 +5076,14 @@ function render$1$2(_ctx, _cache, $props, $setup, $data, $options) {
       key: 1,
       "class": _ctx.cx("submenuIcon"),
       ref_for: true
-    }, $options.getPTOptions(processedItem, index, "submenuIcon")), null, 16, ["class"]))], 64)) : createCommentVNode("", true)], 16, _hoisted_3$5)), [[_directive_ripple]]) : (openBlock(), createBlock(resolveDynamicComponent($props.templates.item), {
+    }, $options.getPTOptions(processedItem, index, "submenuIcon")), null, 16, ["class"]))], 64)) : createCommentVNode("", true)], 16, _hoisted_3$8)), [[_directive_ripple]]) : (openBlock(), createBlock(resolveDynamicComponent($props.templates.item), {
       key: 1,
       item: processedItem.item,
       root: $props.root,
       hasSubmenu: $options.getItemProp(processedItem, "items"),
       label: $options.getItemLabel(processedItem),
       props: $options.getMenuItemProps(processedItem, index)
-    }, null, 8, ["item", "root", "hasSubmenu", "label", "props"]))], 16, _hoisted_2$7), $options.isItemVisible(processedItem) && $options.isItemGroup(processedItem) ? (openBlock(), createBlock(_component_MenubarSub, {
+    }, null, 8, ["item", "root", "hasSubmenu", "label", "props"]))], 16, _hoisted_2$a), $options.isItemVisible(processedItem) && $options.isItemGroup(processedItem) ? (openBlock(), createBlock(_component_MenubarSub, {
       key: 0,
       id: $options.getItemId(processedItem) + "_list",
       menuId: $props.menuId,
@@ -5689,8 +5781,8 @@ function _toPrimitive(t, r) {
   return ("string" === r ? String : Number)(t);
 }
 __name(_toPrimitive, "_toPrimitive");
-var _hoisted_1$9 = ["aria-haspopup", "aria-expanded", "aria-controls", "aria-label"];
-function render$6(_ctx, _cache, $props, $setup, $data, $options) {
+var _hoisted_1$c = ["aria-haspopup", "aria-expanded", "aria-controls", "aria-label"];
+function render$9(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_BarsIcon = resolveComponent("BarsIcon");
   var _component_MenubarSub = resolveComponent("MenubarSub");
   return openBlock(), createElementBlock("div", mergeProps({
@@ -5725,7 +5817,7 @@ function render$6(_ctx, _cache, $props, $setup, $data, $options) {
       })
     }, _objectSpread(_objectSpread({}, _ctx.buttonProps), _ctx.ptm("button"))), [renderSlot(_ctx.$slots, _ctx.$slots.buttonicon ? "buttonicon" : "menubuttonicon", {}, function() {
       return [createVNode(_component_BarsIcon, normalizeProps(guardReactiveProps(_ctx.ptm("buttonicon"))), null, 16)];
-    })], 16, _hoisted_1$9)) : createCommentVNode("", true)];
+    })], 16, _hoisted_1$c)) : createCommentVNode("", true)];
   }), createVNode(_component_MenubarSub, {
     ref: $options.menubarRef,
     id: $data.id + "_list",
@@ -5755,12 +5847,12 @@ function render$6(_ctx, _cache, $props, $setup, $data, $options) {
     "class": _ctx.cx("end")
   }, _ctx.ptm("end")), [renderSlot(_ctx.$slots, "end")], 16)) : createCommentVNode("", true)], 16);
 }
-__name(render$6, "render$6");
-script$5.render = render$6;
+__name(render$9, "render$9");
+script$5.render = render$9;
 const _withScopeId$2 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-9646ca0a"), n = n(), popScopeId(), n), "_withScopeId$2");
-const _hoisted_1$8 = ["href"];
-const _hoisted_2$6 = { class: "p-menubar-item-label" };
-const _hoisted_3$4 = {
+const _hoisted_1$b = ["href"];
+const _hoisted_2$9 = { class: "p-menubar-item-label" };
+const _hoisted_3$7 = {
   key: 1,
   class: "ml-auto border border-surface rounded text-muted text-xs p-1 keybinding-tag"
 };
@@ -5792,9 +5884,9 @@ const _sfc_main$6 = /* @__PURE__ */ defineComponent({
               key: 0,
               class: normalizeClass(["p-menubar-item-icon", item3.icon])
             }, null, 2)) : createCommentVNode("", true),
-            createBaseVNode("span", _hoisted_2$6, toDisplayString(item3.label), 1),
-            item3?.comfyCommand?.keybinding ? (openBlock(), createElementBlock("span", _hoisted_3$4, toDisplayString(item3.comfyCommand.keybinding.combo.toString()), 1)) : createCommentVNode("", true)
-          ], 16, _hoisted_1$8)
+            createBaseVNode("span", _hoisted_2$9, toDisplayString(item3.label), 1),
+            item3?.comfyCommand?.keybinding ? (openBlock(), createElementBlock("span", _hoisted_3$7, toDisplayString(item3.comfyCommand.keybinding.combo.toString()), 1)) : createCommentVNode("", true)
+          ], 16, _hoisted_1$b)
         ]),
         _: 1
       }, 8, ["model", "pt"]);
@@ -5904,9 +5996,9 @@ var script$4 = {
     ripple: Ripple
   }
 };
-var _hoisted_1$7 = ["id"];
-var _hoisted_2$5 = ["id", "aria-labelledby"];
-function render$5(_ctx, _cache, $props, $setup, $data, $options) {
+var _hoisted_1$a = ["id"];
+var _hoisted_2$8 = ["id", "aria-labelledby"];
+function render$8(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Button = resolveComponent("Button");
   return openBlock(), createElementBlock("div", mergeProps({
     "class": _ctx.cx("root")
@@ -5920,7 +6012,7 @@ function render$5(_ctx, _cache, $props, $setup, $data, $options) {
       key: 0,
       id: $data.id + "_header",
       "class": _ctx.cx("title")
-    }, _ctx.ptm("title")), toDisplayString(_ctx.header), 17, _hoisted_1$7)) : createCommentVNode("", true)];
+    }, _ctx.ptm("title")), toDisplayString(_ctx.header), 17, _hoisted_1$a)) : createCommentVNode("", true)];
   }), createBaseVNode("div", mergeProps({
     "class": _ctx.cx("headerActions")
   }, _ctx.ptm("headerActions")), [renderSlot(_ctx.$slots, "icons"), _ctx.toggleable ? (openBlock(), createBlock(_component_Button, mergeProps({
@@ -5960,13 +6052,76 @@ function render$5(_ctx, _cache, $props, $setup, $data, $options) {
       }, _ctx.ptm("content")), [renderSlot(_ctx.$slots, "default")], 16), _ctx.$slots.footer ? (openBlock(), createElementBlock("div", mergeProps({
         key: 0,
         "class": _ctx.cx("footer")
-      }, _ctx.ptm("footer")), [renderSlot(_ctx.$slots, "footer")], 16)) : createCommentVNode("", true)], 16, _hoisted_2$5), [[vShow, !$data.d_collapsed]])];
+      }, _ctx.ptm("footer")), [renderSlot(_ctx.$slots, "footer")], 16)) : createCommentVNode("", true)], 16, _hoisted_2$8), [[vShow, !$data.d_collapsed]])];
     }),
     _: 3
   }, 16)], 16);
 }
+__name(render$8, "render$8");
+script$4.render = render$8;
+const _hoisted_1$9 = {
+  viewBox: "0 0 24 24",
+  width: "1.2em",
+  height: "1.2em"
+};
+const _hoisted_2$7 = /* @__PURE__ */ createBaseVNode("path", {
+  fill: "none",
+  stroke: "currentColor",
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  "stroke-width": "2",
+  d: "M6 4v16m4-16l10 8l-10 8z"
+}, null, -1);
+const _hoisted_3$6 = [
+  _hoisted_2$7
+];
+function render$7(_ctx, _cache) {
+  return openBlock(), createElementBlock("svg", _hoisted_1$9, [..._hoisted_3$6]);
+}
+__name(render$7, "render$7");
+const __unplugin_components_3 = markRaw({ name: "lucide-step-forward", render: render$7 });
+const _hoisted_1$8 = {
+  viewBox: "0 0 24 24",
+  width: "1.2em",
+  height: "1.2em"
+};
+const _hoisted_2$6 = /* @__PURE__ */ createBaseVNode("path", {
+  fill: "none",
+  stroke: "currentColor",
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  "stroke-width": "2",
+  d: "m13 19l9-7l-9-7zM2 19l9-7l-9-7z"
+}, null, -1);
+const _hoisted_3$5 = [
+  _hoisted_2$6
+];
+function render$6(_ctx, _cache) {
+  return openBlock(), createElementBlock("svg", _hoisted_1$8, [..._hoisted_3$5]);
+}
+__name(render$6, "render$6");
+const __unplugin_components_2 = markRaw({ name: "lucide-fast-forward", render: render$6 });
+const _hoisted_1$7 = {
+  viewBox: "0 0 24 24",
+  width: "1.2em",
+  height: "1.2em"
+};
+const _hoisted_2$5 = /* @__PURE__ */ createBaseVNode("path", {
+  fill: "none",
+  stroke: "currentColor",
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  "stroke-width": "2",
+  d: "m6 3l14 9l-14 9z"
+}, null, -1);
+const _hoisted_3$4 = [
+  _hoisted_2$5
+];
+function render$5(_ctx, _cache) {
+  return openBlock(), createElementBlock("svg", _hoisted_1$7, [..._hoisted_3$4]);
+}
 __name(render$5, "render$5");
-script$4.render = render$5;
+const __unplugin_components_1$1 = markRaw({ name: "lucide-play", render: render$5 });
 const _hoisted_1$6 = {
   viewBox: "0 0 24 24",
   width: "1.2em",
@@ -7395,7 +7550,7 @@ const _sfc_main$5 = /* @__PURE__ */ defineComponent({
   }
 });
 const BatchCountEdit = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["__scopeId", "data-v-713442be"]]);
-const _withScopeId$1 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-2b80bf74"), n = n(), popScopeId(), n), "_withScopeId$1");
+const _withScopeId$1 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-95bc9be0"), n = n(), popScopeId(), n), "_withScopeId$1");
 const _hoisted_1$3 = { class: "queue-button-group flex" };
 const _sfc_main$4 = /* @__PURE__ */ defineComponent({
   __name: "ComfyQueueButton",
@@ -7408,7 +7563,6 @@ const _sfc_main$4 = /* @__PURE__ */ defineComponent({
       disabled: {
         key: "disabled",
         label: "Queue",
-        icon: "pi pi-play",
         tooltip: t("menu.disabledTooltip"),
         command: /* @__PURE__ */ __name(() => {
           queueMode.value = "disabled";
@@ -7417,7 +7571,6 @@ const _sfc_main$4 = /* @__PURE__ */ defineComponent({
       instant: {
         key: "instant",
         label: "Queue (Instant)",
-        icon: "pi pi-forward",
         tooltip: t("menu.instantTooltip"),
         command: /* @__PURE__ */ __name(() => {
           queueMode.value = "instant";
@@ -7426,7 +7579,6 @@ const _sfc_main$4 = /* @__PURE__ */ defineComponent({
       change: {
         key: "change",
         label: "Queue (Change)",
-        icon: "pi pi-step-forward-alt",
         tooltip: t("menu.changeTooltip"),
         command: /* @__PURE__ */ __name(() => {
           queueMode.value = "change";
@@ -7448,27 +7600,29 @@ const _sfc_main$4 = /* @__PURE__ */ defineComponent({
     }, "queuePrompt");
     return (_ctx, _cache) => {
       const _component_i_lucide58list_start = __unplugin_components_0$1;
+      const _component_i_lucide58play = __unplugin_components_1$1;
+      const _component_i_lucide58fast_forward = __unplugin_components_2;
+      const _component_i_lucide58step_forward = __unplugin_components_3;
       const _directive_tooltip = resolveDirective("tooltip");
       return openBlock(), createElementBlock("div", _hoisted_1$3, [
         withDirectives((openBlock(), createBlock(unref(script), {
           class: "comfyui-queue-button",
           label: activeQueueModeMenuItem.value.label,
           severity: "primary",
+          size: "small",
           onClick: queuePrompt,
           model: queueModeMenuItems.value,
           "data-testid": "queue-button"
         }, {
           icon: withCtx(() => [
-            unref(workspaceStore).shiftDown ? (openBlock(), createBlock(_component_i_lucide58list_start, { key: 0 })) : (openBlock(), createElementBlock("i", {
-              key: 1,
-              class: normalizeClass(activeQueueModeMenuItem.value.icon)
-            }, null, 2))
+            unref(workspaceStore).shiftDown ? (openBlock(), createBlock(_component_i_lucide58list_start, { key: 0 })) : unref(queueMode) === "disabled" ? (openBlock(), createBlock(_component_i_lucide58play, { key: 1 })) : unref(queueMode) === "instant" ? (openBlock(), createBlock(_component_i_lucide58fast_forward, { key: 2 })) : unref(queueMode) === "change" ? (openBlock(), createBlock(_component_i_lucide58step_forward, { key: 3 })) : createCommentVNode("", true)
           ]),
           item: withCtx(({ item: item3 }) => [
             withDirectives(createVNode(unref(script$f), {
               label: item3.label,
               icon: item3.icon,
               severity: item3.key === unref(queueMode) ? "primary" : "secondary",
+              size: "small",
               text: ""
             }, null, 8, ["label", "icon", "severity"]), [
               [_directive_tooltip, item3.tooltip]
@@ -7521,13 +7675,12 @@ const _sfc_main$4 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const ComfyQueueButton = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-2b80bf74"]]);
+const ComfyQueueButton = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-95bc9be0"]]);
 const overlapThreshold = 20;
 const _sfc_main$3 = /* @__PURE__ */ defineComponent({
   __name: "ComfyActionbar",
   setup(__props) {
     const settingsStore = useSettingStore();
-    const commandStore = useCommandStore();
     const visible = computed(
       () => settingsStore.get("Comfy.UseNewMenu") !== "Disabled"
     );
@@ -7659,7 +7812,6 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
       });
     });
     return (_ctx, _cache) => {
-      const _directive_tooltip = resolveDirective("tooltip");
       return openBlock(), createBlock(unref(script$4), {
         class: normalizeClass(["actionbar w-fit", { "is-dragging": unref(isDragging), "is-docked": unref(isDocked) }]),
         style: normalizeStyle(unref(style))
@@ -7675,29 +7827,7 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
               ref_key: "dragHandleRef",
               ref: dragHandleRef
             }, null, 512),
-            createVNode(ComfyQueueButton),
-            createVNode(unref(script$E), {
-              layout: "vertical",
-              class: "mx-1"
-            }),
-            createVNode(unref(script$7), { class: "flex flex-nowrap" }, {
-              default: withCtx(() => [
-                withDirectives(createVNode(unref(script$f), {
-                  icon: "pi pi-refresh",
-                  severity: "secondary",
-                  text: "",
-                  onClick: _cache[0] || (_cache[0] = () => unref(commandStore).execute("Comfy.RefreshNodeDefinitions"))
-                }, null, 512), [
-                  [
-                    _directive_tooltip,
-                    _ctx.$t("menu.refresh"),
-                    void 0,
-                    { bottom: true }
-                  ]
-                ])
-              ]),
-              _: 1
-            })
+            createVNode(ComfyQueueButton)
           ], 512)
         ]),
         _: 1
@@ -7705,7 +7835,7 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const Actionbar = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-2e54db00"]]);
+const Actionbar = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-eb6e9acf"]]);
 const _hoisted_1$2 = {
   viewBox: "0 0 24 24",
   width: "1.2em",
@@ -7764,12 +7894,13 @@ const _sfc_main$2 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _withScopeId = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-ad2c662b"), n = n(), popScopeId(), n), "_withScopeId");
+const _withScopeId = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-d84a704d"), n = n(), popScopeId(), n), "_withScopeId");
 const _hoisted_1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("h1", { class: "comfyui-logo mx-2" }, "ComfyUI", -1));
 const _hoisted_2 = { class: "flex-grow" };
 const _sfc_main$1 = /* @__PURE__ */ defineComponent({
   __name: "TopMenubar",
   setup(__props) {
+    const workspaceState = useWorkspaceStore();
     const settingStore = useSettingStore();
     const workflowTabsPosition = computed(
       () => settingStore.get("Comfy.Workflow.WorkflowTabsPosition")
@@ -7798,6 +7929,7 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
       }
     });
     return (_ctx, _cache) => {
+      const _directive_tooltip = resolveDirective("tooltip");
       return openBlock(), createBlock(Teleport, { to: teleportTarget.value }, [
         withDirectives(createBaseVNode("div", {
           ref_key: "topMenuRef",
@@ -7819,15 +7951,23 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
             ref: menuRight
           }, null, 512),
           createVNode(Actionbar),
-          createVNode(_sfc_main$2)
+          createVNode(_sfc_main$2),
+          withDirectives(createVNode(unref(script$f), {
+            icon: "pi pi-bars",
+            severity: "secondary",
+            text: "",
+            onClick: _cache[0] || (_cache[0] = ($event) => unref(workspaceState).focusMode = true)
+          }, null, 512), [
+            [_directive_tooltip, { value: _ctx.$t("menu.hideMenu"), showDelay: 300 }]
+          ])
         ], 2), [
-          [vShow, betaMenuEnabled.value]
+          [vShow, betaMenuEnabled.value && !unref(workspaceState).focusMode]
         ])
       ], 8, ["to"]);
     };
   }
 });
-const TopMenubar = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-ad2c662b"]]);
+const TopMenubar = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-d84a704d"]]);
 function setupAutoQueueHandler() {
   const queueCountStore = useQueuePendingTaskCountStore();
   const queueSettingsStore = useQueueSettingsStore();
@@ -7936,11 +8076,6 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
         life: 2e3
       });
     }, "onReconnected");
-    const workflowStore = useWorkflowStore();
-    const workflowBookmarkStore = useWorkflowBookmarkStore();
-    app.workflowManager.executionStore = executionStore;
-    app.workflowManager.workflowStore = workflowStore;
-    app.workflowManager.workflowBookmarkStore = workflowBookmarkStore;
     onMounted(() => {
       api.addEventListener("status", onStatus);
       api.addEventListener("reconnecting", onReconnecting);
@@ -7962,6 +8097,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
       requestIdleCallback(
         () => {
           useKeybindingStore().loadUserKeybindings();
+          useModelStore().loadModelFolders();
           useNodeBookmarkStore().migrateLegacyBookmarks();
           useNodeDefStore().nodeSearchService.endsWithFilterStartSequence("");
           useNodeFrequencyStore().loadNodeFrequencies();
@@ -7972,10 +8108,11 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock(Fragment, null, [
         createVNode(TopMenubar),
-        createVNode(_sfc_main$b, { onReady: onGraphReady }),
+        createVNode(_sfc_main$c, { onReady: onGraphReady }),
         createVNode(_sfc_main$a),
         createVNode(_sfc_main$9),
-        createVNode(_sfc_main$8)
+        createVNode(_sfc_main$8),
+        createVNode(MenuHamburger)
       ], 64);
     };
   }
@@ -7983,4 +8120,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as default
 };
-//# sourceMappingURL=GraphView-C4blCugc.js.map
+//# sourceMappingURL=GraphView-BCOd0Zle.js.map

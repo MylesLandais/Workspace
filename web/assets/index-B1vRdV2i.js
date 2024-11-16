@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { bF as ComfyDialog, bG as $el, bH as ComfyApp, c as app, k as LiteGraph, b0 as LGraphCanvas, bI as DraggableList, ba as useToastStore, aE as useNodeDefStore, bC as api, L as LGraphGroup, bJ as KeyComboImpl, M as useKeybindingStore, F as useCommandStore, e as LGraphNode, bK as ComfyWidgets, bL as applyTextReplacements } from "./index-BHayQCxv.js";
-import { mergeIfValid, getWidgetConfig, setWidgetConfig } from "./widgetInputs-DdecKYqd.js";
+import { bV as ComfyDialog, bW as $el, bX as ComfyApp, c as app, k as LiteGraph, b2 as LGraphCanvas, bY as DraggableList, bf as useToastStore, bZ as serialise, aE as useNodeDefStore, b_ as deserialiseAndCreate, bH as api, L as LGraphGroup, b$ as KeyComboImpl, M as useKeybindingStore, F as useCommandStore, e as LGraphNode, c0 as ComfyWidgets, c1 as applyTextReplacements } from "./index-B6dYHNhg.js";
+import { mergeIfValid, getWidgetConfig, setWidgetConfig } from "./widgetInputs-BJ21PG7d.js";
 class ClipspaceDialog extends ComfyDialog {
   static {
     __name(this, "ClipspaceDialog");
@@ -160,7 +160,7 @@ app.registerExtension({
 window.comfyAPI = window.comfyAPI || {};
 window.comfyAPI.clipspace = window.comfyAPI.clipspace || {};
 window.comfyAPI.clipspace.ClipspaceDialog = ClipspaceDialog;
-const ext$2 = {
+const ext$1 = {
   name: "Comfy.ContextMenuFilter",
   init() {
     const ctxMenu = LiteGraph.ContextMenu;
@@ -178,7 +178,7 @@ const ext$2 = {
         let itemCount = displayedItems.length;
         requestAnimationFrame(() => {
           const currentNode = LGraphCanvas.active_canvas.current_node;
-          const clickedComboValue = currentNode.widgets?.filter(
+          const clickedComboValue = currentNode?.widgets?.filter(
             (w) => w.type === "combo" && w.options.values?.length === values.length
           ).find(
             (w) => w.options.values?.every((v, i) => v === values[i])
@@ -284,7 +284,7 @@ const ext$2 = {
     LiteGraph.ContextMenu.prototype = ctxMenu.prototype;
   }
 };
-app.registerExtension(ext$2);
+app.registerExtension(ext$1);
 function stripComments(str) {
   return str.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, "");
 }
@@ -966,17 +966,13 @@ class GroupNodeBuilder {
         }
       }
     }, "storeExternalLinks");
-    const backup = localStorage.getItem("litegrapheditor_clipboard");
     try {
-      app.canvas.copyToClipboard(this.nodes);
-      const config = JSON.parse(
-        localStorage.getItem("litegrapheditor_clipboard")
-      );
+      const serialised = serialise(this.nodes, app.canvas.graph);
+      const config = JSON.parse(serialised);
       storeLinkTypes(config);
       storeExternalLinks(config);
       return config;
     } finally {
-      localStorage.setItem("litegrapheditor_clipboard", backup);
     }
   }
 }
@@ -1517,7 +1513,6 @@ class GroupNodeHandler {
     };
     this.node.convertToNodes = () => {
       const addInnerNodes = /* @__PURE__ */ __name(() => {
-        const backup = localStorage.getItem("litegrapheditor_clipboard");
         const c = { ...this.groupData.nodeData };
         c.nodes = [...c.nodes];
         const innerNodes = this.node.getInnerNodes();
@@ -1531,9 +1526,7 @@ class GroupNodeHandler {
           }
           c.nodes[i] = { ...c.nodes[i], id: id2 };
         }
-        localStorage.setItem("litegrapheditor_clipboard", JSON.stringify(c));
-        app.canvas.pasteFromClipboard();
-        localStorage.setItem("litegrapheditor_clipboard", backup);
+        deserialiseAndCreate(JSON.stringify(c), app.canvas);
         const [x, y] = this.node.pos;
         let top;
         let left;
@@ -1580,10 +1573,8 @@ class GroupNodeHandler {
           }
         }
         for (const newNode of newNodes2) {
-          newNode.pos = [
-            newNode.pos[0] - (left - x),
-            newNode.pos[1] - (top - y)
-          ];
+          newNode.pos[0] -= left - x;
+          newNode.pos[1] -= top - y;
         }
         return { newNodes: newNodes2, selectedIds: selectedIds2 };
       }, "addInnerNodes");
@@ -1618,10 +1609,12 @@ class GroupNodeHandler {
           }
         }
       }, "reconnectOutputs");
+      app.canvas.emitBeforeChange();
       const { newNodes, selectedIds } = addInnerNodes();
       reconnectInputs(selectedIds);
       reconnectOutputs(selectedIds);
       app.graph.remove(this.node);
+      app.canvas.emitAfterChange();
       return newNodes;
     };
     const getExtraMenuOptions = this.node.getExtraMenuOptions;
@@ -2030,10 +2023,10 @@ function manageGroupNodes() {
   new ManageGroupDialog(app).show();
 }
 __name(manageGroupNodes, "manageGroupNodes");
-const id$3 = "Comfy.GroupNode";
+const id$2 = "Comfy.GroupNode";
 let globalDefs;
-const ext$1 = {
-  name: id$3,
+const ext = {
+  name: id$2,
   commands: [
     {
       id: "Comfy.GroupNode.ConvertSelectedNodesToGroupNode",
@@ -2103,56 +2096,18 @@ const ext$1 = {
     }
   }
 };
-app.registerExtension(ext$1);
+app.registerExtension(ext);
 window.comfyAPI = window.comfyAPI || {};
 window.comfyAPI.groupNode = window.comfyAPI.groupNode || {};
 window.comfyAPI.groupNode.GroupNodeConfig = GroupNodeConfig;
 window.comfyAPI.groupNode.GroupNodeHandler = GroupNodeHandler;
 function setNodeMode(node, mode) {
   node.mode = mode;
-  node.graph.change();
+  node.graph?.change();
 }
 __name(setNodeMode, "setNodeMode");
-function addNodesToGroup(group, nodes = []) {
-  var x1, y1, x2, y2;
-  var nx1, ny1, nx2, ny2;
-  var node;
-  x1 = y1 = x2 = y2 = -1;
-  nx1 = ny1 = nx2 = ny2 = -1;
-  for (var n of [group.nodes, nodes]) {
-    for (var i in n) {
-      node = n[i];
-      nx1 = node.pos[0];
-      ny1 = node.pos[1];
-      nx2 = node.pos[0] + node.size[0];
-      ny2 = node.pos[1] + node.size[1];
-      if (node.type != "Reroute") {
-        ny1 -= LiteGraph.NODE_TITLE_HEIGHT;
-      }
-      if (node.flags?.collapsed) {
-        ny2 = ny1 + LiteGraph.NODE_TITLE_HEIGHT;
-        if (node?._collapsed_width) {
-          nx2 = nx1 + Math.round(node._collapsed_width);
-        }
-      }
-      if (x1 == -1 || nx1 < x1) {
-        x1 = nx1;
-      }
-      if (y1 == -1 || ny1 < y1) {
-        y1 = ny1;
-      }
-      if (x2 == -1 || nx2 > x2) {
-        x2 = nx2;
-      }
-      if (y2 == -1 || ny2 > y2) {
-        y2 = ny2;
-      }
-    }
-  }
-  var padding = 10;
-  y1 = y1 - Math.round(group.font_size * 1.4);
-  group.pos = [x1 - padding, y1 - padding];
-  group.size = [x2 - x1 + padding * 2, y2 - y1 + padding * 2];
+function addNodesToGroup(group, items) {
+  group.resizeTo([...group.children, ...items]);
 }
 __name(addNodesToGroup, "addNodesToGroup");
 app.registerExtension({
@@ -2168,11 +2123,11 @@ app.registerExtension({
       if (!group) {
         options.push({
           content: "Add Group For Selected Nodes",
-          disabled: !Object.keys(app.canvas.selected_nodes || {}).length,
+          disabled: !this.selectedItems?.size,
           callback: /* @__PURE__ */ __name(() => {
             const group2 = new LGraphGroup();
-            addNodesToGroup(group2, this.selected_nodes);
-            app.canvas.graph.add(group2);
+            addNodesToGroup(group2, this.selectedItems);
+            this.graph.add(group2);
             this.graph.change();
           }, "callback")
         });
@@ -2182,9 +2137,9 @@ app.registerExtension({
       const nodesInGroup = group.nodes;
       options.push({
         content: "Add Selected Nodes To Group",
-        disabled: !Object.keys(app.canvas.selected_nodes || {}).length,
+        disabled: !this.selectedItems?.size,
         callback: /* @__PURE__ */ __name(() => {
-          addNodesToGroup(group, this.selected_nodes);
+          addNodesToGroup(group, this.selectedItems);
           this.graph.change();
         }, "callback")
       });
@@ -2203,7 +2158,8 @@ app.registerExtension({
       options.push({
         content: "Fit Group To Nodes",
         callback: /* @__PURE__ */ __name(() => {
-          addNodesToGroup(group);
+          group.recomputeInsideNodes();
+          group.resizeTo(group.children);
           this.graph.change();
         }, "callback")
       });
@@ -2329,9 +2285,9 @@ app.registerExtension({
     };
   }
 });
-const id$2 = "Comfy.InvertMenuScrolling";
+const id$1 = "Comfy.InvertMenuScrolling";
 app.registerExtension({
-  name: id$2,
+  name: id$1,
   init() {
     const ctxMenu = LiteGraph.ContextMenu;
     const replace = /* @__PURE__ */ __name(() => {
@@ -2347,7 +2303,7 @@ app.registerExtension({
       LiteGraph.ContextMenu.prototype = ctxMenu.prototype;
     }, "replace");
     app.ui.settings.addSetting({
-      id: id$2,
+      id: id$1,
       category: ["Comfy", "Graph", "InvertMenuScrolling"],
       name: "Invert Context Menu Scrolling",
       type: "boolean",
@@ -2379,8 +2335,8 @@ app.registerExtension({
       const commandStore = useCommandStore();
       const keybinding = keybindingStore.getKeybinding(keyCombo);
       if (keybinding && keybinding.targetSelector !== "#graph-canvas") {
-        await commandStore.execute(keybinding.commandId);
         event.preventDefault();
+        await commandStore.execute(keybinding.commandId);
         return;
       }
       if (event.ctrlKey || event.altKey || event.metaKey) {
@@ -2403,35 +2359,6 @@ app.registerExtension({
     window.addEventListener("keydown", keybindListener);
   }
 });
-const id$1 = "Comfy.LinkRenderMode";
-const ext = {
-  name: id$1,
-  async setup(app2) {
-    app2.ui.settings.addSetting({
-      id: id$1,
-      category: ["Comfy", "Graph", "LinkRenderMode"],
-      name: "Link Render Mode",
-      defaultValue: 2,
-      type: "combo",
-      options: [
-        { value: LiteGraph.STRAIGHT_LINK.toString(), text: "Straight" },
-        { value: LiteGraph.LINEAR_LINK.toString(), text: "Linear" },
-        { value: LiteGraph.SPLINE_LINK.toString(), text: "Spline" },
-        { value: LiteGraph.HIDDEN_LINK.toString(), text: "Hidden" }
-      ],
-      onChange(value) {
-        app2.canvas.links_render_mode = +value;
-        app2.canvas.setDirty(
-          /* fg */
-          false,
-          /* bg */
-          true
-        );
-      }
-    });
-  }
-};
-app.registerExtension(ext);
 function dataURLToBlob(dataURL) {
   const parts = dataURL.split(";base64,");
   const contentType = parts[0].split(":")[1];
@@ -3714,8 +3641,12 @@ app.registerExtension({
             clipboardAction(async () => {
               const data = JSON.parse(t.data);
               await GroupNodeConfig.registerFromWorkflow(data.groupNodes, {});
-              localStorage.setItem("litegrapheditor_clipboard", t.data);
-              app.canvas.pasteFromClipboard();
+              if (!data.reroutes) {
+                deserialiseAndCreate(t.data, app.canvas);
+              } else {
+                localStorage.setItem("litegrapheditor_clipboard", t.data);
+                app.canvas.pasteFromClipboard();
+              }
             });
           }, "callback")
         };
@@ -4049,9 +3980,10 @@ let touchCount = 0;
 app.registerExtension({
   name: "Comfy.SimpleTouchSupport",
   setup() {
-    let zoomPos;
+    let touchDist;
     let touchTime;
     let lastTouch;
+    let lastScale;
     function getMultiTouchPos(e) {
       return Math.hypot(
         e.touches[0].clientX - e.touches[1].clientX,
@@ -4059,63 +3991,90 @@ app.registerExtension({
       );
     }
     __name(getMultiTouchPos, "getMultiTouchPos");
-    app.canvasEl.addEventListener(
+    function getMultiTouchCenter(e) {
+      return {
+        clientX: (e.touches[0].clientX + e.touches[1].clientX) / 2,
+        clientY: (e.touches[0].clientY + e.touches[1].clientY) / 2
+      };
+    }
+    __name(getMultiTouchCenter, "getMultiTouchCenter");
+    app.canvasEl.parentElement.addEventListener(
       "touchstart",
       (e) => {
         touchCount++;
         lastTouch = null;
+        lastScale = null;
         if (e.touches?.length === 1) {
           touchTime = /* @__PURE__ */ new Date();
           lastTouch = e.touches[0];
         } else {
           touchTime = null;
           if (e.touches?.length === 2) {
-            zoomPos = getMultiTouchPos(e);
+            lastScale = app.canvas.ds.scale;
+            lastTouch = getMultiTouchCenter(e);
+            touchDist = getMultiTouchPos(e);
             app.canvas.pointer_is_down = false;
           }
         }
       },
       true
     );
-    app.canvasEl.addEventListener("touchend", (e) => {
-      touchZooming = false;
-      touchCount = e.touches?.length ?? touchCount - 1;
+    app.canvasEl.parentElement.addEventListener("touchend", (e) => {
+      touchCount--;
+      if (e.touches?.length !== 1) touchZooming = false;
       if (touchTime && !e.touches?.length) {
         if ((/* @__PURE__ */ new Date()).getTime() - touchTime > 600) {
-          try {
-            e.constructor = CustomEvent;
-          } catch (error) {
+          if (e.target === app.canvasEl) {
+            app.canvasEl.dispatchEvent(
+              new PointerEvent("pointerdown", {
+                button: 2,
+                clientX: e.changedTouches[0].clientX,
+                clientY: e.changedTouches[0].clientY
+              })
+            );
+            e.preventDefault();
           }
-          e.clientX = lastTouch.clientX;
-          e.clientY = lastTouch.clientY;
-          app.canvas.pointer_is_down = true;
-          app.canvas._mousedown_callback(e);
         }
         touchTime = null;
       }
     });
-    app.canvasEl.addEventListener(
+    app.canvasEl.parentElement.addEventListener(
       "touchmove",
       (e) => {
         touchTime = null;
-        if (e.touches?.length === 2) {
+        if (e.touches?.length === 2 && lastTouch && !e.ctrlKey && !e.shiftKey) {
+          e.preventDefault();
           app.canvas.pointer_is_down = false;
           touchZooming = true;
-          LiteGraph.closeAllContextMenus();
+          LiteGraph.closeAllContextMenus(window);
           app.canvas.search_box?.close();
-          const newZoomPos = getMultiTouchPos(e);
-          const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
-          const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
-          let scale = app.canvas.ds.scale;
-          const diff = zoomPos - newZoomPos;
-          if (diff > 0.5) {
-            scale *= 1 / 1.07;
-          } else if (diff < -0.5) {
-            scale *= 1.07;
+          const newTouchDist = getMultiTouchPos(e);
+          const center = getMultiTouchCenter(e);
+          let scale = lastScale * newTouchDist / touchDist;
+          const newX = (center.clientX - lastTouch.clientX) / scale;
+          const newY = (center.clientY - lastTouch.clientY) / scale;
+          if (scale < app.canvas.ds.min_scale) {
+            scale = app.canvas.ds.min_scale;
+          } else if (scale > app.canvas.ds.max_scale) {
+            scale = app.canvas.ds.max_scale;
           }
-          app.canvas.ds.changeScale(scale, [midX, midY]);
+          const oldScale = app.canvas.ds.scale;
+          app.canvas.ds.scale = scale;
+          if (Math.abs(app.canvas.ds.scale - 1) < 0.01) {
+            app.canvas.ds.scale = 1;
+          }
+          const newScale = app.canvas.ds.scale;
+          const convertScaleToOffset = /* @__PURE__ */ __name((scale2) => [
+            center.clientX / scale2 - app.canvas.ds.offset[0],
+            center.clientY / scale2 - app.canvas.ds.offset[1]
+          ], "convertScaleToOffset");
+          var oldCenter = convertScaleToOffset(oldScale);
+          var newCenter = convertScaleToOffset(newScale);
+          app.canvas.ds.offset[0] += newX + newCenter[0] - oldCenter[0];
+          app.canvas.ds.offset[1] += newY + newCenter[1] - oldCenter[1];
+          lastTouch.clientX = center.clientX;
+          lastTouch.clientY = center.clientY;
           app.canvas.setDirty(true, true);
-          zoomPos = newZoomPos;
         }
       },
       true
@@ -4127,6 +4086,7 @@ LGraphCanvas.prototype.processMouseDown = function(e) {
   if (touchZooming || touchCount) {
     return;
   }
+  app.canvas.pointer_is_down = false;
   return processMouseDown.apply(this, arguments);
 };
 const processMouseMove = LGraphCanvas.prototype.processMouseMove;
@@ -4539,7 +4499,9 @@ app.registerExtension({
           /* name=*/
           "audioUI",
           audio,
-          { serialize: false }
+          {
+            serialize: false
+          }
         );
         const isOutputNode = node.constructor.nodeData.output_node;
         if (isOutputNode) {
@@ -4633,4 +4595,4 @@ app.registerExtension({
     };
   }
 });
-//# sourceMappingURL=index-BReiUkk9.js.map
+//# sourceMappingURL=index-B1vRdV2i.js.map
