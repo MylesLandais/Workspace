@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value2) => __defProp(target, "name", { value: value2, configurable: true });
-import { B as BaseStyle, R as script$8, ad as UniqueComponentId, g as openBlock, h as createElementBlock, m as mergeProps, p as renderSlot, j as createCommentVNode, bM as findIndexInList, bN as find, l as resolveComponent, x as createBlock, J as resolveDynamicComponent, y as withCtx, A as createBaseVNode, a6 as toDisplayString, C as normalizeClass, V as findSingle, N as Fragment, au as Transition, v as withDirectives, ab as vShow, d as defineComponent, aD as useI18n, bO as useModel, r as ref, o as onMounted, t as resolveDirective, i as createVNode, z as unref, ao as script$9, bP as script$a, bQ as script$b, D as script$c, aw as createTextVNode, bR as script$d, bL as electronAPI, q as computed, aJ as watchEffect, O as renderList, bi as withModifiers, bS as script$e, bT as script$f, bG as script$g, aH as script$h, bU as useRouter, P as pushScopeId, Q as popScopeId, aK as toRaw, _ as _export_sfc } from "./index-B6dYHNhg.js";
-import { r } from "./index-B4gmhi99.js";
+import { B as BaseStyle, R as script$8, ad as UniqueComponentId, g as openBlock, h as createElementBlock, m as mergeProps, p as renderSlot, j as createCommentVNode, bO as findIndexInList, bP as find, l as resolveComponent, x as createBlock, J as resolveDynamicComponent, y as withCtx, A as createBaseVNode, a6 as toDisplayString, C as normalizeClass, V as findSingle, N as Fragment, au as Transition, v as withDirectives, ab as vShow, d as defineComponent, aD as useI18n, bQ as useModel, r as ref, o as onMounted, t as resolveDirective, i as createVNode, z as unref, ao as script$9, bR as script$a, bS as script$b, D as script$c, aw as createTextVNode, bT as script$d, bN as electronAPI, q as computed, aJ as watchEffect, O as renderList, bk as withModifiers, bU as script$e, aA as script$f, bV as script$g, bI as script$h, aH as script$i, bW as useRouter, P as pushScopeId, Q as popScopeId, aK as toRaw, _ as _export_sfc } from "./index-CoOvI8ZH.js";
+import { M as MigrationItems } from "./index-BppSBmxJ.js";
 var theme = /* @__PURE__ */ __name(function theme2(_ref) {
   var dt = _ref.dt;
   return "\n.p-steplist {\n    position: relative;\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    margin: 0;\n    padding: 0;\n    list-style-type: none;\n    overflow-x: auto;\n}\n\n.p-step {\n    position: relative;\n    display: flex;\n    flex: 1 1 auto;\n    align-items: center;\n    gap: ".concat(dt("stepper.step.gap"), ";\n    padding: ").concat(dt("stepper.step.padding"), ";\n}\n\n.p-step:last-of-type {\n    flex: initial;\n}\n\n.p-step-header {\n    border: 0 none;\n    display: inline-flex;\n    align-items: center;\n    text-decoration: none;\n    cursor: pointer;\n    transition: background ").concat(dt("stepper.transition.duration"), ", color ").concat(dt("stepper.transition.duration"), ", border-color ").concat(dt("stepper.transition.duration"), ", outline-color ").concat(dt("stepper.transition.duration"), ", box-shadow ").concat(dt("stepper.transition.duration"), ";\n    border-radius: ").concat(dt("stepper.step.header.border.radius"), ";\n    outline-color: transparent;\n    background: transparent;\n    padding: ").concat(dt("stepper.step.header.padding"), ";\n    gap: ").concat(dt("stepper.step.header.gap"), ";\n}\n\n.p-step-header:focus-visible {\n    box-shadow: ").concat(dt("stepper.step.header.focus.ring.shadow"), ";\n    outline: ").concat(dt("stepper.step.header.focus.ring.width"), " ").concat(dt("stepper.step.header.focus.ring.style"), " ").concat(dt("stepper.step.header.focus.ring.color"), ";\n    outline-offset: ").concat(dt("stepper.step.header.focus.ring.offset"), ";\n}\n\n.p-stepper.p-stepper-readonly .p-step {\n    cursor: auto;\n}\n\n.p-step-title {\n    display: block;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    max-width: 100%;\n    color: ").concat(dt("stepper.step.title.color"), ";\n    font-weight: ").concat(dt("stepper.step.title.font.weight"), ";\n    transition: background ").concat(dt("stepper.transition.duration"), ", color ").concat(dt("stepper.transition.duration"), ", border-color ").concat(dt("stepper.transition.duration"), ", box-shadow ").concat(dt("stepper.transition.duration"), ", outline-color ").concat(dt("stepper.transition.duration"), ";\n}\n\n.p-step-number {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    color: ").concat(dt("stepper.step.number.color"), ";\n    border: 2px solid ").concat(dt("stepper.step.number.border.color"), ";\n    background: ").concat(dt("stepper.step.number.background"), ";\n    min-width: ").concat(dt("stepper.step.number.size"), ";\n    height: ").concat(dt("stepper.step.number.size"), ";\n    line-height: ").concat(dt("stepper.step.number.size"), ";\n    font-size: ").concat(dt("stepper.step.number.font.size"), ";\n    z-index: 1;\n    border-radius: ").concat(dt("stepper.step.number.border.radius"), ";\n    position: relative;\n    font-weight: ").concat(dt("stepper.step.number.font.weight"), ';\n}\n\n.p-step-number::after {\n    content: " ";\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    border-radius: ').concat(dt("stepper.step.number.border.radius"), ";\n    box-shadow: ").concat(dt("stepper.step.number.shadow"), ";\n}\n\n.p-step-active .p-step-header {\n    cursor: default;\n}\n\n.p-step-active .p-step-number {\n    background: ").concat(dt("stepper.step.number.active.background"), ";\n    border-color: ").concat(dt("stepper.step.number.active.border.color"), ";\n    color: ").concat(dt("stepper.step.number.active.color"), ";\n}\n\n.p-step-active .p-step-title {\n    color: ").concat(dt("stepper.step.title.active.color"), ";\n}\n\n.p-step:not(.p-disabled):focus-visible {\n    outline: ").concat(dt("focus.ring.width"), " ").concat(dt("focus.ring.style"), " ").concat(dt("focus.ring.color"), ";\n    outline-offset: ").concat(dt("focus.ring.offset"), ";\n}\n\n.p-step:has(~ .p-step-active) .p-stepper-separator {\n    background: ").concat(dt("stepper.separator.active.background"), ";\n}\n\n.p-stepper-separator {\n    flex: 1 1 0;\n    background: ").concat(dt("stepper.separator.background"), ";\n    width: 100%;\n    height: ").concat(dt("stepper.separator.size"), ";\n    transition: background ").concat(dt("stepper.transition.duration"), ", color ").concat(dt("stepper.transition.duration"), ", border-color ").concat(dt("stepper.transition.duration"), ", box-shadow ").concat(dt("stepper.transition.duration"), ", outline-color ").concat(dt("stepper.transition.duration"), ";\n}\n\n.p-steppanels {\n    padding: ").concat(dt("stepper.steppanels.padding"), ";\n}\n\n.p-steppanel {\n    background: ").concat(dt("stepper.steppanel.background"), ";\n    color: ").concat(dt("stepper.steppanel.color"), ";\n}\n\n.p-stepper:has(.p-stepitem) {\n    display: flex;\n    flex-direction: column;\n}\n\n.p-stepitem {\n    display: flex;\n    flex-direction: column;\n    flex: initial;\n}\n\n.p-stepitem.p-stepitem-active {\n    flex: 1 1 auto;\n}\n\n.p-stepitem .p-step {\n    flex: initial;\n}\n\n.p-stepitem .p-steppanel-content {\n    width: 100%;\n    padding: ").concat(dt("stepper.steppanel.padding"), ";\n}\n\n.p-stepitem .p-steppanel {\n    display: flex;\n    flex: 1 1 auto;\n}\n\n.p-stepitem .p-stepper-separator {\n    flex: 0 0 auto;\n    width: ").concat(dt("stepper.separator.size"), ";\n    height: auto;\n    margin: ").concat(dt("stepper.separator.margin"), ";\n    position: relative;\n    left: calc(-1 * ").concat(dt("stepper.separator.size"), ");\n}\n\n.p-stepitem:has(~ .p-stepitem-active) .p-stepper-separator {\n    background: ").concat(dt("stepper.separator.active.background"), ";\n}\n\n.p-stepitem:last-of-type .p-steppanel {\n    padding-inline-start: ").concat(dt("stepper.step.number.size"), ";\n}\n");
@@ -542,9 +542,9 @@ const _hoisted_9$2 = { class: "flex items-center gap-2" };
 const _hoisted_10$2 = /* @__PURE__ */ createBaseVNode("i", { class: "pi pi-folder text-neutral-400" }, null, -1);
 const _hoisted_11$2 = /* @__PURE__ */ createBaseVNode("span", { class: "text-neutral-400" }, "App Data:", -1);
 const _hoisted_12$2 = { class: "text-neutral-200" };
-const _hoisted_13$1 = { class: "pi pi-info-circle" };
-const _hoisted_14$1 = { class: "flex items-center gap-2" };
-const _hoisted_15$1 = /* @__PURE__ */ createBaseVNode("i", { class: "pi pi-desktop text-neutral-400" }, null, -1);
+const _hoisted_13$2 = { class: "pi pi-info-circle" };
+const _hoisted_14$2 = { class: "flex items-center gap-2" };
+const _hoisted_15$2 = /* @__PURE__ */ createBaseVNode("i", { class: "pi pi-desktop text-neutral-400" }, null, -1);
 const _hoisted_16$1 = /* @__PURE__ */ createBaseVNode("span", { class: "text-neutral-400" }, "App Path:", -1);
 const _hoisted_17$1 = { class: "text-neutral-200" };
 const _hoisted_18$1 = { class: "pi pi-info-circle" };
@@ -569,11 +569,12 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
       appData.value = paths.appData;
       appPath.value = paths.appPath;
       installPath.value = paths.defaultInstallPath;
+      await validatePath(paths.defaultInstallPath);
     });
-    const validatePath = /* @__PURE__ */ __name(async () => {
+    const validatePath = /* @__PURE__ */ __name(async (path) => {
       try {
         pathError.value = "";
-        const validation = await electron.validateInstallPath(installPath.value);
+        const validation = await electron.validateInstallPath(path);
         if (!validation.isValid) {
           pathError.value = validation.error;
         }
@@ -586,7 +587,7 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
         const result = await electron.showDirectoryPicker();
         if (result) {
           installPath.value = result;
-          await validatePath();
+          await validatePath(result);
         }
       } catch (error) {
         pathError.value = t("install.failedToSelectDirectory");
@@ -603,9 +604,11 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
               default: withCtx(() => [
                 createVNode(unref(script$9), {
                   modelValue: installPath.value,
-                  "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => installPath.value = $event),
-                  class: normalizeClass(["w-full", { "p-invalid": pathError.value }]),
-                  onChange: validatePath
+                  "onUpdate:modelValue": [
+                    _cache[0] || (_cache[0] = ($event) => installPath.value = $event),
+                    validatePath
+                  ],
+                  class: normalizeClass(["w-full", { "p-invalid": pathError.value }])
                 }, null, 8, ["modelValue", "class"]),
                 withDirectives(createVNode(unref(script$a), { class: "pi pi-info-circle" }, null, 512), [
                   [_directive_tooltip, _ctx.$t("install.installLocationTooltip")]
@@ -636,12 +639,12 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
               _hoisted_10$2,
               _hoisted_11$2,
               createBaseVNode("span", _hoisted_12$2, toDisplayString(appData.value), 1),
-              withDirectives(createBaseVNode("span", _hoisted_13$1, null, 512), [
+              withDirectives(createBaseVNode("span", _hoisted_13$2, null, 512), [
                 [_directive_tooltip, _ctx.$t("install.appDataLocationTooltip")]
               ])
             ]),
-            createBaseVNode("div", _hoisted_14$1, [
-              _hoisted_15$1,
+            createBaseVNode("div", _hoisted_14$2, [
+              _hoisted_15$2,
               _hoisted_16$1,
               createBaseVNode("span", _hoisted_17$1, toDisplayString(appPath.value), 1),
               withDirectives(createBaseVNode("span", _hoisted_18$1, null, 512), [
@@ -668,7 +671,10 @@ const _hoisted_8$1 = { class: "flex flex-col gap-3" };
 const _hoisted_9$1 = ["onClick"];
 const _hoisted_10$1 = ["for"];
 const _hoisted_11$1 = { class: "text-sm text-neutral-400 my-1" };
-const _hoisted_12$1 = {
+const _hoisted_12$1 = { class: "flex items-center gap-3 p-2 rounded cursor-not-allowed" };
+const _hoisted_13$1 = { class: "text-neutral-200 font-medium" };
+const _hoisted_14$1 = { class: "text-sm text-neutral-400 my-1" };
+const _hoisted_15$1 = {
   key: 1,
   class: "text-neutral-400 italic"
 };
@@ -689,7 +695,7 @@ const _sfc_main$2 = /* @__PURE__ */ defineComponent({
     const sourcePath = useModel(__props, "sourcePath");
     const migrationItemIds = useModel(__props, "migrationItemIds");
     const migrationItems = ref(
-      r.map((item) => ({
+      MigrationItems.map((item) => ({
         ...item,
         selected: true
       }))
@@ -735,10 +741,12 @@ const _sfc_main$2 = /* @__PURE__ */ defineComponent({
           createBaseVNode("div", _hoisted_5$1, [
             createVNode(unref(script$9), {
               modelValue: sourcePath.value,
-              "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => sourcePath.value = $event),
+              "onUpdate:modelValue": [
+                _cache[0] || (_cache[0] = ($event) => sourcePath.value = $event),
+                validateSource
+              ],
               placeholder: "Select existing ComfyUI installation (optional)",
-              class: normalizeClass(["flex-1", { "p-invalid": pathError.value }]),
-              onChange: validateSource
+              class: normalizeClass(["flex-1", { "p-invalid": pathError.value }])
             }, null, 8, ["modelValue", "class"]),
             createVNode(unref(script$c), {
               icon: "pi pi-folder",
@@ -781,16 +789,34 @@ const _sfc_main$2 = /* @__PURE__ */ defineComponent({
                   createBaseVNode("p", _hoisted_11$1, toDisplayString(item.description), 1)
                 ])
               ], 8, _hoisted_9$1);
-            }), 128))
+            }), 128)),
+            createBaseVNode("div", _hoisted_12$1, [
+              createVNode(unref(script$e), {
+                disabled: "",
+                binary: true
+              }),
+              createBaseVNode("div", null, [
+                createBaseVNode("label", _hoisted_13$1, [
+                  createTextVNode(toDisplayString(_ctx.$t("install.customNodes")) + " ", 1),
+                  createVNode(unref(script$f), { severity: "secondary" }, {
+                    default: withCtx(() => [
+                      createTextVNode(toDisplayString(_ctx.$t("comingSoon")) + "... ", 1)
+                    ]),
+                    _: 1
+                  })
+                ]),
+                createBaseVNode("p", _hoisted_14$1, toDisplayString(_ctx.$t("install.customNodesDescription")), 1)
+              ])
+            ])
           ])
-        ])) : (openBlock(), createElementBlock("div", _hoisted_12$1, toDisplayString(_ctx.$t("install.migrationOptional")), 1))
+        ])) : (openBlock(), createElementBlock("div", _hoisted_15$1, toDisplayString(_ctx.$t("install.migrationOptional")), 1))
       ]);
     };
   }
 });
 var script = {
   name: "InputSwitch",
-  "extends": script$f,
+  "extends": script$g,
   mounted: /* @__PURE__ */ __name(function mounted4() {
     console.warn("Deprecated since v4. Use ToggleSwitch component instead.");
   }, "mounted")
@@ -846,7 +872,7 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
               "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => autoUpdate.value = $event)
             }, null, 8, ["modelValue"])
           ]),
-          createVNode(unref(script$g)),
+          createVNode(unref(script$h)),
           createBaseVNode("div", _hoisted_10, [
             createBaseVNode("div", _hoisted_11, [
               createBaseVNode("h3", _hoisted_12, toDisplayString(_ctx.$t("install.settings.allowMetrics")), 1),
@@ -863,7 +889,7 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
             }, null, 8, ["modelValue"])
           ])
         ]),
-        createVNode(unref(script$h), {
+        createVNode(unref(script$i), {
           visible: showDialog.value,
           "onUpdate:visible": _cache[2] || (_cache[2] = ($event) => showDialog.value = $event),
           modal: "",
@@ -1045,4 +1071,4 @@ const InstallView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-
 export {
   InstallView as default
 };
-//# sourceMappingURL=InstallView-D9ueAxrz.js.map
+//# sourceMappingURL=InstallView-C6UIhIu4.js.map

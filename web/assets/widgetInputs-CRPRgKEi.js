@@ -1,6 +1,6 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { e as LGraphNode, c as app, c1 as applyTextReplacements, c0 as ComfyWidgets, c2 as addValueControlWidgets, k as LiteGraph } from "./index-B6dYHNhg.js";
+import { e as LGraphNode, c as app, c3 as applyTextReplacements, c2 as ComfyWidgets, c5 as addValueControlWidgets, k as LiteGraph } from "./index-CoOvI8ZH.js";
 const CONVERTED_TYPE = "converted-widget";
 const VALID_TYPES = [
   "STRING",
@@ -701,7 +701,7 @@ app.registerExtension({
       const r = origOnInputDblClick ? origOnInputDblClick.apply(this, arguments) : void 0;
       const input = this.inputs[slot];
       if (!input.widget || !input[ignoreDblClick]) {
-        if (!(input.type in ComfyWidgets) && !(input.widget[GET_CONFIG]?.()?.[0] instanceof Array)) {
+        if (!(input.type in ComfyWidgets) && !(input.widget?.[GET_CONFIG]?.()?.[0] instanceof Array)) {
           return r;
         }
       }
@@ -759,4 +759,4 @@ export {
   mergeIfValid,
   setWidgetConfig
 };
-//# sourceMappingURL=widgetInputs-BJ21PG7d.js.map
+//# sourceMappingURL=widgetInputs-CRPRgKEi.js.map

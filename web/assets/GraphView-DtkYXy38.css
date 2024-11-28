@@ -106,32 +106,6 @@
   margin: -0.125rem 0.125rem;
 }
 
-.comfy-vue-node-search-container[data-v-2d409367] {
-  display: flex;
-  width: 100%;
-  min-width: 26rem;
-  align-items: center;
-  justify-content: center;
-}
-.comfy-vue-node-search-container[data-v-2d409367] * {
-  pointer-events: auto;
-}
-.comfy-vue-node-preview-container[data-v-2d409367] {
-  position: absolute;
-  left: -350px;
-  top: 50px;
-}
-.comfy-vue-node-search-box[data-v-2d409367] {
-  z-index: 10;
-  flex-grow: 1;
-}
-._filter-button[data-v-2d409367] {
-  z-index: 10;
-}
-._dialog[data-v-2d409367] {
-  min-width: 26rem;
-}
-
 .invisible-dialog-root {
   width: 60%;
   min-width: 24rem;
@@ -184,10 +158,10 @@
   z-index: 9999;
 }
 
-[data-v-9eb975c3] .p-togglebutton::before {
+[data-v-783f8efe] .p-togglebutton::before {
   display: none
 }
-[data-v-9eb975c3] .p-togglebutton {
+[data-v-783f8efe] .p-togglebutton {
   position: relative;
   flex-shrink: 0;
   border-radius: 0px;
@@ -195,14 +169,14 @@
   padding-left: 0.5rem;
   padding-right: 0.5rem
 }
-[data-v-9eb975c3] .p-togglebutton.p-togglebutton-checked {
+[data-v-783f8efe] .p-togglebutton.p-togglebutton-checked {
   border-bottom-width: 2px;
   border-bottom-color: var(--p-button-text-primary-color)
 }
-[data-v-9eb975c3] .p-togglebutton-checked .close-button,[data-v-9eb975c3] .p-togglebutton:hover .close-button {
+[data-v-783f8efe] .p-togglebutton-checked .close-button,[data-v-783f8efe] .p-togglebutton:hover .close-button {
   visibility: visible
 }
-.status-indicator[data-v-9eb975c3] {
+.status-indicator[data-v-783f8efe] {
   position: absolute;
   font-weight: 700;
   font-size: 1.5rem;
@@ -210,10 +184,10 @@
   left: 50%;
   transform: translate(-50%, -50%)
 }
-[data-v-9eb975c3] .p-togglebutton:hover .status-indicator {
+[data-v-783f8efe] .p-togglebutton:hover .status-indicator {
   display: none
 }
-[data-v-9eb975c3] .p-togglebutton .close-button {
+[data-v-783f8efe] .p-togglebutton .close-button {
   visibility: hidden
 }
 
@@ -241,26 +215,26 @@
   border-bottom-right-radius: 0;
 }
 
-.actionbar[data-v-eb6e9acf] {
+.actionbar[data-v-542a7001] {
   pointer-events: all;
   position: fixed;
   z-index: 1000;
 }
-.actionbar.is-docked[data-v-eb6e9acf] {
+.actionbar.is-docked[data-v-542a7001] {
   position: static;
   border-style: none;
   background-color: transparent;
   padding: 0px;
 }
-.actionbar.is-dragging[data-v-eb6e9acf] {
+.actionbar.is-dragging[data-v-542a7001] {
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
 }
-[data-v-eb6e9acf] .p-panel-content {
+[data-v-542a7001] .p-panel-content {
   padding: 0.25rem;
 }
-[data-v-eb6e9acf] .p-panel-header {
+[data-v-542a7001] .p-panel-header {
   display: none;
 }
 

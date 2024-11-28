@@ -1,7 +1,8 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, u as useSettingStore, r as ref, a as useTitleEditorStore, b as useCanvasStore, w as watch, L as LGraphGroup, c as app, e as LGraphNode, o as onMounted, f as onUnmounted, g as openBlock, h as createElementBlock, i as createVNode, E as EditableText, n as normalizeStyle, j as createCommentVNode, k as LiteGraph, _ as _export_sfc, B as BaseStyle, s as script$e, l as resolveComponent, m as mergeProps, p as renderSlot, q as computed, t as resolveDirective, v as withDirectives, x as createBlock, y as withCtx, z as unref, A as createBaseVNode, C as normalizeClass, D as script$f, F as useCommandStore, G as useDialogStore, S as SettingDialogHeader, H as SettingDialogContent, I as onBeforeUnmount, J as resolveDynamicComponent, K as useWorkspaceStore, M as useKeybindingStore, N as Fragment, O as renderList, T as Teleport, P as pushScopeId, Q as popScopeId, R as script$g, U as getWidth, V as findSingle, W as getOuterHeight, X as getOffset, Y as getOuterWidth, Z as getHeight, $ as script$h, a0 as script$i, a1 as Ripple, a2 as getAttribute, a3 as focus, a4 as equals, a5 as useBottomPanelStore, a6 as toDisplayString, a7 as script$j, a8 as getVNodeProp, a9 as isArray, aa as useSidebarTabStore, ab as vShow, ac as isNotEmpty, ad as UniqueComponentId, ae as ZIndex, af as resolveFieldData, ag as OverlayEventBus, ah as isEmpty, ai as addStyle, aj as relativePosition, ak as absolutePosition, al as ConnectedOverlayScrollHandler, am as isTouchDevice, an as findLastIndex, ao as script$k, ap as script$l, aq as script$m, ar as script$n, as as script$o, at as script$p, au as Transition, av as createSlots, aw as createTextVNode, ax as useNodeFrequencyStore, ay as useNodeBookmarkStore, az as highlightQuery, aA as script$q, aB as formatNumberWithSuffix, aC as NodeSourceType, aD as useI18n, aE as useNodeDefStore, aF as NodePreview, aG as NodeSearchFilter, aH as script$r, aI as SearchFilterChip, aJ as watchEffect, aK as toRaw, aL as LinkReleaseTriggerAction, aM as useEventListener, aN as nextTick, aO as getColorPalette, aP as BadgePosition, aQ as LGraphBadge, aR as _, aS as defaultColorPalette, aT as NodeBadgeMode, aU as markRaw, aV as useModelToNodeStore, aW as useWorkflowStore, aX as setStorageValue, aY as usePragmaticDroppable, aZ as ComfyNodeDefImpl, a_ as ComfyModelDef, a$ as LGraph, b0 as LLink, b1 as DragAndScale, b2 as LGraphCanvas, b3 as ContextMenu, b4 as ChangeTracker, b5 as script$s, b6 as script$t, b7 as script$u, b8 as script$v, b9 as script$w, ba as normalizeProps, bb as ToastEventBus, bc as setAttribute, bd as TransitionGroup, be as useToast, bf as useToastStore, bg as useExecutionStore, bh as useTitle, bi as withModifiers, bj as script$x, bk as workflowService, bl as resolve, bm as script$y, bn as script$z, bo as isPrintableCharacter, bp as guardReactiveProps, bq as useMenuItemStore, br as script$C, bs as nestedPosition, bt as useQueueSettingsStore, bu as storeToRefs, bv as isRef, bw as script$D, bx as useQueuePendingTaskCountStore, by as useLocalStorage, bz as useDraggable, bA as watchDebounced, bB as inject, bC as useElementBounding, bD as lodashExports, bE as useEventBus, bF as provide, bG as script$E, bH as api, bI as i18n, bJ as useModelStore } from "./index-B6dYHNhg.js";
-import { s as script$A, a as script$B } from "./index-MX9DEi8Q.js";
+import { d as defineComponent, u as useSettingStore, r as ref, a as useTitleEditorStore, b as useCanvasStore, w as watch, L as LGraphGroup, c as app, e as LGraphNode, o as onMounted, f as onUnmounted, g as openBlock, h as createElementBlock, i as createVNode, E as EditableText, n as normalizeStyle, j as createCommentVNode, k as LiteGraph, _ as _export_sfc, B as BaseStyle, s as script$e, l as resolveComponent, m as mergeProps, p as renderSlot, q as computed, t as resolveDirective, v as withDirectives, x as createBlock, y as withCtx, z as unref, A as createBaseVNode, C as normalizeClass, D as script$f, F as useCommandStore, G as useDialogStore, S as SettingDialogHeader, H as SettingDialogContent, I as onBeforeUnmount, J as resolveDynamicComponent, K as useWorkspaceStore, M as useKeybindingStore, N as Fragment, O as renderList, T as Teleport, P as pushScopeId, Q as popScopeId, R as script$g, U as getWidth, V as findSingle, W as getOuterHeight, X as getOffset, Y as getOuterWidth, Z as getHeight, $ as script$h, a0 as script$i, a1 as Ripple, a2 as getAttribute, a3 as focus, a4 as equals, a5 as useBottomPanelStore, a6 as toDisplayString, a7 as script$j, a8 as getVNodeProp, a9 as isArray, aa as useSidebarTabStore, ab as vShow, ac as isNotEmpty, ad as UniqueComponentId, ae as ZIndex, af as resolveFieldData, ag as OverlayEventBus, ah as isEmpty, ai as addStyle, aj as relativePosition, ak as absolutePosition, al as ConnectedOverlayScrollHandler, am as isTouchDevice, an as findLastIndex, ao as script$k, ap as script$l, aq as script$m, ar as script$n, as as script$o, at as script$p, au as Transition, av as createSlots, aw as createTextVNode, ax as useNodeFrequencyStore, ay as useNodeBookmarkStore, az as highlightQuery, aA as script$q, aB as formatNumberWithSuffix, aC as NodeSourceType, aD as useI18n, aE as useNodeDefStore, aF as NodePreview, aG as NodeSearchFilter, aH as script$r, aI as SearchFilterChip, aJ as watchEffect, aK as toRaw, aL as LinkReleaseTriggerAction, aM as useEventListener, aN as nextTick, aO as getColorPalette, aP as BadgePosition, aQ as LGraphBadge, aR as _, aS as defaultColorPalette, aT as NodeBadgeMode, aU as markRaw, aV as useModelToNodeStore, aW as CanvasPointer, aX as useWorkflowStore, aY as setStorageValue, aZ as api, a_ as usePragmaticDroppable, a$ as ComfyNodeDefImpl, b0 as ComfyModelDef, b1 as LGraph, b2 as LLink, b3 as DragAndScale, b4 as LGraphCanvas, b5 as ContextMenu, b6 as ChangeTracker, b7 as script$s, b8 as script$t, b9 as script$u, ba as script$v, bb as script$w, bc as normalizeProps, bd as ToastEventBus, be as setAttribute, bf as TransitionGroup, bg as useToast, bh as useToastStore, bi as useExecutionStore, bj as useTitle, bk as withModifiers, bl as script$x, bm as workflowService, bn as resolve, bo as script$y, bp as script$z, bq as isPrintableCharacter, br as guardReactiveProps, bs as useMenuItemStore, bt as script$C, bu as nestedPosition, bv as useQueueSettingsStore, bw as storeToRefs, bx as isRef, by as script$D, bz as useQueuePendingTaskCountStore, bA as useLocalStorage, bB as useDraggable, bC as watchDebounced, bD as inject, bE as useElementBounding, bF as lodashExports, bG as useEventBus, bH as provide, bI as script$E, bJ as i18n, bK as useQueueStore, bL as useModelStore } from "./index-CoOvI8ZH.js";
+import { s as script$A, a as script$B } from "./index-D4DWQPPQ.js";
+import { u as useServerConfigStore } from "./serverConfigStore-cctR8PGG.js";
 const _sfc_main$r = /* @__PURE__ */ defineComponent({
   __name: "TitleEditor",
   setup(__props) {
@@ -296,7 +297,7 @@ const _sfc_main$n = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _withScopeId$6 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-e0812a25"), n = n(), popScopeId(), n), "_withScopeId$6");
+const _withScopeId$5 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-e0812a25"), n = n(), popScopeId(), n), "_withScopeId$5");
 const _hoisted_1$n = { class: "side-tool-bar-end" };
 const _hoisted_2$k = {
   key: 0,
@@ -2937,16 +2938,16 @@ const _sfc_main$j = {
     );
   }
 };
-const _withScopeId$5 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-37f672ab"), n = n(), popScopeId(), n), "_withScopeId$5");
+const _withScopeId$4 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-37f672ab"), n = n(), popScopeId(), n), "_withScopeId$4");
 const _hoisted_1$i = { class: "option-container flex justify-between items-center px-2 py-0 cursor-pointer overflow-hidden w-full" };
 const _hoisted_2$f = { class: "option-display-name font-semibold flex flex-col" };
 const _hoisted_3$d = { key: 0 };
-const _hoisted_4$3 = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ createBaseVNode("i", { class: "pi pi-bookmark-fill text-sm mr-1" }, null, -1));
+const _hoisted_4$3 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createBaseVNode("i", { class: "pi pi-bookmark-fill text-sm mr-1" }, null, -1));
 const _hoisted_5$2 = [
   _hoisted_4$3
 ];
 const _hoisted_6$1 = ["innerHTML"];
-const _hoisted_7 = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ createBaseVNode("span", null, " ", -1));
+const _hoisted_7 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createBaseVNode("span", null, " ", -1));
 const _hoisted_8 = ["innerHTML"];
 const _hoisted_9 = {
   key: 0,
@@ -3033,13 +3034,12 @@ const _sfc_main$i = /* @__PURE__ */ defineComponent({
   }
 });
 const NodeSearchItem = /* @__PURE__ */ _export_sfc(_sfc_main$i, [["__scopeId", "data-v-37f672ab"]]);
-const _withScopeId$4 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-2d409367"), n = n(), popScopeId(), n), "_withScopeId$4");
-const _hoisted_1$h = { class: "comfy-vue-node-search-container" };
+const _hoisted_1$h = { class: "comfy-vue-node-search-container flex justify-center items-center w-full min-w-96 pointer-events-auto" };
 const _hoisted_2$e = {
   key: 0,
-  class: "comfy-vue-node-preview-container"
+  class: "comfy-vue-node-preview-container absolute left-[-350px] top-[50px]"
 };
-const _hoisted_3$c = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createBaseVNode("h3", null, "Add node filter condition", -1));
+const _hoisted_3$c = /* @__PURE__ */ createBaseVNode("h3", null, "Add node filter condition", -1);
 const _hoisted_4$2 = { class: "_dialog-body" };
 const _sfc_main$h = /* @__PURE__ */ defineComponent({
   __name: "NodeSearchBox",
@@ -3113,13 +3113,13 @@ const _sfc_main$h = /* @__PURE__ */ defineComponent({
         createVNode(unref(script$f), {
           icon: "pi pi-filter",
           severity: "secondary",
-          class: "_filter-button",
+          class: "filter-button z-10",
           onClick: _cache[0] || (_cache[0] = ($event) => nodeSearchFilterVisible.value = true)
         }),
         createVNode(unref(script$r), {
           visible: nodeSearchFilterVisible.value,
           "onUpdate:visible": _cache[1] || (_cache[1] = ($event) => nodeSearchFilterVisible.value = $event),
-          class: "_dialog"
+          class: "min-w-96"
         }, {
           header: withCtx(() => [
             _hoisted_3$c
@@ -3133,7 +3133,7 @@ const _sfc_main$h = /* @__PURE__ */ defineComponent({
         }, 8, ["visible"]),
         createVNode(_sfc_main$j, {
           "model-value": props.filters,
-          class: "comfy-vue-node-search-box",
+          class: "comfy-vue-node-search-box z-10 flex-grow",
           scrollHeight: "40vh",
           placeholder: placeholder.value,
           "input-id": inputId,
@@ -3171,7 +3171,6 @@ const _sfc_main$h = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const NodeSearchBox = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["__scopeId", "data-v-2d409367"]]);
 class ConnectingLinkImpl {
   static {
     __name(this, "ConnectingLinkImpl");
@@ -3403,7 +3402,7 @@ const _sfc_main$g = /* @__PURE__ */ defineComponent({
           }
         }, {
           container: withCtx(() => [
-            createVNode(NodeSearchBox, {
+            createVNode(_sfc_main$h, {
               filters: nodeFilters.value,
               onAddFilter: addFilter,
               onRemoveFilter: removeFilter,
@@ -3820,6 +3819,23 @@ const _sfc_main$c = /* @__PURE__ */ defineComponent({
       }
     });
     watchEffect(() => {
+      CanvasPointer.doubleClickTime = settingStore.get(
+        "Comfy.Pointer.DoubleClickTime"
+      );
+    });
+    watchEffect(() => {
+      CanvasPointer.bufferTime = settingStore.get("Comfy.Pointer.ClickBufferTime");
+    });
+    watchEffect(() => {
+      CanvasPointer.maxClickDrift = settingStore.get("Comfy.Pointer.ClickDrift");
+    });
+    watchEffect(() => {
+      LiteGraph.CANVAS_GRID_SIZE = settingStore.get("Comfy.SnapToGrid.GridSize");
+    });
+    watchEffect(() => {
+      LiteGraph.alwaysSnapToGrid = settingStore.get("pysssss.SnapToGrid");
+    });
+    watchEffect(() => {
       if (!canvasStore.canvas) return;
       if (canvasStore.canvas.state.draggingCanvas) {
         canvasStore.canvas.canvas.style.cursor = "grabbing";
@@ -3832,12 +3848,21 @@ const _sfc_main$c = /* @__PURE__ */ defineComponent({
       canvasStore.canvas.canvas.style.cursor = "default";
     });
     const workflowStore = useWorkflowStore();
+    const persistCurrentWorkflow = /* @__PURE__ */ __name(() => {
+      const workflow = JSON.stringify(app.serializeGraph());
+      localStorage.setItem("workflow", workflow);
+      if (api.clientId) {
+        sessionStorage.setItem(`workflow:${api.clientId}`, workflow);
+      }
+    }, "persistCurrentWorkflow");
     watchEffect(() => {
       if (workflowStore.activeWorkflow) {
         const workflow = workflowStore.activeWorkflow;
         setStorageValue("Comfy.PreviousWorkflow", workflow.key);
+        persistCurrentWorkflow();
       }
     });
+    api.addEventListener("graphChanged", persistCurrentWorkflow);
     usePragmaticDroppable(() => canvasRef.value, {
       onDrop: /* @__PURE__ */ __name((event) => {
         const loc = event.location.current.input;
@@ -3905,6 +3930,7 @@ const _sfc_main$c = /* @__PURE__ */ defineComponent({
       ChangeTracker.init(app);
       await app.setup(canvasRef.value);
       canvasStore.canvas = app.canvas;
+      canvasStore.canvas.render_canvas_border = false;
       workspaceStore.spinner = false;
       window["app"] = app;
       window["graph"] = app.graph;
@@ -4668,7 +4694,7 @@ const _sfc_main$8 = /* @__PURE__ */ defineComponent({
     );
     const workflowStore = useWorkflowStore();
     const isUnsavedText = computed(
-      () => workflowStore.activeWorkflow?.isModified ? " *" : ""
+      () => workflowStore.activeWorkflow?.isModified || !workflowStore.activeWorkflow?.isPersisted ? " *" : ""
     );
     const workflowNameText = computed(() => {
       const workflowName = workflowStore.activeWorkflow?.filename;
@@ -4687,7 +4713,7 @@ const _sfc_main$8 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _withScopeId$3 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-9eb975c3"), n = n(), popScopeId(), n), "_withScopeId$3");
+const _withScopeId$3 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-783f8efe"), n = n(), popScopeId(), n), "_withScopeId$3");
 const _hoisted_1$d = { class: "workflow-label text-sm max-w-[150px] truncate inline-block" };
 const _hoisted_2$b = { class: "relative" };
 const _hoisted_3$9 = {
@@ -4749,7 +4775,7 @@ const _sfc_main$7 = /* @__PURE__ */ defineComponent({
             ]
           ]),
           createBaseVNode("div", _hoisted_2$b, [
-            !unref(workspaceStore).shiftDown && option2.workflow.isModified ? (openBlock(), createElementBlock("span", _hoisted_3$9, "•")) : createCommentVNode("", true),
+            !unref(workspaceStore).shiftDown && (option2.workflow.isModified || !option2.workflow.isPersisted) ? (openBlock(), createElementBlock("span", _hoisted_3$9, "•")) : createCommentVNode("", true),
             createVNode(unref(script$f), {
               class: "close-button p-0 w-auto",
               icon: "pi pi-times",
@@ -4765,7 +4791,7 @@ const _sfc_main$7 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const WorkflowTabs = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__scopeId", "data-v-9eb975c3"]]);
+const WorkflowTabs = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__scopeId", "data-v-783f8efe"]]);
 var theme$3 = /* @__PURE__ */ __name(function theme6(_ref) {
   var dt = _ref.dt;
   return "\n.p-menubar {\n    display: flex;\n    align-items: center;\n    background: ".concat(dt("menubar.background"), ";\n    border: 1px solid ").concat(dt("menubar.border.color"), ";\n    border-radius: ").concat(dt("menubar.border.radius"), ";\n    color: ").concat(dt("menubar.color"), ";\n    padding: ").concat(dt("menubar.padding"), ";\n    gap: ").concat(dt("menubar.gap"), ";\n}\n\n.p-menubar-start,\n.p-megamenu-end {\n    display: flex;\n    align-items: center;\n}\n\n.p-menubar-root-list,\n.p-menubar-submenu {\n    display: flex;\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    outline: 0 none;\n}\n\n.p-menubar-root-list {\n    align-items: center;\n    flex-wrap: wrap;\n    gap: ").concat(dt("menubar.gap"), ";\n}\n\n.p-menubar-root-list > .p-menubar-item > .p-menubar-item-content {\n    border-radius: ").concat(dt("menubar.base.item.border.radius"), ";\n}\n\n.p-menubar-root-list > .p-menubar-item > .p-menubar-item-content > .p-menubar-item-link {\n    padding: ").concat(dt("menubar.base.item.padding"), ";\n}\n\n.p-menubar-item-content {\n    transition: background ").concat(dt("menubar.transition.duration"), ", color ").concat(dt("menubar.transition.duration"), ";\n    border-radius: ").concat(dt("menubar.item.border.radius"), ";\n    color: ").concat(dt("menubar.item.color"), ";\n}\n\n.p-menubar-item-link {\n    cursor: pointer;\n    display: flex;\n    align-items: center;\n    text-decoration: none;\n    overflow: hidden;\n    position: relative;\n    color: inherit;\n    padding: ").concat(dt("menubar.item.padding"), ";\n    gap: ").concat(dt("menubar.item.gap"), ";\n    user-select: none;\n    outline: 0 none;\n}\n\n.p-menubar-item-label {\n    line-height: 1;\n}\n\n.p-menubar-item-icon {\n    color: ").concat(dt("menubar.item.icon.color"), ";\n}\n\n.p-menubar-submenu-icon {\n    color: ").concat(dt("menubar.submenu.icon.color"), ";\n    margin-left: auto;\n    font-size: ").concat(dt("menubar.submenu.icon.size"), ";\n    width: ").concat(dt("menubar.submenu.icon.size"), ";\n    height: ").concat(dt("menubar.submenu.icon.size"), ";\n}\n\n.p-menubar-item.p-focus > .p-menubar-item-content {\n    color: ").concat(dt("menubar.item.focus.color"), ";\n    background: ").concat(dt("menubar.item.focus.background"), ";\n}\n\n.p-menubar-item.p-focus > .p-menubar-item-content .p-menubar-item-icon {\n    color: ").concat(dt("menubar.item.icon.focus.color"), ";\n}\n\n.p-menubar-item.p-focus > .p-menubar-item-content .p-menubar-submenu-icon {\n    color: ").concat(dt("menubar.submenu.icon.focus.color"), ";\n}\n\n.p-menubar-item:not(.p-disabled) > .p-menubar-item-content:hover {\n    color: ").concat(dt("menubar.item.focus.color"), ";\n    background: ").concat(dt("menubar.item.focus.background"), ";\n}\n\n.p-menubar-item:not(.p-disabled) > .p-menubar-item-content:hover .p-menubar-item-icon {\n    color: ").concat(dt("menubar.item.icon.focus.color"), ";\n}\n\n.p-menubar-item:not(.p-disabled) > .p-menubar-item-content:hover .p-menubar-submenu-icon {\n    color: ").concat(dt("menubar.submenu.icon.focus.color"), ";\n}\n\n.p-menubar-item-active > .p-menubar-item-content {\n    color: ").concat(dt("menubar.item.active.color"), ";\n    background: ").concat(dt("menubar.item.active.background"), ";\n}\n\n.p-menubar-item-active > .p-menubar-item-content .p-menubar-item-icon {\n    color: ").concat(dt("menubar.item.icon.active.color"), ";\n}\n\n.p-menubar-item-active > .p-menubar-item-content .p-menubar-submenu-icon {\n    color: ").concat(dt("menubar.submenu.icon.active.color"), ";\n}\n\n.p-menubar-submenu {\n    display: none;\n    position: absolute;\n    min-width: 12.5rem;\n    z-index: 1;\n    background: ").concat(dt("menubar.submenu.background"), ";\n    border: 1px solid ").concat(dt("menubar.submenu.border.color"), ";\n    border-radius: ").concat(dt("menubar.border.radius"), ";\n    box-shadow: ").concat(dt("menubar.submenu.shadow"), ";\n    color: ").concat(dt("menubar.submenu.color"), ";\n    flex-direction: column;\n    padding: ").concat(dt("menubar.submenu.padding"), ";\n    gap: ").concat(dt("menubar.submenu.gap"), ";\n}\n\n.p-menubar-submenu .p-menubar-separator {\n    border-top: 1px solid ").concat(dt("menubar.separator.border.color"), ";\n}\n\n.p-menubar-submenu .p-menubar-item {\n    position: relative;\n}\n\n .p-menubar-submenu > .p-menubar-item-active > .p-menubar-submenu {\n    display: block;\n    left: 100%;\n    top: 0;\n}\n\n.p-menubar-end {\n    margin-left: auto;\n    align-self: center;\n}\n\n.p-menubar-button {\n    display: none;\n    justify-content: center;\n    align-items: center;\n    cursor: pointer;\n    width: ").concat(dt("menubar.mobile.button.size"), ";\n    height: ").concat(dt("menubar.mobile.button.size"), ";\n    position: relative;\n    color: ").concat(dt("menubar.mobile.button.color"), ";\n    border: 0 none;\n    background: transparent;\n    border-radius: ").concat(dt("menubar.mobile.button.border.radius"), ";\n    transition: background ").concat(dt("menubar.transition.duration"), ", color ").concat(dt("menubar.transition.duration"), ", outline-color ").concat(dt("menubar.transition.duration"), ";\n    outline-color: transparent;\n}\n\n.p-menubar-button:hover {\n    color: ").concat(dt("menubar.mobile.button.hover.color"), ";\n    background: ").concat(dt("menubar.mobile.button.hover.background"), ";\n}\n\n.p-menubar-button:focus-visible {\n    box-shadow: ").concat(dt("menubar.mobile.button.focus.ring.shadow"), ";\n    outline: ").concat(dt("menubar.mobile.button.focus.ring.width"), " ").concat(dt("menubar.mobile.button.focus.ring.style"), " ").concat(dt("menubar.mobile.button.focus.ring.color"), ";\n    outline-offset: ").concat(dt("menubar.mobile.button.focus.ring.offset"), ";\n}\n\n.p-menubar-mobile {\n    position: relative;\n}\n\n.p-menubar-mobile .p-menubar-button {\n    display: flex;\n}\n\n.p-menubar-mobile .p-menubar-root-list {\n    position: absolute;\n    display: none;\n    width: 100%;\n    padding: ").concat(dt("menubar.submenu.padding"), ";\n    background: ").concat(dt("menubar.submenu.background"), ";\n    border: 1px solid ").concat(dt("menubar.submenu.border.color"), ";\n    box-shadow: ").concat(dt("menubar.submenu.shadow"), ";\n}\n\n.p-menubar-mobile .p-menubar-root-list > .p-menubar-item > .p-menubar-item-content {\n    border-radius: ").concat(dt("menubar.item.border.radius"), ";\n}\n\n.p-menubar-mobile .p-menubar-root-list > .p-menubar-item > .p-menubar-item-content > .p-menubar-item-link {\n    padding: ").concat(dt("menubar.item.padding"), ";\n}\n\n.p-menubar-mobile-active .p-menubar-root-list {\n    display: flex;\n    flex-direction: column;\n    top: 100%;\n    left: 0;\n    z-index: 1;\n}\n\n.p-menubar-mobile .p-menubar-root-list .p-menubar-item {\n    width: 100%;\n    position: static;\n}\n\n.p-menubar-mobile .p-menubar-root-list .p-menubar-separator {\n    border-top: 1px solid ").concat(dt("menubar.separator.border.color"), ";\n}\n\n.p-menubar-mobile .p-menubar-root-list > .p-menubar-item > .p-menubar-item-content .p-menubar-submenu-icon {\n    margin-left: auto;\n    transition: transform 0.2s;\n}\n\n.p-menubar-mobile .p-menubar-root-list > .p-menubar-item-active > .p-menubar-item-content .p-menubar-submenu-icon {\n    transform: rotate(-180deg);\n}\n\n.p-menubar-mobile .p-menubar-submenu .p-menubar-submenu-icon {\n    transition: transform 0.2s;\n    transform: rotate(90deg);\n}\n\n.p-menubar-mobile  .p-menubar-item-active > .p-menubar-item-content .p-menubar-submenu-icon {\n    transform: rotate(-90deg);\n}\n\n.p-menubar-mobile .p-menubar-submenu {\n    width: 100%;\n    position: static;\n    box-shadow: none;\n    border: 0 none;\n    padding-left: ").concat(dt("menubar.submenu.mobile.indent"), ";\n}\n");
@@ -7766,19 +7792,33 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
         const screenHeight = window.innerHeight;
         const menuWidth = panelRef.value.offsetWidth;
         const menuHeight = panelRef.value.offsetHeight;
+        const distanceLeft = lastDragState.value.x;
         const distanceRight = lastDragState.value.windowWidth - (lastDragState.value.x + menuWidth);
+        const distanceTop = lastDragState.value.y;
         const distanceBottom = lastDragState.value.windowHeight - (lastDragState.value.y + menuHeight);
-        const anchorRight = distanceRight < lastDragState.value.x;
-        const anchorBottom = distanceBottom < lastDragState.value.y;
-        if (anchorRight) {
-          x.value = screenWidth - (lastDragState.value.windowWidth - lastDragState.value.x);
+        const distances = [
+          { edge: "left", distance: distanceLeft },
+          { edge: "right", distance: distanceRight },
+          { edge: "top", distance: distanceTop },
+          { edge: "bottom", distance: distanceBottom }
+        ];
+        const closestEdge = distances.reduce(
+          (min, curr) => curr.distance < min.distance ? curr : min
+        );
+        const verticalRatio = lastDragState.value.y / lastDragState.value.windowHeight;
+        const horizontalRatio = lastDragState.value.x / lastDragState.value.windowWidth;
+        if (closestEdge.edge === "left") {
+          x.value = closestEdge.distance;
+          y.value = verticalRatio * screenHeight;
+        } else if (closestEdge.edge === "right") {
+          x.value = screenWidth - menuWidth - closestEdge.distance;
+          y.value = verticalRatio * screenHeight;
+        } else if (closestEdge.edge === "top") {
+          x.value = horizontalRatio * screenWidth;
+          y.value = closestEdge.distance;
         } else {
-          x.value = lastDragState.value.x;
-        }
-        if (anchorBottom) {
-          y.value = screenHeight - (lastDragState.value.windowHeight - lastDragState.value.y);
-        } else {
-          y.value = lastDragState.value.y;
+          x.value = horizontalRatio * screenWidth;
+          y.value = screenHeight - menuHeight - closestEdge.distance;
         }
         x.value = lodashExports.clamp(x.value, 0, screenWidth - menuWidth);
         y.value = lodashExports.clamp(y.value, 0, screenHeight - menuHeight);
@@ -7835,7 +7875,7 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const Actionbar = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-eb6e9acf"]]);
+const Actionbar = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-542a7001"]]);
 const _hoisted_1$2 = {
   viewBox: "0 0 24 24",
   width: "1.2em",
@@ -7998,6 +8038,467 @@ function setupAutoQueueHandler() {
   );
 }
 __name(setupAutoQueueHandler, "setupAutoQueueHandler");
+var LatentPreviewMethod = /* @__PURE__ */ ((LatentPreviewMethod2) => {
+  LatentPreviewMethod2["NoPreviews"] = "none";
+  LatentPreviewMethod2["Auto"] = "auto";
+  LatentPreviewMethod2["Latent2RGB"] = "latent2rgb";
+  LatentPreviewMethod2["TAESD"] = "taesd";
+  return LatentPreviewMethod2;
+})(LatentPreviewMethod || {});
+var LogLevel = /* @__PURE__ */ ((LogLevel2) => {
+  LogLevel2["DEBUG"] = "DEBUG";
+  LogLevel2["INFO"] = "INFO";
+  LogLevel2["WARNING"] = "WARNING";
+  LogLevel2["ERROR"] = "ERROR";
+  LogLevel2["CRITICAL"] = "CRITICAL";
+  return LogLevel2;
+})(LogLevel || {});
+var HashFunction = /* @__PURE__ */ ((HashFunction2) => {
+  HashFunction2["MD5"] = "md5";
+  HashFunction2["SHA1"] = "sha1";
+  HashFunction2["SHA256"] = "sha256";
+  HashFunction2["SHA512"] = "sha512";
+  return HashFunction2;
+})(HashFunction || {});
+var AutoLaunch = /* @__PURE__ */ ((AutoLaunch2) => {
+  AutoLaunch2["Auto"] = "auto";
+  AutoLaunch2["Disable"] = "disable";
+  AutoLaunch2["Enable"] = "enable";
+  return AutoLaunch2;
+})(AutoLaunch || {});
+var CudaMalloc = /* @__PURE__ */ ((CudaMalloc2) => {
+  CudaMalloc2["Auto"] = "auto";
+  CudaMalloc2["Disable"] = "disable";
+  CudaMalloc2["Enable"] = "enable";
+  return CudaMalloc2;
+})(CudaMalloc || {});
+var FloatingPointPrecision = /* @__PURE__ */ ((FloatingPointPrecision2) => {
+  FloatingPointPrecision2["AUTO"] = "auto";
+  FloatingPointPrecision2["FP64"] = "fp64";
+  FloatingPointPrecision2["FP32"] = "fp32";
+  FloatingPointPrecision2["FP16"] = "fp16";
+  FloatingPointPrecision2["BF16"] = "bf16";
+  FloatingPointPrecision2["FP8E4M3FN"] = "fp8_e4m3fn";
+  FloatingPointPrecision2["FP8E5M2"] = "fp8_e5m2";
+  return FloatingPointPrecision2;
+})(FloatingPointPrecision || {});
+var CrossAttentionMethod = /* @__PURE__ */ ((CrossAttentionMethod2) => {
+  CrossAttentionMethod2["Auto"] = "auto";
+  CrossAttentionMethod2["Split"] = "split";
+  CrossAttentionMethod2["Quad"] = "quad";
+  CrossAttentionMethod2["Pytorch"] = "pytorch";
+  return CrossAttentionMethod2;
+})(CrossAttentionMethod || {});
+var VramManagement = /* @__PURE__ */ ((VramManagement2) => {
+  VramManagement2["Auto"] = "auto";
+  VramManagement2["GPUOnly"] = "gpu-only";
+  VramManagement2["HighVram"] = "highvram";
+  VramManagement2["NormalVram"] = "normalvram";
+  VramManagement2["LowVram"] = "lowvram";
+  VramManagement2["NoVram"] = "novram";
+  VramManagement2["CPU"] = "cpu";
+  return VramManagement2;
+})(VramManagement || {});
+const WEB_ONLY_CONFIG_ITEMS = [
+  // We only need these settings in the web version. Desktop app manages them already.
+  {
+    id: "listen",
+    name: "Host: The IP address to listen on",
+    category: ["Network"],
+    type: "text",
+    defaultValue: "127.0.0.1"
+  },
+  {
+    id: "port",
+    name: "Port: The port to listen on",
+    category: ["Network"],
+    type: "number",
+    defaultValue: 8188
+  }
+];
+const SERVER_CONFIG_ITEMS = [
+  // Network settings
+  {
+    id: "tls-keyfile",
+    name: "TLS Key File: Path to TLS key file for HTTPS",
+    category: ["Network"],
+    type: "text",
+    defaultValue: ""
+  },
+  {
+    id: "tls-certfile",
+    name: "TLS Certificate File: Path to TLS certificate file for HTTPS",
+    category: ["Network"],
+    type: "text",
+    defaultValue: ""
+  },
+  {
+    id: "enable-cors-header",
+    name: 'Enable CORS header: Use "*" for all origins or specify domain',
+    category: ["Network"],
+    type: "text",
+    defaultValue: ""
+  },
+  {
+    id: "max-upload-size",
+    name: "Maximum upload size (MB)",
+    category: ["Network"],
+    type: "number",
+    defaultValue: 100
+  },
+  // Launch behavior
+  {
+    id: "auto-launch",
+    name: "Automatically opens in the browser on startup",
+    category: ["Launch"],
+    type: "combo",
+    options: Object.values(AutoLaunch),
+    defaultValue: AutoLaunch.Auto,
+    getValue: /* @__PURE__ */ __name((value) => {
+      switch (value) {
+        case AutoLaunch.Auto:
+          return {};
+        case AutoLaunch.Enable:
+          return {
+            ["auto-launch"]: true
+          };
+        case AutoLaunch.Disable:
+          return {
+            ["disable-auto-launch"]: true
+          };
+      }
+    }, "getValue")
+  },
+  // CUDA settings
+  {
+    id: "cuda-device",
+    name: "CUDA device index to use",
+    category: ["CUDA"],
+    type: "number",
+    defaultValue: null
+  },
+  {
+    id: "cuda-malloc",
+    name: "Use CUDA malloc for memory allocation",
+    category: ["CUDA"],
+    type: "combo",
+    options: Object.values(CudaMalloc),
+    defaultValue: CudaMalloc.Auto,
+    getValue: /* @__PURE__ */ __name((value) => {
+      switch (value) {
+        case CudaMalloc.Auto:
+          return {};
+        case CudaMalloc.Enable:
+          return {
+            ["cuda-malloc"]: true
+          };
+        case CudaMalloc.Disable:
+          return {
+            ["disable-cuda-malloc"]: true
+          };
+      }
+    }, "getValue")
+  },
+  // Precision settings
+  {
+    id: "global-precision",
+    name: "Global floating point precision",
+    category: ["Inference"],
+    type: "combo",
+    options: [
+      FloatingPointPrecision.AUTO,
+      FloatingPointPrecision.FP32,
+      FloatingPointPrecision.FP16
+    ],
+    defaultValue: FloatingPointPrecision.AUTO,
+    tooltip: "Global floating point precision",
+    getValue: /* @__PURE__ */ __name((value) => {
+      switch (value) {
+        case FloatingPointPrecision.AUTO:
+          return {};
+        case FloatingPointPrecision.FP32:
+          return {
+            ["force-fp32"]: true
+          };
+        case FloatingPointPrecision.FP16:
+          return {
+            ["force-fp16"]: true
+          };
+        default:
+          return {};
+      }
+    }, "getValue")
+  },
+  // UNET precision
+  {
+    id: "unet-precision",
+    name: "UNET precision",
+    category: ["Inference"],
+    type: "combo",
+    options: [
+      FloatingPointPrecision.AUTO,
+      FloatingPointPrecision.FP64,
+      FloatingPointPrecision.FP32,
+      FloatingPointPrecision.FP16,
+      FloatingPointPrecision.BF16,
+      FloatingPointPrecision.FP8E4M3FN,
+      FloatingPointPrecision.FP8E5M2
+    ],
+    defaultValue: FloatingPointPrecision.AUTO,
+    tooltip: "UNET precision",
+    getValue: /* @__PURE__ */ __name((value) => {
+      switch (value) {
+        case FloatingPointPrecision.AUTO:
+          return {};
+        default:
+          return {
+            [`${value.toLowerCase()}-unet`]: true
+          };
+      }
+    }, "getValue")
+  },
+  // VAE settings
+  {
+    id: "vae-precision",
+    name: "VAE precision",
+    category: ["Inference"],
+    type: "combo",
+    options: [
+      FloatingPointPrecision.AUTO,
+      FloatingPointPrecision.FP16,
+      FloatingPointPrecision.FP32,
+      FloatingPointPrecision.BF16
+    ],
+    defaultValue: FloatingPointPrecision.AUTO,
+    tooltip: "VAE precision",
+    getValue: /* @__PURE__ */ __name((value) => {
+      switch (value) {
+        case FloatingPointPrecision.AUTO:
+          return {};
+        default:
+          return {
+            [`${value.toLowerCase()}-vae`]: true
+          };
+      }
+    }, "getValue")
+  },
+  {
+    id: "cpu-vae",
+    name: "Run VAE on CPU",
+    category: ["Inference"],
+    type: "boolean",
+    defaultValue: false
+  },
+  // Text Encoder settings
+  {
+    id: "text-encoder-precision",
+    name: "Text Encoder precision",
+    category: ["Inference"],
+    type: "combo",
+    options: [
+      FloatingPointPrecision.AUTO,
+      FloatingPointPrecision.FP8E4M3FN,
+      FloatingPointPrecision.FP8E5M2,
+      FloatingPointPrecision.FP16,
+      FloatingPointPrecision.FP32
+    ],
+    defaultValue: FloatingPointPrecision.AUTO,
+    tooltip: "Text Encoder precision",
+    getValue: /* @__PURE__ */ __name((value) => {
+      switch (value) {
+        case FloatingPointPrecision.AUTO:
+          return {};
+        default:
+          return {
+            [`${value.toLowerCase()}-text-enc`]: true
+          };
+      }
+    }, "getValue")
+  },
+  // Memory and performance settings
+  {
+    id: "force-channels-last",
+    name: "Force channels-last memory format",
+    category: ["Memory"],
+    type: "boolean",
+    defaultValue: false
+  },
+  {
+    id: "directml",
+    name: "DirectML device index",
+    category: ["Memory"],
+    type: "number",
+    defaultValue: null
+  },
+  {
+    id: "disable-ipex-optimize",
+    name: "Disable IPEX optimization",
+    category: ["Memory"],
+    type: "boolean",
+    defaultValue: false
+  },
+  // Preview settings
+  {
+    id: "preview-method",
+    name: "Method used for latent previews",
+    category: ["Preview"],
+    type: "combo",
+    options: Object.values(LatentPreviewMethod),
+    defaultValue: LatentPreviewMethod.NoPreviews
+  },
+  {
+    id: "preview-size",
+    name: "Size of preview images",
+    category: ["Preview"],
+    type: "slider",
+    defaultValue: 512,
+    attrs: {
+      min: 128,
+      max: 2048,
+      step: 128
+    }
+  },
+  // Cache settings
+  {
+    id: "cache-classic",
+    name: "Use classic cache system",
+    category: ["Cache"],
+    type: "boolean",
+    defaultValue: false
+  },
+  {
+    id: "cache-lru",
+    name: "Use LRU caching with a maximum of N node results cached.",
+    category: ["Cache"],
+    type: "number",
+    defaultValue: null,
+    tooltip: "May use more RAM/VRAM."
+  },
+  // Attention settings
+  {
+    id: "cross-attention-method",
+    name: "Cross attention method",
+    category: ["Attention"],
+    type: "combo",
+    options: Object.values(CrossAttentionMethod),
+    defaultValue: CrossAttentionMethod.Auto,
+    getValue: /* @__PURE__ */ __name((value) => {
+      switch (value) {
+        case CrossAttentionMethod.Auto:
+          return {};
+        default:
+          return {
+            [`use-${value.toLowerCase()}-cross-attention`]: true
+          };
+      }
+    }, "getValue")
+  },
+  {
+    id: "disable-xformers",
+    name: "Disable xFormers optimization",
+    type: "boolean",
+    defaultValue: false
+  },
+  {
+    id: "force-upcast-attention",
+    name: "Force attention upcast",
+    category: ["Attention"],
+    type: "boolean",
+    defaultValue: false
+  },
+  {
+    id: "dont-upcast-attention",
+    name: "Prevent attention upcast",
+    category: ["Attention"],
+    type: "boolean",
+    defaultValue: false
+  },
+  // VRAM management
+  {
+    id: "vram-management",
+    name: "VRAM management mode",
+    category: ["Memory"],
+    type: "combo",
+    options: Object.values(VramManagement),
+    defaultValue: VramManagement.Auto,
+    getValue: /* @__PURE__ */ __name((value) => {
+      switch (value) {
+        case VramManagement.Auto:
+          return {};
+        default:
+          return {
+            [value]: true
+          };
+      }
+    }, "getValue")
+  },
+  {
+    id: "reserve-vram",
+    name: "Reserved VRAM (GB)",
+    category: ["Memory"],
+    type: "number",
+    defaultValue: null,
+    tooltip: "Set the amount of vram in GB you want to reserve for use by your OS/other software. By default some amount is reverved depending on your OS."
+  },
+  // Misc settings
+  {
+    id: "default-hashing-function",
+    name: "Default hashing function for model files",
+    type: "combo",
+    options: Object.values(HashFunction),
+    defaultValue: HashFunction.SHA256
+  },
+  {
+    id: "disable-smart-memory",
+    name: "Force ComfyUI to agressively offload to regular ram instead of keeping models in vram when it can.",
+    category: ["Memory"],
+    type: "boolean",
+    defaultValue: false
+  },
+  {
+    id: "deterministic",
+    name: "Make pytorch use slower deterministic algorithms when it can.",
+    type: "boolean",
+    defaultValue: false,
+    tooltip: "Note that this might not make images deterministic in all cases."
+  },
+  {
+    id: "fast",
+    name: "Enable some untested and potentially quality deteriorating optimizations.",
+    type: "boolean",
+    defaultValue: false
+  },
+  {
+    id: "dont-print-server",
+    name: "Don't print server output to console.",
+    type: "boolean",
+    defaultValue: false
+  },
+  {
+    id: "disable-metadata",
+    name: "Disable saving prompt metadata in files.",
+    type: "boolean",
+    defaultValue: false
+  },
+  {
+    id: "disable-all-custom-nodes",
+    name: "Disable loading all custom nodes.",
+    type: "boolean",
+    defaultValue: false
+  },
+  {
+    id: "log-level",
+    name: "Logging verbosity level",
+    type: "combo",
+    options: Object.values(LogLevel),
+    defaultValue: LogLevel.INFO,
+    getValue: /* @__PURE__ */ __name((value) => {
+      return {
+        verbose: value
+      };
+    }, "getValue")
+  }
+];
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "GraphView",
   setup(__props) {
@@ -8049,6 +8550,11 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
         app.ui.menuContainer.style.setProperty("display", "none");
       }
     });
+    watchEffect(() => {
+      useQueueStore().maxHistoryItems = settingStore.get(
+        "Comfy.Queue.MaxHistoryItems"
+      );
+    });
     const init = /* @__PURE__ */ __name(() => {
       settingStore.addSettings(app.ui.settings);
       useKeybindingStore().loadCoreKeybindings();
@@ -8097,6 +8603,10 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
       requestIdleCallback(
         () => {
           useKeybindingStore().loadUserKeybindings();
+          useServerConfigStore().loadServerConfig(
+            SERVER_CONFIG_ITEMS,
+            settingStore.get("Comfy.Server.ServerConfigValues")
+          );
           useModelStore().loadModelFolders();
           useNodeBookmarkStore().migrateLegacyBookmarks();
           useNodeDefStore().nodeSearchService.endsWithFilterStartSequence("");
@@ -8120,4 +8630,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as default
 };
-//# sourceMappingURL=GraphView-BCOd0Zle.js.map
+//# sourceMappingURL=GraphView-BW5soyxY.js.map

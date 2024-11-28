@@ -1,6 +1,6 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, g as openBlock, h as createElementBlock, A as createBaseVNode, a6 as toDisplayString, i as createVNode, z as unref, D as script, P as pushScopeId, Q as popScopeId, _ as _export_sfc } from "./index-B6dYHNhg.js";
+import { d as defineComponent, g as openBlock, h as createElementBlock, A as createBaseVNode, a6 as toDisplayString, i as createVNode, z as unref, D as script, P as pushScopeId, Q as popScopeId, _ as _export_sfc } from "./index-CoOvI8ZH.js";
 const _withScopeId = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-12b8b11b"), n = n(), popScopeId(), n), "_withScopeId");
 const _hoisted_1 = { class: "font-sans flex flex-col justify-center items-center h-screen m-0 text-neutral-300 bg-neutral-900 dark-theme pointer-events-auto" };
 const _hoisted_2 = { class: "flex flex-col items-center justify-center gap-8 p-8" };
@@ -30,4 +30,4 @@ const WelcomeView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-
 export {
   WelcomeView as default
 };
-//# sourceMappingURL=WelcomeView-DT4bj-QV.js.map
+//# sourceMappingURL=WelcomeView-C4D1cggT.js.map

@@ -1,6 +1,6 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { bH as api, bW as $el } from "./index-B6dYHNhg.js";
+import { aZ as api, bY as $el } from "./index-CoOvI8ZH.js";
 function createSpinner() {
   const div = document.createElement("div");
   div.innerHTML = `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>`;
@@ -126,4 +126,4 @@ window.comfyAPI.userSelection.UserSelectionScreen = UserSelectionScreen;
 export {
   UserSelectionScreen
 };
-//# sourceMappingURL=userSelection-BSkuSZyR.js.map
+//# sourceMappingURL=userSelection-C6c30qSU.js.map
