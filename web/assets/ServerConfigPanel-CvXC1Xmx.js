@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { A as createBaseVNode, f as openBlock, g as createElementBlock, aZ as markRaw, a as defineComponent, u as useSettingStore, aK as storeToRefs, w as watch, cL as useCopyToClipboard, I as useI18n, x as createBlock, y as withCtx, z as unref, bW as script, a8 as toDisplayString, Q as renderList, P as Fragment, h as createVNode, D as script$1, i as createCommentVNode, bN as script$2, cM as FormItem, cm as _sfc_main$1, bZ as electronAPI } from "./index-CSl7lfOs.js";
-import { u as useServerConfigStore } from "./serverConfigStore-D4vD2qBB.js";
+import { A as createBaseVNode, f as openBlock, g as createElementBlock, aZ as markRaw, a as defineComponent, u as useSettingStore, aK as storeToRefs, w as watch, cL as useCopyToClipboard, I as useI18n, x as createBlock, y as withCtx, z as unref, bW as script, a8 as toDisplayString, Q as renderList, P as Fragment, h as createVNode, D as script$1, i as createCommentVNode, bN as script$2, cM as FormItem, cm as _sfc_main$1, bZ as electronAPI } from "./index-DIU5yZe9.js";
+import { u as useServerConfigStore } from "./serverConfigStore-DYv7_Nld.js";
 const _hoisted_1$1 = {
   viewBox: "0 0 24 24",
   width: "1.2em",
@@ -155,4 +155,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as default
 };
-//# sourceMappingURL=ServerConfigPanel-6N6BTSXC.js.map
+//# sourceMappingURL=ServerConfigPanel-CvXC1Xmx.js.map

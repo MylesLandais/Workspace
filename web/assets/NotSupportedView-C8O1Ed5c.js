@@ -1,6 +1,6 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { a as defineComponent, bU as useRouter, t as resolveDirective, f as openBlock, g as createElementBlock, A as createBaseVNode, a8 as toDisplayString, h as createVNode, z as unref, D as script, v as withDirectives } from "./index-CSl7lfOs.js";
+import { a as defineComponent, bU as useRouter, t as resolveDirective, f as openBlock, g as createElementBlock, A as createBaseVNode, a8 as toDisplayString, h as createVNode, z as unref, D as script, v as withDirectives } from "./index-DIU5yZe9.js";
 const _imports_0 = "" + new URL("images/sad_girl.png", import.meta.url).href;
 const _hoisted_1 = { class: "font-sans w-screen h-screen flex items-center m-0 text-neutral-900 bg-neutral-300 pointer-events-auto" };
 const _hoisted_2 = { class: "flex-grow flex items-center justify-center" };
@@ -79,4 +79,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as default
 };
-//# sourceMappingURL=NotSupportedView-Dhitj9aO.js.map
+//# sourceMappingURL=NotSupportedView-C8O1Ed5c.js.map

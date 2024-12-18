@@ -1,8 +1,8 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { a as defineComponent, q as computed, f as openBlock, g as createElementBlock, P as Fragment, Q as renderList, h as createVNode, y as withCtx, ay as createTextVNode, a8 as toDisplayString, z as unref, aC as script, i as createCommentVNode, r as ref, ck as FilterMatchMode, O as useKeybindingStore, F as useCommandStore, I as useI18n, aS as normalizeI18nKey, aL as watchEffect, bn as useToast, t as resolveDirective, x as createBlock, cl as SearchBox, A as createBaseVNode, D as script$2, aq as script$4, br as withModifiers, bW as script$5, aI as script$6, v as withDirectives, cm as _sfc_main$2, R as pushScopeId, U as popScopeId, ce as KeyComboImpl, cn as KeybindingImpl, _ as _export_sfc } from "./index-CSl7lfOs.js";
-import { s as script$1, a as script$3 } from "./index-CgmI-OoW.js";
-import "./index-aSkd2KAK.js";
+import { a as defineComponent, q as computed, f as openBlock, g as createElementBlock, P as Fragment, Q as renderList, h as createVNode, y as withCtx, ay as createTextVNode, a8 as toDisplayString, z as unref, aC as script, i as createCommentVNode, r as ref, ck as FilterMatchMode, O as useKeybindingStore, F as useCommandStore, I as useI18n, aS as normalizeI18nKey, aL as watchEffect, bn as useToast, t as resolveDirective, x as createBlock, cl as SearchBox, A as createBaseVNode, D as script$2, aq as script$4, br as withModifiers, bW as script$5, aI as script$6, v as withDirectives, cm as _sfc_main$2, R as pushScopeId, U as popScopeId, ce as KeyComboImpl, cn as KeybindingImpl, _ as _export_sfc } from "./index-DIU5yZe9.js";
+import { s as script$1, a as script$3 } from "./index-D3u7l7ha.js";
+import "./index-d698Brhb.js";
 const _hoisted_1$1 = {
   key: 0,
   class: "px-2"
@@ -278,4 +278,4 @@ const KeybindingPanel = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "d
 export {
   KeybindingPanel as default
 };
-//# sourceMappingURL=KeybindingPanel-BlOA8Yhu.js.map
+//# sourceMappingURL=KeybindingPanel-DC2AxNNa.js.map
