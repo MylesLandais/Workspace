@@ -1,4 +1,4 @@
-import { d as defineComponent, o as openBlock, f as createElementBlock, J as renderSlot, T as normalizeClass } from "./index-BbhVsmQe.js";
+import { d as defineComponent, o as openBlock, f as createElementBlock, J as renderSlot, T as normalizeClass } from "./index-C4Fk50Nx.js";
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "BaseViewTemplate",
   props: {
@@ -20,4 +20,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as _
 };
-//# sourceMappingURL=BaseViewTemplate-qOhVwbhN.js.map
+//# sourceMappingURL=BaseViewTemplate-CsEJhGbv.js.map

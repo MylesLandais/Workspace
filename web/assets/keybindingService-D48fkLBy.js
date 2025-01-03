@@ -1,6 +1,6 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { a$ as useKeybindingStore, a2 as useCommandStore, a as useSettingStore, cq as KeyComboImpl, cr as KeybindingImpl } from "./index-BbhVsmQe.js";
+import { a$ as useKeybindingStore, a2 as useCommandStore, a as useSettingStore, cq as KeyComboImpl, cr as KeybindingImpl } from "./index-C4Fk50Nx.js";
 const CORE_KEYBINDINGS = [
   {
     combo: {
@@ -247,4 +247,4 @@ const useKeybindingService = /* @__PURE__ */ __name(() => {
 export {
   useKeybindingService as u
 };
-//# sourceMappingURL=keybindingService-DohhteGb.js.map
+//# sourceMappingURL=keybindingService-D48fkLBy.js.map
