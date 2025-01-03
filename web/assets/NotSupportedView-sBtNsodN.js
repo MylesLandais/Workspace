@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, bW as useRouter, r as resolveDirective, o as openBlock, k as createBlock, M as withCtx, H as createBaseVNode, X as toDisplayString, N as createVNode, j as unref, l as script, i as withDirectives } from "./index-De3LoLTp.js";
-import { _ as _sfc_main$1 } from "./BaseViewTemplate-BklhdMAh.js";
+import { d as defineComponent, bW as useRouter, r as resolveDirective, o as openBlock, k as createBlock, M as withCtx, H as createBaseVNode, X as toDisplayString, N as createVNode, j as unref, l as script, i as withDirectives } from "./index-BbhVsmQe.js";
+import { _ as _sfc_main$1 } from "./BaseViewTemplate-qOhVwbhN.js";
 const _imports_0 = "" + new URL("images/sad_girl.png", import.meta.url).href;
 const _hoisted_1 = { class: "sad-container" };
 const _hoisted_2 = /* @__PURE__ */ createBaseVNode("img", {
@@ -83,4 +83,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as default
 };
-//# sourceMappingURL=NotSupportedView-CB0a8PqQ.js.map
+//# sourceMappingURL=NotSupportedView-sBtNsodN.js.map

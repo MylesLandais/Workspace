@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, a1 as useI18n, ab as ref, b_ as ProgressStatus, m as onMounted, o as openBlock, k as createBlock, M as withCtx, H as createBaseVNode, aE as createTextVNode, X as toDisplayString, j as unref, f as createElementBlock, I as createCommentVNode, N as createVNode, l as script, i as withDirectives, v as vShow, b$ as BaseTerminal, aL as pushScopeId, aM as popScopeId, c0 as electronAPI, _ as _export_sfc } from "./index-De3LoLTp.js";
-import { _ as _sfc_main$1 } from "./BaseViewTemplate-BklhdMAh.js";
+import { d as defineComponent, a1 as useI18n, ab as ref, b_ as ProgressStatus, m as onMounted, o as openBlock, k as createBlock, M as withCtx, H as createBaseVNode, aE as createTextVNode, X as toDisplayString, j as unref, f as createElementBlock, I as createCommentVNode, N as createVNode, l as script, i as withDirectives, v as vShow, b$ as BaseTerminal, aL as pushScopeId, aM as popScopeId, c0 as electronAPI, _ as _export_sfc } from "./index-BbhVsmQe.js";
+import { _ as _sfc_main$1 } from "./BaseViewTemplate-qOhVwbhN.js";
 const _withScopeId = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-42c1131d"), n = n(), popScopeId(), n), "_withScopeId");
 const _hoisted_1 = { class: "text-2xl font-bold" };
 const _hoisted_2 = { key: 0 };
@@ -95,4 +95,4 @@ const ServerStartView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "d
 export {
   ServerStartView as default
 };
-//# sourceMappingURL=ServerStartView-JzBhx-L8.js.map
+//# sourceMappingURL=ServerStartView-BA9I3WCH.js.map

@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { B as BaseStyle, q as script$2, ak as UniqueComponentId, c9 as script$4, l as script$5, S as Ripple, aB as resolveComponent, o as openBlock, f as createElementBlock, D as mergeProps, H as createBaseVNode, J as renderSlot, T as normalizeClass, X as toDisplayString, I as createCommentVNode, k as createBlock, M as withCtx, G as resolveDynamicComponent, N as createVNode, aC as Transition, i as withDirectives, v as vShow } from "./index-De3LoLTp.js";
-import { s as script$3 } from "./index-BwVbIa1-.js";
+import { B as BaseStyle, q as script$2, ak as UniqueComponentId, c9 as script$4, l as script$5, S as Ripple, aB as resolveComponent, o as openBlock, f as createElementBlock, D as mergeProps, H as createBaseVNode, J as renderSlot, T as normalizeClass, X as toDisplayString, I as createCommentVNode, k as createBlock, M as withCtx, G as resolveDynamicComponent, N as createVNode, aC as Transition, i as withDirectives, v as vShow } from "./index-BbhVsmQe.js";
+import { s as script$3 } from "./index-VIBj2YvH.js";
 var theme = /* @__PURE__ */ __name(function theme2(_ref) {
   var dt = _ref.dt;
   return "\n.p-panel {\n    border: 1px solid ".concat(dt("panel.border.color"), ";\n    border-radius: ").concat(dt("panel.border.radius"), ";\n    background: ").concat(dt("panel.background"), ";\n    color: ").concat(dt("panel.color"), ";\n}\n\n.p-panel-header {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    padding: ").concat(dt("panel.header.padding"), ";\n    background: ").concat(dt("panel.header.background"), ";\n    color: ").concat(dt("panel.header.color"), ";\n    border-style: solid;\n    border-width: ").concat(dt("panel.header.border.width"), ";\n    border-color: ").concat(dt("panel.header.border.color"), ";\n    border-radius: ").concat(dt("panel.header.border.radius"), ";\n}\n\n.p-panel-toggleable .p-panel-header {\n    padding: ").concat(dt("panel.toggleable.header.padding"), ";\n}\n\n.p-panel-title {\n    line-height: 1;\n    font-weight: ").concat(dt("panel.title.font.weight"), ";\n}\n\n.p-panel-content {\n    padding: ").concat(dt("panel.content.padding"), ";\n}\n\n.p-panel-footer {\n    padding: ").concat(dt("panel.footer.padding"), ";\n}\n");
@@ -170,4 +170,4 @@ script.render = render;
 export {
   script as s
 };
-//# sourceMappingURL=index-Cga7cgPc.js.map
+//# sourceMappingURL=index-BuE2B-Gw.js.map
