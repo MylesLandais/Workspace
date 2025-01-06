@@ -1,6 +1,6 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { a$ as useKeybindingStore, a2 as useCommandStore, a as useSettingStore, cq as KeyComboImpl, cr as KeybindingImpl } from "./index-C4Fk50Nx.js";
+import { a$ as useKeybindingStore, a2 as useCommandStore, a as useSettingStore, cq as KeyComboImpl, cr as KeybindingImpl } from "./index-DjNHn37O.js";
 const CORE_KEYBINDINGS = [
   {
     combo: {
@@ -229,11 +229,11 @@ const useKeybindingService = /* @__PURE__ */ __name(() => {
   async function persistUserKeybindings() {
     await settingStore.set(
       "Comfy.Keybinding.NewBindings",
-      Object.values(keybindingStore.userKeybindings.value)
+      Object.values(keybindingStore.getUserKeybindings())
     );
     await settingStore.set(
       "Comfy.Keybinding.UnsetBindings",
-      Object.values(keybindingStore.userUnsetKeybindings.value)
+      Object.values(keybindingStore.getUserUnsetKeybindings())
     );
   }
   __name(persistUserKeybindings, "persistUserKeybindings");
@@ -247,4 +247,4 @@ const useKeybindingService = /* @__PURE__ */ __name(() => {
 export {
   useKeybindingService as u
 };
-//# sourceMappingURL=keybindingService-D48fkLBy.js.map
+//# sourceMappingURL=keybindingService-Bx7YdkXn.js.map

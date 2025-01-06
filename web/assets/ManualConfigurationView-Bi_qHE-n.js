@@ -1,9 +1,9 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, a1 as useI18n, ab as ref, m as onMounted, o as openBlock, k as createBlock, M as withCtx, H as createBaseVNode, X as toDisplayString, N as createVNode, j as unref, aI as script, l as script$2, c0 as electronAPI } from "./index-C4Fk50Nx.js";
-import { s as script$1 } from "./index-hdfnBvYs.js";
-import { _ as _sfc_main$1 } from "./BaseViewTemplate-CsEJhGbv.js";
-import "./index-B7ycxfFq.js";
+import { d as defineComponent, a1 as useI18n, ab as ref, m as onMounted, o as openBlock, k as createBlock, M as withCtx, H as createBaseVNode, X as toDisplayString, N as createVNode, j as unref, aI as script, l as script$2, c0 as electronAPI } from "./index-DjNHn37O.js";
+import { s as script$1 } from "./index-jXPKy3pP.js";
+import { _ as _sfc_main$1 } from "./BaseViewTemplate-BNGF4K22.js";
+import "./index-5HFeZax4.js";
 const _hoisted_1 = { class: "comfy-installer grow flex flex-col gap-4 text-neutral-300 max-w-110" };
 const _hoisted_2 = { class: "text-2xl font-semibold text-neutral-100" };
 const _hoisted_3 = { class: "m-1 text-neutral-300" };
@@ -72,4 +72,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as default
 };
-//# sourceMappingURL=ManualConfigurationView-BA4Vtud8.js.map
+//# sourceMappingURL=ManualConfigurationView-Bi_qHE-n.js.map

@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, aX as useUserStore, bW as useRouter, ab as ref, c as computed, m as onMounted, o as openBlock, k as createBlock, M as withCtx, H as createBaseVNode, X as toDisplayString, N as createVNode, bX as withKeys, j as unref, av as script, bQ as script$1, bY as script$2, bZ as script$3, aE as createTextVNode, I as createCommentVNode, l as script$4 } from "./index-C4Fk50Nx.js";
-import { _ as _sfc_main$1 } from "./BaseViewTemplate-CsEJhGbv.js";
+import { d as defineComponent, aX as useUserStore, bW as useRouter, ab as ref, c as computed, m as onMounted, o as openBlock, k as createBlock, M as withCtx, H as createBaseVNode, X as toDisplayString, N as createVNode, bX as withKeys, j as unref, av as script, bQ as script$1, bY as script$2, bZ as script$3, aE as createTextVNode, I as createCommentVNode, l as script$4 } from "./index-DjNHn37O.js";
+import { _ as _sfc_main$1 } from "./BaseViewTemplate-BNGF4K22.js";
 const _hoisted_1 = {
   id: "comfy-user-selection",
   class: "min-w-84 relative rounded-lg bg-[var(--comfy-menu-bg)] p-5 px-10 shadow-lg"
@@ -99,4 +99,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as default
 };
-//# sourceMappingURL=UserSelectView-2l9Kbchu.js.map
+//# sourceMappingURL=UserSelectView-B3jYchWu.js.map

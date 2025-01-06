@@ -1,9 +1,9 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, ab as ref, cn as FilterMatchMode, cs as useExtensionStore, a as useSettingStore, m as onMounted, c as computed, o as openBlock, k as createBlock, M as withCtx, N as createVNode, co as SearchBox, j as unref, bZ as script, H as createBaseVNode, f as createElementBlock, E as renderList, X as toDisplayString, aE as createTextVNode, F as Fragment, l as script$1, I as createCommentVNode, aI as script$3, bO as script$4, c4 as script$5, cp as _sfc_main$1 } from "./index-C4Fk50Nx.js";
-import { s as script$2, a as script$6 } from "./index-CK0rrCYF.js";
-import "./index-lMQBwSDj.js";
-import "./index-B7ycxfFq.js";
+import { d as defineComponent, ab as ref, cn as FilterMatchMode, cs as useExtensionStore, a as useSettingStore, m as onMounted, c as computed, o as openBlock, k as createBlock, M as withCtx, N as createVNode, co as SearchBox, j as unref, bZ as script, H as createBaseVNode, f as createElementBlock, E as renderList, X as toDisplayString, aE as createTextVNode, F as Fragment, l as script$1, I as createCommentVNode, aI as script$3, bO as script$4, c4 as script$5, cp as _sfc_main$1 } from "./index-DjNHn37O.js";
+import { s as script$2, a as script$6 } from "./index-B5F0uxTQ.js";
+import "./index-B-aVupP5.js";
+import "./index-5HFeZax4.js";
 const _hoisted_1 = { class: "flex justify-end" };
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "ExtensionPanel",
@@ -180,4 +180,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as default
 };
-//# sourceMappingURL=ExtensionPanel-CxijYN47.js.map
+//# sourceMappingURL=ExtensionPanel-D4Phn0Zr.js.map

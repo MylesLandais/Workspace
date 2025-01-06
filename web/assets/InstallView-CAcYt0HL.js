@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value2) => __defProp(target, "name", { value: value2, configurable: true });
-import { B as BaseStyle, q as script$6, o as openBlock, f as createElementBlock, D as mergeProps, c1 as findIndexInList, c2 as find, aB as resolveComponent, k as createBlock, G as resolveDynamicComponent, M as withCtx, H as createBaseVNode, X as toDisplayString, J as renderSlot, I as createCommentVNode, T as normalizeClass, P as findSingle, F as Fragment, aC as Transition, i as withDirectives, v as vShow, ak as UniqueComponentId, d as defineComponent, ab as ref, c3 as useModel, N as createVNode, j as unref, c4 as script$7, bQ as script$8, bM as withModifiers, aP as script$9, a1 as useI18n, c as computed, aI as script$a, aE as createTextVNode, c0 as electronAPI, m as onMounted, r as resolveDirective, av as script$b, c5 as script$c, c6 as script$d, l as script$e, bZ as script$f, c7 as MigrationItems, w as watchEffect, E as renderList, c8 as script$g, bW as useRouter, aL as pushScopeId, aM as popScopeId, aU as toRaw, _ as _export_sfc } from "./index-C4Fk50Nx.js";
-import { _ as _sfc_main$5 } from "./BaseViewTemplate-CsEJhGbv.js";
+import { B as BaseStyle, q as script$6, o as openBlock, f as createElementBlock, D as mergeProps, c1 as findIndexInList, c2 as find, aB as resolveComponent, k as createBlock, G as resolveDynamicComponent, M as withCtx, H as createBaseVNode, X as toDisplayString, J as renderSlot, I as createCommentVNode, T as normalizeClass, P as findSingle, F as Fragment, aC as Transition, i as withDirectives, v as vShow, ak as UniqueComponentId, d as defineComponent, ab as ref, c3 as useModel, N as createVNode, j as unref, c4 as script$7, bQ as script$8, bM as withModifiers, aP as script$9, a1 as useI18n, c as computed, aI as script$a, aE as createTextVNode, c0 as electronAPI, m as onMounted, r as resolveDirective, av as script$b, c5 as script$c, c6 as script$d, l as script$e, bZ as script$f, c7 as MigrationItems, w as watchEffect, E as renderList, c8 as script$g, bW as useRouter, aL as pushScopeId, aM as popScopeId, aU as toRaw, _ as _export_sfc } from "./index-DjNHn37O.js";
+import { _ as _sfc_main$5 } from "./BaseViewTemplate-BNGF4K22.js";
 var classes$4 = {
   root: /* @__PURE__ */ __name(function root(_ref) {
     var instance = _ref.instance;
@@ -1285,4 +1285,4 @@ const InstallView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-
 export {
   InstallView as default
 };
-//# sourceMappingURL=InstallView-AV2llYNm.js.map
+//# sourceMappingURL=InstallView-CAcYt0HL.js.map
