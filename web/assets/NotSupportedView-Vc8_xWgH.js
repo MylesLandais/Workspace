@@ -1,14 +1,15 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, bW as useRouter, r as resolveDirective, o as openBlock, k as createBlock, M as withCtx, H as createBaseVNode, X as toDisplayString, N as createVNode, j as unref, l as script, i as withDirectives } from "./index-DjNHn37O.js";
-import { _ as _sfc_main$1 } from "./BaseViewTemplate-BNGF4K22.js";
+import { d as defineComponent, c2 as useRouter, r as resolveDirective, o as openBlock, J as createBlock, P as withCtx, m as createBaseVNode, Z as toDisplayString, k as createVNode, j as unref, l as script, i as withDirectives, p as pushScopeId, q as popScopeId, _ as _export_sfc } from "./index-QvfM__ze.js";
+import { _ as _sfc_main$1 } from "./BaseViewTemplate-BhQMaVFP.js";
 const _imports_0 = "" + new URL("images/sad_girl.png", import.meta.url).href;
+const _withScopeId = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-ebb20958"), n = n(), popScopeId(), n), "_withScopeId");
 const _hoisted_1 = { class: "sad-container" };
-const _hoisted_2 = /* @__PURE__ */ createBaseVNode("img", {
+const _hoisted_2 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("img", {
   class: "sad-girl",
   src: _imports_0,
   alt: "Sad girl illustration"
-}, null, -1);
+}, null, -1));
 const _hoisted_3 = { class: "no-drag sad-text flex items-center" };
 const _hoisted_4 = { class: "flex flex-col gap-8 p-8 min-w-110" };
 const _hoisted_5 = { class: "text-4xl font-bold text-red-500" };
@@ -80,7 +81,8 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     };
   }
 });
+const NotSupportedView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-ebb20958"]]);
 export {
-  _sfc_main as default
+  NotSupportedView as default
 };
-//# sourceMappingURL=NotSupportedView-Drz3x2d-.js.map
+//# sourceMappingURL=NotSupportedView-Vc8_xWgH.js.map

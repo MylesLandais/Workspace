@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, bW as useRouter, o as openBlock, k as createBlock, M as withCtx, H as createBaseVNode, X as toDisplayString, N as createVNode, j as unref, l as script, aL as pushScopeId, aM as popScopeId, _ as _export_sfc } from "./index-DjNHn37O.js";
-import { _ as _sfc_main$1 } from "./BaseViewTemplate-BNGF4K22.js";
+import { d as defineComponent, c2 as useRouter, o as openBlock, J as createBlock, P as withCtx, m as createBaseVNode, Z as toDisplayString, k as createVNode, j as unref, l as script, p as pushScopeId, q as popScopeId, _ as _export_sfc } from "./index-QvfM__ze.js";
+import { _ as _sfc_main$1 } from "./BaseViewTemplate-BhQMaVFP.js";
 const _withScopeId = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-7dfaf74c"), n = n(), popScopeId(), n), "_withScopeId");
 const _hoisted_1 = { class: "flex flex-col items-center justify-center gap-8 p-8" };
 const _hoisted_2 = { class: "animated-gradient-text text-glow select-none" };
@@ -37,4 +37,4 @@ const WelcomeView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-
 export {
   WelcomeView as default
 };
-//# sourceMappingURL=WelcomeView-N0ZXLjdi.js.map
+//# sourceMappingURL=WelcomeView-C8whKl15.js.map

@@ -1,6 +1,6 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { $ as defineStore, ab as ref, c as computed } from "./index-DjNHn37O.js";
+import { a1 as defineStore, ad as ref, c as computed } from "./index-QvfM__ze.js";
 const useServerConfigStore = defineStore("serverConfig", () => {
   const serverConfigById = ref({});
   const serverConfigs = computed(() => {
@@ -87,4 +87,4 @@ const useServerConfigStore = defineStore("serverConfig", () => {
 export {
   useServerConfigStore as u
 };
-//# sourceMappingURL=serverConfigStore-CvyKFVuP.js.map
+//# sourceMappingURL=serverConfigStore-DCme3xlV.js.map

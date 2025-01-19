@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value2) => __defProp(target, "name", { value: value2, configurable: true });
-import { B as BaseStyle, q as script$6, o as openBlock, f as createElementBlock, D as mergeProps, c1 as findIndexInList, c2 as find, aB as resolveComponent, k as createBlock, G as resolveDynamicComponent, M as withCtx, H as createBaseVNode, X as toDisplayString, J as renderSlot, I as createCommentVNode, T as normalizeClass, P as findSingle, F as Fragment, aC as Transition, i as withDirectives, v as vShow, ak as UniqueComponentId, d as defineComponent, ab as ref, c3 as useModel, N as createVNode, j as unref, c4 as script$7, bQ as script$8, bM as withModifiers, aP as script$9, a1 as useI18n, c as computed, aI as script$a, aE as createTextVNode, c0 as electronAPI, m as onMounted, r as resolveDirective, av as script$b, c5 as script$c, c6 as script$d, l as script$e, bZ as script$f, c7 as MigrationItems, w as watchEffect, E as renderList, c8 as script$g, bW as useRouter, aL as pushScopeId, aM as popScopeId, aU as toRaw, _ as _export_sfc } from "./index-DjNHn37O.js";
-import { _ as _sfc_main$5 } from "./BaseViewTemplate-BNGF4K22.js";
+import { B as BaseStyle, y as script$6, o as openBlock, f as createElementBlock, G as mergeProps, c9 as findIndexInList, ca as find, aD as resolveComponent, J as createBlock, K as resolveDynamicComponent, P as withCtx, m as createBaseVNode, Z as toDisplayString, M as renderSlot, L as createCommentVNode, V as normalizeClass, R as findSingle, H as Fragment, aE as Transition, i as withDirectives, v as vShow, am as UniqueComponentId, d as defineComponent, ad as ref, cb as useModel, k as createVNode, j as unref, cc as script$7, c4 as script$8, b3 as withModifiers, aP as script$9, a3 as useI18n, c as computed, aK as script$a, aG as createTextVNode, p as pushScopeId, q as popScopeId, bV as electronAPI, _ as _export_sfc, t as onMounted, r as resolveDirective, ax as script$b, cd as script$c, ce as script$d, l as script$e, c6 as script$f, cf as MigrationItems, w as watchEffect, I as renderList, cg as script$g, c2 as useRouter, aU as toRaw } from "./index-QvfM__ze.js";
+import { _ as _sfc_main$5 } from "./BaseViewTemplate-BhQMaVFP.js";
 var classes$4 = {
   root: /* @__PURE__ */ __name(function root(_ref) {
     var instance = _ref.instance;
@@ -548,6 +548,12 @@ const _hoisted_15$2 = { class: "font-medium mb-2" };
 const _hoisted_16$2 = { class: "list-disc pl-6 space-y-1" };
 const _hoisted_17$2 = { class: "font-medium mt-4 mb-2" };
 const _hoisted_18$2 = { class: "list-disc pl-6 space-y-1" };
+const _hoisted_19 = { class: "mt-4" };
+const _hoisted_20 = {
+  href: "https://comfy.org/privacy",
+  target: "_blank",
+  class: "text-blue-400 hover:text-blue-300 underline"
+};
 const _sfc_main$4 = /* @__PURE__ */ defineComponent({
   __name: "DesktopSettingsConfiguration",
   props: {
@@ -608,17 +614,29 @@ const _sfc_main$4 = /* @__PURE__ */ defineComponent({
             createBaseVNode("div", _hoisted_14$2, [
               createBaseVNode("h4", _hoisted_15$2, toDisplayString(_ctx.$t("install.settings.dataCollectionDialog.whatWeCollect")), 1),
               createBaseVNode("ul", _hoisted_16$2, [
-                createBaseVNode("li", null, toDisplayString(_ctx.$t("install.settings.dataCollectionDialog.errorReports")), 1),
-                createBaseVNode("li", null, toDisplayString(_ctx.$t("install.settings.dataCollectionDialog.systemInfo")), 1)
+                createBaseVNode("li", null, toDisplayString(_ctx.$t("install.settings.dataCollectionDialog.collect.errorReports")), 1),
+                createBaseVNode("li", null, toDisplayString(_ctx.$t("install.settings.dataCollectionDialog.collect.systemInfo")), 1),
+                createBaseVNode("li", null, toDisplayString(_ctx.$t(
+                  "install.settings.dataCollectionDialog.collect.userJourneyEvents"
+                )), 1)
               ]),
               createBaseVNode("h4", _hoisted_17$2, toDisplayString(_ctx.$t("install.settings.dataCollectionDialog.whatWeDoNotCollect")), 1),
               createBaseVNode("ul", _hoisted_18$2, [
-                createBaseVNode("li", null, toDisplayString(_ctx.$t("install.settings.dataCollectionDialog.personalInformation")), 1),
-                createBaseVNode("li", null, toDisplayString(_ctx.$t("install.settings.dataCollectionDialog.workflowContents")), 1),
-                createBaseVNode("li", null, toDisplayString(_ctx.$t("install.settings.dataCollectionDialog.fileSystemInformation")), 1),
                 createBaseVNode("li", null, toDisplayString(_ctx.$t(
-                  "install.settings.dataCollectionDialog.customNodeConfigurations"
+                  "install.settings.dataCollectionDialog.doNotCollect.personalInformation"
+                )), 1),
+                createBaseVNode("li", null, toDisplayString(_ctx.$t(
+                  "install.settings.dataCollectionDialog.doNotCollect.workflowContents"
+                )), 1),
+                createBaseVNode("li", null, toDisplayString(_ctx.$t(
+                  "install.settings.dataCollectionDialog.doNotCollect.fileSystemInformation"
+                )), 1),
+                createBaseVNode("li", null, toDisplayString(_ctx.$t(
+                  "install.settings.dataCollectionDialog.doNotCollect.customNodeConfigurations"
                 )), 1)
+              ]),
+              createBaseVNode("div", _hoisted_19, [
+                createBaseVNode("a", _hoisted_20, toDisplayString(_ctx.$t("install.settings.dataCollectionDialog.viewFullPolicy")), 1)
               ])
             ])
           ]),
@@ -631,36 +649,37 @@ const _sfc_main$4 = /* @__PURE__ */ defineComponent({
 const _imports_0 = "" + new URL("images/nvidia-logo.svg", import.meta.url).href;
 const _imports_1 = "" + new URL("images/apple-mps-logo.png", import.meta.url).href;
 const _imports_2 = "" + new URL("images/manual-configuration.svg", import.meta.url).href;
+const _withScopeId$1 = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-79125ff6"), n = n(), popScopeId(), n), "_withScopeId$1");
 const _hoisted_1$3 = { class: "flex flex-col gap-6 w-[600px] h-[30rem] select-none" };
 const _hoisted_2$3 = { class: "grow flex flex-col gap-4 text-neutral-300" };
 const _hoisted_3$3 = { class: "text-2xl font-semibold text-neutral-100" };
 const _hoisted_4$3 = { class: "m-1 text-neutral-400" };
-const _hoisted_5$2 = /* @__PURE__ */ createBaseVNode("img", {
+const _hoisted_5$2 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createBaseVNode("img", {
   class: "m-12",
   alt: "NVIDIA logo",
   width: "196",
   height: "32",
   src: _imports_0
-}, null, -1);
+}, null, -1));
 const _hoisted_6$2 = [
   _hoisted_5$2
 ];
-const _hoisted_7$2 = /* @__PURE__ */ createBaseVNode("img", {
+const _hoisted_7$2 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createBaseVNode("img", {
   class: "rounded-lg hover-brighten",
   alt: "Apple Metal Performance Shaders Logo",
   width: "292",
   ratio: "",
   src: _imports_1
-}, null, -1);
+}, null, -1));
 const _hoisted_8$2 = [
   _hoisted_7$2
 ];
-const _hoisted_9$2 = /* @__PURE__ */ createBaseVNode("img", {
+const _hoisted_9$2 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createBaseVNode("img", {
   class: "m-12",
   alt: "Manual configuration",
   width: "196",
   src: _imports_2
-}, null, -1);
+}, null, -1));
 const _hoisted_10$2 = [
   _hoisted_9$2
 ];
@@ -797,6 +816,7 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
     };
   }
 });
+const GpuPicker = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-79125ff6"]]);
 const _hoisted_1$2 = { class: "flex flex-col gap-6 w-[600px]" };
 const _hoisted_2$2 = { class: "flex flex-col gap-4" };
 const _hoisted_3$2 = { class: "text-2xl font-semibold text-neutral-100" };
@@ -1082,7 +1102,7 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _withScopeId = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-de33872d"), n = n(), popScopeId(), n), "_withScopeId");
+const _withScopeId = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-0a97b0ae"), n = n(), popScopeId(), n), "_withScopeId");
 const _hoisted_1 = { class: "flex pt-6 justify-end" };
 const _hoisted_2 = { class: "flex pt-6 justify-between" };
 const _hoisted_3 = { class: "flex pt-6 justify-between" };
@@ -1098,6 +1118,12 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     const autoUpdate = ref(true);
     const allowMetrics = ref(true);
     const highestStep = ref(0);
+    const handleStepChange = /* @__PURE__ */ __name((value2) => {
+      setHighestStep(value2);
+      electronAPI().Events.trackEvent("install_stepper_change", {
+        step: value2
+      });
+    }, "handleStepChange");
     const setHighestStep = /* @__PURE__ */ __name((value2) => {
       const int = typeof value2 === "number" ? value2 : parseInt(value2, 10);
       if (!isNaN(int) && int > highestStep.value) highestStep.value = int;
@@ -1122,8 +1148,13 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     onMounted(async () => {
       if (!electron) return;
       const detectedGpu = await electron.Config.getDetectedGpu();
-      if (detectedGpu === "mps" || detectedGpu === "nvidia")
+      if (detectedGpu === "mps" || detectedGpu === "nvidia") {
         device.value = detectedGpu;
+      }
+      electronAPI().Events.trackEvent("install_stepper_change", {
+        step: "0",
+        gpu: detectedGpu
+      });
     });
     return (_ctx, _cache) => {
       return openBlock(), createBlock(_sfc_main$5, { dark: "" }, {
@@ -1131,7 +1162,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
           createVNode(unref(script), {
             class: "h-full p-8 2xl:p-16",
             value: "0",
-            "onUpdate:value": setHighestStep
+            "onUpdate:value": handleStepChange
           }, {
             default: withCtx(() => [
               createVNode(unref(script$4), { class: "select-none" }, {
@@ -1176,7 +1207,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
                 default: withCtx(() => [
                   createVNode(unref(script$3), { value: "0" }, {
                     default: withCtx(({ activateCallback }) => [
-                      createVNode(_sfc_main$3, {
+                      createVNode(GpuPicker, {
                         device: device.value,
                         "onUpdate:device": _cache[0] || (_cache[0] = ($event) => device.value = $event)
                       }, null, 8, ["device"]),
@@ -1281,8 +1312,8 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const InstallView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-de33872d"]]);
+const InstallView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-0a97b0ae"]]);
 export {
   InstallView as default
 };
-//# sourceMappingURL=InstallView-CAcYt0HL.js.map
+//# sourceMappingURL=InstallView-By3hC1fC.js.map

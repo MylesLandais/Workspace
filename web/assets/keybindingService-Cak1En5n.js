@@ -1,6 +1,6 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { a$ as useKeybindingStore, a2 as useCommandStore, a as useSettingStore, cq as KeyComboImpl, cr as KeybindingImpl } from "./index-DjNHn37O.js";
+import { a$ as useKeybindingStore, a4 as useCommandStore, a as useSettingStore, cx as KeyComboImpl, cy as KeybindingImpl } from "./index-QvfM__ze.js";
 const CORE_KEYBINDINGS = [
   {
     combo: {
@@ -96,7 +96,7 @@ const CORE_KEYBINDINGS = [
       alt: true
     },
     commandId: "Comfy.Canvas.ZoomIn",
-    targetSelector: "#graph-canvas"
+    targetElementId: "graph-canvas"
   },
   {
     combo: {
@@ -105,7 +105,7 @@ const CORE_KEYBINDINGS = [
       shift: true
     },
     commandId: "Comfy.Canvas.ZoomIn",
-    targetSelector: "#graph-canvas"
+    targetElementId: "graph-canvas"
   },
   // For number pad '+'
   {
@@ -114,7 +114,7 @@ const CORE_KEYBINDINGS = [
       alt: true
     },
     commandId: "Comfy.Canvas.ZoomIn",
-    targetSelector: "#graph-canvas"
+    targetElementId: "graph-canvas"
   },
   {
     combo: {
@@ -122,21 +122,21 @@ const CORE_KEYBINDINGS = [
       alt: true
     },
     commandId: "Comfy.Canvas.ZoomOut",
-    targetSelector: "#graph-canvas"
+    targetElementId: "graph-canvas"
   },
   {
     combo: {
       key: "."
     },
     commandId: "Comfy.Canvas.FitView",
-    targetSelector: "#graph-canvas"
+    targetElementId: "graph-canvas"
   },
   {
     combo: {
       key: "p"
     },
     commandId: "Comfy.Canvas.ToggleSelected.Pin",
-    targetSelector: "#graph-canvas"
+    targetElementId: "graph-canvas"
   },
   {
     combo: {
@@ -144,7 +144,7 @@ const CORE_KEYBINDINGS = [
       alt: true
     },
     commandId: "Comfy.Canvas.ToggleSelectedNodes.Collapse",
-    targetSelector: "#graph-canvas"
+    targetElementId: "graph-canvas"
   },
   {
     combo: {
@@ -152,7 +152,7 @@ const CORE_KEYBINDINGS = [
       ctrl: true
     },
     commandId: "Comfy.Canvas.ToggleSelectedNodes.Bypass",
-    targetSelector: "#graph-canvas"
+    targetElementId: "graph-canvas"
   },
   {
     combo: {
@@ -160,7 +160,7 @@ const CORE_KEYBINDINGS = [
       ctrl: true
     },
     commandId: "Comfy.Canvas.ToggleSelectedNodes.Mute",
-    targetSelector: "#graph-canvas"
+    targetElementId: "graph-canvas"
   },
   {
     combo: {
@@ -190,7 +190,7 @@ const useKeybindingService = /* @__PURE__ */ __name(() => {
       return;
     }
     const keybinding = keybindingStore.getKeybinding(keyCombo);
-    if (keybinding && keybinding.targetSelector !== "#graph-canvas") {
+    if (keybinding && keybinding.targetElementId !== "graph-canvas") {
       event.preventDefault();
       await commandStore.execute(keybinding.commandId);
       return;
@@ -247,4 +247,4 @@ const useKeybindingService = /* @__PURE__ */ __name(() => {
 export {
   useKeybindingService as u
 };
-//# sourceMappingURL=keybindingService-Bx7YdkXn.js.map
+//# sourceMappingURL=keybindingService-Cak1En5n.js.map

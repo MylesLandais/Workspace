@@ -1,10 +1,9 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, c as computed, o as openBlock, f as createElementBlock, F as Fragment, E as renderList, N as createVNode, M as withCtx, aE as createTextVNode, X as toDisplayString, j as unref, aI as script, I as createCommentVNode, ab as ref, cn as FilterMatchMode, a$ as useKeybindingStore, a2 as useCommandStore, a1 as useI18n, af as normalizeI18nKey, w as watchEffect, bs as useToast, r as resolveDirective, k as createBlock, co as SearchBox, H as createBaseVNode, l as script$2, av as script$4, bM as withModifiers, bZ as script$5, aP as script$6, i as withDirectives, cp as _sfc_main$2, aL as pushScopeId, aM as popScopeId, cq as KeyComboImpl, cr as KeybindingImpl, _ as _export_sfc } from "./index-DjNHn37O.js";
-import { s as script$1, a as script$3 } from "./index-B5F0uxTQ.js";
-import { u as useKeybindingService } from "./keybindingService-Bx7YdkXn.js";
-import "./index-B-aVupP5.js";
-import "./index-5HFeZax4.js";
+import { d as defineComponent, c as computed, o as openBlock, f as createElementBlock, H as Fragment, I as renderList, k as createVNode, P as withCtx, aG as createTextVNode, Z as toDisplayString, j as unref, aK as script, L as createCommentVNode, ad as ref, cu as FilterMatchMode, a$ as useKeybindingStore, a4 as useCommandStore, a3 as useI18n, ah as normalizeI18nKey, w as watchEffect, bz as useToast, r as resolveDirective, J as createBlock, cv as SearchBox, m as createBaseVNode, l as script$2, ax as script$4, b3 as withModifiers, c6 as script$5, aP as script$6, i as withDirectives, cw as _sfc_main$2, p as pushScopeId, q as popScopeId, cx as KeyComboImpl, cy as KeybindingImpl, _ as _export_sfc } from "./index-QvfM__ze.js";
+import { s as script$1, a as script$3 } from "./index-DpF-ptbJ.js";
+import { u as useKeybindingService } from "./keybindingService-Cak1En5n.js";
+import "./index-Q1cQr26V.js";
 const _hoisted_1$1 = {
   key: 0,
   class: "px-2"
@@ -281,4 +280,4 @@ const KeybindingPanel = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "d
 export {
   KeybindingPanel as default
 };
-//# sourceMappingURL=KeybindingPanel-Dc3C4lG1.js.map
+//# sourceMappingURL=KeybindingPanel-D6O16W_1.js.map

@@ -1,9 +1,8 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, a1 as useI18n, ab as ref, m as onMounted, o as openBlock, k as createBlock, M as withCtx, H as createBaseVNode, X as toDisplayString, N as createVNode, j as unref, aI as script, l as script$2, c0 as electronAPI } from "./index-DjNHn37O.js";
-import { s as script$1 } from "./index-jXPKy3pP.js";
-import { _ as _sfc_main$1 } from "./BaseViewTemplate-BNGF4K22.js";
-import "./index-5HFeZax4.js";
+import { d as defineComponent, a3 as useI18n, ad as ref, t as onMounted, o as openBlock, J as createBlock, P as withCtx, m as createBaseVNode, Z as toDisplayString, k as createVNode, j as unref, aK as script, bN as script$1, l as script$2, p as pushScopeId, q as popScopeId, bV as electronAPI, _ as _export_sfc } from "./index-QvfM__ze.js";
+import { _ as _sfc_main$1 } from "./BaseViewTemplate-BhQMaVFP.js";
+const _withScopeId = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-dc169863"), n = n(), popScopeId(), n), "_withScopeId");
 const _hoisted_1 = { class: "comfy-installer grow flex flex-col gap-4 text-neutral-300 max-w-110" };
 const _hoisted_2 = { class: "text-2xl font-semibold text-neutral-100" };
 const _hoisted_3 = { class: "m-1 text-neutral-300" };
@@ -69,7 +68,8 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     };
   }
 });
+const ManualConfigurationView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-dc169863"]]);
 export {
-  _sfc_main as default
+  ManualConfigurationView as default
 };
-//# sourceMappingURL=ManualConfigurationView-Bi_qHE-n.js.map
+//# sourceMappingURL=ManualConfigurationView-enyqGo0M.js.map
