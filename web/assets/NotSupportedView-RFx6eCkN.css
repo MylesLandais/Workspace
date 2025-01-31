@@ -1,9 +1,11 @@
 
-.sad-container[data-v-ebb20958] {
+.sad-container {
+&[data-v-ebb20958] {
   display: grid;
   align-items: center;
   justify-content: space-evenly;
   grid-template-columns: 25rem 1fr;
+}
 &[data-v-ebb20958] > * {
     grid-row: 1;
 }

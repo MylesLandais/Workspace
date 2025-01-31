@@ -1,4 +1,4 @@
-import { d as defineComponent, ad as ref, t as onMounted, bT as isElectron, bV as electronAPI, af as nextTick, o as openBlock, f as createElementBlock, i as withDirectives, v as vShow, m as createBaseVNode, M as renderSlot, V as normalizeClass } from "./index-QvfM__ze.js";
+import { d as defineComponent, U as ref, p as onMounted, b4 as isElectron, W as nextTick, b5 as electronAPI, o as openBlock, f as createElementBlock, i as withDirectives, v as vShow, j as unref, b6 as isNativeWindow, m as createBaseVNode, A as renderSlot, ai as normalizeClass } from "./index-CmVtQCAR.js";
 const _hoisted_1 = { class: "flex-grow w-full flex items-center justify-center overflow-auto" };
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "BaseViewTemplate",
@@ -16,11 +16,8 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
       symbolColor: "#171717"
     };
     const topMenuRef = ref(null);
-    const isNativeWindow = ref(false);
     onMounted(async () => {
       if (isElectron()) {
-        const windowStyle = await electronAPI().Config.getWindowStyle();
-        isNativeWindow.value = windowStyle === "custom";
         await nextTick();
         electronAPI().changeTheme({
           ...props.dark ? darkTheme : lightTheme,
@@ -39,7 +36,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
           ref: topMenuRef,
           class: "app-drag w-full h-[var(--comfy-topbar-height)]"
         }, null, 512), [
-          [vShow, isNativeWindow.value]
+          [vShow, unref(isNativeWindow)()]
         ]),
         createBaseVNode("div", _hoisted_1, [
           renderSlot(_ctx.$slots, "default")
@@ -51,4 +48,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as _
 };
-//# sourceMappingURL=BaseViewTemplate-BhQMaVFP.js.map
+//# sourceMappingURL=BaseViewTemplate-Cof5Ihf_.js.map

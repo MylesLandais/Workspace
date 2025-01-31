@@ -2,11 +2,13 @@
 .p-tag[data-v-79125ff6] {
   --p-tag-gap: 0.5rem;
 }
-.hover-brighten[data-v-79125ff6] {
+.hover-brighten {
+&[data-v-79125ff6] {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
   transition-property: filter, box-shadow;
+  }
 &[data-v-79125ff6]:hover {
     filter: brightness(107%) contrast(105%);
     box-shadow: 0 0 0.25rem #ffffff79;
@@ -20,7 +22,7 @@
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
-div.selected[data-v-79125ff6] {
+div.selected {
 .gpu-button[data-v-79125ff6]:not(.selected) {
     opacity: 0.5;
 }
@@ -46,7 +48,7 @@ div.selected[data-v-79125ff6] {
 .gpu-button[data-v-79125ff6]:hover {
   --tw-bg-opacity: 0.75;
 }
-.gpu-button[data-v-79125ff6] {
+.gpu-button {
 &.selected[data-v-79125ff6] {
     --tw-bg-opacity: 1;
     background-color: rgb(64 64 64 / var(--tw-bg-opacity));
@@ -74,6 +76,6 @@ div.selected[data-v-79125ff6] {
   text-align: center;
 }
 
-[data-v-0a97b0ae] .p-steppanel {
+[data-v-cd6731d2] .p-steppanel {
     background-color: transparent
 }

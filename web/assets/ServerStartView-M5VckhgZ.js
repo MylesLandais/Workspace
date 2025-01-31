@@ -1,8 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, a3 as useI18n, ad as ref, c7 as ProgressStatus, t as onMounted, o as openBlock, J as createBlock, P as withCtx, m as createBaseVNode, aG as createTextVNode, Z as toDisplayString, j as unref, f as createElementBlock, L as createCommentVNode, k as createVNode, l as script, i as withDirectives, v as vShow, c8 as BaseTerminal, p as pushScopeId, q as popScopeId, bV as electronAPI, _ as _export_sfc } from "./index-QvfM__ze.js";
-import { _ as _sfc_main$1 } from "./BaseViewTemplate-BhQMaVFP.js";
-const _withScopeId = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-4140d62b"), n = n(), popScopeId(), n), "_withScopeId");
+import { d as defineComponent, K as useI18n, U as ref, bk as ProgressStatus, p as onMounted, o as openBlock, y as createBlock, z as withCtx, m as createBaseVNode, a7 as createTextVNode, E as toDisplayString, j as unref, f as createElementBlock, B as createCommentVNode, k as createVNode, l as script, i as withDirectives, v as vShow, bl as BaseTerminal, b5 as electronAPI, _ as _export_sfc } from "./index-CmVtQCAR.js";
+import { _ as _sfc_main$1 } from "./BaseViewTemplate-Cof5Ihf_.js";
 const _hoisted_1 = { class: "flex flex-col w-full h-full items-center" };
 const _hoisted_2 = { class: "text-2xl font-bold" };
 const _hoisted_3 = { key: 0 };
@@ -98,4 +97,4 @@ const ServerStartView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "d
 export {
   ServerStartView as default
 };
-//# sourceMappingURL=ServerStartView-48wfE1MS.js.map
+//# sourceMappingURL=ServerStartView-M5VckhgZ.js.map

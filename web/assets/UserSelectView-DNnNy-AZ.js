@@ -1,18 +1,17 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, aX as useUserStore, c2 as useRouter, ad as ref, c as computed, t as onMounted, o as openBlock, J as createBlock, P as withCtx, m as createBaseVNode, Z as toDisplayString, k as createVNode, c3 as withKeys, j as unref, ax as script, c4 as script$1, c5 as script$2, c6 as script$3, aG as createTextVNode, L as createCommentVNode, l as script$4 } from "./index-QvfM__ze.js";
-import { _ as _sfc_main$1 } from "./BaseViewTemplate-BhQMaVFP.js";
+import { d as defineComponent, aj as useUserStore, be as useRouter, U as ref, c as computed, p as onMounted, o as openBlock, y as createBlock, z as withCtx, m as createBaseVNode, E as toDisplayString, k as createVNode, bf as withKeys, j as unref, bg as script, bh as script$1, bi as script$2, bj as script$3, a7 as createTextVNode, B as createCommentVNode, l as script$4 } from "./index-CmVtQCAR.js";
+import { _ as _sfc_main$1 } from "./BaseViewTemplate-Cof5Ihf_.js";
 const _hoisted_1 = {
   id: "comfy-user-selection",
   class: "min-w-84 relative rounded-lg bg-[var(--comfy-menu-bg)] p-5 px-10 shadow-lg"
 };
-const _hoisted_2 = /* @__PURE__ */ createBaseVNode("h1", { class: "my-2.5 mb-7 font-normal" }, "ComfyUI", -1);
-const _hoisted_3 = { class: "flex w-full flex-col items-center" };
-const _hoisted_4 = { class: "flex w-full flex-col gap-2" };
-const _hoisted_5 = { for: "new-user-input" };
-const _hoisted_6 = { class: "flex w-full flex-col gap-2" };
-const _hoisted_7 = { for: "existing-user-select" };
-const _hoisted_8 = { class: "mt-5" };
+const _hoisted_2 = { class: "flex w-full flex-col items-center" };
+const _hoisted_3 = { class: "flex w-full flex-col gap-2" };
+const _hoisted_4 = { for: "new-user-input" };
+const _hoisted_5 = { class: "flex w-full flex-col gap-2" };
+const _hoisted_6 = { for: "existing-user-select" };
+const _hoisted_7 = { class: "mt-5" };
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "UserSelectView",
   setup(__props) {
@@ -47,10 +46,10 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
       return openBlock(), createBlock(_sfc_main$1, { dark: "" }, {
         default: withCtx(() => [
           createBaseVNode("main", _hoisted_1, [
-            _hoisted_2,
-            createBaseVNode("div", _hoisted_3, [
-              createBaseVNode("div", _hoisted_4, [
-                createBaseVNode("label", _hoisted_5, toDisplayString(_ctx.$t("userSelect.newUser")) + ":", 1),
+            _cache[2] || (_cache[2] = createBaseVNode("h1", { class: "my-2.5 mb-7 font-normal" }, "ComfyUI", -1)),
+            createBaseVNode("div", _hoisted_2, [
+              createBaseVNode("div", _hoisted_3, [
+                createBaseVNode("label", _hoisted_4, toDisplayString(_ctx.$t("userSelect.newUser")) + ":", 1),
                 createVNode(unref(script), {
                   id: "new-user-input",
                   modelValue: newUsername.value,
@@ -60,8 +59,8 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
                 }, null, 8, ["modelValue", "placeholder"])
               ]),
               createVNode(unref(script$1)),
-              createBaseVNode("div", _hoisted_6, [
-                createBaseVNode("label", _hoisted_7, toDisplayString(_ctx.$t("userSelect.existingUser")) + ":", 1),
+              createBaseVNode("div", _hoisted_5, [
+                createBaseVNode("label", _hoisted_6, toDisplayString(_ctx.$t("userSelect.existingUser")) + ":", 1),
                 createVNode(unref(script$2), {
                   modelValue: selectedUser.value,
                   "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => selectedUser.value = $event),
@@ -82,7 +81,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
                   _: 1
                 })) : createCommentVNode("", true)
               ]),
-              createBaseVNode("footer", _hoisted_8, [
+              createBaseVNode("footer", _hoisted_7, [
                 createVNode(unref(script$4), {
                   label: _ctx.$t("userSelect.next"),
                   onClick: login
@@ -99,4 +98,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as default
 };
-//# sourceMappingURL=UserSelectView-CXmVKOeK.js.map
+//# sourceMappingURL=UserSelectView-DNnNy-AZ.js.map

@@ -1,25 +1,23 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { m as createBaseVNode, o as openBlock, f as createElementBlock, a0 as markRaw, d as defineComponent, a as useSettingStore, aS as storeToRefs, a7 as watch, cW as useCopyToClipboard, a3 as useI18n, J as createBlock, P as withCtx, j as unref, c6 as script, Z as toDisplayString, I as renderList, H as Fragment, k as createVNode, l as script$1, L as createCommentVNode, c4 as script$2, cX as FormItem, cw as _sfc_main$1, bV as electronAPI } from "./index-QvfM__ze.js";
-import { u as useServerConfigStore } from "./serverConfigStore-DCme3xlV.js";
+import { o as openBlock, f as createElementBlock, m as createBaseVNode, H as markRaw, d as defineComponent, a as useSettingStore, ae as storeToRefs, O as watch, dy as useCopyToClipboard, K as useI18n, y as createBlock, z as withCtx, j as unref, bj as script, E as toDisplayString, D as renderList, F as Fragment, k as createVNode, l as script$1, B as createCommentVNode, bh as script$2, dz as FormItem, dn as _sfc_main$1, b5 as electronAPI } from "./index-CmVtQCAR.js";
+import { u as useServerConfigStore } from "./serverConfigStore-BUvaGcxp.js";
 const _hoisted_1$1 = {
   viewBox: "0 0 24 24",
   width: "1.2em",
   height: "1.2em"
 };
-const _hoisted_2$1 = /* @__PURE__ */ createBaseVNode("path", {
-  fill: "none",
-  stroke: "currentColor",
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round",
-  "stroke-width": "2",
-  d: "m4 17l6-6l-6-6m8 14h8"
-}, null, -1);
-const _hoisted_3$1 = [
-  _hoisted_2$1
-];
 function render(_ctx, _cache) {
-  return openBlock(), createElementBlock("svg", _hoisted_1$1, [..._hoisted_3$1]);
+  return openBlock(), createElementBlock("svg", _hoisted_1$1, _cache[0] || (_cache[0] = [
+    createBaseVNode("path", {
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "stroke-width": "2",
+      d: "m4 17l6-6l-6-6m8 14h8"
+    }, null, -1)
+  ]));
 }
 __name(render, "render");
 const __unplugin_components_0 = markRaw({ name: "lucide-terminal", render });
@@ -155,4 +153,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as default
 };
-//# sourceMappingURL=ServerConfigPanel-B-w0HFlz.js.map
+//# sourceMappingURL=ServerConfigPanel-C2nrpEEV.js.map

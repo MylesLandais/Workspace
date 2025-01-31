@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { _ as _sfc_main$1 } from "./BaseViewTemplate-BhQMaVFP.js";
-import { d as defineComponent, bz as useToast, a3 as useI18n, ad as ref, c2 as useRouter, o as openBlock, J as createBlock, P as withCtx, m as createBaseVNode, Z as toDisplayString, aG as createTextVNode, k as createVNode, j as unref, cc as script, l as script$1, bV as electronAPI } from "./index-QvfM__ze.js";
+import { _ as _sfc_main$1 } from "./BaseViewTemplate-Cof5Ihf_.js";
+import { d as defineComponent, aR as useToast, K as useI18n, U as ref, be as useRouter, o as openBlock, y as createBlock, z as withCtx, m as createBaseVNode, E as toDisplayString, a7 as createTextVNode, k as createVNode, j as unref, bn as script, l as script$1, b5 as electronAPI } from "./index-CmVtQCAR.js";
 const _hoisted_1 = { class: "h-full p-8 2xl:p-16 flex flex-col items-center justify-center" };
 const _hoisted_2 = { class: "bg-neutral-800 rounded-lg shadow-lg p-6 w-full max-w-[600px] flex flex-col gap-6" };
 const _hoisted_3 = { class: "text-3xl font-semibold text-neutral-100" };
@@ -53,7 +53,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
               createBaseVNode("p", _hoisted_5, [
                 createTextVNode(toDisplayString(_ctx.$t("install.moreInfo")) + " ", 1),
                 createBaseVNode("a", _hoisted_6, toDisplayString(_ctx.$t("install.privacyPolicy")), 1),
-                createTextVNode(". ")
+                _cache[1] || (_cache[1] = createTextVNode(". "))
               ]),
               createBaseVNode("div", _hoisted_7, [
                 createVNode(unref(script), {
@@ -83,4 +83,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as default
 };
-//# sourceMappingURL=MetricsConsentView-lSfLu4nr.js.map
+//# sourceMappingURL=MetricsConsentView-Df03LOI_.js.map

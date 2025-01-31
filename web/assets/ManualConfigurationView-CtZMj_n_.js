@@ -1,8 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, a3 as useI18n, ad as ref, t as onMounted, o as openBlock, J as createBlock, P as withCtx, m as createBaseVNode, Z as toDisplayString, k as createVNode, j as unref, aK as script, bN as script$1, l as script$2, p as pushScopeId, q as popScopeId, bV as electronAPI, _ as _export_sfc } from "./index-QvfM__ze.js";
-import { _ as _sfc_main$1 } from "./BaseViewTemplate-BhQMaVFP.js";
-const _withScopeId = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-dc169863"), n = n(), popScopeId(), n), "_withScopeId");
+import { d as defineComponent, K as useI18n, U as ref, p as onMounted, o as openBlock, y as createBlock, z as withCtx, m as createBaseVNode, E as toDisplayString, k as createVNode, j as unref, a4 as script, a$ as script$1, l as script$2, b5 as electronAPI, _ as _export_sfc } from "./index-CmVtQCAR.js";
+import { _ as _sfc_main$1 } from "./BaseViewTemplate-Cof5Ihf_.js";
 const _hoisted_1 = { class: "comfy-installer grow flex flex-col gap-4 text-neutral-300 max-w-110" };
 const _hoisted_2 = { class: "text-2xl font-semibold text-neutral-100" };
 const _hoisted_3 = { class: "m-1 text-neutral-300" };
@@ -72,4 +71,4 @@ const ManualConfigurationView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scop
 export {
   ManualConfigurationView as default
 };
-//# sourceMappingURL=ManualConfigurationView-enyqGo0M.js.map
+//# sourceMappingURL=ManualConfigurationView-CtZMj_n_.js.map

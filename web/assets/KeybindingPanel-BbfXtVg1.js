@@ -1,9 +1,9 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, c as computed, o as openBlock, f as createElementBlock, H as Fragment, I as renderList, k as createVNode, P as withCtx, aG as createTextVNode, Z as toDisplayString, j as unref, aK as script, L as createCommentVNode, ad as ref, cu as FilterMatchMode, a$ as useKeybindingStore, a4 as useCommandStore, a3 as useI18n, ah as normalizeI18nKey, w as watchEffect, bz as useToast, r as resolveDirective, J as createBlock, cv as SearchBox, m as createBaseVNode, l as script$2, ax as script$4, b3 as withModifiers, c6 as script$5, aP as script$6, i as withDirectives, cw as _sfc_main$2, p as pushScopeId, q as popScopeId, cx as KeyComboImpl, cy as KeybindingImpl, _ as _export_sfc } from "./index-QvfM__ze.js";
-import { s as script$1, a as script$3 } from "./index-DpF-ptbJ.js";
-import { u as useKeybindingService } from "./keybindingService-Cak1En5n.js";
-import "./index-Q1cQr26V.js";
+import { d as defineComponent, c as computed, o as openBlock, f as createElementBlock, F as Fragment, D as renderList, k as createVNode, z as withCtx, a7 as createTextVNode, E as toDisplayString, j as unref, a4 as script, B as createCommentVNode, U as ref, dl as FilterMatchMode, an as useKeybindingStore, L as useCommandStore, K as useI18n, Y as normalizeI18nKey, w as watchEffect, aR as useToast, r as resolveDirective, y as createBlock, dm as SearchBox, m as createBaseVNode, l as script$2, bg as script$4, ar as withModifiers, bj as script$5, ab as script$6, i as withDirectives, dn as _sfc_main$2, dp as KeyComboImpl, dq as KeybindingImpl, _ as _export_sfc } from "./index-CmVtQCAR.js";
+import { g as script$1, h as script$3 } from "./index-CdHVC5qq.js";
+import { u as useKeybindingService } from "./keybindingService-CqSjCYw-.js";
+import "./index-I0brO37W.js";
 const _hoisted_1$1 = {
   key: 0,
   class: "px-2"
@@ -36,7 +36,6 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _withScopeId = /* @__PURE__ */ __name((n) => (pushScopeId("data-v-2554ab36"), n = n(), popScopeId(), n), "_withScopeId");
 const _hoisted_1 = { class: "actions invisible flex flex-row" };
 const _hoisted_2 = ["title"];
 const _hoisted_3 = { key: 1 };
@@ -247,7 +246,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
                   severity: "error"
                 }, {
                   default: withCtx(() => [
-                    createTextVNode(" Keybinding already exists on "),
+                    _cache[3] || (_cache[3] = createTextVNode(" Keybinding already exists on ")),
                     createVNode(unref(script), {
                       severity: "secondary",
                       value: existingKeybindingOnCombo.value.commandId
@@ -280,4 +279,4 @@ const KeybindingPanel = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "d
 export {
   KeybindingPanel as default
 };
-//# sourceMappingURL=KeybindingPanel-D6O16W_1.js.map
+//# sourceMappingURL=KeybindingPanel-BbfXtVg1.js.map
