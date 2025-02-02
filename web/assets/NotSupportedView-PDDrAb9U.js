@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, be as useRouter, r as resolveDirective, o as openBlock, y as createBlock, z as withCtx, m as createBaseVNode, E as toDisplayString, k as createVNode, j as unref, l as script, i as withDirectives, _ as _export_sfc } from "./index-CmVtQCAR.js";
-import { _ as _sfc_main$1 } from "./BaseViewTemplate-Cof5Ihf_.js";
+import { d as defineComponent, be as useRouter, r as resolveDirective, o as openBlock, y as createBlock, z as withCtx, m as createBaseVNode, E as toDisplayString, k as createVNode, j as unref, l as script, i as withDirectives, _ as _export_sfc } from "./index-4Hb32CNk.js";
+import { _ as _sfc_main$1 } from "./BaseViewTemplate-v6omkdXg.js";
 const _imports_0 = "" + new URL("images/sad_girl.png", import.meta.url).href;
 const _hoisted_1 = { class: "sad-container" };
 const _hoisted_2 = { class: "no-drag sad-text flex items-center" };
@@ -83,4 +83,4 @@ const NotSupportedView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "
 export {
   NotSupportedView as default
 };
-//# sourceMappingURL=NotSupportedView-BRtvC5Gx.js.map
+//# sourceMappingURL=NotSupportedView-PDDrAb9U.js.map

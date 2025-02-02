@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, be as useRouter, o as openBlock, y as createBlock, z as withCtx, m as createBaseVNode, E as toDisplayString, k as createVNode, j as unref, l as script, _ as _export_sfc } from "./index-CmVtQCAR.js";
-import { _ as _sfc_main$1 } from "./BaseViewTemplate-Cof5Ihf_.js";
+import { d as defineComponent, be as useRouter, o as openBlock, y as createBlock, z as withCtx, m as createBaseVNode, E as toDisplayString, k as createVNode, j as unref, l as script, _ as _export_sfc } from "./index-4Hb32CNk.js";
+import { _ as _sfc_main$1 } from "./BaseViewTemplate-v6omkdXg.js";
 const _hoisted_1 = { class: "flex flex-col items-center justify-center gap-8 p-8" };
 const _hoisted_2 = { class: "animated-gradient-text text-glow select-none" };
 const _sfc_main = /* @__PURE__ */ defineComponent({
@@ -36,4 +36,4 @@ const WelcomeView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-
 export {
   WelcomeView as default
 };
-//# sourceMappingURL=WelcomeView-Nvn1jaCx.js.map
+//# sourceMappingURL=WelcomeView-DkwLdayn.js.map

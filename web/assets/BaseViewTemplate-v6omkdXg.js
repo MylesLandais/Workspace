@@ -1,4 +1,4 @@
-import { d as defineComponent, U as ref, p as onMounted, b4 as isElectron, W as nextTick, b5 as electronAPI, o as openBlock, f as createElementBlock, i as withDirectives, v as vShow, j as unref, b6 as isNativeWindow, m as createBaseVNode, A as renderSlot, ai as normalizeClass } from "./index-CmVtQCAR.js";
+import { d as defineComponent, U as ref, p as onMounted, b4 as isElectron, W as nextTick, b5 as electronAPI, o as openBlock, f as createElementBlock, i as withDirectives, v as vShow, j as unref, b6 as isNativeWindow, m as createBaseVNode, A as renderSlot, ai as normalizeClass } from "./index-4Hb32CNk.js";
 const _hoisted_1 = { class: "flex-grow w-full flex items-center justify-center overflow-auto" };
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "BaseViewTemplate",
@@ -48,4 +48,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as _
 };
-//# sourceMappingURL=BaseViewTemplate-Cof5Ihf_.js.map
+//# sourceMappingURL=BaseViewTemplate-v6omkdXg.js.map
