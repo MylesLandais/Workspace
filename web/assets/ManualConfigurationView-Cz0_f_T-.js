@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, K as useI18n, U as ref, p as onMounted, o as openBlock, y as createBlock, z as withCtx, m as createBaseVNode, E as toDisplayString, k as createVNode, j as unref, a4 as script, a$ as script$1, l as script$2, b5 as electronAPI, _ as _export_sfc } from "./index-4Hb32CNk.js";
-import { _ as _sfc_main$1 } from "./BaseViewTemplate-v6omkdXg.js";
+import { d as defineComponent, K as useI18n, U as ref, p as onMounted, o as openBlock, y as createBlock, z as withCtx, m as createBaseVNode, E as toDisplayString, k as createVNode, j as unref, a4 as script, a$ as script$1, l as script$2, b5 as electronAPI, _ as _export_sfc } from "./index-DqqhYDnY.js";
+import { _ as _sfc_main$1 } from "./BaseViewTemplate-Cz111_1A.js";
 const _hoisted_1 = { class: "comfy-installer grow flex flex-col gap-4 text-neutral-300 max-w-110" };
 const _hoisted_2 = { class: "text-2xl font-semibold text-neutral-100" };
 const _hoisted_3 = { class: "m-1 text-neutral-300" };
@@ -71,4 +71,4 @@ const ManualConfigurationView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scop
 export {
   ManualConfigurationView as default
 };
-//# sourceMappingURL=ManualConfigurationView-DueOvLuK.js.map
+//# sourceMappingURL=ManualConfigurationView-Cz0_f_T-.js.map

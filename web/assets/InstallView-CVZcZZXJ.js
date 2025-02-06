@@ -1,9 +1,9 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, U as ref, bm as useModel, o as openBlock, f as createElementBlock, m as createBaseVNode, E as toDisplayString, k as createVNode, j as unref, bn as script, bh as script$1, ar as withModifiers, z as withCtx, ab as script$2, K as useI18n, c as computed, ai as normalizeClass, B as createCommentVNode, a4 as script$3, a7 as createTextVNode, b5 as electronAPI, _ as _export_sfc, p as onMounted, r as resolveDirective, bg as script$4, i as withDirectives, bo as script$5, bp as script$6, l as script$7, y as createBlock, bj as script$8, bq as MigrationItems, w as watchEffect, F as Fragment, D as renderList, br as script$9, bs as mergeModels, bt as ValidationState, Y as normalizeI18nKey, O as watch, bu as checkMirrorReachable, bv as _sfc_main$7, bw as mergeValidationStates, bc as t, a$ as script$a, bx as CUDA_TORCH_URL, by as NIGHTLY_CPU_TORCH_URL, be as useRouter, ag as toRaw } from "./index-4Hb32CNk.js";
-import { s as script$b, a as script$c, b as script$d, c as script$e, d as script$f } from "./index-hkkV7N7e.js";
+import { d as defineComponent, U as ref, bm as useModel, o as openBlock, f as createElementBlock, m as createBaseVNode, E as toDisplayString, k as createVNode, j as unref, bn as script, bh as script$1, ar as withModifiers, z as withCtx, ab as script$2, K as useI18n, c as computed, ai as normalizeClass, B as createCommentVNode, a4 as script$3, a7 as createTextVNode, b5 as electronAPI, _ as _export_sfc, p as onMounted, r as resolveDirective, bg as script$4, i as withDirectives, bo as script$5, bp as script$6, l as script$7, y as createBlock, bj as script$8, bq as MigrationItems, w as watchEffect, F as Fragment, D as renderList, br as script$9, bs as mergeModels, bt as ValidationState, Y as normalizeI18nKey, O as watch, bu as checkMirrorReachable, bv as _sfc_main$7, bw as mergeValidationStates, bc as t, a$ as script$a, bx as CUDA_TORCH_URL, by as NIGHTLY_CPU_TORCH_URL, be as useRouter, ag as toRaw } from "./index-DqqhYDnY.js";
+import { s as script$b, a as script$c, b as script$d, c as script$e, d as script$f } from "./index-BNlqgrYT.js";
 import { P as PYTHON_MIRROR, a as PYPI_MIRROR } from "./uvMirrors-B-HKMf6X.js";
-import { _ as _sfc_main$8 } from "./BaseViewTemplate-v6omkdXg.js";
+import { _ as _sfc_main$8 } from "./BaseViewTemplate-Cz111_1A.js";
 const _hoisted_1$5 = { class: "flex flex-col gap-6 w-[600px]" };
 const _hoisted_2$5 = { class: "flex flex-col gap-4" };
 const _hoisted_3$5 = { class: "text-2xl font-semibold text-neutral-100" };
@@ -942,4 +942,4 @@ const InstallView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-
 export {
   InstallView as default
 };
-//# sourceMappingURL=InstallView-DTDlVr0Z.js.map
+//# sourceMappingURL=InstallView-CVZcZZXJ.js.map
