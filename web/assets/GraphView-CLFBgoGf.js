@@ -1,10 +1,11 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, u as useExecutionStore, c as computed, a as useSettingStore, b as useWorkflowStore, e as useTitle, o as openBlock, f as createElementBlock, g as useWorkspaceStore, w as watchEffect, h as app, r as resolveDirective, i as withDirectives, v as vShow, j as unref, k as createVNode, s as showNativeMenu, l as script, m as createBaseVNode, n as normalizeStyle, _ as _export_sfc, p as onMounted, q as onBeforeUnmount, t as useSidebarTabStore, x as useBottomPanelStore, y as createBlock, z as withCtx, A as renderSlot, B as createCommentVNode, C as resolveDynamicComponent, F as Fragment, D as renderList, E as toDisplayString, G as script$5, H as markRaw, I as defineStore, J as shallowRef, K as useI18n, L as useCommandStore, M as LiteGraph, N as useColorPaletteStore, O as watch, P as useNodeDefStore, Q as BadgePosition, R as LGraphBadge, S as _, T as NodeBadgeMode, U as ref, V as useEventListener, W as nextTick, X as st, Y as normalizeI18nKey, Z as LGraphGroup, $ as LGraphNode, a0 as EditableText, a1 as useNodeFrequencyStore, a2 as useNodeBookmarkStore, a3 as highlightQuery, a4 as script$8, a5 as formatNumberWithSuffix, a6 as NodeSourceType, a7 as createTextVNode, a8 as script$9, a9 as NodePreview, aa as NodeSearchFilter, ab as script$a, ac as SearchFilterChip, ad as useLitegraphService, ae as storeToRefs, af as isRef, ag as toRaw, ah as LinkReleaseTriggerAction, ai as normalizeClass, aj as useUserStore, ak as useDialogStore, al as SettingDialogHeader, am as SettingDialogContent, an as useKeybindingStore, ao as Teleport, ap as usePragmaticDraggable, aq as usePragmaticDroppable, ar as withModifiers, as as mergeProps, at as useWorkflowService, au as useWorkflowBookmarkStore, av as script$c, aw as script$d, ax as script$e, ay as LinkMarkerShape, az as useModelToNodeStore, aA as ComfyNodeDefImpl, aB as ComfyModelDef, aC as LGraph, aD as LLink, aE as DragAndScale, aF as LGraphCanvas, aG as ContextMenu, aH as api, aI as getStorageValue, aJ as useModelStore, aK as setStorageValue, aL as CanvasPointer, aM as IS_CONTROL_WIDGET, aN as updateControlWidgetLabel, aO as useColorPaletteService, aP as ChangeTracker, aQ as i18n, aR as useToast, aS as useToastStore, aT as useQueueSettingsStore, aU as script$g, aV as useQueuePendingTaskCountStore, aW as useLocalStorage, aX as useDraggable, aY as watchDebounced, aZ as inject, a_ as useElementBounding, a$ as script$i, b0 as lodashExports, b1 as useEventBus, b2 as useMenuItemStore, b3 as provide, b4 as isElectron, b5 as electronAPI, b6 as isNativeWindow, b7 as useDialogService, b8 as LGraphEventMode, b9 as useQueueStore, ba as DEFAULT_DARK_COLOR_PALETTE, bb as DEFAULT_LIGHT_COLOR_PALETTE, bc as t, bd as useErrorHandling } from "./index-DqqhYDnY.js";
-import { s as script$1, a as script$2, b as script$3, c as script$4, d as script$6, e as script$7, f as script$b, g as script$f, h as script$h, i as script$j } from "./index-DKIv7atk.js";
-import { u as useKeybindingService } from "./keybindingService-DEgCutrm.js";
-import { u as useServerConfigStore } from "./serverConfigStore-Kb5DJVFt.js";
-import "./index-DXE47DZl.js";
+import { d as defineComponent, u as useExecutionStore, c as computed, a as useSettingStore, b as useWorkflowStore, e as useTitle, o as openBlock, f as createElementBlock, g as useWorkspaceStore, w as watchEffect, h as app, r as resolveDirective, i as withDirectives, v as vShow, j as unref, k as createVNode, s as showNativeMenu, l as script, m as createBaseVNode, n as normalizeStyle, _ as _export_sfc, p as onMounted, q as onBeforeUnmount, t as useSidebarTabStore, x as useBottomPanelStore, y as createBlock, z as withCtx, A as renderSlot, B as createCommentVNode, C as resolveDynamicComponent, F as Fragment, D as renderList, E as toDisplayString, G as script$5, H as markRaw, I as useI18n, J as useCommandStore, K as useCanvasStore, L as LiteGraph, M as useColorPaletteStore, N as watch, O as useNodeDefStore, P as BadgePosition, Q as LGraphBadge, R as _, S as NodeBadgeMode, T as ref, U as useEventListener, V as nextTick, W as st, X as normalizeI18nKey, Y as useTitleEditorStore, Z as LGraphGroup, $ as LGraphNode, a0 as EditableText, a1 as defineStore, a2 as useNodeFrequencyStore, a3 as useNodeBookmarkStore, a4 as highlightQuery, a5 as script$8, a6 as formatNumberWithSuffix, a7 as NodeSourceType, a8 as createTextVNode, a9 as script$9, aa as NodePreview, ab as NodeSearchFilter, ac as script$a, ad as SearchFilterChip, ae as useLitegraphService, af as storeToRefs, ag as isRef, ah as toRaw, ai as LinkReleaseTriggerAction, aj as normalizeClass, ak as useUserStore, al as useDialogStore, am as SettingDialogHeader, an as SettingDialogContent, ao as useKeybindingStore, ap as Teleport, aq as usePragmaticDraggable, ar as usePragmaticDroppable, as as withModifiers, at as mergeProps, au as useWorkflowService, av as useWorkflowBookmarkStore, aw as script$c, ax as script$d, ay as script$e, az as useModelToNodeStore, aA as ComfyNodeDefImpl, aB as ComfyModelDef, aC as ComfyWorkflow, aD as LGraphCanvas, aE as te, aF as LGraph, aG as LLink, aH as DragAndScale, aI as ContextMenu, aJ as CanvasPointer, aK as isImageNode, aL as api, aM as getStorageValue, aN as useModelStore, aO as setStorageValue, aP as LinkMarkerShape, aQ as IS_CONTROL_WIDGET, aR as updateControlWidgetLabel, aS as useColorPaletteService, aT as ChangeTracker, aU as i18n, aV as useToast, aW as useToastStore, aX as useQueueSettingsStore, aY as script$g, aZ as useQueuePendingTaskCountStore, a_ as useLocalStorage, a$ as useDraggable, b0 as watchDebounced, b1 as inject, b2 as useElementBounding, b3 as script$i, b4 as lodashExports, b5 as useEventBus, b6 as useMenuItemStore, b7 as provide, b8 as isElectron, b9 as electronAPI, ba as isNativeWindow, bb as useDialogService, bc as LGraphEventMode, bd as useQueueStore, be as DEFAULT_DARK_COLOR_PALETTE, bf as DEFAULT_LIGHT_COLOR_PALETTE, bg as t, bh as useErrorHandling } from "./index-DqXp9vW4.js";
+import { s as script$1, a as script$2, b as script$3, c as script$4, d as script$6, e as script$7, f as script$b, g as script$h, h as script$j } from "./index-DSWvxALN.js";
+import { s as script$f } from "./index-B0BQ8jlU.js";
+import { u as useKeybindingService } from "./keybindingService-DgS0S2M6.js";
+import { u as useServerConfigStore } from "./serverConfigStore-C8uoM7Sm.js";
+import "./index-BTHx8UHZ.js";
 const DEFAULT_TITLE = "ComfyUI";
 const TITLE_SUFFIX = " - ComfyUI";
 const _sfc_main$u = /* @__PURE__ */ defineComponent({
@@ -39,7 +40,7 @@ const _sfc_main$u = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _hoisted_1$j = { class: "window-actions-spacer" };
+const _hoisted_1$k = { class: "window-actions-spacer" };
 const _sfc_main$t = /* @__PURE__ */ defineComponent({
   __name: "MenuHamburger",
   setup(__props) {
@@ -84,7 +85,7 @@ const _sfc_main$t = /* @__PURE__ */ defineComponent({
         }, null, 8, ["aria-label", "onContextmenu"]), [
           [_directive_tooltip, { value: _ctx.$t("menu.showMenu"), showDelay: 300 }]
         ]),
-        withDirectives(createBaseVNode("div", _hoisted_1$j, null, 512), [
+        withDirectives(createBaseVNode("div", _hoisted_1$k, null, 512), [
           [vShow, menuSetting.value !== "Bottom"]
         ])
       ], 4)), [
@@ -93,7 +94,7 @@ const _sfc_main$t = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const MenuHamburger = /* @__PURE__ */ _export_sfc(_sfc_main$t, [["__scopeId", "data-v-7ed57d1a"]]);
+const MenuHamburger = /* @__PURE__ */ _export_sfc(_sfc_main$t, [["__scopeId", "data-v-82120b51"]]);
 const _sfc_main$s = /* @__PURE__ */ defineComponent({
   __name: "UnloadWindowConfirmDialog",
   setup(__props) {
@@ -234,17 +235,17 @@ const _sfc_main$q = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _hoisted_1$i = { class: "flex flex-col h-full" };
-const _hoisted_2$6 = { class: "w-full flex justify-between" };
-const _hoisted_3$5 = { class: "tabs-container" };
-const _hoisted_4$1 = { class: "font-bold" };
+const _hoisted_1$j = { class: "flex flex-col h-full" };
+const _hoisted_2$7 = { class: "w-full flex justify-between" };
+const _hoisted_3$6 = { class: "tabs-container" };
+const _hoisted_4$2 = { class: "font-bold" };
 const _hoisted_5$1 = { class: "flex-grow h-0" };
 const _sfc_main$p = /* @__PURE__ */ defineComponent({
   __name: "BottomPanel",
   setup(__props) {
     const bottomPanelStore = useBottomPanelStore();
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", _hoisted_1$i, [
+      return openBlock(), createElementBlock("div", _hoisted_1$j, [
         createVNode(unref(script$5), {
           value: unref(bottomPanelStore).activeBottomPanelTabId,
           "onUpdate:value": _cache[1] || (_cache[1] = ($event) => unref(bottomPanelStore).activeBottomPanelTabId = $event)
@@ -252,8 +253,8 @@ const _sfc_main$p = /* @__PURE__ */ defineComponent({
           default: withCtx(() => [
             createVNode(unref(script$3), { "pt:tabList": "border-none" }, {
               default: withCtx(() => [
-                createBaseVNode("div", _hoisted_2$6, [
-                  createBaseVNode("div", _hoisted_3$5, [
+                createBaseVNode("div", _hoisted_2$7, [
+                  createBaseVNode("div", _hoisted_3$6, [
                     (openBlock(true), createElementBlock(Fragment, null, renderList(unref(bottomPanelStore).bottomPanelTabs, (tab) => {
                       return openBlock(), createBlock(unref(script$4), {
                         key: tab.id,
@@ -261,7 +262,7 @@ const _sfc_main$p = /* @__PURE__ */ defineComponent({
                         class: "p-3 border-none"
                       }, {
                         default: withCtx(() => [
-                          createBaseVNode("span", _hoisted_4$1, toDisplayString(tab.title.toUpperCase()), 1)
+                          createBaseVNode("span", _hoisted_4$2, toDisplayString(tab.title.toUpperCase()), 1)
                         ]),
                         _: 2
                       }, 1032, ["value"]);
@@ -292,13 +293,13 @@ const _sfc_main$p = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _hoisted_1$h = {
+const _hoisted_1$i = {
   viewBox: "0 0 1024 1024",
   width: "1.2em",
   height: "1.2em"
 };
 function render$7(_ctx, _cache) {
-  return openBlock(), createElementBlock("svg", _hoisted_1$h, _cache[0] || (_cache[0] = [
+  return openBlock(), createElementBlock("svg", _hoisted_1$i, _cache[0] || (_cache[0] = [
     createBaseVNode("path", {
       fill: "currentColor",
       d: "M921.088 103.232L584.832 889.024L465.52 544.512L121.328 440.48zM1004.46.769c-6.096 0-13.52 1.728-22.096 5.36L27.708 411.2c-34.383 14.592-36.56 42.704-4.847 62.464l395.296 123.584l129.36 403.264c9.28 15.184 20.496 22.72 31.263 22.72c11.936 0 23.296-9.152 31.04-27.248l408.272-953.728C1029.148 16.368 1022.86.769 1004.46.769"
@@ -307,13 +308,13 @@ function render$7(_ctx, _cache) {
 }
 __name(render$7, "render$7");
 const __unplugin_components_1$2 = markRaw({ name: "simple-line-icons-cursor", render: render$7 });
-const _hoisted_1$g = {
+const _hoisted_1$h = {
   viewBox: "0 0 24 24",
   width: "1.2em",
   height: "1.2em"
 };
 function render$6(_ctx, _cache) {
-  return openBlock(), createElementBlock("svg", _hoisted_1$g, _cache[0] || (_cache[0] = [
+  return openBlock(), createElementBlock("svg", _hoisted_1$h, _cache[0] || (_cache[0] = [
     createBaseVNode("path", {
       fill: "currentColor",
       d: "M10.05 23q-.75 0-1.4-.337T7.575 21.7L1.2 12.375l.6-.575q.475-.475 1.125-.55t1.175.3L7 13.575V4q0-.425.288-.712T8 3t.713.288T9 4v13.425l-3.7-2.6l3.925 5.725q.125.2.35.325t.475.125H17q.825 0 1.413-.587T19 19V5q0-.425.288-.712T20 4t.713.288T21 5v14q0 1.65-1.175 2.825T17 23zM11 12V2q0-.425.288-.712T12 1t.713.288T13 2v10zm4 0V3q0-.425.288-.712T16 2t.713.288T17 3v9zm-2.85 4.5"
@@ -322,18 +323,6 @@ function render$6(_ctx, _cache) {
 }
 __name(render$6, "render$6");
 const __unplugin_components_0$2 = markRaw({ name: "material-symbols-pan-tool-outline", render: render$6 });
-const useTitleEditorStore = defineStore("titleEditor", () => {
-  const titleEditorTarget = shallowRef(null);
-  return {
-    titleEditorTarget
-  };
-});
-const useCanvasStore = defineStore("canvas", () => {
-  const canvas = shallowRef(null);
-  return {
-    canvas
-  };
-});
 const _sfc_main$o = /* @__PURE__ */ defineComponent({
   __name: "GraphCanvasMenu",
   setup(__props) {
@@ -361,7 +350,7 @@ const _sfc_main$o = /* @__PURE__ */ defineComponent({
       const _component_i_material_symbols58pan_tool_outline = __unplugin_components_0$2;
       const _component_i_simple_line_icons58cursor = __unplugin_components_1$2;
       const _directive_tooltip = resolveDirective("tooltip");
-      return openBlock(), createBlock(unref(script$6), { class: "p-buttongroup-vertical absolute bottom-[10px] right-[10px] z-[1000] pointer-events-auto" }, {
+      return openBlock(), createBlock(unref(script$6), { class: "p-buttongroup-vertical absolute bottom-[10px] right-[10px] z-[1000]" }, {
         default: withCtx(() => [
           withDirectives(createVNode(unref(script), {
             severity: "secondary",
@@ -445,7 +434,7 @@ const _sfc_main$o = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const GraphCanvasMenu = /* @__PURE__ */ _export_sfc(_sfc_main$o, [["__scopeId", "data-v-cb8f9a1a"]]);
+const GraphCanvasMenu = /* @__PURE__ */ _export_sfc(_sfc_main$o, [["__scopeId", "data-v-27a9500c"]]);
 const _sfc_main$n = /* @__PURE__ */ defineComponent({
   __name: "NodeBadge",
   setup(__props) {
@@ -504,6 +493,7 @@ const _sfc_main$m = /* @__PURE__ */ defineComponent({
   setup(__props) {
     let idleTimeout;
     const nodeDefStore = useNodeDefStore();
+    const settingStore = useSettingStore();
     const tooltipRef = ref();
     const tooltipText = ref("");
     const left = ref();
@@ -573,7 +563,10 @@ const _sfc_main$m = /* @__PURE__ */ defineComponent({
       hideTooltip();
       clearTimeout(idleTimeout);
       if (e.target.nodeName !== "CANVAS") return;
-      idleTimeout = window.setTimeout(onIdle, 500);
+      idleTimeout = window.setTimeout(
+        onIdle,
+        settingStore.get("LiteGraph.Node.TooltipDelay")
+      );
     }, "onMouseMove");
     useEventListener(window, "mousemove", onMouseMove);
     useEventListener(window, "click", hideTooltip);
@@ -588,7 +581,7 @@ const _sfc_main$m = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const NodeTooltip = /* @__PURE__ */ _export_sfc(_sfc_main$m, [["__scopeId", "data-v-46859edf"]]);
+const NodeTooltip = /* @__PURE__ */ _export_sfc(_sfc_main$m, [["__scopeId", "data-v-f03142eb"]]);
 const _sfc_main$l = /* @__PURE__ */ defineComponent({
   __name: "TitleEditor",
   setup(__props) {
@@ -802,10 +795,10 @@ const _sfc_main$k = {
     }
   }
 };
-const _hoisted_1$f = { class: "option-container flex justify-between items-center px-2 py-0 cursor-pointer overflow-hidden w-full" };
-const _hoisted_2$5 = { class: "option-display-name font-semibold flex flex-col" };
-const _hoisted_3$4 = { key: 0 };
-const _hoisted_4 = ["innerHTML"];
+const _hoisted_1$g = { class: "option-container flex justify-between items-center px-2 py-0 cursor-pointer overflow-hidden w-full" };
+const _hoisted_2$6 = { class: "option-display-name font-semibold flex flex-col" };
+const _hoisted_3$5 = { key: 0 };
+const _hoisted_4$1 = ["innerHTML"];
 const _hoisted_5 = ["innerHTML"];
 const _hoisted_6 = {
   key: 0,
@@ -839,15 +832,15 @@ const _sfc_main$j = /* @__PURE__ */ defineComponent({
     );
     const props = __props;
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", _hoisted_1$f, [
-        createBaseVNode("div", _hoisted_2$5, [
+      return openBlock(), createElementBlock("div", _hoisted_1$g, [
+        createBaseVNode("div", _hoisted_2$6, [
           createBaseVNode("div", null, [
-            isBookmarked.value ? (openBlock(), createElementBlock("span", _hoisted_3$4, _cache[0] || (_cache[0] = [
+            isBookmarked.value ? (openBlock(), createElementBlock("span", _hoisted_3$5, _cache[0] || (_cache[0] = [
               createBaseVNode("i", { class: "pi pi-bookmark-fill text-sm mr-1" }, null, -1)
             ]))) : createCommentVNode("", true),
             createBaseVNode("span", {
               innerHTML: unref(highlightQuery)(_ctx.nodeDef.display_name, _ctx.currentQuery)
-            }, null, 8, _hoisted_4),
+            }, null, 8, _hoisted_4$1),
             _cache[1] || (_cache[1] = createBaseVNode("span", null, " ", -1)),
             showIdName.value ? (openBlock(), createBlock(unref(script$8), {
               key: 1,
@@ -894,12 +887,12 @@ const _sfc_main$j = /* @__PURE__ */ defineComponent({
   }
 });
 const NodeSearchItem = /* @__PURE__ */ _export_sfc(_sfc_main$j, [["__scopeId", "data-v-fd0a74bd"]]);
-const _hoisted_1$e = { class: "comfy-vue-node-search-container flex justify-center items-center w-full min-w-96 pointer-events-auto" };
-const _hoisted_2$4 = {
+const _hoisted_1$f = { class: "comfy-vue-node-search-container flex justify-center items-center w-full min-w-96" };
+const _hoisted_2$5 = {
   key: 0,
   class: "comfy-vue-node-preview-container absolute left-[-350px] top-[50px]"
 };
-const _hoisted_3$3 = { class: "_dialog-body" };
+const _hoisted_3$4 = { class: "_dialog-body" };
 const _sfc_main$i = /* @__PURE__ */ defineComponent({
   __name: "NodeSearchBox",
   props: {
@@ -962,8 +955,8 @@ const _sfc_main$i = /* @__PURE__ */ defineComponent({
       hoveredSuggestion.value = value;
     }, "setHoverSuggestion");
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", _hoisted_1$e, [
-        enableNodePreview.value ? (openBlock(), createElementBlock("div", _hoisted_2$4, [
+      return openBlock(), createElementBlock("div", _hoisted_1$f, [
+        enableNodePreview.value ? (openBlock(), createElementBlock("div", _hoisted_2$5, [
           hoveredSuggestion.value ? (openBlock(), createBlock(NodePreview, {
             nodeDef: hoveredSuggestion.value,
             key: hoveredSuggestion.value?.name || ""
@@ -987,7 +980,7 @@ const _sfc_main$i = /* @__PURE__ */ defineComponent({
             createBaseVNode("h3", null, "Add node filter condition", -1)
           ])),
           default: withCtx(() => [
-            createBaseVNode("div", _hoisted_3$3, [
+            createBaseVNode("div", _hoisted_3$4, [
               createVNode(NodeSearchFilter, { onAddFilter })
             ])
           ]),
@@ -1354,8 +1347,8 @@ const _sfc_main$d = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _hoisted_1$d = { class: "side-tool-bar-end" };
-const _hoisted_2$3 = {
+const _hoisted_1$e = { class: "side-tool-bar-end" };
+const _hoisted_2$4 = {
   key: 0,
   class: "sidebar-content-container h-full overflow-y-auto overflow-x-hidden"
 };
@@ -1400,24 +1393,24 @@ const _sfc_main$c = /* @__PURE__ */ defineComponent({
                 onClick: /* @__PURE__ */ __name(($event) => onTabClick(tab), "onClick")
               }, null, 8, ["icon", "iconBadge", "tooltip", "selected", "class", "onClick"]);
             }), 128)),
-            createBaseVNode("div", _hoisted_1$d, [
+            createBaseVNode("div", _hoisted_1$e, [
               unref(userStore).isMultiUserServer ? (openBlock(), createBlock(_sfc_main$f, { key: 0 })) : createCommentVNode("", true),
               createVNode(_sfc_main$d),
               createVNode(_sfc_main$e)
             ])
           ], 2)
         ], 8, ["to"])),
-        selectedTab.value ? (openBlock(), createElementBlock("div", _hoisted_2$3, [
+        selectedTab.value ? (openBlock(), createElementBlock("div", _hoisted_2$4, [
           createVNode(_sfc_main$q, { extension: selectedTab.value }, null, 8, ["extension"])
         ])) : createCommentVNode("", true)
       ], 64);
     };
   }
 });
-const SideToolbar = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["__scopeId", "data-v-33cac83a"]]);
-const _hoisted_1$c = { class: "workflow-label text-sm max-w-[150px] truncate inline-block" };
-const _hoisted_2$2 = { class: "relative" };
-const _hoisted_3$2 = {
+const SideToolbar = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["__scopeId", "data-v-04875455"]]);
+const _hoisted_1$d = { class: "workflow-label text-sm max-w-[150px] truncate inline-block" };
+const _hoisted_2$3 = { class: "relative" };
+const _hoisted_3$3 = {
   key: 0,
   class: "status-indicator"
 };
@@ -1429,13 +1422,15 @@ const _sfc_main$b = /* @__PURE__ */ defineComponent({
   },
   setup(__props) {
     const props = __props;
+    const { t: t2 } = useI18n();
     const workspaceStore = useWorkspaceStore();
     const workflowStore = useWorkflowStore();
     const workflowTabRef = ref(null);
     const closeWorkflows = /* @__PURE__ */ __name(async (options) => {
       for (const opt of options) {
         if (!await useWorkflowService().closeWorkflow(opt.workflow, {
-          warnIfUnsaved: !workspaceStore.shiftDown
+          warnIfUnsaved: !workspaceStore.shiftDown,
+          hint: t2("sideToolbar.workflowTab.dirtyCloseHint")
         })) {
           break;
         }
@@ -1477,7 +1472,7 @@ const _sfc_main$b = /* @__PURE__ */ defineComponent({
         ref_key: "workflowTabRef",
         ref: workflowTabRef
       }, _ctx.$attrs), [
-        withDirectives((openBlock(), createElementBlock("span", _hoisted_1$c, [
+        withDirectives((openBlock(), createElementBlock("span", _hoisted_1$d, [
           createTextVNode(toDisplayString(_ctx.workflowOption.workflow.filename), 1)
         ])), [
           [
@@ -1487,8 +1482,8 @@ const _sfc_main$b = /* @__PURE__ */ defineComponent({
             { bottom: true }
           ]
         ]),
-        createBaseVNode("div", _hoisted_2$2, [
-          !unref(workspaceStore).shiftDown && (_ctx.workflowOption.workflow.isModified || !_ctx.workflowOption.workflow.isPersisted) ? (openBlock(), createElementBlock("span", _hoisted_3$2, "•")) : createCommentVNode("", true),
+        createBaseVNode("div", _hoisted_2$3, [
+          !unref(workspaceStore).shiftDown && (_ctx.workflowOption.workflow.isModified || !_ctx.workflowOption.workflow.isPersisted) ? (openBlock(), createElementBlock("span", _hoisted_3$3, "•")) : createCommentVNode("", true),
           createVNode(unref(script), {
             class: "close-button p-0 w-auto",
             icon: "pi pi-times",
@@ -1502,8 +1497,8 @@ const _sfc_main$b = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const WorkflowTab = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["__scopeId", "data-v-8d011a31"]]);
-const _hoisted_1$b = { class: "workflow-tabs-container flex flex-row max-w-full h-full" };
+const WorkflowTab = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["__scopeId", "data-v-fd6ae3af"]]);
+const _hoisted_1$c = { class: "workflow-tabs-container flex flex-row max-w-full h-full" };
 const _sfc_main$a = /* @__PURE__ */ defineComponent({
   __name: "WorkflowTabs",
   props: {
@@ -1606,7 +1601,7 @@ const _sfc_main$a = /* @__PURE__ */ defineComponent({
     }, "handleWheel");
     return (_ctx, _cache) => {
       const _directive_tooltip = resolveDirective("tooltip");
-      return openBlock(), createElementBlock("div", _hoisted_1$b, [
+      return openBlock(), createElementBlock("div", _hoisted_1$c, [
         createVNode(unref(script$d), {
           class: "overflow-hidden no-drag",
           "pt:content": {
@@ -1656,18 +1651,448 @@ const _sfc_main$a = /* @__PURE__ */ defineComponent({
   }
 });
 const WorkflowTabs = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["__scopeId", "data-v-54fadc45"]]);
-const _hoisted_1$a = { class: "absolute top-0 left-0 w-auto max-w-full pointer-events-auto" };
+const _hoisted_1$b = { class: "absolute top-0 left-0 w-auto max-w-full" };
 const _sfc_main$9 = /* @__PURE__ */ defineComponent({
   __name: "SecondRowWorkflowTabs",
   setup(__props) {
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", _hoisted_1$a, [
+      return openBlock(), createElementBlock("div", _hoisted_1$b, [
         createVNode(WorkflowTabs)
       ]);
     };
   }
 });
-const SecondRowWorkflowTabs = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["__scopeId", "data-v-38831d8e"]]);
+const SecondRowWorkflowTabs = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["__scopeId", "data-v-6ab68035"]]);
+const useCanvasDrop = /* @__PURE__ */ __name((canvasRef) => {
+  const modelToNodeStore = useModelToNodeStore();
+  const litegraphService = useLitegraphService();
+  const workflowService = useWorkflowService();
+  usePragmaticDroppable(() => canvasRef.value, {
+    getDropEffect: /* @__PURE__ */ __name((args) => args.source.data.type === "tree-explorer-node" ? "copy" : "move", "getDropEffect"),
+    onDrop: /* @__PURE__ */ __name((event) => {
+      const loc = event.location.current.input;
+      const dndData = event.source.data;
+      if (dndData.type === "tree-explorer-node") {
+        const node = dndData.data;
+        if (node.data instanceof ComfyNodeDefImpl) {
+          const nodeDef = node.data;
+          const pos = app.clientPosToCanvasPos([
+            loc.clientX,
+            loc.clientY + LiteGraph.NODE_TITLE_HEIGHT
+          ]);
+          litegraphService.addNodeOnGraph(nodeDef, { pos });
+        } else if (node.data instanceof ComfyModelDef) {
+          const model = node.data;
+          const pos = app.clientPosToCanvasPos([loc.clientX, loc.clientY]);
+          const nodeAtPos = app.graph.getNodeOnPos(pos[0], pos[1]);
+          let targetProvider = null;
+          let targetGraphNode = null;
+          if (nodeAtPos) {
+            const providers = modelToNodeStore.getAllNodeProviders(
+              model.directory
+            );
+            for (const provider of providers) {
+              if (provider.nodeDef.name === nodeAtPos.comfyClass) {
+                targetGraphNode = nodeAtPos;
+                targetProvider = provider;
+              }
+            }
+          }
+          if (!targetGraphNode) {
+            const provider = modelToNodeStore.getNodeProvider(model.directory);
+            if (provider) {
+              targetGraphNode = litegraphService.addNodeOnGraph(
+                provider.nodeDef,
+                {
+                  pos
+                }
+              );
+              targetProvider = provider;
+            }
+          }
+          if (targetGraphNode) {
+            const widget = targetGraphNode.widgets?.find(
+              (widget2) => widget2.name === targetProvider?.key
+            );
+            if (widget) {
+              widget.value = model.file_name;
+            }
+          }
+        } else if (node.data instanceof ComfyWorkflow) {
+          const workflow = node.data;
+          const position = app.clientPosToCanvasPos([
+            loc.clientX,
+            loc.clientY
+          ]);
+          workflowService.insertWorkflow(workflow, { position });
+        }
+      }
+    }, "onDrop")
+  });
+}, "useCanvasDrop");
+const useContextMenuTranslation = /* @__PURE__ */ __name(() => {
+  const f = LGraphCanvas.prototype.getCanvasMenuOptions;
+  const getCanvasCenterMenuOptions = /* @__PURE__ */ __name(function(...args) {
+    const res = f.apply(this, args);
+    for (const item of res) {
+      if (item?.content) {
+        item.content = st(`contextMenu.${item.content}`, item.content);
+      }
+    }
+    return res;
+  }, "getCanvasCenterMenuOptions");
+  LGraphCanvas.prototype.getCanvasMenuOptions = getCanvasCenterMenuOptions;
+  function translateMenus(values, options) {
+    if (!values) return;
+    const reInput = /Convert (.*) to input/;
+    const reWidget = /Convert (.*) to widget/;
+    const cvt = st("contextMenu.Convert ", "Convert ");
+    const tinp = st("contextMenu. to input", " to input");
+    const twgt = st("contextMenu. to widget", " to widget");
+    for (const value of values) {
+      if (typeof value === "string") continue;
+      translateMenus(value?.submenu?.options, options);
+      if (!value?.content) {
+        continue;
+      }
+      if (te(`contextMenu.${value.content}`)) {
+        value.content = st(`contextMenu.${value.content}`, value.content);
+      }
+      const extraInfo = options.extra || options.parentMenu?.options?.extra;
+      const matchInput = value.content?.match(reInput);
+      if (matchInput) {
+        let match = matchInput[1];
+        extraInfo?.inputs?.find((i) => {
+          if (i.name != match) return false;
+          match = i.label ? i.label : i.name;
+        });
+        extraInfo?.widgets?.find((i) => {
+          if (i.name != match) return false;
+          match = i.label ? i.label : i.name;
+        });
+        value.content = cvt + match + tinp;
+        continue;
+      }
+      const matchWidget = value.content?.match(reWidget);
+      if (matchWidget) {
+        let match = matchWidget[1];
+        extraInfo?.inputs?.find((i) => {
+          if (i.name != match) return false;
+          match = i.label ? i.label : i.name;
+        });
+        extraInfo?.widgets?.find((i) => {
+          if (i.name != match) return false;
+          match = i.label ? i.label : i.name;
+        });
+        value.content = cvt + match + twgt;
+        continue;
+      }
+    }
+  }
+  __name(translateMenus, "translateMenus");
+  const OriginalContextMenu = LiteGraph.ContextMenu;
+  function ContextMenu2(values, options) {
+    if (options.title) {
+      options.title = st(
+        `nodeDefs.${normalizeI18nKey(options.title)}.display_name`,
+        options.title
+      );
+    }
+    translateMenus(values, options);
+    const ctx = new OriginalContextMenu(values, options);
+    return ctx;
+  }
+  __name(ContextMenu2, "ContextMenu");
+  LiteGraph.ContextMenu = ContextMenu2;
+}, "useContextMenuTranslation");
+const useCopy = /* @__PURE__ */ __name(() => {
+  const canvasStore = useCanvasStore();
+  useEventListener(document, "copy", (e) => {
+    if (!(e.target instanceof Element)) {
+      return;
+    }
+    if (e.target instanceof HTMLTextAreaElement && e.target.type === "textarea" || e.target instanceof HTMLInputElement && e.target.type === "text") {
+      return;
+    }
+    const isTargetInGraph = e.target.classList.contains("litegraph") || e.target.classList.contains("graph-canvas-container") || e.target.id === "graph-canvas";
+    const canvas = canvasStore.canvas;
+    if (isTargetInGraph && canvas?.selectedItems) {
+      canvas.copyToClipboard();
+      e.clipboardData?.setData("text", " ");
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      return false;
+    }
+  });
+}, "useCopy");
+const useGlobalLitegraph = /* @__PURE__ */ __name(() => {
+  window["LiteGraph"] = LiteGraph;
+  window["LGraph"] = LGraph;
+  window["LLink"] = LLink;
+  window["LGraphNode"] = LGraphNode;
+  window["LGraphGroup"] = LGraphGroup;
+  window["DragAndScale"] = DragAndScale;
+  window["LGraphCanvas"] = LGraphCanvas;
+  window["ContextMenu"] = ContextMenu;
+  window["LGraphBadge"] = LGraphBadge;
+}, "useGlobalLitegraph");
+const useLitegraphSettings = /* @__PURE__ */ __name(() => {
+  const settingStore = useSettingStore();
+  const canvasStore = useCanvasStore();
+  watchEffect(() => {
+    const canvasInfoEnabled = settingStore.get("Comfy.Graph.CanvasInfo");
+    if (canvasStore.canvas) {
+      canvasStore.canvas.show_info = canvasInfoEnabled;
+    }
+  });
+  watchEffect(() => {
+    const zoomSpeed = settingStore.get("Comfy.Graph.ZoomSpeed");
+    if (canvasStore.canvas) {
+      canvasStore.canvas.zoom_speed = zoomSpeed;
+    }
+  });
+  watchEffect(() => {
+    LiteGraph.snaps_for_comfy = settingStore.get(
+      "Comfy.Node.AutoSnapLinkToSlot"
+    );
+  });
+  watchEffect(() => {
+    LiteGraph.snap_highlights_node = settingStore.get(
+      "Comfy.Node.SnapHighlightsNode"
+    );
+  });
+  watchEffect(() => {
+    LGraphNode.keepAllLinksOnBypass = settingStore.get(
+      "Comfy.Node.BypassAllLinksOnDelete"
+    );
+  });
+  watchEffect(() => {
+    LiteGraph.middle_click_slot_add_default_node = settingStore.get(
+      "Comfy.Node.MiddleClickRerouteNode"
+    );
+  });
+  watchEffect(() => {
+    const linkRenderMode = settingStore.get("Comfy.LinkRenderMode");
+    if (canvasStore.canvas) {
+      canvasStore.canvas.links_render_mode = linkRenderMode;
+      canvasStore.canvas.setDirty(
+        /* fg */
+        false,
+        /* bg */
+        true
+      );
+    }
+  });
+  watchEffect(() => {
+    const lowQualityRenderingZoomThreshold = settingStore.get(
+      "LiteGraph.Canvas.LowQualityRenderingZoomThreshold"
+    );
+    if (canvasStore.canvas) {
+      canvasStore.canvas.low_quality_zoom_threshold = lowQualityRenderingZoomThreshold;
+      canvasStore.canvas.setDirty(
+        /* fg */
+        true,
+        /* bg */
+        true
+      );
+    }
+  });
+  watchEffect(() => {
+    const linkMarkerShape = settingStore.get("Comfy.Graph.LinkMarkers");
+    const { canvas } = canvasStore;
+    if (canvas) {
+      canvas.linkMarkerShape = linkMarkerShape;
+      canvas.setDirty(false, true);
+    }
+  });
+  watchEffect(() => {
+    const reroutesEnabled = settingStore.get("Comfy.RerouteBeta");
+    const { canvas } = canvasStore;
+    if (canvas) {
+      canvas.reroutesEnabled = reroutesEnabled;
+      canvas.setDirty(false, true);
+    }
+  });
+  watchEffect(() => {
+    const maximumFps = settingStore.get("LiteGraph.Canvas.MaximumFps");
+    const { canvas } = canvasStore;
+    if (canvas) canvas.maximumFps = maximumFps;
+  });
+  watchEffect(() => {
+    const dragZoomEnabled = settingStore.get("Comfy.Graph.CtrlShiftZoom");
+    const { canvas } = canvasStore;
+    if (canvas) canvas.dragZoomEnabled = dragZoomEnabled;
+  });
+  watchEffect(() => {
+    CanvasPointer.doubleClickTime = settingStore.get(
+      "Comfy.Pointer.DoubleClickTime"
+    );
+  });
+  watchEffect(() => {
+    CanvasPointer.bufferTime = settingStore.get("Comfy.Pointer.ClickBufferTime");
+  });
+  watchEffect(() => {
+    CanvasPointer.maxClickDrift = settingStore.get("Comfy.Pointer.ClickDrift");
+  });
+  watchEffect(() => {
+    LiteGraph.CANVAS_GRID_SIZE = settingStore.get("Comfy.SnapToGrid.GridSize");
+  });
+  watchEffect(() => {
+    LiteGraph.alwaysSnapToGrid = settingStore.get("pysssss.SnapToGrid");
+  });
+  watchEffect(() => {
+    LiteGraph.context_menu_scaling = settingStore.get(
+      "LiteGraph.ContextMenu.Scaling"
+    );
+  });
+}, "useLitegraphSettings");
+const usePaste = /* @__PURE__ */ __name(() => {
+  const workspaceStore = useWorkspaceStore();
+  const canvasStore = useCanvasStore();
+  useEventListener(document, "paste", async (e) => {
+    if (workspaceStore.shiftDown) return;
+    const canvas = canvasStore.canvas;
+    if (!canvas) return;
+    const graph = canvas.graph;
+    let data = e.clipboardData || window.clipboardData;
+    const items = data.items;
+    for (const item of items) {
+      if (item.type.startsWith("image/")) {
+        let imageNode = null;
+        const currentNode = canvas.current_node;
+        if (currentNode && currentNode.is_selected && isImageNode(currentNode)) {
+          imageNode = currentNode;
+        }
+        if (!imageNode) {
+          const newNode = LiteGraph.createNode("LoadImage");
+          newNode.pos = [...canvas.graph_mouse];
+          imageNode = graph.add(newNode) ?? null;
+          graph.change();
+        }
+        const blob = item.getAsFile();
+        imageNode?.pasteFile?.(blob);
+        return;
+      }
+    }
+    data = data.getData("text/plain");
+    let workflow = null;
+    try {
+      data = data.slice(data.indexOf("{"));
+      workflow = JSON.parse(data);
+    } catch (err) {
+      try {
+        data = data.slice(data.indexOf("workflow\n"));
+        data = data.slice(data.indexOf("{"));
+        workflow = JSON.parse(data);
+      } catch (error) {
+        workflow = null;
+      }
+    }
+    if (workflow && workflow.version && workflow.nodes && workflow.extra) {
+      await app.loadGraphData(workflow);
+    } else {
+      if (e.target instanceof HTMLTextAreaElement && e.target.type === "textarea" || e.target instanceof HTMLInputElement && e.target.type === "text") {
+        return;
+      }
+      canvas.pasteFromClipboard();
+    }
+  });
+}, "usePaste");
+function useWorkflowPersistence() {
+  const workflowStore = useWorkflowStore();
+  const settingStore = useSettingStore();
+  const persistCurrentWorkflow = /* @__PURE__ */ __name(() => {
+    const workflow = JSON.stringify(app.serializeGraph());
+    localStorage.setItem("workflow", workflow);
+    if (api.clientId) {
+      sessionStorage.setItem(`workflow:${api.clientId}`, workflow);
+    }
+  }, "persistCurrentWorkflow");
+  const loadWorkflowFromStorage = /* @__PURE__ */ __name(async (json, workflowName) => {
+    if (!json) return false;
+    const workflow = JSON.parse(json);
+    await app.loadGraphData(workflow, true, true, workflowName);
+    return true;
+  }, "loadWorkflowFromStorage");
+  const loadPreviousWorkflowFromStorage = /* @__PURE__ */ __name(async () => {
+    const workflowName = getStorageValue("Comfy.PreviousWorkflow");
+    const clientId = api.initialClientId ?? api.clientId;
+    if (clientId) {
+      const sessionWorkflow = sessionStorage.getItem(`workflow:${clientId}`);
+      if (await loadWorkflowFromStorage(sessionWorkflow, workflowName)) {
+        return true;
+      }
+    }
+    const localWorkflow = localStorage.getItem("workflow");
+    return await loadWorkflowFromStorage(localWorkflow, workflowName);
+  }, "loadPreviousWorkflowFromStorage");
+  const loadDefaultWorkflow = /* @__PURE__ */ __name(async () => {
+    if (!settingStore.get("Comfy.TutorialCompleted")) {
+      await settingStore.set("Comfy.TutorialCompleted", true);
+      await useModelStore().loadModelFolders();
+      await useWorkflowService().loadTutorialWorkflow();
+    } else {
+      await app.loadGraphData();
+    }
+  }, "loadDefaultWorkflow");
+  const restorePreviousWorkflow = /* @__PURE__ */ __name(async () => {
+    try {
+      const restored = await loadPreviousWorkflowFromStorage();
+      if (!restored) {
+        await loadDefaultWorkflow();
+      }
+    } catch (err) {
+      console.error("Error loading previous workflow", err);
+      await loadDefaultWorkflow();
+    }
+  }, "restorePreviousWorkflow");
+  watchEffect(() => {
+    if (workflowStore.activeWorkflow) {
+      const workflow = workflowStore.activeWorkflow;
+      setStorageValue("Comfy.PreviousWorkflow", workflow.key);
+      persistCurrentWorkflow();
+    }
+  });
+  api.addEventListener("graphChanged", persistCurrentWorkflow);
+  const openWorkflows = computed(() => workflowStore.openWorkflows);
+  const activeWorkflow = computed(() => workflowStore.activeWorkflow);
+  const restoreState = computed(
+    () => {
+      if (!openWorkflows.value || !activeWorkflow.value) {
+        return { paths: [], activeIndex: -1 };
+      }
+      const paths = openWorkflows.value.filter((workflow) => workflow?.isPersisted && !workflow.isModified).map((workflow) => workflow.path);
+      const activeIndex = openWorkflows.value.findIndex(
+        (workflow) => workflow.path === activeWorkflow.value?.path
+      );
+      return { paths, activeIndex };
+    }
+  );
+  const storedWorkflows = JSON.parse(
+    getStorageValue("Comfy.OpenWorkflowsPaths") || "[]"
+  );
+  const storedActiveIndex = JSON.parse(
+    getStorageValue("Comfy.ActiveWorkflowIndex") || "-1"
+  );
+  watch(restoreState, ({ paths, activeIndex }) => {
+    setStorageValue("Comfy.OpenWorkflowsPaths", JSON.stringify(paths));
+    setStorageValue("Comfy.ActiveWorkflowIndex", JSON.stringify(activeIndex));
+  });
+  const restoreWorkflowTabsState = /* @__PURE__ */ __name(() => {
+    const isRestorable = storedWorkflows?.length > 0 && storedActiveIndex >= 0;
+    if (isRestorable) {
+      workflowStore.openWorkflowsInBackground({
+        left: storedWorkflows.slice(0, storedActiveIndex),
+        right: storedWorkflows.slice(storedActiveIndex)
+      });
+    }
+  }, "restoreWorkflowTabsState");
+  return {
+    restorePreviousWorkflow,
+    restoreWorkflowTabsState
+  };
+}
+__name(useWorkflowPersistence, "useWorkflowPersistence");
 const CORE_SETTINGS = [
   {
     id: "Comfy.Validation.Workflows",
@@ -2019,6 +2444,18 @@ const CORE_SETTINGS = [
     defaultValue: 0
   },
   {
+    id: "LiteGraph.Node.TooltipDelay",
+    name: "Tooltip Delay",
+    type: "number",
+    attrs: {
+      min: 100,
+      max: 3e3,
+      step: 50
+    },
+    defaultValue: 500,
+    versionAdded: "1.9.0"
+  },
+  {
     id: "Comfy.EnableTooltips",
     category: ["LiteGraph", "Node", "EnableTooltips"],
     name: "Enable Tooltips",
@@ -2296,7 +2733,7 @@ const CORE_SETTINGS = [
   },
   {
     id: "LiteGraph.Canvas.MaximumFps",
-    name: "Maxium FPS",
+    name: "Maximum FPS",
     tooltip: "The maximum frames per second that the canvas is allowed to render. Caps GPU usage at the cost of smoothness. If 0, the screen refresh rate is used. Default: 0",
     type: "slider",
     attrs: {
@@ -2361,173 +2798,21 @@ const CORE_SETTINGS = [
     defaultValue: false,
     type: "boolean",
     versionAdded: "1.8.8"
+  },
+  {
+    id: "LiteGraph.Canvas.LowQualityRenderingZoomThreshold",
+    name: "Low quality rendering zoom threshold",
+    tooltip: "Render low quality shapes when zoomed out",
+    type: "slider",
+    attrs: {
+      min: 0.1,
+      max: 1,
+      step: 0.01
+    },
+    defaultValue: 0.6,
+    versionAdded: "1.9.1"
   }
 ];
-const useCanvasDrop = /* @__PURE__ */ __name((canvasRef) => {
-  const modelToNodeStore = useModelToNodeStore();
-  const litegraphService = useLitegraphService();
-  usePragmaticDroppable(() => canvasRef.value, {
-    getDropEffect: /* @__PURE__ */ __name((args) => args.source.data.type === "tree-explorer-node" ? "copy" : "move", "getDropEffect"),
-    onDrop: /* @__PURE__ */ __name((event) => {
-      const loc = event.location.current.input;
-      const dndData = event.source.data;
-      if (dndData.type === "tree-explorer-node") {
-        const node = dndData.data;
-        if (node.data instanceof ComfyNodeDefImpl) {
-          const nodeDef = node.data;
-          const pos = app.clientPosToCanvasPos([
-            loc.clientX,
-            loc.clientY + LiteGraph.NODE_TITLE_HEIGHT
-          ]);
-          litegraphService.addNodeOnGraph(nodeDef, { pos });
-        } else if (node.data instanceof ComfyModelDef) {
-          const model = node.data;
-          const pos = app.clientPosToCanvasPos([loc.clientX, loc.clientY]);
-          const nodeAtPos = app.graph.getNodeOnPos(pos[0], pos[1]);
-          let targetProvider = null;
-          let targetGraphNode = null;
-          if (nodeAtPos) {
-            const providers = modelToNodeStore.getAllNodeProviders(
-              model.directory
-            );
-            for (const provider of providers) {
-              if (provider.nodeDef.name === nodeAtPos.comfyClass) {
-                targetGraphNode = nodeAtPos;
-                targetProvider = provider;
-              }
-            }
-          }
-          if (!targetGraphNode) {
-            const provider = modelToNodeStore.getNodeProvider(model.directory);
-            if (provider) {
-              targetGraphNode = litegraphService.addNodeOnGraph(
-                provider.nodeDef,
-                {
-                  pos
-                }
-              );
-              targetProvider = provider;
-            }
-          }
-          if (targetGraphNode) {
-            const widget = targetGraphNode.widgets?.find(
-              (widget2) => widget2.name === targetProvider?.key
-            );
-            if (widget) {
-              widget.value = model.file_name;
-            }
-          }
-        }
-      }
-    }, "onDrop")
-  });
-}, "useCanvasDrop");
-const useGlobalLitegraph = /* @__PURE__ */ __name(() => {
-  window["LiteGraph"] = LiteGraph;
-  window["LGraph"] = LGraph;
-  window["LLink"] = LLink;
-  window["LGraphNode"] = LGraphNode;
-  window["LGraphGroup"] = LGraphGroup;
-  window["DragAndScale"] = DragAndScale;
-  window["LGraphCanvas"] = LGraphCanvas;
-  window["ContextMenu"] = ContextMenu;
-  window["LGraphBadge"] = LGraphBadge;
-}, "useGlobalLitegraph");
-function useWorkflowPersistence() {
-  const workflowStore = useWorkflowStore();
-  const settingStore = useSettingStore();
-  const persistCurrentWorkflow = /* @__PURE__ */ __name(() => {
-    const workflow = JSON.stringify(app.serializeGraph());
-    localStorage.setItem("workflow", workflow);
-    if (api.clientId) {
-      sessionStorage.setItem(`workflow:${api.clientId}`, workflow);
-    }
-  }, "persistCurrentWorkflow");
-  const loadWorkflowFromStorage = /* @__PURE__ */ __name(async (json, workflowName) => {
-    if (!json) return false;
-    const workflow = JSON.parse(json);
-    await app.loadGraphData(workflow, true, true, workflowName);
-    return true;
-  }, "loadWorkflowFromStorage");
-  const loadPreviousWorkflowFromStorage = /* @__PURE__ */ __name(async () => {
-    const workflowName = getStorageValue("Comfy.PreviousWorkflow");
-    const clientId = api.initialClientId ?? api.clientId;
-    if (clientId) {
-      const sessionWorkflow = sessionStorage.getItem(`workflow:${clientId}`);
-      if (await loadWorkflowFromStorage(sessionWorkflow, workflowName)) {
-        return true;
-      }
-    }
-    const localWorkflow = localStorage.getItem("workflow");
-    return await loadWorkflowFromStorage(localWorkflow, workflowName);
-  }, "loadPreviousWorkflowFromStorage");
-  const loadDefaultWorkflow = /* @__PURE__ */ __name(async () => {
-    if (!settingStore.get("Comfy.TutorialCompleted")) {
-      await settingStore.set("Comfy.TutorialCompleted", true);
-      await useModelStore().loadModelFolders();
-      await useWorkflowService().loadTutorialWorkflow();
-    } else {
-      await app.loadGraphData();
-    }
-  }, "loadDefaultWorkflow");
-  const restorePreviousWorkflow = /* @__PURE__ */ __name(async () => {
-    try {
-      const restored = await loadPreviousWorkflowFromStorage();
-      if (!restored) {
-        await loadDefaultWorkflow();
-      }
-    } catch (err) {
-      console.error("Error loading previous workflow", err);
-      await loadDefaultWorkflow();
-    }
-  }, "restorePreviousWorkflow");
-  watchEffect(() => {
-    if (workflowStore.activeWorkflow) {
-      const workflow = workflowStore.activeWorkflow;
-      setStorageValue("Comfy.PreviousWorkflow", workflow.key);
-      persistCurrentWorkflow();
-    }
-  });
-  api.addEventListener("graphChanged", persistCurrentWorkflow);
-  const openWorkflows = computed(() => workflowStore.openWorkflows);
-  const activeWorkflow = computed(() => workflowStore.activeWorkflow);
-  const restoreState = computed(
-    () => {
-      if (!openWorkflows.value || !activeWorkflow.value) {
-        return { paths: [], activeIndex: -1 };
-      }
-      const paths = openWorkflows.value.filter((workflow) => workflow?.isPersisted && !workflow.isModified).map((workflow) => workflow.path);
-      const activeIndex = openWorkflows.value.findIndex(
-        (workflow) => workflow.path === activeWorkflow.value?.path
-      );
-      return { paths, activeIndex };
-    }
-  );
-  const storedWorkflows = JSON.parse(
-    getStorageValue("Comfy.OpenWorkflowsPaths") || "[]"
-  );
-  const storedActiveIndex = JSON.parse(
-    getStorageValue("Comfy.ActiveWorkflowIndex") || "-1"
-  );
-  watch(restoreState, ({ paths, activeIndex }) => {
-    setStorageValue("Comfy.OpenWorkflowsPaths", JSON.stringify(paths));
-    setStorageValue("Comfy.ActiveWorkflowIndex", JSON.stringify(activeIndex));
-  });
-  const restoreWorkflowTabsState = /* @__PURE__ */ __name(() => {
-    const isRestorable = storedWorkflows?.length > 0 && storedActiveIndex >= 0;
-    if (isRestorable) {
-      workflowStore.openWorkflowsInBackground({
-        left: storedWorkflows.slice(0, storedActiveIndex),
-        right: storedWorkflows.slice(storedActiveIndex)
-      });
-    }
-  }, "restoreWorkflowTabsState");
-  return {
-    restorePreviousWorkflow,
-    restoreWorkflowTabsState
-  };
-}
-__name(useWorkflowPersistence, "useWorkflowPersistence");
 const _sfc_main$8 = /* @__PURE__ */ defineComponent({
   __name: "GraphCanvas",
   emits: ["ready"],
@@ -2549,36 +2834,6 @@ const _sfc_main$8 = /* @__PURE__ */ defineComponent({
     );
     const tooltipEnabled = computed(() => settingStore.get("Comfy.EnableTooltips"));
     watchEffect(() => {
-      const canvasInfoEnabled = settingStore.get("Comfy.Graph.CanvasInfo");
-      if (canvasStore.canvas) {
-        canvasStore.canvas.show_info = canvasInfoEnabled;
-      }
-    });
-    watchEffect(() => {
-      const zoomSpeed = settingStore.get("Comfy.Graph.ZoomSpeed");
-      if (canvasStore.canvas) {
-        canvasStore.canvas.zoom_speed = zoomSpeed;
-      }
-    });
-    watchEffect(() => {
-      LiteGraph.snaps_for_comfy = settingStore.get("Comfy.Node.AutoSnapLinkToSlot");
-    });
-    watchEffect(() => {
-      LiteGraph.snap_highlights_node = settingStore.get(
-        "Comfy.Node.SnapHighlightsNode"
-      );
-    });
-    watchEffect(() => {
-      LGraphNode.keepAllLinksOnBypass = settingStore.get(
-        "Comfy.Node.BypassAllLinksOnDelete"
-      );
-    });
-    watchEffect(() => {
-      LiteGraph.middle_click_slot_add_default_node = settingStore.get(
-        "Comfy.Node.MiddleClickRerouteNode"
-      );
-    });
-    watchEffect(() => {
       nodeDefStore.showDeprecated = settingStore.get("Comfy.Node.ShowDeprecated");
     });
     watchEffect(() => {
@@ -2594,56 +2849,6 @@ const _sfc_main$8 = /* @__PURE__ */ defineComponent({
         textarea.focus();
         textarea.blur();
       });
-    });
-    watchEffect(() => {
-      const linkRenderMode = settingStore.get("Comfy.LinkRenderMode");
-      if (canvasStore.canvas) {
-        canvasStore.canvas.links_render_mode = linkRenderMode;
-        canvasStore.canvas.setDirty(
-          /* fg */
-          false,
-          /* bg */
-          true
-        );
-      }
-    });
-    watchEffect(() => {
-      const linkMarkerShape = settingStore.get("Comfy.Graph.LinkMarkers");
-      const { canvas } = canvasStore;
-      if (canvas) {
-        canvas.linkMarkerShape = linkMarkerShape;
-        canvas.setDirty(false, true);
-      }
-    });
-    watchEffect(() => {
-      const reroutesEnabled = settingStore.get("Comfy.RerouteBeta");
-      const { canvas } = canvasStore;
-      if (canvas) {
-        canvas.reroutesEnabled = reroutesEnabled;
-        canvas.setDirty(false, true);
-      }
-    });
-    watchEffect(() => {
-      const maximumFps = settingStore.get("LiteGraph.Canvas.MaximumFps");
-      const { canvas } = canvasStore;
-      if (canvas) canvas.maximumFps = maximumFps;
-    });
-    watchEffect(() => {
-      CanvasPointer.doubleClickTime = settingStore.get(
-        "Comfy.Pointer.DoubleClickTime"
-      );
-    });
-    watchEffect(() => {
-      CanvasPointer.bufferTime = settingStore.get("Comfy.Pointer.ClickBufferTime");
-    });
-    watchEffect(() => {
-      CanvasPointer.maxClickDrift = settingStore.get("Comfy.Pointer.ClickDrift");
-    });
-    watchEffect(() => {
-      LiteGraph.CANVAS_GRID_SIZE = settingStore.get("Comfy.SnapToGrid.GridSize");
-    });
-    watchEffect(() => {
-      LiteGraph.alwaysSnapToGrid = settingStore.get("pysssss.SnapToGrid");
     });
     watch(
       () => settingStore.get("Comfy.WidgetControlMode"),
@@ -2680,11 +2885,6 @@ const _sfc_main$8 = /* @__PURE__ */ defineComponent({
         settingStore.set("Comfy.ColorPalette", newValue);
       }
     );
-    watchEffect(() => {
-      LiteGraph.context_menu_scaling = settingStore.get(
-        "LiteGraph.ContextMenu.Scaling"
-      );
-    });
     const loadCustomNodesI18n = /* @__PURE__ */ __name(async () => {
       try {
         const i18nData = await api.getCustomNodesI18n();
@@ -2698,8 +2898,12 @@ const _sfc_main$8 = /* @__PURE__ */ defineComponent({
     const comfyAppReady = ref(false);
     const workflowPersistence = useWorkflowPersistence();
     useCanvasDrop(canvasRef);
+    useLitegraphSettings();
     onMounted(async () => {
       useGlobalLitegraph();
+      useContextMenuTranslation();
+      useCopy();
+      usePaste();
       app.vueAppReady = true;
       workspaceStore.spinner = true;
       ChangeTracker.init(app);
@@ -2731,31 +2935,36 @@ const _sfc_main$8 = /* @__PURE__ */ defineComponent({
     });
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock(Fragment, null, [
-        (openBlock(), createBlock(Teleport, { to: ".graph-canvas-container" }, [
-          comfyAppReady.value && betaMenuEnabled.value && !unref(workspaceStore).focusMode ? (openBlock(), createBlock(LiteGraphCanvasSplitterOverlay, { key: 0 }, {
-            "side-bar-panel": withCtx(() => [
-              createVNode(SideToolbar)
-            ]),
-            "bottom-panel": withCtx(() => [
-              createVNode(_sfc_main$p)
-            ]),
-            "graph-canvas-panel": withCtx(() => [
-              workflowTabsPosition.value === "Topbar (2nd-row)" ? (openBlock(), createBlock(SecondRowWorkflowTabs, { key: 0 })) : createCommentVNode("", true),
-              canvasMenuEnabled.value ? (openBlock(), createBlock(GraphCanvasMenu, { key: 1 })) : createCommentVNode("", true)
-            ]),
-            _: 1
-          })) : createCommentVNode("", true),
-          createVNode(TitleEditor),
-          !betaMenuEnabled.value && canvasMenuEnabled.value ? (openBlock(), createBlock(GraphCanvasMenu, { key: 1 })) : createCommentVNode("", true),
-          createBaseVNode("canvas", {
-            ref_key: "canvasRef",
-            ref: canvasRef,
-            id: "graph-canvas",
-            tabindex: "1"
-          }, null, 512)
-        ])),
+        comfyAppReady.value && betaMenuEnabled.value && !unref(workspaceStore).focusMode ? (openBlock(), createBlock(LiteGraphCanvasSplitterOverlay, { key: 0 }, {
+          "side-bar-panel": withCtx(() => [
+            createVNode(SideToolbar)
+          ]),
+          "bottom-panel": withCtx(() => [
+            createVNode(_sfc_main$p)
+          ]),
+          "graph-canvas-panel": withCtx(() => [
+            workflowTabsPosition.value === "Topbar (2nd-row)" ? (openBlock(), createBlock(SecondRowWorkflowTabs, {
+              key: 0,
+              class: "pointer-events-auto"
+            })) : createCommentVNode("", true),
+            canvasMenuEnabled.value ? (openBlock(), createBlock(GraphCanvasMenu, {
+              key: 1,
+              class: "pointer-events-auto"
+            })) : createCommentVNode("", true)
+          ]),
+          _: 1
+        })) : createCommentVNode("", true),
+        createVNode(TitleEditor),
+        !betaMenuEnabled.value && canvasMenuEnabled.value ? (openBlock(), createBlock(GraphCanvasMenu, { key: 1 })) : createCommentVNode("", true),
+        createBaseVNode("canvas", {
+          ref_key: "canvasRef",
+          ref: canvasRef,
+          id: "graph-canvas",
+          tabindex: "1",
+          class: "w-full h-full touch-none"
+        }, null, 512),
         createVNode(_sfc_main$h),
-        tooltipEnabled.value ? (openBlock(), createBlock(NodeTooltip, { key: 0 })) : createCommentVNode("", true),
+        tooltipEnabled.value ? (openBlock(), createBlock(NodeTooltip, { key: 2 })) : createCommentVNode("", true),
         createVNode(_sfc_main$n)
       ], 64);
     };
@@ -2835,13 +3044,13 @@ const _sfc_main$7 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _hoisted_1$9 = {
+const _hoisted_1$a = {
   viewBox: "0 0 24 24",
   width: "1.2em",
   height: "1.2em"
 };
 function render$5(_ctx, _cache) {
-  return openBlock(), createElementBlock("svg", _hoisted_1$9, _cache[0] || (_cache[0] = [
+  return openBlock(), createElementBlock("svg", _hoisted_1$a, _cache[0] || (_cache[0] = [
     createBaseVNode("path", {
       fill: "none",
       stroke: "currentColor",
@@ -2854,13 +3063,13 @@ function render$5(_ctx, _cache) {
 }
 __name(render$5, "render$5");
 const __unplugin_components_3 = markRaw({ name: "lucide-step-forward", render: render$5 });
-const _hoisted_1$8 = {
+const _hoisted_1$9 = {
   viewBox: "0 0 24 24",
   width: "1.2em",
   height: "1.2em"
 };
 function render$4(_ctx, _cache) {
-  return openBlock(), createElementBlock("svg", _hoisted_1$8, _cache[0] || (_cache[0] = [
+  return openBlock(), createElementBlock("svg", _hoisted_1$9, _cache[0] || (_cache[0] = [
     createBaseVNode("path", {
       fill: "none",
       stroke: "currentColor",
@@ -2873,13 +3082,13 @@ function render$4(_ctx, _cache) {
 }
 __name(render$4, "render$4");
 const __unplugin_components_2 = markRaw({ name: "lucide-fast-forward", render: render$4 });
-const _hoisted_1$7 = {
+const _hoisted_1$8 = {
   viewBox: "0 0 24 24",
   width: "1.2em",
   height: "1.2em"
 };
 function render$3(_ctx, _cache) {
-  return openBlock(), createElementBlock("svg", _hoisted_1$7, _cache[0] || (_cache[0] = [
+  return openBlock(), createElementBlock("svg", _hoisted_1$8, _cache[0] || (_cache[0] = [
     createBaseVNode("path", {
       fill: "none",
       stroke: "currentColor",
@@ -2892,13 +3101,13 @@ function render$3(_ctx, _cache) {
 }
 __name(render$3, "render$3");
 const __unplugin_components_1$1 = markRaw({ name: "lucide-play", render: render$3 });
-const _hoisted_1$6 = {
+const _hoisted_1$7 = {
   viewBox: "0 0 24 24",
   width: "1.2em",
   height: "1.2em"
 };
 function render$2(_ctx, _cache) {
-  return openBlock(), createElementBlock("svg", _hoisted_1$6, _cache[0] || (_cache[0] = [
+  return openBlock(), createElementBlock("svg", _hoisted_1$7, _cache[0] || (_cache[0] = [
     createBaseVNode("g", {
       fill: "none",
       stroke: "currentColor",
@@ -2913,7 +3122,7 @@ function render$2(_ctx, _cache) {
 }
 __name(render$2, "render$2");
 const __unplugin_components_0$1 = markRaw({ name: "lucide-list-start", render: render$2 });
-const _hoisted_1$5 = ["aria-label"];
+const _hoisted_1$6 = ["aria-label"];
 const minQueueCount = 1;
 const _sfc_main$6 = /* @__PURE__ */ defineComponent({
   __name: "BatchCountEdit",
@@ -2968,7 +3177,7 @@ const _sfc_main$6 = /* @__PURE__ */ defineComponent({
             }
           }
         }, null, 8, ["modelValue", "max", "pt"])
-      ], 10, _hoisted_1$5)), [
+      ], 10, _hoisted_1$6)), [
         [
           _directive_tooltip,
           _ctx.$t("menu.batchCount"),
@@ -2980,7 +3189,7 @@ const _sfc_main$6 = /* @__PURE__ */ defineComponent({
   }
 });
 const BatchCountEdit = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__scopeId", "data-v-26957f1f"]]);
-const _hoisted_1$4 = { class: "queue-button-group flex" };
+const _hoisted_1$5 = { class: "queue-button-group flex" };
 const _sfc_main$5 = /* @__PURE__ */ defineComponent({
   __name: "ComfyQueueButton",
   setup(__props) {
@@ -3033,7 +3242,7 @@ const _sfc_main$5 = /* @__PURE__ */ defineComponent({
       const _component_i_lucide58fast_forward = __unplugin_components_2;
       const _component_i_lucide58step_forward = __unplugin_components_3;
       const _directive_tooltip = resolveDirective("tooltip");
-      return openBlock(), createElementBlock("div", _hoisted_1$4, [
+      return openBlock(), createElementBlock("div", _hoisted_1$5, [
         withDirectives((openBlock(), createBlock(unref(script$h), {
           class: "comfyui-queue-button",
           label: activeQueueModeMenuItem.value.label,
@@ -3263,7 +3472,7 @@ const _sfc_main$4 = /* @__PURE__ */ defineComponent({
       }, {
         default: withCtx(() => [
           createBaseVNode("div", {
-            class: "actionbar-content flex items-center",
+            class: "actionbar-content flex items-center select-none",
             ref_key: "panelRef",
             ref: panelRef
           }, [
@@ -3280,14 +3489,14 @@ const _sfc_main$4 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const Actionbar = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-915e5456"]]);
-const _hoisted_1$3 = {
+const Actionbar = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-ebd56d51"]]);
+const _hoisted_1$4 = {
   viewBox: "0 0 24 24",
   width: "1.2em",
   height: "1.2em"
 };
 function render$1(_ctx, _cache) {
-  return openBlock(), createElementBlock("svg", _hoisted_1$3, _cache[0] || (_cache[0] = [
+  return openBlock(), createElementBlock("svg", _hoisted_1$4, _cache[0] || (_cache[0] = [
     createBaseVNode("path", {
       fill: "currentColor",
       d: "M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm0-5v3h14v-3zm0-2h14V5H5zm0 2v3z"
@@ -3296,13 +3505,13 @@ function render$1(_ctx, _cache) {
 }
 __name(render$1, "render$1");
 const __unplugin_components_1 = markRaw({ name: "material-symbols-dock-to-bottom-outline", render: render$1 });
-const _hoisted_1$2 = {
+const _hoisted_1$3 = {
   viewBox: "0 0 24 24",
   width: "1.2em",
   height: "1.2em"
 };
 function render(_ctx, _cache) {
-  return openBlock(), createElementBlock("svg", _hoisted_1$2, _cache[0] || (_cache[0] = [
+  return openBlock(), createElementBlock("svg", _hoisted_1$3, _cache[0] || (_cache[0] = [
     createBaseVNode("path", {
       fill: "currentColor",
       d: "M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm0-7h14V5H5z"
@@ -3336,9 +3545,9 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _hoisted_1$1 = ["href"];
-const _hoisted_2$1 = { class: "p-menubar-item-label" };
-const _hoisted_3$1 = {
+const _hoisted_1$2 = ["href"];
+const _hoisted_2$2 = { class: "p-menubar-item-label" };
+const _hoisted_3$2 = {
   key: 1,
   class: "ml-auto border border-surface rounded text-muted text-xs text-nowrap p-1 keybinding-tag"
 };
@@ -3382,9 +3591,9 @@ const _sfc_main$2 = /* @__PURE__ */ defineComponent({
               key: 0,
               class: normalizeClass(["p-menubar-item-icon", item.icon])
             }, null, 2)) : createCommentVNode("", true),
-            createBaseVNode("span", _hoisted_2$1, toDisplayString(item.label), 1),
-            item?.comfyCommand?.keybinding ? (openBlock(), createElementBlock("span", _hoisted_3$1, toDisplayString(item.comfyCommand.keybinding.combo.toString()), 1)) : createCommentVNode("", true)
-          ], 16, _hoisted_1$1)
+            createBaseVNode("span", _hoisted_2$2, toDisplayString(item.label), 1),
+            item?.comfyCommand?.keybinding ? (openBlock(), createElementBlock("span", _hoisted_3$2, toDisplayString(item.comfyCommand.keybinding.combo.toString()), 1)) : createCommentVNode("", true)
+          ], 16, _hoisted_1$2)
         ]),
         _: 1
       }, 8, ["model", "pt"]);
@@ -3392,9 +3601,9 @@ const _sfc_main$2 = /* @__PURE__ */ defineComponent({
   }
 });
 const CommandMenubar = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-56df69d2"]]);
-const _hoisted_1 = { class: "flex-grow min-w-0 app-drag h-full" };
-const _hoisted_2 = { class: "window-actions-spacer flex-shrink-0" };
-const _hoisted_3 = { class: "fixed top-0 left-0 app-drag w-full h-[var(--comfy-topbar-height)]" };
+const _hoisted_1$1 = { class: "flex-grow min-w-0 app-drag h-full" };
+const _hoisted_2$1 = { class: "window-actions-spacer flex-shrink-0" };
+const _hoisted_3$1 = { class: "fixed top-0 left-0 app-drag w-full h-[var(--comfy-topbar-height)]" };
 const _sfc_main$1 = /* @__PURE__ */ defineComponent({
   __name: "TopMenubar",
   setup(__props) {
@@ -3405,9 +3614,6 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
     );
     const menuSetting = computed(() => settingStore.get("Comfy.UseNewMenu"));
     const betaMenuEnabled = computed(() => menuSetting.value !== "Disabled");
-    const teleportTarget = computed(
-      () => settingStore.get("Comfy.UseNewMenu") === "Top" ? ".comfyui-body-top" : ".comfyui-body-bottom"
-    );
     const showTopMenu = computed(
       () => betaMenuEnabled.value && !workspaceState.focusMode
     );
@@ -3438,50 +3644,577 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
     return (_ctx, _cache) => {
       const _directive_tooltip = resolveDirective("tooltip");
       return openBlock(), createElementBlock(Fragment, null, [
-        (openBlock(), createBlock(Teleport, { to: teleportTarget.value }, [
-          withDirectives(createBaseVNode("div", {
-            ref_key: "topMenuRef",
-            ref: topMenuRef,
-            class: normalizeClass(["comfyui-menu flex items-center", { dropzone: isDropZone.value, "dropzone-active": isDroppable.value }])
-          }, [
-            _cache[1] || (_cache[1] = createBaseVNode("h1", { class: "comfyui-logo mx-2 app-drag" }, "ComfyUI", -1)),
-            createVNode(CommandMenubar),
-            createBaseVNode("div", _hoisted_1, [
-              workflowTabsPosition.value === "Topbar" ? (openBlock(), createBlock(WorkflowTabs, { key: 0 })) : createCommentVNode("", true)
-            ]),
-            createBaseVNode("div", {
-              class: "comfyui-menu-right",
-              ref_key: "menuRight",
-              ref: menuRight
-            }, null, 512),
-            createVNode(Actionbar),
-            createVNode(_sfc_main$3, { class: "flex-shrink-0" }),
-            withDirectives(createVNode(unref(script), {
-              class: "flex-shrink-0",
-              icon: "pi pi-bars",
-              severity: "secondary",
-              text: "",
-              "aria-label": _ctx.$t("menu.hideMenu"),
-              onClick: _cache[0] || (_cache[0] = ($event) => unref(workspaceState).focusMode = true),
-              onContextmenu: unref(showNativeMenu)
-            }, null, 8, ["aria-label", "onContextmenu"]), [
-              [_directive_tooltip, { value: _ctx.$t("menu.hideMenu"), showDelay: 300 }]
-            ]),
-            withDirectives(createBaseVNode("div", _hoisted_2, null, 512), [
-              [vShow, menuSetting.value !== "Bottom"]
-            ])
-          ], 2), [
-            [vShow, showTopMenu.value]
+        withDirectives(createBaseVNode("div", {
+          ref_key: "topMenuRef",
+          ref: topMenuRef,
+          class: normalizeClass(["comfyui-menu flex items-center", { dropzone: isDropZone.value, "dropzone-active": isDroppable.value }])
+        }, [
+          _cache[1] || (_cache[1] = createBaseVNode("h1", { class: "comfyui-logo mx-2 app-drag" }, "ComfyUI", -1)),
+          createVNode(CommandMenubar),
+          createBaseVNode("div", _hoisted_1$1, [
+            workflowTabsPosition.value === "Topbar" ? (openBlock(), createBlock(WorkflowTabs, { key: 0 })) : createCommentVNode("", true)
+          ]),
+          createBaseVNode("div", {
+            class: "comfyui-menu-right flex-shrink-0",
+            ref_key: "menuRight",
+            ref: menuRight
+          }, null, 512),
+          createVNode(Actionbar),
+          createVNode(_sfc_main$3, { class: "flex-shrink-0" }),
+          withDirectives(createVNode(unref(script), {
+            class: "flex-shrink-0",
+            icon: "pi pi-bars",
+            severity: "secondary",
+            text: "",
+            "aria-label": _ctx.$t("menu.hideMenu"),
+            onClick: _cache[0] || (_cache[0] = ($event) => unref(workspaceState).focusMode = true),
+            onContextmenu: unref(showNativeMenu)
+          }, null, 8, ["aria-label", "onContextmenu"]), [
+            [_directive_tooltip, { value: _ctx.$t("menu.hideMenu"), showDelay: 300 }]
+          ]),
+          withDirectives(createBaseVNode("div", _hoisted_2$1, null, 512), [
+            [vShow, menuSetting.value !== "Bottom"]
           ])
-        ], 8, ["to"])),
-        withDirectives(createBaseVNode("div", _hoisted_3, null, 512), [
+        ], 2), [
+          [vShow, showTopMenu.value]
+        ]),
+        withDirectives(createBaseVNode("div", _hoisted_3$1, null, 512), [
           [vShow, unref(isNativeWindow)() && !showTopMenu.value]
         ])
       ], 64);
     };
   }
 });
-const TopMenubar = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-929e7543"]]);
+const TopMenubar = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-68d3b5b9"]]);
+function useCoreCommands() {
+  const workflowService = useWorkflowService();
+  const workflowStore = useWorkflowStore();
+  const dialogService = useDialogService();
+  const colorPaletteStore = useColorPaletteStore();
+  const getTracker = /* @__PURE__ */ __name(() => workflowStore.activeWorkflow?.changeTracker, "getTracker");
+  const getSelectedNodes = /* @__PURE__ */ __name(() => {
+    const selectedNodes = app.canvas.selected_nodes;
+    const result = [];
+    if (selectedNodes) {
+      for (const i in selectedNodes) {
+        const node = selectedNodes[i];
+        result.push(node);
+      }
+    }
+    return result;
+  }, "getSelectedNodes");
+  const toggleSelectedNodesMode = /* @__PURE__ */ __name((mode) => {
+    getSelectedNodes().forEach((node) => {
+      if (node.mode === mode) {
+        node.mode = LGraphEventMode.ALWAYS;
+      } else {
+        node.mode = mode;
+      }
+    });
+  }, "toggleSelectedNodesMode");
+  return [
+    {
+      id: "Comfy.NewBlankWorkflow",
+      icon: "pi pi-plus",
+      label: "New Blank Workflow",
+      menubarLabel: "New",
+      function: /* @__PURE__ */ __name(() => workflowService.loadBlankWorkflow(), "function")
+    },
+    {
+      id: "Comfy.OpenWorkflow",
+      icon: "pi pi-folder-open",
+      label: "Open Workflow",
+      menubarLabel: "Open",
+      function: /* @__PURE__ */ __name(() => {
+        app.ui.loadFile();
+      }, "function")
+    },
+    {
+      id: "Comfy.LoadDefaultWorkflow",
+      icon: "pi pi-code",
+      label: "Load Default Workflow",
+      function: /* @__PURE__ */ __name(() => workflowService.loadDefaultWorkflow(), "function")
+    },
+    {
+      id: "Comfy.SaveWorkflow",
+      icon: "pi pi-save",
+      label: "Save Workflow",
+      menubarLabel: "Save",
+      function: /* @__PURE__ */ __name(async () => {
+        const workflow = useWorkflowStore().activeWorkflow;
+        if (!workflow) return;
+        await workflowService.saveWorkflow(workflow);
+      }, "function")
+    },
+    {
+      id: "Comfy.SaveWorkflowAs",
+      icon: "pi pi-save",
+      label: "Save Workflow As",
+      menubarLabel: "Save As",
+      function: /* @__PURE__ */ __name(async () => {
+        const workflow = useWorkflowStore().activeWorkflow;
+        if (!workflow) return;
+        await workflowService.saveWorkflowAs(workflow);
+      }, "function")
+    },
+    {
+      id: "Comfy.ExportWorkflow",
+      icon: "pi pi-download",
+      label: "Export Workflow",
+      menubarLabel: "Export",
+      function: /* @__PURE__ */ __name(() => {
+        workflowService.exportWorkflow("workflow", "workflow");
+      }, "function")
+    },
+    {
+      id: "Comfy.ExportWorkflowAPI",
+      icon: "pi pi-download",
+      label: "Export Workflow (API Format)",
+      menubarLabel: "Export (API)",
+      function: /* @__PURE__ */ __name(() => {
+        workflowService.exportWorkflow("workflow_api", "output");
+      }, "function")
+    },
+    {
+      id: "Comfy.Undo",
+      icon: "pi pi-undo",
+      label: "Undo",
+      function: /* @__PURE__ */ __name(async () => {
+        await getTracker()?.undo?.();
+      }, "function")
+    },
+    {
+      id: "Comfy.Redo",
+      icon: "pi pi-refresh",
+      label: "Redo",
+      function: /* @__PURE__ */ __name(async () => {
+        await getTracker()?.redo?.();
+      }, "function")
+    },
+    {
+      id: "Comfy.ClearWorkflow",
+      icon: "pi pi-trash",
+      label: "Clear Workflow",
+      function: /* @__PURE__ */ __name(() => {
+        const settingStore = useSettingStore();
+        if (!settingStore.get("Comfy.ComfirmClear") || confirm("Clear workflow?")) {
+          app.clean();
+          app.graph.clear();
+          api.dispatchCustomEvent("graphCleared");
+        }
+      }, "function")
+    },
+    {
+      id: "Comfy.Canvas.ResetView",
+      icon: "pi pi-expand",
+      label: "Reset View",
+      function: /* @__PURE__ */ __name(() => {
+        useLitegraphService().resetView();
+      }, "function")
+    },
+    {
+      id: "Comfy.OpenClipspace",
+      icon: "pi pi-clipboard",
+      label: "Clipspace",
+      function: /* @__PURE__ */ __name(() => {
+        app.openClipspace();
+      }, "function")
+    },
+    {
+      id: "Comfy.RefreshNodeDefinitions",
+      icon: "pi pi-refresh",
+      label: "Refresh Node Definitions",
+      function: /* @__PURE__ */ __name(async () => {
+        await app.refreshComboInNodes();
+      }, "function")
+    },
+    {
+      id: "Comfy.Interrupt",
+      icon: "pi pi-stop",
+      label: "Interrupt",
+      function: /* @__PURE__ */ __name(async () => {
+        await api.interrupt();
+        useToastStore().add({
+          severity: "info",
+          summary: "Interrupted",
+          detail: "Execution has been interrupted",
+          life: 1e3
+        });
+      }, "function")
+    },
+    {
+      id: "Comfy.ClearPendingTasks",
+      icon: "pi pi-stop",
+      label: "Clear Pending Tasks",
+      function: /* @__PURE__ */ __name(async () => {
+        await useQueueStore().clear(["queue"]);
+        useToastStore().add({
+          severity: "info",
+          summary: "Confirmed",
+          detail: "Pending tasks deleted",
+          life: 3e3
+        });
+      }, "function")
+    },
+    {
+      id: "Comfy.BrowseTemplates",
+      icon: "pi pi-folder-open",
+      label: "Browse Templates",
+      function: /* @__PURE__ */ __name(() => {
+        dialogService.showTemplateWorkflowsDialog();
+      }, "function")
+    },
+    {
+      id: "Comfy.Canvas.ZoomIn",
+      icon: "pi pi-plus",
+      label: "Zoom In",
+      function: /* @__PURE__ */ __name(() => {
+        const ds = app.canvas.ds;
+        ds.changeScale(
+          ds.scale * 1.1,
+          ds.element ? [ds.element.width / 2, ds.element.height / 2] : void 0
+        );
+        app.canvas.setDirty(true, true);
+      }, "function")
+    },
+    {
+      id: "Comfy.Canvas.ZoomOut",
+      icon: "pi pi-minus",
+      label: "Zoom Out",
+      function: /* @__PURE__ */ __name(() => {
+        const ds = app.canvas.ds;
+        ds.changeScale(
+          ds.scale / 1.1,
+          ds.element ? [ds.element.width / 2, ds.element.height / 2] : void 0
+        );
+        app.canvas.setDirty(true, true);
+      }, "function")
+    },
+    {
+      id: "Comfy.Canvas.FitView",
+      icon: "pi pi-expand",
+      label: "Fit view to selected nodes",
+      function: /* @__PURE__ */ __name(() => {
+        if (app.canvas.empty) {
+          useToastStore().add({
+            severity: "error",
+            summary: "Empty canvas",
+            life: 3e3
+          });
+          return;
+        }
+        app.canvas.fitViewToSelectionAnimated();
+      }, "function")
+    },
+    {
+      id: "Comfy.Canvas.ToggleLock",
+      icon: "pi pi-lock",
+      label: "Canvas Toggle Lock",
+      function: /* @__PURE__ */ __name(() => {
+        app.canvas["read_only"] = !app.canvas["read_only"];
+      }, "function")
+    },
+    {
+      id: "Comfy.Canvas.ToggleLinkVisibility",
+      icon: "pi pi-eye",
+      label: "Canvas Toggle Link Visibility",
+      versionAdded: "1.3.6",
+      function: (() => {
+        const settingStore = useSettingStore();
+        let lastLinksRenderMode = LiteGraph.SPLINE_LINK;
+        return () => {
+          const currentMode = settingStore.get("Comfy.LinkRenderMode");
+          if (currentMode === LiteGraph.HIDDEN_LINK) {
+            settingStore.set("Comfy.LinkRenderMode", lastLinksRenderMode);
+          } else {
+            lastLinksRenderMode = currentMode;
+            settingStore.set("Comfy.LinkRenderMode", LiteGraph.HIDDEN_LINK);
+          }
+        };
+      })()
+    },
+    {
+      id: "Comfy.QueuePrompt",
+      icon: "pi pi-play",
+      label: "Queue Prompt",
+      versionAdded: "1.3.7",
+      function: /* @__PURE__ */ __name(() => {
+        const batchCount = useQueueSettingsStore().batchCount;
+        app.queuePrompt(0, batchCount);
+      }, "function")
+    },
+    {
+      id: "Comfy.QueuePromptFront",
+      icon: "pi pi-play",
+      label: "Queue Prompt (Front)",
+      versionAdded: "1.3.7",
+      function: /* @__PURE__ */ __name(() => {
+        const batchCount = useQueueSettingsStore().batchCount;
+        app.queuePrompt(-1, batchCount);
+      }, "function")
+    },
+    {
+      id: "Comfy.ShowSettingsDialog",
+      icon: "pi pi-cog",
+      label: "Show Settings Dialog",
+      versionAdded: "1.3.7",
+      function: /* @__PURE__ */ __name(() => {
+        dialogService.showSettingsDialog();
+      }, "function")
+    },
+    {
+      id: "Comfy.Graph.GroupSelectedNodes",
+      icon: "pi pi-sitemap",
+      label: "Group Selected Nodes",
+      versionAdded: "1.3.7",
+      function: /* @__PURE__ */ __name(() => {
+        const { canvas } = app;
+        if (!canvas.selectedItems?.size) {
+          useToastStore().add({
+            severity: "error",
+            summary: "Nothing to group",
+            detail: "Please select the nodes (or other groups) to create a group for",
+            life: 3e3
+          });
+          return;
+        }
+        const group = new LGraphGroup();
+        const padding = useSettingStore().get(
+          "Comfy.GroupSelectedNodes.Padding"
+        );
+        group.resizeTo(canvas.selectedItems, padding);
+        canvas.graph.add(group);
+        useTitleEditorStore().titleEditorTarget = group;
+      }, "function")
+    },
+    {
+      id: "Workspace.NextOpenedWorkflow",
+      icon: "pi pi-step-forward",
+      label: "Next Opened Workflow",
+      versionAdded: "1.3.9",
+      function: /* @__PURE__ */ __name(() => {
+        workflowService.loadNextOpenedWorkflow();
+      }, "function")
+    },
+    {
+      id: "Workspace.PreviousOpenedWorkflow",
+      icon: "pi pi-step-backward",
+      label: "Previous Opened Workflow",
+      versionAdded: "1.3.9",
+      function: /* @__PURE__ */ __name(() => {
+        workflowService.loadPreviousOpenedWorkflow();
+      }, "function")
+    },
+    {
+      id: "Comfy.Canvas.ToggleSelectedNodes.Mute",
+      icon: "pi pi-volume-off",
+      label: "Mute/Unmute Selected Nodes",
+      versionAdded: "1.3.11",
+      function: /* @__PURE__ */ __name(() => {
+        toggleSelectedNodesMode(LGraphEventMode.NEVER);
+      }, "function")
+    },
+    {
+      id: "Comfy.Canvas.ToggleSelectedNodes.Bypass",
+      icon: "pi pi-shield",
+      label: "Bypass/Unbypass Selected Nodes",
+      versionAdded: "1.3.11",
+      function: /* @__PURE__ */ __name(() => {
+        toggleSelectedNodesMode(LGraphEventMode.BYPASS);
+      }, "function")
+    },
+    {
+      id: "Comfy.Canvas.ToggleSelectedNodes.Pin",
+      icon: "pi pi-pin",
+      label: "Pin/Unpin Selected Nodes",
+      versionAdded: "1.3.11",
+      function: /* @__PURE__ */ __name(() => {
+        getSelectedNodes().forEach((node) => {
+          node.pin(!node.pinned);
+        });
+      }, "function")
+    },
+    {
+      id: "Comfy.Canvas.ToggleSelected.Pin",
+      icon: "pi pi-pin",
+      label: "Pin/Unpin Selected Items",
+      versionAdded: "1.3.33",
+      function: /* @__PURE__ */ __name(() => {
+        for (const item of app.canvas.selectedItems) {
+          if (item instanceof LGraphNode || item instanceof LGraphGroup) {
+            item.pin(!item.pinned);
+          }
+        }
+      }, "function")
+    },
+    {
+      id: "Comfy.Canvas.ToggleSelectedNodes.Collapse",
+      icon: "pi pi-minus",
+      label: "Collapse/Expand Selected Nodes",
+      versionAdded: "1.3.11",
+      function: /* @__PURE__ */ __name(() => {
+        getSelectedNodes().forEach((node) => {
+          node.collapse();
+        });
+      }, "function")
+    },
+    {
+      id: "Comfy.ToggleTheme",
+      icon: "pi pi-moon",
+      label: "Toggle Theme (Dark/Light)",
+      versionAdded: "1.3.12",
+      function: (() => {
+        let previousDarkTheme = DEFAULT_DARK_COLOR_PALETTE.id;
+        let previousLightTheme = DEFAULT_LIGHT_COLOR_PALETTE.id;
+        return () => {
+          const settingStore = useSettingStore();
+          const theme = colorPaletteStore.completedActivePalette;
+          if (theme.light_theme) {
+            previousLightTheme = theme.id;
+            settingStore.set("Comfy.ColorPalette", previousDarkTheme);
+          } else {
+            previousDarkTheme = theme.id;
+            settingStore.set("Comfy.ColorPalette", previousLightTheme);
+          }
+        };
+      })()
+    },
+    {
+      id: "Workspace.ToggleBottomPanel",
+      icon: "pi pi-list",
+      label: "Toggle Bottom Panel",
+      versionAdded: "1.3.22",
+      function: /* @__PURE__ */ __name(() => {
+        useBottomPanelStore().toggleBottomPanel();
+      }, "function")
+    },
+    {
+      id: "Workspace.ToggleFocusMode",
+      icon: "pi pi-eye",
+      label: "Toggle Focus Mode",
+      versionAdded: "1.3.27",
+      function: /* @__PURE__ */ __name(() => {
+        useWorkspaceStore().toggleFocusMode();
+      }, "function")
+    },
+    {
+      id: "Comfy.Graph.FitGroupToContents",
+      icon: "pi pi-expand",
+      label: "Fit Group To Contents",
+      versionAdded: "1.4.9",
+      function: /* @__PURE__ */ __name(() => {
+        for (const group of app.canvas.selectedItems) {
+          if (group instanceof LGraphGroup) {
+            group.recomputeInsideNodes();
+            const padding = useSettingStore().get(
+              "Comfy.GroupSelectedNodes.Padding"
+            );
+            group.resizeTo(group.children, padding);
+            app.graph.change();
+          }
+        }
+      }, "function")
+    },
+    {
+      id: "Comfy.Help.OpenComfyUIIssues",
+      icon: "pi pi-github",
+      label: "Open ComfyUI Issues",
+      menubarLabel: "ComfyUI Issues",
+      versionAdded: "1.5.5",
+      function: /* @__PURE__ */ __name(() => {
+        window.open(
+          "https://github.com/comfyanonymous/ComfyUI/issues",
+          "_blank"
+        );
+      }, "function")
+    },
+    {
+      id: "Comfy.Help.OpenComfyUIDocs",
+      icon: "pi pi-info-circle",
+      label: "Open ComfyUI Docs",
+      menubarLabel: "ComfyUI Docs",
+      versionAdded: "1.5.5",
+      function: /* @__PURE__ */ __name(() => {
+        window.open("https://docs.comfy.org/", "_blank");
+      }, "function")
+    },
+    {
+      id: "Comfy.Help.OpenComfyOrgDiscord",
+      icon: "pi pi-discord",
+      label: "Open Comfy-Org Discord",
+      menubarLabel: "Comfy-Org Discord",
+      versionAdded: "1.5.5",
+      function: /* @__PURE__ */ __name(() => {
+        window.open("https://www.comfy.org/discord", "_blank");
+      }, "function")
+    },
+    {
+      id: "Workspace.SearchBox.Toggle",
+      icon: "pi pi-search",
+      label: "Toggle Search Box",
+      versionAdded: "1.5.7",
+      function: /* @__PURE__ */ __name(() => {
+        useSearchBoxStore().toggleVisible();
+      }, "function")
+    },
+    {
+      id: "Comfy.Help.AboutComfyUI",
+      icon: "pi pi-info-circle",
+      label: "Open About ComfyUI",
+      menubarLabel: "About ComfyUI",
+      versionAdded: "1.6.4",
+      function: /* @__PURE__ */ __name(() => {
+        dialogService.showSettingsDialog("about");
+      }, "function")
+    },
+    {
+      id: "Comfy.DuplicateWorkflow",
+      icon: "pi pi-clone",
+      label: "Duplicate Current Workflow",
+      versionAdded: "1.6.15",
+      function: /* @__PURE__ */ __name(() => {
+        workflowService.duplicateWorkflow(workflowStore.activeWorkflow);
+      }, "function")
+    },
+    {
+      id: "Workspace.CloseWorkflow",
+      icon: "pi pi-times",
+      label: "Close Current Workflow",
+      versionAdded: "1.7.3",
+      function: /* @__PURE__ */ __name(() => {
+        if (workflowStore.activeWorkflow)
+          workflowService.closeWorkflow(workflowStore.activeWorkflow);
+      }, "function")
+    },
+    {
+      id: "Comfy.Feedback",
+      icon: "pi pi-megaphone",
+      label: "Give Feedback",
+      versionAdded: "1.8.2",
+      function: /* @__PURE__ */ __name(() => {
+        dialogService.showIssueReportDialog({
+          title: t("g.feedback"),
+          subtitle: t("issueReport.feedbackTitle"),
+          panelProps: {
+            errorType: "Feedback",
+            defaultFields: ["SystemStats", "Settings"]
+          }
+        });
+      }, "function")
+    },
+    {
+      id: "Comfy.Help.OpenComfyUIForum",
+      icon: "pi pi-comments",
+      label: "Open ComfyUI Forum",
+      menubarLabel: "ComfyUI Forum",
+      versionAdded: "1.8.2",
+      function: /* @__PURE__ */ __name(() => {
+        window.open("https://forum.comfy.org/", "_blank");
+      }, "function")
+    }
+  ];
+}
+__name(useCoreCommands, "useCoreCommands");
 var LatentPreviewMethod = /* @__PURE__ */ ((LatentPreviewMethod2) => {
   LatentPreviewMethod2["NoPreviews"] = "none";
   LatentPreviewMethod2["Auto"] = "auto";
@@ -3959,535 +4692,6 @@ const SERVER_CONFIG_ITEMS = [
     defaultValue: ""
   }
 ];
-function useCoreCommands() {
-  const workflowService = useWorkflowService();
-  const workflowStore = useWorkflowStore();
-  const dialogService = useDialogService();
-  const colorPaletteStore = useColorPaletteStore();
-  const getTracker = /* @__PURE__ */ __name(() => workflowStore.activeWorkflow?.changeTracker, "getTracker");
-  const getSelectedNodes = /* @__PURE__ */ __name(() => {
-    const selectedNodes = app.canvas.selected_nodes;
-    const result = [];
-    if (selectedNodes) {
-      for (const i in selectedNodes) {
-        const node = selectedNodes[i];
-        result.push(node);
-      }
-    }
-    return result;
-  }, "getSelectedNodes");
-  const toggleSelectedNodesMode = /* @__PURE__ */ __name((mode) => {
-    getSelectedNodes().forEach((node) => {
-      if (node.mode === mode) {
-        node.mode = LGraphEventMode.ALWAYS;
-      } else {
-        node.mode = mode;
-      }
-    });
-  }, "toggleSelectedNodesMode");
-  return [
-    {
-      id: "Comfy.NewBlankWorkflow",
-      icon: "pi pi-plus",
-      label: "New Blank Workflow",
-      menubarLabel: "New",
-      function: /* @__PURE__ */ __name(() => workflowService.loadBlankWorkflow(), "function")
-    },
-    {
-      id: "Comfy.OpenWorkflow",
-      icon: "pi pi-folder-open",
-      label: "Open Workflow",
-      menubarLabel: "Open",
-      function: /* @__PURE__ */ __name(() => {
-        app.ui.loadFile();
-      }, "function")
-    },
-    {
-      id: "Comfy.LoadDefaultWorkflow",
-      icon: "pi pi-code",
-      label: "Load Default Workflow",
-      function: /* @__PURE__ */ __name(() => workflowService.loadDefaultWorkflow(), "function")
-    },
-    {
-      id: "Comfy.SaveWorkflow",
-      icon: "pi pi-save",
-      label: "Save Workflow",
-      menubarLabel: "Save",
-      function: /* @__PURE__ */ __name(async () => {
-        const workflow = useWorkflowStore().activeWorkflow;
-        if (!workflow) return;
-        await workflowService.saveWorkflow(workflow);
-      }, "function")
-    },
-    {
-      id: "Comfy.SaveWorkflowAs",
-      icon: "pi pi-save",
-      label: "Save Workflow As",
-      menubarLabel: "Save As",
-      function: /* @__PURE__ */ __name(async () => {
-        const workflow = useWorkflowStore().activeWorkflow;
-        if (!workflow) return;
-        await workflowService.saveWorkflowAs(workflow);
-      }, "function")
-    },
-    {
-      id: "Comfy.ExportWorkflow",
-      icon: "pi pi-download",
-      label: "Export Workflow",
-      menubarLabel: "Export",
-      function: /* @__PURE__ */ __name(() => {
-        workflowService.exportWorkflow("workflow", "workflow");
-      }, "function")
-    },
-    {
-      id: "Comfy.ExportWorkflowAPI",
-      icon: "pi pi-download",
-      label: "Export Workflow (API Format)",
-      menubarLabel: "Export (API)",
-      function: /* @__PURE__ */ __name(() => {
-        workflowService.exportWorkflow("workflow_api", "output");
-      }, "function")
-    },
-    {
-      id: "Comfy.Undo",
-      icon: "pi pi-undo",
-      label: "Undo",
-      function: /* @__PURE__ */ __name(async () => {
-        await getTracker()?.undo?.();
-      }, "function")
-    },
-    {
-      id: "Comfy.Redo",
-      icon: "pi pi-refresh",
-      label: "Redo",
-      function: /* @__PURE__ */ __name(async () => {
-        await getTracker()?.redo?.();
-      }, "function")
-    },
-    {
-      id: "Comfy.ClearWorkflow",
-      icon: "pi pi-trash",
-      label: "Clear Workflow",
-      function: /* @__PURE__ */ __name(() => {
-        const settingStore = useSettingStore();
-        if (!settingStore.get("Comfy.ComfirmClear") || confirm("Clear workflow?")) {
-          app.clean();
-          app.graph.clear();
-          api.dispatchCustomEvent("graphCleared");
-        }
-      }, "function")
-    },
-    {
-      id: "Comfy.Canvas.ResetView",
-      icon: "pi pi-expand",
-      label: "Reset View",
-      function: /* @__PURE__ */ __name(() => {
-        app.resetView();
-      }, "function")
-    },
-    {
-      id: "Comfy.OpenClipspace",
-      icon: "pi pi-clipboard",
-      label: "Clipspace",
-      function: /* @__PURE__ */ __name(() => {
-        app.openClipspace();
-      }, "function")
-    },
-    {
-      id: "Comfy.RefreshNodeDefinitions",
-      icon: "pi pi-refresh",
-      label: "Refresh Node Definitions",
-      function: /* @__PURE__ */ __name(async () => {
-        await app.refreshComboInNodes();
-      }, "function")
-    },
-    {
-      id: "Comfy.Interrupt",
-      icon: "pi pi-stop",
-      label: "Interrupt",
-      function: /* @__PURE__ */ __name(async () => {
-        await api.interrupt();
-        useToastStore().add({
-          severity: "info",
-          summary: "Interrupted",
-          detail: "Execution has been interrupted",
-          life: 1e3
-        });
-      }, "function")
-    },
-    {
-      id: "Comfy.ClearPendingTasks",
-      icon: "pi pi-stop",
-      label: "Clear Pending Tasks",
-      function: /* @__PURE__ */ __name(async () => {
-        await useQueueStore().clear(["queue"]);
-        useToastStore().add({
-          severity: "info",
-          summary: "Confirmed",
-          detail: "Pending tasks deleted",
-          life: 3e3
-        });
-      }, "function")
-    },
-    {
-      id: "Comfy.BrowseTemplates",
-      icon: "pi pi-folder-open",
-      label: "Browse Templates",
-      function: /* @__PURE__ */ __name(() => {
-        dialogService.showTemplateWorkflowsDialog();
-      }, "function")
-    },
-    {
-      id: "Comfy.Canvas.ZoomIn",
-      icon: "pi pi-plus",
-      label: "Zoom In",
-      function: /* @__PURE__ */ __name(() => {
-        const ds = app.canvas.ds;
-        ds.changeScale(
-          ds.scale * 1.1,
-          ds.element ? [ds.element.width / 2, ds.element.height / 2] : void 0
-        );
-        app.canvas.setDirty(true, true);
-      }, "function")
-    },
-    {
-      id: "Comfy.Canvas.ZoomOut",
-      icon: "pi pi-minus",
-      label: "Zoom Out",
-      function: /* @__PURE__ */ __name(() => {
-        const ds = app.canvas.ds;
-        ds.changeScale(
-          ds.scale / 1.1,
-          ds.element ? [ds.element.width / 2, ds.element.height / 2] : void 0
-        );
-        app.canvas.setDirty(true, true);
-      }, "function")
-    },
-    {
-      id: "Comfy.Canvas.FitView",
-      icon: "pi pi-expand",
-      label: "Fit view to selected nodes",
-      function: /* @__PURE__ */ __name(() => {
-        if (app.canvas.empty) {
-          useToastStore().add({
-            severity: "error",
-            summary: "Empty canvas",
-            life: 3e3
-          });
-          return;
-        }
-        app.canvas.fitViewToSelectionAnimated();
-      }, "function")
-    },
-    {
-      id: "Comfy.Canvas.ToggleLock",
-      icon: "pi pi-lock",
-      label: "Canvas Toggle Lock",
-      function: /* @__PURE__ */ __name(() => {
-        app.canvas["read_only"] = !app.canvas["read_only"];
-      }, "function")
-    },
-    {
-      id: "Comfy.Canvas.ToggleLinkVisibility",
-      icon: "pi pi-eye",
-      label: "Canvas Toggle Link Visibility",
-      versionAdded: "1.3.6",
-      function: (() => {
-        const settingStore = useSettingStore();
-        let lastLinksRenderMode = LiteGraph.SPLINE_LINK;
-        return () => {
-          const currentMode = settingStore.get("Comfy.LinkRenderMode");
-          if (currentMode === LiteGraph.HIDDEN_LINK) {
-            settingStore.set("Comfy.LinkRenderMode", lastLinksRenderMode);
-          } else {
-            lastLinksRenderMode = currentMode;
-            settingStore.set("Comfy.LinkRenderMode", LiteGraph.HIDDEN_LINK);
-          }
-        };
-      })()
-    },
-    {
-      id: "Comfy.QueuePrompt",
-      icon: "pi pi-play",
-      label: "Queue Prompt",
-      versionAdded: "1.3.7",
-      function: /* @__PURE__ */ __name(() => {
-        const batchCount = useQueueSettingsStore().batchCount;
-        app.queuePrompt(0, batchCount);
-      }, "function")
-    },
-    {
-      id: "Comfy.QueuePromptFront",
-      icon: "pi pi-play",
-      label: "Queue Prompt (Front)",
-      versionAdded: "1.3.7",
-      function: /* @__PURE__ */ __name(() => {
-        const batchCount = useQueueSettingsStore().batchCount;
-        app.queuePrompt(-1, batchCount);
-      }, "function")
-    },
-    {
-      id: "Comfy.ShowSettingsDialog",
-      icon: "pi pi-cog",
-      label: "Show Settings Dialog",
-      versionAdded: "1.3.7",
-      function: /* @__PURE__ */ __name(() => {
-        dialogService.showSettingsDialog();
-      }, "function")
-    },
-    {
-      id: "Comfy.Graph.GroupSelectedNodes",
-      icon: "pi pi-sitemap",
-      label: "Group Selected Nodes",
-      versionAdded: "1.3.7",
-      function: /* @__PURE__ */ __name(() => {
-        const { canvas } = app;
-        if (!canvas.selectedItems?.size) {
-          useToastStore().add({
-            severity: "error",
-            summary: "Nothing to group",
-            detail: "Please select the nodes (or other groups) to create a group for",
-            life: 3e3
-          });
-          return;
-        }
-        const group = new LGraphGroup();
-        const padding = useSettingStore().get(
-          "Comfy.GroupSelectedNodes.Padding"
-        );
-        group.resizeTo(canvas.selectedItems, padding);
-        canvas.graph.add(group);
-        useTitleEditorStore().titleEditorTarget = group;
-      }, "function")
-    },
-    {
-      id: "Workspace.NextOpenedWorkflow",
-      icon: "pi pi-step-forward",
-      label: "Next Opened Workflow",
-      versionAdded: "1.3.9",
-      function: /* @__PURE__ */ __name(() => {
-        workflowService.loadNextOpenedWorkflow();
-      }, "function")
-    },
-    {
-      id: "Workspace.PreviousOpenedWorkflow",
-      icon: "pi pi-step-backward",
-      label: "Previous Opened Workflow",
-      versionAdded: "1.3.9",
-      function: /* @__PURE__ */ __name(() => {
-        workflowService.loadPreviousOpenedWorkflow();
-      }, "function")
-    },
-    {
-      id: "Comfy.Canvas.ToggleSelectedNodes.Mute",
-      icon: "pi pi-volume-off",
-      label: "Mute/Unmute Selected Nodes",
-      versionAdded: "1.3.11",
-      function: /* @__PURE__ */ __name(() => {
-        toggleSelectedNodesMode(LGraphEventMode.NEVER);
-      }, "function")
-    },
-    {
-      id: "Comfy.Canvas.ToggleSelectedNodes.Bypass",
-      icon: "pi pi-shield",
-      label: "Bypass/Unbypass Selected Nodes",
-      versionAdded: "1.3.11",
-      function: /* @__PURE__ */ __name(() => {
-        toggleSelectedNodesMode(LGraphEventMode.BYPASS);
-      }, "function")
-    },
-    {
-      id: "Comfy.Canvas.ToggleSelectedNodes.Pin",
-      icon: "pi pi-pin",
-      label: "Pin/Unpin Selected Nodes",
-      versionAdded: "1.3.11",
-      function: /* @__PURE__ */ __name(() => {
-        getSelectedNodes().forEach((node) => {
-          node.pin(!node.pinned);
-        });
-      }, "function")
-    },
-    {
-      id: "Comfy.Canvas.ToggleSelected.Pin",
-      icon: "pi pi-pin",
-      label: "Pin/Unpin Selected Items",
-      versionAdded: "1.3.33",
-      function: /* @__PURE__ */ __name(() => {
-        for (const item of app.canvas.selectedItems) {
-          if (item instanceof LGraphNode || item instanceof LGraphGroup) {
-            item.pin(!item.pinned);
-          }
-        }
-      }, "function")
-    },
-    {
-      id: "Comfy.Canvas.ToggleSelectedNodes.Collapse",
-      icon: "pi pi-minus",
-      label: "Collapse/Expand Selected Nodes",
-      versionAdded: "1.3.11",
-      function: /* @__PURE__ */ __name(() => {
-        getSelectedNodes().forEach((node) => {
-          node.collapse();
-        });
-      }, "function")
-    },
-    {
-      id: "Comfy.ToggleTheme",
-      icon: "pi pi-moon",
-      label: "Toggle Theme (Dark/Light)",
-      versionAdded: "1.3.12",
-      function: (() => {
-        let previousDarkTheme = DEFAULT_DARK_COLOR_PALETTE.id;
-        let previousLightTheme = DEFAULT_LIGHT_COLOR_PALETTE.id;
-        return () => {
-          const settingStore = useSettingStore();
-          const theme = colorPaletteStore.completedActivePalette;
-          if (theme.light_theme) {
-            previousLightTheme = theme.id;
-            settingStore.set("Comfy.ColorPalette", previousDarkTheme);
-          } else {
-            previousDarkTheme = theme.id;
-            settingStore.set("Comfy.ColorPalette", previousLightTheme);
-          }
-        };
-      })()
-    },
-    {
-      id: "Workspace.ToggleBottomPanel",
-      icon: "pi pi-list",
-      label: "Toggle Bottom Panel",
-      versionAdded: "1.3.22",
-      function: /* @__PURE__ */ __name(() => {
-        useBottomPanelStore().toggleBottomPanel();
-      }, "function")
-    },
-    {
-      id: "Workspace.ToggleFocusMode",
-      icon: "pi pi-eye",
-      label: "Toggle Focus Mode",
-      versionAdded: "1.3.27",
-      function: /* @__PURE__ */ __name(() => {
-        useWorkspaceStore().toggleFocusMode();
-      }, "function")
-    },
-    {
-      id: "Comfy.Graph.FitGroupToContents",
-      icon: "pi pi-expand",
-      label: "Fit Group To Contents",
-      versionAdded: "1.4.9",
-      function: /* @__PURE__ */ __name(() => {
-        for (const group of app.canvas.selectedItems) {
-          if (group instanceof LGraphGroup) {
-            group.recomputeInsideNodes();
-            const padding = useSettingStore().get(
-              "Comfy.GroupSelectedNodes.Padding"
-            );
-            group.resizeTo(group.children, padding);
-            app.graph.change();
-          }
-        }
-      }, "function")
-    },
-    {
-      id: "Comfy.Help.OpenComfyUIIssues",
-      icon: "pi pi-github",
-      label: "Open ComfyUI Issues",
-      menubarLabel: "ComfyUI Issues",
-      versionAdded: "1.5.5",
-      function: /* @__PURE__ */ __name(() => {
-        window.open(
-          "https://github.com/comfyanonymous/ComfyUI/issues",
-          "_blank"
-        );
-      }, "function")
-    },
-    {
-      id: "Comfy.Help.OpenComfyUIDocs",
-      icon: "pi pi-info-circle",
-      label: "Open ComfyUI Docs",
-      menubarLabel: "ComfyUI Docs",
-      versionAdded: "1.5.5",
-      function: /* @__PURE__ */ __name(() => {
-        window.open("https://docs.comfy.org/", "_blank");
-      }, "function")
-    },
-    {
-      id: "Comfy.Help.OpenComfyOrgDiscord",
-      icon: "pi pi-discord",
-      label: "Open Comfy-Org Discord",
-      menubarLabel: "Comfy-Org Discord",
-      versionAdded: "1.5.5",
-      function: /* @__PURE__ */ __name(() => {
-        window.open("https://www.comfy.org/discord", "_blank");
-      }, "function")
-    },
-    {
-      id: "Workspace.SearchBox.Toggle",
-      icon: "pi pi-search",
-      label: "Toggle Search Box",
-      versionAdded: "1.5.7",
-      function: /* @__PURE__ */ __name(() => {
-        useSearchBoxStore().toggleVisible();
-      }, "function")
-    },
-    {
-      id: "Comfy.Help.AboutComfyUI",
-      icon: "pi pi-info-circle",
-      label: "Open About ComfyUI",
-      menubarLabel: "About ComfyUI",
-      versionAdded: "1.6.4",
-      function: /* @__PURE__ */ __name(() => {
-        dialogService.showSettingsDialog("about");
-      }, "function")
-    },
-    {
-      id: "Comfy.DuplicateWorkflow",
-      icon: "pi pi-clone",
-      label: "Duplicate Current Workflow",
-      versionAdded: "1.6.15",
-      function: /* @__PURE__ */ __name(() => {
-        workflowService.duplicateWorkflow(workflowStore.activeWorkflow);
-      }, "function")
-    },
-    {
-      id: "Workspace.CloseWorkflow",
-      icon: "pi pi-times",
-      label: "Close Current Workflow",
-      versionAdded: "1.7.3",
-      function: /* @__PURE__ */ __name(() => {
-        if (workflowStore.activeWorkflow)
-          workflowService.closeWorkflow(workflowStore.activeWorkflow);
-      }, "function")
-    },
-    {
-      id: "Comfy.Feedback",
-      icon: "pi pi-megaphone",
-      label: "Give Feedback",
-      versionAdded: "1.8.2",
-      function: /* @__PURE__ */ __name(() => {
-        dialogService.showIssueReportDialog({
-          title: t("g.feedback"),
-          subtitle: t("issueReport.feedbackTitle"),
-          panelProps: {
-            errorType: "Feedback",
-            defaultFields: ["SystemStats", "Settings"]
-          }
-        });
-      }, "function")
-    },
-    {
-      id: "Comfy.Help.OpenComfyUIForum",
-      icon: "pi pi-comments",
-      label: "Open ComfyUI Forum",
-      menubarLabel: "ComfyUI Forum",
-      versionAdded: "1.8.2",
-      function: /* @__PURE__ */ __name(() => {
-        window.open("https://forum.comfy.org/", "_blank");
-      }, "function")
-    }
-  ];
-}
-__name(useCoreCommands, "useCoreCommands");
 function setupAutoQueueHandler() {
   const queueCountStore = useQueuePendingTaskCountStore();
   const queueSettingsStore = useQueueSettingsStore();
@@ -4518,6 +4722,19 @@ function setupAutoQueueHandler() {
   );
 }
 __name(setupAutoQueueHandler, "setupAutoQueueHandler");
+const _hoisted_1 = { class: "comfyui-body grid h-screen w-screen overflow-hidden" };
+const _hoisted_2 = {
+  class: "comfyui-body-top",
+  id: "comfyui-body-top"
+};
+const _hoisted_3 = {
+  class: "comfyui-body-bottom",
+  id: "comfyui-body-bottom"
+};
+const _hoisted_4 = {
+  class: "graph-canvas-container",
+  id: "graph-canvas-container"
+};
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "GraphView",
   setup(__props) {
@@ -4588,9 +4805,11 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
         i18n.global.locale.value = locale;
       }
     });
+    const useNewMenu = computed(() => {
+      return settingStore.get("Comfy.UseNewMenu");
+    });
     watchEffect(() => {
-      const useNewMenu = settingStore.get("Comfy.UseNewMenu");
-      if (useNewMenu === "Disabled") {
+      if (useNewMenu.value === "Disabled") {
         app.ui.menuContainer.style.setProperty("display", "block");
         app.ui.restoreMenuPosition();
       } else {
@@ -4666,8 +4885,25 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     }, "onGraphReady");
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock(Fragment, null, [
-        createVNode(TopMenubar),
-        createVNode(_sfc_main$8, { onReady: onGraphReady }),
+        createBaseVNode("div", _hoisted_1, [
+          createBaseVNode("div", _hoisted_2, [
+            useNewMenu.value === "Top" ? (openBlock(), createBlock(TopMenubar, { key: 0 })) : createCommentVNode("", true)
+          ]),
+          createBaseVNode("div", _hoisted_3, [
+            useNewMenu.value === "Bottom" ? (openBlock(), createBlock(TopMenubar, { key: 0 })) : createCommentVNode("", true)
+          ]),
+          _cache[0] || (_cache[0] = createBaseVNode("div", {
+            class: "comfyui-body-left",
+            id: "comfyui-body-left"
+          }, null, -1)),
+          _cache[1] || (_cache[1] = createBaseVNode("div", {
+            class: "comfyui-body-right",
+            id: "comfyui-body-right"
+          }, null, -1)),
+          createBaseVNode("div", _hoisted_4, [
+            createVNode(_sfc_main$8, { onReady: onGraphReady })
+          ])
+        ]),
         createVNode(_sfc_main$7),
         !unref(isElectron)() ? (openBlock(), createBlock(_sfc_main$s, { key: 0 })) : createCommentVNode("", true),
         createVNode(_sfc_main$u),
@@ -4676,7 +4912,8 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     };
   }
 });
+const GraphView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-e89d9273"]]);
 export {
-  _sfc_main as default
+  GraphView as default
 };
-//# sourceMappingURL=GraphView-D9ZzDQZV.js.map
+//# sourceMappingURL=GraphView-CLFBgoGf.js.map

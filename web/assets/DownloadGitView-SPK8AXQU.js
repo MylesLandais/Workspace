@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, o as openBlock, y as createBlock, z as withCtx, m as createBaseVNode, E as toDisplayString, k as createVNode, j as unref, l as script, be as useRouter } from "./index-DqqhYDnY.js";
-import { _ as _sfc_main$1 } from "./BaseViewTemplate-Cz111_1A.js";
+import { d as defineComponent, o as openBlock, y as createBlock, z as withCtx, m as createBaseVNode, E as toDisplayString, k as createVNode, j as unref, l as script, bi as useRouter } from "./index-DqXp9vW4.js";
+import { _ as _sfc_main$1 } from "./BaseViewTemplate-DlGljfEG.js";
 const _hoisted_1 = { class: "max-w-screen-sm flex flex-col gap-8 p-8 bg-[url('/assets/images/Git-Logo-White.svg')] bg-no-repeat bg-right-top bg-origin-padding" };
 const _hoisted_2 = { class: "mt-24 text-4xl font-bold text-red-500" };
 const _hoisted_3 = { class: "space-y-4" };
@@ -55,4 +55,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as default
 };
-//# sourceMappingURL=DownloadGitView-DVXUne-M.js.map
+//# sourceMappingURL=DownloadGitView-SPK8AXQU.js.map

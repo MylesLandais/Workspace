@@ -1,4 +1,4 @@
-import { d as defineComponent, U as ref, p as onMounted, b4 as isElectron, W as nextTick, b5 as electronAPI, o as openBlock, f as createElementBlock, i as withDirectives, v as vShow, j as unref, b6 as isNativeWindow, m as createBaseVNode, A as renderSlot, ai as normalizeClass } from "./index-DqqhYDnY.js";
+import { d as defineComponent, T as ref, p as onMounted, b8 as isElectron, V as nextTick, b9 as electronAPI, o as openBlock, f as createElementBlock, i as withDirectives, v as vShow, j as unref, ba as isNativeWindow, m as createBaseVNode, A as renderSlot, aj as normalizeClass } from "./index-DqXp9vW4.js";
 const _hoisted_1 = { class: "flex-grow w-full flex items-center justify-center overflow-auto" };
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "BaseViewTemplate",
@@ -27,7 +27,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     });
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock("div", {
-        class: normalizeClass(["font-sans w-screen h-screen flex flex-col pointer-events-auto", [
+        class: normalizeClass(["font-sans w-screen h-screen flex flex-col", [
           props.dark ? "text-neutral-300 bg-neutral-900 dark-theme" : "text-neutral-900 bg-neutral-300"
         ]])
       }, [
@@ -48,4 +48,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as _
 };
-//# sourceMappingURL=BaseViewTemplate-Cz111_1A.js.map
+//# sourceMappingURL=BaseViewTemplate-DlGljfEG.js.map

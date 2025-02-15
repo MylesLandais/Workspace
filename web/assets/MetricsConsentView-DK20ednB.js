@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { _ as _sfc_main$1 } from "./BaseViewTemplate-Cz111_1A.js";
-import { d as defineComponent, aR as useToast, K as useI18n, U as ref, be as useRouter, o as openBlock, y as createBlock, z as withCtx, m as createBaseVNode, E as toDisplayString, a7 as createTextVNode, k as createVNode, j as unref, bn as script, l as script$1, b5 as electronAPI } from "./index-DqqhYDnY.js";
+import { _ as _sfc_main$1 } from "./BaseViewTemplate-DlGljfEG.js";
+import { d as defineComponent, aV as useToast, I as useI18n, T as ref, bi as useRouter, o as openBlock, y as createBlock, z as withCtx, m as createBaseVNode, E as toDisplayString, a8 as createTextVNode, k as createVNode, j as unref, br as script, l as script$1, b9 as electronAPI } from "./index-DqXp9vW4.js";
 const _hoisted_1 = { class: "h-full p-8 2xl:p-16 flex flex-col items-center justify-center" };
 const _hoisted_2 = { class: "bg-neutral-800 rounded-lg shadow-lg p-6 w-full max-w-[600px] flex flex-col gap-6" };
 const _hoisted_3 = { class: "text-3xl font-semibold text-neutral-100" };
@@ -83,4 +83,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as default
 };
-//# sourceMappingURL=MetricsConsentView-B5NlgqrS.js.map
+//# sourceMappingURL=MetricsConsentView-DK20ednB.js.map

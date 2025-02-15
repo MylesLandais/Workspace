@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, K as useI18n, U as ref, bk as ProgressStatus, p as onMounted, o as openBlock, y as createBlock, z as withCtx, m as createBaseVNode, a7 as createTextVNode, E as toDisplayString, j as unref, f as createElementBlock, B as createCommentVNode, k as createVNode, l as script, i as withDirectives, v as vShow, bl as BaseTerminal, b5 as electronAPI, _ as _export_sfc } from "./index-DqqhYDnY.js";
-import { _ as _sfc_main$1 } from "./BaseViewTemplate-Cz111_1A.js";
+import { d as defineComponent, I as useI18n, T as ref, bo as ProgressStatus, p as onMounted, o as openBlock, y as createBlock, z as withCtx, m as createBaseVNode, a8 as createTextVNode, E as toDisplayString, j as unref, f as createElementBlock, B as createCommentVNode, k as createVNode, l as script, i as withDirectives, v as vShow, bp as BaseTerminal, b9 as electronAPI, _ as _export_sfc } from "./index-DqXp9vW4.js";
+import { _ as _sfc_main$1 } from "./BaseViewTemplate-DlGljfEG.js";
 const _hoisted_1 = { class: "flex flex-col w-full h-full items-center" };
 const _hoisted_2 = { class: "text-2xl font-bold" };
 const _hoisted_3 = { key: 0 };
@@ -93,8 +93,8 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const ServerStartView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-4140d62b"]]);
+const ServerStartView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-e6ba9633"]]);
 export {
   ServerStartView as default
 };
-//# sourceMappingURL=ServerStartView-BpH4TXPO.js.map
+//# sourceMappingURL=ServerStartView-BENqs5bD.js.map

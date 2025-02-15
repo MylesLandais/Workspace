@@ -1,9 +1,9 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, c as computed, o as openBlock, f as createElementBlock, F as Fragment, D as renderList, k as createVNode, z as withCtx, a7 as createTextVNode, E as toDisplayString, j as unref, a4 as script, B as createCommentVNode, U as ref, dl as FilterMatchMode, an as useKeybindingStore, L as useCommandStore, K as useI18n, Y as normalizeI18nKey, w as watchEffect, aR as useToast, r as resolveDirective, y as createBlock, dm as SearchBox, m as createBaseVNode, l as script$2, bg as script$4, ar as withModifiers, bj as script$5, ab as script$6, i as withDirectives, dn as _sfc_main$2, dp as KeyComboImpl, dq as KeybindingImpl, _ as _export_sfc } from "./index-DqqhYDnY.js";
-import { g as script$1, h as script$3 } from "./index-BapOFhAR.js";
-import { u as useKeybindingService } from "./keybindingService-DEgCutrm.js";
-import "./index-DXE47DZl.js";
+import { d as defineComponent, c as computed, o as openBlock, f as createElementBlock, F as Fragment, D as renderList, k as createVNode, z as withCtx, a8 as createTextVNode, E as toDisplayString, j as unref, a5 as script, B as createCommentVNode, T as ref, dx as FilterMatchMode, ao as useKeybindingStore, J as useCommandStore, I as useI18n, X as normalizeI18nKey, w as watchEffect, aV as useToast, r as resolveDirective, y as createBlock, dy as SearchBox, m as createBaseVNode, l as script$2, bk as script$4, as as withModifiers, bn as script$5, ac as script$6, i as withDirectives, dz as _sfc_main$2, dA as KeyComboImpl, dB as KeybindingImpl, _ as _export_sfc } from "./index-DqXp9vW4.js";
+import { g as script$1, h as script$3 } from "./index-KUUE4Ew8.js";
+import { u as useKeybindingService } from "./keybindingService-DgS0S2M6.js";
+import "./index-BTHx8UHZ.js";
 const _hoisted_1$1 = {
   key: 0,
   class: "px-2"
@@ -96,6 +96,16 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     }
     __name(removeKeybinding, "removeKeybinding");
     function captureKeybinding(event) {
+      if (!event.shiftKey && !event.altKey && !event.ctrlKey && !event.metaKey) {
+        switch (event.key) {
+          case "Escape":
+            cancelEdit();
+            return;
+          case "Enter":
+            saveKeybinding();
+            return;
+        }
+      }
       const keyCombo = KeyComboImpl.fromEvent(event);
       newBindingKeyCombo.value = keyCombo;
     }
@@ -151,7 +161,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
             value: commandsData.value,
             selection: selectedCommandData.value,
             "onUpdate:selection": _cache[1] || (_cache[1] = ($event) => selectedCommandData.value = $event),
-            "global-filter-fields": ["id"],
+            "global-filter-fields": ["id", "label"],
             filters: filters.value,
             selectionMode: "single",
             stripedRows: "",
@@ -216,7 +226,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
             visible: editDialogVisible.value,
             "onUpdate:visible": _cache[2] || (_cache[2] = ($event) => editDialogVisible.value = $event),
             modal: "",
-            header: currentEditingCommand.value?.id,
+            header: currentEditingCommand.value?.label,
             onHide: cancelEdit
           }, {
             footer: withCtx(() => [
@@ -275,8 +285,8 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const KeybindingPanel = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-2554ab36"]]);
+const KeybindingPanel = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-8454e24f"]]);
 export {
   KeybindingPanel as default
 };
-//# sourceMappingURL=KeybindingPanel-CeHhC2F4.js.map
+//# sourceMappingURL=KeybindingPanel-BIrxefrS.js.map

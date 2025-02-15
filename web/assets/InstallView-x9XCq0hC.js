@@ -1,9 +1,9 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, U as ref, bm as useModel, o as openBlock, f as createElementBlock, m as createBaseVNode, E as toDisplayString, k as createVNode, j as unref, bn as script, bh as script$1, ar as withModifiers, z as withCtx, ab as script$2, K as useI18n, c as computed, ai as normalizeClass, B as createCommentVNode, a4 as script$3, a7 as createTextVNode, b5 as electronAPI, _ as _export_sfc, p as onMounted, r as resolveDirective, bg as script$4, i as withDirectives, bo as script$5, bp as script$6, l as script$7, y as createBlock, bj as script$8, bq as MigrationItems, w as watchEffect, F as Fragment, D as renderList, br as script$9, bs as mergeModels, bt as ValidationState, Y as normalizeI18nKey, O as watch, bu as checkMirrorReachable, bv as _sfc_main$7, bw as mergeValidationStates, bc as t, a$ as script$a, bx as CUDA_TORCH_URL, by as NIGHTLY_CPU_TORCH_URL, be as useRouter, ag as toRaw } from "./index-DqqhYDnY.js";
-import { s as script$b, a as script$c, b as script$d, c as script$e, d as script$f } from "./index-BNlqgrYT.js";
+import { d as defineComponent, T as ref, bq as useModel, o as openBlock, f as createElementBlock, m as createBaseVNode, E as toDisplayString, k as createVNode, j as unref, br as script, bl as script$1, as as withModifiers, z as withCtx, ac as script$2, I as useI18n, c as computed, aj as normalizeClass, B as createCommentVNode, a5 as script$3, a8 as createTextVNode, b9 as electronAPI, _ as _export_sfc, p as onMounted, r as resolveDirective, bk as script$4, i as withDirectives, bs as script$5, bt as script$6, l as script$7, y as createBlock, bn as script$8, bu as MigrationItems, w as watchEffect, F as Fragment, D as renderList, bv as script$9, bw as mergeModels, bx as ValidationState, X as normalizeI18nKey, N as watch, by as checkMirrorReachable, bz as _sfc_main$7, bA as isInChina, bB as mergeValidationStates, bg as t, b3 as script$a, bC as CUDA_TORCH_URL, bD as NIGHTLY_CPU_TORCH_URL, bi as useRouter, ah as toRaw } from "./index-DqXp9vW4.js";
+import { s as script$b, a as script$c, b as script$d, c as script$e, d as script$f } from "./index-A-dAhghd.js";
 import { P as PYTHON_MIRROR, a as PYPI_MIRROR } from "./uvMirrors-B-HKMf6X.js";
-import { _ as _sfc_main$8 } from "./BaseViewTemplate-Cz111_1A.js";
+import { _ as _sfc_main$8 } from "./BaseViewTemplate-DlGljfEG.js";
 const _hoisted_1$5 = { class: "flex flex-col gap-6 w-[600px]" };
 const _hoisted_2$5 = { class: "flex flex-col gap-4" };
 const _hoisted_3$5 = { class: "text-2xl font-semibold text-neutral-100" };
@@ -314,6 +314,7 @@ const _sfc_main$4 = /* @__PURE__ */ defineComponent({
     const pathExists = ref(false);
     const appData = ref("");
     const appPath = ref("");
+    const inputTouched = ref(false);
     const electron = electronAPI();
     onMounted(async () => {
       const paths = await electron.getSystemPaths();
@@ -355,6 +356,13 @@ const _sfc_main$4 = /* @__PURE__ */ defineComponent({
         pathError.value = t2("install.failedToSelectDirectory");
       }
     }, "browsePath");
+    const onFocus = /* @__PURE__ */ __name(() => {
+      if (!inputTouched.value) {
+        inputTouched.value = true;
+        return;
+      }
+      validatePath(installPath.value);
+    }, "onFocus");
     return (_ctx, _cache) => {
       const _directive_tooltip = resolveDirective("tooltip");
       return openBlock(), createElementBlock("div", _hoisted_1$3, [
@@ -370,10 +378,16 @@ const _sfc_main$4 = /* @__PURE__ */ defineComponent({
                     _cache[0] || (_cache[0] = ($event) => installPath.value = $event),
                     validatePath
                   ],
-                  class: normalizeClass(["w-full", { "p-invalid": pathError.value }])
+                  class: normalizeClass(["w-full", { "p-invalid": pathError.value }]),
+                  onFocus
                 }, null, 8, ["modelValue", "class"]),
                 withDirectives(createVNode(unref(script$5), { class: "pi pi-info-circle" }, null, 512), [
-                  [_directive_tooltip, _ctx.$t("install.installLocationTooltip")]
+                  [
+                    _directive_tooltip,
+                    _ctx.$t("install.installLocationTooltip"),
+                    void 0,
+                    { top: true }
+                  ]
                 ])
               ]),
               _: 1
@@ -595,13 +609,12 @@ const _sfc_main$2 = /* @__PURE__ */ defineComponent({
       }
     });
     return (_ctx, _cache) => {
-      const _component_UrlInput = _sfc_main$7;
       return openBlock(), createElementBlock("div", _hoisted_1$1, [
         createBaseVNode("div", _hoisted_2$1, [
           createBaseVNode("h3", _hoisted_3$1, toDisplayString(_ctx.$t(`settings.${normalizedSettingId.value}.name`)), 1),
           createBaseVNode("p", _hoisted_4$1, toDisplayString(_ctx.$t(`settings.${normalizedSettingId.value}.tooltip`)), 1)
         ]),
-        createVNode(_component_UrlInput, {
+        createVNode(_sfc_main$7, {
           modelValue: modelValue.value,
           "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => modelValue.value = $event),
           "validate-url-fn": /* @__PURE__ */ __name((mirror) => unref(checkMirrorReachable)(mirror + (_ctx.item.validationPathSuffix ?? "")), "validate-url-fn"),
@@ -653,11 +666,24 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
           };
       }
     }, "getTorchMirrorItem");
-    const mirrors = computed(() => [
-      [PYTHON_MIRROR, pythonMirror],
-      [PYPI_MIRROR, pypiMirror],
-      [getTorchMirrorItem(__props.device), torchMirror]
-    ]);
+    const userIsInChina = ref(false);
+    onMounted(async () => {
+      userIsInChina.value = await isInChina();
+    });
+    const useFallbackMirror = /* @__PURE__ */ __name((mirror) => ({
+      ...mirror,
+      mirror: mirror.fallbackMirror
+    }), "useFallbackMirror");
+    const mirrors = computed(
+      () => [
+        [PYTHON_MIRROR, pythonMirror],
+        [PYPI_MIRROR, pypiMirror],
+        [getTorchMirrorItem(__props.device), torchMirror]
+      ].map(([item, modelValue]) => [
+        userIsInChina.value ? useFallbackMirror(item) : item,
+        modelValue
+      ])
+    );
     const validationStates = ref(
       mirrors.value.map(() => ValidationState.IDLE)
     );
@@ -942,4 +968,4 @@ const InstallView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-
 export {
   InstallView as default
 };
-//# sourceMappingURL=InstallView-CVZcZZXJ.js.map
+//# sourceMappingURL=InstallView-x9XCq0hC.js.map

@@ -1,6 +1,6 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { an as useKeybindingStore, L as useCommandStore, a as useSettingStore, dp as KeyComboImpl, dq as KeybindingImpl } from "./index-DqqhYDnY.js";
+import { ao as useKeybindingStore, J as useCommandStore, a as useSettingStore, dA as KeyComboImpl, dB as KeybindingImpl } from "./index-DqXp9vW4.js";
 const CORE_KEYBINDINGS = [
   {
     combo: {
@@ -186,7 +186,7 @@ const useKeybindingService = /* @__PURE__ */ __name(() => {
       return;
     }
     const target = event.composedPath()[0];
-    if (!keyCombo.hasModifier && (target.tagName === "TEXTAREA" || target.tagName === "INPUT" || target.tagName === "SPAN" && target.classList.contains("property_value"))) {
+    if (keyCombo.isReservedByTextInput && (target.tagName === "TEXTAREA" || target.tagName === "INPUT" || target.tagName === "SPAN" && target.classList.contains("property_value"))) {
       return;
     }
     const keybinding = keybindingStore.getKeybinding(keyCombo);
@@ -247,4 +247,4 @@ const useKeybindingService = /* @__PURE__ */ __name(() => {
 export {
   useKeybindingService as u
 };
-//# sourceMappingURL=keybindingService-DEgCutrm.js.map
+//# sourceMappingURL=keybindingService-DgS0S2M6.js.map

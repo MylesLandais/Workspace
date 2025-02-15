@@ -1,6 +1,5 @@
 
-.comfy-menu-hamburger[data-v-7ed57d1a] {
-    pointer-events: auto;
+.comfy-menu-hamburger[data-v-82120b51] {
     position: fixed;
     z-index: 9999;
     display: flex;
@@ -41,19 +40,19 @@
   z-index: 999;
 }
 
-.p-buttongroup-vertical[data-v-cb8f9a1a] {
+.p-buttongroup-vertical[data-v-27a9500c] {
   display: flex;
   flex-direction: column;
   border-radius: var(--p-button-border-radius);
   overflow: hidden;
   border: 1px solid var(--p-panel-border-color);
 }
-.p-buttongroup-vertical .p-button[data-v-cb8f9a1a] {
+.p-buttongroup-vertical .p-button[data-v-27a9500c] {
   margin: 0;
   border-radius: 0;
 }
 
-.node-tooltip[data-v-46859edf] {
+.node-tooltip[data-v-f03142eb] {
   background: var(--comfy-input-bg);
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
@@ -133,12 +132,10 @@
   border-right: 4px solid var(--p-button-text-primary-color);
 }
 
-.side-tool-bar-container[data-v-33cac83a] {
+.side-tool-bar-container[data-v-04875455] {
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  pointer-events: auto;
 
   width: var(--sidebar-width);
   height: 100%;
@@ -150,16 +147,16 @@
   --sidebar-width: 4rem;
   --sidebar-icon-size: 1.5rem;
 }
-.side-tool-bar-container.small-sidebar[data-v-33cac83a] {
+.side-tool-bar-container.small-sidebar[data-v-04875455] {
   --sidebar-width: 2.5rem;
   --sidebar-icon-size: 1rem;
 }
-.side-tool-bar-end[data-v-33cac83a] {
+.side-tool-bar-end[data-v-04875455] {
   align-self: flex-end;
   margin-top: auto;
 }
 
-.status-indicator[data-v-8d011a31] {
+.status-indicator[data-v-fd6ae3af] {
   position: absolute;
   font-weight: 700;
   font-size: 1.5rem;
@@ -221,7 +218,7 @@
   border-radius: 0px
 }
 
-[data-v-38831d8e] .workflow-tabs {
+[data-v-6ab68035] .workflow-tabs {
   background-color: var(--comfy-menu-bg);
 }
 
@@ -235,30 +232,35 @@
   border-bottom-right-radius: 0;
 }
 
-.actionbar[data-v-915e5456] {
+.actionbar[data-v-ebd56d51] {
   pointer-events: all;
   position: fixed;
   z-index: 1000;
 }
-.actionbar.is-docked[data-v-915e5456] {
+.actionbar.is-docked[data-v-ebd56d51] {
   position: static;
   border-style: none;
   background-color: transparent;
   padding: 0px;
 }
-.actionbar.is-dragging[data-v-915e5456] {
+.actionbar.is-dragging[data-v-ebd56d51] {
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
 }
-[data-v-915e5456] .p-panel-content {
+[data-v-ebd56d51] .p-panel-content {
   padding: 0.25rem;
 }
-.is-docked[data-v-915e5456] .p-panel-content {
+.is-docked[data-v-ebd56d51] .p-panel-content {
   padding: 0px;
 }
-[data-v-915e5456] .p-panel-header {
+[data-v-ebd56d51] .p-panel-header {
   display: none;
+}
+.drag-handle[data-v-ebd56d51] {
+  height: -moz-max-content;
+  height: max-content;
+  width: 0.75rem;
 }
 
 .top-menubar[data-v-56df69d2] .p-menubar-item-link svg {
@@ -275,7 +277,7 @@
   border-style: solid;
 }
 
-.comfyui-menu[data-v-929e7543] {
+.comfyui-menu[data-v-68d3b5b9] {
   width: 100vw;
   height: var(--comfy-topbar-height);
   background: var(--comfy-menu-bg);
@@ -288,19 +290,94 @@
   order: 0;
   grid-column: 1/-1;
 }
-.comfyui-menu.dropzone[data-v-929e7543] {
+.comfyui-menu.dropzone[data-v-68d3b5b9] {
   background: var(--p-highlight-background);
 }
-.comfyui-menu.dropzone-active[data-v-929e7543] {
+.comfyui-menu.dropzone-active[data-v-68d3b5b9] {
   background: var(--p-highlight-background-focus);
 }
-[data-v-929e7543] .p-menubar-item-label {
+[data-v-68d3b5b9] .p-menubar-item-label {
   line-height: revert;
 }
-.comfyui-logo[data-v-929e7543] {
+.comfyui-logo[data-v-68d3b5b9] {
   font-size: 1.2em;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
   cursor: default;
+}
+
+.comfyui-body[data-v-e89d9273] {
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
+}
+
+/**
+  +------------------+------------------+------------------+
+  |                                                        |
+  |  .comfyui-body-                                        |
+  |       top                                              |
+  | (spans all cols)                                       |
+  |                                                        |
+  +------------------+------------------+------------------+
+  |                  |                  |                  |
+  | .comfyui-body-   |   #graph-canvas  | .comfyui-body-   |
+  |      left        |                  |      right       |
+  |                  |                  |                  |
+  |                  |                  |                  |
+  +------------------+------------------+------------------+
+  |                                                        |
+  |  .comfyui-body-                                        |
+  |      bottom                                            |
+  | (spans all cols)                                       |
+  |                                                        |
+  +------------------+------------------+------------------+
+*/
+.comfyui-body-top[data-v-e89d9273] {
+  order: -5;
+  /* Span across all columns */
+  grid-column: 1/-1;
+  /* Position at the first row */
+  grid-row: 1;
+  /* Top menu bar dropdown needs to be above of graph canvas splitter overlay which is z-index: 999 */
+  /* Top menu bar z-index needs to be higher than bottom menu bar z-index as by default
+  pysssss's image feed is located at body-bottom, and it can overlap with the queue button, which
+  is located in body-top. */
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+}
+.comfyui-body-left[data-v-e89d9273] {
+  order: -4;
+  /* Position in the first column */
+  grid-column: 1;
+  /* Position below the top element */
+  grid-row: 2;
+  z-index: 10;
+  display: flex;
+}
+.graph-canvas-container[data-v-e89d9273] {
+  width: 100%;
+  height: 100%;
+  order: -3;
+  grid-column: 2;
+  grid-row: 2;
+  position: relative;
+  overflow: hidden;
+}
+.comfyui-body-right[data-v-e89d9273] {
+  order: -2;
+  z-index: 10;
+  grid-column: 3;
+  grid-row: 2;
+}
+.comfyui-body-bottom[data-v-e89d9273] {
+  order: 4;
+  /* Span across all columns */
+  grid-column: 1/-1;
+  grid-row: 3;
+  /* Bottom menu bar dropdown needs to be above of graph canvas splitter overlay which is z-index: 999 */
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
 }

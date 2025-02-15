@@ -63,10 +63,10 @@
 }
 }
 
-[data-v-74b78f7d] .p-tag {
+[data-v-dd50a7dd] .p-tag {
   --p-tag-gap: 0.375rem;
 }
-.backspan[data-v-74b78f7d]::before {
+.backspan[data-v-dd50a7dd]::before {
   position: absolute;
   margin: 0px;
   color: var(--p-text-muted-color);
