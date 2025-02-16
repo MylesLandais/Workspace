@@ -1,9 +1,9 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, T as ref, d8 as onUnmounted, o as openBlock, y as createBlock, z as withCtx, m as createBaseVNode, E as toDisplayString, j as unref, bg as t, k as createVNode, bE as script, l as script$1, b9 as electronAPI, _ as _export_sfc } from "./index-DqXp9vW4.js";
-import { s as script$2 } from "./index-B0BQ8jlU.js";
-import { _ as _sfc_main$1 } from "./TerminalOutputDrawer-BgTEspHP.js";
-import { _ as _sfc_main$2 } from "./BaseViewTemplate-DlGljfEG.js";
+import { d as defineComponent, T as ref, d8 as onUnmounted, o as openBlock, y as createBlock, z as withCtx, m as createBaseVNode, E as toDisplayString, j as unref, bg as t, k as createVNode, bE as script, l as script$1, b9 as electronAPI, _ as _export_sfc } from "./index-Bv0b06LE.js";
+import { s as script$2 } from "./index-A_bXPJCN.js";
+import { _ as _sfc_main$1 } from "./TerminalOutputDrawer-CKr7Br7O.js";
+import { _ as _sfc_main$2 } from "./BaseViewTemplate-BTbuZf5t.js";
 const _hoisted_1 = { class: "h-screen w-screen grid items-center justify-around overflow-y-auto" };
 const _hoisted_2 = { class: "relative m-8 text-center" };
 const _hoisted_3 = { class: "download-bg pi-download text-4xl font-bold" };
@@ -55,4 +55,4 @@ const DesktopUpdateView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", 
 export {
   DesktopUpdateView as default
 };
-//# sourceMappingURL=DesktopUpdateView-DWsew03S.js.map
+//# sourceMappingURL=DesktopUpdateView-C-R0415K.js.map

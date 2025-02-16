@@ -1,4 +1,4 @@
-import { d as defineComponent, T as ref, p as onMounted, b8 as isElectron, V as nextTick, b9 as electronAPI, o as openBlock, f as createElementBlock, i as withDirectives, v as vShow, j as unref, ba as isNativeWindow, m as createBaseVNode, A as renderSlot, aj as normalizeClass } from "./index-DqXp9vW4.js";
+import { d as defineComponent, T as ref, p as onMounted, b8 as isElectron, V as nextTick, b9 as electronAPI, o as openBlock, f as createElementBlock, i as withDirectives, v as vShow, j as unref, ba as isNativeWindow, m as createBaseVNode, A as renderSlot, aj as normalizeClass } from "./index-Bv0b06LE.js";
 const _hoisted_1 = { class: "flex-grow w-full flex items-center justify-center overflow-auto" };
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "BaseViewTemplate",
@@ -48,4 +48,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as _
 };
-//# sourceMappingURL=BaseViewTemplate-DlGljfEG.js.map
+//# sourceMappingURL=BaseViewTemplate-BTbuZf5t.js.map

@@ -1,9 +1,9 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, c as computed, o as openBlock, f as createElementBlock, F as Fragment, D as renderList, k as createVNode, z as withCtx, a8 as createTextVNode, E as toDisplayString, j as unref, a5 as script, B as createCommentVNode, T as ref, dx as FilterMatchMode, ao as useKeybindingStore, J as useCommandStore, I as useI18n, X as normalizeI18nKey, w as watchEffect, aV as useToast, r as resolveDirective, y as createBlock, dy as SearchBox, m as createBaseVNode, l as script$2, bk as script$4, as as withModifiers, bn as script$5, ac as script$6, i as withDirectives, dz as _sfc_main$2, dA as KeyComboImpl, dB as KeybindingImpl, _ as _export_sfc } from "./index-DqXp9vW4.js";
-import { g as script$1, h as script$3 } from "./index-KUUE4Ew8.js";
-import { u as useKeybindingService } from "./keybindingService-DgS0S2M6.js";
-import "./index-BTHx8UHZ.js";
+import { d as defineComponent, c as computed, o as openBlock, f as createElementBlock, F as Fragment, D as renderList, k as createVNode, z as withCtx, a8 as createTextVNode, E as toDisplayString, j as unref, a5 as script, B as createCommentVNode, T as ref, dx as FilterMatchMode, ao as useKeybindingStore, J as useCommandStore, I as useI18n, X as normalizeI18nKey, w as watchEffect, aV as useToast, r as resolveDirective, y as createBlock, dy as SearchBox, m as createBaseVNode, l as script$2, bk as script$4, as as withModifiers, bn as script$5, ac as script$6, i as withDirectives, dz as _sfc_main$2, dA as KeyComboImpl, dB as KeybindingImpl, _ as _export_sfc } from "./index-Bv0b06LE.js";
+import { g as script$1, h as script$3 } from "./index-CgMyWf7n.js";
+import { u as useKeybindingService } from "./keybindingService-DyjX-nxF.js";
+import "./index-Dzu9WL4p.js";
 const _hoisted_1$1 = {
   key: 0,
   class: "px-2"
@@ -289,4 +289,4 @@ const KeybindingPanel = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "d
 export {
   KeybindingPanel as default
 };
-//# sourceMappingURL=KeybindingPanel-BIrxefrS.js.map
+//# sourceMappingURL=KeybindingPanel-oavhFdkz.js.map

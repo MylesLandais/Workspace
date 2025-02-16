@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { d as defineComponent, I as useI18n, T as ref, bo as ProgressStatus, p as onMounted, o as openBlock, y as createBlock, z as withCtx, m as createBaseVNode, a8 as createTextVNode, E as toDisplayString, j as unref, f as createElementBlock, B as createCommentVNode, k as createVNode, l as script, i as withDirectives, v as vShow, bp as BaseTerminal, b9 as electronAPI, _ as _export_sfc } from "./index-DqXp9vW4.js";
-import { _ as _sfc_main$1 } from "./BaseViewTemplate-DlGljfEG.js";
+import { d as defineComponent, I as useI18n, T as ref, bo as ProgressStatus, p as onMounted, o as openBlock, y as createBlock, z as withCtx, m as createBaseVNode, a8 as createTextVNode, E as toDisplayString, j as unref, f as createElementBlock, B as createCommentVNode, k as createVNode, l as script, i as withDirectives, v as vShow, bp as BaseTerminal, b9 as electronAPI, _ as _export_sfc } from "./index-Bv0b06LE.js";
+import { _ as _sfc_main$1 } from "./BaseViewTemplate-BTbuZf5t.js";
 const _hoisted_1 = { class: "flex flex-col w-full h-full items-center" };
 const _hoisted_2 = { class: "text-2xl font-bold" };
 const _hoisted_3 = { key: 0 };
@@ -97,4 +97,4 @@ const ServerStartView = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "d
 export {
   ServerStartView as default
 };
-//# sourceMappingURL=ServerStartView-BENqs5bD.js.map
+//# sourceMappingURL=ServerStartView-B7TlHxYo.js.map
