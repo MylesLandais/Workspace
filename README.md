@@ -3,7 +3,7 @@
 **Elixir Discord Bot that uses a HOT LOADING plugin system**
 
 ## Installation
-Windows Intallation:
+Windows Installation:
 
 Ensure that you have Erlang installed - Erlang/OTP 27 [erts-15.2.2]
 Ensure that you have Elixir installed - Elixir 1.18.4 (compiled with Erlang/OTP 27)
