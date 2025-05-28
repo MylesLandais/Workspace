@@ -24,3 +24,9 @@ GUILD_ID=GUILDID GOES HERE
 
 Use mix run --no-halt to run the project!
 
+
+## Features:
+Hot loading plugin system - drag & drop plugins into the lib/plugins folder to install them as a slash command!
+Need to fix a plugin but can't afford the downtime? No problem! Just edit your plugin and it will automatically update your slash command and your edits will be made!
+
+Examples available in /lib/nebulixir/plugins
