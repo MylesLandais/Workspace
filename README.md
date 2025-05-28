@@ -1,21 +1,25 @@
 # Nebulixir
 
-**TODO: Add description**
+**Elixir Discord Bot that uses a HOT LOADING plugin system**
 
 ## Installation
+Windows Intallation:
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `nebulixir` to your list of dependencies in `mix.exs`:
+Ensure that you have Erlang installed - Erlang/OTP 27 [erts-15.2.2]
+Ensure that you have Elixir installed - Elixir 1.18.4 (compiled with Erlang/OTP 27)
 
-```elixir
-def deps do
-  [
-    {:nebulixir, "~> 0.1.0"}
-  ]
-end
+Clone this REPO
+
+Go to project directory & type mix deps.get to install the depenencies
+&& mix compile
+
+to run the project please create a .env file in the main directory with your discord token & guild ID
+
+example .env file:
+```
+DISCORD_TOKEN=YOUR TOKEN GOES HERE
+GUILD_ID=GUILDID GOES HERE
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/nebulixir>.
+Use mix run --no-halt to run the project!
 
