@@ -8,7 +8,7 @@ config :nostrum,
   token: env!("DISCORD_TOKEN", :string!),
   gateway_intents: [:guilds, :guild_messages, :guild_voice_states, :message_content],
   youtubedl: "yt-dlp",
-  ffmpeg: "ffmpeg",
+  ffmpeg: "ffmpeg"
   
 
 config :nebulixir,
