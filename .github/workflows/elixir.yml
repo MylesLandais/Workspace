@@ -1,4 +1,4 @@
-name: Elixir CI
+name: CI
 
 on:
   push:
@@ -9,11 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    services:
-      docker:
-        image: docker:24.0.6-dind
-        options: --privileged
 
     steps:
     - uses: actions/checkout@v4
@@ -30,6 +25,12 @@ jobs:
         sudo apt-get install -y ffmpeg python3-pip
         python3 -m pip install -U yt-dlp
 
+    - name: Create ENV for CI
+      run: |
+        echo "DISCORD_TOKEN=placeholder_token" >> .env
+        echo "GUILD_ID=000000000000000000" >> .env
+      # Add any other required env vars here
+
     - name: Get deps and compile
       run: |
         mix deps.get
@@ -41,4 +42,6 @@ jobs:
 
     - name: Build Docker image
       run: |
+        # Ensure Dockerfile exists in repo root
+        if [ ! -f Dockerfile ]; then echo "No Dockerfile!" && exit 1; fi
         docker build -t nebulixir:ci .
