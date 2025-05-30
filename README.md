@@ -70,7 +70,7 @@ mix compile
 4. **Clone this repo:**
 
    ```
-   git clone https://github.com/YOUR-USERNAME/nebulixir.git
+   git clone https://github.com/System-Nebula/nebulixir.git
    cd nebulixir
    mix deps.get
    mix compile
