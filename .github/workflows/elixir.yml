@@ -1,47 +1,30 @@
-name: CI
+# --- 1. Build Stage ---
+FROM elixir:1.18.4-alpine AS build
 
-on:
-  push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
+RUN apk add --no-cache \
+    build-base \
+    ffmpeg \
+    python3 \
+    py3-pip \
+    git \
+    yt-dlp
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+WORKDIR /app
 
-    steps:
-    - uses: actions/checkout@v4
+COPY mix.exs mix.lock ./
+COPY config ./config
+RUN mix local.hex --force && mix deps.get
 
-    - name: Set up Elixir
-      uses: erlef/setup-elixir@v1
-      with:
-        elixir-version: 1.18.4
-        otp-version: 27.2.2
+COPY . .
+RUN mix compile
 
-    - name: Set up system dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y ffmpeg python3-pip
-        python3 -m pip install -U yt-dlp
+# --- 2. Release Stage ---
+FROM elixir:1.18.4-alpine AS app
 
-    - name: Create ENV for CI
-      run: |
-        echo "DISCORD_TOKEN=placeholder_token" >> .env
-        echo "GUILD_ID=000000000000000000" >> .env
-      # Add any other required env vars here
+WORKDIR /app
 
-    - name: Get deps and compile
-      run: |
-        mix deps.get
-        mix compile --warnings-as-errors
+RUN apk add --no-cache ffmpeg python3 py3-pip yt-dlp
 
-    - name: Run tests (if present)
-      run: |
-        mix test || echo "No tests found."
+COPY --from=build /app .
 
-    - name: Build Docker image
-      run: |
-        # Ensure Dockerfile exists in repo root
-        if [ ! -f Dockerfile ]; then echo "No Dockerfile!" && exit 1; fi
-        docker build -t nebulixir:ci .
+CMD ["mix", "run", "--no-halt"]
