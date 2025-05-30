@@ -1,30 +1,41 @@
-# --- 1. Build Stage ---
-FROM elixir:1.18.4-alpine AS build
+name: CI & Docker Autobuild
 
-RUN apk add --no-cache \
-    build-base \
-    ffmpeg \
-    python3 \
-    py3-pip \
-    git \
-    yt-dlp
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
 
-WORKDIR /app
+jobs:
+  build-and-docker:
+    runs-on: ubuntu-latest
 
-COPY mix.exs mix.lock ./
-COPY config ./config
-RUN mix local.hex --force && mix deps.get
+    steps:
+    - uses: actions/checkout@v4
 
-COPY . .
-RUN mix compile
+    - name: Set up Elixir
+      uses: erlef/setup-elixir@v1
+      with:
+        elixir-version: 1.18.4
+        otp-version: 27.2.2
 
-# --- 2. Release Stage ---
-FROM elixir:1.18.4-alpine AS app
+    - name: Set up system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ffmpeg python3-pip
+        python3 -m pip install -U yt-dlp
 
-WORKDIR /app
+    - name: Create ENV for CI
+      run: |
+        # Properly formatted fake Discord token (does not connect, but passes Nostrum validation)
+        echo "DISCORD_TOKEN=MjM0NTQzMTIzMTIzMTIzMTIz.MTIzMT.ZmFrZXRva2VuZm9yY2kuZmFrZWZvcmNpaWk" >> .env
+        echo "GUILD_ID=000000000000000000" >> .env
 
-RUN apk add --no-cache ffmpeg python3 py3-pip yt-dlp
+    - name: Mix deps and compile
+      run: |
+        mix deps.get
+        mix compile
 
-COPY --from=build /app .
-
-CMD ["mix", "run", "--no-halt"]
+    - name: Docker Build (Autobuild)
+      run: |
+        docker build -t nebulixir:latest .
