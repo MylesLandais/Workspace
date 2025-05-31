@@ -1,7 +1,7 @@
 # 1. Build stage
 FROM elixir:1.18.4-alpine AS build
 
-RUN apk add --no-cache build-base ffmpeg python3 py3-pip git yt-dlp
+RUN apk add --no-cache build-base ffmpeg
 
 WORKDIR /app
 
