@@ -1,7 +1,7 @@
 # 1. Build stage
 FROM elixir:1.18.4-alpine AS build
 
-RUN apk add --no-cache build-base ffmpeg
+RUN apk add --no-cache build-base
 
 WORKDIR /app
 
