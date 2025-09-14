@@ -183,6 +183,25 @@ python run_tests.py
 - **Test your changes** - Run `python run_tests.py` before committing
 - **Follow Python conventions** - Use snake_case, type hints where appropriate
 
+### Dependency management & supply-chain risk
+
+We favor minimizing development and test-time dependencies to reduce
+operational and supply-chain risk. Prefer small, dependency-free patterns
+when practical (for example: prefer injecting a lightweight fake session
+or using `unittest.mock` over pulling an extra HTTP-mocking library).
+
+Keep third-party dependencies intentional:
+- Add test-only libraries only when they significantly simplify tests and
+    their benefit outweighs the maintenance cost.
+- Prefer small, well-maintained packages; pin versions in Dockerfiles and
+    CI where reproducibility matters.
+- Document why a non-trivial dependency was added, and keep it scoped to
+    development or testing (e.g., `requirements-dev.txt`) when appropriate.
+
+This guidance helps keep local development fast, reduces the chance of
+breaking builds when external packages change, and lowers risk during
+security audits or supply-chain incidents.
+
 ### Important Security Notes
 
 - **Never commit secrets** - Talisman will block commits containing sensitive information
