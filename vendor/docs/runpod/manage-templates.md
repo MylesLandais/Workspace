@@ -1,0 +1,137 @@
+# Manage Pod templates
+
+> Learn how to create, and manage custom Pod templates.
+
+Creating a custom template allows you to package your specific configuration for reuse and sharing. Templates define all the necessary components to launch a Pod with your desired setup.
+
+## Template configuration options
+
+When creating a template, you'll configure several key components:
+
+**Name:** The display name for your template that will appear in the template browser. Choose a descriptive name that clearly indicates the template's purpose and contents.
+
+**Container image:** The path to the Docker image that forms the foundation of your template. This is where the core functionality of your template resides, including all software packages, dependencies, and files needed for your workload. You can import the image from:
+
+* A public registry like Docker Hub (e.g., `ubuntu:latest`, `pytorch/pytorch:latest`).
+* Your own private registry (requires registry credentials).
+
+**Template visibility:** Choose whether your template is available to others. Public templates are available to all Runpod users in the Explore section of the console, while private template are only accessible to you or your team members.
+
+**Compute type:** Templates are restricted to specific compute types and can only be used with matching hardware:
+
+* **NVIDIA GPU:** For GPU-accelerated workloads requiring CUDA support
+* **AMD GPU:** For workloads optimized for AMD graphics processors
+* **CPU:** For CPU-only workloads that don't require GPU acceleration
+
+**Container start command:** Customize the command that runs when your Pod starts. This overrides the default CMD instruction in your Docker container. You can specify:
+
+* Simple bash commands: `bash -c 'mkdir /workspace && /start.sh'`
+* JSON format with entrypoint and cmd: `{"cmd": ["python", "app.py"], "entrypoint": ["bash", "-c"]}`
+
+<Note>
+  Most Docker images have built in start commands, so you can usually leave this blank. When customizing your start command, make sure you're not overriding existing commands that are critical for the image to run.
+</Note>
+
+**Registry credentials:** If using a private container image, provide authentication credentials to access your private registry. This ensures Runpod can pull your image during Pod deployment.
+
+**Storage configuration:** Define the storage requirements for your template, including:
+
+* **Container disk size:** The amount of storage allocated for the container's filesystem, including the operating system and installed packages.
+* **Volume disk size:** Additional persistent storage that will be mounted to your Pod. This storage persists between Pod restarts and can be used for data, models, and other files you want to preserve.
+* **Volume mount path:** The directory path where the persistent volume will be mounted inside the container (commonly `/workspace`).
+
+**Network configuration:** Configure network access for your template:
+
+* **HTTP ports:** Ports that will be accessible via Runpod's HTTP proxy for web interfaces and APIs. These are automatically secured with HTTPS and accessible through Runpod's proxy URLs.
+* **TCP ports:** Direct TCP port access for services that require raw TCP connections, such as SSH, databases, or custom protocols.
+
+**Environment variables:** Define key-value pairs that will be available as environment variables inside your Pod. These are useful for:
+
+* Configuration settings specific to your application.
+* API keys and credentials (consider using [Secrets](/pods/templates/secrets) for sensitive data).
+* Runtime parameters that customize your template's behavior.
+
+## Creating templates
+
+<Tabs>
+  <Tab title="Web">
+    The Runpod console provides an intuitive interface for template creation:
+
+    1. Navigate to the **[Templates](https://www.console.runpod.io/user/templates)** section.
+    2. Click **New Template**.
+    3. Fill in the configuration options described above.
+    4. Click **Save Template** to save it to your account.
+    5. Test your template by deploying a Pod to ensure it works as expected.
+  </Tab>
+
+  <Tab title="REST API">
+    You can also create templates programmatically using the Runpod REST API. For example:
+
+    ```bash
+    curl --request POST \
+      --url https://rest.runpod.io/v1/templates \
+      --header 'Authorization: Bearer YOUR_API_KEY' \
+      --header 'Content-Type: application/json' \
+      --data '{
+      "category": "NVIDIA",
+      "containerDiskInGb": 50,
+      "dockerEntrypoint": [],
+      "dockerStartCmd": [],
+      "env": {
+        "ENV_VAR": "value"
+      },
+      "imageName": "CONTAINER_IMAGE",
+      "isPublic": false,
+      "isServerless": false,
+      "name": "TEMPLATE_NAME",
+      "ports": [
+        "8888/http",
+        "22/tcp"
+      ],
+      "readme": "",
+      "volumeInGb": 20,
+      "volumeMountPath": "/workspace"
+    }'
+    ```
+
+    For more details, see the [API reference](/api-reference/templates/POST/templates).
+  </Tab>
+</Tabs>
+
+## Using environment variables in templates
+
+Environment variables provide a flexible way to configure your Pod's runtime behavior without modifying the container image.
+
+### Defining environment variables
+
+Environment variables are key-value pairs that become available inside your Pod's container. When creating a template, you can define variables by specifying:
+
+* **Key**: The environment variable name (e.g., `DATABASE_URL`, `API_KEY`).
+* **Value**: The value assigned to that variable.
+
+### Use cases for environment variables
+
+Environment variables are particularly useful for:
+
+* **Configuration settings**: Database connections, API endpoints, feature flags.
+* **Runtime parameters**: Model paths, batch sizes, processing options.
+* **Integration credentials**: API keys, authentication tokens (consider using [Secrets](/pods/templates/secrets) for sensitive data).
+* **Application behavior**: Debug modes, logging levels, output formats.
+
+### Runpod system environment variables
+
+Runpod automatically provides several [predefined environment variables](/pods/references/environment-variables) in every Pod, for example:
+
+* `RUNPOD_POD_ID`: Unique identifier for your Pod.
+* `RUNPOD_API_KEY`: API key for making Runpod API calls from within the Pod.
+* `RUNPOD_POD_HOSTNAME`: Hostname of the server running your Pod.
+
+### Using secrets in templates
+
+For sensitive information like passwords and API keys, use [Runpod secrets](/pods/templates/secrets) instead of plain environment variables. Secrets are encrypted and can be referenced in your templates using the format:
+
+```
+{{ RUNPOD_SECRET_secret_name }}
+```
+
+This approach ensures sensitive data is properly protected while still being accessible to your Pod.

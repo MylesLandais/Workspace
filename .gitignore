@@ -74,7 +74,7 @@ requirements-asr-eval.txt
 run_in_venv.sh
 
 # Talisman
-.talismanrc
+
 .talismanignore
 
 # Local training logs (contains sensitive information)
@@ -82,4 +82,8 @@ docs/.log_training.md.local
 docs/log_training.md
 **/log_training.md
 **/.log_training.md.local
+
+
+# Notebook runpod template history (local only)
+notebooks/runpod_deployments/.templates_history.json
 

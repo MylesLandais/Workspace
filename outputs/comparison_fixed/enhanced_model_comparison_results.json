@@ -1,0 +1,378 @@
+{
+  "metadata": {
+    "timestamp": "2025-09-06 23:06:02",
+    "video_file": "Datasets/.princesslexiexo/hooters-girl-revenge.wmv",
+    "audio_file": "outputs/comparison_fixed/hooters-girl-revenge_audio.wav",
+    "total_models_tested": 11,
+    "successful_transcriptions": 11,
+    "failed_transcriptions": 0,
+    "models_using_fallback": 0,
+    "debug_log_file": "outputs/comparison_fixed/debug_log.txt"
+  },
+  "performance_summary": {
+    "fastest_model": "olmo-whisper-base-problematic",
+    "fastest_time": 5.664464950561523,
+    "slowest_model": "whisper-large-corrected",
+    "slowest_time": 840.343421459198,
+    "most_complete_model": "whisper-large-corrected",
+    "most_complete_words": 1449,
+    "least_complete_model": "canary-qwen-2.5b-real",
+    "least_complete_words": 83
+  },
+  "adapter_analysis": {
+    "CanaryQwenAdapter": {
+      "model_count": 1,
+      "avg_word_count": 83.0,
+      "avg_processing_time": 100.05074048042297,
+      "models": [
+        "canary-qwen-2.5b-real"
+      ]
+    },
+    "FasterWhisperAdapter": {
+      "model_count": 9,
+      "avg_word_count": 1391.2222222222222,
+      "avg_processing_time": 187.05533440907797,
+      "models": [
+        "faster-whisper-tiny",
+        "faster-whisper-base",
+        "faster-whisper-small",
+        "faster-whisper-medium",
+        "whisper-tiny-corrected",
+        "whisper-base-corrected",
+        "whisper-small-corrected",
+        "whisper-medium-corrected",
+        "whisper-large-corrected"
+      ]
+    },
+    "OLMoASRAdapter": {
+      "model_count": 1,
+      "avg_word_count": 83.0,
+      "avg_processing_time": 5.664464950561523,
+      "models": [
+        "olmo-whisper-base-problematic"
+      ]
+    }
+  },
+  "detailed_results": [
+    {
+      "model_name": "canary-qwen-2.5b-real",
+      "status": "SUCCESS",
+      "adapter_type": "CanaryQwenAdapter",
+      "fallback_used": false,
+      "transcription": "Hey, nice to see you again. You know, I saw that you left your number on the table after you left, and I was thinking, aw, this guy actually thinks he has a chance with me. You know, I can't really blame you since I was flirting with you all night. You really should know, the only reason I flirt with guys like you is to get a big, fat tip. And then I opened my book at the end of the night,",
+      "processing_time": 100.05074048042297,
+      "total_time": 184.8303723335266,
+      "word_count": 83,
+      "char_count": 392,
+      "confidence_available": true,
+      "error_message": "",
+      "metadata": {
+        "model_name": "openai/whisper-large-v3",
+        "device": "cpu",
+        "audio_duration": 783.6270625,
+        "sample_rate": 16000,
+        "language": "en",
+        "task": "transcribe",
+        "beam_size": 5,
+        "max_length": 512
+      }
+    },
+    {
+      "model_name": "faster-whisper-tiny",
+      "status": "SUCCESS",
+      "adapter_type": "FasterWhisperAdapter",
+      "fallback_used": false,
+      "transcription": "Hey, nice to see you again, you know, I saw that you left your number on the table,  after you left, and I was thinking, oh, this guy actually thinks he has a chance with me.  You know, I can't really blame you since I was flirting with you all night.  You really should know the only reason I flirt with guys like you is to get a big fat tip.  And then I opened my book at the end of the night, and I see you only left me five bucks.  You think I show off my body like this, just to, you know, like, have fun?  No, I want your money.  Can't you get that into your big fat head?  So, you know, I'm sitting at home thinking, what am I going to do about this?  Like I need your men, that's why I work at Hooters, that's why I flirt with guys like you all day.  I need more than five bucks to pay the rent.  So since you left your number, I knew you'd have no problem with me coming over to your house.  And I thought, I can just tease the shit out of you until I get what I know I rightfully deserve.  I think you can handle it, loser.  You only have one chance to say no.  Ready, set, go.  I swear, boys like you are so stupid.  You think you can resist this again?  You think I can't get more cash out of you, huh?  I know you come into New York all the time looking for hot girls like me, right?  And I know you've been watching me hoping that I be your waitress,  and I finally was, and how do you repay me?  Five bucks.  I can fix that.  You like that ass, don't you?  I caught you staring at it.  Why don't you get a closer look, loser?  Huh?  Want me to just smother you with my nice tight ass?  Yeah, that's what you want, isn't it?  You like those hooter shorts right in your fucking face?  You better use to it, loser.  Because all that money is going to be mine real soon.  I'm sure you're never going to walk into hooters the same way.  Ever again, are you?  Nope, you're not going to be a cheapo anymore.  You're going to make sure you tip me and my friends real good on you.  Because you know that's what we deserve, because we're hot.  And you're not.  So what do you think you like more loser?  My nice ass, or my big round cooters.  Huh?  What do you think you like more loser?  You like being teased by me?  You know, all that money seems going to be mine.  And you're never, ever going to leave a five dollar tip again, are you?  Nope.  And until you're right now, you're not.  I swear, boys like you are so stupid.  You think you can resist this again?  You think I can't get more cash out of you, huh?  I know you come into who's all the time looking for hot girls like me, right?  And I know you've been watching me hoping that I be your waitress.  And I finally was.  And how do you repay me?  Five bucks.  I can fix that.  You like that ass, don't you?  I caught you staring at it.  Why don't you get a closer look, loser?  Huh?  Want me to just smother you with my nice tight ass?  Yeah, that's what you want, isn't it?  You like those hooter shorts right in your fucking face?  You better use to it, loser.  Because all that money is going to be mine real soon.  I'm sure you're never going to walk into hooters the same way.  Ever again, are you?  Nope, you're not going to be a cheap one anymore.  You're going to make sure you tip me and my friends real good on you.  Because you know that's what we deserve, because we're hot.  And you're not.  So what do you think you like more loser?  My nice ass.  Or my big round cooters.  Huh?  What do you think you like more loser?  You like being teased by me?  You know all that money seems going to be mine.  And you're never, ever going to leave a five dollar tip again, are you?  Nope.  Until you write now, you're not.  You like these panty hoes too, don't you lose our.  Yeah?  I got you staring at my legs in them.  I'm so easy to get all your money loser.  I don't know why you tried to resist in the first place.  And that's you just let me five bucks on purpose because you knew I'd show up to  Mandy more, right?  Right loser?  Yeah, you and your loser friends coming to Hooners all the time just stare at us.  And we know that we can get all your cash in a matter of minutes.  And I can guarantee you right now, loser.  It's not going to take long.  Let's see, what's this?  Does your checkbook?  You know, you probably shouldn't leave things like this out when you know I'm coming.  You didn't think I'd actually let you go, did you?  You didn't think I'd let you go that easy, did you loser?  How much do you think I should make this check out for?  Huh?  Let's see, will your bill was 20 bucks?  So technically you left more than 20 percent, but it's...  See, the thing is, is when you go into a place like Hooners and you have hot girls like me serving you,  you should know that we demand a lot more than 20 percent retard.  You think I'd flirt with you all night for fun?  You don't think that I go and talk to all my friends about what a loser and how pathetic you are.  We'll guess what retard I do.  And all my friends and I talked about you last night and they all agreed that this is exactly what I should do.  I should call you up, get you to invite me to your place and rape your checkbook.  You never thought this would happen, did you?  Well guess what loser it's happening right now.  You don't think you're gonna say no, are you?  No, no is not in your vocabulary. Is it loser?  You know, you're just really fucking stupid for even inviting me over.  You think a hot girl like this wants to be with a loser like you, please.  So I have to check over it now, but  how much should I make it out for?  Looks like you make pretty good money. You have a nice suit on, looks like you just came from work.  I'd always like to see how much I can get out of my customers.  Maybe if I shove my ass in your face a bit more, I can get even more.  Hot loser, hot.  You know what I want to do? I want to smother your face with my perfect ass  and then see you saying no with me.  This guy said loser, I know you can't.  You know what I want you to do? I want you to stick your nose right in there.  Yeah, you like that, don't you?  You know, that's as close to getting gets my ass right. Just shove your face right in my ass.  So how much is that gonna be, loser?  300, 400,  five pound.  Well, that was easy. Wasn't that loser?  Now, I know what you mean.  How about I let you jerk off in front of me?  And while I finish writing this check to myself,  you can jack off.  So I'm gonna let you count down, okay. And as soon as I finish writing this check,  you better come. Otherwise that's it. And you're shit out of luck, loser.  So I'm writing in five hundred.  Better reject it off.  Five hundred. Almost there, loser. I don't have time to hold your hand.  And you got about 10 more seconds, loser. 10, nine, eight, seven, six, five, four, three, two, one.  Now all you got to do is sign.  Right there, loser.  I'm waiting.  Good boy.  I'm sure I'll be seeing you at who there's the real soon.  Bye, loser.",
+      "processing_time": 16.937478065490723,
+      "total_time": 17.117907285690308,
+      "word_count": 1390,
+      "char_count": 6995,
+      "confidence_available": true,
+      "error_message": "",
+      "metadata": {
+        "model_size": "tiny",
+        "language": "en",
+        "language_probability": 0.9947156310081482,
+        "segments_count": 148
+      }
+    },
+    {
+      "model_name": "faster-whisper-base",
+      "status": "SUCCESS",
+      "adapter_type": "FasterWhisperAdapter",
+      "fallback_used": false,
+      "transcription": "Hey, nice to see you again.  You know, I saw that you left your number on the table, after you left.  And I was thinking, oh, this guy actually thinks he has a chance with me.  You know, I can't really blame you since I was flirting with you all night.  You really should know.  The only reason I flirt with guys like you is to get a big fat tip.  And then I opened my book at the end of the night.  And I see you only left me five bucks.  You think I show off my body like this just to, you know, like, have fun.  No, I want your money.  Can't you get that into your big fat head?  So, you know, I was sitting at home thinking, what am I going to do about this?  I need your money.  That's why I work at Hooters.  That's why I flirt with guys like you all day.  I need more than five bucks to pay the rent.  So, since you left your number, I knew you'd have no problem with me coming over to your house.  And I thought, I can just tease the shit out of you until I get what I know I rightfully deserve.  I think you can handle it, loser.  You only have one chance to say no.  Ready?  Set.  Go.  I swear, boys like you are so stupid.  You think you can resist this again?  You think I can't get more cash out of you, huh?  I know you come into Hooters all the time looking for hot girls like me, right?  And I know you've been watching me hoping that I be your waitress.  And I finally was.  And how do you repay me?  Five bucks.  I can fix that.  You like that ass, don't you?  I caught you staring at it.  Why don't you get a closer look, loser?  Huh?  You want me to just smother you with my nice, tight ass?  Yeah, that's what you want, isn't it?  You like those Hooters shorts right in your fucking face?  You better use to it, loser.  Because all that money is going to be mine real soon.  I'm sure you're never going to walk into Hooters the same way ever again.  Are you?  Nope.  You're not going to be a cheapo anymore.  You're going to make sure you tip me and my friends real good on Chio.  Because you know that's what we deserve because we're hot.  And you're not.  So what do you think you like more, loser?  My nice ass or my big round Hooters?  Huh?  What do you think you like more, loser?  You like being teased by me?  You know, all that money is soon going to be mine.  And you're never, ever going to leave a $5 tip again, are you?  Nope.  And until you right now, you're not.  I swear, boys like you are so stupid.  You think you can resist this again?  You think I can't get more cash out of you, huh?  I know you come into Hooters all the time looking for hot girls like me, right?  And I know you've been watching me hoping that I be your waitress.  And I finally was.  And how do you repay me?  Five bucks.  I can fix that.  You like that ass, don't you?  I caught you staring at it.  Why don't you get a closer look, loser?  Huh?  You want me to just smother you with my nice, tight ass?  Yeah, that's what you want, isn't it?  You like those Hooters shorts right in your fucking face?  You better use to it, loser.  All that money is going to be mine real soon.  I'm sure you're never going to walk into Hooters the same way ever again, are you?  Nope.  You're not going to be a cheapo anymore.  You're going to make sure you tip me and my friends real good, aren't you?  Because you know that's what we deserve, because we're hot.  And you're not.  So what do you think you like more, loser?  My nice ass or my big round Hooters?  Huh?  What do you think you like more, loser?  You like being teased by me?  You know, all that money is soon going to be mine.  And you're never, ever going to leave a $5 tip again, are you?  Nope.  And until you right now, you're nuts.  You like these panties, too, don't you, loser?  Yeah?  I got you staring at my legs in them.  It's so easy to get all your money, loser.  I don't know why you tried to resist in the first place.  I bet you just let me $5 on purpose because you knew I'd show up demanding more, right?  Right, loser?  Yeah.  You and your loser friends come into Hooters all the time to stare at us.  And we know that we can get all your cash in a matter of minutes.  And I can guarantee you right now, loser.  It's not going to take long.  Let's see, what's this?  This is your checkbook.  You know, you probably shouldn't leave things like this out when you know I'm coming.  You didn't think I'd actually let you go, did you?  You didn't think I'd let you go that easy.  Did you, loser?  How much do you think I should make this check out for?  Let's see, what your bill was $20.  So, technically, you left more than 20%, but see, the thing is,  is when you go into a place like Hooters and you have hackers like me serving you,  you should know that we demand a lot more than 20% retard.  You think I start with you all night for fun?  You don't think that I go and talk to all my friends about what a loser and how pathetic you are?  Well, guess what retard a do?  And all my friends and I talked about you last night, and they all agreed that this is exactly what I should do.  I should call you up, get you to invite me to your place, and rape your checkbook.  You never thought this would happen, did you?  Well, guess what, loser? It's happening right now.  You don't think you're gonna say no, are you?  No? No is not in your bill capillary.  Is it, loser?  You know, you're just really fucking stupid for even inviting me over.  You think a hot girl like this wants to be with a loser like you?  Please.  So, I have to check over it now, but how much should I make it out for?  Looks like you make pretty good money.  You have a nice suit on, looks like you just came from work.  I just like to see how much I can get out of my customers.  Maybe if I shove my ass in your face a bit more, I can get even more.  Ha, loser? Huh?  You know what I want to do?  I want to smother your face with my perfect ass, and then see if you say no to me.  Guess guess what, loser? I know you can't.  You know what I want you to do? I want you to stick your nose right in there.  Yeah, you like that, don't you?  You know, that's as close as you're gonna get to my ass, right?  Just shove your face right in my ass.  So, how much is that gonna be, loser?  300, 400, 500.  Well, that was easy.  Wasn't it, loser?  Now, I know what you need.  How about, I let you jerk off, you ready me?  And while I finish writing this check to myself, you can jack off.  So, I'm gonna let you count down, okay?  And as soon as I finish writing this check, you better come.  Otherwise, that's it, and you're shit out of luck, loser.  So, I'm writing in 500.  Better be jacking off.  5, 100, almost there, loser?  I don't have time to hold your hand.  I think you got about 10 more seconds, loser.  10, 9, 8, 7, 6, 5, 4, 3, 2, 1.  Now, all you gotta do is sign right there, loser.  I'm waiting.  Good boy.  I'm sure I'll be seeing you at who there's real soon.  Bye, loser.",
+      "processing_time": 33.650455474853516,
+      "total_time": 33.93314027786255,
+      "word_count": 1381,
+      "char_count": 6930,
+      "confidence_available": true,
+      "error_message": "",
+      "metadata": {
+        "model_size": "base",
+        "language": "en",
+        "language_probability": 0.9966138005256653,
+        "segments_count": 160
+      }
+    },
+    {
+      "model_name": "faster-whisper-small",
+      "status": "SUCCESS",
+      "adapter_type": "FasterWhisperAdapter",
+      "fallback_used": false,
+      "transcription": "Hey! Nice to see you again. You know, I saw that you left your number on the table after  you left and I was thinking, aw, this guy actually thinks he has a chance with me. You know, I  can't really blame you since I was flirting with you all night. You really should know.  The only reason I flirt with guys like you is to get a big, fat tip. And then I opened  my book at the end of the night and I see you only left me five bucks. You think I  show off my body like this just to, you know, like, have fun? No. I want your money.  Can't you get that into your big, fat head? So, you know, I was sitting at home  thinking, what am I gonna do about this? Like, I need your money. That's why I  work at Hooters. That's why I flirt with guys like you all day. I need more than  five bucks to pay the rent. So, since you left your number, I knew you'd have no  problem with me coming over to your house. And I thought, I can just tease the  shit out of you until I get what I know I rightfully deserve. I think you can  handle it, loser. You only have one chance to say no. Ready? Set? Go. I swear, boys, like  you are so stupid. You think you can resist this again? You think I can't get  more cash out of you, huh? I know you come into Hooters all the time looking for  hot girls like me, right? And I know you've been watching me hoping that I'd be  your waitress. And I finally was. And how do you repay me? Five bucks? I can fix  that. You like that ass, don't you? I caught you staring at it. Why don't you get a  closer look, loser? Huh? Want me to just smother you with my nice, tight ass? Yeah,  that's what you want, isn't it? You like those Hooters shorts right in your fucking  face? You better get used to it, loser, because all that money is gonna be mine real soon.  I'm sure you're never gonna walk into Hooters the same way ever again, are you?  Nope. You're not gonna be a cheapo anymore. You're gonna make sure you tip me and  my friends real good, aren't you? Because you know that's what we deserve because  we're hot. And you're not. So what do you think you like more, loser? My nice ass? Or my  big round Hooters? Huh? What do you think you like more, loser? You like being teased by me?  You know, all that money is soon gonna be mine. And you're never ever gonna leave a  $5 tip again, are you? Nope. I can tell you right now, you're nuts. I swear boys, like  you are so stupid. You think you can resist this again? You think I can't get  more cash out of you, huh? I know you come into Hooters all the time looking  for hot girls like me, right? And I know you've been watching me hoping that I'd be  your waitress. And I finally was. And how do you repay me? $5? I can fix that. You  like that ass, don't you? I cut you staring at it. Why don't you get a  closer look, loser? Huh? Want me to just smother you with my nice, tight ass? Yeah,  that's what you want, isn't it? You like those Hooters shorts right in your  fucking face? You better get used to it, loser, because all that money is gonna  be mine real soon. I'm sure you're never gonna walk into Hooters the same way ever  again, are you? Nope. You're not gonna be a cheapo anymore. You're gonna make sure  you tip me and my friends real good, aren't you? Because you know that's what  we deserve because we're hot. And you're not. So what do you think you like more,  loser? My nice ass or my big round Hooters? Huh? What do you think you like more,  loser? You like being teased by me? You know, all that money soon is gonna be mine and  you're never ever gonna leave a $5 tip again, are you? Nope. And until you right  now, you're nuts. You like these pantyhose too, don't you, loser? Yeah? I got you staring  at my legs and them. So easy to get all your money, loser. I don't know why you  tried to resist in the first place. I bet you just let me five bucks on purpose  because you knew I'd show up to Mandy Moore, right? Right, loser? Yeah, you and your  loser friends come into Hooters all the time to stare at us and we know that we  can get all your cash in a matter of minutes. And I can guarantee you right now,  loser, it's not gonna take long. Let's see, what's this? This is your checkbook? You know,  you probably shouldn't leave things like this out when you know I'm coming. You  didn't think I'd actually let you go, did you? You didn't think I'd let you go that  easy, did you, loser? How much do you think I should make this check out for?  Let's see, well, your bill was 20 bucks. So technically, you left more than 20%,  but see, the thing is, is when you go into a place like Hooters and you have  hot girls like me serving you, you should know that we demand a lot more than 20%  retard. You think I flirt with you all night for fun? You don't think that I  go and talk to all my friends about what a loser and how pathetic you are? Well,  guess what retard I do? And all my friends and I talked about you last night and  they all agreed that this is exactly what I should do. I should call you up, get  you to invite me to your place and rape your checkbook. You never thought this  would happen, did you? Well, guess what, loser? It's happening right now. You don't  think you're gonna say no, are you? No? No is not in your vocabulary. Is it loser?  You know, you're just really fucking stupid for even inviting me over. You think a  hot girl like this wants to be with a loser like you? Please. So I have the  check all written out, but how much should I make it out for? Looks like you make  pretty good money. You have a nice suit on. Looks like you just came from work. I  always like to see how much I can get out of my customers. Maybe if I shove my  ass in your face a bit more, I can get even more. Ha, loser? Huh? You know what I  want to do? I want to smother your face with my perfect ass and then see you say  no to me. Because guess what, loser? I know you can't. You know what I want you to do?  I want you to stick your nose right in there. Yeah, you like that, don't you? You  know, that's as close as you're gonna get to my ass, right? Just shove your face  right in my ass. So how much is that gonna be, loser? 300? 400? 500? Well, that was easy. Wasn't it, loser?  Now I know what you need. How about I let you jerk off in front of me, and while I  finish writing this check to myself, you can jack off. So I'm gonna let you count  down, okay? And as soon as I finish writing this check, you better come.  Otherwise that's it, and you're shit out of luck, loser. So I'm writing in 500.  Better be jacking off.  Almost there, loser. I don't have time to hold your hand. I think you got about ten  more seconds, loser. Ten, nine, eight, seven, six, five, four, three, two, one. Now all you  gotta do is sign right there, loser. I'm waiting. Good boy. I'm sure I'll be seeing you at Hooters real soon. Bye, loser.",
+      "processing_time": 93.47199010848999,
+      "total_time": 93.9083833694458,
+      "word_count": 1368,
+      "char_count": 6841,
+      "confidence_available": true,
+      "error_message": "",
+      "metadata": {
+        "model_size": "small",
+        "language": "en",
+        "language_probability": 0.9974330067634583,
+        "segments_count": 82
+      }
+    },
+    {
+      "model_name": "faster-whisper-medium",
+      "status": "SUCCESS",
+      "adapter_type": "FasterWhisperAdapter",
+      "fallback_used": false,
+      "transcription": "Hey, nice to see you again. You know, I saw that you left your number on the table after you left.  And I was thinking, oh, this guy actually thinks he has a chance with me.  You know, I can't really blame you since I was flirting with you all night.  You really should know the only reason I flirt with guys like you is to get a big, fat tip.  And then I open my book at the end of the night and I see you only left me five bucks.  You think I show off my body like this just to, you know, like have fun? No.  I want your money.  Can't you get that into your big, fat head?  So, you know, I was sitting at home thinking, what am I going to do about this?  I need your money. That's why I work at Hooters. That's why I flirt with guys like you all day.  I need more than five bucks to pay the rent.  So since you left your number, I knew you'd have no problem with me coming over to your house.  And I thought I can just tease the shit out of you until I get what I know I rightfully deserve.  You think you can handle it, loser? You only have one chance to say no.  Ready, set, go.  I swear, boys like you are so stupid. You think you can resist this again?  You think I can't get more cash out of you, huh?  I know you come into Hooters all the time looking for hot girls like me, right?  And I know you've been watching me hoping that I'd be your waitress.  And I finally was. And how do you repay me? Five bucks?  I can fix that.  You like that ass, don't you? I caught you staring at it.  Why don't you get a closer look, loser? Huh?  You want me to just smother you with my nice, tight ass?  Yeah, that's what you want, isn't it? You like those Hooters shorts right in your fucking face?  You better get used to it, loser, because all that money is going to be mine real soon.  I'm sure you're never going to walk into Hooters the same way ever again, are you?  Nope. You're not going to be a cheapo anymore. You're going to make sure you tip me and my friends real good, aren't you?  I know that's what we deserve, because we're hot. And you're not.  So what do you think you like more, loser? My nice ass or my big, round Hooters?  Huh? What do you think you like more, loser?  You like being teased by me? You know, all that money soon is going to be mine.  And you're never, ever going to leave a $5 tip again, are you?  Nope. I can tell you right now, you're nuts.  I swear, boys like you are so stupid. You think you can resist this again?  You think I can't get more cash out of you, huh?  I know you come into Hooters all the time looking for hot girls like me, right?  And I know you've been watching me hoping that I'd be your waitress. And I finally was.  And how do you repay me? Five bucks?  I can fix that. You like that ass, don't you? I caught you staring at it.  Why don't you get a closer look, loser? Huh?  You want me to just smother you with my nice, tight ass?  Yeah, that's what you want, isn't it? You like those Hooters shorts right in your fucking face?  You better get used to it, loser. Cause all that money is going to be mine real soon.  I'm sure you're never going to walk into Hooters the same way ever again, are you?  Nope. You're not going to be a cheapo anymore. You're going to make sure you tip me and my friends real good, aren't you?  Cause you know that's what we deserve. Cause we're hot. And you're not.  So what do you think you like more, loser? My nice ass or my big, round Hooters?  Huh? What do you think you like more, loser? You like being teased by me?  You know, all that money soon is going to be mine. And you're never, ever going to leave a five dollar tip again, are you?  Nope. I can tell you right now, you're nuts.  You like these pantyhose too, don't you, loser? Yeah? I caught you staring at my legs in them.  So easy to get all your money, loser. I don't know why you tried to resist in the first place.  I bet you just left me five bucks on purpose cause you knew I'd show up demanding more, right? Right, loser?  Yeah. You and your loser friends come into Hooters all the time to stare at us. And we know that we can get all your cash in a matter of minutes.  And I can guarantee you right now, loser, it's not going to take long.  Let's see, what's this? Is this your checkbook? You know, you probably shouldn't leave things like this out when you know I'm coming.  You didn't think I'd actually let you go, did you? You didn't think I'd let you go that easy, did you, loser?  How much do you think I should make this check out for?  Let's see, well your bill was 20 bucks. So technically you left more than 20 percent.  But, see the thing is, is when you go into a place like Hooters and you have hot girls like me serving you, you should know that we demand a lot more than 20 percent, retard.  You think I flirt with you all night for fun?  You don't think that I go and talk to all my friends about what a loser and how pathetic you are?  Well guess what retard, I do.  And all my friends and I talked about you last night and they all agreed that this is exactly what I should do.  I should call you up, get you to invite me to your place and rape your checkbook.  You never thought this would happen, did you?  Well guess what loser, it's happening right now.  You don't think you're going to say no, are you?  No, no is not in your vocabulary.  Is it loser?  You know, you're just really fucking stupid for even inviting me over.  You think a hot girl like this wants to be with a loser like you?  Please.  So I have the check all written out but how much should I make it out for?  Looks like you make pretty good money, you have a nice suit on, looks like you just came from work.  I just like to see how much I can get out of my customers.  Maybe if I shove my ass in your face a bit more, I can get even more.  Huh loser? Huh?  You know what I want to do?  I want to smother your face with my perfect ass and then see you say no to me.  Because guess what loser, I know you can't.  You know what I want you to do?  I want you to stick your nose right in there.  Yeah you like that don't you?  You know that's as close as you're going to get to my ass right?  Just shove your face right in my ass.  So how much is that going to be loser?  Three hundred? Four hundred?  Not hundred.  Well that was easy, wasn't it loser?  Now I know what you need.  How about I let you jerk off in front of me?  And while I finish writing this check to myself, you can jerk off.  So I'm going to let you count down, okay?  And as soon as I finish writing this check, you better come.  Otherwise that's it and you're shit out of luck loser.  So I'm writing in five hundred.  Better be jacking off.  Five hundred.  Almost there loser.  I don't have time to hold your hand.  I think you've got about ten more seconds loser.  Ten, nine, eight, seven, six, five, four, three, two, one.  Now all you've got to do is sign.  Right there loser.  I'm waiting.  Good boy.  I'm sure I'll be seeing you at Hooters real soon.  Bye loser.",
+      "processing_time": 276.6653335094452,
+      "total_time": 307.5653817653656,
+      "word_count": 1397,
+      "char_count": 6986,
+      "confidence_available": true,
+      "error_message": "",
+      "metadata": {
+        "model_size": "medium",
+        "language": "en",
+        "language_probability": 0.9976200461387634,
+        "segments_count": 110
+      }
+    },
+    {
+      "model_name": "whisper-tiny-corrected",
+      "status": "SUCCESS",
+      "adapter_type": "FasterWhisperAdapter",
+      "fallback_used": false,
+      "transcription": "Hey, nice to see you again, you know, I saw that you left your number on the table,  after you left, and I was thinking, oh, this guy actually thinks he has a chance with me.  You know, I can't really blame you since I was flirting with you all night.  You really should know the only reason I flirt with guys like you is to get a big fat tip.  And then I opened my book at the end of the night, and I see you only left me five bucks.  You think I show off my body like this, just to, you know, like, have fun?  No, I want your money.  Can't you get that into your big fat head?  So, you know, I'm sitting at home thinking, what am I going to do about this?  Like I need your men, that's why I work at Hooters, that's why I flirt with guys like you all day.  I need more than five bucks to pay the rent.  So since you left your number, I knew you'd have no problem with me coming over to your house.  And I thought, I can just tease the shit out of you until I get what I know I rightfully deserve.  I think you can handle it, loser.  You only have one chance to say no.  Ready, set, go.  I swear, boys like you are so stupid.  You think you can resist this again?  You think I can't get more cash out of you, huh?  I know you come into New York all the time looking for hot girls like me, right?  And I know you've been watching me hoping that I be your waitress,  and I finally was, and how do you repay me?  Five bucks.  I can fix that.  You like that ass, don't you?  I caught you staring at it.  Why don't you get a closer look, loser?  Huh?  Want me to just smother you with my nice tight ass?  Yeah, that's what you want, isn't it?  You like those hooter shorts right in your fucking face?  You better use to it, loser.  Because all that money is going to be mine real soon.  I'm sure you're never going to walk into hooters the same way.  Ever again, are you?  Nope, you're not going to be a cheapo anymore.  You're going to make sure you tip me and my friends real good on you.  Because you know that's what we deserve, because we're hot.  And you're not.  So what do you think you like more loser?  My nice ass, or my big round cooters.  Huh?  What do you think you like more loser?  You like being teased by me?  You know, all that money seems going to be mine.  And you're never, ever going to leave a five dollar tip again, are you?  Nope.  And until you're right now, you're not.  I swear, boys like you are so stupid.  You think you can resist this again?  You think I can't get more cash out of you, huh?  I know you come into who's all the time looking for hot girls like me, right?  And I know you've been watching me hoping that I be your waitress.  And I finally was.  And how do you repay me?  Five bucks.  I can fix that.  You like that ass, don't you?  I caught you staring at it.  Why don't you get a closer look, loser?  Huh?  Want me to just smother you with my nice tight ass?  Yeah, that's what you want, isn't it?  You like those hooter shorts right in your fucking face?  You better use to it, loser.  Because all that money is going to be mine real soon.  I'm sure you're never going to walk into hooters the same way.  Ever again, are you?  Nope, you're not going to be a cheap one anymore.  You're going to make sure you tip me and my friends real good on you.  Because you know that's what we deserve, because we're hot.  And you're not.  So what do you think you like more loser?  My nice ass.  Or my big round cooters.  Huh?  What do you think you like more loser?  You like being teased by me?  You know all that money seems going to be mine.  And you're never, ever going to leave a five dollar tip again, are you?  Nope.  Until you write now, you're not.  You like these panty hoes too, don't you lose our.  Yeah?  I got you staring at my legs in them.  I'm so easy to get all your money loser.  I don't know why you tried to resist in the first place.  And that's you just let me five bucks on purpose because you knew I'd show up to  Mandy more, right?  Right loser?  Yeah, you and your loser friends coming to Hooners all the time just stare at us.  And we know that we can get all your cash in a matter of minutes.  And I can guarantee you right now, loser.  It's not going to take long.  Let's see, what's this?  Does your checkbook?  You know, you probably shouldn't leave things like this out when you know I'm coming.  You didn't think I'd actually let you go, did you?  You didn't think I'd let you go that easy, did you loser?  How much do you think I should make this check out for?  Huh?  Let's see, will your bill was 20 bucks?  So technically you left more than 20 percent, but it's...  See, the thing is, is when you go into a place like Hooners and you have hot girls like me serving you,  you should know that we demand a lot more than 20 percent retard.  You think I'd flirt with you all night for fun?  You don't think that I go and talk to all my friends about what a loser and how pathetic you are.  We'll guess what retard I do.  And all my friends and I talked about you last night and they all agreed that this is exactly what I should do.  I should call you up, get you to invite me to your place and rape your checkbook.  You never thought this would happen, did you?  Well guess what loser it's happening right now.  You don't think you're gonna say no, are you?  No, no is not in your vocabulary. Is it loser?  You know, you're just really fucking stupid for even inviting me over.  You think a hot girl like this wants to be with a loser like you, please.  So I have to check over it now, but  how much should I make it out for?  Looks like you make pretty good money. You have a nice suit on, looks like you just came from work.  I'd always like to see how much I can get out of my customers.  Maybe if I shove my ass in your face a bit more, I can get even more.  Hot loser, hot.  You know what I want to do? I want to smother your face with my perfect ass  and then see you saying no with me.  This guy said loser, I know you can't.  You know what I want you to do? I want you to stick your nose right in there.  Yeah, you like that, don't you?  You know, that's as close to getting gets my ass right. Just shove your face right in my ass.  So how much is that gonna be, loser?  300, 400,  five pound.  Well, that was easy. Wasn't that loser?  Now, I know what you mean.  How about I let you jerk off in front of me?  And while I finish writing this check to myself,  you can jack off.  So I'm gonna let you count down, okay. And as soon as I finish writing this check,  you better come. Otherwise that's it. And you're shit out of luck, loser.  So I'm writing in five hundred.  Better reject it off.  Five hundred. Almost there, loser. I don't have time to hold your hand.  And you got about 10 more seconds, loser. 10, nine, eight, seven, six, five, four, three, two, one.  Now all you got to do is sign.  Right there, loser.  I'm waiting.  Good boy.  I'm sure I'll be seeing you at who there's the real soon.  Bye, loser.",
+      "processing_time": 17.543098211288452,
+      "total_time": 17.82482671737671,
+      "word_count": 1390,
+      "char_count": 6995,
+      "confidence_available": true,
+      "error_message": "",
+      "metadata": {
+        "model_size": "tiny",
+        "language": "en",
+        "language_probability": 0.9947156310081482,
+        "segments_count": 148
+      }
+    },
+    {
+      "model_name": "whisper-base-corrected",
+      "status": "SUCCESS",
+      "adapter_type": "FasterWhisperAdapter",
+      "fallback_used": false,
+      "transcription": "Hey, nice to see you again.  You know, I saw that you left your number on the table, after you left.  And I was thinking, oh, this guy actually thinks he has a chance with me.  You know, I can't really blame you since I was flirting with you all night.  You really should know.  The only reason I flirt with guys like you is to get a big fat tip.  And then I opened my book at the end of the night.  And I see you only left me five bucks.  You think I show off my body like this just to, you know, like, have fun.  No, I want your money.  Can't you get that into your big fat head?  So, you know, I was sitting at home thinking, what am I going to do about this?  I need your money.  That's why I work at Hooters.  That's why I flirt with guys like you all day.  I need more than five bucks to pay the rent.  So, since you left your number, I knew you'd have no problem with me coming over to your house.  And I thought, I can just tease the shit out of you until I get what I know I rightfully deserve.  I think you can handle it, loser.  You only have one chance to say no.  Ready?  Set.  Go.  I swear, boys like you are so stupid.  You think you can resist this again?  You think I can't get more cash out of you, huh?  I know you come into Hooters all the time looking for hot girls like me, right?  And I know you've been watching me hoping that I be your waitress.  And I finally was.  And how do you repay me?  Five bucks.  I can fix that.  You like that ass, don't you?  I caught you staring at it.  Why don't you get a closer look, loser?  Huh?  You want me to just smother you with my nice, tight ass?  Yeah, that's what you want, isn't it?  You like those Hooters shorts right in your fucking face?  You better use to it, loser.  Because all that money is going to be mine real soon.  I'm sure you're never going to walk into Hooters the same way ever again.  Are you?  Nope.  You're not going to be a cheapo anymore.  You're going to make sure you tip me and my friends real good on Chio.  Because you know that's what we deserve because we're hot.  And you're not.  So what do you think you like more, loser?  My nice ass or my big round Hooters?  Huh?  What do you think you like more, loser?  You like being teased by me?  You know, all that money is soon going to be mine.  And you're never, ever going to leave a $5 tip again, are you?  Nope.  And until you right now, you're not.  I swear, boys like you are so stupid.  You think you can resist this again?  You think I can't get more cash out of you, huh?  I know you come into Hooters all the time looking for hot girls like me, right?  And I know you've been watching me hoping that I be your waitress.  And I finally was.  And how do you repay me?  Five bucks.  I can fix that.  You like that ass, don't you?  I caught you staring at it.  Why don't you get a closer look, loser?  Huh?  You want me to just smother you with my nice, tight ass?  Yeah, that's what you want, isn't it?  You like those Hooters shorts right in your fucking face?  You better use to it, loser.  All that money is going to be mine real soon.  I'm sure you're never going to walk into Hooters the same way ever again, are you?  Nope.  You're not going to be a cheapo anymore.  You're going to make sure you tip me and my friends real good, aren't you?  Because you know that's what we deserve, because we're hot.  And you're not.  So what do you think you like more, loser?  My nice ass or my big round Hooters?  Huh?  What do you think you like more, loser?  You like being teased by me?  You know, all that money is soon going to be mine.  And you're never, ever going to leave a $5 tip again, are you?  Nope.  And until you right now, you're nuts.  You like these panties, too, don't you, loser?  Yeah?  I got you staring at my legs in them.  It's so easy to get all your money, loser.  I don't know why you tried to resist in the first place.  I bet you just let me $5 on purpose because you knew I'd show up demanding more, right?  Right, loser?  Yeah.  You and your loser friends come into Hooters all the time to stare at us.  And we know that we can get all your cash in a matter of minutes.  And I can guarantee you right now, loser.  It's not going to take long.  Let's see, what's this?  This is your checkbook.  You know, you probably shouldn't leave things like this out when you know I'm coming.  You didn't think I'd actually let you go, did you?  You didn't think I'd let you go that easy.  Did you, loser?  How much do you think I should make this check out for?  Let's see, what your bill was $20.  So, technically, you left more than 20%, but see, the thing is,  is when you go into a place like Hooters and you have hackers like me serving you,  you should know that we demand a lot more than 20% retard.  You think I start with you all night for fun?  You don't think that I go and talk to all my friends about what a loser and how pathetic you are?  Well, guess what retard a do?  And all my friends and I talked about you last night, and they all agreed that this is exactly what I should do.  I should call you up, get you to invite me to your place, and rape your checkbook.  You never thought this would happen, did you?  Well, guess what, loser? It's happening right now.  You don't think you're gonna say no, are you?  No? No is not in your bill capillary.  Is it, loser?  You know, you're just really fucking stupid for even inviting me over.  You think a hot girl like this wants to be with a loser like you?  Please.  So, I have to check over it now, but how much should I make it out for?  Looks like you make pretty good money.  You have a nice suit on, looks like you just came from work.  I just like to see how much I can get out of my customers.  Maybe if I shove my ass in your face a bit more, I can get even more.  Ha, loser? Huh?  You know what I want to do?  I want to smother your face with my perfect ass, and then see if you say no to me.  Guess guess what, loser? I know you can't.  You know what I want you to do? I want you to stick your nose right in there.  Yeah, you like that, don't you?  You know, that's as close as you're gonna get to my ass, right?  Just shove your face right in my ass.  So, how much is that gonna be, loser?  300, 400, 500.  Well, that was easy.  Wasn't it, loser?  Now, I know what you need.  How about, I let you jerk off, you ready me?  And while I finish writing this check to myself, you can jack off.  So, I'm gonna let you count down, okay?  And as soon as I finish writing this check, you better come.  Otherwise, that's it, and you're shit out of luck, loser.  So, I'm writing in 500.  Better be jacking off.  5, 100, almost there, loser?  I don't have time to hold your hand.  I think you got about 10 more seconds, loser.  10, 9, 8, 7, 6, 5, 4, 3, 2, 1.  Now, all you gotta do is sign right there, loser.  I'm waiting.  Good boy.  I'm sure I'll be seeing you at who there's real soon.  Bye, loser.",
+      "processing_time": 33.07580089569092,
+      "total_time": 33.30565166473389,
+      "word_count": 1381,
+      "char_count": 6930,
+      "confidence_available": true,
+      "error_message": "",
+      "metadata": {
+        "model_size": "base",
+        "language": "en",
+        "language_probability": 0.9966138005256653,
+        "segments_count": 160
+      }
+    },
+    {
+      "model_name": "whisper-small-corrected",
+      "status": "SUCCESS",
+      "adapter_type": "FasterWhisperAdapter",
+      "fallback_used": false,
+      "transcription": "Hey! Nice to see you again. You know, I saw that you left your number on the table after  you left and I was thinking, aw, this guy actually thinks he has a chance with me. You know, I  can't really blame you since I was flirting with you all night. You really should know.  The only reason I flirt with guys like you is to get a big, fat tip. And then I opened  my book at the end of the night and I see you only left me five bucks. You think I  show off my body like this just to, you know, like, have fun? No. I want your money.  Can't you get that into your big, fat head? So, you know, I was sitting at home  thinking, what am I gonna do about this? Like, I need your money. That's why I  work at Hooters. That's why I flirt with guys like you all day. I need more than  five bucks to pay the rent. So, since you left your number, I knew you'd have no  problem with me coming over to your house. And I thought, I can just tease the  shit out of you until I get what I know I rightfully deserve. I think you can  handle it, loser. You only have one chance to say no. Ready? Set? Go. I swear, boys, like  you are so stupid. You think you can resist this again? You think I can't get  more cash out of you, huh? I know you come into Hooters all the time looking for  hot girls like me, right? And I know you've been watching me hoping that I'd be  your waitress. And I finally was. And how do you repay me? Five bucks? I can fix  that. You like that ass, don't you? I caught you staring at it. Why don't you get a  closer look, loser? Huh? Want me to just smother you with my nice, tight ass? Yeah,  that's what you want, isn't it? You like those Hooters shorts right in your fucking  face? You better get used to it, loser, because all that money is gonna be mine real soon.  I'm sure you're never gonna walk into Hooters the same way ever again, are you?  Nope. You're not gonna be a cheapo anymore. You're gonna make sure you tip me and  my friends real good, aren't you? Because you know that's what we deserve because  we're hot. And you're not. So what do you think you like more, loser? My nice ass? Or my  big round Hooters? Huh? What do you think you like more, loser? You like being teased by me?  You know, all that money is soon gonna be mine. And you're never ever gonna leave a  $5 tip again, are you? Nope. I can tell you right now, you're nuts. I swear boys, like  you are so stupid. You think you can resist this again? You think I can't get  more cash out of you, huh? I know you come into Hooters all the time looking  for hot girls like me, right? And I know you've been watching me hoping that I'd be  your waitress. And I finally was. And how do you repay me? $5? I can fix that. You  like that ass, don't you? I cut you staring at it. Why don't you get a  closer look, loser? Huh? Want me to just smother you with my nice, tight ass? Yeah,  that's what you want, isn't it? You like those Hooters shorts right in your  fucking face? You better get used to it, loser, because all that money is gonna  be mine real soon. I'm sure you're never gonna walk into Hooters the same way ever  again, are you? Nope. You're not gonna be a cheapo anymore. You're gonna make sure  you tip me and my friends real good, aren't you? Because you know that's what  we deserve because we're hot. And you're not. So what do you think you like more,  loser? My nice ass or my big round Hooters? Huh? What do you think you like more,  loser? You like being teased by me? You know, all that money soon is gonna be mine and  you're never ever gonna leave a $5 tip again, are you? Nope. And until you right  now, you're nuts. You like these pantyhose too, don't you, loser? Yeah? I got you staring  at my legs and them. So easy to get all your money, loser. I don't know why you  tried to resist in the first place. I bet you just let me five bucks on purpose  because you knew I'd show up to Mandy Moore, right? Right, loser? Yeah, you and your  loser friends come into Hooters all the time to stare at us and we know that we  can get all your cash in a matter of minutes. And I can guarantee you right now,  loser, it's not gonna take long. Let's see, what's this? This is your checkbook? You know,  you probably shouldn't leave things like this out when you know I'm coming. You  didn't think I'd actually let you go, did you? You didn't think I'd let you go that  easy, did you, loser? How much do you think I should make this check out for?  Let's see, well, your bill was 20 bucks. So technically, you left more than 20%,  but see, the thing is, is when you go into a place like Hooters and you have  hot girls like me serving you, you should know that we demand a lot more than 20%  retard. You think I flirt with you all night for fun? You don't think that I  go and talk to all my friends about what a loser and how pathetic you are? Well,  guess what retard I do? And all my friends and I talked about you last night and  they all agreed that this is exactly what I should do. I should call you up, get  you to invite me to your place and rape your checkbook. You never thought this  would happen, did you? Well, guess what, loser? It's happening right now. You don't  think you're gonna say no, are you? No? No is not in your vocabulary. Is it loser?  You know, you're just really fucking stupid for even inviting me over. You think a  hot girl like this wants to be with a loser like you? Please. So I have the  check all written out, but how much should I make it out for? Looks like you make  pretty good money. You have a nice suit on. Looks like you just came from work. I  always like to see how much I can get out of my customers. Maybe if I shove my  ass in your face a bit more, I can get even more. Ha, loser? Huh? You know what I  want to do? I want to smother your face with my perfect ass and then see you say  no to me. Because guess what, loser? I know you can't. You know what I want you to do?  I want you to stick your nose right in there. Yeah, you like that, don't you? You  know, that's as close as you're gonna get to my ass, right? Just shove your face  right in my ass. So how much is that gonna be, loser? 300? 400? 500? Well, that was easy. Wasn't it, loser?  Now I know what you need. How about I let you jerk off in front of me, and while I  finish writing this check to myself, you can jack off. So I'm gonna let you count  down, okay? And as soon as I finish writing this check, you better come.  Otherwise that's it, and you're shit out of luck, loser. So I'm writing in 500.  Better be jacking off.  Almost there, loser. I don't have time to hold your hand. I think you got about ten  more seconds, loser. Ten, nine, eight, seven, six, five, four, three, two, one. Now all you  gotta do is sign right there, loser. I'm waiting. Good boy. I'm sure I'll be seeing you at Hooters real soon. Bye, loser.",
+      "processing_time": 97.10144281387329,
+      "total_time": 97.51622700691223,
+      "word_count": 1368,
+      "char_count": 6841,
+      "confidence_available": true,
+      "error_message": "",
+      "metadata": {
+        "model_size": "small",
+        "language": "en",
+        "language_probability": 0.9974330067634583,
+        "segments_count": 82
+      }
+    },
+    {
+      "model_name": "whisper-medium-corrected",
+      "status": "SUCCESS",
+      "adapter_type": "FasterWhisperAdapter",
+      "fallback_used": false,
+      "transcription": "Hey, nice to see you again. You know, I saw that you left your number on the table after you left.  And I was thinking, oh, this guy actually thinks he has a chance with me.  You know, I can't really blame you since I was flirting with you all night.  You really should know the only reason I flirt with guys like you is to get a big, fat tip.  And then I open my book at the end of the night and I see you only left me five bucks.  You think I show off my body like this just to, you know, like have fun? No.  I want your money.  Can't you get that into your big, fat head?  So, you know, I was sitting at home thinking, what am I going to do about this?  I need your money. That's why I work at Hooters. That's why I flirt with guys like you all day.  I need more than five bucks to pay the rent.  So since you left your number, I knew you'd have no problem with me coming over to your house.  And I thought I can just tease the shit out of you until I get what I know I rightfully deserve.  You think you can handle it, loser? You only have one chance to say no.  Ready, set, go.  I swear, boys like you are so stupid. You think you can resist this again?  You think I can't get more cash out of you, huh?  I know you come into Hooters all the time looking for hot girls like me, right?  And I know you've been watching me hoping that I'd be your waitress.  And I finally was. And how do you repay me? Five bucks?  I can fix that.  You like that ass, don't you? I caught you staring at it.  Why don't you get a closer look, loser? Huh?  You want me to just smother you with my nice, tight ass?  Yeah, that's what you want, isn't it? You like those Hooters shorts right in your fucking face?  You better get used to it, loser, because all that money is going to be mine real soon.  I'm sure you're never going to walk into Hooters the same way ever again, are you?  Nope. You're not going to be a cheapo anymore. You're going to make sure you tip me and my friends real good, aren't you?  I know that's what we deserve, because we're hot. And you're not.  So what do you think you like more, loser? My nice ass or my big, round Hooters?  Huh? What do you think you like more, loser?  You like being teased by me? You know, all that money soon is going to be mine.  And you're never, ever going to leave a $5 tip again, are you?  Nope. I can tell you right now, you're nuts.  I swear, boys like you are so stupid. You think you can resist this again?  You think I can't get more cash out of you, huh?  I know you come into Hooters all the time looking for hot girls like me, right?  And I know you've been watching me hoping that I'd be your waitress. And I finally was.  And how do you repay me? Five bucks?  I can fix that. You like that ass, don't you? I caught you staring at it.  Why don't you get a closer look, loser? Huh?  You want me to just smother you with my nice, tight ass?  Yeah, that's what you want, isn't it? You like those Hooters shorts right in your fucking face?  You better get used to it, loser. Cause all that money is going to be mine real soon.  I'm sure you're never going to walk into Hooters the same way ever again, are you?  Nope. You're not going to be a cheapo anymore. You're going to make sure you tip me and my friends real good, aren't you?  Cause you know that's what we deserve. Cause we're hot. And you're not.  So what do you think you like more, loser? My nice ass or my big, round Hooters?  Huh? What do you think you like more, loser? You like being teased by me?  You know, all that money soon is going to be mine. And you're never, ever going to leave a five dollar tip again, are you?  Nope. I can tell you right now, you're nuts.  You like these pantyhose too, don't you, loser? Yeah? I caught you staring at my legs in them.  So easy to get all your money, loser. I don't know why you tried to resist in the first place.  I bet you just left me five bucks on purpose cause you knew I'd show up demanding more, right? Right, loser?  Yeah. You and your loser friends come into Hooters all the time to stare at us. And we know that we can get all your cash in a matter of minutes.  And I can guarantee you right now, loser, it's not going to take long.  Let's see, what's this? Is this your checkbook? You know, you probably shouldn't leave things like this out when you know I'm coming.  You didn't think I'd actually let you go, did you? You didn't think I'd let you go that easy, did you, loser?  How much do you think I should make this check out for?  Let's see, well your bill was 20 bucks. So technically you left more than 20 percent.  But, see the thing is, is when you go into a place like Hooters and you have hot girls like me serving you, you should know that we demand a lot more than 20 percent, retard.  You think I flirt with you all night for fun?  You don't think that I go and talk to all my friends about what a loser and how pathetic you are?  Well guess what retard, I do.  And all my friends and I talked about you last night and they all agreed that this is exactly what I should do.  I should call you up, get you to invite me to your place and rape your checkbook.  You never thought this would happen, did you?  Well guess what loser, it's happening right now.  You don't think you're going to say no, are you?  No, no is not in your vocabulary.  Is it loser?  You know, you're just really fucking stupid for even inviting me over.  You think a hot girl like this wants to be with a loser like you?  Please.  So I have the check all written out but how much should I make it out for?  Looks like you make pretty good money, you have a nice suit on, looks like you just came from work.  I just like to see how much I can get out of my customers.  Maybe if I shove my ass in your face a bit more, I can get even more.  Huh loser? Huh?  You know what I want to do?  I want to smother your face with my perfect ass and then see you say no to me.  Because guess what loser, I know you can't.  You know what I want you to do?  I want you to stick your nose right in there.  Yeah you like that don't you?  You know that's as close as you're going to get to my ass right?  Just shove your face right in my ass.  So how much is that going to be loser?  Three hundred? Four hundred?  Not hundred.  Well that was easy, wasn't it loser?  Now I know what you need.  How about I let you jerk off in front of me?  And while I finish writing this check to myself, you can jerk off.  So I'm going to let you count down, okay?  And as soon as I finish writing this check, you better come.  Otherwise that's it and you're shit out of luck loser.  So I'm writing in five hundred.  Better be jacking off.  Five hundred.  Almost there loser.  I don't have time to hold your hand.  I think you've got about ten more seconds loser.  Ten, nine, eight, seven, six, five, four, three, two, one.  Now all you've got to do is sign.  Right there loser.  I'm waiting.  Good boy.  I'm sure I'll be seeing you at Hooters real soon.  Bye loser.",
+      "processing_time": 274.7089891433716,
+      "total_time": 275.77824997901917,
+      "word_count": 1397,
+      "char_count": 6986,
+      "confidence_available": true,
+      "error_message": "",
+      "metadata": {
+        "model_size": "medium",
+        "language": "en",
+        "language_probability": 0.9976200461387634,
+        "segments_count": 110
+      }
+    },
+    {
+      "model_name": "whisper-large-corrected",
+      "status": "SUCCESS",
+      "adapter_type": "FasterWhisperAdapter",
+      "fallback_used": false,
+      "transcription": "hey nice to see you again you know I saw that you left your number on the table after you left and I  was thinking oh this guy actually thinks he has a chance with me you know I can't really blame you  since I was flirting with you all night you really should know the only reason I flirt with guys like  you is to get a big fat tip and then I opened my book at the end of the night and I see you only  left me five bucks you think I show off my body like this just to you know like have fun no I want  your money can't you get that into your big fat head so you know sitting at home thinking what  am I gonna do about this like I'm  I need your money that's why I work at Hooters that's why I flirt with guys like you all day I  need more than five bucks to pay the rent so since you left your number I knew you'd have  no problem with me coming over to your house and I thought I can just tease the shit out  of you until I get what I know I rightfully deserve I think you can handle it loser  you only have one chance to say no ready set go I swear boys like you are so stupid you think you  can resist this again you think I can't get more cash out of you huh I know you come into Hooters all  the time looking for some hooters yeah this way hooters I know you come into Hooters all the time looking for hooters for what?  for hot girls like me, right?  And I know you've been watching me  hoping that I'd be your waitress,  and I finally was.  And how do you repay me?  Five bucks?  I can fix that.  You like that ass, don't you?  I caught you staring at it.  Why don't you get a closer look, loser?  Huh?  You want me to just smother you with my nice, tight ass?  Yeah, that's what you want, isn't it?  You like those hooter shorts right in your fucking face?  You better get used to it, loser.  Because all that money is going to be mine.  And real soon.  I'm sure you're never going to walk into Hooters  the same way ever again, are you?  Nope.  You're not going to be a cheapo anymore.  You're going to make sure you tip me and my friends  real good, aren't you?  Because you know that's what we deserve.  Because we're hot.  And you're not.  Uh, so what do you think you like more, loser?  My nice ass, or my big, round Hooters?  Huh?  What do you think you like more, loser?  You like being teased by me?  You know, all that money soon is going to be mine.  And you're never, ever going to leave a $5 tip again, are you?  Nope.  I can tell you right now, you're nuts.  I swear, boys like you are so stupid.  You think you can resist this again?  You think I can't get more cash out of you, huh?  I know you come into Hooters all the time,  looking for hot girls like me, right?  And I know you've been looking for hot girls like me, right?  And I know you've been looking for hot girls like me, right?  And I know you've been watching me, hoping that I'd be your waitress.  And I finally was.  And how do you repay me?  Five bucks?  I can fix that.  You like that ass, don't you?  I caught you staring at it.  Why don't you get a closer look, loser?  Huh?  You want me to just smother you with my nice, tight ass?  Yeah, that's what you want, isn't it?  You like those Hooters shorts right in your fucking face?  You better get used to it, loser.  Because all that money is going to be mine real soon.  I'm sure you're never going to walk into Hooters the same way ever again, are you?  Nope.  You're not going to be a cheapo anymore.  You're going to make sure you tip me and my friends real good, aren't you?  Because you know that's what we deserve.  Because we're hot.  And you're not.  So what do you think you like more, loser?  My nice ass?  Or my big, round Hooters?  Huh?  What do you think you like more, loser?  You like being teased by me?  You know, all that money soon is going to be mine.  And you're never, ever going to leave a $5 tip again.  Are you?  Nope.  I can tell you right now, you're nuts.  You like these pantyhose too, don't you, loser?  Yeah?  I caught you staring at my legs in them.  It's so easy to get all your money, loser.  I know.  I don't know why you tried to resist in the first place.  I bet you just let me $5 on purpose because you knew I'd show up demanding more, right?  Right, loser?  Yeah.  You and your loser friends come into Hooters all the time to stare at us.  And we know that we can get all your cash in a matter of minutes.  And I can guarantee you right now, loser, it's not going to take long.  Let's see.  What's this?  Is this your checkbook?  You know, you probably shouldn't leave things like this out when you know I'm coming.  You didn't think I'd actually let you go, did you?  You didn't think I'd let you go that easy, did you, loser?  How much do you think I should make this check out for?  Hmm?  Let's see.  Well, your bill was $20.  So, technically, you left more than 20%.  But...  See, the thing is...  is when you go into a place like Hooters and you have hot girls like me serving you,  you should know that we demand a lot more than 20%, retard.  You think I flirt with you all night for fun?  You don't think that I go and talk to all my friends about what a loser and how pathetic you are?  Well, guess what, retard, I do.  And all my friends and I talked about you last night,  and they all agreed that this is exactly what I should do.  I should call you up, get you to invite me to your place,  and rape your checkbook.  You never thought this would happen, did you?  Mm-mm.  Well, guess what, loser?  It's happening right now.  Mm-mm.  Mm-mm.  Mm-mm.  Mm-mm.  You don't think you're gonna say no, are you?  No?  No is not in your vocabulary.  Is it, loser?  You know, you're just really fucking stupid for even inviting me over.  You think a hot girl like this wants to be with a loser like you?  Please.  So I have the check all written out,  but how much should I make it out for?  Looks like you make pretty good money.  You have a nice suit on.  Looks like you just came from work.  I always like to see how much I can get out of my customers.  Maybe if I shove my ass in your face a bit more,  I can get even more.  Huh, loser?  Huh?  You know what I want to do?  I want to smother your face  with my perfect ass,  and then see you say no to me.  Because guess what, loser?  I know you can't.  You know what I want you to do?  I want you to stick your nose right in there.  Yeah, you like that, don't you?  Yeah, you like that, don't you?  You know that's as close as you're gonna get to my ass, right?  Just shove your face right in my ass.  So how much is that gonna be, loser?  Three hundred?  Four hundred?  Five hundred?  Well that was easy.  Wasn't it, loser?  Now I know what you need.  How about I let you jerk off in front of me  and while I finish writing this check to myself,  you  can jack off.  So I'm gonna let you count down, okay?  And as soon as I finish writing this check,  you better come, otherwise that's it,  and you're shit out of luck, loser.  So I'm writing in five hundred.  Better be jacking off.  Five hundred.  Almost there, loser.  I don't have time to hold your hand.  I think you got about ten more seconds, loser.  Ten, nine, eight, seven, six,  five,  four,  three,  two,  one.  Now all you gotta do is sign.  Right there, loser.  I'm waiting.  Good boy.  I'm sure I'll be seeing you at Hooters real soon.  Bye, loser.",
+      "processing_time": 840.343421459198,
+      "total_time": 896.197927236557,
+      "word_count": 1449,
+      "char_count": 7351,
+      "confidence_available": true,
+      "error_message": "",
+      "metadata": {
+        "model_size": "large",
+        "language": "en",
+        "language_probability": 0.9987838864326477,
+        "segments_count": 192
+      }
+    },
+    {
+      "model_name": "olmo-whisper-base-problematic",
+      "status": "SUCCESS",
+      "adapter_type": "OLMoASRAdapter",
+      "fallback_used": false,
+      "transcription": "Hey, nice to see you again. You know, I saw that you left your number on the table after you left. And I was thinking, oh, this guy actually thinks he has a chance with me. You know, I can't really blame you since I was flirting with you all night. You really should know. The only reason I flirt with guys like you is to get a big fat tip. And then I opened my book at the end of the night.",
+      "processing_time": 5.664464950561523,
+      "total_time": 6.991140365600586,
+      "word_count": 83,
+      "char_count": 391,
+      "confidence_available": false,
+      "error_message": "",
+      "metadata": {
+        "model_name": "openai/whisper-base",
+        "device": "cpu",
+        "audio_duration": 783.6270625,
+        "sample_rate": 16000
+      }
+    }
+  ],
+  "comparison_analysis": {
+    "reference_model": "whisper-large-corrected",
+    "reference_word_count": 1449,
+    "reference_adapter": "FasterWhisperAdapter",
+    "comparisons": [
+      {
+        "model": "canary-qwen-2.5b-real",
+        "word_overlap_with_reference": 0.12903225806451613,
+        "word_count": 83,
+        "length_ratio": 0.05728088336783989,
+        "unique_words_count": 6,
+        "missing_words_count": 351,
+        "adapter_type": "CanaryQwenAdapter",
+        "fallback_used": false
+      },
+      {
+        "model": "faster-whisper-tiny",
+        "word_overlap_with_reference": 0.8362282878411911,
+        "word_count": 1390,
+        "length_ratio": 0.9592822636300897,
+        "unique_words_count": 71,
+        "missing_words_count": 66,
+        "adapter_type": "FasterWhisperAdapter",
+        "fallback_used": false
+      },
+      {
+        "model": "faster-whisper-base",
+        "word_overlap_with_reference": 0.8461538461538461,
+        "word_count": 1381,
+        "length_ratio": 0.9530710835058661,
+        "unique_words_count": 56,
+        "missing_words_count": 62,
+        "adapter_type": "FasterWhisperAdapter",
+        "fallback_used": false
+      },
+      {
+        "model": "faster-whisper-small",
+        "word_overlap_with_reference": 0.8933002481389578,
+        "word_count": 1368,
+        "length_ratio": 0.9440993788819876,
+        "unique_words_count": 36,
+        "missing_words_count": 43,
+        "adapter_type": "FasterWhisperAdapter",
+        "fallback_used": false
+      },
+      {
+        "model": "faster-whisper-medium",
+        "word_overlap_with_reference": 0.8734491315136477,
+        "word_count": 1397,
+        "length_ratio": 0.9641131815044859,
+        "unique_words_count": 34,
+        "missing_words_count": 51,
+        "adapter_type": "FasterWhisperAdapter",
+        "fallback_used": false
+      },
+      {
+        "model": "whisper-tiny-corrected",
+        "word_overlap_with_reference": 0.8362282878411911,
+        "word_count": 1390,
+        "length_ratio": 0.9592822636300897,
+        "unique_words_count": 71,
+        "missing_words_count": 66,
+        "adapter_type": "FasterWhisperAdapter",
+        "fallback_used": false
+      },
+      {
+        "model": "whisper-base-corrected",
+        "word_overlap_with_reference": 0.8461538461538461,
+        "word_count": 1381,
+        "length_ratio": 0.9530710835058661,
+        "unique_words_count": 56,
+        "missing_words_count": 62,
+        "adapter_type": "FasterWhisperAdapter",
+        "fallback_used": false
+      },
+      {
+        "model": "whisper-small-corrected",
+        "word_overlap_with_reference": 0.8933002481389578,
+        "word_count": 1368,
+        "length_ratio": 0.9440993788819876,
+        "unique_words_count": 36,
+        "missing_words_count": 43,
+        "adapter_type": "FasterWhisperAdapter",
+        "fallback_used": false
+      },
+      {
+        "model": "whisper-medium-corrected",
+        "word_overlap_with_reference": 0.8734491315136477,
+        "word_count": 1397,
+        "length_ratio": 0.9641131815044859,
+        "unique_words_count": 34,
+        "missing_words_count": 51,
+        "adapter_type": "FasterWhisperAdapter",
+        "fallback_used": false
+      },
+      {
+        "model": "olmo-whisper-base-problematic",
+        "word_overlap_with_reference": 0.12903225806451613,
+        "word_count": 83,
+        "length_ratio": 0.05728088336783989,
+        "unique_words_count": 6,
+        "missing_words_count": 351,
+        "adapter_type": "OLMoASRAdapter",
+        "fallback_used": false
+      }
+    ]
+  }
+}

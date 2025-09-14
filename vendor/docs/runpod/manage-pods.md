@@ -1,0 +1,305 @@
+# Manage Pods
+
+> Learn how to create, start, stop, and terminate Pods using the Runpod console or CLI.
+
+## Before you begin
+
+If you want to manage Pods using the Runpod CLI, you'll need to [install Runpod CLI](/runpodctl/install-runpodctl), and set your [API key](/get-started/api-keys) in the configuration.
+
+Run the following command, replacing `RUNPOD_API_KEY` with your API key:
+
+```sh
+runpodctl config --apiKey RUNPOD_API_KEY
+```
+
+## Deploy a Pod
+
+<Tabs>
+  <Tab title="Web">
+    To create a Pod using the Runpod console:
+
+    1. Open the [Pods page](https://www.console.runpod.io/pods) in the Runpod console and click the **Deploy** button.
+    2. (Optional) Specify a [network volume](/pods/storage/create-network-volumes) if you need to share data between multiple Pods, or to save data for later use.
+    3. Select **GPU** or **CPU** using the buttons in the top-left corner of the window, and follow the configuration steps below.
+
+    GPU configuration:
+
+    1. Select a graphics card (e.g., A40, RTX 4090, H100 SXM).
+    2. Give your Pod a name using the **Pod Name** field.
+    3. (Optional) Choose a **Pod Template** such as **Runpod Pytorch 2.1** or **Runpod Stable Diffusion**.
+    4. Specify your **GPU count** if you need multiple GPUs.
+    5. Click **Deploy On-Demand** to deploy and start your Pod.
+
+    <Warning>
+      **CUDA Version Compatibility**
+
+      When using templates (especially community templates like `runpod/pytorch:2.8.0-py3.11-cuda12.8.1-cudnn-devel-ubuntu22.04`), ensure the host machine's CUDA driver version matches or exceeds the template's requirements.
+
+      If you encounter errors like "OCI runtime create failed" or "unsatisfied condition: cuda>=X.X", you need to filter for compatible machines:
+
+      1. Click **Additional filters** in the Pod creation interface
+      2. Click **CUDA Versions** filter dropdown
+      3. Select a CUDA version that matches or exceeds your template's requirements (e.g., if the template requires CUDA 12.8, select 12.8 or higher)
+
+      <Frame>
+        <img src="https://mintcdn.com/runpod-b18f5ded/QcR4sHy3480YmZ2d/images/additional-filter-cuda-version.png?fit=max&auto=format&n=QcR4sHy3480YmZ2d&q=85&s=6fca7dd9bd02ec11529f9c1d362a8930" width="2452" height="372" data-path="images/additional-filter-cuda-version.png" srcset="https://mintcdn.com/runpod-b18f5ded/QcR4sHy3480YmZ2d/images/additional-filter-cuda-version.png?w=280&fit=max&auto=format&n=QcR4sHy3480YmZ2d&q=85&s=8cb0ad5771e3702804706fec933e4f8a 280w, https://mintcdn.com/runpod-b18f5ded/QcR4sHy3480YmZ2d/images/additional-filter-cuda-version.png?w=560&fit=max&auto=format&n=QcR4sHy3480YmZ2d&q=85&s=020442344d64d439aa6ae4f0d0169a87 560w, https://mintcdn.com/runpod-b18f5ded/QcR4sHy3480YmZ2d/images/additional-filter-cuda-version.png?w=840&fit=max&auto=format&n=QcR4sHy3480YmZ2d&q=85&s=882cf183902546e44d27125073b29114 840w, https://mintcdn.com/runpod-b18f5ded/QcR4sHy3480YmZ2d/images/additional-filter-cuda-version.png?w=1100&fit=max&auto=format&n=QcR4sHy3480YmZ2d&q=85&s=85c18039a79607887cce91748c6e6e80 1100w, https://mintcdn.com/runpod-b18f5ded/QcR4sHy3480YmZ2d/images/additional-filter-cuda-version.png?w=1650&fit=max&auto=format&n=QcR4sHy3480YmZ2d&q=85&s=6f8dd2bcf97ffb8738fb0fe1b77499a6 1650w, https://mintcdn.com/runpod-b18f5ded/QcR4sHy3480YmZ2d/images/additional-filter-cuda-version.png?w=2500&fit=max&auto=format&n=QcR4sHy3480YmZ2d&q=85&s=1eac7d06006225054ce918c5dfc58ea0 2500w" data-optimize="true" data-opv="2" />
+      </Frame>
+
+      **Note:** Check the template name or documentation for CUDA requirements. When in doubt, select the latest CUDA version as newer drivers are backward compatible.
+    </Warning>
+
+    CPU configuration:
+
+    1. Select a **CPU type** (e.g., CPU3/CPU5, Compute Optimized, General Purpose, Memory-Optimized).
+    2. Specify the number of CPUs and quantity of RAM for your Pod by selecting an **Instance Configuration**.
+    3. Give your Pod a name using the **Pod Name** field.
+    4. Click **Deploy On-Demand** to deploy and start your Pod.
+  </Tab>
+
+  <Tab title="Command line">
+    To create a Pod using the CLI, use the `runpodctl create pods` command:
+
+    ```sh
+    runpodctl create pods \
+      --name hello-world \
+      --gpuType "NVIDIA A40" \
+      --imageName "runpod/pytorch:3.10-2.0.0-117" \
+      --containerDiskSize 10 \
+      --volumeSize 100 \
+      --args "bash -c 'mkdir /testdir1 && /start.sh'"
+    ```
+  </Tab>
+
+  <Tab title="REST API">
+    To create a Pod using the REST API, send a POST request to the `/pods` endpoint:
+
+    ```bash
+    curl --request POST \
+      --url https://rest.runpod.io/v1/pods \
+      --header 'Authorization: Bearer RUNPOD_API_KEY' \
+      --header 'Content-Type: application/json' \
+      --data '{
+      "allowedCudaVersions": [
+        "12.8"
+      ],
+      "cloudType": "SECURE",
+      "computeType": "GPU",
+      "containerDiskInGb": 50,
+      "containerRegistryAuthId": "clzdaifot0001l90809257ynb",
+      "countryCodes": [
+        "US"
+      ],
+      "cpuFlavorIds": [
+        "cpu3c"
+      ],
+      "cpuFlavorPriority": "availability",
+      "dataCenterIds": [
+        "EU-RO-1",
+        "CA-MTL-1"
+      ],
+      "dataCenterPriority": "availability",
+      "dockerEntrypoint": [],
+      "dockerStartCmd": [],
+      "env": {
+        "ENV_VAR": "value"
+      },
+      "globalNetworking": true,
+      "gpuCount": 1,
+      "gpuTypeIds": [
+        "NVIDIA GeForce RTX 4090"
+      ],
+      "gpuTypePriority": "availability",
+      "imageName": "runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04",
+      "interruptible": false,
+      "locked": false,
+      "minDiskBandwidthMBps": 123,
+      "minDownloadMbps": 123,
+      "minRAMPerGPU": 8,
+      "name": "my-pod",
+      "ports": [
+        "8888/http",
+        "22/tcp"
+      ],
+      "supportPublicIp": true,
+      "vcpuCount": 2,
+      "volumeInGb": 20,
+      "volumeMountPath": "/workspace"
+    }'
+    ```
+
+    For complete API documentation and parameter details, see the [Pod API reference](/api-reference/pods/POST/pods).
+  </Tab>
+</Tabs>
+
+### Custom templates
+
+Runpod supports custom [Pod templates](/pods/templates/overview) that let you define your environment using a Dockerfile.
+
+With custom templates, you can:
+
+* Install specific dependencies and packages.
+* Configure your development environment.
+* Create [portable Docker images](/tutorials/introduction/containers/overview) that work consistently across deployments.
+* Share environments with team members for collaborative work.
+
+## Stop a Pod
+
+<Tip>
+  If your Pod has a [network volume](/pods/storage/create-network-volumes) attached, it cannot be stopped, only terminated. When you terminate the Pod, data in the `/workspace` directory will be preserved in the network volume, and you can regain access by deploying a new Pod with the same network volume attached.
+</Tip>
+
+When a Pod is stopped, data in the container volume is cleared, but data in the `/workspace` directory is preserved. To learn more about how Pod storage works, see [Storage overview](/pods/storage/types).
+
+By stopping a Pod you are effectively releasing the GPU on the machine, and you may be reallocated 0 GPUs when you start the Pod again. For more info, see the [FAQ](/references/faq#why-do-i-have-zero-gpus-assigned-to-my-pod%3F).
+
+<Warning>
+  After a Pod is stopped, you will still be charged for its [disk volume](/pods/storage/types#disk-volume) storage. If you don't need to retain your Pod environment, you should terminate it completely.
+</Warning>
+
+<Tabs>
+  <Tab title="Web">
+    To stop a Pod:
+
+    1. Open the [Pods page](https://www.console.runpod.io/pods).
+    2. Find the Pod you want to stop and expand it.
+    3. Click the **Stop button** (square icon).
+    4. Confirm by clicking the **Stop Pod** button.
+  </Tab>
+
+  <Tab title="Command line">
+    To stop a Pod, enter the following command.
+
+    ```sh
+    runpodctl stop pod $RUNPOD_POD_ID
+    ```
+
+    Example output:
+
+    ```sh
+    pod "gq9xijdra9hwyd" stopped
+    ```
+  </Tab>
+</Tabs>
+
+### Stop a Pod after a period of time
+
+You can also stop a Pod after a specified period of time. The examples below show how to use the CLI or [web terminal](/pods/connect-to-a-pod#web-terminal) to schedule a Pod to stop after 2 hours of runtime.
+
+<Tabs>
+  <Tab title="Command line">
+    Use the following command to stop a Pod after 2 hours:
+
+    ```sh
+    sleep 2h; runpodctl stop pod $RUNPOD_POD_ID &
+    ```
+
+    This command uses sleep to wait for 2 hours before executing the `runpodctl stop pod` command to stop the Pod. The `&` at the end runs the command in the background, allowing you to continue using the SSH session.
+  </Tab>
+
+  <Tab title="Web terminal">
+    To stop a Pod after 2 hours using the web terminal, enter:
+
+    ```sh
+    nohup bash -c "sleep 2h; runpodctl stop pod $RUNPOD_POD_ID" &
+    ```
+
+    `nohup` ensures the process continues running if you close the web terminal window.
+  </Tab>
+</Tabs>
+
+## Start a Pod
+
+Pods start as soon as they are created, but you can resume a Pod that has been stopped.
+
+<Tabs>
+  <Tab title="Web">
+    To start a Pod:
+
+    1. Open the [Pods page](https://www.console.runpod.io/pods).
+    2. Find the Pod you want to start and expand it.
+    3. Click the **Start** button (play icon).
+  </Tab>
+
+  <Tab title="Command line">
+    To start a single Pod, enter the command `runpodctl start pod`. You can pass the environment variable `RUNPOD_POD_ID` to identify each Pod.
+
+    ```sh
+    runpodctl start pod $RUNPOD_POD_ID
+    ```
+
+    Example output:
+
+    ```sh
+    pod "wu5ekmn69oh1xr" started with $0.290 / hr
+    ```
+  </Tab>
+</Tabs>
+
+## Terminate a Pod
+
+<Warning>
+  Terminating a Pod permanently deletes all associated data that isn't stored in a [network volume](/pods/storage/create-network-volumes). Be sure to export or download any data that you'll need to access again.
+</Warning>
+
+<Tabs>
+  <Tab title="Web">
+    To terminate a Pod:
+
+    1. Open the [Pods page](https://www.console.runpod.io/pods).
+    2. Find the Pod you want to terminate and expand it.
+    3. [Stop the Pod](#stop-a-pod) if it's running.
+    4. Click the **Terminate** button (trash icon).
+    5. Confirm by clicking the **Yes** button.
+  </Tab>
+
+  <Tab title="Command line">
+    To remove a single Pod, enter the following command.
+
+    ```sh
+    runpodctl remove pod $RUNPOD_POD_ID
+    ```
+
+    Example output:
+
+    ```sh
+    pod "wu5ekmn69oh1xr" removed
+    ```
+
+    You can also remove Pods in bulk. For example, the following command terminates up to 40 Pods with the name `my-bulk-task`.
+
+    ```sh
+    runpodctl remove pods my-bulk-task --podCount 40
+    ```
+
+    You can also terminate a Pod by name:
+
+    ```sh
+    runpodctl remove pods [POD_NAME]
+    ```
+  </Tab>
+</Tabs>
+
+## View Pod details
+
+You can find a list of all your Pods on the [Pods page](https://www.console.runpod.io/pods) of the web interface.
+
+If you're using the CLI, use the following command to list your Pods:
+
+```sh
+runpodctl get pod
+```
+
+Or use this command to get the details of a single Pod:
+
+```sh
+runpodctl get pod [POD_ID]
+```
+
+## Access logs
+
+Pods provide two types of logs to help you monitor and troubleshoot your workloads:
+
+* **Container logs** capture all output sent to your console standard output, including application logs and print statements.
+* **System logs** provide detailed information about your Pod's lifecycle, such as container creation, image download, extraction, startup, and shutdown events.
+
+To view your logs, open the [Pods page](https://www.console.runpod.io/pods), expand your Pod, and click the **Logs** button. This gives you real-time access to both container and system logs, making it easy to diagnose issues or monitor your Pod's activity.

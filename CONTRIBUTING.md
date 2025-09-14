@@ -134,6 +134,74 @@ def remove_emojis(text: str) -> str:
     return emoji_pattern.sub(r'', text)
 ```
 
+## Development Workflow
+
+### Getting Started
+
+1. **Setup Development Environment**:
+   ```bash
+   cp .env.example .env
+   # Edit .env with your API keys
+   ```
+
+2. **Choose Your Development Method**:
+
+   **Option A: VS Code Dev Container (Recommended)**
+   - Avoids conflicts with system packages and ensures reproducibility
+   - Open project in VS Code
+   - Click "Reopen in Container" when prompted
+   - Use integrated terminal for all commands
+
+   **Option B: Docker Compose (Manual)**
+   - Run `./start.sh` to start services
+   - Use `docker compose exec jupyterlab bash` to access container
+   - Requires more manual container management
+
+### Working Inside the Container
+
+Once inside the development environment (as `jovyan` user):
+
+```bash
+# Verify you're in the right place
+whoami                    # Should show: jovyan
+pwd                      # Should show: /home/jovyan/workspaces
+
+# Run ASR evaluation
+python asr_leaderboard.py
+
+# Run tests
+python run_tests.py
+
+# Create Jupyter notebooks
+# Files in notebooks/ directory are git-tracked
+```
+
+### Code Quality Standards
+
+- **No emojis** in code or documentation (organization policy)
+- **Security first** - Talisman will scan all commits
+- **Test your changes** - Run `python run_tests.py` before committing
+- **Follow Python conventions** - Use snake_case, type hints where appropriate
+
+### Dependency management & supply-chain risk
+
+We favor minimizing development and test-time dependencies to reduce
+operational and supply-chain risk. Prefer small, dependency-free patterns
+when practical (for example: prefer injecting a lightweight fake session
+or using `unittest.mock` over pulling an extra HTTP-mocking library).
+
+Keep third-party dependencies intentional:
+- Add test-only libraries only when they significantly simplify tests and
+    their benefit outweighs the maintenance cost.
+- Prefer small, well-maintained packages; pin versions in Dockerfiles and
+    CI where reproducibility matters.
+- Document why a non-trivial dependency was added, and keep it scoped to
+    development or testing (e.g., `requirements-dev.txt`) when appropriate.
+
+This guidance helps keep local development fast, reduces the chance of
+breaking builds when external packages change, and lowers risk during
+security audits or supply-chain incidents.
+
 ### Important Security Notes
 
 - **Never commit secrets** - Talisman will block commits containing sensitive information
@@ -162,5 +230,33 @@ TALISMAN_UNSAFE_SKIP=true git commit -m "Emergency commit"
 1. Add the file to `.talismanignore` 
 2. Or update `.talismanrc` with specific patterns
 3. Run `talisman --githook pre-commit --scan` to update checksums
+
+
+## RunPod / ComfyUI notebooks
+
+We keep small, runnable notebooks to help deploy ComfyUI test instances on RunPod using `runpodctl`.
+
+Files added:
+- `notebooks/runpod_deployments/deploy_comfy_3090.ipynb` — favorites a template and creates a deployment configured for a single 3090 GPU. The notebook defaults to a dry run; set `DRY_RUN = False` in the notebook to execute commands.
+- `notebooks/runpod_deployments/teardown_comfy_3090.ipynb` — safe teardown flow for the deployment created by the deploy notebook; defaults to dry run.
+
+Quick notes and assumptions:
+- `runpodctl` must be installed and you must be authenticated (run `runpodctl auth login`).
+- Template identifiers and exact subcommands can change between `runpodctl` versions. Edit `template_name` and `deployment_name` variables in the notebooks to match your account and templates.
+- The notebooks show example `runpodctl` commands and include a simple Python wrapper that prints commands when `DRY_RUN = True` and executes them when `DRY_RUN = False`.
+- The current example deployment name is `comfy-3090-test` and GPU target `3090`. Adjust for other GPU types or template variants as needed.
+
+Example (fish shell) — open the notebook in Jupyter and run cells; or run from a shell for a dry run:
+
+```fish
+# Dry-run favorite and create deployment (prints commands only)
+python - <<'PY'
+import json
+nb = 'notebooks/runpod_deployments/deploy_comfy_3090.ipynb'
+print('Open the notebook in Jupyter to run interactively; set DRY_RUN = False to execute')
+PY
+```
+
+If you need help updating the notebooks to match a new `runpodctl` CLI layout, open an issue or submit a small PR referencing this section.
 
 
