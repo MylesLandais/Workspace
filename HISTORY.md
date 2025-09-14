@@ -8,6 +8,26 @@ This file tracks the history of the project, including our drifting goals and ef
 - Created `HISTORY.md` to track project history.
 - Updated `readme.md` to reference `HISTORY.md`.
 
+### Intention for today
+
+- Pin `runpodctl` in the `Dockerfile` (or vendor the binary) to make devcontainer builds reproducible.
+- Stabilize the `Dockerfile` by installing required packages (`curl`, `ca-certificates`, `jq`) and verifying `runpodctl --version` inside the container.
+- Implement and test the `ComfyClient.submit_workflow` and `ComfyClient.poll_result` methods so notebooks can submit ComfyUI graphs and retrieve outputs.
+- Rename and finalize the demo notebook as `notebooks/comfy/comfy-GreenRoom.ipynb` and add a small headless test cell that validates the `ComfyClient` placeholder flow.
+- Add `.gitignore` entries for local notebook history files (e.g. `notebooks/runpod_deployments/.templates_history.json`) and document local-state behavior.
+
+### Progress (2025-09-14)
+
+- Renamed demo notebook to `notebooks/comfy/comfy-GreenRoom.ipynb`.
+- Implemented a small `RunpodClient` at `src/runpod/client.py` with dry-run support.
+- Added unit tests for the `RunpodClient` at `tests/test_runpod_client.py` and validated them inside the container.
+- Added `scripts/run_tests_in_container.fish` which runs `pytest` inside the `jupyterlab` container and set `PYTHONPATH` for test runs.
+- Added `notebooks/runpod_deployments/.templates_history.json` to `.gitignore` to keep local history untracked.
+- Updated `Dockerfile` to pin `runpodctl` to `v1.14.4` (with a dynamic fallback) and install it to `/usr/local/bin` for reproducible builds.
+- Fixed dry-run output behavior so tests can assert on returned DRY_RUN messages.
+
+
+
 ## January 6, 2025
 
 **ASR Model Evaluation System Implementation**

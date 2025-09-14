@@ -33,5 +33,22 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  # Optional heavy GPU service for vllm builds. Disabled by default; enable with
+  # `docker compose --profile vllm up --build vllm` when you want to build/run vllm.
+  vllm:
+    profiles: ["vllm"]
+    build:
+      context: .
+      dockerfile: Dockerfile.vllm
+    environment:
+      - CUDA_VISIBLE_DEVICES=0
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
 volumes:
   postgres_data: {}

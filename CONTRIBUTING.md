@@ -213,3 +213,31 @@ TALISMAN_UNSAFE_SKIP=true git commit -m "Emergency commit"
 3. Run `talisman --githook pre-commit --scan` to update checksums
 
 
+## RunPod / ComfyUI notebooks
+
+We keep small, runnable notebooks to help deploy ComfyUI test instances on RunPod using `runpodctl`.
+
+Files added:
+- `notebooks/runpod_deployments/deploy_comfy_3090.ipynb` — favorites a template and creates a deployment configured for a single 3090 GPU. The notebook defaults to a dry run; set `DRY_RUN = False` in the notebook to execute commands.
+- `notebooks/runpod_deployments/teardown_comfy_3090.ipynb` — safe teardown flow for the deployment created by the deploy notebook; defaults to dry run.
+
+Quick notes and assumptions:
+- `runpodctl` must be installed and you must be authenticated (run `runpodctl auth login`).
+- Template identifiers and exact subcommands can change between `runpodctl` versions. Edit `template_name` and `deployment_name` variables in the notebooks to match your account and templates.
+- The notebooks show example `runpodctl` commands and include a simple Python wrapper that prints commands when `DRY_RUN = True` and executes them when `DRY_RUN = False`.
+- The current example deployment name is `comfy-3090-test` and GPU target `3090`. Adjust for other GPU types or template variants as needed.
+
+Example (fish shell) — open the notebook in Jupyter and run cells; or run from a shell for a dry run:
+
+```fish
+# Dry-run favorite and create deployment (prints commands only)
+python - <<'PY'
+import json
+nb = 'notebooks/runpod_deployments/deploy_comfy_3090.ipynb'
+print('Open the notebook in Jupyter to run interactively; set DRY_RUN = False to execute')
+PY
+```
+
+If you need help updating the notebooks to match a new `runpodctl` CLI layout, open an issue or submit a small PR referencing this section.
+
+

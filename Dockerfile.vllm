@@ -1,0 +1,22 @@
+FROM nvidia/cuda:12.1-runtime-ubuntu22.04
+
+# Use a CUDA dev image if you need nvcc and toolkit during builds
+# You can change to a developer tag if required (e.g. :12.1-devel-ubuntu22.04)
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 \
+    python3-pip \
+    python3-dev \
+    build-essential \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /workspace
+
+COPY requirements_vllm.txt /tmp/requirements_vllm.txt
+
+RUN pip3 install --no-cache-dir --upgrade pip && \
+    pip3 install --no-cache-dir -r /tmp/requirements_vllm.txt
+
+CMD ["/bin/bash"]

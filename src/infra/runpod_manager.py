@@ -6,6 +6,15 @@ import os
 import time
 import runpod
 from dotenv import load_dotenv
+from typing import Dict, Optional, List
+from .runpod_config import (
+    get_image_config,
+    get_gpu_config,
+    get_deployment_config,
+    recommend_deployment_config,
+    GPU_CONFIGURATIONS,
+    FAVORITE_IMAGES
+)
 
 class RunPodManager:
     """
@@ -56,6 +65,89 @@ class RunPodManager:
             except Exception as e:
                 print(f"  - Error terminating pod {pod_id}: {e}")
         return terminated_ids
+
+    def create_pod_from_config(self, name: str, config_name: str, **overrides):
+        """
+        Creates a new pod using a predefined deployment configuration.
+
+        Args:
+            name (str): The name of the pod.
+            config_name (str): The name of the deployment configuration to use.
+            **overrides: Additional parameters to override the configuration.
+        """
+        config = get_deployment_config(config_name)
+        if not config:
+            raise ValueError(f"Configuration '{config_name}' not found.")
+
+        # Apply overrides
+        final_config = {**config, **overrides}
+
+        # Resolve image name from key
+        image_config = get_image_config(final_config["image"])
+        if not image_config:
+            raise ValueError(f"Image '{final_config['image']}' not found in favorite images.")
+        image_name = image_config.name
+
+        # Get GPU type ID
+        gpu_config = get_gpu_config(final_config["gpu"])
+        if not gpu_config:
+            raise ValueError(f"GPU '{final_config['gpu']}' not found in configurations.")
+        gpu_type_id = gpu_config.id
+
+        # Build the creation parameters
+        creation_params = {
+            "name": name,
+            "image_name": image_name,
+            "gpu_type_id": gpu_type_id,
+            **{k: v for k, v in final_config.items() if k not in ["image", "gpu"]}
+        }
+
+        return runpod.create_pod(**creation_params)
+
+    def create_pod_for_use_case(
+        self,
+        name: str,
+        use_case: str,
+        budget_level: str = "moderate",
+        required_vram_gb: Optional[int] = None,
+        **overrides
+    ):
+        """
+        Creates a new pod optimized for a specific use case.
+
+        Args:
+            name (str): The name of the pod.
+            use_case (str): The intended use case.
+            budget_level (str): "low", "moderate", or "high".
+            required_vram_gb (int, optional): Minimum VRAM requirement.
+            **overrides: Additional parameters to override the recommendation.
+        """
+        config = recommend_deployment_config(use_case, budget_level, required_vram_gb)
+
+        # Apply overrides
+        final_config = {**config, **overrides}
+
+        # Resolve image name from key
+        image_config = get_image_config(final_config["image"])
+        if not image_config:
+            raise ValueError(f"Image '{final_config['image']}' not found in favorite images.")
+        image_name = image_config.name
+
+        # Get GPU type ID
+        gpu_config = get_gpu_config(final_config["gpu"])
+        if not gpu_config:
+            raise ValueError(f"GPU '{final_config['gpu']}' not found in configurations.")
+        gpu_type_id = gpu_config.id
+
+        # Build the creation parameters
+        creation_params = {
+            "name": name,
+            "image_name": image_name,
+            "gpu_type_id": gpu_type_id,
+            **{k: v for k, v in final_config.items() if k not in ["image", "gpu"]}
+        }
+
+        return runpod.create_pod(**creation_params)
 
     def create_pod(self, name: str, image_name: str, gpu_type_id: str, **kwargs):
         """
