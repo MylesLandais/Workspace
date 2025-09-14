@@ -1,0 +1,10 @@
+2025-09-06 20:57:13,762 - INFO - Starting processing of dataset: .princesslexie
+2025-09-06 20:57:13,762 - INFO - Validating CanaryQwen performance on Vaporeon baseline...
+2025-09-06 20:58:06,613 - INFO - Vaporeon validation results:
+2025-09-06 20:58:06,613 - INFO -   Processing time: 47.84s
+2025-09-06 20:58:06,613 - INFO -   Key terms found: ['human', 'breeding']
+2025-09-06 20:58:06,613 - INFO -   Word overlap ratio: 17.93%
+2025-09-06 20:58:06,613 - INFO -   Transcription length: 215 chars
+2025-09-06 20:58:06,613 - WARNING - ❌ Vaporeon baseline validation FAILED
+2025-09-06 20:58:06,613 - WARNING -   Criteria: >=2 key terms and >=30% word overlap
+2025-09-06 20:58:06,620 - ERROR - Vaporeon baseline validation failed - aborting private dataset processing

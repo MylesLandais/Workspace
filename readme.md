@@ -2,22 +2,7 @@
 
 > !Important: Organization is no longer accepting pull requests to be made with any emojis, please keep this in mind before submitting to code review channels
 > Please read `CONTRIBUTING.md` for more information on getting involved with the project
-
-## Latest Development Session (January 6, 2025)
-
-**ASR Model Evaluation System Implementation**
-- Built comprehensive ASR (Automatic Speech Recognition) evaluation framework
-- Implemented model adapters for FasterWhisper and OLMoASR (HuggingFace Whisper models)
-- Created leaderboard generation system with PostgreSQL integration
-- Developed Docker-based testing environment with CUDA support
-- Added secret scanning and repository security measures
-- Successfully tested multiple Whisper model variants on Vaporeon copypasta dataset
-
-**Key Achievements:**
-- Complete spec-driven development workflow (Requirements → Design → Tasks → Implementation)
-- Working model comparison with WER/CER metrics and processing time analysis
-- Database storage for evaluation results and historical tracking
-- Containerized development environment for reproducible testing
+> For a summary of our project's evolution, see the `HISTORY.md` file.
 
 ## ASR Hearing Benchmark Roadmap
 
@@ -112,13 +97,22 @@ Create a `.env` file from `.env.example` and configure the following:
 RUNPOD_API_KEY=rpa_....
 OPENROUTER_API_KEY=sk-or-v1-..........
 FINNHUB_API_KEY=....
-# TODO: Add HF token configurations
+HUGGINGFACE_TOKEN=hf_your_huggingface_token_here
 ```
 
 **Additional Services**: HuggingFace, Github, and Runpod all leverage shared SSH keys for system access.
 
-**TODO Items**:
-- Update repo with HF token configurations
+**Completed Items**:
+- JSON configuration loading
+- HuggingFace token configuration
+- Dynamic dataset path resolution
+- Model capability flags
+
+**Remaining TODO Items**:
+- Model adapter implementations (GraniteSpeech, ParakeetTDT, WhisperTurbo)
+- GPU memory management optimization
+- Pre-commit hook setup
+- Notebook reorganization
 - RunPod Instance/Backup -- try-again/Restore loops for runpod (occasionally our spot instances break and we're too poor & budget to restart)
 
 ## About
