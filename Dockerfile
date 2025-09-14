@@ -38,6 +38,8 @@ USER ${NB_UID}:${NB_GID}
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r /tmp/requirements.txt
+# Install the project in editable mode so local imports work without PYTHONPATH
+RUN pip install --no-cache-dir -e /home/jovyan/workspaces
 EXPOSE 8888
 
 WORKDIR /home/jovyan/workspaces

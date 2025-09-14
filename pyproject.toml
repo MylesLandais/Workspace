@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jupyter-comfy-runpod"
+version = "0.0.1"
+description = "Tools and notebooks for ComfyUI RunPod deployments and testing"
+authors = [ { name = "Myles Landais" } ]
+
+[project.urls]
+"Homepage" = "https://github.com/MylesLandais/jupyter"
