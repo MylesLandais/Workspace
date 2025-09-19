@@ -13,6 +13,8 @@ fileignoreconfig:
   checksum: # Will be auto-generated
 - filename: docs/log_training.md
   checksum: # Will be auto-generated (already redacted)
+- filename: notebooks/comfy/Test-RunpodWorkers.ipynb
+  checksum: d92411f2af988ffcbbf829e1e8ea43cb23e92c3479d89374be755c29f4b5c2bc
 
 # Allowed patterns (for legitimate use cases)
 allowed_patterns:
@@ -29,3 +31,4 @@ threshold: medium
 
 # Scan options
 scan_hidden_files: false
+version: "1.0"
