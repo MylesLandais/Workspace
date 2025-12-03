@@ -1,0 +1,47 @@
+[project]
+name = "swe-benchmark-agent"
+version = "0.1.0"
+description = "A software engineering agent for SWE-bench and Terminal-Bench benchmarks using Google ADK"
+authors = [
+  { name = "Utsav Garg", email = "utsavgarg@google.com" },
+  { name = "Dawei Jia", email = "dwkk@google.com" },
+]
+license = "Apache-2.0"
+readme = "README.md"
+requires-python = ">=3.10,<3.14"
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3 :: Only",
+]
+
+dependencies = [
+    "swebench @ git+https://github.com/swe-bench/swe-bench.git@v4.1.0#egg=swebench",
+    "typer>=0.19.2",
+    "datasets>=4.2.0",
+    "jinja2>=3.1.5",
+    "GitPython>=3.1.45",
+    "docker>=7.1.0",
+    "google-adk~=1.15.1",
+    "pyyaml>=6.0.2",
+    "python-dotenv>=1.0.1",
+    "google-genai==1.36.0"
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
+    "pytest-asyncio>=0.23.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.8.14,<0.9.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""
+
+[tool.pytest.ini_options]
+pythonpath = "."
+asyncio_default_fixture_loop_scope = "function"
