@@ -3,10 +3,26 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "jupyter-comfy-runpod"
-version = "0.0.1"
-description = "Tools and notebooks for ComfyUI RunPod deployments and testing"
+name = "jupyter-workspace"
+version = "0.1.0"
+description = "Tools and notebooks for rapid prototyping and tracking ai progress"
 authors = [ { name = "Myles Landais" } ]
 
 [project.urls]
 "Homepage" = "https://github.com/MylesLandais/jupyter"
+
+dependencies = [
+    "google-genai>=1.16.1",
+    "google-adk>=1.0.0",  # Separate package providing google.adk module
+    "litellm>=1.0.0",
+    # Core dependencies (fix typing_extensions/pydantic compatibility)
+    "typing_extensions>=4.5.0",  # Required for pydantic-core Sentinel import
+    "pydantic>=2.0.0,<3.0.0",  # Explicit pydantic version for compatibility
+    "pydantic-core>=2.0.0",  # Required by pydantic
+    # HTTP and API utilities
+    "requests>=2.31.0",
+    "python-dotenv>=1.0.0",
+    # Image processing (used by runpod_runner)
+    "Pillow>=10.0.0",
+]
+
