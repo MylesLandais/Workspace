@@ -49,6 +49,8 @@ config_module.__package__ = "agents.comfy"
 spec.loader.exec_module(config_module)
 RUNPOD_API_KEY = config_module.RUNPOD_API_KEY
 RUNPOD_ENDPOINT_ID = config_module.RUNPOD_ENDPOINT_ID
+# Expose OPENROUTER key for diagnostics (may be None if missing)
+OPENROUTER_API_KEY = getattr(config_module, "OPENROUTER_API_KEY", None)
 
 # Import debug (no relative imports in debug.py itself)
 debug_path = project_root / "agents" / "comfy" / "debug.py"
@@ -538,85 +540,137 @@ def compute_image_similarity(image1_path: Path, image2_path: Path) -> Optional[f
         return None
 
 
-def run_benchmark(output_base_dir: Path = None) -> Dict[str, Any]:
+def find_existing_baseline(output_base_dir: Path) -> Optional[Path]:
     """
-    Run the complete benchmark suite.
-    
-    Args:
-        output_base_dir: Base directory for outputs (default: outputs/benchmark)
-    
-    Returns:
-        Dictionary with benchmark results
+    Find the most recent baseline directory to resume from.
+    """
+    if not output_base_dir.exists():
+        return None
+    baseline_dirs = []
+    for item in output_base_dir.iterdir():
+        if item.is_dir() and item.name.startswith("baseline_"):
+            ts = item.name.replace("baseline_", "")
+            baseline_dirs.append((ts, item))
+    if not baseline_dirs:
+        return None
+    baseline_dirs.sort(key=lambda t: t[0], reverse=True)
+    return baseline_dirs[0][1]
+
+
+def load_existing_results(baseline_dir: Path) -> Optional[Dict[str, Any]]:
+    """
+    Load existing benchmark results from a baseline directory.
+    """
+    manifest_file = baseline_dir / "manifest.json"
+    if not manifest_file.exists():
+        logger.warning(f"No manifest.json found in {baseline_dir}, cannot resume")
+        return None
+    try:
+        with open(manifest_file, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        required = {"baseline_dir", "timestamp", "prompts", "summary"}
+        if not required.issubset(data.keys()):
+            logger.warning(f"Invalid manifest structure in {baseline_dir}")
+            return None
+        return data
+    except Exception as e:
+        logger.warning(f"Failed to load manifest from {baseline_dir}: {e}")
+        return None
+
+
+def run_benchmark(output_base_dir: Path = None, resume_from: Optional[Path] = None) -> Dict[str, Any]:
+    """
+    Run the complete benchmark suite, with optional resume support.
     """
     if output_base_dir is None:
         output_base_dir = project_root / "outputs" / "benchmark"
-    
-    # Pre-flight check: Verify OpenRouter auth works
-    logger.info("Performing pre-flight check for OpenRouter authentication...")
-    try:
-        test_prompt = "test"
-        enhanced = enhance_prompt(test_prompt)
-        if enhanced == test_prompt:
-            logger.warning("WARNING: enhance_prompt returned original text. Auth might still be broken or prompt was not enhanced.")
-            # We don't abort here because maybe the model decided not to enhance "test", 
-            # but we log a strong warning.
-        else:
-            logger.info("✓ Pre-flight check passed: enhance_prompt is working")
-    except Exception as e:
-        logger.error(f"CRITICAL: Pre-flight check failed. enhance_prompt raised exception: {e}")
-        # We should abort if the agent component is known broken
-        raise RuntimeError(f"Agent component broken: {e}")
 
-    # Create baseline directory with timestamp
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    baseline_dir = output_base_dir / f"baseline_{timestamp}"
-    images_dir = baseline_dir / "images"
-    logs_dir = baseline_dir / "logs"
-    
-    images_dir.mkdir(parents=True, exist_ok=True)
-    logs_dir.mkdir(parents=True, exist_ok=True)
-    
-    logger.info(f"Starting benchmark - baseline: {baseline_dir}")
-    
-    # Generate prompts
-    prompts = generate_prompts(count=16, seed=42)
-    logger.info(f"Generated {len(prompts)} prompts")
-    
-    # Results storage
-    results = {
-        "baseline_dir": str(baseline_dir),
-        "timestamp": timestamp,
-        "prompts": [],
-        "summary": {
-            "total": len(prompts),
-            "successful": 0,
-            "failed": 0,
-            "similarity_threshold": 10.0
+    existing_results = None
+    prompts: Optional[List[str]] = None
+    baseline_dir = None
+    images_dir = None
+    logs_dir = None
+    timestamp = None
+
+    if resume_from:
+        logger.info(f"Attempting to resume from {resume_from}")
+        existing_results = load_existing_results(resume_from)
+        if existing_results:
+            baseline_dir = Path(existing_results["baseline_dir"])
+            images_dir = baseline_dir / "images"
+            logs_dir = baseline_dir / "logs"
+            timestamp = existing_results["timestamp"]
+            prompts = [p["raw_prompt"] for p in existing_results["prompts"]]
+        else:
+            logger.error("Resume requested but manifest could not be loaded; starting fresh.")
+
+    if existing_results is None:
+        # Pre-flight check to ensure prompt enhancement is working (auth OK)
+        logger.info("Pre-flight check for enhance_prompt...")
+        try:
+            test_prompt = "test prompt"
+            enhanced = enhance_prompt(test_prompt)
+            if enhanced == test_prompt:
+                logger.warning("enhance_prompt returned original text; auth or model may be failing.")
+            else:
+                logger.info("✓ enhance_prompt OK")
+        except Exception as e:
+            raise RuntimeError(f"Pre-flight check failed: {e}")
+
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        baseline_dir = output_base_dir / f"baseline_{timestamp}"
+        images_dir = baseline_dir / "images"
+        logs_dir = baseline_dir / "logs"
+        images_dir.mkdir(parents=True, exist_ok=True)
+        logs_dir.mkdir(parents=True, exist_ok=True)
+        prompts = generate_prompts(count=16, seed=42)
+        existing_results = {
+            "baseline_dir": str(baseline_dir),
+            "timestamp": timestamp,
+            "prompts": [],
+            "summary": {
+                "total": len(prompts),
+                "successful": 0,
+                "failed": 0,
+                "similarity_threshold": 10.0
+            }
         }
-    }
-    
-    # Process each prompt
+        logger.info(f"Starting benchmark - baseline: {baseline_dir}")
+        logger.info(f"Generated {len(prompts)} prompts")
+    else:
+        logger.info("Resuming existing benchmark")
+
+    completed_ids = {p["prompt_id"] for p in existing_results["prompts"]}
+    logger.info(f"Already completed prompts: {sorted(completed_ids)}")
+
     for idx, raw_prompt in enumerate(prompts, 1):
         prompt_id = f"{idx:03d}"
+        # Skip if prompt already fully successful
+        if prompt_id in completed_ids:
+            existing_prompt = next(p for p in existing_results["prompts"] if p["prompt_id"] == prompt_id)
+            done = all(cond.get("status") == "success" for cond in existing_prompt["conditions"].values())
+            if done:
+                logger.info(f"Skipping prompt {prompt_id} (already successful)")
+                continue
+            # If partial, remove and re-run
+            existing_results["prompts"] = [p for p in existing_results["prompts"] if p["prompt_id"] != prompt_id]
+
         logger.info(f"\n{'='*60}")
         logger.info(f"Processing prompt {idx}/{len(prompts)}: {prompt_id}")
         logger.info(f"Raw prompt (length: {len(raw_prompt)}): {raw_prompt}")
         logger.info(f"{'='*60}")
-        
-        # Generate consistent seed for this prompt
+
         prompt_seed = hash(raw_prompt) % (2**32)
-        
         prompt_result = {
             "prompt_id": prompt_id,
             "raw_prompt": raw_prompt,
             "raw_prompt_length": len(raw_prompt),
             "seed": prompt_seed,
             "conditions": {},
-            "workflow_payloads": {}  # Store actual payloads sent to RunPod
+            "workflow_payloads": {}
         }
-        
-        # Condition B: Run Agent (full pipeline)
-        logger.info(f"\n[Condition B] Running Agent workflow...")
+
+        # Condition B: Agent
         trace_log_file = logs_dir / f"{prompt_id}_agent_traces.log"
         agent_result, enhanced_prompt = run_agent_workflow(
             prompt=raw_prompt,
@@ -627,16 +681,11 @@ def run_benchmark(output_base_dir: Path = None) -> Dict[str, Any]:
         )
         prompt_result["conditions"]["B"] = agent_result
         prompt_result["enhanced_prompt"] = enhanced_prompt
-        
         if agent_result.get("status") != "success":
             logger.error(f"[Condition B] Failed: {agent_result.get('message')}")
-            results["summary"]["failed"] += 1
-            results["prompts"].append(prompt_result)
-            continue
-        
-        # Condition A: Legacy with raw prompt
-        logger.info(f"\n[Condition A] Running Legacy workflow (raw prompt)...")
-        logger.debug(f"[Condition A] Full prompt being sent: {raw_prompt}")
+
+        # Condition A: Legacy raw
+        logger.debug(f"[Condition A] Full prompt: {raw_prompt}")
         legacy_raw_result = run_legacy_workflow(
             prompt=raw_prompt,
             seed=prompt_seed,
@@ -644,17 +693,14 @@ def run_benchmark(output_base_dir: Path = None) -> Dict[str, Any]:
             filename_prefix=f"{prompt_id}_A_legacy_raw"
         )
         prompt_result["conditions"]["A"] = legacy_raw_result
-        # Store workflow payload if available
         if "workflow_payload" in legacy_raw_result:
             prompt_result["workflow_payloads"]["A"] = legacy_raw_result["workflow_payload"]
-        
         if legacy_raw_result.get("status") != "success":
             logger.error(f"[Condition A] Failed: {legacy_raw_result.get('message')}")
-        
-        # Condition C: Legacy with enhanced prompt
+
+        # Condition C: Legacy enhanced
         if enhanced_prompt:
-            logger.info(f"\n[Condition C] Running Legacy workflow (enhanced prompt)...")
-            logger.debug(f"[Condition C] Full enhanced prompt being sent: {enhanced_prompt}")
+            logger.debug(f"[Condition C] Full enhanced prompt: {enhanced_prompt}")
             legacy_enhanced_result = run_legacy_workflow(
                 prompt=enhanced_prompt,
                 seed=prompt_seed,
@@ -662,100 +708,61 @@ def run_benchmark(output_base_dir: Path = None) -> Dict[str, Any]:
                 filename_prefix=f"{prompt_id}_C_legacy_enhanced"
             )
             prompt_result["conditions"]["C"] = legacy_enhanced_result
-            # Store workflow payload if available
             if "workflow_payload" in legacy_enhanced_result:
                 prompt_result["workflow_payloads"]["C"] = legacy_enhanced_result["workflow_payload"]
-            
             if legacy_enhanced_result.get("status") != "success":
                 logger.error(f"[Condition C] Failed: {legacy_enhanced_result.get('message')}")
-        
-        # Compute similarities
+
+        # Similarities
         if IMAGEHASH_AVAILABLE:
-            similarities = {}
-            
-            # A vs B
-            if (legacy_raw_result.get("status") == "success" and 
-                agent_result.get("status") == "success"):
-                sim_ab = compute_image_similarity(
-                    Path(legacy_raw_result["filepath"]),
-                    Path(agent_result["filepath"])
-                )
-                similarities["A_vs_B"] = sim_ab
-                logger.info(f"[Similarity] A vs B: {sim_ab}")
-            
-            # B vs C
-            if (enhanced_prompt and 
-                agent_result.get("status") == "success" and 
-                legacy_enhanced_result.get("status") == "success"):
-                sim_bc = compute_image_similarity(
-                    Path(agent_result["filepath"]),
-                    Path(legacy_enhanced_result["filepath"])
-                )
-                similarities["B_vs_C"] = sim_bc
-                logger.info(f"[Similarity] B vs C: {sim_bc}")
-            
-            # A vs C
-            if (enhanced_prompt and
-                legacy_raw_result.get("status") == "success" and 
-                legacy_enhanced_result.get("status") == "success"):
-                sim_ac = compute_image_similarity(
-                    Path(legacy_raw_result["filepath"]),
-                    Path(legacy_enhanced_result["filepath"])
-                )
-                similarities["A_vs_C"] = sim_ac
-                logger.info(f"[Similarity] A vs C: {sim_ac}")
-            
-            prompt_result["similarities"] = similarities
-            
-            # Check if within threshold
-            all_similar = all(
-                v is not None and v < results["summary"]["similarity_threshold"]
-                for v in similarities.values()
+            sims = {}
+            if legacy_raw_result.get("status") == "success" and agent_result.get("status") == "success":
+                sims["A_vs_B"] = compute_image_similarity(Path(legacy_raw_result["filepath"]), Path(agent_result["filepath"]))
+            if enhanced_prompt and agent_result.get("status") == "success" and prompt_result["conditions"].get("C", {}).get("status") == "success":
+                sims["B_vs_C"] = compute_image_similarity(Path(agent_result["filepath"]), Path(prompt_result["conditions"]["C"]["filepath"]))
+            if enhanced_prompt and legacy_raw_result.get("status") == "success" and prompt_result["conditions"].get("C", {}).get("status") == "success":
+                sims["A_vs_C"] = compute_image_similarity(Path(legacy_raw_result["filepath"]), Path(prompt_result["conditions"]["C"]["filepath"]))
+            prompt_result["similarities"] = sims
+            prompt_result["within_threshold"] = all(
+                v is not None and v < existing_results["summary"]["similarity_threshold"]
+                for v in sims.values()
             )
-            prompt_result["within_threshold"] = all_similar
-        
-        # Count success
-        all_success = all(
-            cond.get("status") == "success"
-            for cond in prompt_result["conditions"].values()
-        )
+
+        all_success = all(cond.get("status") == "success" for cond in prompt_result["conditions"].values())
         if all_success:
-            results["summary"]["successful"] += 1
+            existing_results["summary"]["successful"] += 1
         else:
-            results["summary"]["failed"] += 1
-        
-        results["prompts"].append(prompt_result)
-        
-        logger.info(f"\n[Prompt {prompt_id}] Complete")
-    
-    # Save results
-    manifest_file = baseline_dir / "manifest.json"
+            existing_results["summary"]["failed"] += 1
+
+        existing_results["prompts"] = [p for p in existing_results["prompts"] if p["prompt_id"] != prompt_id]
+        existing_results["prompts"].append(prompt_result)
+
+        # Save progress after each prompt
+        manifest_file = baseline_dir / "manifest.json"
+        with open(manifest_file, "w", encoding="utf-8") as f:
+            json.dump(existing_results, f, indent=2)
+        logger.info(f"[Prompt {prompt_id}] Complete - progress saved")
+
+    # Save final prompt details
     prompts_file = baseline_dir / "prompts.json"
-    
-    with open(manifest_file, "w") as f:
-        json.dump(results, f, indent=2)
-    
-    # Save prompts separately for easy inspection (with full prompts, no truncation)
     prompts_data = {
         "timestamp": timestamp,
         "prompts": [
             {
                 "prompt_id": p["prompt_id"],
-                "raw_prompt": p["raw_prompt"],  # Full prompt, no truncation
+                "raw_prompt": p["raw_prompt"],
                 "raw_prompt_length": p.get("raw_prompt_length", len(p.get("raw_prompt", ""))),
-                "enhanced_prompt": p.get("enhanced_prompt"),  # Full enhanced prompt, no truncation
+                "enhanced_prompt": p.get("enhanced_prompt"),
                 "enhanced_prompt_length": len(p.get("enhanced_prompt", "")) if p.get("enhanced_prompt") else 0,
                 "seed": p["seed"],
-                "workflow_payloads": p.get("workflow_payloads", {})  # Include workflow payloads for review
+                "workflow_payloads": p.get("workflow_payloads", {})
             }
-            for p in results["prompts"]
+            for p in existing_results["prompts"]
         ]
     }
-    
     with open(prompts_file, "w", encoding="utf-8") as f:
         json.dump(prompts_data, f, indent=2, ensure_ascii=False)
-    
-    # Also save a separate file with just the prompts for easy copy-paste
+
     prompts_only_file = baseline_dir / "prompts_only.txt"
     with open(prompts_only_file, "w", encoding="utf-8") as f:
         f.write("=" * 80 + "\n")
@@ -770,18 +777,16 @@ def run_benchmark(output_base_dir: Path = None) -> Dict[str, Any]:
                 f.write(f"\nEnhanced Prompt ({p['enhanced_prompt_length']} chars):\n")
                 f.write(f"{p['enhanced_prompt']}\n")
             f.write("\n" + "-" * 80 + "\n\n")
-    
-    # Print summary
+
     logger.info(f"\n{'='*60}")
     logger.info("BENCHMARK SUMMARY")
     logger.info(f"{'='*60}")
-    logger.info(f"Total prompts: {results['summary']['total']}")
-    logger.info(f"Successful: {results['summary']['successful']}")
-    logger.info(f"Failed: {results['summary']['failed']}")
+    logger.info(f"Total prompts: {existing_results['summary']['total']}")
+    logger.info(f"Successful: {existing_results['summary']['successful']}")
+    logger.info(f"Failed: {existing_results['summary']['failed']}")
     logger.info(f"Baseline directory: {baseline_dir}")
     logger.info(f"{'='*60}\n")
-    
-    return results
+    return existing_results
 
 
 if __name__ == "__main__":
@@ -794,11 +799,54 @@ if __name__ == "__main__":
         default=None,
         help="Output directory (default: outputs/benchmark)"
     )
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="Resume from the most recent baseline directory"
+    )
+    parser.add_argument(
+        "--resume-from",
+        type=Path,
+        default=None,
+        help="Resume from a specific baseline directory path"
+    )
+    parser.add_argument(
+        "--list-baselines",
+        action="store_true",
+        help="List available baseline directories and exit"
+    )
     
     args = parser.parse_args()
     
+    # Handle list baselines
+    if args.list_baselines:
+        output_dir = args.output_dir or (project_root / "outputs" / "benchmark")
+        if output_dir.exists():
+            baselines = [p for p in sorted(output_dir.iterdir(), reverse=True) if p.is_dir() and p.name.startswith("baseline_")]
+            if baselines:
+                print(f"Available baseline directories in {output_dir}:")
+                for b in baselines:
+                    print(f"  {b.name}")
+            else:
+                print("No baseline directories found.")
+        else:
+            print(f"Output directory {output_dir} does not exist.")
+        sys.exit(0)
+
+    resume_from = None
+    if args.resume_from:
+        resume_from = args.resume_from
+    elif args.resume:
+        output_dir = args.output_dir or (project_root / "outputs" / "benchmark")
+        resume_from = find_existing_baseline(output_dir)
+        if resume_from:
+            print(f"Resuming from most recent baseline: {resume_from}")
+        else:
+            print("No existing baseline found to resume from.")
+            sys.exit(1)
+
     try:
-        results = run_benchmark(output_base_dir=args.output_dir)
+        results = run_benchmark(output_base_dir=args.output_dir, resume_from=resume_from)
         sys.exit(0 if results["summary"]["failed"] == 0 else 1)
     except KeyboardInterrupt:
         logger.error("\nBenchmark interrupted by user")
