@@ -1,8 +1,10 @@
-name: RunPod Build Validation
+name: RunPod Build and Deploy
 
 #
-# This workflow validates Dockerfile.runpod and optionally monitors RunPod builds
-# It triggers on pushes to feature/runpod-worker branch and on manual workflow_dispatch
+# This workflow validates Dockerfile.runpod and creates GitHub releases to trigger
+# RunPod serverless rebuilds. RunPod watches for releases (not commits) to rebuild.
+#
+# Flow: Push -> Validate -> Create Release -> RunPod auto-rebuilds from release
 #
 
 on:
@@ -25,6 +27,12 @@ on:
       - 'scripts/comfy-manager-set-mode.sh'
       - 'handler.py'
   workflow_dispatch:
+    inputs:
+      skip_release:
+        description: 'Skip release creation (validate only)'
+        required: false
+        default: 'false'
+        type: boolean
 
 jobs:
   validate-dockerfile:
@@ -121,3 +129,64 @@ jobs:
               });
             }
 
+  create-release:
+    name: Create Release (Triggers RunPod Build)
+    runs-on: ubuntu-latest
+    needs: validate-dockerfile
+    if: |
+      github.event_name == 'push' && 
+      github.ref == 'refs/heads/feature/runpod-worker' &&
+      (github.event_name != 'workflow_dispatch' || github.event.inputs.skip_release != 'true')
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate release tag
+        id: tag
+        run: |
+          # Format: runpod-YYYYMMDD-HHMMSS
+          TAG="runpod-$(date -u +'%Y%m%d-%H%M%S')"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "Generated tag: $TAG"
+
+      - name: Get commit info
+        id: commit
+        run: |
+          echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+          echo "message<<EOF" >> $GITHUB_OUTPUT
+          git log -1 --pretty=%B >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: "RunPod Build - ${{ steps.tag.outputs.tag }}"
+          body: |
+            Automated RunPod deployment release.
+            
+            **Commit:** ${{ steps.commit.outputs.sha_short }}
+            **Branch:** feature/runpod-worker
+            
+            **Changes:**
+            ${{ steps.commit.outputs.message }}
+            
+            ---
+            This release triggers RunPod to rebuild the serverless endpoint.
+          draft: false
+          prerelease: false
+          target_commitish: feature/runpod-worker
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Release created
+        run: |
+          echo "=============================================="
+          echo "Release ${{ steps.tag.outputs.tag }} created!"
+          echo "RunPod will now automatically rebuild."
+          echo "Monitor at: https://www.runpod.io/console/serverless"
+          echo "=============================================="
