@@ -4,6 +4,31 @@
 
 RunPod deployment is **manually configured** via the RunPod console. This document tracks automation improvements.
 
+## Critical Priority (BLOCKING DEPLOYMENTS)
+
+### 0. Registry Push Failure Mitigation
+
+**Status:** URGENT - Blocks deployments  
+**Risk ID:** RISK-001
+
+**Problem:**
+Builds succeed but registry push fails, preventing deployment. This is a RunPod infrastructure issue.
+
+**Immediate Actions:**
+- [ ] Add build status verification to GitHub Actions workflow
+- [ ] Implement retry logic for failed builds
+- [ ] Add monitoring/alerting for registry push failures
+- [ ] Document workaround in troubleshooting guide
+
+**Long-term:**
+- [ ] Investigate alternative deployment methods
+- [ ] Contact RunPod support about infrastructure reliability
+- [ ] Consider build timeout adjustments
+
+**Reference:** See `RISK_REGISTRY.md` RISK-001
+
+---
+
 ## High Priority
 
 ### 1. RunPod Endpoint Configuration as Code
@@ -127,6 +152,7 @@ See `RUNPOD_DEPLOYMENT.md` for current manual configuration values that need to 
 
 ## Related Files
 
+- `RISK_REGISTRY.md` - **Risk tracking and mitigation strategies**
 - `RUNPOD_DEPLOYMENT.md` - Manual deployment guide
 - `.github/workflows/runpod-build.yml` - Current CI/CD workflow
 - `scripts/runpod_monitor.py` - Build monitoring script
