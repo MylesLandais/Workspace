@@ -111,6 +111,101 @@ class RunPodBuildMonitor:
         response.raise_for_status()
         return response.json()
     
+    def detect_registry_push_failure(self, build_logs: str) -> Dict:
+        """
+        Detect registry push failure patterns in build logs (RISK-001)
+        Returns structured failure report
+        """
+        import re
+        
+        patterns = {
+            'registry_push_failure': r'Error: neither /app/registry-push/output\.tar found',
+            'layer_locking': r'layer-sha256:([a-f0-9]+).*locked for ([\d.]+)([µm]s|s)',
+            'build_complete': r'Build complete\.',
+            'push_started': r'Pushing image to registry',
+        }
+        
+        findings = {
+            'registry_push_failure_detected': False,
+            'build_completed': False,
+            'push_attempted': False,
+            'layer_locking_errors': [],
+            'critical_layer_hash': None,
+            'max_lock_duration_ms': 0,
+        }
+        
+        # Check for registry push failure
+        if re.search(patterns['registry_push_failure'], build_logs):
+            findings['registry_push_failure_detected'] = True
+        
+        # Check if build completed
+        if re.search(patterns['build_complete'], build_logs):
+            findings['build_completed'] = True
+        
+        # Check if push was attempted
+        if re.search(patterns['push_started'], build_logs):
+            findings['push_attempted'] = True
+        
+        # Extract layer locking errors
+        for match in re.finditer(patterns['layer_locking'], build_logs):
+            layer_hash = match.group(1)
+            duration = float(match.group(2))
+            unit = match.group(3)
+            
+            # Convert to milliseconds
+            if unit == 's':
+                duration_ms = duration * 1000
+            elif unit == 'ms':
+                duration_ms = duration
+            elif unit == 'µs':
+                duration_ms = duration / 1000
+            else:
+                duration_ms = duration
+            
+            findings['layer_locking_errors'].append({
+                'layer_hash': layer_hash,
+                'duration_ms': duration_ms,
+            })
+            
+            if duration_ms > findings['max_lock_duration_ms']:
+                findings['max_lock_duration_ms'] = duration_ms
+                findings['critical_layer_hash'] = layer_hash
+        
+        return findings
+    
+    def format_failure_report(self, findings: Dict) -> str:
+        """Format failure detection findings into readable report"""
+        report = []
+        report.append("=" * 60)
+        report.append("Build Failure Analysis (RISK-001 / RISK-002)")
+        report.append("=" * 60)
+        
+        if findings['registry_push_failure_detected']:
+            report.append("[FAIL] Registry Push Failure Detected (RISK-001)")
+        else:
+            report.append("[OK] No registry push failure detected")
+        
+        report.append(f"[{'OK' if findings['build_completed'] else 'UNKNOWN'}] Build completed: {findings['build_completed']}")
+        report.append(f"[{'YES' if findings['push_attempted'] else 'NO'}] Push attempted: {findings['push_attempted']}")
+        
+        if findings['layer_locking_errors']:
+            report.append(f"\n[WARN] Layer Locking Errors (RISK-002): {len(findings['layer_locking_errors'])} occurrences")
+            report.append(f"Critical layer hash: {findings['critical_layer_hash']}")
+            report.append(f"Max lock duration: {findings['max_lock_duration_ms']:.2f}ms")
+            
+            # Check if lock duration suggests push failure risk
+            if findings['max_lock_duration_ms'] > 1000:
+                report.append("[HIGH RISK] Lock duration >1s - high correlation with push failures")
+            elif findings['max_lock_duration_ms'] > 100:
+                report.append("[MEDIUM RISK] Lock duration >100ms - monitor closely")
+            else:
+                report.append("[LOW RISK] Lock duration acceptable")
+        else:
+            report.append("\n[OK] No layer locking errors detected")
+        
+        report.append("=" * 60)
+        return "\n".join(report)
+    
     def format_status_report(self, status: Dict) -> str:
         """Format status into readable report"""
         report = []
@@ -203,9 +298,25 @@ def main():
                 print("Usage: script.py logs <build_id>")
                 sys.exit(1)
         
+        elif command == "analyze":
+            if len(sys.argv) > 2:
+                log_file = sys.argv[2]
+                try:
+                    with open(log_file, 'r') as f:
+                        log_content = f.read()
+                    findings = monitor.detect_registry_push_failure(log_content)
+                    print(monitor.format_failure_report(findings))
+                except FileNotFoundError:
+                    print(f"[ERROR] Log file not found: {log_file}")
+                    sys.exit(1)
+            else:
+                print("Usage: script.py analyze <log_file_path>")
+                print("Analyzes build logs for RISK-001 (registry push failure) and RISK-002 (layer locking) patterns")
+                sys.exit(1)
+        
         else:
             print(f"Unknown command: {command}")
-            print("Available commands: status, wait, health, rebuild, logs")
+            print("Available commands: status, wait, health, rebuild, logs, analyze")
             sys.exit(1)
     else:
         # Default: show status

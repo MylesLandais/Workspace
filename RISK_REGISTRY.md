@@ -11,37 +11,51 @@ This document tracks known risks, failures, and mitigation strategies for RunPod
 **Status:** ACTIVE  
 **Severity:** HIGH  
 **Probability:** MEDIUM  
-**First Observed:** 2025-12-19  
-**Build ID:** `5ced0749-36eb-4f7a-870f-9549c2cd743c`
+**First Observed:** 2025-12-19 00:31:58 UTC  
+**Latest Occurrence:** 2025-12-19 19:24:58 UTC  
+**Build IDs:** `5ced0749-36eb-4f7a-870f-9549c2cd743c`, `60893f8c-1670-49f5-a84d-ceb389ac1d3a`
 
 **Description:**
-Build completes successfully but registry push fails with:
+**WHAT WE FIXED:** Changed CUDA from 13.1.0 (doesn't exist) to 12.8.1 (verified exists). This fixed the build - it now completes successfully.
+
+**REMAINING ISSUE:** After successful build, registry push fails with:
 ```
 Error: neither /app/registry-push/output.tar found nor /app/registry-push/.output-image/index.json present
 Image push finished with wrong exit code
 ```
+
+**Correlation with RISK-002:**
+Analysis of build logs shows a pattern where layer locking errors (RISK-002) precede registry push failures. Specifically, layer `sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef` consistently shows locking errors (760ms - 1.3s duration) immediately before push failure. This suggests the layer locking may be a contributing factor or symptom of the underlying infrastructure issue.
 
 **Impact:**
 - Build appears successful but image is not deployed
 - Wastes build time (30+ minutes)
 - No clear error indication to user
 - Deployment appears stuck
+- Pattern recurrence indicates systemic infrastructure issue
 
 **Root Cause:**
-RunPod infrastructure issue - build artifacts not found for registry push. This is an external dependency failure, not a code issue.
+RunPod infrastructure issue - build artifacts not found for registry push. Possible causes:
+1. Buildkit layer export process fails to complete artifact preparation
+2. Concurrent build contention causing artifact corruption
+3. Registry service unable to access build output directory
 
 **Mitigation:**
 1. Monitor build logs for registry push errors
-2. Implement retry mechanism for failed pushes
-3. Add GitHub Actions step to verify deployment after release
-4. Document as known issue in troubleshooting guide
+2. Track layer locking patterns and correlation with push failures
+3. Implement retry mechanism for failed pushes
+4. Add GitHub Actions step to verify deployment after release
+5. Document in troubleshooting guide (see `RUNPOD_TROUBLESHOOTING.md`)
+6. Contact RunPod support with pattern analysis
 
 **Workaround:**
 - Manually retry build in RunPod console
-- Contact RunPod support if persistent
+- Wait 5-10 minutes between retry attempts to avoid contention
+- Monitor for layer locking errors in logs before retry
 
 **Related Build Logs:**
 - `/home/warby/Downloads/build-logs-5ced0749-36eb-4f7a-870f-9549c2cd743c.txt` (lines 382-395)
+- Build log from 2025-12-19 19:24:58 UTC (layer locking + push failure pattern)
 
 ---
 
@@ -49,33 +63,43 @@ RunPod infrastructure issue - build artifacts not found for registry push. This 
 
 **Status:** ACTIVE  
 **Severity:** MEDIUM  
-**Probability:** LOW  
-**First Observed:** 2025-12-19  
-**Build ID:** `5ced0749-36eb-4f7a-870f-9549c2cd743c`
+**Probability:** MEDIUM (increasing with pattern observation)  
+**First Observed:** 2025-12-19 00:31:57 UTC  
+**Latest Occurrence:** 2025-12-19 19:24:58 UTC  
+**Build IDs:** `5ced0749-36eb-4f7a-870f-9549c2cd743c`, `60893f8c-1670-49f5-a84d-ceb389ac1d3a`
 
 **Description:**
 Multiple RPC errors during layer export:
 ```
 ERROR: (*service).Write failed: rpc error: code = Unavailable desc = 
-ref layer-sha256:... locked for Xµs/ms: unavailable
+ref layer-sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef locked for 760ms-1.3s: unavailable
 ```
 
+**Correlation with RISK-001:**
+Analysis shows this layer locking consistently occurs immediately before registry push failures. The specific layer `sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef` appears in multiple failed builds with lock durations of 172µs up to 1.3 seconds. This suggests the locking may prevent proper artifact finalization, leading to missing registry push artifacts.
+
 **Impact:**
-- Build may appear to hang
-- Transient errors that typically resolve
-- May contribute to registry push failures
+- Build may appear to hang during export
+- Transient errors that may not resolve
+- **Correlated with registry push failures (RISK-001)**
+- Indicates infrastructure contention or resource exhaustion
 
 **Root Cause:**
-Concurrent access to Docker layers during export. Buildkit infrastructure contention.
+Concurrent access to Docker layers during export. Buildkit infrastructure contention, possibly exacerbated by:
+1. Large layer sizes (12.48GB+ model downloads before mitigation)
+2. Concurrent builds on shared infrastructure
+3. Registry service unable to acquire layer locks in time
 
 **Mitigation:**
-- These are warnings, build typically continues
-- Monitor if frequency increases
-- Consider build timeouts if persistent
+- Monitor layer hash patterns in failed builds
+- Track lock duration and frequency
+- Document correlation with push failures for RunPod support
+- Consider image size optimizations to reduce layer contention
 
 **Workaround:**
-- None required - errors are non-fatal
-- Retry if build fails completely
+- Retry build if locking errors exceed 2 seconds
+- Space out build attempts to reduce infrastructure contention
+- Monitor for specific layer hashes that consistently fail
 
 ---
 
