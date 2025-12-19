@@ -117,12 +117,15 @@ class RunPodBuildMonitor:
         Returns structured failure report
         """
         import re
+        from collections import Counter
         
         patterns = {
             'registry_push_failure': r'Error: neither /app/registry-push/output\.tar found',
             'layer_locking': r'layer-sha256:([a-f0-9]+).*locked for ([\d.]+)([µm]s|s)',
             'build_complete': r'Build complete\.',
             'push_started': r'Pushing image to registry',
+            'build_id': r'build-logs-([a-f0-9-]+)\.txt',
+            'timestamp': r'(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z)',
         }
         
         findings = {
@@ -132,11 +135,24 @@ class RunPodBuildMonitor:
             'layer_locking_errors': [],
             'critical_layer_hash': None,
             'max_lock_duration_ms': 0,
+            'lock_duration_distribution': {},
+            'total_lock_errors': 0,
+            'build_id': None,
+            'failure_timestamp': None,
         }
+        
+        # Extract build ID from log content or filename
+        build_id_match = re.search(patterns['build_id'], build_logs)
+        if build_id_match:
+            findings['build_id'] = build_id_match.group(1)
         
         # Check for registry push failure
         if re.search(patterns['registry_push_failure'], build_logs):
             findings['registry_push_failure_detected'] = True
+            # Extract timestamp of failure
+            failure_matches = list(re.finditer(patterns['timestamp'], build_logs))
+            if failure_matches:
+                findings['failure_timestamp'] = failure_matches[-1].group(1)
         
         # Check if build completed
         if re.search(patterns['build_complete'], build_logs):
@@ -147,6 +163,9 @@ class RunPodBuildMonitor:
             findings['push_attempted'] = True
         
         # Extract layer locking errors
+        lock_durations = []
+        layer_hash_counts = Counter()
+        
         for match in re.finditer(patterns['layer_locking'], build_logs):
             layer_hash = match.group(1)
             duration = float(match.group(2))
@@ -167,9 +186,24 @@ class RunPodBuildMonitor:
                 'duration_ms': duration_ms,
             })
             
+            lock_durations.append(duration_ms)
+            layer_hash_counts[layer_hash] += 1
+            
             if duration_ms > findings['max_lock_duration_ms']:
                 findings['max_lock_duration_ms'] = duration_ms
                 findings['critical_layer_hash'] = layer_hash
+        
+        findings['total_lock_errors'] = len(findings['layer_locking_errors'])
+        
+        # Calculate distribution
+        if lock_durations:
+            findings['lock_duration_distribution'] = {
+                'min': min(lock_durations),
+                'max': max(lock_durations),
+                'avg': sum(lock_durations) / len(lock_durations),
+                'median': sorted(lock_durations)[len(lock_durations) // 2],
+            }
+            findings['layer_hash_frequency'] = dict(layer_hash_counts.most_common())
         
         return findings
     
@@ -180,6 +214,12 @@ class RunPodBuildMonitor:
         report.append("Build Failure Analysis (RISK-001 / RISK-002)")
         report.append("=" * 60)
         
+        if findings.get('build_id'):
+            report.append(f"Build ID: {findings['build_id']}")
+        if findings.get('failure_timestamp'):
+            report.append(f"Failure Timestamp: {findings['failure_timestamp']}")
+        report.append("")
+        
         if findings['registry_push_failure_detected']:
             report.append("[FAIL] Registry Push Failure Detected (RISK-001)")
         else:
@@ -189,21 +229,91 @@ class RunPodBuildMonitor:
         report.append(f"[{'YES' if findings['push_attempted'] else 'NO'}] Push attempted: {findings['push_attempted']}")
         
         if findings['layer_locking_errors']:
-            report.append(f"\n[WARN] Layer Locking Errors (RISK-002): {len(findings['layer_locking_errors'])} occurrences")
+            report.append(f"\n[WARN] Layer Locking Errors (RISK-002): {findings['total_lock_errors']} occurrences")
             report.append(f"Critical layer hash: {findings['critical_layer_hash']}")
             report.append(f"Max lock duration: {findings['max_lock_duration_ms']:.2f}ms")
             
+            # Show distribution if available
+            if findings.get('lock_duration_distribution'):
+                dist = findings['lock_duration_distribution']
+                report.append(f"\nLock Duration Statistics:")
+                report.append(f"  Min: {dist['min']:.2f}ms")
+                report.append(f"  Max: {dist['max']:.2f}ms")
+                report.append(f"  Avg: {dist['avg']:.2f}ms")
+                report.append(f"  Median: {dist['median']:.2f}ms")
+            
+            # Show layer hash frequency
+            if findings.get('layer_hash_frequency'):
+                report.append(f"\nLayer Hash Frequency:")
+                for layer_hash, count in list(findings['layer_hash_frequency'].items())[:5]:
+                    report.append(f"  {layer_hash[:16]}...: {count} occurrences")
+            
             # Check if lock duration suggests push failure risk
             if findings['max_lock_duration_ms'] > 1000:
-                report.append("[HIGH RISK] Lock duration >1s - high correlation with push failures")
+                report.append("\n[HIGH RISK] Lock duration >1s - high correlation with push failures")
             elif findings['max_lock_duration_ms'] > 100:
-                report.append("[MEDIUM RISK] Lock duration >100ms - monitor closely")
+                report.append("\n[MEDIUM RISK] Lock duration >100ms - monitor closely")
             else:
-                report.append("[LOW RISK] Lock duration acceptable")
+                report.append("\n[LOW RISK] Lock duration acceptable")
         else:
             report.append("\n[OK] No layer locking errors detected")
         
         report.append("=" * 60)
+        return "\n".join(report)
+    
+    def extract_build_id_from_filename(self, filename: str) -> Optional[str]:
+        """Extract build ID from log filename"""
+        import re
+        match = re.search(r'build-logs-([a-f0-9-]+)\.txt', filename)
+        return match.group(1) if match else None
+    
+    def generate_incident_report(self, findings: Dict, build_log_path: str = None) -> str:
+        """Generate incident report template for RunPod support"""
+        report = []
+        report.append("## RunPod Build Failure Incident Report")
+        report.append("")
+        report.append(f"**Date:** {findings.get('failure_timestamp', datetime.now().isoformat())}")
+        report.append(f"**Build ID(s):** {findings.get('build_id', 'UNKNOWN')}")
+        report.append("")
+        report.append("**Error Type:** Registry Push Failure (RISK-001)")
+        report.append("")
+        report.append("### Timeline")
+        report.append(f"- Build completed: {findings.get('build_completed', 'UNKNOWN')}")
+        report.append(f"- Push attempted: {findings.get('push_attempted', 'UNKNOWN')}")
+        report.append(f"- Push failed: {findings.get('failure_timestamp', 'UNKNOWN')}")
+        report.append("")
+        report.append("### Error Details")
+        report.append("```")
+        report.append("Error: neither /app/registry-push/output.tar found nor /app/registry-push/.output-image/index.json present")
+        report.append("Image push finished with wrong exit code")
+        report.append("```")
+        report.append("")
+        
+        if findings.get('layer_locking_errors'):
+            report.append("### Layer Locking Pattern")
+            report.append(f"- Layer hash: `{findings.get('critical_layer_hash', 'UNKNOWN')}`")
+            report.append(f"- Total lock errors: {findings.get('total_lock_errors', 0)}")
+            report.append(f"- Max lock duration: {findings.get('max_lock_duration_ms', 0):.2f}ms")
+            if findings.get('lock_duration_distribution'):
+                dist = findings['lock_duration_distribution']
+                report.append(f"- Lock duration range: {dist['min']:.2f}ms - {dist['max']:.2f}ms")
+            report.append("")
+        
+        report.append("### Build Details")
+        report.append("- Dockerfile: `Dockerfile.runpod`")
+        report.append("- Branch: `feature/runpod-worker`")
+        if build_log_path:
+            report.append(f"- Build log: `{build_log_path}`")
+        report.append("")
+        report.append("### Impact")
+        report.append("- Deployments blocked: Yes")
+        report.append("- Build time wasted: ~30+ minutes")
+        report.append("")
+        report.append("### Supporting Evidence")
+        report.append(f"- Build logs available: {'Yes' if build_log_path else 'No'}")
+        report.append(f"- Pattern observed in previous builds: Yes (RISK-001)")
+        report.append("- Related risks: RISK-001, RISK-002")
+        
         return "\n".join(report)
     
     def format_status_report(self, status: Dict) -> str:
@@ -306,6 +416,13 @@ def main():
                         log_content = f.read()
                     findings = monitor.detect_registry_push_failure(log_content)
                     print(monitor.format_failure_report(findings))
+                    
+                    # If failure detected, offer to generate incident report
+                    if findings.get('registry_push_failure_detected'):
+                        print("\n" + "=" * 60)
+                        print("To generate an incident report for RunPod support, run:")
+                        print(f"  python scripts/runpod_monitor.py incident {log_file}")
+                        print("=" * 60)
                 except FileNotFoundError:
                     print(f"[ERROR] Log file not found: {log_file}")
                     sys.exit(1)
@@ -314,9 +431,26 @@ def main():
                 print("Analyzes build logs for RISK-001 (registry push failure) and RISK-002 (layer locking) patterns")
                 sys.exit(1)
         
+        elif command == "incident":
+            if len(sys.argv) > 2:
+                log_file = sys.argv[2]
+                try:
+                    with open(log_file, 'r') as f:
+                        log_content = f.read()
+                    findings = monitor.detect_registry_push_failure(log_content)
+                    incident_report = monitor.generate_incident_report(findings, log_file)
+                    print(incident_report)
+                except FileNotFoundError:
+                    print(f"[ERROR] Log file not found: {log_file}")
+                    sys.exit(1)
+            else:
+                print("Usage: script.py incident <log_file_path>")
+                print("Generates incident report template for RunPod support")
+                sys.exit(1)
+        
         else:
             print(f"Unknown command: {command}")
-            print("Available commands: status, wait, health, rebuild, logs, analyze")
+            print("Available commands: status, wait, health, rebuild, logs, analyze, incident")
             sys.exit(1)
     else:
         # Default: show status

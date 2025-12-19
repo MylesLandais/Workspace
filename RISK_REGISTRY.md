@@ -12,8 +12,8 @@ This document tracks known risks, failures, and mitigation strategies for RunPod
 **Severity:** HIGH  
 **Probability:** MEDIUM  
 **First Observed:** 2025-12-19 00:31:58 UTC  
-**Latest Occurrence:** 2025-12-19 19:24:58 UTC  
-**Build IDs:** `5ced0749-36eb-4f7a-870f-9549c2cd743c`, `60893f8c-1670-49f5-a84d-ceb389ac1d3a`
+**Latest Occurrence:** 2025-12-19 03:36:32 UTC  
+**Build IDs:** `5ced0749-36eb-4f7a-870f-9549c2cd743c`, `60893f8c-1670-49f5-a84d-ceb389ac1d3a`, `6f76c1e6-e98e-4875-97b2-1f2133e1802d`
 
 **Description:**
 **WHAT WE FIXED:** Changed CUDA from 13.1.0 (doesn't exist) to 12.8.1 (verified exists). This fixed the build - it now completes successfully.
@@ -56,6 +56,7 @@ RunPod infrastructure issue - build artifacts not found for registry push. Possi
 **Related Build Logs:**
 - `/home/warby/Downloads/build-logs-5ced0749-36eb-4f7a-870f-9549c2cd743c.txt` (lines 382-395)
 - Build log from 2025-12-19 19:24:58 UTC (layer locking + push failure pattern)
+- `/home/warby/Downloads/build-logs-6f76c1e6-e98e-4875-97b2-1f2133e1802d.txt` (lines 452-496): 40 layer locking errors, max duration 1.47s, followed by registry push failure
 
 ---
 
@@ -65,8 +66,8 @@ RunPod infrastructure issue - build artifacts not found for registry push. Possi
 **Severity:** MEDIUM  
 **Probability:** MEDIUM (increasing with pattern observation)  
 **First Observed:** 2025-12-19 00:31:57 UTC  
-**Latest Occurrence:** 2025-12-19 19:24:58 UTC  
-**Build IDs:** `5ced0749-36eb-4f7a-870f-9549c2cd743c`, `60893f8c-1670-49f5-a84d-ceb389ac1d3a`
+**Latest Occurrence:** 2025-12-19 03:36:32 UTC  
+**Build IDs:** `5ced0749-36eb-4f7a-870f-9549c2cd743c`, `60893f8c-1670-49f5-a84d-ceb389ac1d3a`, `6f76c1e6-e98e-4875-97b2-1f2133e1802d`
 
 **Description:**
 Multiple RPC errors during layer export:
@@ -312,45 +313,6 @@ Custom node installations take 90-215 seconds each due to ComfyRegistry data fet
 
 ---
 
-#### RISK-010: Missing Git in Build Context
-
-**Status:** ACTIVE  
-**Severity:** LOW  
-**Probability:** HIGH  
-**First Observed:** 2025-12-18  
-**Build IDs:** `9b3287ef-8028-4986-b523-29a8175a86b3`, multiple subsequent builds
-
-**Description:**
-RunPod's build system attempts to capture git commit information before the Docker build starts, but git is not available in the build context. This results in a warning message:
-
-```
-WARNING: current commit information was not captured by the build: git was not found in the system: exec: "git": executable file not found in $PATH
-```
-
-**Impact:**
-- Commit information not captured in build metadata (informational only)
-- Build tracking and debugging may lack commit context
-- **Does NOT block builds** - this is a warning, not an error
-
-**Root Cause:**
-RunPod infrastructure limitation - the build context (where RunPod prepares the build before executing the Dockerfile) does not include git. This is separate from git being installed inside the Docker container (which is correctly installed on line 21 of `Dockerfile.runpod` for use during custom node installations).
-
-**Mitigation:**
-- None required - this is a RunPod infrastructure limitation
-- Informational warning only - does not affect build success
-- Git is correctly installed in the container for runtime use (custom node installations)
-- Build metadata can be tracked via GitHub releases and build IDs
-
-**Workaround:**
-- Use GitHub release tags for commit tracking (already implemented in CI/CD)
-- Reference build IDs for build tracking
-- Commit information available in GitHub Actions workflow logs
-
-**Note:**
-This warning appears in build logs but does not cause build failures. The Dockerfile correctly installs git (line 21) for use inside the container during custom node installations. The missing git is only in RunPod's pre-build context where they attempt to capture commit metadata.
-
----
-
 ## Risk Prioritization
 
 ### Critical (Fix Immediately)
@@ -372,7 +334,6 @@ This warning appears in build logs but does not cause build failures. The Docker
 ### Low Priority (Acceptable)
 
 8. **RISK-009**: Slow Build Times - Acceptable for now
-9. **RISK-010**: Missing Git in Build Context - Informational warning only
 
 ---
 
@@ -392,5 +353,5 @@ This warning appears in build logs but does not cause build failures. The Docker
 
 ---
 
-*Last Updated: 2025-12-19 (Added RISK-010: Missing Git in Build Context)*
+*Last Updated: 2025-12-19 03:36:32 UTC*
 

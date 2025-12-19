@@ -190,3 +190,97 @@ jobs:
           echo "RunPod will now automatically rebuild."
           echo "Monitor at: https://www.runpod.io/console/serverless"
           echo "=============================================="
+
+  monitor-build:
+    name: Monitor Build and Detect Failures
+    runs-on: ubuntu-latest
+    needs: create-release
+    if: |
+      github.event_name == 'push' && 
+      github.ref == 'refs/heads/feature/runpod-worker'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Wait for build to start
+        env:
+          RUNPOD_API_KEY: ${{ secrets.RUNPOD_API_KEY }}
+          RUNPOD_ENDPOINT_ID: ${{ secrets.RUNPOD_ENDPOINT_ID }}
+        run: |
+          if [ -z "$RUNPOD_API_KEY" ] || [ -z "$RUNPOD_ENDPOINT_ID" ]; then
+            echo "Skipping build monitoring (secrets not configured)"
+            exit 0
+          fi
+          
+          echo "Waiting 5 minutes for build to start..."
+          sleep 300
+          
+          echo "Checking build status..."
+          python scripts/runpod_monitor.py status || echo "Status check completed"
+
+      - name: Check for build completion
+        env:
+          RUNPOD_API_KEY: ${{ secrets.RUNPOD_API_KEY }}
+          RUNPOD_ENDPOINT_ID: ${{ secrets.RUNPOD_ENDPOINT_ID }}
+        run: |
+          if [ -z "$RUNPOD_API_KEY" ] || [ -z "$RUNPOD_ENDPOINT_ID" ]; then
+            echo "Skipping build completion check (secrets not configured)"
+            exit 0
+          fi
+          
+          echo "Waiting for build to complete (timeout: 40 minutes)..."
+          python scripts/runpod_monitor.py wait || echo "Build monitoring completed"
+
+      - name: Create issue on failure
+        if: failure()
+        uses: actions/github-script@v6
+        env:
+          RUNPOD_API_KEY: ${{ secrets.RUNPOD_API_KEY }}
+          RUNPOD_ENDPOINT_ID: ${{ secrets.RUNPOD_ENDPOINT_ID }}
+        with:
+          script: |
+            const title = `RunPod Build Failure - ${context.sha.substring(0, 7)}`;
+            const body = `## RunPod Build Failure Detected
+            
+            **Commit:** ${context.sha.substring(0, 7)}
+            **Branch:** ${context.ref.replace('refs/heads/', '')}
+            **Workflow:** ${context.workflow}
+            **Run:** ${context.runId}
+            
+            ### Possible Causes
+            
+            This may indicate a RISK-001 (Registry Push Failure) issue. Common symptoms:
+            - Build completes successfully but deployment fails
+            - Layer locking errors during export
+            - Registry push errors
+            
+            ### Actions
+            
+            1. Check RunPod console for build logs: https://www.runpod.io/console/serverless
+            2. Analyze build logs using: \`python scripts/runpod_monitor.py analyze <log-file>\`
+            3. If RISK-001 detected, use retry script: \`python scripts/runpod_retry.py <log-file>\`
+            4. See troubleshooting guide: \`RUNPOD_TROUBLESHOOTING.md\`
+            
+            ### Related Documentation
+            
+            - Risk Registry: \`RISK_REGISTRY.md\`
+            - Troubleshooting: \`RUNPOD_TROUBLESHOOTING.md\`
+            `;
+            
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+              labels: ['runpod', 'build-failure', 'automated']
+            });
