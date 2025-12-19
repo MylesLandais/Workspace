@@ -6,6 +6,7 @@ This guide documents common deployment issues, their symptoms, and resolution st
 
 - [Registry Push Failure (RISK-001)](#registry-push-failure-risk-001)
 - [Layer Locking Errors (RISK-002)](#layer-locking-errors-risk-002)
+- [Missing Git in Build Context (RISK-010)](#missing-git-in-build-context-risk-010)
 - [Incident Reporting](#incident-reporting)
 
 ---
@@ -115,6 +116,55 @@ When layer locking errors occur with duration > 1 second, there is a high correl
 
 ---
 
+## Missing Git in Build Context (RISK-010)
+
+### Symptoms
+
+Build logs show warning message:
+```
+WARNING: current commit information was not captured by the build: git was not found in the system: exec: "git": executable file not found in $PATH
+```
+
+### Understanding the Warning
+
+**This is an informational warning, NOT an error.** The build will complete successfully despite this warning.
+
+**What's happening:**
+- RunPod's build system attempts to capture git commit information before the Docker build starts
+- Git is not available in RunPod's build context (the environment where they prepare the build)
+- This is a RunPod infrastructure limitation, not a code issue
+
+**Important distinction:**
+- Git is **correctly installed** in the Docker container (line 21 of `Dockerfile.runpod`)
+- Git is used inside the container for custom node installations (e.g., cloning repositories)
+- The missing git is only in RunPod's pre-build context where they try to capture commit metadata
+
+### Impact Assessment
+
+**Severity:** LOW (Informational only)
+
+- Builds complete successfully
+- No functional impact on deployment
+- Only affects build metadata tracking
+- Does not block or delay builds
+
+### Actions
+
+**No action required** - this is expected behavior due to RunPod infrastructure limitations.
+
+**Alternative tracking methods:**
+- Use GitHub release tags (already implemented in CI/CD workflow)
+- Reference build IDs for build tracking
+- Commit information available in GitHub Actions workflow logs
+
+### Related Information
+
+- **Risk:** RISK-010 (see `RISK_REGISTRY.md`)
+- **Dockerfile:** Git correctly installed on line 21 for container use
+- **CI/CD:** GitHub releases provide commit tracking via workflow
+
+---
+
 ## Incident Reporting
 
 ### When to Create Incident Report
@@ -221,5 +271,5 @@ grep "layer-sha256:" build-logs-*.txt | cut -d: -f3 | sort -u
 
 ---
 
-*Last Updated: 2025-12-19*
+*Last Updated: 2025-12-19 (Added RISK-010: Missing Git in Build Context)*
 

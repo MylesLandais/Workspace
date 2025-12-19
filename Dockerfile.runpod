@@ -17,6 +17,9 @@ ENV PYTHONUNBUFFERED=1
 ENV CMAKE_BUILD_PARALLEL_LEVEL=8
 
 # Install system dependencies including git-lfs
+# Note: Git is installed here for use INSIDE the container (custom node installations).
+# RunPod's build context (before Dockerfile runs) doesn't have git, which causes a
+# harmless warning about commit info capture. This is expected and doesn't affect builds.
 RUN apt-get update && apt-get install -y \
     python3.12 python3.12-venv git git-lfs wget \
     libgl1 libglib2.0-0 libsm6 libxext6 libxrender1 \

@@ -312,6 +312,45 @@ Custom node installations take 90-215 seconds each due to ComfyRegistry data fet
 
 ---
 
+#### RISK-010: Missing Git in Build Context
+
+**Status:** ACTIVE  
+**Severity:** LOW  
+**Probability:** HIGH  
+**First Observed:** 2025-12-18  
+**Build IDs:** `9b3287ef-8028-4986-b523-29a8175a86b3`, multiple subsequent builds
+
+**Description:**
+RunPod's build system attempts to capture git commit information before the Docker build starts, but git is not available in the build context. This results in a warning message:
+
+```
+WARNING: current commit information was not captured by the build: git was not found in the system: exec: "git": executable file not found in $PATH
+```
+
+**Impact:**
+- Commit information not captured in build metadata (informational only)
+- Build tracking and debugging may lack commit context
+- **Does NOT block builds** - this is a warning, not an error
+
+**Root Cause:**
+RunPod infrastructure limitation - the build context (where RunPod prepares the build before executing the Dockerfile) does not include git. This is separate from git being installed inside the Docker container (which is correctly installed on line 21 of `Dockerfile.runpod` for use during custom node installations).
+
+**Mitigation:**
+- None required - this is a RunPod infrastructure limitation
+- Informational warning only - does not affect build success
+- Git is correctly installed in the container for runtime use (custom node installations)
+- Build metadata can be tracked via GitHub releases and build IDs
+
+**Workaround:**
+- Use GitHub release tags for commit tracking (already implemented in CI/CD)
+- Reference build IDs for build tracking
+- Commit information available in GitHub Actions workflow logs
+
+**Note:**
+This warning appears in build logs but does not cause build failures. The Dockerfile correctly installs git (line 21) for use inside the container during custom node installations. The missing git is only in RunPod's pre-build context where they attempt to capture commit metadata.
+
+---
+
 ## Risk Prioritization
 
 ### Critical (Fix Immediately)
@@ -333,6 +372,7 @@ Custom node installations take 90-215 seconds each due to ComfyRegistry data fet
 ### Low Priority (Acceptable)
 
 8. **RISK-009**: Slow Build Times - Acceptable for now
+9. **RISK-010**: Missing Git in Build Context - Informational warning only
 
 ---
 
@@ -352,5 +392,5 @@ Custom node installations take 90-215 seconds each due to ComfyRegistry data fet
 
 ---
 
-*Last Updated: 2025-12-19*
+*Last Updated: 2025-12-19 (Added RISK-010: Missing Git in Build Context)*
 
