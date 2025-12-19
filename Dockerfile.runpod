@@ -87,7 +87,6 @@ RUN comfy-node-install https://github.com/ClownsharkBatwing/RES4LYF
 RUN comfy-node-install https://github.com/giriss/comfy-image-saver
 
 # Install nodes with Git LFS skip to avoid baking multi-GB models into image
-RUN GIT_LFS_SKIP_SMUDGE=1 comfy-node-install https://github.com/Enemyx-net/VibeVoice-ComfyUI && \
+RUN comfy-node-install https://github.com/Enemyx-net/VibeVoice-ComfyUI && \
     GIT_LFS_SKIP_SMUDGE=1 comfy-node-install https://github.com/snicolast/ComfyUI-IndexTTS2
 RUN comfy-node-install https://github.com/ru4ls/ComfyUI_Nano_Banana
-COPY Input/ /comfyui/input/
