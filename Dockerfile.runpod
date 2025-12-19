@@ -17,9 +17,6 @@ ENV PYTHONUNBUFFERED=1
 ENV CMAKE_BUILD_PARALLEL_LEVEL=8
 
 # Install system dependencies including git-lfs
-# Note: Git is installed here for use INSIDE the container (custom node installations).
-# RunPod's build context (before Dockerfile runs) doesn't have git, which causes a
-# harmless warning about commit info capture. This is expected and doesn't affect builds.
 RUN apt-get update && apt-get install -y \
     python3.12 python3.12-venv git git-lfs wget \
     libgl1 libglib2.0-0 libsm6 libxext6 libxrender1 \
@@ -89,8 +86,8 @@ RUN comfy-node-install https://github.com/rgthree/rgthree-comfy
 RUN comfy-node-install https://github.com/ClownsharkBatwing/RES4LYF
 RUN comfy-node-install https://github.com/giriss/comfy-image-saver
 
-# Install both nodes with appropriate Git LFS handling
-RUN comfy-node-install https://github.com/Enemyx-net/VibeVoice-ComfyUI && \
+# Install nodes with Git LFS skip to avoid baking multi-GB models into image
+RUN GIT_LFS_SKIP_SMUDGE=1 comfy-node-install https://github.com/Enemyx-net/VibeVoice-ComfyUI && \
     GIT_LFS_SKIP_SMUDGE=1 comfy-node-install https://github.com/snicolast/ComfyUI-IndexTTS2
 RUN comfy-node-install https://github.com/ru4ls/ComfyUI_Nano_Banana
 COPY Input/ /comfyui/input/

@@ -7,6 +7,15 @@ export LD_PRELOAD="${TCMALLOC}"
 # Ensure ComfyUI-Manager runs in offline network mode inside the container
 comfy-manager-set-mode offline || echo "worker-comfyui - Could not set ComfyUI-Manager network_mode" >&2
 
+# Download LFS models for nodes that need them (only if missing)
+# Models are stored in RunPod network volume and persist between runs
+if [ -d "/comfyui/custom_nodes/VibeVoice-ComfyUI" ]; then
+    if [ ! -d "/comfyui/custom_nodes/VibeVoice-ComfyUI/models" ] || [ -z "$(ls -A /comfyui/custom_nodes/VibeVoice-ComfyUI/models 2>/dev/null)" ]; then
+        echo "worker-comfyui: Fetching VibeVoice models (this may take a few minutes on first run)..."
+        cd /comfyui/custom_nodes/VibeVoice-ComfyUI && git lfs pull || echo "worker-comfyui: Warning - VibeVoice LFS pull failed" >&2
+    fi
+fi
+
 echo "worker-comfyui: Starting ComfyUI"
 
 # Allow operators to tweak verbosity; default is DEBUG.
