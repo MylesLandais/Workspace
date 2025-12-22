@@ -1,0 +1,17 @@
+{
+  "name": "Elixir Phoenix with Neo4j",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "forwardPorts": [4000, 7474, 7687],
+  "postCreateCommand": "mix deps.get",
+  "remoteUser": "vscode",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "JakeBecker.elixir-ls"
+      ]
+    }
+  }
+}
+

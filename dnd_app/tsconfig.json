@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "phoenix": ["./node_modules/phoenix/priv/static/phoenix.js"],
+      "phoenix_html": ["./node_modules/phoenix_html/priv/static/phoenix_html.js"],
+      "phoenix_live_view": ["./node_modules/phoenix_live_view/priv/static/phoenix_live_view.js"]
+    }
+  },
+  "include": [
+    "assets/js/**/*.ts",
+    "assets/js/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "_build",
+    "deps",
+    "priv/static"
+  ]
+}
+
