@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Roller - Standalone Demo</title>
+    <link rel="stylesheet" href="css/dice-roller.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .demo-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .demo-header h1 {
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .demo-actions {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .demo-button {
+            padding: 10px 20px;
+            border: 2px solid white;
+            border-radius: 5px;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .demo-button:hover {
+            background: white;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1>🎲 Dice Roller Demo</h1>
+            <p>Deterministic 3D Dice Rolling System</p>
+        </div>
+        
+        <div class="dice-roller-container">
+            <div id="dice-tray" class="dice-tray"></div>
+            
+            <div class="dice-controls">
+                <div class="dice-control-group">
+                    <label>Dice Type</label>
+                    <div class="dice-type-buttons">
+                        <button class="dice-type-btn active" data-type="d4">d4</button>
+                        <button class="dice-type-btn active" data-type="d6">d6</button>
+                        <button class="dice-type-btn active" data-type="d8">d8</button>
+                        <button class="dice-type-btn active" data-type="d10">d10</button>
+                        <button class="dice-type-btn active" data-type="d12">d12</button>
+                        <button class="dice-type-btn active" data-type="d20">d20</button>
+                    </div>
+                </div>
+                
+                <div class="dice-control-group">
+                    <label>Quantity</label>
+                    <input type="number" id="dice-quantity" min="1" max="20" value="1">
+                </div>
+                
+                <div class="dice-control-group">
+                    <label>Modifier</label>
+                    <input type="number" id="dice-modifier" value="0" step="1">
+                </div>
+                
+                <div class="dice-control-group">
+                    <label>Or Enter Notation</label>
+                    <input type="text" id="dice-notation" class="notation-input" placeholder="e.g., 2d6+3" value="1d20">
+                </div>
+                
+                <div class="dice-control-group">
+                    <label>&nbsp;</label>
+                    <button id="roll-button" class="roll-button">Roll Dice</button>
+                </div>
+            </div>
+            
+            <div id="dice-results" class="dice-results hidden">
+                <div id="results-content"></div>
+            </div>
+        </div>
+        
+        <div class="demo-actions">
+            <button class="demo-button" onclick="runChaosTests()">Run Chaos Tests</button>
+            <button class="demo-button" onclick="rollRandom()">Roll Random</button>
+            <button class="demo-button" onclick="rollCritical()">Roll Critical (20)</button>
+            <button class="demo-button" onclick="rollMultiple()">Roll Multiple (5d6)</button>
+        </div>
+    </div>
+    
+    <!-- Three.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Dice Roller Components -->
+    <script src="js/dice-visualizer.js"></script>
+    <script src="js/dice-logic.js"></script>
+    <script src="js/dice-chaos-tests.js"></script>
+    
+    <script>
+        // Initialize dice roller
+        let diceVisualizer;
+        let diceRoller;
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const tray = document.getElementById('dice-tray');
+            diceVisualizer = new DiceVisualizer(tray);
+            diceRoller = new DiceRoller();
+            
+            // Setup event listeners
+            setupEventListeners();
+        });
+        
+        function setupEventListeners() {
+            const rollButton = document.getElementById('roll-button');
+            const notationInput = document.getElementById('dice-notation');
+            const quantityInput = document.getElementById('dice-quantity');
+            const modifierInput = document.getElementById('dice-modifier');
+            const diceTypeButtons = document.querySelectorAll('.dice-type-btn');
+            
+            // Roll button
+            rollButton.addEventListener('click', handleRoll);
+            rollButton.addEventListener('touchstart', handleRoll); // iOS support
+            
+            // Enter key on notation input
+            notationInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    handleRoll();
+                }
+            });
+            
+            // Dice type buttons
+            diceTypeButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    btn.classList.toggle('active');
+                });
+                btn.addEventListener('touchstart', () => {
+                    btn.classList.toggle('active');
+                });
+            });
+            
+            // Listen for roll completion
+            diceVisualizer.on('complete', (results) => {
+                displayResults(results);
+            });
+        }
+        
+        function handleRoll() {
+            const notationInput = document.getElementById('dice-notation');
+            const notation = notationInput.value.trim();
+            
+            if (!notation) {
+                alert('Please enter dice notation (e.g., 1d20, 2d6+3)');
+                return;
+            }
+            
+            try {
+                // Parse notation
+                const result = diceRoller.roll(notation);
+                
+                // Convert to visualizer format
+                const rollRequests = diceRoller.toVisualizerFormat(result);
+                
+                // Roll dice
+                diceVisualizer.roll(rollRequests);
+                
+                // Disable button during roll
+                const rollButton = document.getElementById('roll-button');
+                rollButton.disabled = true;
+                
+                diceVisualizer.on('complete', () => {
+                    rollButton.disabled = false;
+                });
+            } catch (error) {
+                alert(`Error: ${error.message}`);
+            }
+        }
+        
+        function displayResults(results) {
+            const resultsDiv = document.getElementById('dice-results');
+            const contentDiv = document.getElementById('results-content');
+            
+            resultsDiv.classList.remove('hidden');
+            
+            let html = '';
+            let total = 0;
+            
+            results.forEach((result, index) => {
+                total += result.faceValue;
+                const isCritical = result.dieType === 'd20' && result.faceValue === 20;
+                const isFail = result.dieType === 'd20' && result.faceValue === 1;
+                
+                html += `
+                    <div class="result-item">
+                        <span class="result-label">Die ${index + 1} (${result.dieType}):</span>
+                        <span class="result-value ${isCritical ? 'critical' : ''} ${isFail ? 'fail' : ''}">
+                            ${result.faceValue}
+                        </span>
+                    </div>
+                `;
+            });
+            
+            // Add modifier if any
+            const modifier = results[0]?.modifier || 0;
+            if (modifier !== 0) {
+                total += modifier;
+                html += `
+                    <div class="result-item">
+                        <span class="result-label">Modifier:</span>
+                        <span class="result-value">${modifier >= 0 ? '+' : ''}${modifier}</span>
+                    </div>
+                `;
+            }
+            
+            html += `
+                <div class="result-total">
+                    Total: ${total}
+                </div>
+            `;
+            
+            contentDiv.innerHTML = html;
+        }
+        
+        // Demo functions
+        function rollRandom() {
+            const dieTypes = ['d4', 'd6', 'd8', 'd10', 'd12', 'd20'];
+            const randomType = dieTypes[Math.floor(Math.random() * dieTypes.length)];
+            document.getElementById('dice-notation').value = `1${randomType}`;
+            handleRoll();
+        }
+        
+        function rollCritical() {
+            document.getElementById('dice-notation').value = '1d20';
+            // Force critical (20)
+            const result = diceRoller.rollWithResults('1d20', [20]);
+            const rollRequests = diceRoller.toVisualizerFormat(result);
+            diceVisualizer.roll(rollRequests);
+        }
+        
+        function rollMultiple() {
+            document.getElementById('dice-notation').value = '5d6';
+            handleRoll();
+        }
+        
+        function runChaosTests() {
+            const tests = new DiceChaosTests(diceVisualizer);
+            tests.runAll().then(summary => {
+                console.log('Chaos tests completed:', summary);
+                alert(`Chaos tests completed!\n${summary.passed} passed, ${summary.failed} failed\nCheck console for details.`);
+            });
+        }
+    </script>
+</body>
+</html>
+

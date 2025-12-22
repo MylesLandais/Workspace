@@ -191,3 +191,5 @@ def test_generate_image_custom_dimensions(mock_load_workflow, mock_runner_class,
     assert result["height"] == 2048
     assert result["seed"] == 99999
 
+
+

@@ -72,6 +72,12 @@
 - **Leaderboard System**: PostgreSQL-backed ranking and comparison
 - **Test Suite**: Comprehensive model availability and functionality testing
 
+### ComfyUI Middleware
+- **Agent Layer**: Google ADK agent orchestration for image generation
+- **Infrastructure Layer**: RunPod deployment automation with infrastructure-as-code
+- **Batch Testing Framework**: Parallel test execution with pass/fail validation
+- **Architecture Documentation**: See `docs/COMFY_ARCHITECTURE.md` for complete system design
+
 ### Development Tools
 - **Docker DevContainers**: Isolated, reproducible development environment with CUDA support
 - **Secret Scanning**: Talisman pre-commit hooks for security

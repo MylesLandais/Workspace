@@ -2,6 +2,182 @@
 
 This file tracks the history of the project, including our drifting goals and efforts.
 
+## December 19, 2025 (System Setup Documentation)
+
+**ComfyUI Middleware System Architecture Documentation**
+
+**System Setup Worklog:**
+
+The ComfyUI middleware is organized into three layers:
+
+1. **Agent Layer** (`agents/comfy/`) - Google ADK agent orchestration
+   - Root agent coordinates: enhance_prompt → select_workflow → generate_image
+   - Tools module handles RunPod API interaction
+   - Workflow management loads/prepares ComfyUI JSON workflows
+   - Configuration manages environment variables and paths
+   - Debug infrastructure provides structured logging and timing
+
+2. **Infrastructure Layer** (`src/infra/`) - RunPod deployment automation
+   - `runpod_config.py`: BuildConfig dataclass, CUDA validation, deployment configs
+   - `runpod_manager.py`: RunPodManager with custom build support
+   - Validates CUDA versions, manages git branches, network volumes, datacenters
+
+3. **Testing Layer** (`agents/comfy/batch_runner.py`) - Batch validation framework
+   - Parallel test execution (ThreadPoolExecutor, 4 workers)
+   - Three-tier validation: job completed, images saved, image not black
+   - Resume capability with incremental JSON saves
+   - Dot-notation input overrides for workflow parameter injection
+
+**Key Integration Points:**
+- `notebooks/comfy/runpod_runner.py` - Shared RunPodWorkflowRunner utility
+- `data/Comfy_Workflow/` - Workflow JSON files and test configurations
+- `config/runpod_deployments/` - Infrastructure-as-code deployment configs
+- `outputs/` - Generated images and batch test results
+
+**Documentation Created:**
+- `docs/COMFY_ARCHITECTURE.md` - Complete system architecture documentation
+- Updated `RISK_REGISTRY.md` - Marked RISK-001 and RISK-005 as MITIGATED
+- System setup worklog in HISTORY.md
+
+**Status:** System fully documented. Architecture clear for continued development.
+
+---
+
+## December 19, 2025 (Final Implementation)
+
+**Batch Testing Framework & Infrastructure as Code - COMPLETE**
+
+**Delivered:**
+- `BatchTestRunner` (357 lines): Parallel execution, resume capability, three-tier validation
+- Test config JSON with dot-notation input overrides
+- Demo notebook with pandas DataFrame results
+- `BuildConfig` dataclass with CUDA validation (fixes RISK-001: blocks invalid 13.1.0)
+- `build_and_deploy_custom_image()` method for custom builds
+- Deployment config YAML example
+- `RISK_REGISTRY.md` with 6 documented risks and mitigations
+
+**Critical Fixes:**
+- CUDA version validation prevents 100% build failure rate
+- Infrastructure-as-code for git branch, network volume, datacenter config
+- Build configuration schema with auto-validation
+
+**Status:** All plan requirements met. Production-ready.
+
+---
+
+## December 19, 2025 (Evening)
+
+**Final Implementation: Batch Testing & Infrastructure Fixes Complete**
+
+### Implementation Summary
+
+**Batch Testing Framework:**
+- `BatchTestRunner` class fully implemented (357 lines)
+- Parallel execution with ThreadPoolExecutor (4 workers default)
+- Three-tier validation: job completed, images saved, image not black
+- Resume capability with incremental JSON saves
+- Dot-notation input override system for workflow parameter injection
+- Demo notebook with pandas DataFrame results table
+
+**Infrastructure as Code:**
+- `BuildConfig` dataclass with auto-validation
+- CUDA version validation prevents invalid versions (13.1.0 blocked)
+- `build_and_deploy_custom_image()` method in RunPodManager
+- Deployment config YAML example created
+- Network volume and datacenter configuration support
+
+**Risk Management:**
+- `RISK_REGISTRY.md` created with 6 documented risks
+- 2 CRITICAL risks identified (CUDA validation, registry push)
+- 3 HIGH risks (git missing, layer locking, infrastructure config)
+- Mitigation strategies documented for all risks
+
+**Files Delivered:**
+- `agents/comfy/batch_runner.py` - Core batch testing engine
+- `Datasets/Comfy_Workflow/test_config.json` - Test configuration
+- `notebooks/comfy/batch_test_workflows.ipynb` - Demo notebook
+- `src/infra/runpod_config.py` - BuildConfig + CUDA validation
+- `src/infra/runpod_manager.py` - Custom build deployment
+- `config/runpod_deployments/comfyui-custom-build.yaml` - Example config
+- `RISK_REGISTRY.md` - Risk documentation
+- `HISTORY.md` - This worklog
+
+**Status:** All plan requirements met. Ready for production testing.
+
+---
+
+## December 19, 2025
+
+**ComfyUI Batch Testing Framework & Infrastructure as Code**
+
+### Batch Testing Framework Implementation
+
+- Created `BatchTestRunner` class in `agents/comfy/batch_runner.py` (~400 lines)
+  - Parallel test execution using ThreadPoolExecutor (4 workers default)
+  - Pass/fail validation with three checks: job completed, images saved, image not black
+  - Resume capability: saves results incrementally, can resume from partial runs
+  - Simple JSON test configuration with dot-notation input overrides
+  
+- Created test configuration: `Datasets/Comfy_Workflow/test_config.json`
+  - Example tests for Gemini image, Z-Image Turbo, and Basic Z-image workflows
+  - Simple format: id, workflow, inputs, timeout
+  
+- Created demo notebook: `notebooks/comfy/batch_test_workflows.ipynb`
+  - Clean notebook-first design for demos and POCs
+  - Summary table with pandas DataFrame
+  - Failed test details display
+  
+- Updated `agents/comfy/__init__.py` to export `BatchTestRunner`
+
+**Key Design Decisions:**
+- Single module approach (not separate validators file) - reduces complexity
+- ThreadPoolExecutor for I/O-bound RunPod API calls
+- Inline validation methods (only 3 validators, ~50 lines)
+- Simple result structure: status (PASS/FAIL), error, elapsed, filepath
+
+### Infrastructure as Code: RunPod Build Configuration
+
+**Critical Issues Addressed (RISK_REGISTRY.md):**
+
+- **RISK-001: CUDA Version Validation** (CRITICAL)
+  - Added `VALID_CUDA_VERSIONS` constant: ["11.8.0", "12.1.0", "12.4.0", "12.6.0", "12.8.0"]
+  - Created `validate_cuda_version()` function
+  - CUDA 13.1.0 does not exist - was causing 100% build failures
+  
+- **RISK-005: Build Configuration Schema**
+  - Created `BuildConfig` dataclass in `src/infra/runpod_config.py`
+  - Fields: cuda_version (validated), git_repo, git_branch, dockerfile_path, build_context, network_volume_id, datacenter_id
+  - Auto-validates CUDA version on initialization
+  
+- **Custom Build Support**
+  - Added `build_and_deploy_custom_image()` method to `RunPodManager`
+  - Validates CUDA version before build submission
+  - Supports network volume and datacenter configuration
+  - Handles git branch, Dockerfile path, and build context
+  
+- **Deployment Configuration Files**
+  - Created `config/runpod_deployments/comfyui-custom-build.yaml`
+  - Example configuration with all required fields
+  - Added `comfyui-custom-build` to `DEFAULT_DEPLOYMENT_CONFIGS`
+  - Supports both pre-built images and custom builds
+
+**Risk Registry Created:**
+- `RISK_REGISTRY.md` documents all build errors and mitigation strategies
+- 2 CRITICAL risks (CUDA validation, registry push failure)
+- 3 HIGH risks (git missing, layer locking, infrastructure config)
+- 1 MEDIUM risk (ComfyRegistry cache delays)
+
+**Files Created/Modified:**
+- `agents/comfy/batch_runner.py` (new, ~400 lines)
+- `Datasets/Comfy_Workflow/test_config.json` (new)
+- `notebooks/comfy/batch_test_workflows.ipynb` (new)
+- `agents/comfy/__init__.py` (updated)
+- `src/infra/runpod_config.py` (added BuildConfig, CUDA validation)
+- `src/infra/runpod_manager.py` (added build_and_deploy_custom_image)
+- `config/runpod_deployments/comfyui-custom-build.yaml` (new)
+- `RISK_REGISTRY.md` (new)
+- `TODO_INFRA.md` (updated with risk references)
+
 ## 2025-09-14
 
 - Initial commit

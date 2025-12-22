@@ -24,5 +24,15 @@ dependencies = [
     "python-dotenv>=1.0.0",
     # Image processing (used by runpod_runner)
     "Pillow>=10.0.0",
+    # Data analysis
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    # ComfyUI metadata analysis
+    "sentence-transformers>=2.2.0",
+    # RPG Graph VTT - D&D 5e Character Management
+    "neo4j>=5.0.0",
+    "fastapi>=0.100.0",
+    "uvicorn[standard]>=0.23.0",
+    "pydantic-settings>=2.8.1",
 ]
 

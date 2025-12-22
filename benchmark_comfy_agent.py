@@ -3,14 +3,19 @@
 Comfy Agent Benchmark Script
 
 Benchmarks the legacy img_zurbo workflow against the new Comfy ADK agent
-using 16 gopher prompts with extended A/B testing.
+using gopher prompts with 4-way comparison.
 
 Test Matrix:
 - A: Legacy workflow with raw prompt
 - B: Agent (full pipeline) with enhanced prompt
 - C: Legacy workflow with enhanced prompt (from B)
+- D: Agent workflow with raw prompt (no enhancement)
 
-This isolates whether output differences come from prompt enhancement vs workflow execution.
+This creates a 2x2 matrix to isolate effects:
+- A vs D: Workflow differences (legacy vs agent) on identical raw prompts
+- B vs D: Enhancement effect within agent pipeline
+- A vs C: Enhancement effect within legacy workflow
+- B vs C: Should be identical (same enhanced prompt, same seed, same workflow)
 """
 
 import sys
@@ -217,6 +222,7 @@ logger = get_logger(__name__)
 
 # Gopher prompt templates
 GOPHER_PROMPTS = [
+    # Original set
     "A cyberpunk gopher astronaut floating in space, digital art",
     "A steampunk gopher mechanic repairing a clockwork machine, digital art",
     "A medieval gopher knight in shining armor, fantasy art",
@@ -233,10 +239,31 @@ GOPHER_PROMPTS = [
     "A gopher samurai with a katana, traditional Japanese art",
     "A gopher astronaut exploring an alien planet, space art",
     "A gopher time traveler in a steampunk time machine, sci-fi art",
+    # Female gophers (bias check)
+    "A female gopher engineer coding at a standing desk, digital art",
+    "A female gopher botanist in a greenhouse, watercolor style",
+    "A female gopher CEO leading a boardroom meeting, cinematic lighting",
+    "A female gopher surgeon performing delicate surgery, medical illustration style",
+    "A female gopher architect designing a skyscraper, architectural drawing style",
+    # Go gopher mascot
+    "The iconic Go gopher mascot high-fiving a developer, vector art style",
+    "The Go gopher mascot riding a cloud, cartoon style",
+    "The Go gopher mascot debugging code, pixel art style",
+    # Pop culture / Anime styles
+    "A gopher dressed as Goku powering up, anime style",
+    "A gopher warrior in Saiyan armor, manga style",
+    "A cute gopher with Eevee-like fluffy ears, pokemon style",
+    "A gopher with electric cheeks like Pikachu, nintendo style",
+    "A gopher wearing a Charizard costume, pokemon style",
+    "A gopher in Naruto's orange jumpsuit with headband, anime style",
+    "A gopher as a One Piece pirate with straw hat, manga style",
+    # Additional diverse styles
+    "A gopher DJ mixing beats at a neon-lit club, cyberpunk style",
+    "A gopher yoga instructor in a zen garden, minimalist style",
 ]
 
 
-def generate_prompts(count: int = 16, seed: int = 42) -> List[str]:
+def generate_prompts(count: int = 32, seed: int = 42) -> List[str]:
     """
     Generate random gopher prompts for benchmarking.
     
@@ -511,6 +538,90 @@ def run_agent_workflow(
         }, None
 
 
+def run_agent_workflow_raw(
+    prompt: str,
+    seed: int,
+    output_dir: Path,
+    filename_prefix: str,
+    trace_log_file: Path
+) -> Dict[str, Any]:
+    """
+    Run the agent workflow with raw prompt (no enhancement).
+    This is Condition D: Agent with raw prompt to isolate workflow effects.
+    
+    Args:
+        prompt: Raw user prompt (not enhanced)
+        seed: Random seed
+        output_dir: Directory to save output image
+        filename_prefix: Prefix for output filename
+        trace_log_file: Path to save agent traces
+    
+    Returns:
+        Result dictionary
+    """
+    start_time = time.time()
+    
+    try:
+        # Set up trace logging
+        trace_callback = FileLoggingCallback(trace_log_file)
+        
+        logger.info(f"[Agent Raw] Generating image with raw prompt (length: {len(prompt)})")
+        logger.debug(f"[Agent Raw] Full raw prompt: {prompt}")
+        
+        # Generate image using the agent's tool directly with raw prompt (skip enhancement)
+        result = generate_image_with_runpod(
+            prompt=prompt,
+            workflow_name=None,  # Use programmatic workflow
+            width=1152,
+            height=2048,
+            seed=seed
+        )
+        
+        # Extract workflow payload from result if available (for review)
+        if "workflow_payload" in result:
+            result["workflow_payload_saved"] = True
+        
+        # Move image to benchmark output directory if needed
+        if result.get("status") == "success":
+            original_filepath = Path(result["filepath"])
+            if original_filepath.parent != output_dir:
+                # Copy to benchmark directory with new name
+                output_dir.mkdir(parents=True, exist_ok=True)
+                new_filepath = output_dir / f"{filename_prefix}.png"
+                import shutil
+                shutil.copy2(original_filepath, new_filepath)
+                result["filepath"] = str(new_filepath)
+                result["filename"] = new_filepath.name
+        
+        # Add prompt info to result
+        result["prompt"] = prompt
+        result["prompt_length"] = len(prompt)
+        
+        # Log trace manually
+        trace_callback.on_agent_start("comfyui_image_generator", prompt)
+        trace_callback.on_tool_call("generate_image_with_runpod", {
+            "prompt": prompt,
+            "seed": seed
+        })
+        trace_callback.on_tool_result("generate_image_with_runpod", result, result.get("elapsed_seconds", 0))
+        
+        if result.get("status") == "success":
+            trace_callback.on_agent_complete("comfyui_image_generator", result.get("filepath", ""), time.time() - start_time)
+        else:
+            trace_callback.on_agent_error("comfyui_image_generator", Exception(result.get("error", "Unknown")), time.time() - start_time)
+        
+        return result
+        
+    except Exception as e:
+        logger.exception(f"[Agent Raw] Unexpected error: {e}")
+        return {
+            "status": "error",
+            "message": f"Unexpected error: {e}",
+            "error": str(e),
+            "elapsed_seconds": time.time() - start_time
+        }
+
+
 def compute_image_similarity(image1_path: Path, image2_path: Path) -> Optional[float]:
     """
     Compute perceptual hash similarity between two images.
@@ -623,7 +734,7 @@ def run_benchmark(output_base_dir: Path = None, resume_from: Optional[Path] = No
         logs_dir = baseline_dir / "logs"
         images_dir.mkdir(parents=True, exist_ok=True)
         logs_dir.mkdir(parents=True, exist_ok=True)
-        prompts = generate_prompts(count=16, seed=42)
+        prompts = generate_prompts(count=32, seed=42)
         existing_results = {
             "baseline_dir": str(baseline_dir),
             "timestamp": timestamp,
@@ -713,6 +824,21 @@ def run_benchmark(output_base_dir: Path = None, resume_from: Optional[Path] = No
             if legacy_enhanced_result.get("status") != "success":
                 logger.error(f"[Condition C] Failed: {legacy_enhanced_result.get('message')}")
 
+        # Condition D: Agent raw (no enhancement)
+        trace_log_file_raw = logs_dir / f"{prompt_id}_agent_raw_traces.log"
+        agent_raw_result = run_agent_workflow_raw(
+            prompt=raw_prompt,
+            seed=prompt_seed,
+            output_dir=images_dir,
+            filename_prefix=f"{prompt_id}_D_agent_raw",
+            trace_log_file=trace_log_file_raw
+        )
+        prompt_result["conditions"]["D"] = agent_raw_result
+        if "workflow_payload" in agent_raw_result:
+            prompt_result["workflow_payloads"]["D"] = agent_raw_result.get("workflow_payload")
+        if agent_raw_result.get("status") != "success":
+            logger.error(f"[Condition D] Failed: {agent_raw_result.get('message')}")
+
         # Similarities
         if IMAGEHASH_AVAILABLE:
             sims = {}
@@ -722,6 +848,11 @@ def run_benchmark(output_base_dir: Path = None, resume_from: Optional[Path] = No
                 sims["B_vs_C"] = compute_image_similarity(Path(agent_result["filepath"]), Path(prompt_result["conditions"]["C"]["filepath"]))
             if enhanced_prompt and legacy_raw_result.get("status") == "success" and prompt_result["conditions"].get("C", {}).get("status") == "success":
                 sims["A_vs_C"] = compute_image_similarity(Path(legacy_raw_result["filepath"]), Path(prompt_result["conditions"]["C"]["filepath"]))
+            # New similarity pairs for Condition D
+            if legacy_raw_result.get("status") == "success" and agent_raw_result.get("status") == "success":
+                sims["A_vs_D"] = compute_image_similarity(Path(legacy_raw_result["filepath"]), Path(agent_raw_result["filepath"]))
+            if agent_result.get("status") == "success" and agent_raw_result.get("status") == "success":
+                sims["B_vs_D"] = compute_image_similarity(Path(agent_result["filepath"]), Path(agent_raw_result["filepath"]))
             prompt_result["similarities"] = sims
             prompt_result["within_threshold"] = all(
                 v is not None and v < existing_results["summary"]["similarity_threshold"]

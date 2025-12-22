@@ -1,0 +1,767 @@
+{
+  "character": {
+    "name": "Shay",
+    "base_identity": "A realistic photograph of Shay, a woman with: oval face, balanced proportions, defined but soft jawline, slightly rounded chin; fair skin tone (Fitzpatrick Type II), warm peachy undertones, light freckles concentrated on nose and upper cheeks, smooth texture, natural finish; medium-sized eyes, warm brown/hazel color, almond shape, slight upward cant at outer corners, natural eyelashes; medium thickness eyebrows, dark brown, natural shape with gentle arch, well-defined without being heavy; straight nose bridge, medium width, slightly rounded tip, proportionate to face; medium-full lips, natural pink tone, upper lip slightly thinner than lower; dark brown hair (#3B2820 hex approximate), natural shine, no highlights; long hair extending to mid-chest/breast line, straight with slight natural wave/body, fine to medium strand thickness, clean center part. Captured with a professional full-frame camera, ultra-detailed skin texture, natural color grading, no filters, no makeup (or subtle natural makeup), 50mm lens look, shallow depth of field, background softly blurred. Generate at least 2048x2048 resolution for later cropping to 1024x1024."
+  },
+  "wildcards": {
+    "hairstyles": ["down", "ponytail", "claw-clip", "styled-curled"],
+    "expressions": ["neutral", "genuine-smile", "big-laugh", "serious-focused", "thoughtful", "surprised-intrigued", "gentle-smile", "tired-contemplative", "confident-smirk"],
+    "angles": ["frontal", "slight-3/4-right", "slight-3/4-left", "right-3/4-profile", "left-3/4-profile", "near-profile-side", "slight-up-angle", "slight-down-angle", "head-tilt-right", "head-tilt-left", "looking-away"],
+    "lighting": ["soft-window-indoor", "studio-professional", "evening-warm-indoor", "bright-daytime-window", "golden-hour-outdoor", "overcast-outdoor", "night-city-lights", "harsh-direct-sunlight", "backlit-hair-rim", "cool-artificial-indoor", "warm-artificial-lamp", "mixed-lighting"],
+    "clothing": ["casual-t-shirt", "casual-button-up", "casual-hoodie", "casual-sweater", "dark-plain-crew-neck", "light-blue-t-shirt", "patterned-casual-shirt", "dark-blazer-over-tshirt", "casual-jacket", "dark-hoodie", "plain-long-sleeve", "home-loungewear", "blazer-formal", "casual-jeans"],
+    "backgrounds": ["plain-light-gray", "seamless-mid-gray", "blurred-bookshelf", "blurred-living-room", "office-background", "darker-blurred", "neutral-background", "warm-fairy-light-bokeh", "couch-interior", "darker-studio", "generic-blurred", "plain-wall", "airy-bright-indoor", "trees-blurred", "park-nature", "city-elements", "colorful-bokeh", "simple-wall-fence", "home-office", "modern-interior"],
+    "framing": ["head-shoulders", "medium-shot"]
+  },
+  "prompts": [
+    {
+      "id": "A1",
+      "group": "neutral_reference",
+      "name": "Frontal Neutral Indoor Soft",
+      "full_prompt": "Facing camera directly with a neutral, relaxed expression, evenly lit by soft window light in a simple indoor setting, plain light-gray background, no visible jewelry, casual solid-color t-shirt, head-and-shoulders framing. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "neutral",
+        "angle": "frontal",
+        "lighting": "soft-window-indoor",
+        "clothing": "casual-t-shirt",
+        "background": "plain-light-gray",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, neutral expression, frontal, soft window light, casual t-shirt, down hair",
+        "flux": "A woman named Shay with a neutral relaxed expression, facing camera directly, wearing a casual solid-color t-shirt, evenly lit by soft window light in a simple indoor setting, long dark brown hair down with center part",
+        "qwen_image": "Shay, neutral expression, frontal, casual t-shirt, soft indoor lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "A2",
+      "group": "neutral_reference",
+      "name": "Frontal Neutral Studio",
+      "full_prompt": "Straight-on towards camera, neutral expression, professional studio lighting with soft key and subtle rim light, seamless mid-gray backdrop, wearing a dark plain crew-neck shirt, high-resolution portrait, ultra-sharp facial details. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "neutral",
+        "angle": "frontal",
+        "lighting": "studio-professional",
+        "clothing": "dark-plain-crew-neck",
+        "background": "seamless-mid-gray",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, neutral expression, frontal, studio professional lighting, dark plain crew-neck, down hair",
+        "flux": "A woman named Shay with a neutral expression, straight-on towards camera, wearing a dark plain crew-neck shirt, professional studio lighting with soft key and subtle rim light, seamless mid-gray backdrop, long dark brown hair down with center part",
+        "qwen_image": "Shay, neutral expression, frontal, dark plain crew-neck, studio lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "A3",
+      "group": "neutral_reference",
+      "name": "Slight 3/4 Neutral",
+      "full_prompt": "Head turned slightly 3/4 to the right, eyes looking towards camera, neutral expression, indoor ambient lighting, blurred bookshelf background, casual button-up shirt, realistic skin texture. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "neutral",
+        "angle": "slight-3/4-right",
+        "lighting": "soft-window-indoor",
+        "clothing": "casual-button-up",
+        "background": "blurred-bookshelf",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, neutral expression, slight 3/4 right, indoor ambient lighting, casual button-up, down hair",
+        "flux": "A woman named Shay with a neutral expression, head turned slightly 3/4 to the right with eyes looking towards camera, wearing a casual button-up shirt, indoor ambient lighting, blurred bookshelf background, long dark brown hair down with center part",
+        "qwen_image": "Shay, neutral expression, slight 3/4 right, casual button-up, indoor lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "A4",
+      "group": "neutral_reference",
+      "name": "Slight 3/4 Soft Smile",
+      "full_prompt": "Head turned slightly 3/4 to the left, small closed-mouth smile, soft evening indoor lighting, warm color temperature, blurred living-room background, casual hoodie. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "gentle-smile",
+        "angle": "slight-3/4-left",
+        "lighting": "evening-warm-indoor",
+        "clothing": "casual-hoodie",
+        "background": "blurred-living-room",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, gentle smile, slight 3/4 left, warm evening indoor lighting, casual hoodie, down hair",
+        "flux": "A woman named Shay with a small closed-mouth smile, head turned slightly 3/4 to the left, wearing a casual hoodie, soft evening indoor lighting with warm color temperature, blurred living-room background, long dark brown hair down with center part",
+        "qwen_image": "Shay, gentle smile, slight 3/4 left, casual hoodie, warm evening lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "B1",
+      "group": "expression_diversity",
+      "name": "Genuine Smile with Teeth",
+      "full_prompt": "Facing camera, genuine smile showing upper teeth, eyes slightly squinted, bright daytime window light, subtle catchlights in the eyes, clean white wall background, casual light-blue t-shirt. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "genuine-smile",
+        "angle": "frontal",
+        "lighting": "bright-daytime-window",
+        "clothing": "light-blue-t-shirt",
+        "background": "plain-wall",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, genuine smile, frontal, bright daytime window light, light blue t-shirt, down hair",
+        "flux": "A woman named Shay with a genuine smile showing upper teeth, eyes slightly squinted, facing camera, wearing a casual light-blue t-shirt, bright daytime window light with subtle catchlights in the eyes, clean white wall background, long dark brown hair down with center part",
+        "qwen_image": "Shay, genuine smile, frontal, light blue t-shirt, bright daytime lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "B2",
+      "group": "expression_diversity",
+      "name": "Big Laugh",
+      "full_prompt": "Mid-laugh expression with mouth open, head tilted back slightly, natural indoor lighting, warm color grading, blurred cafe interior background, wearing a patterned casual shirt. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "big-laugh",
+        "angle": "slight-up-angle",
+        "lighting": "soft-window-indoor",
+        "clothing": "patterned-casual-shirt",
+        "background": "generic-blurred",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, big laugh, slight up angle, natural indoor lighting, patterned casual shirt, down hair",
+        "flux": "A woman named Shay with a mid-laugh expression with mouth open, head tilted back slightly, wearing a patterned casual shirt, natural indoor lighting with warm color grading, blurred cafe interior background, long dark brown hair down with center part",
+        "qwen_image": "Shay, big laugh, slight up angle, patterned casual shirt, natural indoor lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "B3",
+      "group": "expression_diversity",
+      "name": "Serious Focused",
+      "full_prompt": "Neutral to slightly serious expression, eyes focused just past the camera, cooler indoor lighting, office background with soft blur, wearing a dark blazer over t-shirt. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "serious-focused",
+        "angle": "frontal",
+        "lighting": "cool-artificial-indoor",
+        "clothing": "dark-blazer-over-tshirt",
+        "background": "office-background",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, serious focused expression, frontal, cool indoor lighting, dark blazer over t-shirt, down hair",
+        "flux": "A woman named Shay with a neutral to slightly serious expression, eyes focused just past the camera, wearing a dark blazer over t-shirt, cooler indoor lighting, office background with soft blur, long dark brown hair down with center part",
+        "qwen_image": "Shay, serious expression, frontal, dark blazer over t-shirt, cool indoor lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "B4",
+      "group": "expression_diversity",
+      "name": "Thoughtful Looking Down",
+      "full_prompt": "Looking slightly down and to the side, thoughtful expression, soft directional window light from one side, darker blurred background, casual sweater, subtle shadows on one cheek. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "thoughtful",
+        "angle": "slight-down-angle",
+        "lighting": "soft-window-indoor",
+        "clothing": "casual-sweater",
+        "background": "darker-blurred",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, thoughtful expression, looking down, soft directional window light, casual sweater, down hair",
+        "flux": "A woman named Shay with a thoughtful expression, looking slightly down and to the side, wearing a casual sweater, soft directional window light from one side creating subtle shadows on one cheek, darker blurred background, long dark brown hair down with center part",
+        "qwen_image": "Shay, thoughtful expression, looking down, casual sweater, soft directional lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "B5",
+      "group": "expression_diversity",
+      "name": "Surprised Intrigued",
+      "full_prompt": "Mildly surprised expression with raised eyebrows and parted lips, daylight indoor lighting, neutral background, casual t-shirt. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "surprised-intrigued",
+        "angle": "frontal",
+        "lighting": "bright-daytime-window",
+        "clothing": "casual-t-shirt",
+        "background": "neutral-background",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, surprised expression, frontal, daylight indoor lighting, casual t-shirt, down hair",
+        "flux": "A woman named Shay with a mildly surprised expression with raised eyebrows and parted lips, facing camera, wearing a casual t-shirt, daylight indoor lighting, neutral background, long dark brown hair down with center part",
+        "qwen_image": "Shay, surprised expression, frontal, casual t-shirt, daylight indoor lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "B6",
+      "group": "expression_diversity",
+      "name": "Gentle Smile Closed Mouth",
+      "full_prompt": "Gentle closed-mouth smile, head slightly tilted, soft backlighting creating a hair rim, indoor environment with warm fairy-light bokeh in background, simple shirt. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "gentle-smile",
+        "angle": "head-tilt-right",
+        "lighting": "backlit-hair-rim",
+        "clothing": "casual-t-shirt",
+        "background": "warm-fairy-light-bokeh",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, gentle smile, head tilt, soft backlighting, simple shirt, down hair",
+        "flux": "A woman named Shay with a gentle closed-mouth smile, head slightly tilted, wearing a simple shirt, soft backlighting creating a hair rim, indoor environment with warm fairy-light bokeh in background, long dark brown hair down with center part",
+        "qwen_image": "Shay, gentle smile, head tilt, simple shirt, soft backlighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "B7",
+      "group": "expression_diversity",
+      "name": "Tired Contemplative",
+      "full_prompt": "Slight under-eye shadows, contemplative expression, low evening indoor light, warm tungsten lamp on one side, sitting on a couch, hoodie or comfortable clothing. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "tired-contemplative",
+        "angle": "frontal",
+        "lighting": "warm-artificial-lamp",
+        "clothing": "home-loungewear",
+        "background": "couch-interior",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, tired contemplative expression, frontal, warm tungsten lamp, comfortable clothing, down hair",
+        "flux": "A woman named Shay with a contemplative expression and slight under-eye shadows, sitting on a couch, wearing hoodie or comfortable clothing, low evening indoor light with warm tungsten lamp on one side, long dark brown hair down with center part",
+        "qwen_image": "Shay, contemplative expression, frontal, comfortable clothing, warm evening lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "B8",
+      "group": "expression_diversity",
+      "name": "Confident Subtle Smirk",
+      "full_prompt": "Subtle smirk, chin slightly raised, strong directional key light from one side, darker studio background, wearing a fitted dark shirt, cinematic look. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "confident-smirk",
+        "angle": "slight-up-angle",
+        "lighting": "studio-professional",
+        "clothing": "dark-plain-crew-neck",
+        "background": "darker-studio",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, confident smirk, slight up angle, strong directional key light, dark shirt, down hair",
+        "flux": "A woman named Shay with a subtle smirk, chin slightly raised, wearing a fitted dark shirt, strong directional key light from one side, darker studio background with cinematic look, long dark brown hair down with center part",
+        "qwen_image": "Shay, confident smirk, slight up angle, dark shirt, strong directional lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "C1",
+      "group": "angle_diversity",
+      "name": "Right 3/4 Profile",
+      "full_prompt": "3/4 profile from the right side, eyes looking forward past the camera, neutral expression, soft indoor light, blurred generic background, simple clothing. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "neutral",
+        "angle": "right-3/4-profile",
+        "lighting": "soft-window-indoor",
+        "clothing": "casual-t-shirt",
+        "background": "generic-blurred",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, neutral expression, right 3/4 profile, soft indoor light, simple clothing, down hair",
+        "flux": "A woman named Shay with a neutral expression, 3/4 profile from the right side with eyes looking forward past the camera, wearing simple clothing, soft indoor light, blurred generic background, long dark brown hair down with center part",
+        "qwen_image": "Shay, neutral expression, right 3/4 profile, simple clothing, soft indoor lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "C2",
+      "group": "angle_diversity",
+      "name": "Left 3/4 Profile",
+      "full_prompt": "3/4 profile from the left side, neutral to slight smile, daylight from one side, plain wall background. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "gentle-smile",
+        "angle": "left-3/4-profile",
+        "lighting": "bright-daytime-window",
+        "clothing": "casual-t-shirt",
+        "background": "plain-wall",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, slight smile, left 3/4 profile, daylight, simple clothing, down hair",
+        "flux": "A woman named Shay with a neutral to slight smile, 3/4 profile from the left side, wearing simple clothing, daylight from one side, plain wall background, long dark brown hair down with center part",
+        "qwen_image": "Shay, slight smile, left 3/4 profile, simple clothing, daylight, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "C3",
+      "group": "angle_diversity",
+      "name": "Near Profile Side View",
+      "full_prompt": "Close to full side profile, ear visible, neutral lips, soft light from camera side, dark softly blurred background, high-detail skin and hair. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "neutral",
+        "angle": "near-profile-side",
+        "lighting": "soft-window-indoor",
+        "clothing": "casual-t-shirt",
+        "background": "darker-blurred",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, neutral expression, near profile side view, soft light, simple clothing, down hair",
+        "flux": "A woman named Shay with neutral lips, close to full side profile with ear visible, wearing simple clothing, soft light from camera side, dark softly blurred background, high-detail skin and hair, long dark brown hair down with center part",
+        "qwen_image": "Shay, neutral expression, side profile, simple clothing, soft lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "C4",
+      "group": "angle_diversity",
+      "name": "Slight Up Angle",
+      "full_prompt": "Camera placed slightly below eye level, subject looking just past camera with relaxed expression, natural window light, airy bright indoor space behind. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "neutral",
+        "angle": "slight-up-angle",
+        "lighting": "bright-daytime-window",
+        "clothing": "casual-t-shirt",
+        "background": "airy-bright-indoor",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, relaxed expression, slight up angle, natural window light, simple clothing, down hair",
+        "flux": "A woman named Shay with a relaxed expression, camera placed slightly below eye level looking just past camera, wearing simple clothing, natural window light, airy bright indoor space behind, long dark brown hair down with center part",
+        "qwen_image": "Shay, relaxed expression, slight up angle, simple clothing, natural window light, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "C5",
+      "group": "angle_diversity",
+      "name": "Slight Down Angle",
+      "full_prompt": "Camera slightly above eye level, subject looking up towards camera, friendly expression, outdoor overcast lighting, trees blurred in background. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "gentle-smile",
+        "angle": "slight-down-angle",
+        "lighting": "overcast-outdoor",
+        "clothing": "casual-t-shirt",
+        "background": "trees-blurred",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, friendly expression, slight down angle, overcast outdoor lighting, simple clothing, down hair",
+        "flux": "A woman named Shay with a friendly expression, camera slightly above eye level looking up towards camera, wearing simple clothing, outdoor overcast lighting, trees blurred in background, long dark brown hair down with center part",
+        "qwen_image": "Shay, friendly expression, slight down angle, simple clothing, overcast outdoor lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "C6",
+      "group": "angle_diversity",
+      "name": "Head Tilt Right",
+      "full_prompt": "Head tilted gently to the right, soft smile, warm indoor lighting, shallow depth of field, bookshelf or workspace background. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "gentle-smile",
+        "angle": "head-tilt-right",
+        "lighting": "evening-warm-indoor",
+        "clothing": "casual-t-shirt",
+        "background": "blurred-bookshelf",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, soft smile, head tilt right, warm indoor lighting, simple clothing, down hair",
+        "flux": "A woman named Shay with a soft smile, head tilted gently to the right, wearing simple clothing, warm indoor lighting, shallow depth of field, bookshelf or workspace background, long dark brown hair down with center part",
+        "qwen_image": "Shay, soft smile, head tilt right, simple clothing, warm indoor lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "C7",
+      "group": "angle_diversity",
+      "name": "Head Tilt Left",
+      "full_prompt": "Head tilted gently to the left, neutral expression, cool indoor lighting, office or studio background. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "neutral",
+        "angle": "head-tilt-left",
+        "lighting": "cool-artificial-indoor",
+        "clothing": "casual-t-shirt",
+        "background": "office-background",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, neutral expression, head tilt left, cool indoor lighting, simple clothing, down hair",
+        "flux": "A woman named Shay with a neutral expression, head tilted gently to the left, wearing simple clothing, cool indoor lighting, office or studio background, long dark brown hair down with center part",
+        "qwen_image": "Shay, neutral expression, head tilt left, simple clothing, cool indoor lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "C8",
+      "group": "angle_diversity",
+      "name": "Looking Away",
+      "full_prompt": "3/4 view, looking out of frame towards a window, thoughtful expression, strong side lighting, interior background with hints of furniture, realistic shadows. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "thoughtful",
+        "angle": "looking-away",
+        "lighting": "soft-window-indoor",
+        "clothing": "casual-t-shirt",
+        "background": "modern-interior",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, thoughtful expression, looking away, strong side lighting, simple clothing, down hair",
+        "flux": "A woman named Shay with a thoughtful expression, 3/4 view looking out of frame towards a window, wearing simple clothing, strong side lighting, interior background with hints of furniture and realistic shadows, long dark brown hair down with center part",
+        "qwen_image": "Shay, thoughtful expression, looking away, simple clothing, strong side lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "D1",
+      "group": "lighting_diversity",
+      "name": "Golden Hour Outdoor",
+      "full_prompt": "Golden hour outdoor portrait, warm sunlight from the side, gentle highlights on hair, blurred park background, wearing a light casual jacket, subtle smile. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "gentle-smile",
+        "angle": "frontal",
+        "lighting": "golden-hour-outdoor",
+        "clothing": "casual-jacket",
+        "background": "park-nature",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, subtle smile, frontal, golden hour outdoor, light casual jacket, down hair",
+        "flux": "A woman named Shay with a subtle smile, facing camera, golden hour outdoor portrait with warm sunlight from the side creating gentle highlights on hair, wearing a light casual jacket, blurred park background, long dark brown hair down with center part",
+        "qwen_image": "Shay, subtle smile, frontal, light casual jacket, golden hour outdoor lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "D2",
+      "group": "lighting_diversity",
+      "name": "Overcast Outdoor",
+      "full_prompt": "Overcast daylight, soft diffuse light, standing on a sidewalk with city elements blurred behind, neutral expression, wearing a dark hoodie. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "neutral",
+        "angle": "frontal",
+        "lighting": "overcast-outdoor",
+        "clothing": "dark-hoodie",
+        "background": "city-elements",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, neutral expression, frontal, overcast outdoor, dark hoodie, down hair",
+        "flux": "A woman named Shay with a neutral expression, facing camera, overcast daylight with soft diffuse light, standing on a sidewalk with city elements blurred behind, wearing a dark hoodie, long dark brown hair down with center part",
+        "qwen_image": "Shay, neutral expression, frontal, dark hoodie, overcast outdoor lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "D3",
+      "group": "lighting_diversity",
+      "name": "Night City Lights",
+      "full_prompt": "Evening or night portrait, illuminated by soft ambient city lights and a nearby shop window, colorful bokeh in background, slight smile, wearing a dark jacket. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "gentle-smile",
+        "angle": "frontal",
+        "lighting": "night-city-lights",
+        "clothing": "casual-jacket",
+        "background": "colorful-bokeh",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, slight smile, frontal, night city lights, dark jacket, down hair",
+        "flux": "A woman named Shay with a slight smile, facing camera, evening or night portrait illuminated by soft ambient city lights and a nearby shop window, colorful bokeh in background, wearing a dark jacket, long dark brown hair down with center part",
+        "qwen_image": "Shay, slight smile, frontal, dark jacket, night city lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "D4",
+      "group": "lighting_diversity",
+      "name": "Harsh Direct Sunlight",
+      "full_prompt": "Outdoor midday sunlight with stronger shadows, face still properly exposed, neutral expression, casual t-shirt, simple background like a wall or fence. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "neutral",
+        "angle": "frontal",
+        "lighting": "harsh-direct-sunlight",
+        "clothing": "casual-t-shirt",
+        "background": "simple-wall-fence",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, neutral expression, frontal, harsh direct sunlight, casual t-shirt, down hair",
+        "flux": "A woman named Shay with a neutral expression, facing camera, outdoor midday sunlight with stronger shadows but face still properly exposed, wearing a casual t-shirt, simple background like a wall or fence, long dark brown hair down with center part",
+        "qwen_image": "Shay, neutral expression, frontal, casual t-shirt, harsh direct sunlight, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "D5",
+      "group": "lighting_diversity",
+      "name": "Backlit Hair Rim",
+      "full_prompt": "Backlit by strong sunlight creating a glowing rim around hair, fill light on face so features are visible, gentle smile, park or nature background. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "gentle-smile",
+        "angle": "frontal",
+        "lighting": "backlit-hair-rim",
+        "clothing": "casual-t-shirt",
+        "background": "park-nature",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, gentle smile, frontal, backlit hair rim, simple clothing, down hair",
+        "flux": "A woman named Shay with a gentle smile, facing camera, backlit by strong sunlight creating a glowing rim around hair with fill light on face so features are visible, park or nature background, long dark brown hair down with center part",
+        "qwen_image": "Shay, gentle smile, frontal, simple clothing, backlit lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "D6",
+      "group": "lighting_diversity",
+      "name": "Cool Artificial Indoor",
+      "full_prompt": "Indoor lit by cool LED light, neutral expression, modern interior background, wearing a plain long-sleeve shirt, subtle desaturated color palette. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "neutral",
+        "angle": "frontal",
+        "lighting": "cool-artificial-indoor",
+        "clothing": "plain-long-sleeve",
+        "background": "modern-interior",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, neutral expression, frontal, cool artificial indoor, plain long-sleeve, down hair",
+        "flux": "A woman named Shay with a neutral expression, facing camera, indoor lit by cool LED light, modern interior background, wearing a plain long-sleeve shirt with subtle desaturated color palette, long dark brown hair down with center part",
+        "qwen_image": "Shay, neutral expression, frontal, plain long-sleeve, cool artificial lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "D7",
+      "group": "lighting_diversity",
+      "name": "Warm Artificial Lamp",
+      "full_prompt": "Close to a warm table lamp, strong warm light on one side of face, darker background, relaxed expression, wearing home loungewear. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "neutral",
+        "angle": "frontal",
+        "lighting": "warm-artificial-lamp",
+        "clothing": "home-loungewear",
+        "background": "darker-blurred",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, relaxed expression, frontal, warm artificial lamp, home loungewear, down hair",
+        "flux": "A woman named Shay with a relaxed expression, facing camera, close to a warm table lamp with strong warm light on one side of face, darker background, wearing home loungewear, long dark brown hair down with center part",
+        "qwen_image": "Shay, relaxed expression, frontal, home loungewear, warm artificial lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "D8",
+      "group": "lighting_diversity",
+      "name": "Mixed Lighting",
+      "full_prompt": "Mixed warm indoor light and cool window light, subtle color contrast on both sides of face, neutral expression, blurred home office environment. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "neutral",
+        "angle": "frontal",
+        "lighting": "mixed-lighting",
+        "clothing": "casual-t-shirt",
+        "background": "home-office",
+        "framing": "head-shoulders"
+      },
+      "captions": {
+        "z_image_turbo": "shay, neutral expression, frontal, mixed lighting, simple clothing, down hair",
+        "flux": "A woman named Shay with a neutral expression, facing camera, mixed warm indoor light and cool window light creating subtle color contrast on both sides of face, blurred home office environment, long dark brown hair down with center part",
+        "qwen_image": "Shay, neutral expression, frontal, simple clothing, mixed lighting, long dark brown hair down, realistic portrait"
+      }
+    },
+    {
+      "id": "E1",
+      "group": "medium_shots",
+      "name": "Medium Shot Casual",
+      "full_prompt": "Medium shot from head to mid-torso, casual t-shirt and jeans visible, standing indoors, neutral expression, soft daylight, simple background. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "neutral",
+        "angle": "frontal",
+        "lighting": "bright-daytime-window",
+        "clothing": "casual-jeans",
+        "background": "neutral-background",
+        "framing": "medium-shot"
+      },
+      "captions": {
+        "z_image_turbo": "shay, neutral expression, frontal, soft daylight, casual t-shirt and jeans, down hair, medium shot",
+        "flux": "A woman named Shay with a neutral expression, medium shot from head to mid-torso, casual t-shirt and jeans visible, standing indoors, soft daylight, simple background, long dark brown hair down with center part",
+        "qwen_image": "Shay, neutral expression, frontal, casual t-shirt and jeans, soft daylight, long dark brown hair down, medium shot, realistic portrait"
+      }
+    },
+    {
+      "id": "E2",
+      "group": "medium_shots",
+      "name": "Medium Shot Formal",
+      "full_prompt": "Medium shot, wearing a blazer or formal jacket over a shirt, soft studio lighting, seamless background, confident but relaxed expression. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "confident-smirk",
+        "angle": "frontal",
+        "lighting": "studio-professional",
+        "clothing": "blazer-formal",
+        "background": "seamless-mid-gray",
+        "framing": "medium-shot"
+      },
+      "captions": {
+        "z_image_turbo": "shay, confident relaxed expression, frontal, soft studio lighting, blazer formal, down hair, medium shot",
+        "flux": "A woman named Shay with a confident but relaxed expression, medium shot, wearing a blazer or formal jacket over a shirt, soft studio lighting, seamless background, long dark brown hair down with center part",
+        "qwen_image": "Shay, confident expression, frontal, blazer formal, soft studio lighting, long dark brown hair down, medium shot, realistic portrait"
+      }
+    },
+    {
+      "id": "E3",
+      "group": "medium_shots",
+      "name": "Medium Shot Seated Indoor",
+      "full_prompt": "Seated in a living-room chair, medium shot, casual sweater, gentle smile, warm indoor lighting, detailed but slightly blurred room behind. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "gentle-smile",
+        "angle": "frontal",
+        "lighting": "evening-warm-indoor",
+        "clothing": "casual-sweater",
+        "background": "blurred-living-room",
+        "framing": "medium-shot"
+      },
+      "captions": {
+        "z_image_turbo": "shay, gentle smile, frontal, warm indoor lighting, casual sweater, down hair, medium shot",
+        "flux": "A woman named Shay with a gentle smile, seated in a living-room chair, medium shot, wearing a casual sweater, warm indoor lighting, detailed but slightly blurred room behind, long dark brown hair down with center part",
+        "qwen_image": "Shay, gentle smile, frontal, casual sweater, warm indoor lighting, long dark brown hair down, medium shot, realistic portrait"
+      }
+    },
+    {
+      "id": "E4",
+      "group": "medium_shots",
+      "name": "Medium Shot Outdoor",
+      "full_prompt": "Medium shot outdoors in a park, casual jacket, natural overcast light, neutral or slight smile, trees and path blurred in background. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "gentle-smile",
+        "angle": "frontal",
+        "lighting": "overcast-outdoor",
+        "clothing": "casual-jacket",
+        "background": "park-nature",
+        "framing": "medium-shot"
+      },
+      "captions": {
+        "z_image_turbo": "shay, slight smile, frontal, natural overcast light, casual jacket, down hair, medium shot",
+        "flux": "A woman named Shay with a neutral or slight smile, medium shot outdoors in a park, wearing a casual jacket, natural overcast light, trees and path blurred in background, long dark brown hair down with center part",
+        "qwen_image": "Shay, slight smile, frontal, casual jacket, natural overcast lighting, long dark brown hair down, medium shot, realistic portrait"
+      }
+    },
+    {
+      "id": "E5",
+      "group": "medium_shots",
+      "name": "Medium Shot with Ponytail",
+      "full_prompt": "Medium shot from head to mid-torso, casual t-shirt visible, standing indoors, genuine smile, soft daylight, simple background. Hair: ponytail.",
+      "metadata": {
+        "hairstyle": "ponytail",
+        "expression": "genuine-smile",
+        "angle": "frontal",
+        "lighting": "bright-daytime-window",
+        "clothing": "casual-t-shirt",
+        "background": "neutral-background",
+        "framing": "medium-shot"
+      },
+      "captions": {
+        "z_image_turbo": "shay, genuine smile, frontal, soft daylight, casual t-shirt, ponytail, medium shot",
+        "flux": "A woman named Shay with a genuine smile, medium shot from head to mid-torso, casual t-shirt visible, standing indoors, soft daylight, simple background, long dark brown hair in a ponytail",
+        "qwen_image": "Shay, genuine smile, frontal, casual t-shirt, soft daylight, long dark brown hair ponytail, medium shot, realistic portrait"
+      }
+    },
+    {
+      "id": "E6",
+      "group": "medium_shots",
+      "name": "Medium Shot with Claw Clip",
+      "full_prompt": "Medium shot, wearing casual button-up shirt, indoor soft lighting, neutral expression, blurred background. Hair: half-up style secured with oversized black claw clip positioned horizontally at upper crown, gathering top section of long dark brown hair while lower half flows freely.",
+      "metadata": {
+        "hairstyle": "claw-clip",
+        "expression": "neutral",
+        "angle": "frontal",
+        "lighting": "soft-window-indoor",
+        "clothing": "casual-button-up",
+        "background": "generic-blurred",
+        "framing": "medium-shot"
+      },
+      "captions": {
+        "z_image_turbo": "shay, neutral expression, frontal, indoor soft lighting, casual button-up, claw clip half-up, medium shot",
+        "flux": "A woman named Shay with a neutral expression, medium shot, wearing casual button-up shirt, indoor soft lighting, blurred background, half-up style secured with oversized black claw clip positioned horizontally at upper crown, gathering top section of long dark brown hair while lower half flows freely",
+        "qwen_image": "Shay, neutral expression, frontal, casual button-up, indoor soft lighting, long dark brown hair claw clip half-up, medium shot, realistic portrait"
+      }
+    },
+    {
+      "id": "E7",
+      "group": "medium_shots",
+      "name": "Medium Shot Styled Curled",
+      "full_prompt": "Medium shot, wearing casual sweater, warm indoor lighting, gentle smile, blurred living room background. Hair: styled-curled.",
+      "metadata": {
+        "hairstyle": "styled-curled",
+        "expression": "gentle-smile",
+        "angle": "frontal",
+        "lighting": "evening-warm-indoor",
+        "clothing": "casual-sweater",
+        "background": "blurred-living-room",
+        "framing": "medium-shot"
+      },
+      "captions": {
+        "z_image_turbo": "shay, gentle smile, frontal, warm indoor lighting, casual sweater, styled curled hair, medium shot",
+        "flux": "A woman named Shay with a gentle smile, medium shot, wearing casual sweater, warm indoor lighting, blurred living room background, long dark brown hair styled and curled",
+        "qwen_image": "Shay, gentle smile, frontal, casual sweater, warm indoor lighting, long dark brown hair styled curled, medium shot, realistic portrait"
+      }
+    },
+    {
+      "id": "E8",
+      "group": "medium_shots",
+      "name": "Medium Shot Mixed Elements",
+      "full_prompt": "Medium shot, wearing patterned casual shirt, mixed indoor and window lighting, thoughtful expression, modern interior background with soft blur. Hair: down.",
+      "metadata": {
+        "hairstyle": "down",
+        "expression": "thoughtful",
+        "angle": "frontal",
+        "lighting": "mixed-lighting",
+        "clothing": "patterned-casual-shirt",
+        "background": "modern-interior",
+        "framing": "medium-shot"
+      },
+      "captions": {
+        "z_image_turbo": "shay, thoughtful expression, frontal, mixed lighting, patterned casual shirt, down hair, medium shot",
+        "flux": "A woman named Shay with a thoughtful expression, medium shot, wearing patterned casual shirt, mixed indoor and window lighting, modern interior background with soft blur, long dark brown hair down with center part",
+        "qwen_image": "Shay, thoughtful expression, frontal, patterned casual shirt, mixed lighting, long dark brown hair down, medium shot, realistic portrait"
+      }
+    }
+  ],
+  "training_notes": {
+    "resolution": "Generate at 2048x2048, crop to 1:1, resize to 1024x1024 for training",
+    "dataset_size": "32 images total",
+    "groups": {
+      "neutral_reference": 4,
+      "expression_diversity": 8,
+      "angle_diversity": 8,
+      "lighting_diversity": 8,
+      "medium_shots": 8
+    },
+    "model_specific": {
+      "z_image_turbo": {
+        "learning_rate": "1e-4 (non-negotiable)",
+        "steps": "3000 typically sufficient",
+        "caption_style": "structured, simple identifiers"
+      },
+      "flux": {
+        "learning_rate": "1e-4 to 2e-4",
+        "steps": "3000-5000+",
+        "caption_style": "natural language, descriptive, varies by image"
+      },
+      "qwen_image": {
+        "learning_rate": "1e-4",
+        "steps": "3000-5000",
+        "caption_style": "descriptive but flexible, auto-captioning acceptable"
+      }
+    }
+  }
+}
+
+

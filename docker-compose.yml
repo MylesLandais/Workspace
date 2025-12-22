@@ -6,20 +6,25 @@ services:
     volumes:
       - .:/home/jovyan/workspaces
       - ~/downloads/ytdlp:/home/jovyan/downloads/ytdlp
+      - ~/assets:/home/jovyan/assets:ro  # Read-only mount for compliance - untrusted code runs in container
+      - ~/assets/output:/home/jovyan/assets/output  # Writable outputs in persistent shared space
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "8888:8888"
+      - "8000:8000"  # RPG Graph VTT web server
     depends_on:
       - pgvector
     env_file:
       - .env
-    # GPU support enabled
+    # GPU support - using CDI (Container Device Interface) standard for NixOS
+    # Note: For docker run, use: --device nvidia.com/gpu=all
+    # For docker-compose, we use CDI driver with full device ID
     deploy:
       resources:
         reservations:
           devices:
-            - driver: nvidia
-              count: all
+            - driver: cdi
+              device_ids: ['nvidia.com/gpu=all']
               capabilities: [gpu]
 
   pgvector:
@@ -46,8 +51,8 @@ services:
       resources:
         reservations:
           devices:
-            - driver: nvidia
-              count: all
+            - driver: cdi
+              device_ids: ['nvidia.com/gpu=all']
               capabilities: [gpu]
 
 volumes:

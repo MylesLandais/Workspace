@@ -1,0 +1,4 @@
+{"timestamp": "2025-12-10T21:11:51.048593", "event": "agent_start", "agent": "comfyui_image_generator", "query": "A gopher wearing a Charizard costume, pokemon style", "metadata": null}
+{"timestamp": "2025-12-10T21:11:51.048673", "event": "tool_call", "tool": "generate_image_with_runpod", "arguments": {"prompt": "A gopher wearing a Charizard costume, pokemon style", "seed": 2238033949}, "metadata": null}
+{"timestamp": "2025-12-10T21:11:51.048704", "event": "tool_result", "tool": "generate_image_with_runpod", "elapsed": 0.0, "metadata": null}
+{"timestamp": "2025-12-10T21:11:51.048736", "event": "agent_complete", "agent": "comfyui_image_generator", "response_length": 92, "elapsed": 11.146952629089355, "metadata": null}

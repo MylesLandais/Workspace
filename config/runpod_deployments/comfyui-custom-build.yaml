@@ -1,0 +1,24 @@
+# ComfyUI Custom Build Configuration
+# Example configuration for building and deploying custom ComfyUI images
+
+build_config:
+  cuda_version: "12.6.0"  # Validated against VALID_CUDA_VERSIONS
+  git_repo: "https://github.com/MylesLandais/ComfyUI"
+  git_branch: "main"  # Use correct branch (not feature/runpod-worker)
+  dockerfile_path: "Dockerfile.runpod"
+  build_context: "."
+  network_volume_id: "${RUNPOD_NETWORK_VOLUME_ID}"  # Set in environment
+  datacenter_id: "US-1"  # Or appropriate datacenter (US-1, EU-1, etc.)
+
+deployment:
+  gpu: "NVIDIA RTX 3090"
+  volume_in_gb: 100
+  ports: "8188/tcp"
+  env:
+    WEB_ENABLE_WS: "true"
+  # Network volume will be mounted if network_volume_id is set in build_config
+
+
+
+
+

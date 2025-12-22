@@ -68,3 +68,5 @@ def test_templates_are_strings():
     assert isinstance(WORKFLOW_SELECTOR_INSTRUCTION, str), \
         "WORKFLOW_SELECTOR_INSTRUCTION should be a string"
 
+
+

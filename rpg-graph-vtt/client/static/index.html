@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG Graph VTT - Character Sheet</title>
+    <link rel="stylesheet" href="css/dice-roller.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .controls select, .controls button {
+            padding: 10px 15px;
+            margin: 5px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .controls button {
+            background: #667eea;
+            color: white;
+            border: none;
+        }
+
+        .controls button:hover {
+            background: #5568d3;
+        }
+
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .character-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .character-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .character-header {
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .character-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .character-meta {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .stat-box {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 5px;
+        }
+
+        .abilities {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .ability {
+            background: #f0f0f0;
+            padding: 8px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .ability-name {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .ability-score {
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .ability-mod {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .ability-roll {
+            margin-top: 5px;
+            padding: 4px 8px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .ability-roll:hover {
+            background: #5568d3;
+        }
+
+        .stat-roll {
+            margin-top: 5px;
+            padding: 4px 8px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+        }
+
+        .stat-roll:hover {
+            background: #5568d3;
+        }
+
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            padding: 40px;
+        }
+
+        .error {
+            background: #ff4444;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .empty {
+            text-align: center;
+            color: white;
+            padding: 40px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎲 RPG Graph VTT - Character Sheets</h1>
+        
+        <div class="controls">
+            <select id="viewSelect">
+                <option value="all">All Characters</option>
+                <option value="party">By Party</option>
+            </select>
+            <select id="partySelect" style="display: none;">
+                <option value="">Loading parties...</option>
+            </select>
+            <button onclick="loadCharacters()">Refresh</button>
+        </div>
+
+        <div id="content">
+            <div class="loading">Loading characters...</div>
+        </div>
+    </div>
+
+    <!-- Three.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Dice Roller Components -->
+    <script src="js/dice-visualizer.js"></script>
+    <script src="js/dice-logic.js"></script>
+    <script src="js/dice-integration.js"></script>
+    
+    <script>
+        const API_BASE = '/api';
+
+        async function fetchJSON(url) {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        }
+
+        function renderCharacter(character) {
+            const abilities = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
+            const abilityNames = {
+                str: 'STR', dex: 'DEX', con: 'CON',
+                int: 'INT', wis: 'WIS', cha: 'CHA'
+            };
+
+            const classNames = character.classes.map(c => c.name).join(', ') || 'Unknown';
+            const raceNames = character.races.map(r => r.name).join(', ') || 'Unknown';
+
+            return `
+                <div class="character-card">
+                    <div class="character-header">
+                        <div class="character-name">${character.name}</div>
+                        <div class="character-meta">
+                            Level ${character.level} ${classNames} • ${raceNames}
+                        </div>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-label">Hit Points</div>
+                            <div class="stat-value">${character.hit_points}/${character.hit_points_max}</div>
+                            <button class="stat-roll" data-roll="1d20" data-label="Hit Points Check">Roll</button>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">Armor Class</div>
+                            <div class="stat-value">${character.armor_class}</div>
+                            <button class="stat-roll" data-roll="1d20" data-label="AC Check">Roll</button>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">Proficiency</div>
+                            <div class="stat-value">+${character.proficiency_bonus}</div>
+                            <button class="stat-roll" data-roll="1d20+${character.proficiency_bonus}" data-label="Proficiency Check">Roll</button>
+                        </div>
+                    </div>
+
+                    <div class="abilities">
+                        ${abilities.map(ability => {
+                            const score = character.ability_scores[ability] || 10;
+                            const mod = character.ability_modifiers[ability] || 0;
+                            const modStr = mod >= 0 ? `+${mod}` : `${mod}`;
+                            const abilityName = abilityNames[ability];
+                            return `
+                                <div class="ability">
+                                    <div class="ability-name">${abilityName}</div>
+                                    <div class="ability-score">${score}</div>
+                                    <div class="ability-mod">${modStr}</div>
+                                    <button class="ability-roll rollable" 
+                                            data-roll="1d20+@${ability}.mod" 
+                                            data-label="${abilityName} Check">
+                                        Roll
+                                    </button>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        async function loadParties() {
+            try {
+                const parties = await fetchJSON(`${API_BASE}/parties`);
+                const select = document.getElementById('partySelect');
+                select.innerHTML = '<option value="">Select a party...</option>';
+                parties.forEach(party => {
+                    const option = document.createElement('option');
+                    option.value = party.name;
+                    option.textContent = `${party.name} (${party.characters.length} characters)`;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading parties:', error);
+            }
+        }
+
+        async function loadCharacters() {
+            const content = document.getElementById('content');
+            const viewSelect = document.getElementById('viewSelect');
+            const partySelect = document.getElementById('partySelect');
+            
+            content.innerHTML = '<div class="loading">Loading characters...</div>';
+
+            try {
+                let characters = [];
+
+                if (viewSelect.value === 'party' && partySelect.value) {
+                    const party = await fetchJSON(`${API_BASE}/parties/${partySelect.value}`);
+                    characters = party.characters;
+                } else {
+                    characters = await fetchJSON(`${API_BASE}/characters`);
+                }
+
+                if (characters.length === 0) {
+                    content.innerHTML = '<div class="empty">No characters found. Create some characters first!</div>';
+                    return;
+                }
+
+                content.innerHTML = `
+                    <div class="character-grid">
+                        ${characters.map(renderCharacter).join('')}
+                    </div>
+                `;
+                
+                // Set up character context for dice roller
+                // Use first character as context (can be enhanced to track per-character)
+                if (characters.length > 0) {
+                    diceIntegration.setCharacter(characters[0]);
+                }
+            } catch (error) {
+                content.innerHTML = `
+                    <div class="error">
+                        Error loading characters: ${error.message}
+                    </div>
+                `;
+                console.error('Error:', error);
+            }
+        }
+
+        // Setup event listeners
+        document.getElementById('viewSelect').addEventListener('change', (e) => {
+            const partySelect = document.getElementById('partySelect');
+            if (e.target.value === 'party') {
+                partySelect.style.display = 'inline-block';
+                loadParties();
+            } else {
+                partySelect.style.display = 'none';
+                loadCharacters();
+            }
+        });
+
+        document.getElementById('partySelect').addEventListener('change', loadCharacters);
+
+        // Initial load
+        loadParties();
+        loadCharacters();
+    </script>
+</body>
+</html>
+
