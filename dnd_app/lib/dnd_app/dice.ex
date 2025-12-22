@@ -6,6 +6,25 @@ defmodule DndApp.Dice do
   - "1d20+5" - roll 1d20 and add 5
   - "4d6dl1" - roll 4d6 and drop lowest 1
   - "4d6dh1" - roll 4d6 and drop highest 1
+
+  ## Ability Score Generation Methods
+
+  D&D 5e supports three methods for generating ability scores:
+
+  1. **Rolling (4d6 drop lowest)**: Roll four six-sided dice, drop the lowest,
+     and sum the remaining three. Repeat six times. This produces scores
+     ranging from 3-18, with an average around 12.24.
+
+  2. **Point Buy**: Start with 8 in all abilities and spend 27 points to
+     increase scores. Costs: 8=0, 9=1, 10=2, 11=3, 12=4, 13=5, 14=7, 15=9.
+     Maximum score before bonuses is 15.
+
+  3. **Standard Array**: Use the fixed array [15, 14, 13, 12, 10, 8] and assign
+     these values to abilities in any order.
+
+  Note: Your Dungeon Master decides which method(s) are allowed. Rolling
+  creates randomness and potential imbalance, while Point Buy and Standard
+  Array provide balanced characters.
   """
 
   @type dice_result :: %{

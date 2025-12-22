@@ -112,6 +112,53 @@ defmodule DndApp.DB.Neo4j do
       """
       CREATE INDEX feature_level IF NOT EXISTS
       FOR (f:Feature) ON (f.level)
+      """,
+
+      # Risk Registry constraints
+      """
+      CREATE CONSTRAINT dependency_name_unique IF NOT EXISTS
+      FOR (d:Dependency) REQUIRE d.name IS UNIQUE
+      """,
+
+      """
+      CREATE CONSTRAINT risk_id_unique IF NOT EXISTS
+      FOR (r:Risk) REQUIRE r.id IS UNIQUE
+      """,
+
+      """
+      CREATE CONSTRAINT version_id_unique IF NOT EXISTS
+      FOR (v:Version) REQUIRE v.id IS UNIQUE
+      """,
+
+      """
+      CREATE CONSTRAINT trigger_id_unique IF NOT EXISTS
+      FOR (t:Trigger) REQUIRE t.id IS UNIQUE
+      """,
+
+      """
+      CREATE CONSTRAINT constraint_id_unique IF NOT EXISTS
+      FOR (c:Constraint) REQUIRE c.id IS UNIQUE
+      """,
+
+      """
+      CREATE CONSTRAINT component_name_unique IF NOT EXISTS
+      FOR (c:Component) REQUIRE c.name IS UNIQUE
+      """,
+
+      # Risk Registry indexes
+      """
+      CREATE INDEX dependency_type_index IF NOT EXISTS
+      FOR (d:Dependency) ON (d.type)
+      """,
+
+      """
+      CREATE INDEX risk_severity_index IF NOT EXISTS
+      FOR (r:Risk) ON (r.severity)
+      """,
+
+      """
+      CREATE INDEX version_timestamp_index IF NOT EXISTS
+      FOR (v:Version) ON (v.timestamp)
       """
     ]
 

@@ -87,18 +87,74 @@ The app automatically:
   - `dice.ex` - Dice rolling engine
   - `characters.ex` - Character context and D&D 5e rules
   - `db/neo4j.ex` - Neo4j database operations
+  - `risk_registry.ex` - Risk registry and dependency tracking system
 - `lib/dnd_app_web/` - Web layer
   - `live/` - LiveView pages
 - `config/` - Configuration files
 
+## Risk Registry and Dependency Tracking
+
+The project includes a comprehensive risk registry system for tracking technical dependencies, risks, constraints, and upstream triggers. This enables:
+
+- **Dependency Tracking**: Document all technical dependencies (data sources, packages, services, infrastructure)
+- **Risk Assessment**: Identify and track risks with severity levels
+- **Upstream Triggers**: Monitor external data sources for changes
+- **Version Tracking**: Track versions and changes in external dependencies
+- **Supply Chain Visibility**: Understand dependency chains (bill of materials)
+
+**Quick Start:**
+```bash
+# Register all dependencies
+mix register.dependencies
+
+# View in Neo4j Browser
+# Open http://localhost:7474 and query: MATCH (d:Dependency) RETURN d
+```
+
+See [RISK_REGISTRY.md](RISK_REGISTRY.md) for complete documentation and [RISK_REGISTRY_QUICK_REFERENCE.md](RISK_REGISTRY_QUICK_REFERENCE.md) for quick reference.
+
 ## D&D 5e Rules Implemented
 
-- Ability score generation (4d6 drop lowest)
-- Ability modifiers: (score - 10) / 2, rounded down
+### Ability Score Generation
+
+The app supports all three standard D&D 5e ability score generation methods:
+
+1. **Rolling (4d6 drop lowest)**: Roll four six-sided dice, drop the lowest, sum the remaining three. Repeat six times. Produces scores from 3-18 (average ~12.24).
+
+2. **Point Buy**: Start with 8 in all abilities, spend 27 points to increase scores. Costs: 8=0, 9=1, 10=2, 11=3, 12=4, 13=5, 14=7, 15=9. Maximum 15 before bonuses.
+
+3. **Standard Array**: Use the fixed array [15, 14, 13, 12, 10, 8] assigned to abilities in any order.
+
+**Note**: Your Dungeon Master decides which method(s) are allowed. Rolling creates randomness and potential imbalance, while Point Buy and Standard Array provide balanced characters.
+
+### Ability Modifiers
+
+Ability modifiers are calculated as: (score - 10) / 2, rounded down.
+
+| Ability Score | Modifier |
+|---------------|----------|
+| 1             | -5       |
+| 2-3           | -4       |
+| 4-5           | -3       |
+| 6-7           | -2       |
+| 8-9           | -1       |
+| 10-11         | +0       |
+| 12-13         | +1       |
+| 14-15         | +2       |
+| 16-17         | +3       |
+| 18-19         | +4       |
+| 20+           | +5       |
+
+### Other Rules
+
 - Proficiency bonus: 2 + (level - 1) / 4, rounded up
 - Starting HP: max hit die + CON modifier (level 1)
 - Base AC: 10 + DEX modifier
-- Race ability score bonuses
+- Race ability score bonuses (2014 PHB rules)
+
+### 2024 Player's Handbook Updates
+
+In the 2024 PHB, backgrounds now provide Ability Score Increases (ASI): +2/+1 or +1/+1/+1 from three options. Species provide feats and skills instead of ASI bonuses. This app currently implements the 2014 PHB rules where races/species provide ASI bonuses.
 
 ## License
 

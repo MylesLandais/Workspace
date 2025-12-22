@@ -40,7 +40,11 @@ defmodule DndApp.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:boltx, "~> 0.0.6"},
       {:uuid, "~> 1.1"},
-      {:req, "~> 0.4.0"}
+      {:req, "~> 0.4.0"},
+      {:phoenix_live_react, "~> 0.6"},
+      {:absinthe, "~> 1.7"},
+      {:absinthe_plug, "~> 1.5"},
+      {:absinthe_phoenix, "~> 2.0"}
     ]
   end
 

@@ -18,6 +18,7 @@ import "phoenix_html"
 // Establish Phoenix Socket and LiveView configuration.
 import { Socket } from "phoenix"
 import { LiveSocket } from "phoenix_live_view"
+import { initLiveReact } from "phoenix_live_react"
 
 // Show progress bar on live navigation and form submits
 import topbar from "topbar"
@@ -29,6 +30,15 @@ if (!csrfTokenElement) {
 }
 
 const csrfToken = csrfTokenElement?.getAttribute("content") || ""
+
+// Initialize Phoenix Live React
+initLiveReact()
+
+// Set up window.Components namespace for React components
+;(window as any).Components = (window as any).Components || {}
+
+// Import React components
+import './components/DiceRoller'
 
 const liveSocket = new LiveSocket("/live", Socket, {
   params: { _csrf_token: csrfToken }

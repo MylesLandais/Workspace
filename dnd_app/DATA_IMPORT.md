@@ -2,9 +2,19 @@
 
 This guide explains how to import D&D 5e game data from 5etools JSON files into Neo4j.
 
+## Import Approaches
+
+This project supports two approaches for importing 5e.tools data:
+
+1. **Elixir-based Import** (Current): The `mix import.5etools` command provides a simple, integrated import solution. See the sections below for details.
+
+2. **Python ETL Pipeline** (Recommended for comprehensive imports): A more robust Python-based ETL pipeline with Git submodule tracking, pipeline state management, and support for complex cross-references. See [DATA_PIPELINE.md](DATA_PIPELINE.md) for comprehensive documentation.
+
+The Elixir approach is suitable for quick imports of basic data (races, classes, backgrounds). The Python ETL approach is recommended for full data migration with tracking, cross-reference resolution, and production-grade pipeline management.
+
 ## Overview
 
-The data import system allows you to import races, classes, and backgrounds from 5etools JSON data files. The system supports:
+The Elixir-based data import system allows you to import races, classes, and backgrounds from 5etools JSON data files. The system supports:
 
 - SRD (Systems Reference Document) filtering
 - Idempotent operations (safe to run multiple times)
@@ -236,6 +246,7 @@ RETURN r.name, r.source
 
 ## Related Documentation
 
+- [Data Pipeline Guide](DATA_PIPELINE.md) - Comprehensive Python ETL pipeline with Git submodule tracking
 - [Architecture Documentation](ARCHITECTURE.md) - Graph schema and data model
 - [Neo4j Setup Guide](START_WITH_EXISTING_NEO4J.md) - Neo4j configuration
 - [Troubleshooting Guide](TROUBLESHOOTING.md) - Common issues and solutions

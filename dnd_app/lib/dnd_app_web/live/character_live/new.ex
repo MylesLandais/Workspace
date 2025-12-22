@@ -272,7 +272,7 @@ defmodule DndAppWeb.CharacterLive.New do
 
     # Initialize scores based on method
     base_scores = case method do
-      :standard_array -> %{str: 15, dex: 14, con: 13, int: 12, wis: 10, cha: 8}
+      :standard_array -> Characters.generate_standard_array()
       :point_buy -> %{str: 8, dex: 8, con: 8, int: 8, wis: 8, cha: 8}
       :manual -> %{str: 8, dex: 8, con: 8, int: 8, wis: 8, cha: 8}
     end
@@ -324,6 +324,13 @@ defmodule DndAppWeb.CharacterLive.New do
     show_legacy = !socket.assigns.show_legacy
     socket = assign(socket, :show_legacy, show_legacy)
     {:noreply, load_game_data(socket)}
+  end
+
+  @impl true
+  def handle_event("dice-rolled", %{"result" => result, "diceType" => dice_type, "diceCount" => dice_count, "individualRolls" => rolls}, socket) do
+    # Handle dice roll result - could be used for ability score generation
+    # For now, we'll just show a flash message
+    {:noreply, put_flash(socket, :info, "Rolled #{dice_type} x#{dice_count}: #{result} (individual: #{inspect(rolls)})")}
   end
 
   @impl true
@@ -619,6 +626,20 @@ defmodule DndAppWeb.CharacterLive.New do
     ~H"""
     <div>
       <h1 class="font-serif text-5xl font-semibold text-ink-900 mb-12">The Constitution</h1>
+
+      <!-- Dice Roller Section -->
+      <div class="mb-12 p-6 bg-sand-100 rounded-xl">
+        <h2 class="font-serif text-2xl font-semibold text-ink-900 mb-4">3D Dice Roller</h2>
+        <p class="text-sm text-ink-500 mb-4">Roll dice with premium customizable skins and physics-based 3D rendering</p>
+        <div class="h-96 w-full rounded-lg overflow-hidden bg-black">
+          <%= live_react_component("Components.DiceRoller", %{
+            diceType: "D20",
+            diceCount: 1,
+            skin: "premium-gold",
+            showSkinSelector: true
+          }, id: "dice-roller-1") %>
+        </div>
+      </div>
 
       <div class="mb-8">
         <label class="block text-sm font-medium text-ink-500 mb-3">Generation Method</label>

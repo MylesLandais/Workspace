@@ -16,10 +16,24 @@ defmodule DndAppWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :graphql do
+    plug Absinthe.Plug, schema: DndAppWeb.GraphQL.Schema
+  end
+
   scope "/", DndAppWeb do
     pipe_through :api
 
     get "/health", HealthController, :check
+  end
+
+  scope "/api" do
+    pipe_through :graphql
+
+    forward "/graphql", Absinthe.Plug, schema: DndAppWeb.GraphQL.Schema
+
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+      schema: DndAppWeb.GraphQL.Schema,
+      interface: :playground
   end
 
   scope "/", DndAppWeb do

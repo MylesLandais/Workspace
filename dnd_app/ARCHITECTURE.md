@@ -140,6 +140,23 @@ Represents an incomplete character draft.
 - `created_at` (DateTime): Creation timestamp
 - `updated_at` (DateTime): Last update timestamp
 
+#### PipelineRun Node
+
+Represents a data pipeline execution run for tracking ETL operations.
+
+**Labels**: `PipelineRun`
+
+**Properties**:
+- `timestamp` (DateTime): When the pipeline run started
+- `source_repo_commit_hash` (String): Git commit hash from the data source submodule
+- `script_version` (String): Version of the ETL script used
+- `status` (String): Execution status ("RUNNING", "SUCCESS", "FAILED")
+- `nodes_created` (Integer): Count of nodes created in this run
+- `relationships_created` (Integer): Count of relationships created in this run
+- `start_time` (DateTime): Pipeline start timestamp
+- `end_time` (DateTime): Pipeline completion timestamp (null if still running)
+- `error_message` (String): Error details if status is "FAILED"
+
 ### Relationships
 
 #### Character Relationships
@@ -169,6 +186,18 @@ Connects races to their available subraces.
 
 - `HAS_SUBCLASS`: Links classes to their subclasses
 - `GRANTS_FEATURE`: Links classes to features they grant, with the level stored as a relationship property
+
+#### Cross-Reference Relationships
+
+The data pipeline creates relationships from rich text cross-references found in entries:
+
+```
+(ClassFeature)-[:REFERENCES_SPELL]->(Spell)
+(ClassFeature)-[:REFERENCES_CLASS]->(Class)
+(Feature)-[:REFERENCES_FEAT]->(Feat)
+```
+
+These relationships are automatically created during the ETL pipeline's second pass when processing `{@tag Name}` references in rich text entries.
 
 ## Graph Traversal Examples
 
@@ -298,9 +327,42 @@ SET r.source = race_data.source
 ## Data Flow
 
 1. **Data Import**: 5etools JSON → Parser → Neo4j nodes and relationships
+   - **Elixir Import**: Direct import via `mix import.5etools` (see [DATA_IMPORT.md](DATA_IMPORT.md))
+   - **Python ETL Pipeline**: Comprehensive ETL with Git submodule tracking and pipeline state management (see [DATA_PIPELINE.md](DATA_PIPELINE.md))
 2. **Character Creation**: Wizard UI → Characters context → Neo4j Character node
 3. **Character Query**: Neo4j → Characters context → LiveView → UI
 4. **Game Content Query**: Neo4j → Characters context → LiveView → UI
+
+## Data Source Tracking
+
+The data pipeline uses Git submodules to provide traceability between imported graph data and its source.
+
+### Git Submodule Integration
+
+The 5e.tools data source is tracked as a Git submodule at `data/5e-source`, which provides:
+
+- **Version Tracking**: Each pipeline run records the exact Git commit hash of the data source
+- **Reproducibility**: You can determine which version of the source data was used for any import
+- **Audit Trail**: The `PipelineRun` node stores `source_repo_commit_hash` linking back to the source
+
+### Querying Pipeline History
+
+Query the latest import and its source:
+
+```cypher
+MATCH (p:PipelineRun)
+RETURN p.timestamp, p.source_repo_commit_hash, p.status, p.nodes_created, p.relationships_created
+ORDER BY p.timestamp DESC
+LIMIT 1
+```
+
+Find all imports from a specific source commit:
+
+```cypher
+MATCH (p:PipelineRun {source_repo_commit_hash: $commit_hash})
+RETURN p
+ORDER BY p.timestamp DESC
+```
 
 ## Performance Considerations
 
@@ -317,9 +379,67 @@ SET r.source = race_data.source
 4. **Version History**: Track character changes over time
 5. **Templates**: Character template nodes for quick creation
 
+## Future: Ash Framework Integration
+
+The architecture is designed to support Ash Framework integration for declarative resource definitions and GraphQL API generation.
+
+### Ash Resources
+
+Ash Resources will map directly to Neo4j node labels, providing:
+
+- **Declarative Schema**: Define resources with attributes, relationships, and actions
+- **Type Safety**: End-to-end type safety from Neo4j through Elixir to GraphQL
+- **Automatic GraphQL**: AshGraphql will automatically expose resources via GraphQL
+
+### Example Ash Resource Structure
+
+```elixir
+defmodule Kino.RPG.Class do
+  use Ash.Resource,
+    data_layer: AshNeo4j.DataLayer
+
+  attributes do
+    attribute :name, :string, primary_key?: true
+    attribute :source, :string
+    attribute :hit_die, :integer
+    # ... other attributes
+  end
+
+  relationships do
+    has_many :subclasses, Kino.RPG.Subclass
+    has_many :features, Kino.RPG.ClassFeature
+  end
+end
+```
+
+### GraphQL API
+
+AshGraphql will automatically generate GraphQL queries and mutations:
+
+```graphql
+query {
+  classes {
+    name
+    source
+    subclasses {
+      name
+    }
+    features {
+      name
+      level
+    }
+  }
+}
+```
+
+This provides a type-safe, declarative interface for consuming the graph data stored in Neo4j, with automatic relationship traversal and filtering capabilities.
+
+For detailed information on the Python ETL pipeline that populates this data, see [DATA_PIPELINE.md](DATA_PIPELINE.md).
+
 ## Related Documentation
 
-- [Data Import Guide](DATA_IMPORT.md) - How to import game data
+- [Data Pipeline Guide](DATA_PIPELINE.md) - Comprehensive Python ETL pipeline with Git submodule tracking
+- [Data Import Guide](DATA_IMPORT.md) - Elixir-based import approach
 - [Neo4j Module](lib/dnd_app/db/neo4j.ex) - Database operations
 - [Characters Context](lib/dnd_app/characters.ex) - Business logic
 

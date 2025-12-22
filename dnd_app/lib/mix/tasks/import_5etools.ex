@@ -51,11 +51,72 @@ defmodule Mix.Tasks.Import.FiveEtools do
     case DndApp.DataImport.import_all(path: path, srd_only: srd_only) do
       :ok ->
         IO.puts("\n✅ Import completed successfully!")
+
+        # Track version after successful import
+        track_import_version(path)
+
         System.halt(0)
       error ->
         IO.puts("\n❌ Import failed: #{inspect(error)}")
         System.halt(1)
     end
+  end
+
+  defp track_import_version(path) do
+    IO.puts("\n📊 Tracking import version...")
+
+    commit_hash = get_git_commit_hash(path)
+    timestamp = DateTime.utc_now() |> DateTime.to_iso8601()
+
+    case DndApp.RiskRegistry.track_version(
+      "5etools-data",
+      "latest",
+      commit_hash,
+      %{import_timestamp: timestamp}
+    ) do
+      {:ok, version_record} ->
+        IO.puts("  ✓ Version tracked: #{version_record.version}")
+        if commit_hash do
+          IO.puts("  ✓ Commit hash: #{String.slice(commit_hash, 0, 8)}...")
+        end
+
+        # Check if version changed
+        case DndApp.RiskRegistry.get_version_history("5etools-data", 2) do
+          {:ok, [current | [previous | _]]} ->
+            if current.commit_hash != previous.commit_hash do
+              IO.puts("\n⚠️  Version changed!")
+              IO.puts("  Previous: #{String.slice(previous.commit_hash || "unknown", 0, 8)}")
+              IO.puts("  Current:  #{String.slice(current.commit_hash || "unknown", 0, 8)}")
+            else
+              IO.puts("  ℹ️  No version change detected")
+            end
+          _ ->
+            IO.puts("  ℹ️  First version tracked")
+        end
+      error ->
+        IO.puts("  ⚠️  Failed to track version: #{inspect(error)}")
+    end
+  end
+
+  defp get_git_commit_hash(path) do
+    # Try to get git commit hash if it's a git repository or submodule
+    case System.cmd("git", ["-C", path, "rev-parse", "HEAD"], stderr_to_stdout: true) do
+      {hash, 0} -> String.trim(hash)
+      _ ->
+        # Try as submodule
+        case System.cmd("git", ["submodule", "status", path], stderr_to_stdout: true) do
+          {output, 0} ->
+            # Parse submodule status output: "+abc123... path/to/submodule"
+            case Regex.run(~r/^[\+\s]?([a-f0-9]+)/, String.trim(output)) do
+              [_, hash] -> hash
+              _ -> nil
+            end
+          _ -> nil
+        end
+    end
+  rescue
+    _ -> nil
+  end
   end
 
   defp ensure_files_present(path) do

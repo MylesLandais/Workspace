@@ -2,6 +2,38 @@ defmodule DndApp.Characters do
   @moduledoc """
   Context for managing D&D 5e characters.
   Handles character creation, stat calculation, and business logic.
+
+  ## Ability Score Generation
+
+  This module supports all three D&D 5e ability score generation methods:
+
+  - `generate_ability_scores/0` - Rolling method (4d6 drop lowest)
+  - `generate_standard_array/0` - Standard Array method
+  - Point Buy is handled via `DndApp.PointBuy` module
+
+  ## Ability Modifiers
+
+  Ability modifiers are calculated using the formula: (score - 10) / 2, rounded down.
+
+  | Ability Score | Modifier |
+  |---------------|----------|
+  | 1             | -5       |
+  | 2-3           | -4       |
+  | 4-5           | -3       |
+  | 6-7           | -2       |
+  | 8-9           | -1       |
+  | 10-11         | +0       |
+  | 12-13         | +1       |
+  | 14-15         | +2       |
+  | 16-17         | +3       |
+  | 18-19         | +4       |
+  | 20+           | +5       |
+
+  ## 2024 Player's Handbook Updates
+
+  In the 2024 PHB, backgrounds now provide Ability Score Increases (ASI):
+  +2/+1 or +1/+1/+1 from three options. Species provide feats and skills
+  instead of ASI bonuses.
   """
   alias DndApp.Dice
   alias DndApp.DB.Neo4j
@@ -87,6 +119,27 @@ defmodule DndApp.Characters do
   """
   def generate_ability_scores do
     Dice.roll_ability_scores()
+  end
+
+  @doc """
+  Get the standard array of ability scores.
+  Returns the fixed array: [15, 14, 13, 12, 10, 8]
+  These scores can be assigned to any ability in any order.
+  """
+  @spec standard_array() :: [integer()]
+  def standard_array do
+    [15, 14, 13, 12, 10, 8]
+  end
+
+  @doc """
+  Generate ability scores using the standard array method.
+  Returns a map with all abilities set to the standard array values.
+  The values are pre-assigned but can be reassigned by the user.
+  """
+  @spec generate_standard_array() :: %{str: integer(), dex: integer(), con: integer(), int: integer(), wis: integer(), cha: integer()}
+  def generate_standard_array do
+    [str, dex, con, int, wis, cha] = standard_array()
+    %{str: str, dex: dex, con: con, int: int, wis: wis, cha: cha}
   end
 
   @doc """
