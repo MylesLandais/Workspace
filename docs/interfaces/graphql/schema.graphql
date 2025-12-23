@@ -1,0 +1,226 @@
+# GraphQL Schema
+
+Complete GraphQL schema for the Feed Manager system.
+
+## Feed Domain
+
+```graphql
+type Media {
+  id: ID!
+  title: String!
+  sourceUrl: String!
+  publishDate: DateTime!
+  thumbnail: String!
+  mediaType: MediaType!
+  duration: Int
+  aspectRatio: String
+  viewCount: Int
+  platform: Platform!
+  handle: Handle!
+}
+
+enum MediaType {
+  VIDEO
+  IMAGE
+  TEXT
+}
+
+type Subreddit {
+  name: String!
+  displayName: String!
+  description: String
+  iconUrl: String
+  subscriberCount: Int!
+  createdAt: DateTime!
+}
+
+type User {
+  username: String!
+  karma: Int
+  accountAgeDays: Int
+}
+
+type FeedConnection {
+  edges: [FeedEdge!]!
+  pageInfo: PageInfo!
+}
+
+type FeedEdge {
+  node: Post!
+  cursor: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  endCursor: String
+}
+```
+
+## Subscriptions Domain
+
+```graphql
+type Creator {
+  id: ID!
+  slug: String!
+  name: String!
+  displayName: String!
+  bio: String
+  avatarUrl: String
+  verified: Boolean!
+  handles: [Handle!]!
+}
+
+type Handle {
+  id: ID!
+  platform: Platform!
+  username: String!
+  handle: String!
+  url: String!
+  verified: Boolean!
+  status: HandleStatus!
+  creator: Creator!
+  mediaCount: Int!
+  lastSynced: DateTime
+  ingestRule: IngestRule
+}
+
+enum Platform {
+  REDDIT
+  YOUTUBE
+  TWITTER
+  INSTAGRAM
+  TIKTOK
+  VSCO
+}
+
+enum HandleStatus {
+  ACTIVE
+  SUSPENDED
+  ABANDONED
+}
+
+type FeedGroup {
+  id: ID!
+  name: String!
+  creators: [Creator!]!
+  createdAt: DateTime!
+}
+
+type IngestRule {
+  id: ID!
+  minScore: Int!
+  mediaOnly: Boolean!
+  minResolution: String
+}
+
+type RejectedItem {
+  id: ID!
+  url: String!
+  thumbnailUrl: String
+  reason: String!
+  rejectedAt: DateTime!
+  handle: Handle!
+}
+
+type PipelineStatus {
+  activeSyncs: [ActiveSync!]!
+}
+
+type ActiveSync {
+  handleName: String!
+  platform: Platform!
+  newItemsCount: Int!
+  status: String!
+}
+```
+
+## Queries
+
+```graphql
+type Query {
+  # Feed queries
+  feed(cursor: String, limit: Int = 20): FeedConnection!
+  feedByCreator(creatorId: ID!, excludePlatforms: [Platform!], limit: Int = 20): FeedConnection!
+  
+  # Creator queries
+  creator(slug: String!): Creator
+  creators(query: String, limit: Int = 20): [Creator!]!
+  
+  # Handle queries
+  searchHandles(query: String!, platform: Platform): [Handle!]!
+  discoverHandles(anchorUrl: String!): [HandleCandidate!]!
+  
+  # Management queries
+  getFeedGroups: [FeedGroup!]!
+  getRejectedItems(handleId: ID, limit: Int = 50): [RejectedItem!]!
+  getPipelineStatus: PipelineStatus!
+}
+
+type HandleCandidate {
+  handle: Handle!
+  confidence: ConfidenceLevel!
+  sourceUrl: String!
+  discoveredAt: DateTime!
+}
+
+enum ConfidenceLevel {
+  HIGH
+  MEDIUM
+  LOW
+}
+```
+
+## Mutations
+
+```graphql
+type Mutation {
+  # Creator mutations
+  createCreator(name: String!, displayName: String!): Creator!
+  updateCreator(creatorId: ID!, name: String, displayName: String, bio: String): Creator!
+  
+  # Handle mutations
+  addHandle(creatorId: ID!, platform: Platform!, username: String!, url: String!): Handle!
+  verifyHandle(handleId: ID!): Handle!
+  unverifyHandle(handleId: ID!): Handle!
+  updateHandleStatus(handleId: ID!, status: HandleStatus!): Handle!
+  removeHandle(handleId: ID!): Boolean!
+  
+  # Discovery mutations
+  confirmDiscoveredHandles(creatorId: ID!, handleIds: [ID!]!): [Handle!]!
+  
+  # Management mutations
+  moveCreatorToGroup(creatorId: ID!, groupId: ID!): Creator!
+  toggleHandlePause(handleId: ID!): Handle!
+  updateIngestRule(handleId: ID!, rule: IngestRuleInput!): IngestRule!
+  forceImportItem(itemId: ID!): Media!
+  
+  # FeedGroup mutations
+  createFeedGroup(name: String!): FeedGroup!
+  deleteFeedGroup(groupId: ID!): Boolean!
+}
+```
+
+## Inputs
+
+```graphql
+input IngestRuleInput {
+  minScore: Int
+  mediaOnly: Boolean
+  minResolution: String
+}
+```
+
+## Subscriptions
+
+```graphql
+type Subscription {
+  pipelineStatus: PipelineStatus!
+}
+```
+
+## Scalars
+
+```graphql
+scalar DateTime
+```
+

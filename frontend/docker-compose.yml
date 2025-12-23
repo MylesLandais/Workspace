@@ -1,0 +1,17 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4321:4321"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - PUBLIC_GRAPHQL_ENDPOINT=http://localhost:4002/api/graphql
+      - PUBLIC_GRAPHQL_MOCK=true
+    stdin_open: true
+    tty: true
+
