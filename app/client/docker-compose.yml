@@ -1,0 +1,15 @@
+services:
+  client:
+    image: oven/bun:1.1-slim
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
+      - HOSTNAME=0.0.0.0
+    stdin_open: true
+    tty: true
+    command: ["sh", "-c", "./scripts/setup.sh && bun run dev --hostname 0.0.0.0"]
