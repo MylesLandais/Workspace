@@ -5,6 +5,7 @@ services:
       - "3000:3000"
     volumes:
       - .:/app
+      - ../../temp:/app/public/temp:ro
     working_dir: /app
     environment:
       - NODE_ENV=development

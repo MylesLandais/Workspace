@@ -1,9 +1,12 @@
 "use client";
 
+import { useState, useRef, useEffect, useCallback } from "react";
 import { FeedItem as FeedItemType } from "@/lib/types/feed";
 import { FeedItem } from "./FeedItem";
 import { InfiniteScrollSentinel } from "./InfiniteScrollSentinel";
 import { Loader2 } from "lucide-react";
+import { useMasonryLayout } from "@/hooks/feed/useMasonryLayout";
+import { useMediaQuery } from "@/hooks/feed/useMediaQuery";
 
 interface MasonryGridProps {
   items: FeedItemType[];
@@ -20,19 +23,98 @@ export function MasonryGrid({
   onLoadMore,
   onItemClick,
 }: MasonryGridProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = useState(0);
+  const [measuredHeights, setMeasuredHeights] = useState<Record<string, number>>({});
+
+  // Breakpoints mapping
+  const isTablet = useMediaQuery('(min-width: 640px)');
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
+  const isWide = useMediaQuery('(min-width: 1440px)');
+  const isUltra = useMediaQuery('(min-width: 1920px)');
+
+  let columnCount = 1;
+  let gap = 12;
+
+  if (isUltra) {
+    columnCount = 5;
+    gap = 24;
+  } else if (isWide) {
+    columnCount = 4;
+    gap = 24;
+  } else if (isDesktop) {
+    columnCount = 3;
+    gap = 20;
+  } else if (isTablet) {
+    columnCount = 2;
+    gap = 16;
+  }
+
+  // Handle container resizing for width calculations
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setContainerWidth(entry.contentRect.width);
+      }
+    });
+
+    resizeObserver.observe(containerRef.current);
+    setContainerWidth(containerRef.current.clientWidth);
+
+    return () => resizeObserver.disconnect();
+  }, []);
+
+  const handleHeightMeasured = useCallback((id: string, height: number) => {
+    setMeasuredHeights((prev) => {
+      if (prev[id] === height) return prev;
+      return { ...prev, [id]: height };
+    });
+  }, []);
+
+  const columnWidth = containerWidth > 0
+    ? (containerWidth - (columnCount - 1) * gap) / columnCount
+    : 300;
+
+  const { itemPositions, containerHeight } = useMasonryLayout(
+    items,
+    columnCount,
+    columnWidth,
+    gap,
+    measuredHeights
+  );
+
   return (
     <div className="p-6">
-      <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 mx-auto max-w-7xl">
-        {items.map((item) => (
-          <FeedItem key={item.id} item={item} onClick={onItemClick} />
-        ))}
+      <div
+        ref={containerRef}
+        className="relative w-full mx-auto"
+        style={{ height: containerHeight }}
+      >
+        {items.map((item) => {
+          const pos = itemPositions[item.id] || { x: 0, y: 0 };
+          return (
+            <FeedItem
+              key={item.id}
+              item={item}
+              columnWidth={columnWidth}
+              x={pos.x}
+              y={pos.y}
+              onHeightMeasured={handleHeightMeasured}
+              onClick={onItemClick}
+            />
+          );
+        })}
       </div>
 
       {/* Infinite Scroll Sentinel */}
-      <InfiniteScrollSentinel
-        onIntersect={onLoadMore}
-        enabled={hasNextPage && !isLoading}
-      />
+      <div className="relative mt-8">
+        <InfiniteScrollSentinel
+          onIntersect={onLoadMore}
+          enabled={hasNextPage && !isLoading}
+        />
+      </div>
 
       {/* Loading Indicator */}
       {isLoading && (
@@ -43,8 +125,8 @@ export function MasonryGrid({
 
       {/* End of Feed */}
       {!hasNextPage && items.length > 0 && (
-        <div className="text-center py-8 text-app-muted text-sm">
-          You&apos;ve reached the end of the feed
+        <div className="text-center py-12 text-app-muted text-sm font-medium tracking-wide">
+          You&apos;ve reached the bottom of the feed
         </div>
       )}
     </div>
