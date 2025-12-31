@@ -2,16 +2,30 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.bun
     ports:
       - "4321:4321"
     volumes:
       - .:/app
       - /app/node_modules
+      - ../../temp:/app/public/temp:ro
+      # Mount test results directory for viewing test outputs
+      - ./test-results:/app/test-results
+      - ./playwright-report:/app/playwright-report
+    working_dir: /app
+    env_file:
+      - /home/warby/Workspace/Bunny/.env
     environment:
       - NODE_ENV=development
-      - PUBLIC_GRAPHQL_ENDPOINT=http://localhost:4002/api/graphql
-      - PUBLIC_GRAPHQL_MOCK=true
+      - BUN_INSTALL_LOCKFILE_ONLY=true
+      # Enable mock data mode
+      - BUN_USE_MOCK_DATA=true
+    networks:
+      - backend_default
     stdin_open: true
     tty: true
+
+networks:
+  backend_default:
+    external: true
 

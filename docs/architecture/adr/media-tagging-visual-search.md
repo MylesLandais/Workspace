@@ -231,12 +231,14 @@ The following features are planned but not yet implemented:
 - **Dimensional search** - Filter by width, height, aspect ratio
 - **Board/collection system** - Pinterest-style organization with auto-query matching
 - **Quality scoring** - Engagement-based quality metrics
+- **Facial recognition and multi-subject detection** - Identify creators in images (see [ADR: Facial Recognition](./facial-recognition-multi-subject.md))
 
 ## References
 
 - [ADR: Unified Ingestion Layer](./unified-ingestion-layer.md)
 - [ADR: Neo4j Graph Database](./neo4j-graph-database.md)
 - [ADR: Valkey Caching Layer](./valkey-caching-layer.md)
+- [ADR: Facial Recognition and Multi-Subject Image Analysis](./facial-recognition-multi-subject.md)
 - [CLIP Model](https://openai.com/research/clip)
 - Implementation: `notebooks/VKSearch_Cache.py`
 - Implementation: `src/feed/storage/migrations/005_post_image_hash.cypher`

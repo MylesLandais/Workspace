@@ -130,4 +130,112 @@ export const SEARCH_SUBREDDITS_QUERY = gql`
   }
 `;
 
+// Bunny queries
+export const GET_SAVED_BOARDS = gql`
+  query GetSavedBoards($userId: ID!) {
+    getSavedBoards(userId: $userId) {
+      id
+      name
+      filters {
+        persons
+        sources
+        searchQuery
+      }
+      createdAt
+      userId
+    }
+  }
+`;
+
+export const GET_IDENTITY_PROFILES = gql`
+  query GetIdentityProfiles($query: String, $limit: Int) {
+    getIdentityProfiles(query: $query, limit: $limit) {
+      id
+      name
+      bio
+      avatarUrl
+      aliases
+      sources {
+        platform
+        id
+        databaseId
+        label
+        hidden
+      }
+      contextKeywords
+      imagePool
+      relationships {
+        targetId
+        type
+      }
+    }
+  }
+`;
+
+export const GET_IDENTITY_PROFILE = gql`
+  query GetIdentityProfile($id: ID!) {
+    getIdentityProfile(id: $id) {
+      id
+      name
+      bio
+      avatarUrl
+      aliases
+      sources {
+        platform
+        id
+        databaseId
+        label
+        hidden
+      }
+      contextKeywords
+      imagePool
+      relationships {
+        targetId
+        type
+        target {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+export const FEED_WITH_FILTERS = gql`
+  query FeedWithFilters($cursor: String, $limit: Int, $filters: FeedFilters) {
+    feed(cursor: $cursor, limit: $limit, filters: $filters) {
+      edges {
+        node {
+          id
+          title
+          imageUrl
+          sourceUrl
+          publishDate
+          score
+          width
+          height
+          subreddit {
+            name
+          }
+          author {
+            username
+          }
+          platform
+          handle {
+            name
+            handle
+          }
+          mediaType
+          viewCount
+        }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+`;
+
 

@@ -177,7 +177,7 @@ candidates = crawler.discover_handles(anchor_url="https://youtube.com/@sjokz")
 2. **Inference**: Exact username match across platforms (Medium confidence → requires review)
 3. **Manual**: User clicks "Confirm" (100% confidence)
 
-### Omni-Feed Query
+### Unified Feed Query
 
 ```cypher
 // Get all content from a creator across all verified handles
@@ -206,5 +206,7 @@ LIMIT $limit
 - [ADR: Neo4j Graph Database](./neo4j-graph-database.md)
 - Implementation: `src/feed/ONTOLOGY_IMPLEMENTATION.md`
 - Implementation: `src/feed/storage/migrations/002_creator_handle_media_schema.cypher`
+
+
 
 

@@ -149,7 +149,7 @@ OPTIONAL MATCH (h)-[:ON_PLATFORM]->(p:Platform)
 RETURN c, collect(h) AS handles, collect(p) AS platforms
 ```
 
-### Get All Media for Creator (Omni-Feed)
+### Get All Media for Creator (Unified Feed)
 
 ```cypher
 MATCH (c:Creator {slug: $slug})-[r:OWNS_HANDLE {status: "active", verified: true}]->(h:Handle)

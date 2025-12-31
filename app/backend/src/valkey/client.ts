@@ -1,4 +1,4 @@
-import { createClient } from 'valkey';
+import { createClient } from 'redis';
 import dotenv from 'dotenv';
 
 dotenv.config();

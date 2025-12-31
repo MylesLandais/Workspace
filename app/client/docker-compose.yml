@@ -10,6 +10,10 @@ services:
       - NODE_ENV=development
       - NEXT_TELEMETRY_DISABLED=1
       - HOSTNAME=0.0.0.0
+    env_file:
+      - .env.local
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     stdin_open: true
     tty: true
     command: ["sh", "-c", "./scripts/setup.sh && bun run dev --hostname 0.0.0.0"]

@@ -347,3 +347,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 - [ADR: AI Agent Architecture](./ai-agent-architecture.md)
 - [IQDB Alternative](https://iqdb.org/)
 
+
+
+
+

@@ -1,28 +1,30 @@
 # Risk Tracking
 
-This document tracks known risks that may impact system stability, data quality, or user experience.
+This document tracks known risks that may impact system stability, data quality, or user experience. Risks are categorized by domain and include mitigation strategies, detection methods, and current status.
 
 ## External Dependencies
 
-### Reddit API Rate Limiting / Blocking
+### Reddit Web Scraping Rate Limiting and Blocking
 
 **Risk Level**: High  
-**Impact**: Complete service disruption  
+**Impact**: Complete service disruption for Reddit-based ingestion  
 **Probability**: Medium
 
-**Description**: Reddit may rate limit or block our API requests if we exceed their limits or violate their terms of service.
+**Description**: Reddit may rate limit or block web scraping requests if we exceed their limits or violate their terms of service. Since we use web scraping (not the official API), we're more vulnerable to blocking.
 
 **Mitigation**:
-- Implement exponential backoff for API requests
-- Respect rate limit headers from Reddit API
-- Use multiple API keys/accounts if needed (within ToS)
-- Cache responses aggressively
-- Monitor request patterns and adjust accordingly
+- Implement exponential backoff with jitter for requests
+- Respect robots.txt and rate limit headers
+- Use rotating user agents and IP addresses (within ToS)
+- Cache responses aggressively to minimize requests
+- Monitor request patterns and adjust rate limits dynamically
+- Implement circuit breaker pattern for failed requests
 
-**Detection**: 
-- Track 429 (Too Many Requests) responses
-- Monitor success rate of API calls
-- Alert on consecutive failures
+**Detection**:
+- Track HTTP status codes (429, 403, 503)
+- Monitor success rate of scraping requests
+- Alert on consecutive failures or pattern changes
+- Track response time degradation
 
 **Status**: Active monitoring
 
@@ -148,22 +150,26 @@ This document tracks known risks that may impact system stability, data quality,
 ### GraphQL API Performance Degradation
 
 **Risk Level**: Medium  
-**Impact**: Slow frontend, poor UX  
+**Impact**: Slow frontend, poor user experience  
 **Probability**: Medium
 
-**Description**: Complex GraphQL queries may become slow as data volume grows.
+**Description**: Complex GraphQL queries may become slow as data volume grows. N+1 query problems, missing indexes, or inefficient Cypher queries can cause significant performance degradation.
 
 **Mitigation**:
-- Query complexity analysis
-- Database indexes on frequently queried fields
-- Pagination for all list queries
-- Query result caching
-- Performance monitoring and alerting
+- Query complexity analysis and limits
+- Database indexes on frequently queried fields (userId, publishDate, platform)
+- Cursor-based pagination for all list queries
+- Valkey query result caching (300s TTL for feed queries)
+- Performance monitoring and alerting (p95, p99 latency)
+- Query batching and data loader patterns
+- Neo4j query plan analysis for optimization
 
 **Detection**:
-- Track query execution times
-- Monitor Apollo Client cache hit rates
+- Track query execution times (p50, p95, p99)
+- Monitor Valkey cache hit rates
+- GraphQL query complexity metrics
 - User-reported slow performance
+- Neo4j slow query logging
 
 **Status**: Active monitoring
 
@@ -177,19 +183,100 @@ This document tracks known risks that may impact system stability, data quality,
 **Impact**: Stale data, missed content  
 **Probability**: Low
 
-**Description**: Background workers that fetch and ingest content may crash or fail silently.
+**Description**: Background workers that fetch and ingest content may crash, fail silently, or become unresponsive. This leads to outdated feeds and missed content.
 
 **Mitigation**:
-- Worker health monitoring
-- Automatic restart on failure
-- Dead letter queue for failed jobs
-- Status Pulse indicator for visibility
-- Alert on worker downtime
+- Worker health monitoring with heartbeat mechanism
+- Automatic restart on failure with exponential backoff
+- Dead letter queue for failed jobs with retry logic
+- Pipeline status endpoint for visibility
+- Alert on worker downtime or extended sync delays
+- Graceful shutdown handling
+- Queue-based job processing (Valkey queues)
 
 **Detection**:
-- Last sync timestamp monitoring
-- Worker heartbeat/health checks
-- Alert when sync age exceeds threshold
+- Last sync timestamp monitoring per handle
+- Worker heartbeat/health checks every 30 seconds
+- Alert when sync age exceeds threshold (e.g., 1 hour)
+- Track job failure rates and error types
+- Monitor queue depth and processing rate
+
+**Status**: Active monitoring
+
+---
+
+### Valkey Cache Failures
+
+**Risk Level**: Medium  
+**Impact**: Performance degradation, increased database load  
+**Probability**: Low
+
+**Description**: Valkey cache service may fail, causing all queries to hit Neo4j directly. This can cause significant performance degradation and increased database load.
+
+**Mitigation**:
+- Graceful degradation: system continues to function without cache
+- Health check endpoints for cache connectivity
+- Automatic failover to direct Neo4j queries
+- Cache warming on service restart
+- Monitor cache memory usage and eviction rates
+
+**Detection**:
+- Cache connection health monitoring
+- Track cache hit rate (alert if < 70%)
+- Monitor Neo4j query load increase
+- Alert on cache service unavailability
+
+**Status**: Active monitoring
+
+---
+
+### Neo4j Aura Tier Limits
+
+**Risk Level**: Medium  
+**Impact**: Service throttling, read-only mode, potential data loss  
+**Probability**: Medium
+
+**Description**: Exceeding Neo4j Aura free tier limits (operations, storage) can cause service throttling or read-only mode. In extreme cases, data may be at risk.
+
+**Mitigation**:
+- Monitor Aura usage metrics (operations, storage)
+- Implement data archival strategies for old content
+- Optimize queries to reduce operation count
+- Use Valkey to offload hot data from Neo4j
+- Set up alerts before reaching tier limits
+- Plan for tier upgrades before limits are reached
+
+**Detection**:
+- Daily monitoring of Aura usage dashboard
+- Alert at 80% of tier limits
+- Track operation count trends
+- Monitor storage growth rate
+
+**Status**: Active monitoring
+
+---
+
+### Image Storage Costs
+
+**Risk Level**: Low  
+**Impact**: Increased infrastructure costs  
+**Probability**: High
+
+**Description**: As image content grows, S3-compatible storage costs can increase significantly. Without optimization, costs can scale linearly with content volume.
+
+**Mitigation**:
+- Implement image compression and optimization
+- Use appropriate storage tiers (hot, warm, cold)
+- Lifecycle policies for old content (archive after 90 days)
+- Deduplication to prevent storing identical images
+- Monitor storage usage and costs
+- Set up cost alerts
+
+**Detection**:
+- Monthly storage usage and cost reports
+- Alert on cost threshold increases
+- Track storage growth rate
+- Monitor deduplication effectiveness
 
 **Status**: Active monitoring
 
@@ -198,15 +285,21 @@ This document tracks known risks that may impact system stability, data quality,
 ## Review Process
 
 This document should be reviewed:
-- Monthly for risk assessment updates
-- After any incident to add new risks
-- When new features are added that introduce dependencies
-- When external service changes are announced
+
+- **Monthly**: Risk assessment updates and status reviews
+- **After incidents**: Add new risks identified during incidents
+- **Feature additions**: Review risks when new features introduce dependencies
+- **External changes**: Update when external services announce changes
+- **Quarterly**: Comprehensive risk review and mitigation effectiveness assessment
 
 ## Risk Levels
 
-- **High**: Could cause complete service disruption or data loss
-- **Medium**: Could significantly impact user experience or require manual intervention
-- **Low**: Minor impact, easily recoverable
+- **High**: Could cause complete service disruption or data loss. Requires immediate attention and mitigation.
+- **Medium**: Could significantly impact user experience or require manual intervention. Should be monitored closely.
+- **Low**: Minor impact, easily recoverable. Tracked for awareness but not critical path.
+
+
+
+
 
 

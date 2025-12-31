@@ -8,22 +8,78 @@ import {
   getSimilarImages,
 } from '../neo4j/queries/images.js';
 import { ImageIngestionService } from '../services/imageIngestion.js';
+import { PresignedUrlService } from '../services/presignedUrl.js';
 
 export const queryResolvers = {
   Query: {
-    feed: async (_: any, { cursor, limit = 20 }: { cursor?: string | null; limit?: number }) => {
-      const { posts, nextCursor } = await getFeed(cursor, limit);
-      
-      return {
-        edges: posts.map((post) => ({
-          node: post,
-          cursor: post.publishDate,
-        })),
-        pageInfo: {
-          hasNextPage: nextCursor !== null,
-          endCursor: nextCursor,
-        },
-      };
+    feed: async (_: any, { cursor, limit = 20, filters }: { cursor?: string | null; limit?: number; filters?: any }) => {
+      try {
+        const feedResult = await getFeed(cursor, limit, filters);
+
+        if (!feedResult || !feedResult.posts) {
+          return {
+            edges: [],
+            pageInfo: {
+              hasNextPage: false,
+              endCursor: null,
+            },
+          };
+        }
+
+        const urlService = new PresignedUrlService();
+
+        const items = feedResult.posts
+          .filter((post) => post.sha256 && post.mimeType)
+          .map((post) => ({
+            sha256: post.sha256,
+            mimeType: post.mimeType,
+          }));
+
+        let presignedUrls: Map<string, { url: string; expiresAt: Date }> = new Map();
+
+        if (items.length > 0) {
+          try {
+            const urlResults = await urlService.batchGetPresignedUrls(items);
+            presignedUrls = new Map(
+              urlResults.map((result) => [
+                result.sha256,
+                { url: result.url, expiresAt: result.expiresAt },
+              ])
+            );
+          } catch (error: any) {
+            console.error('[Feed Resolver] Error generating presigned URLs:', error);
+          }
+        }
+
+        const postsWithUrls = feedResult.posts.map((post) => {
+          const urlData = post.sha256 ? presignedUrls.get(post.sha256) : null;
+          return {
+            ...post,
+            presignedUrl: urlData?.url || null,
+            urlExpiresAt: urlData?.expiresAt?.toISOString() || null,
+          };
+        });
+
+        return {
+          edges: postsWithUrls.map((post) => ({
+            node: post,
+            cursor: post.publishDate,
+          })),
+          pageInfo: {
+            hasNextPage: feedResult.nextCursor !== null,
+            endCursor: feedResult.nextCursor,
+          },
+        };
+      } catch (error: any) {
+        console.error('[Feed Resolver] Error:', error);
+        return {
+          edges: [],
+          pageInfo: {
+            hasNextPage: false,
+            endCursor: null,
+          },
+        };
+      }
     },
 
     creators: async (_: any, { query, limit = 20 }: { query?: string; limit?: number }) => {

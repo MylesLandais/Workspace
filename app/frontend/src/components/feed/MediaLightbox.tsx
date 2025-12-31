@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { type Media } from '../../lib/utils/deduplicate';
 
 interface MediaLightboxProps {

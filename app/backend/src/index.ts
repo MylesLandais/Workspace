@@ -5,6 +5,7 @@ import cors from 'cors';
 import { typeDefs } from './schema/schema.js';
 import { queryResolvers } from './resolvers/queries.js';
 import { mutationResolvers } from './resolvers/mutations.js';
+import { bunnyResolvers } from './bunny/resolvers.js';
 import { verifyConnection, createIndexes } from './neo4j/driver.js';
 import { verifyValkeyConnection } from './valkey/client.js';
 
@@ -25,8 +26,14 @@ async function startServer() {
   const server = new ApolloServer({
     typeDefs,
     resolvers: {
-      ...queryResolvers,
-      ...mutationResolvers,
+      Query: {
+        ...queryResolvers.Query,
+        ...bunnyResolvers.Query,
+      },
+      Mutation: {
+        ...mutationResolvers.Mutation,
+        ...bunnyResolvers.Mutation,
+      },
     },
   });
 

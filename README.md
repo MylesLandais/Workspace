@@ -105,25 +105,25 @@ cd app/frontend && docker-compose up
 │   ├── frontend/           # Astro + React frontend
 │   │   ├── src/
 │   │   │   ├── components/ # React components (islands)
-│   │   │   │   ├── feed/   # Feed display components
+│   │   │   │   ├── feed/       # Feed display components
 │   │   │   │   ├── feed-manager/ # Subscription management
-│   │   │   │   └── bunny/ # Bunny Feed components
+│   │   │   │   └── bunny/      # Bunny Feed components
 │   │   │   ├── layouts/    # Astro layouts
 │   │   │   └── pages/      # Astro pages (routing)
 │   │   ├── scripts/        # Mock data generation
 │   │   └── tests/          # Test suites
 │   └── backend/           # GraphQL backend
-│       ├── src/
-│       │   ├── schema/     # GraphQL type definitions
-│       │   ├── resolvers/  # Query and mutation resolvers
-│       │   ├── neo4j/      # Neo4j driver and queries
-│       │   ├── valkey/     # Valkey cache client
-│       │   ├── services/   # Business logic services
-│       │   └── bunny/     # Bunny-specific resolvers
-│       └── storage/        # Local storage (dev)
+│   │       ├── src/
+│   │   │   ├── schema/     # GraphQL type definitions
+│   │   │   ├── resolvers/  # Query and mutation resolvers
+│   │   │   ├── neo4j/      # Neo4j driver and queries
+│   │   │   ├── valkey/     # Valkey cache client
+│   │   │   ├── services/   # Business logic services
+│   │   │   └── bunny/     # Bunny-specific resolvers
+│   │       └── storage/        # Local storage (dev)
 ├── docs/                   # Project documentation
-│   ├── domains/            # Domain-specific documentation
 │   ├── architecture/       # Architecture Decision Records
+│   ├── domains/            # Domain-specific documentation (Feed, Subscriptions)
 │   └── interfaces/         # API schemas (GraphQL, Cypher)
 ├── archive/                # Archived extracted components
 └── temp/                   # Temporary files and mock data

@@ -327,9 +327,30 @@ This document defines the core design principles that guide architectural decisi
 - Offline mode for core features
 - Fallback when AI services unavailable
 
+### 14. Leverage Open-Source
+
+**Principle**: Prefer adapting proven open-source solutions over building from scratch. Evaluate existing projects before implementing new features. Faster development and reduced maintenance burden.
+
+**Implications**:
+- Research open-source solutions for complex features (facial recognition, image processing, etc.)
+- Adapt and integrate existing open-source implementations where possible
+- Contribute back to open-source projects when feasible
+- Use open-source libraries and frameworks over proprietary solutions when they meet requirements
+- Learn from open-source architecture patterns even if not directly using the code
+
+**Examples**:
+- Leverage Immich's facial recognition system for multi-subject image analysis
+- Use open-source ML models and libraries (CLIP, face_recognition)
+- Evaluate TypeScript/Node.js open-source projects first for easier integration
+- Reference proven architectures from successful open-source projects
+- Focus on integration and ontology-driven entity resolution (like Palantir's pattern) rather than building proprietary algorithms
+
+**Related ADRs**:
+- [Facial Recognition and Multi-Subject Image Analysis](../architecture/adr/facial-recognition-multi-subject.md)
+
 ## Integration Principles
 
-### 14. Open Integration
+### 15. Open Integration
 
 **Principle**: Enable integrations with popular tools. Export data in standard formats. Provide APIs for custom integrations.
 
@@ -344,7 +365,7 @@ This document defines the core design principles that guide architectural decisi
 - Obsidian plugin
 - Zapier webhooks
 
-### 15. Source Agnostic
+### 16. Source Agnostic
 
 **Principle**: Support any content source. Don't favor one source type over another. Unified ingestion for all sources.
 
@@ -365,7 +386,7 @@ This document defines the core design principles that guide architectural decisi
 
 ## Performance Principles
 
-### 16. Cache Aggressively
+### 17. Cache Aggressively
 
 **Principle**: Cache expensive operations. Use Valkey for hot data, cache AI responses, cache graph queries.
 
@@ -383,7 +404,7 @@ This document defines the core design principles that guide architectural decisi
 **Related ADRs**:
 - [Valkey Caching Layer](../architecture/adr/valkey-caching-layer.md)
 
-### 17. Optimize for Common Paths
+### 18. Optimize for Common Paths
 
 **Principle**: Optimize the 80% case. Most users read content, not manage complex queries. Optimize reading experience first.
 

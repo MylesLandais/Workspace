@@ -9,6 +9,11 @@ export interface Creator {
   avatarUrl?: string;
   verified: boolean;
   handles: Handle[];
+  // Bunny extensions
+  aliases?: string[];
+  contextKeywords?: string[];
+  imagePool?: string[];
+  relationships?: Array<{ targetId: string; type: string }>;
 }
 
 export interface Handle {
@@ -22,6 +27,9 @@ export interface Handle {
   mediaCount: number;
   lastSynced: string | null;
   health: string;
+  // Bunny extensions
+  label?: string;
+  hidden?: boolean;
 }
 
 export async function getCreators(query?: string, limit: number = 20): Promise<Creator[]> {
@@ -96,6 +104,60 @@ export async function getCreators(query?: string, limit: number = 20): Promise<C
         avatarUrl: entity.avatar_url,
         verified: entity.verified || false,
         handles,
+        aliases: entity.aliases || [],
+        contextKeywords: entity.context_keywords || [],
+        imagePool: entity.image_pool || [],
+      };
+    });
+  } finally {
+    await session.close();
+  }
+}
+
+export async function getHandlesForCreator(creatorId: string): Promise<Handle[]> {
+  const session = getSession();
+  try {
+    const query = `
+      MATCH (e:Entity {id: $creatorId})-[:HAS_SOURCE]->(s:Source)
+      RETURN s
+    `;
+
+    const result = await session.run(query, { creatorId });
+
+    return result.records.map((record) => {
+      const props = record.get('s').properties;
+      const lastSynced = props.last_synced ? new Date(props.last_synced.toString()).toISOString() : null;
+      
+      let health = 'red';
+      if (lastSynced) {
+        const hoursAgo = (Date.now() - new Date(lastSynced).getTime()) / (1000 * 60 * 60);
+        if (hoursAgo < 1) health = 'green';
+        else if (hoursAgo < 24) health = 'yellow';
+      }
+
+      const platform = props.source_type || 'reddit';
+      let handleStr = '';
+      if (platform === 'reddit') {
+        handleStr = `r/${props.subreddit_name || props.name}`;
+      } else if (platform === 'youtube') {
+        handleStr = props.youtube_channel_handle || `@${props.name}`;
+      } else {
+        handleStr = props.name;
+      }
+
+      return {
+        id: props.id,
+        platform,
+        username: props.subreddit_name || props.youtube_channel_handle || props.name,
+        handle: handleStr,
+        url: props.url || '',
+        verified: props.verified || false,
+        status: props.status || 'active',
+        mediaCount: props.media_count || 0,
+        lastSynced,
+        health,
+        label: props.label || undefined,
+        hidden: props.hidden || false,
       };
     });
   } finally {
@@ -166,6 +228,9 @@ export async function getCreatorBySlug(slug: string): Promise<Creator | null> {
       avatarUrl: entity.avatar_url,
       verified: entity.verified || false,
       handles,
+      aliases: entity.aliases || [],
+      contextKeywords: entity.context_keywords || [],
+      imagePool: entity.image_pool || [],
     };
   } finally {
     await session.close();

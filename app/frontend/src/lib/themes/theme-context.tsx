@@ -68,7 +68,25 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 export function useTheme(): ThemeContextType {
   const context = useContext(ThemeContext);
   if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
+    // During SSR or if ThemeProvider is not available, return default theme
+    // This prevents errors during server-side rendering
+    if (typeof window === 'undefined') {
+      return {
+        theme: getTheme(defaultTheme),
+        themeId: defaultTheme,
+        setTheme: () => {},
+        availableThemes: getAllThemes(),
+      };
+    }
+    // Client-side but no provider - return default instead of throwing
+    // This can happen during initial render before providers mount
+    console.warn('useTheme called without ThemeProvider, using default theme');
+    return {
+      theme: getTheme(defaultTheme),
+      themeId: defaultTheme,
+      setTheme: () => {},
+      availableThemes: getAllThemes(),
+    };
   }
   return context;
 }

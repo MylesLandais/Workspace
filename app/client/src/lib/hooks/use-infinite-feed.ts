@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { FeedItem, InfiniteFeedState } from "../types/feed";
-import { generateFeedPage } from "../mock-data/factory";
+import { FeedItem, InfiniteFeedState, MediaType } from "../types/feed";
 
 const INITIAL_STATE: InfiniteFeedState = {
   items: [],
@@ -12,6 +11,26 @@ const INITIAL_STATE: InfiniteFeedState = {
   error: null,
 };
 
+function calculateAspectRatio(width: number, height: number): string {
+  const ratio = width / height;
+  if (ratio >= 1.7) return "aspect-[16/9]";
+  if (ratio >= 1.2) return "aspect-[4/3]";
+  if (ratio >= 0.9) return "aspect-square";
+  if (ratio >= 0.6) return "aspect-[3/4]";
+  return "aspect-[9/16]";
+}
+
+function mapMediaType(type: string): MediaType {
+  switch (type.toUpperCase()) {
+    case "VIDEO":
+      return MediaType.VIDEO;
+    case "IMAGE":
+      return MediaType.IMAGE;
+    default:
+      return MediaType.IMAGE;
+  }
+}
+
 export function useInfiniteFeed(pageSize: number = 20) {
   const [state, setState] = useState<InfiniteFeedState>(INITIAL_STATE);
 
@@ -20,17 +39,56 @@ export function useInfiniteFeed(pageSize: number = 20) {
 
     setState((prev) => ({ ...prev, isLoading: true }));
 
-    // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
     try {
-      const page = generateFeedPage(state.endCursor, pageSize);
+      const params = new URLSearchParams({
+        limit: pageSize.toString(),
+      });
+      if (state.endCursor) {
+        params.append("cursor", state.endCursor);
+      }
+
+      const response = await fetch(`/api/feed?${params.toString()}`);
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch feed: ${response.statusText}`);
+      }
+
+      const page = await response.json();
+
+      const items: FeedItem[] = page.edges.map((edge: any) => {
+        const node = edge.node;
+
+        // Build proxy URL from SHA256 with storagePath
+        let mediaUrl = node.imageUrl;
+        if (node.sha256 && node.storagePath) {
+          const encodedPath = encodeURIComponent(node.storagePath);
+          mediaUrl = `/api/image/${node.sha256}?path=${encodedPath}`;
+        }
+
+        return {
+          id: node.id,
+          type: mapMediaType(node.mediaType),
+          caption: node.title || "",
+          author: {
+            name: node.handle?.name || "Unknown",
+            handle: node.handle?.handle || "unknown",
+          },
+          source: node.platform || "UNKNOWN",
+          timestamp: node.publishDate,
+          aspectRatio: calculateAspectRatio(node.width || 1, node.height || 1),
+          width: node.width || 800,
+          height: node.height || 600,
+          likes: 0,
+          mediaUrl,
+          urlExpiresAt: node.urlExpiresAt,
+        };
+      });
 
       setState((prev) => ({
         ...prev,
-        items: [...prev.items, ...page.items],
-        hasNextPage: page.hasNextPage,
-        endCursor: page.endCursor,
+        items: [...prev.items, ...items],
+        hasNextPage: page.pageInfo.hasNextPage,
+        endCursor: page.pageInfo.endCursor,
         isLoading: false,
         error: null,
       }));
@@ -46,16 +104,52 @@ export function useInfiniteFeed(pageSize: number = 20) {
   // Initial load
   useEffect(() => {
     const loadInitial = async () => {
-      // Simulate network delay
-      await new Promise((resolve) => setTimeout(resolve, 300));
-
       try {
-        const page = generateFeedPage(null, pageSize);
+        const params = new URLSearchParams({
+          limit: pageSize.toString(),
+        });
+
+        const response = await fetch(`/api/feed?${params.toString()}`);
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch feed: ${response.statusText}`);
+        }
+
+        const page = await response.json();
+
+        const items: FeedItem[] = page.edges.map((edge: any) => {
+          const node = edge.node;
+
+          // Build proxy URL from SHA256 with storagePath
+          let mediaUrl = node.imageUrl;
+          if (node.sha256 && node.storagePath) {
+            const encodedPath = encodeURIComponent(node.storagePath);
+            mediaUrl = `/api/image/${node.sha256}?path=${encodedPath}`;
+          }
+
+          return {
+            id: node.id,
+            type: mapMediaType(node.mediaType),
+            caption: node.title || "",
+            author: {
+              name: node.handle?.name || "Unknown",
+              handle: node.handle?.handle || "unknown",
+            },
+            source: node.platform || "UNKNOWN",
+            timestamp: node.publishDate,
+            aspectRatio: calculateAspectRatio(node.width || 1, node.height || 1),
+            width: node.width || 800,
+            height: node.height || 600,
+            likes: 0,
+            mediaUrl,
+            urlExpiresAt: node.urlExpiresAt,
+          };
+        });
 
         setState({
-          items: page.items,
-          hasNextPage: page.hasNextPage,
-          endCursor: page.endCursor,
+          items,
+          hasNextPage: page.pageInfo.hasNextPage,
+          endCursor: page.pageInfo.endCursor,
           isLoading: false,
           error: null,
         });

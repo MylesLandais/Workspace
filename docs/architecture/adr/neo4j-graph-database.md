@@ -90,7 +90,7 @@ ORDER BY p.created_utc DESC
 LIMIT $limit
 ```
 
-**Creator Omni-Feed**:
+**Creator Unified Feed**:
 ```cypher
 MATCH (c:Creator {uuid: $creator_uuid})
   -[:OWNS_HANDLE {verified: true, status: 'Active'}]
@@ -136,5 +136,7 @@ RETURN hash, size(posts) as count, posts
 - Neo4j Cypher manual
 - Implementation: `src/feed/storage/neo4j_connection.py`
 - Migrations: `src/feed/storage/migrations/`
+
+
 
 

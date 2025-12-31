@@ -48,6 +48,13 @@ export async function createIndexes() {
       'CREATE INDEX media_phash IF NOT EXISTS FOR (m:Media) ON (m.phash)',
       'CREATE INDEX cluster_canonical IF NOT EXISTS FOR (c:ImageCluster) ON (c.canonical_sha256)',
       'CREATE CONSTRAINT cluster_id_unique IF NOT EXISTS FOR (c:ImageCluster) REQUIRE c.id IS UNIQUE',
+      // Bunny schema extensions
+      'CREATE CONSTRAINT savedboard_id_unique IF NOT EXISTS FOR (sb:SavedBoard) REQUIRE sb.id IS UNIQUE',
+      'CREATE INDEX savedboard_user_id IF NOT EXISTS FOR (sb:SavedBoard) ON (sb.userId)',
+      'CREATE INDEX savedboard_created_at IF NOT EXISTS FOR (sb:SavedBoard) ON (sb.createdAt)',
+      'CREATE INDEX entity_aliases IF NOT EXISTS FOR (e:Entity) ON (e.aliases)',
+      'CREATE INDEX source_label IF NOT EXISTS FOR (s:Source) ON (s.label)',
+      'CREATE INDEX source_hidden IF NOT EXISTS FOR (s:Source) ON (s.hidden)',
     ];
 
     for (const query of indexes) {

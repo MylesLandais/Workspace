@@ -1,24 +1,33 @@
 export function getBucketKey(phash: bigint, bits: number = 16): string {
-  const mask = (1n << BigInt(bits)) - 1n;
-  const highBits = (phash >> BigInt(64 - bits)) & mask;
-  return `phash:bucket:${highBits.toString(16).padStart(4, '0')}`;
+  if (typeof phash !== 'bigint') {
+    throw new Error(`phash must be bigint, got ${typeof phash}: ${phash}`);
+  }
+  const bitsBigInt = BigInt(bits);
+  const mask = (1n << bitsBigInt) - 1n;
+  const shift = 64n - bitsBigInt;
+  const shifted = phash >> shift;
+  const highBits = shifted & mask;
+  const hexString = highBits.toString(16);
+  const paddedHex = hexString.padStart(4, '0');
+  return `phash:bucket:${paddedHex}`;
 }
 
 export function getBucketKeys(phash: bigint, bits: number = 16): string[] {
   const baseKey = getBucketKey(phash, bits);
   const keys = [baseKey];
-  
-  const highBits = (phash >> BigInt(64 - bits)) & ((1n << BigInt(bits)) - 1n);
-  
+
+  const bitsBigInt = BigInt(bits);
+  const highBits = (phash >> (64n - bitsBigInt)) & ((1n << bitsBigInt) - 1n);
+
   for (let i = 0; i < bits; i++) {
-    const bitMask = 1n << BigInt(bits - 1 - i);
+    const bitMask = 1n << (bitsBigInt - 1n - BigInt(i));
     const flipped = highBits ^ bitMask;
     const key = `phash:bucket:${flipped.toString(16).padStart(4, '0')}`;
     if (key !== baseKey) {
       keys.push(key);
     }
   }
-  
+
   return keys;
 }
 

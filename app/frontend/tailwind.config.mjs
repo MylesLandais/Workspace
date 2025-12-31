@@ -18,6 +18,18 @@ export default {
           'accent-tertiary': 'var(--theme-accent-tertiary)',
           'accent-alert': 'var(--theme-accent-alert)',
         },
+        // Bunny theme colors - map to existing theme variables
+        app: {
+          bg: 'var(--theme-bg-primary)',
+          surface: 'var(--theme-bg-secondary)',
+          'surface-hover': 'var(--theme-bg-secondary)',
+          text: 'var(--theme-text-primary)',
+          muted: 'var(--theme-text-secondary)',
+          accent: 'var(--theme-accent-primary)',
+          'accent-hover': 'var(--theme-accent-secondary)',
+          'accent-light': 'var(--theme-accent-tertiary)',
+          border: 'var(--theme-border-primary)',
+        },
       },
     },
   },

@@ -22,7 +22,7 @@ export default function Sidebar({ currentPath = '' }: SidebarProps) {
   return (
     <div className="w-64 h-screen bg-theme-bg-secondary border-r border-theme-border-primary flex flex-col">
       <div className="p-6 border-b border-theme-border-primary">
-        <h1 className="text-xl font-bold text-theme-text-primary">RepostRadar</h1>
+        <h1 className="text-xl font-bold text-theme-text-primary">Bunny</h1>
       </div>
 
       <nav className="flex-1 p-4 space-y-2">

@@ -7,6 +7,9 @@ const httpLink = createHttpLink({
   uri: endpoint,
 });
 
+// MSW initialization is handled separately in mocks/init.ts
+// This file only exports the Apollo Client
+
 export const apolloClient = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache(),
@@ -21,4 +24,7 @@ export const apolloClient = new ApolloClient({
 });
 
 export const isMock = isMockMode;
+
+// MSW initialization is handled in mocks/init.ts and called from client components
+// This module-level code runs during SSR, so we can't initialize MSW here
 

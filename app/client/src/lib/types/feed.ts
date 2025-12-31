@@ -25,6 +25,7 @@ export interface FeedItem {
   likes: number;
   mediaUrl?: string;
   thumbnailUrl?: string;
+  urlExpiresAt?: string;
   tags?: string[];
 }
 

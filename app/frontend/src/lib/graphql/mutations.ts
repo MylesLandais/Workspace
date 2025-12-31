@@ -130,4 +130,112 @@ export const CREATE_FEED_GROUP = gql`
   }
 `;
 
+// Bunny mutations
+export const CREATE_SAVED_BOARD = gql`
+  mutation CreateSavedBoard($userId: ID!, $input: SavedBoardInput!) {
+    createSavedBoard(userId: $userId, input: $input) {
+      id
+      name
+      filters {
+        persons
+        sources
+        searchQuery
+      }
+      createdAt
+      userId
+    }
+  }
+`;
+
+export const UPDATE_SAVED_BOARD = gql`
+  mutation UpdateSavedBoard($id: ID!, $input: SavedBoardInput!) {
+    updateSavedBoard(id: $id, input: $input) {
+      id
+      name
+      filters {
+        persons
+        sources
+        searchQuery
+      }
+      createdAt
+      userId
+    }
+  }
+`;
+
+export const DELETE_SAVED_BOARD = gql`
+  mutation DeleteSavedBoard($id: ID!) {
+    deleteSavedBoard(id: $id)
+  }
+`;
+
+export const CREATE_IDENTITY_PROFILE = gql`
+  mutation CreateIdentityProfile($userId: ID!, $input: IdentityProfileInput!) {
+    createIdentityProfile(userId: $userId, input: $input) {
+      id
+      name
+      bio
+      avatarUrl
+      aliases
+      sources {
+        platform
+        id
+        label
+        hidden
+      }
+      contextKeywords
+      imagePool
+      relationships {
+        targetId
+        type
+      }
+    }
+  }
+`;
+
+export const UPDATE_IDENTITY_PROFILE = gql`
+  mutation UpdateIdentityProfile($id: ID!, $input: IdentityProfileInput!) {
+    updateIdentityProfile(id: $id, input: $input) {
+      id
+      name
+      bio
+      avatarUrl
+      aliases
+      sources {
+        platform
+        id
+        label
+        hidden
+      }
+      contextKeywords
+      imagePool
+      relationships {
+        targetId
+        type
+      }
+    }
+  }
+`;
+
+export const DELETE_IDENTITY_PROFILE = gql`
+  mutation DeleteIdentityProfile($id: ID!) {
+    deleteIdentityProfile(id: $id)
+  }
+`;
+
+export const CREATE_RELATIONSHIP = gql`
+  mutation CreateRelationship($profileId: ID!, $input: RelationshipInput!) {
+    createRelationship(profileId: $profileId, input: $input) {
+      targetId
+      type
+    }
+  }
+`;
+
+export const DELETE_RELATIONSHIP = gql`
+  mutation DeleteRelationship($profileId: ID!, $targetId: ID!) {
+    deleteRelationship(profileId: $profileId, targetId: $targetId)
+  }
+`;
+
 
