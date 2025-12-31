@@ -43,8 +43,7 @@ temp/
 # package-lock.json
 # yarn.lock
 # pnpm-lock.yaml
-
-
-
-
+# Agent and Tool files
+.roo/
+.kilocode/
 
