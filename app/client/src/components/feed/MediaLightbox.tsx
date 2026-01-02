@@ -167,7 +167,7 @@ function MediaLightboxContent({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95">
       <Lightbox
         open={isOpen}
         close={onClose}
@@ -203,6 +203,10 @@ function MediaLightboxContent({
         carousel={{
           finite: false,
           preload: 2,
+        }}
+        animation={{
+          fade: 0,
+          swipe: 250,
         }}
         render={{
           buttonPrev: () => null,

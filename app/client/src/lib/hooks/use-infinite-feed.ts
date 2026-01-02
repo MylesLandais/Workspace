@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { FeedItem, InfiniteFeedState, MediaType } from "../types/feed";
 import { generateFeedPage } from "../mock-data/factory";
+import { decodeHtmlEntities } from "../utils";
 
 const USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK_DATA !== "false"; // Default to true
 
@@ -115,10 +116,10 @@ export function useInfiniteFeed(pageSize: number = 20, filters?: FeedFilters) {
         return {
           id: node.id,
           type: mapMediaType(node.mediaType),
-          caption: node.title || "",
+          caption: decodeHtmlEntities(node.title || ""),
           author: {
-            name: node.handle?.name || "Unknown",
-            handle: node.handle?.handle || "unknown",
+            name: decodeHtmlEntities(node.handle?.name || "Unknown"),
+            handle: decodeHtmlEntities(node.handle?.handle || "unknown"),
           },
           source: node.platform || "UNKNOWN",
           timestamp: node.publishDate,

@@ -1,4 +1,5 @@
 import { FeedItem, MediaType } from "@/lib/types/feed";
+import { decodeHtmlEntities } from "@/lib/utils";
 
 interface ImageboardThread {
   threadId: string;
@@ -18,7 +19,7 @@ function parseHtmlForThreadData(html: string): {
   // Extract thread title from page title
   // Format: "/b/ - Title - Random - 4chan"
   const titleMatch = html.match(/<title>\/[a-z]\/ - ([^-]+) -/);
-  const title = titleMatch ? titleMatch[1].trim() : "4chan Thread";
+  const title = decodeHtmlEntities(titleMatch ? titleMatch[1].trim() : "4chan Thread");
 
   // Extract first post body (OP)
   // Look for the first blockquote with postMessage class
@@ -28,12 +29,7 @@ function parseHtmlForThreadData(html: string): {
   let opBody = opMatch ? opMatch[1].trim() : "";
 
   // Clean up HTML entities and tags
-  opBody = opBody
-    .replace(/&quot;/g, '"')
-    .replace(/&#039;/g, "'")
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
+  opBody = decodeHtmlEntities(opBody)
     .replace(/<[^>]*>/g, " ")
     .replace(/\s+/g, " ")
     .substring(0, 200);

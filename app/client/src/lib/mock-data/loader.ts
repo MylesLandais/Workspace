@@ -1,4 +1,5 @@
 import { FeedItem, MediaType } from "../types/feed";
+import { decodeHtmlEntities } from "../utils";
 
 interface RedditPost {
     id: string;
@@ -47,10 +48,10 @@ function transformPost(post: RedditPost): FeedItem | null {
     return {
         id: post.id,
         type: MediaType.IMAGE,
-        caption: post.title,
+        caption: decodeHtmlEntities(post.title),
         author: {
-            name: post.author || "Unknown",
-            handle: post.author || "unknown",
+            name: decodeHtmlEntities(post.author || "Unknown"),
+            handle: decodeHtmlEntities(post.author || "unknown"),
         },
         source: post.subreddit,
         timestamp: new Date(post.created_utc).toISOString(),

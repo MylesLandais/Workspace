@@ -29,6 +29,9 @@ yarn-error.log*
 # test media
 public/test-media/
 
+# local development data
+.local/
+
 # vercel
 .vercel
 

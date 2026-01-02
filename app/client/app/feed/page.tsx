@@ -8,6 +8,7 @@ import { useLightboxStore } from "@/lib/store/lightbox-store";
 import { generateMockPostDetails } from "@/lib/mock-data/factory";
 import { Loader2 } from "lucide-react";
 import { SearchBar } from "@/components/search/SearchBar";
+import { UserMenu } from "@/components/auth/UserMenu";
 import { useSearchStore } from "@/lib/store/search-store";
 import { useEffect } from "react";
 
@@ -70,6 +71,10 @@ export default function FeedPage() {
             <span className="px-3 py-1 rounded-full bg-white/5 border border-white/5">
               {items.length} items discovered
             </span>
+            <UserMenu />
+          </div>
+          <div className="lg:hidden">
+            <UserMenu />
           </div>
         </div>
       </header>

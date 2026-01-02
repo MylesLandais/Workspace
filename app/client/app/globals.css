@@ -77,45 +77,77 @@ body {
 /* Lightbox custom styles */
 .yarl__root {
   background-color: rgba(0, 0, 0, 0.95);
+  backdrop-filter: none;
 }
 
 .yarl__container {
   background-color: transparent;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
 }
 
 .yarl__slide {
   background-color: transparent;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
 }
 
 .yarl__slide_image {
   border-radius: 4px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
 }
 
-.yarl__thumbnails_container {
-  background-color: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(8px);
+.yarl__slide_image img {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
-.yarl__thumbnails_vignette {
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.9) 0%,
-    rgba(0, 0, 0, 0.5) 50%,
-    transparent 100%
-  );
+/* Disable sub-pixel rendering during transitions for crispness */
+.yarl__carousel__slide img {
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.yarl__carousel {
+  will-change: transform;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.yarl__carousel__track {
+  will-change: transform;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.yarl__carousel__slide {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
 }
 
 .yarl__thumbnail {
   border: 2px solid transparent;
-  transition: all 0.2s ease;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0.6;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .yarl__thumbnail_active {
   border-color: var(--theme-accent-primary);
   opacity: 1;
-  transform: scale(1.05);
+  transform: scale(1.05) translateZ(0);
 }
 
 .yarl__thumbnail:hover {
@@ -130,6 +162,8 @@ body {
   margin: 0 16px 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
 }
 
 .yarl__caption_title {
@@ -153,12 +187,13 @@ body {
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  transition: all 0.2s ease;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
 }
 
 .yarl__button:hover {
   background-color: rgba(255, 255, 255, 0.2);
-  transform: scale(1.05);
+  transform: scale(1.05) translateZ(0);
 }
 
 .yarl__button svg {
@@ -192,4 +227,79 @@ body {
   backdrop-filter: blur(8px);
   border-radius: 8px;
   padding: 12px;
+}
+
+/* Professional animation easing for smooth transitions */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* High-performance animation settings */
+.yarl__slide_image {
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-duration: 400ms;
+}
+
+/* Force hardware acceleration */
+.yarl__container,
+.yarl__slide,
+.yarl__slide_image,
+.yarl__carousel,
+.yarl__carousel__track,
+.yarl__carousel__slide,
+.yarl__thumbnails_container {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Disable blur effects during transitions */
+.yarl__root,
+.yarl__container {
+  backdrop-filter: none !important;
+}
+
+/* Ensure crisp image rendering during all states */
+.yarl__slide_image img,
+.yarl__thumbnail img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
+/* Smooth transition curve for professional feel */
+.yarl__carousel__track {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.yarl__carousel__slide {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
