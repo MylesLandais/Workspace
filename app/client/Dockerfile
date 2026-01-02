@@ -1,26 +1,33 @@
-# Production build Dockerfile
-FROM oven/bun:1.1-slim AS base
-
+# 1) Base Bun image
+FROM oven/bun:1.1 AS base
 WORKDIR /app
 
-# Install dependencies
+# 2) Install dependencies in a cached layer
 FROM base AS deps
-COPY package.json bun.lock* ./
+COPY bun.lockb package.json ./
 RUN bun install --frozen-lockfile
 
-# Build
-FROM base AS builder
+# 3) Test/build stage
+FROM base AS build
+WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+ENV NODE_ENV=test
+# run unit tests during build
+RUN bun test
+
+# Build the Next.js app
 RUN bun run build
 
-# Production image
-FROM base AS runner
+# 4) Runtime image
+FROM base AS runtime
+WORKDIR /app
 ENV NODE_ENV=production
 
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
+# Copy only what's needed for the runtime
+COPY --from=build /app/public ./public
+COPY --from=build /app/.next/standalone ./
+COPY --from=build /app/.next/static ./.next/static
 
 EXPOSE 3000
 ENV PORT=3000

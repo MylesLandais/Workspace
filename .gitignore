@@ -5,8 +5,6 @@ node_modules/
 # Build outputs
 dist/
 **/dist/
-.astro/
-**/.astro/
 
 # Environment variables
 .env
@@ -46,4 +44,5 @@ temp/
 # Agent and Tool files
 .roo/
 .kilocode/
+
 

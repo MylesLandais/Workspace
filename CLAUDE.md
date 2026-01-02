@@ -8,7 +8,7 @@ Project-specific instructions for AI assistants working on the Bunny platform.
 - **Server**: Elysia.js (Bun-native) + Eden (end-to-end type safety)
 - **Database**: Neo4j (graph) + Drizzle ORM (relational) + Valkey (cache)
 - **Runtime**: Bun for development, builds, and server
-- **Testing**: Vitest (unit) + Playwright (E2E)
+- **Testing**: Bun (unit) + Playwright (E2E)
 - **Type Safety**: Eden treaty for client-server type inference
 
 ## Repository Structure Convention
@@ -113,3 +113,26 @@ Use clear, purpose-driven names. Avoid vague architectural terms.
 - Prefer Bun APIs where available
 - Follow existing patterns in the codebase
 - Keep similar code together (colocation principle)
+
+## Runtime and Package Management
+
+### Docker Compliance Requirement
+
+All `bun` commands must be executed through Docker. Running `bun` directly on the host machine is not permitted per risk and compliance requirements. This includes:
+
+- `bun add <package>`
+- `bun install`
+- `bun run <script>`
+- `bun build`
+- Any other `bun` operations
+
+Execute all `bun` commands inside the Docker container using `docker compose exec` or by running commands within an active container shell.
+
+### Package Manager
+
+Replace all `npm` commands with `bun` equivalents:
+
+- `npm install` → `bun install`
+- `npm add <package>` → `bun add <package>`
+- `npm run <script>` → `bun run <script>`
+- `npm ci` → `bun install` (with lockfile)
