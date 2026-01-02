@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
-import { FeedItem as FeedItemType } from "@/lib/types/feed";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { FeedItem as FeedItemType, MediaType } from "@/lib/types/feed";
 import { FeedItem } from "./FeedItem";
 import { InfiniteScrollSentinel } from "./InfiniteScrollSentinel";
 import { Loader2 } from "lucide-react";
@@ -85,6 +85,32 @@ export function MasonryGrid({
     measuredHeights
   );
 
+  // Handle empty state during initial load
+  const displayItems = useMemo(() => {
+    if (items.length === 0 && isLoading) {
+      // Return 12 placeholder items to fill initial view
+      return Array.from({ length: 12 }).map((_, i) => ({
+        id: `placeholder-${i}`,
+        type: MediaType.IMAGE,
+        caption: '',
+        author: { name: '', handle: '' },
+        source: '',
+        timestamp: new Date().toISOString(),
+        aspectRatio: i % 2 === 0 ? "aspect-[3/4]" : "aspect-[16/9]",
+        width: 800,
+        height: i % 2 === 0 ? 1066 : 450,
+        likes: 0,
+        mediaUrl: '',
+        isPlaceholder: true,
+      } as FeedItemType));
+    }
+    return items;
+  }, [items, isLoading]);
+
+  const handleItemClick = useCallback((item: FeedItemType) => {
+    onItemClick?.(item);
+  }, [onItemClick]);
+
   return (
     <div className="p-6">
       <div
@@ -92,7 +118,7 @@ export function MasonryGrid({
         className="relative w-full mx-auto"
         style={{ height: containerHeight }}
       >
-        {items.map((item) => {
+        {displayItems.map((item, index) => {
           const pos = itemPositions[item.id] || { x: 0, y: 0 };
           return (
             <FeedItem
@@ -102,7 +128,10 @@ export function MasonryGrid({
               x={pos.x}
               y={pos.y}
               onHeightMeasured={handleHeightMeasured}
-              onClick={onItemClick}
+              onClick={handleItemClick}
+              isNew={!item.isPlaceholder && index >= items.length - 20}
+              index={index}
+              isPlaceholder={item.isPlaceholder}
             />
           );
         })}

@@ -35,19 +35,11 @@ function extractImageIdentifierFromUrl(url: string): string {
     try {
         const urlObj = new URL(url);
         return (urlObj.pathname.split('/').pop() || '').toLowerCase();
-    } catch (e) {
+    } catch {
         return url.split('?')[0].split('#')[0].toLowerCase();
     }
 }
 
-function calculateAspectRatio(width: number, height: number): string {
-    const ratio = width / height;
-    if (ratio >= 1.7) return "aspect-[16/9]";
-    if (ratio >= 1.2) return "aspect-[4/3]";
-    if (ratio >= 0.9) return "aspect-square";
-    if (ratio >= 0.6) return "aspect-[3/4]";
-    return "aspect-[9/16]";
-}
 
 function transformPost(post: RedditPost): FeedItem | null {
     if (!post.is_image || !post.image_url) return null;
@@ -84,7 +76,7 @@ export async function loadAllMedia(): Promise<FeedItem[]> {
                     .map(post => transformPost(post))
                     .filter((post): post is FeedItem => post !== null);
             }
-        } catch (e) { }
+        } catch { }
         return [];
     });
 

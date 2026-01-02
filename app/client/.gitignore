@@ -26,6 +26,9 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# test media
+public/test-media/
+
 # vercel
 .vercel
 

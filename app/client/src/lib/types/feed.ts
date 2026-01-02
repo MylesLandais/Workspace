@@ -1,3 +1,5 @@
+import { RedditPost } from "./reddit";
+
 export enum MediaType {
   IMAGE = "image",
   SHORT = "short",
@@ -27,6 +29,11 @@ export interface FeedItem {
   thumbnailUrl?: string;
   urlExpiresAt?: string;
   tags?: string[];
+  isPlaceholder?: boolean;
+  redditData?: RedditPost;
+  galleryUrls?: string[];
+  replyCount?: number;
+  imageCount?: number;
 }
 
 export interface FeedPage {
