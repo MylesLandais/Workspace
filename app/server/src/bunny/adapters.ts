@@ -1,5 +1,5 @@
 import { Creator, Handle } from '../neo4j/queries/creators.js';
-import { IdentityProfile, SourceLink, Relationship } from '../../../../frontend/src/lib/bunny/types';
+import { IdentityProfile, SourceLink, Relationship } from './types.js';
 
 /**
  * Converts a Creator + Handles to an IdentityProfile

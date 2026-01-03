@@ -5,11 +5,11 @@ Project-specific instructions for AI assistants working on the Bunny platform.
 ## Tech Stack
 
 - **Client**: Next.js (App Router) + React 19 + TailwindCSS + Bun runtime
-- **Server**: Elysia.js (Bun-native) + Eden (end-to-end type safety)
+- **Server**: Express.js + Apollo Server (GraphQL)
 - **Database**: Neo4j (graph) + Drizzle ORM (relational) + Valkey (cache)
-- **Runtime**: Bun for development, builds, and server
+- **Runtime**: Bun for client development, Node.js for server
 - **Testing**: Bun (unit) + Playwright (E2E)
-- **Type Safety**: Eden treaty for client-server type inference
+- **Type Safety**: TypeScript with GraphQL schema sharing
 
 ## Repository Structure Convention
 
@@ -56,7 +56,7 @@ Use clear, purpose-driven names. Avoid vague architectural terms.
 - Helper functions and utilities
 - Third-party library configurations (Drizzle, Auth, etc.)
 - Type definitions and constants
-- Database clients, API clients, Eden client
+- Database clients, API clients
 
 **`/docker`** - Development environment consistency
 - Dockerfile for production builds
@@ -85,10 +85,10 @@ Use clear, purpose-driven names. Avoid vague architectural terms.
 
 ## Type Safety Patterns
 
-### Elysia + Eden
-- Define API routes with Elysia's type-safe route handlers
-- Use Eden treaty for type-safe client calls
-- Types are automatically inferred from server to client
+### GraphQL Schema
+- Schema definitions in `/server/src/schema/`
+- Types generated from GraphQL schema for client
+- Resolvers in `/server/src/resolvers/`
 
 ### Drizzle ORM
 - Schema definitions in `/lib/db/schema/`

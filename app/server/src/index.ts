@@ -8,6 +8,8 @@ import { mutationResolvers } from './resolvers/mutations.js';
 import { bunnyResolvers } from './bunny/resolvers.js';
 import { verifyConnection, createIndexes } from './neo4j/driver.js';
 import { verifyValkeyConnection } from './valkey/client.js';
+import logger from './lib/logger.js';
+import { errorHandler, notFoundHandler, formatError } from './lib/errorHandler.js';
 
 const PORT = process.env.PORT || 4002;
 
@@ -17,7 +19,7 @@ async function startServer() {
     await createIndexes();
     await verifyValkeyConnection();
   } catch (error) {
-    console.error('Failed to initialize services:', error);
+    logger.error('Failed to initialize services', error);
     process.exit(1);
   }
 
@@ -35,6 +37,7 @@ async function startServer() {
         ...bunnyResolvers.Mutation,
       },
     },
+    formatError,
   });
 
   await server.start();
@@ -51,7 +54,7 @@ async function startServer() {
   app.get('/health', async (req, res) => {
     const { verifyValkeyConnection } = await import('./valkey/client.js');
     const { verifyConnection } = await import('./neo4j/driver.js');
-    
+
     try {
       await verifyConnection();
       await verifyValkeyConnection();
@@ -61,14 +64,18 @@ async function startServer() {
     }
   });
 
+  // Error handling middleware (must be after all routes)
+  app.use(notFoundHandler);
+  app.use(errorHandler);
+
   app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-    console.log(`GraphQL endpoint: http://localhost:${PORT}/api/graphql`);
+    logger.info(`Server running on http://localhost:${PORT}`);
+    logger.info(`GraphQL endpoint: http://localhost:${PORT}/api/graphql`);
   });
 }
 
 startServer().catch((error) => {
-  console.error('Failed to start server:', error);
+  logger.error('Failed to start server', error);
   process.exit(1);
 });
 
