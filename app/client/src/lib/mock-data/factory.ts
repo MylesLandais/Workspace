@@ -1,5 +1,5 @@
 import { FeedItem, FeedPage, MediaType } from "../types/feed";
-import { RedditPostDetails } from "../types/reddit";
+import { RedditPostDetails, RedditPost } from "../types/reddit";
 import { generateImageboardFeed } from "./imageboard-loader";
 import testFiles from "./test-files.json";
 
@@ -92,9 +92,9 @@ function generateMockComments(postId: string, count: number = 8) {
   return comments;
 }
 
-export function generateMockPostDetails(postId: string, redditPost: any): RedditPostDetails {
+export function generateMockPostDetails(postId: string, redditPost: unknown): RedditPostDetails {
   return {
-    post: redditPost,
+    post: redditPost as RedditPost,
     comments: generateMockComments(postId, 8),
     images: [],
   };

@@ -87,7 +87,7 @@ export function UserMenu() {
               Preferences
             </button>
             
-            {/* @ts-ignore */}
+            {/* @ts-expect-error - role is added by our auth schema but not in default types */}
             {session.user.role === "admin" && (
                 <button className="w-full flex items-center gap-2 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 transition-colors text-left font-medium">
                     <Shield className="w-4 h-4" />

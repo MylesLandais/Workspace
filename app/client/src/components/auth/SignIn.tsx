@@ -1,21 +1,32 @@
+/**
+ * Sign In / Sign Up Component
+ *
+ * Authentication component supporting both login and registration.
+ *
+ * Features:
+ * - Email/password authentication with client-side validation
+ * - Social login (GitHub, Google, Discord)
+ * - Invite key support for beta access
+ * - Automatic redirect on success
+ * - Comprehensive error handling
+ *
+ * @module components/auth/SignIn
+ */
+
 "use client";
 
 import { useState } from "react";
 import { signIn, signUp } from "@/lib/auth-client";
-import { Github, Mail, Loader2, Globe, UserPlus, LogIn } from "lucide-react";
+import { Github, Loader2, Globe } from "lucide-react";
 
 /**
- * Sign In / Sign Up component for the landing page.
- * 
- * Handles:
- * - Email/Password registration with client-side validation.
- * - Email/Password login.
- * - Social login integration (GitHub, Google, Discord).
- * - Automatic redirection upon successful authentication.
- * - Robust error handling with specific Better Auth error code support.
+ * Sign in/up form component
+ *
+ * @param inviteKey - Optional invite code from validation page
+ * @param defaultIsSignUp - Whether to start in sign up mode
  */
-export function SignIn() {
-  const [isSignUp, setIsSignUp] = useState(false);
+export function SignIn({ inviteKey, defaultIsSignUp = false }: { inviteKey?: string; defaultIsSignUp?: boolean }) {
+  const [isSignUp, setIsSignUp] = useState(defaultIsSignUp);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -69,11 +80,11 @@ export function SignIn() {
           // Success
         }
       }
-    } catch (err: any) {
+    } catch (err) {
       clearTimeout(timeoutId);
       console.error("Auth fetch exception:", err);
       setError(
-        err.message?.includes("fetch") 
+        err instanceof Error && err.message?.includes("fetch")
           ? "Network error: Make sure the server is reachable"
           : "An unexpected error occurred"
       );
@@ -93,11 +104,17 @@ export function SignIn() {
     <div className="w-full max-w-md p-8 bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
       <div className="mb-8 text-center">
         <h2 className="text-2xl font-bold tracking-tight text-white">
-          {isSignUp ? "Create Account" : "Access Bunny"}
+          {isSignUp ? "Create Account" : "Access System Nebula"}
         </h2>
         <p className="text-sm text-zinc-400 mt-2">
-          {isSignUp ? "Join the distribution network" : "Enter your credentials or use a social provider"}
+          {isSignUp ? "Join the System Nebula community" : "Enter your credentials or use a social provider"}
         </p>
+        {inviteKey && (
+          <div className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 bg-zinc-800/50 border border-white/10 rounded-full">
+            <span className="text-xs text-zinc-500 uppercase tracking-wider">Invite Key:</span>
+            <span className="text-xs text-zinc-300 font-mono">{inviteKey}</span>
+          </div>
+        )}
       </div>
 
       <form onSubmit={handleAuth} className="space-y-4">

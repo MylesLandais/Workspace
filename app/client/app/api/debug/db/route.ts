@@ -16,13 +16,13 @@ export async function GET() {
       userCount: result[0]?.count || 0,
       timestamp: new Date().toISOString()
     });
-  } catch (error: any) {
+  } catch (error) {
     const duration = Date.now() - start;
     return NextResponse.json({
       status: "error",
       duration: `${duration}ms`,
-      message: error.message,
-      stack: error.stack
+      message: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined
     }, { status: 500 });
   }
 }

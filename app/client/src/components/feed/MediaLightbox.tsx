@@ -1,8 +1,8 @@
 "use client";
 
-import { lazy, Suspense, useEffect, useState, useCallback } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import type { Slide } from "yet-another-react-lightbox";
-import type { FeedItem as FeedItemType, MediaType } from "@/lib/types/feed";
+import type { FeedItem as FeedItemType } from "@/lib/types/feed";
 import { useLightboxStore } from "@/lib/store/lightbox-store";
 import { LightboxCommentsSidebar } from "./LightboxCommentsSidebar";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
@@ -25,7 +25,7 @@ interface MediaLightboxProps {
   onIndexChange?: (index: number) => void;
 }
 
-interface SlideWithMetadata extends Slide {
+type SlideWithMetadata = Slide & {
   feedItemId?: string;
   isReddit?: boolean;
 }

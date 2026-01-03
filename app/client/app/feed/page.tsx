@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 
 export default function FeedPage() {
   const { filters } = useSearchStore();
-  const { items, isLoading, hasNextPage, loadMore } = useInfiniteFeed(100, filters);
+  const { items, isLoading, hasNextPage, loadMore } = useInfiniteFeed(20, filters);
   const lightboxStore = useLightboxStore();
   const { data: session, isPending, error } = useSession();
   const router = useRouter();
@@ -25,9 +25,9 @@ export default function FeedPage() {
   useEffect(() => {
     if (!isPending && (!session || error)) {
       console.warn("FeedPage: Auth session missing or error, forcing redirect...");
-      window.location.href = "/";
+      router.push("/");
     }
-  }, [session, isPending, error]);
+  }, [session, isPending, error, router]);
 
   const handleItemClick = (item: FeedItem) => {
     const itemIndex = items.findIndex((i) => i.id === item.id);
