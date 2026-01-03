@@ -3,17 +3,6 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "./db";
 import * as schema from "./db/schema/auth";
 
-/**
- * Better Auth server-side configuration.
- * 
- * This module initializes the authentication server with:
- * - LibSQL/SQLite database adapter via Drizzle.
- * - Email & Password authentication.
- * - Social providers (GitHub, Google, Discord).
- * - Session cookie caching for performance.
- * 
- * @see https://www.better-auth.com/docs/concepts/config
- */
 export const auth = betterAuth({
     database: drizzleAdapter(db, {
         provider: "sqlite",
@@ -21,9 +10,10 @@ export const auth = betterAuth({
             ...schema,
         },
     }),
-    // In development, allow Better Auth to infer the URL from headers
-    // this prevents issues when accessing via IP vs localhost
-    baseURL: process.env.NODE_ENV === "production" ? process.env.BETTER_AUTH_URL : undefined,
+    // For development, use explicit localhost to avoid origin issues
+    // Better-auth validates the origin header against this base URL
+    baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
+    secret: process.env.BETTER_AUTH_SECRET || "a-very-long-secret-for-development-purposes-only-32-chars",
     emailAndPassword: {
         enabled: true,
     },
@@ -43,8 +33,7 @@ export const auth = betterAuth({
     },
     session: {
         cookieCache: {
-            enabled: true,
-            maxAge: 5 * 60, // 5 minutes cache
+            enabled: false,
         },
     },
 });
