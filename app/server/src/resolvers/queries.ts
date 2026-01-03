@@ -9,6 +9,9 @@ import {
 } from '../neo4j/queries/images.js';
 import { ImageIngestionService } from '../services/imageIngestion.js';
 import { PresignedUrlService } from '../services/presignedUrl.js';
+import logger from '../lib/logger.js';
+import { withSession } from '../lib/session.js';
+import { getDuplicateDetector, getPresignedUrlService } from '../lib/serviceRegistry.js';
 
 export const queryResolvers = {
   Query: {
@@ -26,7 +29,7 @@ export const queryResolvers = {
           };
         }
 
-        const urlService = new PresignedUrlService();
+        const urlService = getPresignedUrlService();
 
         const items = feedResult.posts
           .filter((post) => post.sha256 && post.mimeType)
@@ -47,7 +50,7 @@ export const queryResolvers = {
               ])
             );
           } catch (error: any) {
-            console.error('[Feed Resolver] Error generating presigned URLs:', error);
+            logger.error('Error generating presigned URLs', error);
           }
         }
 
@@ -71,7 +74,7 @@ export const queryResolvers = {
           },
         };
       } catch (error: any) {
-        console.error('[Feed Resolver] Error:', error);
+        logger.error('Feed resolver error', error);
         return {
           edges: [],
           pageInfo: {
@@ -166,10 +169,7 @@ export const queryResolvers = {
         return null;
       }
 
-      const { getSession } = await import('../neo4j/driver.js');
-      const session = getSession();
-      
-      try {
+      return withSession(async (session) => {
         const query = `
           MATCH (c:ImageCluster {id: $clusterId})
           OPTIONAL MATCH (c)-[:CANONICAL]->(canonical:Media)
@@ -210,9 +210,7 @@ export const queryResolvers = {
             height: m!.height,
           })),
         };
-      } finally {
-        await session.close();
-      }
+      });
     },
 
     imageLineage: async (_: any, { mediaId }: { mediaId: string }) => {

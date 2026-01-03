@@ -1,4 +1,5 @@
-import { getSession } from '../neo4j/driver.js';
+import { withSession } from '../lib/session.js';
+import logger from '../lib/logger.js';
 
 export interface SavedBoardData {
   id: string;
@@ -31,8 +32,7 @@ export interface RelationshipData {
  * Get all saved boards for a user
  */
 export async function getSavedBoards(userId: string): Promise<SavedBoardData[]> {
-  const session = getSession();
-  try {
+  return withSession(async (session) => {
     const query = `
       MATCH (sb:SavedBoard {userId: $userId})
       RETURN sb
@@ -51,17 +51,14 @@ export async function getSavedBoards(userId: string): Promise<SavedBoardData[]> 
         userId: board.userId,
       };
     });
-  } finally {
-    await session.close();
-  }
+  });
 }
 
 /**
  * Create a saved board
  */
 export async function createSavedBoard(userId: string, name: string, filters: any): Promise<SavedBoardData> {
-  const session = getSession();
-  try {
+  return withSession(async (session) => {
     const id = `board-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
     const createdAt = new Date().toISOString();
     
@@ -92,17 +89,14 @@ export async function createSavedBoard(userId: string, name: string, filters: an
       createdAt: board.createdAt ? new Date(board.createdAt.toString()).toISOString() : createdAt,
       userId: board.userId,
     };
-  } finally {
-    await session.close();
-  }
+  });
 }
 
 /**
  * Update a saved board
  */
 export async function updateSavedBoard(id: string, name: string, filters: any): Promise<SavedBoardData | null> {
-  const session = getSession();
-  try {
+  return withSession(async (session) => {
     const query = `
       MATCH (sb:SavedBoard {id: $id})
       SET sb.name = $name, sb.filters = $filters
@@ -125,17 +119,14 @@ export async function updateSavedBoard(id: string, name: string, filters: any): 
       createdAt: board.createdAt ? new Date(board.createdAt.toString()).toISOString() : new Date().toISOString(),
       userId: board.userId,
     };
-  } finally {
-    await session.close();
-  }
+  });
 }
 
 /**
  * Delete a saved board
  */
 export async function deleteSavedBoard(id: string): Promise<boolean> {
-  const session = getSession();
-  try {
+  return withSession(async (session) => {
     const query = `
       MATCH (sb:SavedBoard {id: $id})
       DELETE sb
@@ -144,17 +135,14 @@ export async function deleteSavedBoard(id: string): Promise<boolean> {
     
     const result = await session.run(query, { id });
     return result.records[0].get('deleted').toNumber() > 0;
-  } finally {
-    await session.close();
-  }
+  });
 }
 
 /**
  * Get identity profiles with optional query filter
  */
 export async function getIdentityProfiles(query?: string, limit: number = 20): Promise<IdentityProfileData[]> {
-  const session = getSession();
-  try {
+  return withSession(async (session) => {
     let cypherQuery = `
       MATCH (e:Entity)
       WHERE e.type = 'person'
@@ -190,17 +178,14 @@ export async function getIdentityProfiles(query?: string, limit: number = 20): P
         imagePool: typeof entity.image_pool === 'string' ? JSON.parse(entity.image_pool) : (entity.image_pool || []),
       };
     });
-  } finally {
-    await session.close();
-  }
+  });
 }
 
 /**
  * Get a single identity profile by ID
  */
 export async function getIdentityProfileById(id: string): Promise<IdentityProfileData | null> {
-  const session = getSession();
-  try {
+  return withSession(async (session) => {
     const query = `
       MATCH (e:Entity {id: $id})
       WHERE e.type = 'person'
@@ -221,17 +206,14 @@ export async function getIdentityProfileById(id: string): Promise<IdentityProfil
       contextKeywords: typeof entity.context_keywords === 'string' ? JSON.parse(entity.context_keywords) : (entity.context_keywords || []),
       imagePool: typeof entity.image_pool === 'string' ? JSON.parse(entity.image_pool) : (entity.image_pool || []),
     };
-  } finally {
-    await session.close();
-  }
+  });
 }
 
 /**
  * Get relationships for a creator
  */
 export async function getRelationships(creatorId: string): Promise<RelationshipData[]> {
-  const session = getSession();
-  try {
+  return withSession(async (session) => {
     const query = `
       MATCH (e:Entity {id: $creatorId})-[r:RELATED_TO]->(target:Entity)
       WHERE e.type = 'person' AND target.type = 'person'
@@ -244,8 +226,6 @@ export async function getRelationships(creatorId: string): Promise<RelationshipD
       targetId: record.get('targetId'),
       type: record.get('type'),
     }));
-  } finally {
-    await session.close();
-  }
+  });
 }
 

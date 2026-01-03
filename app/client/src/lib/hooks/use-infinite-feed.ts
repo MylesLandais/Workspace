@@ -48,13 +48,11 @@ export function useInfiniteFeed(pageSize: number = 20, filters?: FeedFilters) {
     setState(prev => ({ ...prev, isLoading: true }));
     try {
       if (USE_MOCK) {
-        // Reduced simulated network delay for faster response
         await new Promise((resolve) => setTimeout(resolve, isInitial ? 50 : 150));
 
         const page = await generateFeedPage(cursor, pageSize);
         let items = page.items;
 
-        // Apply filters
         if (filters) {
           if (filters.query) {
             const q = filters.query.toLowerCase();
@@ -86,7 +84,7 @@ export function useInfiniteFeed(pageSize: number = 20, filters?: FeedFilters) {
         limit: pageSize.toString(),
       });
       if (cursor) params.append("cursor", cursor);
-      if (filters?.query) params.append("query", filters.query);
+      if (filters?.query) params.append("searchQuery", filters.query);
       if (filters?.categories.length) params.append("categories", filters.categories.join(","));
 
       const response = await fetch(`/api/feed?${params.toString()}`);

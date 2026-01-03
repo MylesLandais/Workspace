@@ -1,5 +1,6 @@
-import { getSession } from '../driver.js';
-import type { Session } from 'neo4j-driver';
+import { withSession } from '../../lib/session.js';
+import { getValkeyClient } from '../../valkey/client.js';
+import logger from '../../lib/logger.js';
 
 export interface FeedPost {
   id: string;
@@ -26,17 +27,29 @@ export interface FeedPost {
   viewCount?: number;
   sha256?: string;
   mimeType?: string;
+  storagePath?: string;
 }
 
 export async function getFeed(
   cursor: string | null,
   limit: number = 20,
-  filters?: { persons?: string[]; sources?: string[]; tags?: string[]; searchQuery?: string }
+  filters?: { persons?: string[]; sources?: string[]; tags?: string[]; searchQuery?: string; categories?: string[] }
 ): Promise<{ posts: FeedPost[]; nextCursor: string | null }> {
-  const session = getSession();
+  // Generate cache key
+  const cacheKey = `feed:${cursor || 'initial'}:${limit}:${JSON.stringify(filters || {})}`;
+  const valkey = getValkeyClient();
+
   try {
-    // Simplified query - start with just getting Media with Posts
-    // Build query incrementally to avoid syntax errors
+    const cached = await valkey.get(cacheKey);
+    if (cached) {
+      logger.debug('Feed cache hit', { cacheKey });
+      return JSON.parse(cached);
+    }
+  } catch (err) {
+    logger.warn('Feed cache read error', err);
+  }
+
+  return withSession(async (session) => {
     let query = `
       MATCH (m:Media)
       WHERE m.mime_type IS NOT NULL 
@@ -52,23 +65,18 @@ export async function getFeed(
       limit: Math.floor(limit) + 1,
     };
     
-    // Handle cursor - convert to datetime if provided
     if (cursor) {
       try {
-        // Try to parse cursor as ISO string and convert to datetime
         params.cursor = cursor;
       } catch (e) {
-        // If cursor is invalid, ignore it
         params.cursor = null;
       }
     } else {
       params.cursor = null;
     }
     
-    // Build WHERE conditions after WITH
     const whereConditions: string[] = [];
     
-    // Cursor filtering - simplified to avoid datetime() issues
     if (cursor) {
       whereConditions.push(`(
         (p IS NOT NULL AND p.created_utc IS NOT NULL AND p.created_utc < datetime($cursor)) OR
@@ -76,7 +84,6 @@ export async function getFeed(
       )`);
     }
     
-    // Filter by persons (entities) - if specified
     if (filters?.persons && filters.persons.length > 0) {
       whereConditions.push(`(
         e IS NOT NULL AND (
@@ -88,7 +95,6 @@ export async function getFeed(
       params.persons = filters.persons;
     }
     
-    // Filter by sources/platforms - if specified
     if (filters?.sources && filters.sources.length > 0) {
       const normalizedSources = filters.sources.map(s => {
         return s.toLowerCase().startsWith('r/') ? s.substring(2).toLowerCase() : s.toLowerCase();
@@ -104,31 +110,45 @@ export async function getFeed(
       params.normalizedSources = normalizedSources;
     }
     
-    // Filter by search query - if specified
     if (filters?.searchQuery && filters.searchQuery.trim().length > 0) {
       whereConditions.push(`(p IS NOT NULL AND p.title IS NOT NULL AND toLower(p.title) CONTAINS toLower($searchQuery))`);
       params.searchQuery = filters.searchQuery;
     }
     
-    // Filter by tags - if specified
     if (filters?.tags && filters.tags.length > 0) {
       whereConditions.push(`(m.tags IS NOT NULL AND ANY(item.tags IN $tags))`);
       params.tags = filters.tags;
     }
+
+    if (filters?.categories && filters.categories.length > 0) {
+      const mediaTypeConditions: string[] = [];
+      for (const cat of filters.categories) {
+        const upperCat = cat.toUpperCase();
+        if (upperCat === 'IMAGE' || upperCat === 'PHOTO') {
+          mediaTypeConditions.push(`m.mime_type STARTS WITH 'image/'`);
+        } else if (upperCat === 'VIDEO') {
+          mediaTypeConditions.push(`m.mime_type STARTS WITH 'video/'`);
+        } else if (upperCat === 'GIF') {
+          mediaTypeConditions.push(`(m.mime_type = 'image/gif' OR m.mime_type = 'video/mp4')`);
+        }
+      }
+
+      if (mediaTypeConditions.length > 0) {
+        whereConditions.push(`(${mediaTypeConditions.join(' OR ')})`);
+      }
+      params.categories = filters.categories;
+    }
     
-    // Ensure sources are not hidden (unless filtering by persons)
     if (!filters?.persons || filters.persons.length === 0) {
       whereConditions.push(`(src IS NULL OR src.hidden IS NULL OR src.hidden = false)`);
     }
     
-    // Add WITH and WHERE if we have conditions
     if (whereConditions.length > 0) {
       query += ` WITH m, p, s, src, e, u WHERE ${whereConditions.join(' AND ')}`;
     } else {
       query += ` WITH m, p, s, src, e, u`;
     }
     
-    // Final query to return results
     query += `
       RETURN m, p, s.name AS subreddit, u.username AS author, src, e, m.width AS width, m.height AS height
       ORDER BY COALESCE(p.created_utc, m.created_at) DESC
@@ -139,10 +159,7 @@ export async function getFeed(
     try {
       result = await session.run(query, params);
     } catch (error: any) {
-      console.error('Cypher query error:', error.message);
-      console.error('Query:', query);
-      console.error('Params:', JSON.stringify(params, null, 2));
-      // Return empty result instead of crashing the server
+      logger.error('Cypher query error', { message: error.message, query, params });
       return { posts: [], nextCursor: null };
     }
 
@@ -156,17 +173,13 @@ export async function getFeed(
       const width = record.get('width') || media.width;
       const height = record.get('height') || media.height;
 
-      // Get data from Post if available, otherwise from Media
       const title = post?.title || '';
 
-      // Handle publishDate - could be Unix timestamp (number) or Neo4j DateTime
       let publishDateISO: string;
       if (post?.created_utc) {
-        // Unix timestamp in seconds
         const timestampMs = Number(post.created_utc) * 1000;
         publishDateISO = new Date(timestampMs).toISOString();
       } else if (media.created_at) {
-        // Neo4j DateTime object - has toString() method
         publishDateISO = media.created_at.toString();
       } else {
         publishDateISO = new Date().toISOString();
@@ -174,11 +187,8 @@ export async function getFeed(
 
       const score = post?.score || 0;
       const sourceUrl = post?.url || media.url || '';
-
-      // Determine platform from source type
       const platform = source?.source_type?.toUpperCase() || 'REDDIT';
       
-      // Build handle string
       let handleStr = '';
       if (subreddit) {
         handleStr = `r/${subreddit}`;
@@ -192,7 +202,6 @@ export async function getFeed(
         }
       }
 
-      // Determine media type from Media node or Post
       let mediaType = 'IMAGE';
       if (media.mime_type) {
         if (media.mime_type.startsWith('video/')) mediaType = 'VIDEO';
@@ -231,15 +240,15 @@ export async function getFeed(
       ? posts[posts.length - 1].publishDate
       : null;
 
-    return { posts, nextCursor };
-  } catch (error: any) {
-    // Top-level error handler - ensure server never crashes
-    console.error('getFeed error:', error);
-    console.error('Error stack:', error.stack);
-    return { posts: [], nextCursor: null };
-  } finally {
-    await session.close();
-  }
+    const response = { posts, nextCursor };
+
+    try {
+      await valkey.setEx(cacheKey, 60, JSON.stringify(response));
+      logger.debug('Feed cache set', { cacheKey });
+    } catch (err) {
+      logger.warn('Feed cache write error', err);
+    }
+
+    return response;
+  });
 }
-
-

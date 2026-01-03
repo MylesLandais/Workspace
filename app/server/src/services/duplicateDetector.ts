@@ -2,6 +2,7 @@ import { getValkeyClient } from '../valkey/client.js';
 import { ImageHashes } from './imageHasher.js';
 import { getBucketKeys, hammingDistance } from './phashBucketing.js';
 import { ClipEmbedder } from './clipEmbedder.js';
+import logger from '../lib/logger.js';
 
 export interface DuplicateMatch {
   mediaId: string;
@@ -61,39 +62,74 @@ export class DuplicateDetector {
   async findNearDuplicates(hashes: ImageHashes): Promise<DuplicateMatch[]> {
     const client = getValkeyClient();
     const bucketKeys = getBucketKeys(hashes.phash, 16);
-    
+
     const candidateClusterIds = new Set<string>();
-    
-    for (const bucketKey of bucketKeys) {
-      const clusterIds = await client.sMembers(bucketKey);
+
+    const bucketPromises = bucketKeys.map((bucketKey) =>
+      client.sMembers(bucketKey)
+    );
+    const bucketResults = await Promise.all(bucketPromises);
+
+    for (const clusterIds of bucketResults) {
       for (const clusterId of clusterIds) {
         candidateClusterIds.add(clusterId);
       }
     }
-    
+
     if (candidateClusterIds.size === 0) {
       return [];
     }
-    
+
+    const clusterIdArray = Array.from(candidateClusterIds);
+    const pipeline = client.multi();
+
+    for (const clusterId of clusterIdArray) {
+      pipeline.hGetAll(`cluster:meta:${clusterId}`);
+    }
+
+    const metaResults = await pipeline.exec();
+
+    const clusterMetadatas = new Map<string, ClusterMetadata>();
+    const hashPromises: Promise<any>[] = [];
+
+    for (let i = 0; i < metaResults.length; i++) {
+      const meta = metaResults[i];
+      if (meta && meta.clusterId) {
+        clusterMetadatas.set(meta.clusterId, {
+          clusterId: meta.clusterId,
+          canonicalSha256: meta.canonicalSha256,
+          canonicalMediaId: meta.canonicalMediaId,
+          repostCount: parseInt(meta.repostCount || '0', 10),
+          firstSeen: meta.firstSeen,
+        });
+
+        hashPromises.push(
+          client.hGetAll(`image:hashes:${meta.canonicalSha256}`)
+        );
+      }
+    }
+
+    const hashResults = await Promise.all(hashPromises);
+
     const matches: DuplicateMatch[] = [];
-    
-    for (const clusterId of candidateClusterIds) {
-      const clusterMeta = await this.getClusterMetadata(clusterId);
+
+    for (let i = 0; i < hashResults.length; i++) {
+      const hashResult = hashResults[i];
+      if (!hashResult.phash) continue;
+
+      const clusterMeta = Array.from(clusterMetadatas.values())[i];
       if (!clusterMeta) continue;
-      
-      const canonicalHash = await client.hGetAll(`image:hashes:${clusterMeta.canonicalSha256}`);
-      if (!canonicalHash.phash) continue;
-      
-      const canonicalPhash = BigInt(canonicalHash.phash);
-      const canonicalDhash = canonicalHash.dhash ? BigInt(canonicalHash.dhash) : null;
-      
+
+      const canonicalPhash = BigInt(hashResult.phash);
+      const canonicalDhash = hashResult.dhash ? BigInt(hashResult.dhash) : null;
+
       const phashDist = hammingDistance(hashes.phash, canonicalPhash);
-      
+
       if (phashDist <= PHASH_THRESHOLD) {
         const confidence = this.calculateConfidence(phashDist, 64);
         matches.push({
           mediaId: clusterMeta.canonicalMediaId,
-          clusterId,
+          clusterId: clusterMeta.clusterId,
           confidence,
           method: 'phash',
           hammingDistance: phashDist,
@@ -104,7 +140,7 @@ export class DuplicateDetector {
           const confidence = this.calculateConfidence(dhashDist, 64);
           matches.push({
             mediaId: clusterMeta.canonicalMediaId,
-            clusterId,
+            clusterId: clusterMeta.clusterId,
             confidence,
             method: 'dhash',
             hammingDistance: dhashDist,
@@ -112,7 +148,7 @@ export class DuplicateDetector {
         }
       }
     }
-    
+
     matches.sort((a, b) => b.confidence - a.confidence);
     return matches;
   }
@@ -136,15 +172,18 @@ export class DuplicateDetector {
       
       return similarity >= CLIP_THRESHOLD ? similarity : null;
     } catch (error) {
-      console.error('CLIP similarity check failed:', error);
+      logger.error('CLIP similarity check failed', error);
       return null;
     }
   }
 
   async storeClipEmbedding(sha256: string, embedding: number[]): Promise<void> {
+    const { VectorSearchService } = await import('./vectorSearch.js');
+    const vectorSearch = new VectorSearchService();
+    await vectorSearch.storeEmbedding(sha256, embedding);
+
     const client = getValkeyClient();
-    const key = `clip:embedding:${sha256}`;
-    await client.set(key, JSON.stringify(embedding));
+    await client.del(`clip:embedding:${sha256}`);
   }
 
   async addToPhashBuckets(phash: bigint, clusterId: string): Promise<void> {
@@ -177,7 +216,7 @@ export class DuplicateDetector {
   async storeClusterMetadata(metadata: ClusterMetadata): Promise<void> {
     const client = getValkeyClient();
     const key = `cluster:meta:${metadata.clusterId}`;
-    
+
     await client.hSet(key, {
       clusterId: metadata.clusterId,
       canonicalSha256: metadata.canonicalSha256,
@@ -185,6 +224,19 @@ export class DuplicateDetector {
       repostCount: metadata.repostCount.toString(),
       firstSeen: metadata.firstSeen,
     });
+
+    const sha256IndexKey = `sha256:to:cluster:${metadata.canonicalSha256}`;
+    await client.set(sha256IndexKey, metadata.clusterId);
+  }
+
+  async getClusterMetadataBySha256(sha256: string): Promise<ClusterMetadata | null> {
+    const client = getValkeyClient();
+    const sha256IndexKey = `sha256:to:cluster:${sha256}`;
+    const clusterId = await client.get(sha256IndexKey);
+
+    if (!clusterId) return null;
+
+    return this.getClusterMetadata(clusterId);
   }
 
   calculateConfidence(hammingDistance: number, maxDistance: number = 64): number {

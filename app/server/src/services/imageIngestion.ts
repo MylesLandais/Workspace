@@ -1,7 +1,7 @@
 import { ImageHasher } from './imageHasher.js';
 import { DuplicateDetector } from './duplicateDetector.js';
 import { ClipEmbedder } from './clipEmbedder.js';
-import { getStorageBackend } from './storage.js';
+import { getStorage } from '../lib/serviceRegistry.js';
 import {
   createImageCluster,
   createMediaWithHashes,
@@ -14,7 +14,7 @@ import {
   getMediaById,
   getClusterById,
 } from '../neo4j/queries/images.js';
-import { getSession } from '../neo4j/driver.js';
+import { withSession } from '../lib/session.js';
 
 export interface IngestionMetadata {
   postId?: string;
@@ -42,19 +42,18 @@ export class ImageIngestionService {
   private hasher: ImageHasher;
   private detector: DuplicateDetector;
   private clipEmbedder: ClipEmbedder;
-  private storage: ReturnType<typeof getStorageBackend>;
 
   constructor() {
     this.hasher = new ImageHasher();
     this.detector = new DuplicateDetector();
     this.clipEmbedder = new ClipEmbedder();
-    this.storage = getStorageBackend();
   }
 
   async ingestImage(
     imageBuffer: Buffer,
     metadata: IngestionMetadata = {}
   ): Promise<IngestionResult> {
+    const storage = getStorage();
     const hashes = await this.hasher.computeHashesFromBuffer(imageBuffer);
 
     const exactMatch = await this.detector.checkExactDuplicate(hashes.sha256);
@@ -114,8 +113,8 @@ export class ImageIngestionService {
       }
     }
 
-    const storagePath = await this.storage.storeImage(imageBuffer, hashes.sha256, hashes.mimeType);
-    const imageUrl = this.storage.getImageUrl(hashes.sha256);
+    const storagePath = await storage.storeImage(imageBuffer, hashes.sha256, hashes.mimeType);
+    const imageUrl = storage.getImageUrl(hashes.sha256);
 
     const mediaId = await createMediaWithHashes({
       sha256: hashes.sha256,
@@ -186,32 +185,27 @@ export class ImageIngestionService {
     imageBuffer: Buffer,
     hashes: { sha256: string }
   ): Promise<Array<{ clusterId: string; mediaId: string; similarity: number }> | null> {
-    const { getValkeyClient } = await import('../valkey/client.js');
-    const client = getValkeyClient();
-    const queryEmbedding = await this.clipEmbedder.computeEmbeddingFromBuffer(imageBuffer);
+    const { getVectorSearchService } = await import('../lib/serviceRegistry.js');
+    const vectorSearch = getVectorSearchService();
 
-    const allClusters = await client.keys('cluster:meta:*');
+    const queryEmbedding = await this.clipEmbedder.computeEmbeddingFromBuffer(imageBuffer);
+    const similarEmbeddings = await vectorSearch.searchSimilar(queryEmbedding, 10, 0.95);
+
+    if (!similarEmbeddings || similarEmbeddings.length === 0) {
+      return null;
+    }
+
     const matches: Array<{ clusterId: string; mediaId: string; similarity: number }> = [];
 
-    for (const key of allClusters) {
-      const clusterId = key.replace('cluster:meta:', '');
-      const meta = await this.detector.getClusterMetadata(clusterId);
-      if (!meta) continue;
+    for (const { sha256, similarity } of similarEmbeddings) {
+      const clusterMeta = await this.detector.getClusterMetadataBySha256(sha256);
+      if (!clusterMeta) continue;
 
-      const embeddingKey = `clip:embedding:${meta.canonicalSha256}`;
-      const cached = await client.get(embeddingKey);
-      if (!cached) continue;
-
-      const canonicalEmbedding = JSON.parse(cached);
-      const similarity = this.clipEmbedder.cosineSimilarity(queryEmbedding, canonicalEmbedding);
-
-      if (similarity >= 0.95) {
-        matches.push({
-          clusterId,
-          mediaId: meta.canonicalMediaId,
-          similarity,
-        });
-      }
+      matches.push({
+        clusterId: clusterMeta.clusterId,
+        mediaId: clusterMeta.canonicalMediaId,
+        similarity,
+      });
     }
 
     return matches.length > 0 ? matches.sort((a, b) => b.similarity - a.similarity) : null;
@@ -220,8 +214,7 @@ export class ImageIngestionService {
   private async ensurePostExists(metadata: IngestionMetadata): Promise<void> {
     if (!metadata.postId) return;
 
-    const session = getSession();
-    try {
+    return withSession(async (session) => {
       const query = `
         MERGE (p:Post {id: $postId})
         ON CREATE SET
@@ -247,9 +240,7 @@ export class ImageIngestionService {
         subreddit: metadata.subreddit || '',
         author: metadata.author || 'deleted',
       });
-    } finally {
-      await session.close();
-    }
+    });
   }
 }
 

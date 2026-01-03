@@ -1,5 +1,6 @@
 import neo4j from 'neo4j-driver';
 import dotenv from 'dotenv';
+import logger from '../lib/logger.js';
 
 dotenv.config();
 
@@ -22,10 +23,10 @@ export async function verifyConnection() {
   const session = driver.session({ database });
   try {
     await session.run('RETURN 1 as test');
-    console.log('Neo4j connection verified');
+    logger.info('Neo4j connection verified');
     return true;
   } catch (error) {
-    console.error('Failed to connect to Neo4j:', error);
+    logger.error('Failed to connect to Neo4j', error);
     throw error;
   } finally {
     await session.close();
@@ -48,6 +49,17 @@ export async function createIndexes() {
       'CREATE INDEX media_phash IF NOT EXISTS FOR (m:Media) ON (m.phash)',
       'CREATE INDEX cluster_canonical IF NOT EXISTS FOR (c:ImageCluster) ON (c.canonical_sha256)',
       'CREATE CONSTRAINT cluster_id_unique IF NOT EXISTS FOR (c:ImageCluster) REQUIRE c.id IS UNIQUE',
+      'CREATE CONSTRAINT identity_provider_unique IF NOT EXISTS FOR (i:Identity) REQUIRE (i.provider, i.provider_uid) IS UNIQUE',
+      'CREATE INDEX identity_user_id IF NOT EXISTS FOR (i:Identity) ON (i.userId)',
+      'CREATE INDEX identity_provider IF NOT EXISTS FOR (i:Identity) ON (i.provider)',
+      'CREATE INDEX identity_provider_uid IF NOT EXISTS FOR (i:Identity) ON (i.provider_uid)',
+      'CREATE CONSTRAINT session_id_unique IF NOT EXISTS FOR (s:Session) REQUIRE s.id IS UNIQUE',
+      'CREATE INDEX session_token IF NOT EXISTS FOR (s:Session) ON (s.token)',
+      'CREATE INDEX session_user_id IF NOT EXISTS FOR (s:Session) ON (s.userId)',
+      'CREATE INDEX session_expires_at IF NOT EXISTS FOR (s:Session) ON (s.expiresAt)',
+      'CREATE CONSTRAINT user_id_unique IF NOT EXISTS FOR (u:User) REQUIRE u.id IS UNIQUE',
+      'CREATE INDEX user_email IF NOT EXISTS FOR (u:User) ON (u.email)',
+      'CREATE INDEX user_handle IF NOT EXISTS FOR (u:User) ON (u.handle)',
       // Bunny schema extensions
       'CREATE CONSTRAINT savedboard_id_unique IF NOT EXISTS FOR (sb:SavedBoard) REQUIRE sb.id IS UNIQUE',
       'CREATE INDEX savedboard_user_id IF NOT EXISTS FOR (sb:SavedBoard) ON (sb.userId)',
@@ -62,13 +74,13 @@ export async function createIndexes() {
         await session.run(query);
       } catch (error: any) {
         if (!error.message.includes('already exists')) {
-          console.warn(`Index creation warning: ${error.message}`);
+          logger.warn('Index creation warning', { message: error.message });
         }
       }
     }
-    console.log('Database indexes and constraints created');
+    logger.info('Database indexes and constraints created');
   } catch (error) {
-    console.error('Failed to create indexes:', error);
+    logger.error('Failed to create indexes', error);
     throw error;
   } finally {
     await session.close();

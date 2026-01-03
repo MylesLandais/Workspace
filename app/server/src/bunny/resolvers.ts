@@ -9,7 +9,7 @@ import {
 } from './queries.js';
 import { creatorToIdentityProfile } from './adapters.js';
 import { getCreators, getCreatorBySlug, getHandlesForCreator } from '../neo4j/queries/creators.js';
-import { getSession } from '../neo4j/driver.js';
+import { withSession } from '../lib/session.js';
 
 export const bunnyResolvers = {
   Query: {
@@ -31,9 +31,8 @@ export const bunnyResolvers = {
       const profile = await getIdentityProfileById(id);
       if (!profile) return null;
       
-      // Get sources (handles) for this entity
-      const session = getSession();
-      try {
+      return withSession(async (session) => {
+        // Get sources (handles) for this entity
         const sourcesQuery = `
           MATCH (e:Entity {id: $id})-[:HAS_SOURCE]->(s:Source)
           RETURN s
@@ -60,9 +59,7 @@ export const bunnyResolvers = {
             type: r.type,
           })),
         };
-      } finally {
-        await session.close();
-      }
+      });
     },
   },
 
@@ -80,11 +77,8 @@ export const bunnyResolvers = {
     },
 
     createIdentityProfile: async (_: any, { userId, input }: { userId: string; input: any }) => {
-      const session = getSession();
-      try {
-        
+      return withSession(async (session) => {
         const id = input.id || input.name.toLowerCase().replace(/\s+/g, '-');
-        const slug = id;
         
         // Create Entity (Creator) node
         const createQuery = `
@@ -173,14 +167,11 @@ export const bunnyResolvers = {
         }
         
         return await getIdentityProfileById(id);
-      } finally {
-        await session.close();
-      }
+      });
     },
 
     updateIdentityProfile: async (_: any, { id, input }: { id: string; input: any }) => {
-      const session = getSession();
-      try {
+      return withSession(async (session) => {
         const updateQuery = `
           MATCH (e:Entity {id: $id})
           SET e.name = COALESCE($name, e.name),
@@ -204,14 +195,11 @@ export const bunnyResolvers = {
         });
         
         return await getIdentityProfileById(id);
-      } finally {
-        await session.close();
-      }
+      });
     },
 
     deleteIdentityProfile: async (_: any, { id }: { id: string }) => {
-      const session = getSession();
-      try {
+      return withSession(async (session) => {
         const query = `
           MATCH (e:Entity {id: $id})
           DETACH DELETE e
@@ -220,14 +208,11 @@ export const bunnyResolvers = {
         
         const result = await session.run(query, { id });
         return result.records[0].get('deleted').toNumber() > 0;
-      } finally {
-        await session.close();
-      }
+      });
     },
 
     createRelationship: async (_: any, { profileId, input }: { profileId: string; input: any }) => {
-      const session = getSession();
-      try {
+      return withSession(async (session) => {
         const query = `
           MATCH (c1:Entity {id: $profileId})
           MATCH (c2:Entity {id: $targetId})
@@ -246,14 +231,11 @@ export const bunnyResolvers = {
         
         const relationships = await getRelationships(profileId);
         return relationships.find(r => r.targetId === input.targetId) || { targetId: input.targetId, type: input.type };
-      } finally {
-        await session.close();
-      }
+      });
     },
 
     deleteRelationship: async (_: any, { profileId, targetId }: { profileId: string; targetId: string }) => {
-      const session = getSession();
-      try {
+      return withSession(async (session) => {
         const query = `
           MATCH (c1:Entity {id: $profileId})-[r:RELATED_TO]->(c2:Entity {id: $targetId})
           DELETE r
@@ -262,9 +244,7 @@ export const bunnyResolvers = {
         
         const result = await session.run(query, { profileId, targetId });
         return result.records[0].get('deleted').toNumber() > 0;
-      } finally {
-        await session.close();
-      }
+      });
     },
   },
 };

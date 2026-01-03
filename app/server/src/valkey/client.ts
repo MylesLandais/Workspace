@@ -1,5 +1,6 @@
 import { createClient } from 'redis';
 import dotenv from 'dotenv';
+import logger from '../lib/logger.js';
 
 dotenv.config();
 
@@ -20,15 +21,15 @@ export function getValkeyClient() {
     });
 
     client.on('error', (err) => {
-      console.error('Valkey client error:', err);
+      logger.error('Valkey client error', err);
     });
 
     client.on('connect', () => {
-      console.log('Valkey client connected');
+      logger.debug('Valkey client connected');
     });
 
     client.connect().catch((err) => {
-      console.error('Failed to connect to Valkey:', err);
+      logger.error('Failed to connect to Valkey', err);
     });
   }
   return client;
@@ -38,10 +39,10 @@ export async function verifyValkeyConnection() {
   const client = getValkeyClient();
   try {
     await client.ping();
-    console.log('Valkey connection verified');
+    logger.info('Valkey connection verified');
     return true;
   } catch (error) {
-    console.error('Failed to connect to Valkey:', error);
+    logger.error('Failed to connect to Valkey', error);
     throw error;
   }
 }

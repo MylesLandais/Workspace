@@ -265,6 +265,7 @@ export const typeDefs = gql`
     sources: [String!]!
     tags: [String!]!
     searchQuery: String!
+    categories: [String!]!
   }
 
   input SavedBoardInput {
