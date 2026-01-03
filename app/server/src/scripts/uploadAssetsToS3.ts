@@ -13,7 +13,7 @@ interface AssetFile {
   mimeType: string;
 }
 
-async function getMimeType(filename: string): string {
+async function getMimeType(filename: string): Promise<string> {
   const ext = filename.toLowerCase().split('.').pop();
   const mimeTypes: Record<string, string> = {
     'jpg': 'image/jpeg',

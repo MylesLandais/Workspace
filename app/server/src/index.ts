@@ -11,6 +11,10 @@ import { verifyValkeyConnection } from './valkey/client.js';
 import logger from './lib/logger.js';
 import { errorHandler, notFoundHandler, formatError } from './lib/errorHandler.js';
 
+export interface Context {
+  req: express.Request;
+}
+
 const PORT = process.env.PORT || 4002;
 
 async function startServer() {

@@ -1,14 +1,13 @@
-import { getSession } from '../neo4j/driver.js';
 import { getCreatorBySlug } from '../neo4j/queries/creators.js';
-import { getSources } from '../neo4j/queries/sources.js';
+import { getSources, getFeedGroups } from '../neo4j/queries/sources.js';
 import { ImageIngestionService } from '../services/imageIngestion.js';
-import { Readable } from 'stream';
+import { withSession } from '../lib/session.js';
+import { Resolvers } from '../schema/generated/resolvers.js';
 
-export const mutationResolvers = {
+export const mutationResolvers: Resolvers = {
   Mutation: {
-    createCreator: async (_: any, { name, displayName }: { name: string; displayName: string }) => {
-      const session = getSession();
-      try {
+    createCreator: async (_, { name, displayName }) => {
+      return withSession(async (session) => {
         const slug = name.toLowerCase().replace(/\s+/g, '-');
         const id = slug;
 
@@ -28,18 +27,12 @@ export const mutationResolvers = {
           throw new Error('Failed to create creator');
         }
 
-        return await getCreatorBySlug(id);
-      } finally {
-        await session.close();
-      }
+        return (await getCreatorBySlug(id)) as any;
+      });
     },
 
-    addHandle: async (
-      _: any,
-      { creatorId, platform, username, url }: { creatorId: string; platform: string; username: string; url: string }
-    ) => {
-      const session = getSession();
-      try {
+    addHandle: async (_, { creatorId, platform, username, url }) => {
+      return withSession(async (session) => {
         const id = crypto.randomUUID();
         const sourceType = platform.toLowerCase();
         let handleStr = '';
@@ -90,15 +83,12 @@ export const mutationResolvers = {
           mediaCount: 0,
           lastSynced: null,
           health: 'red',
-        };
-      } finally {
-        await session.close();
-      }
+        } as any;
+      });
     },
 
-    verifyHandle: async (_: any, { handleId }: { handleId: string }) => {
-      const session = getSession();
-      try {
+    verifyHandle: async (_, { handleId }) => {
+      return withSession(async (session) => {
         const query = `
           MATCH (s:Source {id: $handleId})
           SET s.verified = true
@@ -125,18 +115,12 @@ export const mutationResolvers = {
           mediaCount: handle.mediaCount,
           lastSynced: handle.lastSynced,
           health: handle.health,
-        };
-      } finally {
-        await session.close();
-      }
+        } as any;
+      });
     },
 
-    updateHandleStatus: async (
-      _: any,
-      { handleId, status }: { handleId: string; status: string }
-    ) => {
-      const session = getSession();
-      try {
+    updateHandleStatus: async (_, { handleId, status }) => {
+      return withSession(async (session) => {
         const query = `
           MATCH (s:Source {id: $handleId})
           SET s.status = $status
@@ -163,15 +147,12 @@ export const mutationResolvers = {
           mediaCount: handle.mediaCount,
           lastSynced: handle.lastSynced,
           health: handle.health,
-        };
-      } finally {
-        await session.close();
-      }
+        } as any;
+      });
     },
 
-    toggleHandlePause: async (_: any, { handleId }: { handleId: string }) => {
-      const session = getSession();
-      try {
+    toggleHandlePause: async (_, { handleId }) => {
+      return withSession(async (session) => {
         const query = `
           MATCH (s:Source {id: $handleId})
           SET s.is_paused = NOT s.is_paused
@@ -198,15 +179,12 @@ export const mutationResolvers = {
           mediaCount: handle.mediaCount,
           lastSynced: handle.lastSynced,
           health: handle.health,
-        };
-      } finally {
-        await session.close();
-      }
+        } as any;
+      });
     },
 
-    removeHandle: async (_: any, { handleId }: { handleId: string }) => {
-      const session = getSession();
-      try {
+    removeHandle: async (_, { handleId }) => {
+      return withSession(async (session) => {
         const query = `
           MATCH (s:Source {id: $handleId})
           DETACH DELETE s
@@ -215,17 +193,11 @@ export const mutationResolvers = {
 
         const result = await session.run(query, { handleId });
         return result.records[0].get('deleted').toNumber() > 0;
-      } finally {
-        await session.close();
-      }
+      });
     },
 
-    subscribeToSource: async (
-      _: any,
-      { subredditName, groupId }: { subredditName: string; groupId?: string }
-    ) => {
-      const session = getSession();
-      try {
+    subscribeToSource: async (_, { subredditName, groupId }) => {
+      return withSession(async (session) => {
         const id = crypto.randomUUID();
 
         let groupIdToUse = groupId;
@@ -272,15 +244,12 @@ export const mutationResolvers = {
           throw new Error('Failed to create source');
         }
 
-        return source;
-      } finally {
-        await session.close();
-      }
+        return source as any;
+      });
     },
 
-    createFeedGroup: async (_: any, { name }: { name: string }) => {
-      const session = getSession();
-      try {
+    createFeedGroup: async (_, { name }) => {
+      return withSession(async (session) => {
         const id = crypto.randomUUID();
         const query = `
           CREATE (fg:FeedGroup {
@@ -298,14 +267,12 @@ export const mutationResolvers = {
           id: record.get('id'),
           name: record.get('name'),
           createdAt: new Date(record.get('createdAt').toString()).toISOString(),
-        };
-      } finally {
-        await session.close();
-      }
+        } as any;
+      });
     },
 
     ingestImage: async (
-      _: any,
+      _,
       {
         image,
         postId,
@@ -313,13 +280,6 @@ export const mutationResolvers = {
         author,
         title,
         createdAt,
-      }: {
-        image: Promise<any>;
-        postId?: string;
-        subreddit?: string;
-        author?: string;
-        title?: string;
-        createdAt?: string;
       }
     ) => {
       const ingestionService = new ImageIngestionService();
@@ -344,10 +304,10 @@ export const mutationResolvers = {
       }
 
       const result = await ingestionService.ingestImage(imageBuffer, {
-        postId,
-        subreddit,
-        author,
-        title,
+        postId: postId || undefined,
+        subreddit: subreddit || undefined,
+        author: author || undefined,
+        title: title || undefined,
         createdAt: createdAt ? new Date(createdAt) : undefined,
       });
 
@@ -363,7 +323,7 @@ export const mutationResolvers = {
           firstSeen: result.original.firstSeen.toISOString(),
           postId: result.original.postId,
         } : null,
-      };
+      } as any;
     },
   },
 };

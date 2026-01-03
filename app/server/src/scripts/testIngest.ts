@@ -63,7 +63,7 @@ async function main() {
   const exactDuplicate = await duplicateDetector.checkExactDuplicate(hashes.sha256);
 
   if (exactDuplicate) {
-    console.log(`Duplicate found: ${exactDuplicate.mediaId}`);
+    console.log(`Duplicate found: ${exactDuplicate}`);
     return;
   }
 

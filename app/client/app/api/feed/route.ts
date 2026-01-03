@@ -41,9 +41,11 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const cursor = searchParams.get('cursor');
     const limit = parseInt(searchParams.get('limit') || '20');
-
-    console.log(`[Feed API] Fetching feed: cursor=${cursor}, limit=${limit}`);
-    console.log(`[Feed API] GraphQL endpoint: ${GRAPHQL_ENDPOINT}`);
+    const searchQuery = searchParams.get('searchQuery') || '';
+    const persons = searchParams.get('persons')?.split(',').filter(Boolean) || [];
+    const sources = searchParams.get('sources')?.split(',').filter(Boolean) || [];
+    const tags = searchParams.get('tags')?.split(',').filter(Boolean) || [];
+    const categories = searchParams.get('categories')?.split(',').filter(Boolean) || [];
 
     const response = await fetch(GRAPHQL_ENDPOINT, {
       method: 'POST',
@@ -56,10 +58,11 @@ export async function GET(request: NextRequest) {
           cursor,
           limit,
           filters: {
-            persons: [],
-            sources: [],
-            tags: [],
-            searchQuery: '',
+            persons,
+            sources,
+            tags,
+            searchQuery,
+            categories,
           },
         },
       }),
@@ -75,7 +78,6 @@ export async function GET(request: NextRequest) {
     const data = await response.json();
 
     if (data.errors) {
-      console.error('[Feed API] GraphQL errors:', JSON.stringify(data.errors, null, 2));
       return NextResponse.json(
         { error: 'Failed to fetch feed data', details: data.errors },
         { status: 500 }
@@ -83,20 +85,14 @@ export async function GET(request: NextRequest) {
     }
 
     if (!data.data || !data.data.feed) {
-      console.error('[Feed API] Invalid GraphQL response structure:', JSON.stringify(data, null, 2));
       return NextResponse.json(
         { error: 'Invalid response from GraphQL server' },
         { status: 500 }
       );
     }
 
-    console.log(`[Feed API] Successfully fetched ${data.data.feed.edges.length} items`);
     return NextResponse.json(data.data.feed);
   } catch (error) {
-    console.error('[Feed API] CRITICAL ERROR:', error);
-    if (error instanceof Error) {
-      console.error('[Feed API] Error stack:', error.stack);
-    }
     return NextResponse.json(
       { error: 'Internal server error', message: error instanceof Error ? error.message : String(error) },
       { status: 500 }

@@ -1,0 +1,11 @@
+{
+  "name": "bunny-root",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/typescript": "^4.0.6",
+    "@graphql-codegen/typescript-resolvers": "^4.0.6",
+    "graphql": "^16.9.0"
+  }
+}

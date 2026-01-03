@@ -4,42 +4,29 @@
 
 import { Request, Response, NextFunction } from 'express';
 import logger from './logger.js';
-import type { GraphQLError } from '@apollo/server';
+import { GraphQLError } from 'graphql';
 
 /**
  * Formats errors for GraphQL responses
  */
-export function formatError(error: any): GraphQLError {
+export function formatError(error: any): any {
   logger.error('GraphQL error', {
     message: error.message,
     path: error.path,
     extensions: error.extensions,
   });
 
-  // If it's a custom AppError, format it nicely
+  // If it's already a GraphQLError or has a code, just return it
   if (error.extensions?.code) {
-    return {
-      ...error,
-      message: error.message,
-    };
+    return error;
   }
 
-  // Log full stack for unknown errors
-  if (!error.extensions?.code) {
-    logger.error('Unexpected error', {
-      message: error.message,
-      stack: error.stack,
-    });
-
-    return {
-      message: 'An unexpected error occurred',
-      extensions: {
-        code: 'INTERNAL_SERVER_ERROR',
-      },
-    };
-  }
-
-  return error;
+  // Otherwise wrap it in a standard internal error
+  return new GraphQLError('An unexpected error occurred', {
+    extensions: {
+      code: 'INTERNAL_SERVER_ERROR',
+    },
+  });
 }
 
 /**

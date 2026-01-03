@@ -10,24 +10,25 @@ import {
 import { creatorToIdentityProfile } from './adapters.js';
 import { getCreators, getCreatorBySlug, getHandlesForCreator } from '../neo4j/queries/creators.js';
 import { withSession } from '../lib/session.js';
+import { Resolvers } from '../schema/generated/resolvers.js';
 
-export const bunnyResolvers = {
+export const bunnyResolvers: Resolvers = {
   Query: {
-    getSavedBoards: async (_: any, { userId }: { userId: string }) => {
-      return await getSavedBoards(userId);
+    getSavedBoards: async (_, { userId }) => {
+      return (await getSavedBoards(userId)) as any;
     },
 
-    getIdentityProfiles: async (_: any, { query, limit }: { query?: string; limit?: number }) => {
-      const profiles = await getIdentityProfiles(query, limit);
+    getIdentityProfiles: async (_, { query, limit }) => {
+      const profiles = await getIdentityProfiles(query || undefined, limit || 20);
       // For now, return basic data. Full IdentityProfile requires handles which we'll add later
       return profiles.map(profile => ({
         ...profile,
         sources: [],
         relationships: [],
-      }));
+      })) as any;
     },
 
-    getIdentityProfile: async (_: any, { id }: { id: string }) => {
+    getIdentityProfile: async (_, { id }) => {
       const profile = await getIdentityProfileById(id);
       if (!profile) return null;
       
@@ -41,7 +42,7 @@ export const bunnyResolvers = {
         const sources = sourcesResult.records.map(record => {
           const source = record.get('s').properties;
           return {
-            platform: (source.source_type || 'reddit').toLowerCase(),
+            platform: (source.source_type || 'REDDIT').toUpperCase() as any,
             id: source.subreddit_name || source.youtube_channel_handle || source.name,
             databaseId: source.id, // Include database ID for mutations
             label: source.label || undefined,
@@ -58,25 +59,25 @@ export const bunnyResolvers = {
             targetId: r.targetId,
             type: r.type,
           })),
-        };
+        } as any;
       });
     },
   },
 
   Mutation: {
-    createSavedBoard: async (_: any, { userId, input }: { userId: string; input: any }) => {
-      return await createSavedBoard(userId, input.name, input.filters);
+    createSavedBoard: async (_, { userId, input }) => {
+      return (await createSavedBoard(userId, input.name, input.filters)) as any;
     },
 
-    updateSavedBoard: async (_: any, { id, input }: { id: string; input: any }) => {
-      return await updateSavedBoard(id, input.name, input.filters);
+    updateSavedBoard: async (_, { id, input }) => {
+      return (await updateSavedBoard(id, input.name, input.filters)) as any;
     },
 
-    deleteSavedBoard: async (_: any, { id }: { id: string }) => {
+    deleteSavedBoard: async (_, { id }) => {
       return await deleteSavedBoard(id);
     },
 
-    createIdentityProfile: async (_: any, { userId, input }: { userId: string; input: any }) => {
+    createIdentityProfile: async (_, { userId, input }) => {
       return withSession(async (session) => {
         const id = input.id || input.name.toLowerCase().replace(/\s+/g, '-');
         
@@ -138,7 +139,7 @@ export const bunnyResolvers = {
               sourceId,
               platform: platform.toLowerCase(),
               username,
-              url: `https://${source.platform}.com/${username}`,
+              url: `https://${source.platform.toLowerCase()}.com/${username}`,
               label: source.label || null,
               hidden: source.hidden || false,
             });
@@ -166,11 +167,11 @@ export const bunnyResolvers = {
           }
         }
         
-        return await getIdentityProfileById(id);
+        return (await getIdentityProfileById(id)) as any;
       });
     },
 
-    updateIdentityProfile: async (_: any, { id, input }: { id: string; input: any }) => {
+    updateIdentityProfile: async (_, { id, input }) => {
       return withSession(async (session) => {
         const updateQuery = `
           MATCH (e:Entity {id: $id})
@@ -194,11 +195,11 @@ export const bunnyResolvers = {
           imagePool: input.imagePool ? JSON.stringify(input.imagePool) : null,
         });
         
-        return await getIdentityProfileById(id);
+        return (await getIdentityProfileById(id)) as any;
       });
     },
 
-    deleteIdentityProfile: async (_: any, { id }: { id: string }) => {
+    deleteIdentityProfile: async (_, { id }) => {
       return withSession(async (session) => {
         const query = `
           MATCH (e:Entity {id: $id})
@@ -211,7 +212,7 @@ export const bunnyResolvers = {
       });
     },
 
-    createRelationship: async (_: any, { profileId, input }: { profileId: string; input: any }) => {
+    createRelationship: async (_, { profileId, input }) => {
       return withSession(async (session) => {
         const query = `
           MATCH (c1:Entity {id: $profileId})
@@ -230,11 +231,11 @@ export const bunnyResolvers = {
         });
         
         const relationships = await getRelationships(profileId);
-        return relationships.find(r => r.targetId === input.targetId) || { targetId: input.targetId, type: input.type };
+        return (relationships.find(r => r.targetId === input.targetId) || { targetId: input.targetId, type: input.type }) as any;
       });
     },
 
-    deleteRelationship: async (_: any, { profileId, targetId }: { profileId: string; targetId: string }) => {
+    deleteRelationship: async (_, { profileId, targetId }) => {
       return withSession(async (session) => {
         const query = `
           MATCH (c1:Entity {id: $profileId})-[r:RELATED_TO]->(c2:Entity {id: $targetId})

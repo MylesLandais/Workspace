@@ -152,7 +152,7 @@ async function createMediaNodeFromS3Object(obj: S3Object, bucket: string): Promi
     const exactDuplicate = await duplicateDetector.checkExactDuplicate(hashes.sha256);
 
     if (exactDuplicate) {
-      console.log(`  Duplicate found, skipping: ${exactDuplicate.mediaId}`);
+      console.log(`  Duplicate found, skipping: ${exactDuplicate}`);
       return;
     }
 

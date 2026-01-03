@@ -1,4 +1,4 @@
-import { getSession as getNeo4jSession, Session } from 'neo4j-driver';
+import { Session, Transaction } from 'neo4j-driver';
 import { driver } from '../neo4j/driver.js';
 import logger from './logger.js';
 
@@ -11,7 +11,7 @@ export async function withSession<T>(
     const result = await callback(session);
     return result;
   } catch (error) {
-    logger.error('Error in Neo4j transaction', error);
+    logger.error('Error in Neo4j session', error);
     throw error;
   } finally {
     await session.close();
@@ -19,14 +19,13 @@ export async function withSession<T>(
 }
 
 export async function withTransaction<T>(
-  callback: (tx: Session) => Promise<T>
+  callback: (tx: Transaction) => Promise<T>
 ): Promise<T> {
   const session = driver.session();
+  const tx = session.beginTransaction();
 
   try {
-    const tx = session.beginTransaction();
     const result = await callback(tx);
-
     await tx.commit();
     return result;
   } catch (error) {

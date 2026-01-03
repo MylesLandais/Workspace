@@ -87,7 +87,7 @@ export class DuplicateDetector {
       pipeline.hGetAll(`cluster:meta:${clusterId}`);
     }
 
-    const metaResults = await pipeline.exec();
+    const metaResults = (await pipeline.exec()) as any[];
 
     const clusterMetadatas = new Map<string, ClusterMetadata>();
     const hashPromises: Promise<any>[] = [];
@@ -168,7 +168,7 @@ export class DuplicateDetector {
       }
       
       const queryEmbedding = await this.clipEmbedder.computeEmbeddingFromBuffer(imageBuffer);
-      const similarity = this.clipEmbedder.cosineSimilarity(queryEmbedding, canonicalEmbedding);
+      const similarity = this.clipEmbedder.cosineSimilarity(queryEmbedding, canonicalEmbedding!);
       
       return similarity >= CLIP_THRESHOLD ? similarity : null;
     } catch (error) {

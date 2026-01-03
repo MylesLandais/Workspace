@@ -8,16 +8,16 @@ import {
   getSimilarImages,
 } from '../neo4j/queries/images.js';
 import { ImageIngestionService } from '../services/imageIngestion.js';
-import { PresignedUrlService } from '../services/presignedUrl.js';
 import logger from '../lib/logger.js';
 import { withSession } from '../lib/session.js';
-import { getDuplicateDetector, getPresignedUrlService } from '../lib/serviceRegistry.js';
+import { getPresignedUrlService } from '../lib/serviceRegistry.js';
+import { Resolvers } from '../schema/generated/resolvers.js';
 
-export const queryResolvers = {
+export const queryResolvers: Resolvers = {
   Query: {
-    feed: async (_: any, { cursor, limit = 20, filters }: { cursor?: string | null; limit?: number; filters?: any }) => {
+    feed: async (_, { cursor, limit = 20, filters }) => {
       try {
-        const feedResult = await getFeed(cursor, limit, filters);
+        const feedResult = await getFeed(cursor || null, limit || 20, filters || undefined);
 
         if (!feedResult || !feedResult.posts) {
           return {
@@ -34,8 +34,8 @@ export const queryResolvers = {
         const items = feedResult.posts
           .filter((post) => post.sha256 && post.mimeType)
           .map((post) => ({
-            sha256: post.sha256,
-            mimeType: post.mimeType,
+            sha256: post.sha256!,
+            mimeType: post.mimeType!,
           }));
 
         let presignedUrls: Map<string, { url: string; expiresAt: Date }> = new Map();
@@ -58,6 +58,18 @@ export const queryResolvers = {
           const urlData = post.sha256 ? presignedUrls.get(post.sha256) : null;
           return {
             ...post,
+            id: post.id || '',
+            title: post.title || '',
+            sourceUrl: post.sourceUrl || '',
+            imageUrl: post.imageUrl || '',
+            publishDate: post.publishDate,
+            mediaType: (post.mediaType as any) || 'IMAGE',
+            platform: (post.platform as any) || 'REDDIT',
+            handle: {
+              ...post.handle,
+              name: post.handle.name || '',
+              handle: post.handle.handle || '',
+            },
             presignedUrl: urlData?.url || null,
             urlExpiresAt: urlData?.expiresAt?.toISOString() || null,
           };
@@ -65,7 +77,7 @@ export const queryResolvers = {
 
         return {
           edges: postsWithUrls.map((post) => ({
-            node: post,
+            node: post as any,
             cursor: post.publishDate,
           })),
           pageInfo: {
@@ -85,27 +97,27 @@ export const queryResolvers = {
       }
     },
 
-    creators: async (_: any, { query, limit = 20 }: { query?: string; limit?: number }) => {
-      return await getCreators(query, limit);
+    creators: async (_, { query, limit = 20 }) => {
+      return (await getCreators(query || undefined, limit || 20)) as any;
     },
 
-    creator: async (_: any, { slug }: { slug: string }) => {
-      return await getCreatorBySlug(slug);
+    creator: async (_, { slug }) => {
+      return (await getCreatorBySlug(slug)) as any;
     },
 
     getFeedGroups: async () => {
-      return await getFeedGroups();
+      return (await getFeedGroups()) as any;
     },
 
-    getSources: async (_: any, { groupId }: { groupId?: string }) => {
-      return await getSources(groupId);
+    getSources: async (_, { groupId }) => {
+      return (await getSources(groupId || undefined)) as any;
     },
 
-    searchSubreddits: async (_: any, { query }: { query: string }) => {
-      return await searchSubreddits(query);
+    searchSubreddits: async (_, { query }) => {
+      return (await searchSubreddits(query)) as any;
     },
 
-    checkDuplicate: async (_: any, { image }: { image: Promise<any> }) => {
+    checkDuplicate: async (_, { image }) => {
       const ingestionService = new ImageIngestionService();
       
       const file = await image;
@@ -141,11 +153,11 @@ export const queryResolvers = {
           firstSeen: result.original.firstSeen.toISOString(),
           postId: result.original.postId,
         } : null,
-      };
+      } as any;
     },
 
-    similarImages: async (_: any, { mediaId, limit = 10 }: { mediaId: string; limit?: number }) => {
-      const similar = await getSimilarImages(mediaId, limit);
+    similarImages: async (_, { mediaId, limit = 10 }) => {
+      const similar = await getSimilarImages(mediaId, limit || 10);
       return similar.map((s) => ({
         media: {
           id: s.media.id,
@@ -160,10 +172,10 @@ export const queryResolvers = {
         similarityScore: s.similarity,
         method: s.method,
         hammingDistance: null,
-      }));
+      })) as any;
     },
 
-    imageCluster: async (_: any, { clusterId }: { clusterId: string }) => {
+    imageCluster: async (_, { clusterId }) => {
       const cluster = await getClusterById(clusterId);
       if (!cluster) {
         return null;
@@ -209,11 +221,11 @@ export const queryResolvers = {
             width: m!.width,
             height: m!.height,
           })),
-        };
+        } as any;
       });
     },
 
-    imageLineage: async (_: any, { mediaId }: { mediaId: string }) => {
+    imageLineage: async (_, { mediaId }) => {
       const lineage = await getImageLineage(mediaId);
       const media = await getMediaById(mediaId);
       const clusterId = media?.clusterId;
@@ -240,7 +252,7 @@ export const queryResolvers = {
           createdAt: r.createdAt,
           confidence: r.confidence,
         })),
-      };
+      } as any;
     },
   },
 };

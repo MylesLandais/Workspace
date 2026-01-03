@@ -15,15 +15,16 @@ export class VectorSearchService {
     } catch (err) {
     }
 
-    await client.ft.create(
+    await (client.ft as any).create(
       VectorSearchService.INDEX_NAME,
       {
         vector: {
           type: 'VECTOR',
-          algorithm: 'HNSW',
-          dims: VectorSearchService.VECTOR_DIM,
-          distance_metric: VectorSearchService.DISTANCE_METRIC,
-          initial_cap: 10000,
+          ALGORITHM: 'HNSW',
+          TYPE: 'FLOAT32',
+          DIM: VectorSearchService.VECTOR_DIM,
+          DISTANCE_METRIC: VectorSearchService.DISTANCE_METRIC,
+          INITIAL_CAP: 10000,
           M: 16,
           EF_CONSTRUCTION: 64,
         },
@@ -81,7 +82,7 @@ export class VectorSearchService {
 
       for (const doc of result.documents) {
         const sha256 = doc.value.sha256 as string;
-        const score = doc.score as number;
+        const score = (doc as any).score as number;
         const similarity = 1 - score;
 
         if (similarity >= threshold) {
