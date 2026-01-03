@@ -206,7 +206,7 @@ function MediaLightboxContent({
         }}
         animation={{
           fade: 0,
-          swipe: 250,
+          swipe: 0,
         }}
         render={{
           buttonPrev: () => null,

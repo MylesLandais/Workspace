@@ -1,26 +1,62 @@
 "use client";
 
 import { useSession, signOut } from "@/lib/auth-client";
-import { LogOut, User, Settings, Shield } from "lucide-react";
-import { useState } from "react";
+import { LogOut, User, Settings, Shield, AlertCircle, Loader2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 /**
  * User Menu navigation component.
- * 
- * Displayed in the header after the user has logged in.
- * Features:
- * - User avatar (defaults to icon if no image provided).
- * - Dropdown menu with name and email display.
- * - Navigation links for Preferences and Admin Panel (conditional).
- * - Logout trigger.
  */
 export function UserMenu() {
   const { data: session, isPending, error } = useSession();
   const [isOpen, setIsOpen] = useState(false);
+  const [isSigningOut, setIsSigningOut] = useState(false);
+  const router = useRouter();
+
+  // Debug logging - moved to warn to avoid Next.js error overlay in development
+  useEffect(() => {
+    if (error) console.warn("UserMenu session error:", error);
+    if (!isPending && !session) console.warn("UserMenu: No session found");
+  }, [session, isPending, error]);
+
+  const handleSignOut = async () => {
+    setIsSigningOut(true);
+    
+    // Set a safety timeout to force redirect even if the network hangs
+    const safetyTimeout = setTimeout(() => {
+      window.location.href = "/";
+    }, 2000);
+
+    try {
+      await signOut();
+      clearTimeout(safetyTimeout);
+      window.location.href = "/";
+    } catch (err) {
+      console.warn("Sign out API failed, forcing redirect:", err);
+      window.location.href = "/";
+    }
+  };
 
   if (isPending) return <div className="w-10 h-10 rounded-full bg-zinc-800 animate-pulse" />;
-  if (error) return null;
-  if (!session) return null;
+  
+  if (error) {
+    return (
+      <div className="flex items-center gap-2 p-2 rounded-full border border-red-500/20 bg-red-500/10 text-red-400 text-xs font-medium" title={error.message || "Authentication Error"}>
+        <AlertCircle className="w-4 h-4" />
+        <span className="hidden md:inline">Auth Error</span>
+      </div>
+    );
+  }
+
+  if (!session) {
+    return (
+      <div className="flex items-center gap-2 p-2 rounded-full border border-yellow-500/20 bg-yellow-500/10 text-yellow-400 text-xs font-medium">
+        <AlertCircle className="w-4 h-4" />
+        <span className="hidden md:inline">No Session</span>
+      </div>
+    );
+  }
 
   return (
     <div className="relative">
@@ -60,11 +96,16 @@ export function UserMenu() {
             )}
 
             <button
-              onClick={() => signOut()}
-              className="w-full flex items-center gap-2 px-4 py-3 text-sm text-red-400 hover:bg-red-400/10 transition-colors text-left font-semibold border-t border-white/5 mt-1"
+              onClick={handleSignOut}
+              disabled={isSigningOut}
+              className="w-full flex items-center gap-2 px-4 py-3 text-sm text-red-400 hover:bg-red-400/10 transition-colors text-left font-semibold border-t border-white/5 mt-1 disabled:opacity-50"
             >
-              <LogOut className="w-4 h-4" />
-              Sign Out
+              {isSigningOut ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <LogOut className="w-4 h-4" />
+              )}
+              {isSigningOut ? "Signing out..." : "Sign Out"}
             </button>
           </div>
         </>

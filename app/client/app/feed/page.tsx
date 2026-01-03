@@ -11,11 +11,23 @@ import { SearchBar } from "@/components/search/SearchBar";
 import { UserMenu } from "@/components/auth/UserMenu";
 import { useSearchStore } from "@/lib/store/search-store";
 import { useEffect } from "react";
+import { useSession } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export default function FeedPage() {
   const { filters } = useSearchStore();
   const { items, isLoading, hasNextPage, loadMore } = useInfiniteFeed(100, filters);
   const lightboxStore = useLightboxStore();
+  const { data: session, isPending, error } = useSession();
+  const router = useRouter();
+
+  // Client-side protection
+  useEffect(() => {
+    if (!isPending && (!session || error)) {
+      console.warn("FeedPage: Auth session missing or error, forcing redirect...");
+      window.location.href = "/";
+    }
+  }, [session, isPending, error]);
 
   const handleItemClick = (item: FeedItem) => {
     const itemIndex = items.findIndex((i) => i.id === item.id);

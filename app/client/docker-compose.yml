@@ -10,6 +10,7 @@ services:
       - NODE_ENV=development
       - NEXT_TELEMETRY_DISABLED=1
       - HOSTNAME=0.0.0.0
+      - PLAYWRIGHT_SERVICE_URL=ws://browserless:3000
     env_file:
       - .env.local
     extra_hosts:
@@ -17,3 +18,14 @@ services:
     stdin_open: true
     tty: true
     command: ["sh", "-c", "./scripts/setup.sh && bun run dev --hostname 0.0.0.0"]
+    depends_on:
+      - browserless
+
+  browserless:
+    image: browserless/chrome:latest
+    ports:
+      - "3001:3000"
+    environment:
+      - CONCURRENT=10
+      - DEBUG=browserless:*
+    restart: always
