@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 const S3_ENDPOINT = 'http://host.docker.internal:9000';
 const S3_REGION = 'us-east-1';
@@ -56,35 +55,79 @@ export async function GET(
       forcePathStyle: true,
     });
 
-    // Generate presigned URL
-    const command = new GetObjectCommand({
-      Bucket: S3_BUCKET,
-      Key: s3Key,
-    });
+    console.log(`[Image Proxy] Fetching image from MinIO...`);
 
-    const presignedUrl = await getSignedUrl(s3Client, command, {
-      expiresIn: 14400, // 4 hours
-    });
+    // Fetch actual image from MinIO using direct S3 client
+    let imageBuffer: ArrayBuffer;
+    let contentType: string;
+    let fetched = false;
 
-    console.log(`[Image Proxy] Generated presigned URL, fetching image...`);
+    // Try original storage path first
+    try {
+      const command = new GetObjectCommand({
+        Bucket: S3_BUCKET,
+        Key: s3Key,
+      });
 
-    // Fetch the actual image from MinIO
-    const imageResponse = await fetch(presignedUrl);
+      const response = await s3Client.send(command);
+      const chunks: Uint8Array[] = [];
+      const body = response.Body as any;
 
-    if (!imageResponse.ok) {
-      console.error(`[Image Proxy] Failed to fetch image: ${imageResponse.status} ${imageResponse.statusText}`);
-      return NextResponse.json(
-        { error: 'Failed to fetch image from storage', status: imageResponse.status },
-        { status: imageResponse.status }
-      );
+      for await (const chunk of body) {
+        chunks.push(chunk);
+      }
+
+      imageBuffer = Buffer.concat(chunks);
+      contentType = response.ContentType || 'image/jpeg';
+      fetched = true;
+
+      console.log(`[Image Proxy] Successfully fetched image (${contentType}, ${imageBuffer.byteLength} bytes)`);
+    } catch (error: any) {
+      if (error.name === 'NoSuchKey') {
+        console.log(`[Image Proxy] Original path not found, trying SHA256-based path...`);
+
+        // Try SHA256-based path as fallback
+        const possibleExts = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+        for (const ext of possibleExts) {
+          const prefix = sha256.substring(0, 8);
+          const fallbackKey = `${sha256.substring(0, 8)}/${sha256}.${ext}`;
+
+          try {
+            const fallbackCommand = new GetObjectCommand({
+              Bucket: S3_BUCKET,
+              Key: fallbackKey,
+            });
+            const response = await s3Client.send(fallbackCommand);
+            const chunks: Uint8Array[] = [];
+            const body = response.Body as any;
+
+            for await (const chunk of body) {
+              chunks.push(chunk);
+            }
+
+            imageBuffer = Buffer.concat(chunks);
+            contentType = response.ContentType || 'image/jpeg';
+            fetched = true;
+
+            console.log(`[Image Proxy] Successfully fetched image from fallback path (${contentType}, ${imageBuffer.byteLength} bytes)`);
+            break;
+          } catch (fallbackError) {
+            if (fallbackError.name !== 'NoSuchKey') {
+              console.error(`[Image Proxy] Error fetching from fallback path:`, fallbackError);
+            }
+          }
+        }
+
+        if (!fetched) {
+          throw new Error(`Image not found in S3 (tried original path and all SHA256-based paths)`);
+        }
+      } else {
+        console.error(`[Image Proxy] Failed to fetch image:`, error);
+        throw error;
+      }
     }
 
-    const imageBuffer = await imageResponse.arrayBuffer();
-    const contentType = imageResponse.headers.get('Content-Type') || 'image/jpeg';
-
-    console.log(`[Image Proxy] Successfully proxied image (${contentType}, ${imageBuffer.byteLength} bytes)`);
-
-    // Return the image with proper headers
+    // Return image with proper headers
     return new NextResponse(imageBuffer, {
       headers: {
         'Content-Type': contentType,

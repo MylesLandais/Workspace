@@ -141,6 +141,10 @@ export class S3Storage implements StorageBackend {
   }
 
   getImageUrl(sha256: string): string {
+    if (this.endpoint) {
+      const prefix = sha256.substring(0, 8);
+      return `${this.endpoint}/${this.bucket}/images/${prefix}/${sha256}`;
+    }
     return `https://${this.bucket}.s3.${this.region}.amazonaws.com/images/${sha256.substring(0, 8)}/${sha256}`;
   }
 
