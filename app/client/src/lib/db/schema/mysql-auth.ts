@@ -1,88 +1,65 @@
 /**
  * Authentication database schema for Better Auth (MySQL).
- * 
- * Note: Uses snake_case column names to match MySQL physical schema
+ *
+ * Uses snake_case column names to match MySQL physical schema
  * and Better Auth's expected column naming.
  */
 import { relations } from "drizzle-orm";
-import { mysqlTable, text, int, tinyint, varchar, index } from "drizzle-orm/mysql-core";
+import { mysqlTable, text, datetime, tinyint, varchar, index, uniqueIndex, mysqlEnum } from "drizzle-orm/mysql-core";
 
 export const user = mysqlTable("user", {
   id: varchar("id", { length: 255 }).primaryKey(),
-  name: text("name").notNull(),
-  email: text("email").notNull().unique(),
-  emailVerified: tinyint("email_verified", {
-    name: "email_verified",
-    mode: "boolean"
-  })
-    .default(false)
-    .notNull(),
+  name: text("name"),
+  email: varchar("email", { length: 255 }).notNull().unique(),
+  emailVerified: tinyint("email_verified").default(0).notNull(),
   image: text("image"),
-  createdAt: int("created_at", {
-    name: "created_at",
-    mode: "timestamp"
-  }).notNull(),
-  updatedAt: int("updated_at", {
-    name: "updated_at",
-    mode: "timestamp"
-  })
-    .$onUpdate(() => new Date())
-    .notNull(),
+  createdAt: datetime("created_at", { mode: "date", fsp: 3 }).notNull(),
+  updatedAt: datetime("updated_at", { mode: "date", fsp: 3 }).notNull(),
 });
 
 export const session = mysqlTable(
   "session",
   {
     id: varchar("id", { length: 255 }).primaryKey(),
-    expiresAt: int("expires_at", {
-      name: "expires_at",
-      mode: "timestamp"
-    }).notNull(),
-    token: text("token").notNull(),
-    createdAt: int("created_at", {
-      name: "created_at",
-      mode: "timestamp"
-    }).notNull(),
-    updatedAt: int("updated_at", {
-      name: "updated_at",
-      mode: "timestamp"
-    })
-      .$onUpdate(() => new Date())
-      .notNull(),
-    ipAddress: text("ip_address"),
+    expiresAt: datetime("expires_at", { mode: "date", fsp: 3 }).notNull(),
+    token: varchar("token", { length: 512 }).notNull(),
+    createdAt: datetime("created_at", { mode: "date", fsp: 3 }).notNull(),
+    updatedAt: datetime("updated_at", { mode: "date", fsp: 3 }).notNull(),
+    ipAddress: varchar("ip_address", { length: 50 }),
     userAgent: text("user_agent"),
-    userId: varchar("user_id", {
-      name: "user_id",
-      length: 255
-    })
+    userId: varchar("user_id", { length: 255 })
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
   },
-  (table) => [index("session_userId_idx").on(table.userId)],
+  (table) => [
+    index("session_userId_idx").on(table.userId),
+    index("session_expiresAt_idx").on(table.expiresAt),
+  ],
 );
 
 export const account = mysqlTable(
   "account",
   {
     id: varchar("id", { length: 255 }).primaryKey(),
-    account_id: varchar("account_id", { length: 255 }).notNull(),
-    provider_id: varchar("provider_id", { length: 255 }).notNull(),
-    user_id: varchar("user_id", { length: 255 })
+    accountId: varchar("account_id", { length: 255 }).notNull(),
+    providerId: varchar("provider_id", { length: 255 }).notNull(),
+    userId: varchar("user_id", { length: 255 })
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
-    access_token: text("access_token"),
-    refresh_token: text("refresh_token"),
-    id_token: text("id_token"),
-    expires_at: int("expires_at", { mode: "timestamp" }),
+    accessToken: text("access_token"),
+    refreshToken: text("refresh_token"),
+    idToken: text("id_token"),
+    expiresAt: datetime("expires_at", { mode: "date", fsp: 3 }),
+    accessTokenExpiresAt: datetime("access_token_expires_at", { mode: "date", fsp: 3 }),
+    refreshTokenExpiresAt: datetime("refresh_token_expires_at", { mode: "date", fsp: 3 }),
+    scope: text("scope"),
     password: text("password"),
-    created_at: int("created_at", { mode: "timestamp" }).notNull(),
-    updated_at: int("updated_at", { mode: "timestamp" })
-      .$onUpdate(() => new Date())
-      .notNull(),
+    createdAt: datetime("created_at", { mode: "date", fsp: 3 }).notNull(),
+    updatedAt: datetime("updated_at", { mode: "date", fsp: 3 }).notNull(),
   },
   (table) => [
-    index("account_user_id_idx").on(table.user_id),
-    index("account_provider_account_id_idx").on(table.provider_id, table.account_id),
+    index("account_userId_idx").on(table.userId),
+    uniqueIndex("account_provider_accountId_idx").on(table.providerId, table.accountId),
   ],
 );
 
@@ -90,15 +67,13 @@ export const verification = mysqlTable(
   "verification",
   {
     id: varchar("id", { length: 255 }).primaryKey(),
-    identifier: text("identifier").notNull(),
-    value: text("value").notNull(),
-    expires_at: int("expires_at", { mode: "timestamp" }).notNull(),
-    created_at: int("created_at", { mode: "timestamp" }).notNull(),
-    updated_at: int("updated_at", { mode: "timestamp" })
-      .$onUpdate(() => new Date())
-      .notNull(),
+    identifier: varchar("identifier", { length: 255 }).notNull(),
+    value: varchar("value", { length: 255 }).notNull(),
+    expiresAt: datetime("expires_at", { mode: "date", fsp: 3 }).notNull(),
+    createdAt: datetime("created_at", { mode: "date", fsp: 3 }).notNull(),
+    updatedAt: datetime("updated_at", { mode: "date", fsp: 3 }).notNull(),
   },
-  (table) => [index("verification_expires_at_idx").on(table.expires_at)],
+  (table) => [index("verification_expiresAt_idx").on(table.expiresAt)],
 );
 
 export const userRelations = relations(user, ({ many }) => ({
@@ -108,14 +83,35 @@ export const userRelations = relations(user, ({ many }) => ({
 
 export const sessionRelations = relations(session, ({ one }) => ({
   user: one(user, {
-    fields: [session.user_id],
+    fields: [session.userId],
     references: [user.id],
   }),
 }));
 
 export const accountRelations = relations(account, ({ one }) => ({
   user: one(user, {
-    fields: [account.user_id],
+    fields: [account.userId],
     references: [user.id],
   }),
 }));
+
+export const waitlist = mysqlTable(
+  "waitlist",
+  {
+    id: varchar("id", { length: 255 }).primaryKey(),
+    email: varchar("email", { length: 255 }).notNull().unique(),
+    name: varchar("name", { length: 255 }),
+    status: mysqlEnum("status", ["pending", "invited", "joined"]).default("pending").notNull(),
+    inviteCode: varchar("invite_code", { length: 255 }).unique(),
+    inviteSentAt: datetime("invite_sent_at", { mode: "date", fsp: 3 }),
+    source: varchar("source", { length: 100 }),
+    notes: text("notes"),
+    createdAt: datetime("created_at", { mode: "date", fsp: 3 }).notNull(),
+    updatedAt: datetime("updated_at", { mode: "date", fsp: 3 }).notNull(),
+  },
+  (table) => [
+    index("waitlist_email_idx").on(table.email),
+    index("waitlist_status_idx").on(table.status),
+    index("waitlist_inviteCode_idx").on(table.inviteCode),
+  ],
+);
