@@ -22,9 +22,9 @@ export const user = sqliteTable("user", {
     .default(false)
     .notNull(),
   image: text("image"),
-  createdAt: integer("created_at", { mode: "timestamp_ms" }).notNull(),
-  updatedAt: integer("updated_at", { mode: "timestamp_ms" })
-    .$onUpdate(() => new Date())
+  createdAt: text("created_at", { mode: "timestamp" }).notNull(),
+  updatedAt: text("updated_at", { mode: "timestamp" })
+    .$onUpdate(() => new Date().toISOString())
     .notNull(),
 });
 

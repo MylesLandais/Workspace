@@ -43,79 +43,87 @@ const THREAD_METADATA: Record<string, { imageFiles: string[] }> = {};
 async function loadImageboardThreads(): Promise<ImageboardThread[]> {
   const threadIds = [
     "944334460",
-    "944303266",
+    "944303266", 
     "944330306",
     "944342413",
     "944340175",
   ];
   const threads: ImageboardThread[] = [];
 
+  console.log(`loadImageboardThreads: Starting with ${threadIds.length} thread IDs`);
+
   for (const threadId of threadIds) {
     try {
-      const response = await fetch(`/imageboard/html/b_${threadId}.html`);
-      if (!response.ok) continue;
-
-      const html = await response.text();
-      const { title, opBody } = parseHtmlForThreadData(html);
-
-      // Fetch the JSON manifest of images for this thread
-      let imagePaths: string[] = [];
-      try {
-        console.log(`Fetching images for thread ${threadId}...`);
-        const filesResponse = await fetch(
-          `/api/imageboard-files?thread=${threadId}`
-        );
-        if (filesResponse.ok) {
-          const data = await filesResponse.json();
-          imagePaths = data.files || [];
-          console.log(
-            `✓ Loaded ${imagePaths.length} images from API for thread ${threadId}`
-          );
-        } else {
-          console.warn(
-            `API returned ${filesResponse.status} for thread ${threadId}`
-          );
-        }
-      } catch (error) {
-        console.warn(
-          `Failed to fetch from API for thread ${threadId}:`,
-          error
-        );
+      console.log(`Processing thread ${threadId}...`);
+      
+      const baseUrl = process.env.VERCEL_URL 
+        ? `https://${process.env.VERCEL_URL}` 
+        : 'http://localhost:3000';
+      
+      // Fetch both HTML and files data in parallel
+      const [htmlResponse, filesResponse] = await Promise.all([
+        fetch(`${baseUrl}/imageboard/html/b_${threadId}.html`),
+        fetch(`${baseUrl}/api/imageboard-files?thread=${threadId}`)
+      ]);
+      
+      if (!htmlResponse.ok) {
+        console.warn(`HTML not OK for thread ${threadId}: ${htmlResponse.status}`);
+        continue;
       }
 
-      // If we couldn't load real images, generate placeholder paths
+      const html = await htmlResponse.text();
+      const { title, opBody } = parseHtmlForThreadData(html);
+      
+      // Get image paths from files API
+      let imagePaths: string[] = [];
+      if (filesResponse.ok) {
+        const filesData = await filesResponse.json();
+        imagePaths = filesData.files || [];
+      }
+      
+      // If no images from API, generate placeholders
       if (imagePaths.length === 0) {
-        // Generate predictable placeholder paths based on thread
-        const estimatedCount = parseInt(threadId) % 300 || 100;
+        const estimatedCount = parseInt(threadId) % 200 + 50;
         imagePaths = Array.from({ length: estimatedCount }, (_, i) =>
           `/imageboard/b/${threadId}/image_${String(i + 1).padStart(4, "0")}.jpg`
         );
       }
 
-      threads.push({
+      const threadData: ImageboardThread = {
         threadId,
         title,
         opBody,
         board: "b",
         imageCount: imagePaths.length,
-        replyCount: Math.floor(Math.random() * 500) + 100,
+        replyCount: Math.floor(Math.random() * 400) + 50,
         imagePaths,
         createdAt: new Date().toISOString(),
-      });
-
-      console.log(
-        `Loaded thread ${threadId}: ${imagePaths.length} images, title: "${title}"`
-      );
+      };
+      
+      threads.push(threadData);
+      console.log(`✅ Thread ${threadId}: "${title}" (${imagePaths.length} images)`);
+      
     } catch (error) {
-      console.warn(`Failed to load thread ${threadId}:`, error);
+      console.error(`❌ Error with thread ${threadId}:`, error);
+      // Continue processing other threads even if one fails
     }
   }
 
+  console.log(`loadImageboardThreads: Returning ${threads.length} threads`);
   return threads;
 }
 
 // Cache for loaded threads
 let cachedThreads: ImageboardThread[] | null = null;
+
+// Export loadImageboardThreads for testing
+export { loadImageboardThreads };
+
+// Clear cache for development
+export function clearImageboardCache() {
+  console.log('clearImageboardCache: Clearing cache');
+  cachedThreads = null;
+}
 
 export interface ImageboardGallery {
   id: string;
@@ -157,16 +165,40 @@ export function transformThreadToFeedItem(
 }
 
 export async function generateImageboardFeed(): Promise<FeedItem[]> {
-  if (cachedThreads) {
+  console.log('generateImageboardFeed() called');
+  
+  // IMPROVED: Only cache if we have valid data
+  if (cachedThreads && cachedThreads.length > 0) {
+    console.log(`Returning ${cachedThreads.length} cached imageboard threads`);
     return cachedThreads.map((thread) => transformThreadToFeedItem(thread));
   }
 
   try {
+    console.log('Loading imageboard threads...');
     const threads = await loadImageboardThreads();
+    
+    if (threads.length === 0) {
+      console.warn('No threads loaded, returning empty array');
+      return [];
+    }
+    
+    console.log(`Loaded ${threads.length} imageboard threads`);
     cachedThreads = threads;
-    return threads.map((thread) => transformThreadToFeedItem(thread));
+    
+    const feedItems = threads.map((thread) => {
+      try {
+        return transformThreadToFeedItem(thread);
+      } catch (transformError) {
+        console.error(`Error transforming thread ${thread.threadId}:`, transformError);
+        return null;
+      }
+    }).filter((item): item is FeedItem => item !== null) as FeedItem[];
+    
+    console.log(`Transformed ${feedItems.length} threads to feed items`);
+    return feedItems;
   } catch (error) {
     console.error("Failed to generate imageboard feed:", error);
+    console.error("Error stack:", error.stack);
     return [];
   }
 }

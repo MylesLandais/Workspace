@@ -13,37 +13,13 @@
 
 "use client";
 
-import { useState } from "react";
-import { Mail, DoorOpen, Loader2, Key } from "lucide-react";
+import { DoorOpen, Key } from "lucide-react";
 import Link from "next/link";
+import { WaitlistForm } from "@/components/waitlist/WaitlistForm";
 
 export const dynamic = "force-dynamic";
 
-/**
- * Home page component
- *
- * Displays the System Nebula landing page with:
- * - "Under Construction" badge
- * - Mailing list signup form
- * - Access to invite validation
- * - Subtle door icon for existing users
- */
 export default function Home() {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-      setEmail("");
-    }, 1500);
-  };
-
   return (
     <main className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center p-4 relative overflow-hidden">
       <Link
@@ -79,41 +55,7 @@ export default function Home() {
           </p>
         </div>
 
-        {!submitted ? (
-          <form onSubmit={handleSubmit} className="w-full max-w-sm">
-            <div className="flex gap-2">
-              <div className="relative flex-1">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  required
-                  disabled={loading}
-                  className="w-full pl-12 pr-4 py-4 bg-zinc-900/50 border border-white/10 rounded-xl text-zinc-200 focus:outline-none focus:ring-2 focus:ring-white/10 focus:border-white/20 transition-all placeholder:text-zinc-600 disabled:opacity-50"
-                />
-              </div>
-              <button
-                type="submit"
-                disabled={loading}
-                className="px-6 py-4 bg-white text-black font-semibold rounded-xl hover:bg-zinc-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
-              >
-                {loading ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                ) : (
-                  "Join Mailing List"
-                )}
-              </button>
-            </div>
-          </form>
-        ) : (
-          <div className="w-full max-w-sm p-6 bg-zinc-900/30 border border-white/5 rounded-xl text-center">
-            <p className="text-zinc-300 font-medium">
-              You&apos;ve joined the mailing list. We&apos;ll be in touch.
-            </p>
-          </div>
-        )}
+        <WaitlistForm />
 
         <div className="flex items-center gap-4">
           <Link

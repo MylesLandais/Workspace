@@ -32,6 +32,7 @@ export function SignIn({ inviteKey, defaultIsSignUp = false }: { inviteKey?: str
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,35 +52,73 @@ export function SignIn({ inviteKey, defaultIsSignUp = false }: { inviteKey?: str
 
     try {
       if (isSignUp) {
-        const { data, error } = await signUp.email({
-          email,
-          password,
-          name,
-          callbackURL: "/feed",
-        });
-        clearTimeout(timeoutId);
-        if (error) {
-          if (error.code === "USER_WITH_EMAIL_ALREADY_EXISTS") {
-            setError("This email is already in use. Try signing in instead.");
+        console.log("Attempting sign up with:", { email, name });
+        try {
+          const result = await signUp.email({
+            email,
+            password,
+            name,
+            callbackURL: "/feed",
+          });
+          clearTimeout(timeoutId);
+          console.log("Sign up result:", JSON.stringify(result, null, 2));
+          
+          // Handle the response structure
+          if (result.error) {
+            const error = result.error;
+            if (error.code === "USER_WITH_EMAIL_ALREADY_EXISTS") {
+              setError("This email is already in use. Try signing in instead.");
+            } else {
+              setError(error.message || "Failed to sign up");
+            }
+          } else if (result.data) {
+            setSuccess(isSignUp ? "Account created successfully! Redirecting..." : "Signed in successfully! Redirecting...");
+            setError(null);
+            setTimeout(() => {
+              // Success is handled by callbackURL or automatic redirect
+            }, 1500);
           } else {
-            setError(error.message || "Failed to sign up");
+            console.warn("Sign up returned no error and no data");
+            setError("Unexpected response from server. Please try again.");
           }
-        } else if (data) {
-          // Success is handled by callbackURL or automatic redirect
+        } catch (err) {
+          clearTimeout(timeoutId);
+          console.error("Sign up exception:", err);
+          setError(err instanceof Error ? err.message : "An unexpected error occurred");
         }
-      } else {
-        const { data, error } = await signIn.email({
-          email,
-          password,
-          callbackURL: "/feed",
-        });
-        clearTimeout(timeoutId);
-        if (error) {
-          setError(error.message || "Failed to sign in");
-        } else if (data) {
-          // Success
+        } else {
+          console.log("Attempting sign in with:", { email });
+          try {
+            const result = await signIn.email({
+              email,
+              password,
+              callbackURL: "/feed",
+            });
+            clearTimeout(timeoutId);
+            console.log("Sign in result:", JSON.stringify(result, null, 2));
+            
+            if (result.error) {
+              setError(result.error.message || "Failed to sign in");
+            } else if (result.data) {
+              setSuccess("Signed in successfully! Redirecting...");
+              setError(null);
+              setTimeout(() => {
+                // Success is handled by callbackURL or automatic redirect
+              }, 1500);
+            } else {
+              console.warn("Sign in returned no error and no data");
+              setError("Unexpected response from server. Please try again.");
+            }
+          } catch (err) {
+            clearTimeout(timeoutId);
+            console.error("Sign in exception:", err);
+            setError(
+              err instanceof Error && err.message?.includes("fetch")
+                ? "Network error: Make sure the server is reachable"
+                : "An unexpected error occurred"
+            );
+          }
         }
-      }
     } catch (err) {
       clearTimeout(timeoutId);
       console.error("Auth fetch exception:", err);
@@ -161,6 +200,7 @@ export function SignIn({ inviteKey, defaultIsSignUp = false }: { inviteKey?: str
         </div>
 
         {error && <p className="text-xs text-red-500 px-1">{error}</p>}
+        {success && <p className="text-xs text-green-500 px-1">{success}</p>}
 
         <button
           type="submit"
@@ -180,7 +220,11 @@ export function SignIn({ inviteKey, defaultIsSignUp = false }: { inviteKey?: str
           {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
           <button
             type="button"
-            onClick={() => setIsSignUp(!isSignUp)}
+            onClick={() => {
+              setIsSignUp(!isSignUp);
+              setSuccess(null);
+              setError(null);
+            }}
             className="text-white hover:underline font-medium"
           >
             {isSignUp ? "Sign In" : "Sign Up"}

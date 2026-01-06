@@ -11,16 +11,17 @@ const { GET: authGET, POST: authPOST } = toNextJsHandler(auth);
 export async function POST(request: Request) {
     const start = Date.now();
     const url = new URL(request.url);
-    console.log(`[Auth] POST ${url.pathname} started`);
+    const pathname = url.pathname;
+    console.log(`[Auth] POST ${pathname} started`, { method: request.method });
     
     try {
         const response = await authPOST(request);
         const duration = Date.now() - start;
-        console.log(`[Auth] POST ${url.pathname} completed in ${duration}ms with status ${response.status}`);
+        console.log(`[Auth] POST ${pathname} completed in ${duration}ms with status ${response.status}`);
         return response;
     } catch (e) {
         const duration = Date.now() - start;
-        console.error(`[Auth] POST ${url.pathname} failed in ${duration}ms`, e);
+        console.error(`[Auth] POST ${pathname} failed in ${duration}ms`, e);
         throw e;
     }
 }

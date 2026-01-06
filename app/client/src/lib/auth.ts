@@ -1,24 +1,28 @@
+/**
+ * Better Auth configuration with MySQL/Drizzle adapter.
+ *
+ * Provides email/password and social authentication.
+ */
 import { betterAuth } from "better-auth";
-import { betterSqlite3 } from "better-sqlite3";
-import { drizzle } from "drizzle-orm";
-import * as schema from "./db/schema/auth";
-
-const sqlite = new betterSqlite3("/app/.local/db/bunny-auth.db");
-const db = drizzle({
-  client: sqlite,
-  schema: {
-    ...schema,
-  },
-});
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { mysqlDb } from "./db/mysql";
+import * as schema from "./db/schema/mysql-auth";
 
 export const auth = betterAuth({
-  database: db,
-  // For development, use explicit localhost to avoid origin issues
+  database: drizzleAdapter(mysqlDb, {
+    provider: "mysql",
+    schema: {
+      user: schema.user,
+      session: schema.session,
+      account: schema.account,
+      verification: schema.verification,
+    },
+  }),
   baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
-  secret: process.env.BETTER_AUTH_SECRET || "a-very-long-secret-for-development-purposes-only-32-chars",
+  secret: process.env.BETTER_AUTH_SECRET || "development-secret-minimum-32-characters-long",
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: false, // Disable for testing
+    requireEmailVerification: false,
   },
   socialProviders: {
     github: {
@@ -35,10 +39,11 @@ export const auth = betterAuth({
     },
   },
   session: {
-    cookieCache: {
-      enabled: false,
-    },
     expiresIn: 60 * 60 * 24 * 7, // 7 days
+    cookieCache: {
+      enabled: true,
+      maxAge: 15 * 60, // 15 minutes
+    },
   },
   rateLimit: {
     enabled: true,

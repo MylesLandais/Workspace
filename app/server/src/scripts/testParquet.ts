@@ -3,21 +3,43 @@ import { readFileSync } from 'fs';
 import { parquetRead } from 'hyparquet';
 
 async function testRead() {
-  const path = '/home/warby/Workspace/jupyter/packs/nightly-2026-01-02/threads.parquet';
-  const buffer = readFileSync(path);
+  const threadsPath = '/home/warby/Workspace/jupyter/packs/nightly-2026-01-02/threads.parquet';
+  const imagesPath = '/home/warby/Workspace/jupyter/packs/nightly-2026-01-02/images.parquet';
+  
+  console.log('=== Threads ===');
+  const threadsBuffer = readFileSync(threadsPath);
   
   await parquetRead({
     file: {
-      byteLength: buffer.byteLength,
+      byteLength: threadsBuffer.byteLength,
       async slice(offset, end) {
-        return buffer.buffer.slice(buffer.byteOffset + offset, buffer.byteOffset + end);
+        return threadsBuffer.buffer.slice(threadsBuffer.byteOffset + offset, threadsBuffer.byteOffset + end);
       }
     },
     rowFormat: 'object',
     onComplete: (data) => {
-      console.log('Rows:', data.length);
+      console.log('Thread rows:', data.length);
       if (data.length > 0) {
-        console.log('Sample row:', data[0]);
+        console.log('Sample thread:', data[0]);
+      }
+    }
+  });
+
+  console.log('\n=== Images ===');
+  const imagesBuffer = readFileSync(imagesPath);
+  
+  await parquetRead({
+    file: {
+      byteLength: imagesBuffer.byteLength,
+      async slice(offset, end) {
+        return imagesBuffer.buffer.slice(imagesBuffer.byteOffset + offset, imagesBuffer.byteOffset + end);
+      }
+    },
+    rowFormat: 'object',
+    onComplete: (data) => {
+      console.log('Image rows:', data.length);
+      if (data.length > 0) {
+        console.log('Sample image:', data[0]);
       }
     }
   });

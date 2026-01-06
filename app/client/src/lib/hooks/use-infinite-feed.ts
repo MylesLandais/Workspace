@@ -5,7 +5,8 @@ import { FeedItem, InfiniteFeedState, MediaType } from "../types/feed";
 import { generateFeedPage } from "../mock-data/factory";
 import { decodeHtmlEntities } from "../utils";
 
-const USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK_DATA !== "false"; // Default to true
+// TEMPORARY: Force mock mode for development
+const USE_MOCK = true; // process.env.NEXT_PUBLIC_USE_MOCK_DATA !== "false"; // Default to true
 
 const INITIAL_STATE: InfiniteFeedState = {
   items: [],
@@ -42,16 +43,28 @@ export interface FeedFilters {
 }
 
 export function useInfiniteFeed(pageSize: number = 20, filters?: FeedFilters) {
+  console.log('=== useInfiniteFeed: Hook called ===');
+  console.log('pageSize:', pageSize);
+  console.log('filters:', filters);
+  
   const [state, setState] = useState<InfiniteFeedState>(INITIAL_STATE);
 
   const loadPage = useCallback(async (cursor: string | null = null, isInitial: boolean = false) => {
     setState(prev => ({ ...prev, isLoading: true }));
     try {
+      console.log('useInfiniteFeed: ENTERING LOAD PAGE, USE_MOCK =', USE_MOCK);
+      
       if (USE_MOCK) {
+        console.log('useInfiniteFeed: IN MOCK MODE, calling generateFeedPage');
         await new Promise((resolve) => setTimeout(resolve, isInitial ? 50 : 150));
 
         const page = await generateFeedPage(cursor, pageSize);
         let items = page.items;
+        
+        console.log(`useInfiniteFeed: Generated page with ${items.length} items`);
+        items.forEach((item, index) => {
+          console.log(`  ${index + 1}. [${item.source}] ${item.caption || 'No caption'}`);
+        });
 
         if (filters) {
           if (filters.query) {
@@ -148,6 +161,7 @@ export function useInfiniteFeed(pageSize: number = 20, filters?: FeedFilters) {
 
   // Initial load or on filter change
   useEffect(() => {
+    console.log('useInfiniteFeed: useEffect triggered - calling loadPage(null, true)');
     loadPage(null, true);
   }, [loadPage]);
 

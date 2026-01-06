@@ -56,16 +56,41 @@ async function startServer() {
   );
 
   app.get('/health', async (req, res) => {
+    const startTime = Date.now();
     const { verifyValkeyConnection } = await import('./valkey/client.js');
     const { verifyConnection } = await import('./neo4j/driver.js');
 
+    const checks: Record<string, { status: string; error?: string }> = {
+      neo4j: { status: 'unknown' },
+      valkey: { status: 'unknown' },
+    };
+
     try {
       await verifyConnection();
-      await verifyValkeyConnection();
-      res.json({ status: 'ok', services: { neo4j: 'ok', valkey: 'ok' } });
+      checks.neo4j.status = 'healthy';
     } catch (error: any) {
-      res.status(503).json({ status: 'error', message: error.message });
+      checks.neo4j.status = 'unhealthy';
+      checks.neo4j.error = error.message;
     }
+
+    try {
+      await verifyValkeyConnection();
+      checks.valkey.status = 'healthy';
+    } catch (error: any) {
+      checks.valkey.status = 'unhealthy';
+      checks.valkey.error = error.message;
+    }
+
+    const responseTime = Date.now() - startTime;
+    const allHealthy = Object.values(checks).every(c => c.status === 'healthy');
+
+    res.status(allHealthy ? 200 : 503).json({
+      status: allHealthy ? 'healthy' : 'degraded',
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+      responseTime,
+      checks,
+    });
   });
 
   // Error handling middleware (must be after all routes)

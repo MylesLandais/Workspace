@@ -1,8 +1,6 @@
 services:
   server:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: oven/bun:1.1-slim
     ports:
       - "4002:4002"
     volumes:
@@ -19,9 +17,19 @@ services:
       - QDRANT_URL=http://qdrant:6333
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    working_dir: /app
+    command: sh -c "bun install && bun run dev"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4002/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
     depends_on:
-      - valkey
-      - qdrant
+      valkey:
+        condition: service_healthy
+      qdrant:
+        condition: service_healthy
     stdin_open: true
     tty: true
 
