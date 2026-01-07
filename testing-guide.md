@@ -97,7 +97,7 @@ healthcheck:
   start_period: 15s
 ```
 
-The server waits for Valkey and Qdrant to be healthy before starting.
+The server waits for Valkey to be healthy before starting.
 
 ### Dependency Services
 - MySQL: Health check on port 3306
@@ -284,7 +284,7 @@ Services report health via Docker health checks:
 ### Server Container Not Starting
 
 1. Check Valkey is healthy: `docker-compose ps valkey`
-2. Check Qdrant is healthy: `docker-compose ps qdrant`
+2. Check Valkey is healthy: `docker-compose ps valkey`
 3. View server logs: `docker-compose logs server`
 
 ### E2E Tests Failing

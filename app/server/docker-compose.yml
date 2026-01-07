@@ -14,7 +14,6 @@ services:
       - PORT=4002
       - VALKEY_URI=redis://valkey:6379
       - REDIS_URL=redis://valkey:6379
-      - QDRANT_URL=http://qdrant:6333
     extra_hosts:
       - "host.docker.internal:host-gateway"
     working_dir: /app
@@ -27,8 +26,6 @@ services:
       start_period: 15s
     depends_on:
       valkey:
-        condition: service_healthy
-      qdrant:
         condition: service_healthy
     stdin_open: true
     tty: true
@@ -49,20 +46,6 @@ services:
       timeout: 5s
       retries: 5
 
-  qdrant:
-    image: qdrant/qdrant:latest
-    ports:
-      - "6335:6333"
-      - "6336:6334"
-    volumes:
-      - qdrant-data:/qdrant/storage
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:6333/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
 volumes:
   valkey-data:
-  qdrant-data:
 
