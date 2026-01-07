@@ -13,6 +13,12 @@ export const user = mysqlTable("user", {
   email: varchar("email", { length: 255 }).notNull().unique(),
   emailVerified: tinyint("email_verified").default(0).notNull(),
   image: text("image"),
+  username: varchar("username", { length: 100 }).unique(),
+  bio: text("bio"),
+  location: varchar("location", { length: 255 }),
+  website: varchar("website", { length: 500 }),
+  company: varchar("company", { length: 255 }),
+  joinDate: datetime("join_date", { mode: "date", fsp: 3 }),
   createdAt: datetime("created_at", { mode: "date", fsp: 3 }).notNull(),
   updatedAt: datetime("updated_at", { mode: "date", fsp: 3 }).notNull(),
 });
@@ -113,5 +119,24 @@ export const waitlist = mysqlTable(
     index("waitlist_email_idx").on(table.email),
     index("waitlist_status_idx").on(table.status),
     index("waitlist_inviteCode_idx").on(table.inviteCode),
+  ],
+);
+
+export const inviteCode = mysqlTable(
+  "invite_code",
+  {
+    id: varchar("id", { length: 255 }).primaryKey(),
+    code: varchar("code", { length: 100 }).notNull().unique(),
+    expiresAt: datetime("expires_at", { mode: "date", fsp: 3 }).notNull(),
+    maxUses: tinyint("max_uses"),
+    usedCount: tinyint("used_count").default(0).notNull(),
+    createdBy: varchar("created_by", { length: 255 }),
+    notes: text("notes"),
+    createdAt: datetime("created_at", { mode: "date", fsp: 3 }).notNull(),
+    updatedAt: datetime("updated_at", { mode: "date", fsp: 3 }).notNull(),
+  },
+  (table) => [
+    index("invite_code_code_idx").on(table.code),
+    index("invite_code_expiresAt_idx").on(table.expiresAt),
   ],
 );

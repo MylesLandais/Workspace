@@ -41,15 +41,17 @@ export default function InvitePage() {
 
     setLoading(true);
 
-    setTimeout(() => {
+    try {
+      const response = await fetch(`/api/invite/validate?code=${encodeURIComponent(inviteKey)}`);
+      const data = await response.json();
+
       setLoading(false);
-      const validKeys = ["ASDF-WHALECUM"];
-      setStatus(
-        inviteKey.startsWith("SN-") || validKeys.includes(inviteKey)
-          ? "valid"
-          : "invalid"
-      );
-    }, 1500);
+      setStatus(data.valid ? "valid" : "invalid");
+    } catch (error) {
+      console.error("Invite validation error:", error);
+      setLoading(false);
+      setStatus("invalid");
+    }
   };
 
   const handleCreateAccount = () => {

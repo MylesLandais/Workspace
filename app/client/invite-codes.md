@@ -1,51 +1,83 @@
 # Invite Codes
 
-## Valid Invite Keys
+## System Overview
 
-### Special Codes
-- `ASDF-WHALECUM` - Special invite code
+The invite code system is fully integrated with the database and provides server-side validation, tracking, and management.
 
-### Pattern-Based Codes
-- Keys starting with `SN-` are automatically valid
+## Active Invite Codes
 
-## How to Add New Invite Codes
+### Stealth Release Code
+- `STEALTH-2026` - Valid until January 7, 2027
+- Unlimited uses
+- Full registration with username support
 
-### Option 1: Add Specific Code
-Edit `app/client/app/invite/page.tsx`:
-```typescript
-const validKeys = [
-  "ASDF-WHALECUM",
-  "YOUR-NEW-CODE"
-];
+## How to Generate New Invite Codes
+
+### Via API
+```bash
+docker compose exec client bun -e "
+fetch('http://localhost:3000/api/invite/generate', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    code: 'YOUR-CODE-HERE',
+    expiresInDays: 365,
+    maxUses: null,
+    notes: 'Description of this invite code'
+  })
+})
+.then(res => res.json())
+.then(data => console.log(data));
+"
 ```
 
-### Option 2: Add Pattern
-Edit `app/client/app/invite/page.tsx`:
-```typescript
-setStatus(
-  inviteKey.startsWith("SN-") ||
-  inviteKey.startsWith("YOUR-PREFIX") ||
-  validKeys.includes(inviteKey)
-    ? "valid"
-    : "invalid"
-);
+### Via Database
+```bash
+docker compose exec mysql mysql -uroot -pbetterauth bunny_auth
+```
+Then:
+```sql
+INSERT INTO invite_code (id, code, expires_at, used_count, created_at, updated_at)
+VALUES (UUID(), 'YOUR-CODE', DATE_ADD(NOW(), INTERVAL 365 DAY), 0, NOW(), NOW());
 ```
 
-## Note
-This is currently client-side mock validation. For production:
-1. Store invite codes in database
-2. Create API endpoint for validation
-3. Track code usage (one-time use)
-4. Admin interface for generating codes
+## Features
+
+1. Server-side validation via `/api/invite/validate`
+2. Usage tracking (increment count on successful registration)
+3. Expiration dates
+4. Optional maximum use limits
+5. Full registration flow with username selection
+6. Join date tracking
+
+## Registration Flow
+
+1. User enters invite code at `/invite`
+2. System validates code via API
+3. Valid codes redirect to `/auth?mode=signup&invite=CODE`
+4. User fills in:
+   - Full name
+   - Email
+   - Password
+   - Username (required for invite-based signups)
+5. Upon successful registration:
+   - User account is created
+   - Username is saved
+   - Join date is recorded
+   - Invite code usage count is incremented
 
 ## Testing
-Test invite codes with:
+
+Test invite codes:
 ```bash
 docker compose exec client bun run test:e2e
 ```
 
-Tests verify:
-- Invalid codes show error
-- SN- prefix codes work
-- Specific codes (like ASDF-WHALECUM) work
-- Valid codes redirect to signup with key
+Test API validation:
+```bash
+docker compose exec client bun -e "
+fetch('http://localhost:3000/api/invite/validate?code=STEALTH-2026')
+  .then(res => res.json())
+  .then(data => console.log(data));
+"
+```

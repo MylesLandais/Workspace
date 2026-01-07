@@ -30,18 +30,35 @@ export function SignIn({ inviteKey, defaultIsSignUp = false }: { inviteKey?: str
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState<string | null>(null);
+  const [loadingProgress, setLoadingProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
     if (isSignUp && password.length < 8) {
       setError("Password must be at least 8 characters");
       setLoading(false);
       return;
     }
+
+    if (isSignUp && inviteKey && !username) {
+      setError("Username is required for invite-based signups");
+      setLoading(false);
+      return;
+    }
+
+    if (isSignUp && inviteKey && username && !/^[a-z0-9_]{3,20}$/.test(username)) {
+      setError("Username must be 3-20 characters, lowercase letters, numbers, or underscores only");
+      setLoading(false);
+      return;
+    }
+
     setError(null);
     const timeoutId = setTimeout(() => {
       if (loading) {
@@ -52,7 +69,17 @@ export function SignIn({ inviteKey, defaultIsSignUp = false }: { inviteKey?: str
 
     try {
       if (isSignUp) {
-        console.log("Attempting sign up with:", { email, name });
+        console.log("Attempting sign up with:", { email, name, username, inviteKey });
+        setLoadingMessage("Creating account...");
+        setLoadingProgress(0);
+
+        const progressInterval = setInterval(() => {
+          setLoadingProgress(prev => {
+            if (prev >= 90) return prev;
+            return prev + 10;
+          });
+        }, 500);
+
         try {
           const result = await signUp.email({
             email,
@@ -60,9 +87,11 @@ export function SignIn({ inviteKey, defaultIsSignUp = false }: { inviteKey?: str
             name,
             callbackURL: "/feed",
           });
+          clearInterval(progressInterval);
+          setLoadingProgress(100);
           clearTimeout(timeoutId);
           console.log("Sign up result:", JSON.stringify(result, null, 2));
-          
+
           // Handle the response structure
           if (result.error) {
             const error = result.error;
@@ -72,11 +101,24 @@ export function SignIn({ inviteKey, defaultIsSignUp = false }: { inviteKey?: str
               setError(error.message || "Failed to sign up");
             }
           } else if (result.data) {
-            setSuccess(isSignUp ? "Account created successfully! Redirecting..." : "Signed in successfully! Redirecting...");
+            setSuccess("Account created successfully! Redirecting...");
             setError(null);
-            setTimeout(() => {
-              // Success is handled by callbackURL or automatic redirect
-            }, 1500);
+
+            if (inviteKey && username) {
+              fetch("/api/user/complete-profile", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  userId: result.data.user.id,
+                  username,
+                  inviteCode: inviteKey,
+                }),
+              }).catch((profileErr) => {
+                console.error("Background profile completion error:", profileErr);
+              });
+            }
+
+            window.location.href = "/feed";
           } else {
             console.warn("Sign up returned no error and no data");
             setError("Unexpected response from server. Please try again.");
@@ -102,9 +144,7 @@ export function SignIn({ inviteKey, defaultIsSignUp = false }: { inviteKey?: str
             } else if (result.data) {
               setSuccess("Signed in successfully! Redirecting...");
               setError(null);
-              setTimeout(() => {
-                // Success is handled by callbackURL or automatic redirect
-              }, 1500);
+              window.location.href = "/feed";
             } else {
               console.warn("Sign in returned no error and no data");
               setError("Unexpected response from server. Please try again.");
@@ -158,19 +198,38 @@ export function SignIn({ inviteKey, defaultIsSignUp = false }: { inviteKey?: str
 
       <form onSubmit={handleAuth} className="space-y-4">
         {isSignUp && (
-          <div>
-            <label className="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1 px-1">
-              Full Name
-            </label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl text-zinc-200 focus:outline-none focus:ring-2 focus:ring-white/10 transition-all sm:text-sm"
-              placeholder="John Doe"
-            />
-          </div>
+          <>
+            <div>
+              <label className="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1 px-1">
+                Full Name
+              </label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl text-zinc-200 focus:outline-none focus:ring-2 focus:ring-white/10 transition-all sm:text-sm"
+                placeholder="John Doe"
+              />
+            </div>
+            {inviteKey && (
+              <div>
+                <label className="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1 px-1">
+                  Username
+                </label>
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value.toLowerCase())}
+                  required
+                  className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl text-zinc-200 font-mono focus:outline-none focus:ring-2 focus:ring-white/10 transition-all sm:text-sm"
+                  placeholder="username"
+                  pattern="^[a-z0-9_]{3,20}$"
+                  title="Username must be 3-20 characters, lowercase letters, numbers, or underscores only"
+                />
+              </div>
+            )}
+          </>
         )}
         <div>
           <label className="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1 px-1">
@@ -202,13 +261,28 @@ export function SignIn({ inviteKey, defaultIsSignUp = false }: { inviteKey?: str
         {error && <p className="text-xs text-red-500 px-1">{error}</p>}
         {success && <p className="text-xs text-green-500 px-1">{success}</p>}
 
+        {loading && loadingProgress > 0 && (
+          <div className="w-full">
+            <div className="h-1 w-full bg-zinc-800 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-zinc-400 to-white transition-all duration-500 ease-out"
+                style={{ width: `${loadingProgress}%` }}
+              />
+            </div>
+            <p className="text-xs text-zinc-500 text-center mt-2">{loadingProgress}%</p>
+          </div>
+        )}
+
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-3 px-4 bg-white text-black font-semibold rounded-xl hover:bg-zinc-200 transition-colors flex items-center justify-center disabled:opacity-50"
+          className="w-full py-3 px-4 bg-white text-black font-semibold rounded-xl hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
         >
           {loading ? (
-            <Loader2 className="w-5 h-5 animate-spin" />
+            <>
+              <Loader2 className="w-5 h-5 animate-spin" />
+              {loadingMessage || "Processing..."}
+            </>
           ) : isSignUp ? (
             "Create Account"
           ) : (
