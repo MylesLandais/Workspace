@@ -18,6 +18,7 @@ export const user = mysqlTable("user", {
   location: varchar("location", { length: 255 }),
   website: varchar("website", { length: 500 }),
   company: varchar("company", { length: 255 }),
+  profilePublic: tinyint("profile_public").default(0).notNull(),
   joinDate: datetime("join_date", { mode: "date", fsp: 3 }),
   createdAt: datetime("created_at", { mode: "date", fsp: 3 }).notNull(),
   updatedAt: datetime("updated_at", { mode: "date", fsp: 3 }).notNull(),

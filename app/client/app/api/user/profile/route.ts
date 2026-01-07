@@ -11,6 +11,7 @@ interface UpdateProfileRequest {
   website?: string;
   company?: string;
   image?: string;
+  profilePublic?: boolean;
 }
 
 export async function GET(request: NextRequest) {
@@ -50,6 +51,7 @@ export async function GET(request: NextRequest) {
         website: userProfile[0].website,
         company: userProfile[0].company,
         image: userProfile[0].image,
+        profilePublic: userProfile[0].profilePublic === 1,
         joinDate: userProfile[0].joinDate,
       },
     });
@@ -93,6 +95,7 @@ export async function PUT(request: NextRequest) {
         website: body.website,
         company: body.company,
         image: body.image,
+        profilePublic: body.profilePublic !== undefined ? (body.profilePublic ? 1 : 0) : undefined,
         updatedAt: new Date(),
       })
       .where(eq(user.id, session.user.id));

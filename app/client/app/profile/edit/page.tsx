@@ -15,6 +15,7 @@ export default function EditProfilePage() {
   const [location, setLocation] = useState("");
   const [website, setWebsite] = useState("");
   const [company, setCompany] = useState("");
+  const [profilePublic, setProfilePublic] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -35,6 +36,7 @@ export default function EditProfilePage() {
             setLocation(data.user.location || "");
             setWebsite(data.user.website || "");
             setCompany(data.user.company || "");
+            setProfilePublic(data.user.profilePublic || false);
           }
         })
         .catch(err => console.error("Failed to load profile:", err));
@@ -57,6 +59,7 @@ export default function EditProfilePage() {
           location,
           website,
           company,
+          profilePublic,
         }),
       });
 
@@ -199,6 +202,32 @@ export default function EditProfilePage() {
                 className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl text-zinc-200 focus:outline-none focus:ring-2 focus:ring-white/10 transition-all sm:text-sm"
                 placeholder="https://example.com"
               />
+            </div>
+
+            <div className="pt-4 border-t border-white/5">
+              <label className="flex items-center justify-between cursor-pointer group">
+                <div>
+                  <p className="text-sm font-medium text-zinc-300 group-hover:text-white transition-colors">
+                    Make profile public
+                  </p>
+                  <p className="text-xs text-zinc-500 mt-1">
+                    Allow others to view your profile at /u/{session?.user?.username || "username"}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setProfilePublic(!profilePublic)}
+                  className={`relative w-14 h-7 rounded-full transition-colors ${
+                    profilePublic ? "bg-white" : "bg-zinc-700"
+                  }`}
+                >
+                  <span
+                    className={`absolute top-0.5 left-0.5 w-6 h-6 bg-zinc-900 rounded-full transition-transform ${
+                      profilePublic ? "translate-x-7" : "translate-x-0"
+                    }`}
+                  />
+                </button>
+              </label>
             </div>
 
             {error && (

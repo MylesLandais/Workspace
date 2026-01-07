@@ -81,7 +81,15 @@ export function UserMenu() {
               <p className="text-sm font-semibold text-white truncate">{session.user.name}</p>
               <p className="text-xs text-zinc-500 truncate">{session.user.email}</p>
             </div>
-            
+
+            <button
+              onClick={() => router.push("/profile/edit")}
+              className="w-full flex items-center gap-2 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 transition-colors text-left font-medium"
+            >
+              <User className="w-4 h-4" />
+              Edit Profile
+            </button>
+
             <button className="w-full flex items-center gap-2 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 transition-colors text-left font-medium">
               <Settings className="w-4 h-4" />
               Preferences
