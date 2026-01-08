@@ -1,5 +1,14 @@
 import { getCreatorBySlug } from '../neo4j/queries/creators.js';
-import { getSources, getFeedGroups } from '../neo4j/queries/sources.js';
+import {
+  getSources,
+  getFeedGroups,
+  createSourceNode,
+  updateSourceNode,
+  deleteSourceNode,
+  bulkDeleteSources,
+  toggleSourcePause,
+  bulkCreateSources,
+} from '../neo4j/queries/sources.js';
 import { ImageIngestionService } from '../services/imageIngestion.js';
 import { withSession } from '../lib/session.js';
 import { Resolvers } from '../schema/generated/resolvers.js';
@@ -269,6 +278,71 @@ export const mutationResolvers: Resolvers = {
           createdAt: new Date(record.get('createdAt').toString()).toISOString(),
         } as any;
       });
+    },
+
+    // Source Management mutations
+    createSource: async (_, { input }) => {
+      const source = await createSourceNode({
+        name: input.name,
+        sourceType: input.sourceType,
+        url: input.url || undefined,
+        subredditName: input.subredditName || undefined,
+        youtubeHandle: input.youtubeHandle || undefined,
+        twitterHandle: input.twitterHandle || undefined,
+        instagramHandle: input.instagramHandle || undefined,
+        tiktokHandle: input.tiktokHandle || undefined,
+        groupId: input.groupId || undefined,
+        description: input.description || undefined,
+      });
+      return source as any;
+    },
+
+    updateSource: async (_, { id, input }) => {
+      const source = await updateSourceNode(id, {
+        name: input.name || undefined,
+        description: input.description || undefined,
+        groupId: input.groupId || undefined,
+        isPaused: input.isPaused ?? undefined,
+        isEnabled: input.isEnabled ?? undefined,
+      });
+      if (!source) {
+        throw new Error('Source not found');
+      }
+      return source as any;
+    },
+
+    deleteSource: async (_, { id }) => {
+      return deleteSourceNode(id);
+    },
+
+    importOPML: async (_, { feedUrls, groupId }) => {
+      const sources = feedUrls.map((url) => ({
+        name: url, // Will be replaced with actual title later
+        sourceType: 'RSS',
+        url,
+      }));
+
+      const result = await bulkCreateSources(sources, groupId || undefined);
+
+      return {
+        imported: result.imported,
+        skipped: result.skipped,
+        failed: result.failed,
+        sources: result.sources,
+        errors: [],
+      } as any;
+    },
+
+    bulkDeleteSources: async (_, { ids }) => {
+      return bulkDeleteSources(ids);
+    },
+
+    toggleSourcePause: async (_, { id }) => {
+      const source = await toggleSourcePause(id);
+      if (!source) {
+        throw new Error('Source not found');
+      }
+      return source as any;
     },
 
     ingestImage: async (

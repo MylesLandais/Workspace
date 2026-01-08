@@ -1,6 +1,16 @@
 import { getFeed } from '../neo4j/queries/feed.js';
 import { getCreators, getCreatorBySlug } from '../neo4j/queries/creators.js';
-import { getSources, getFeedGroups, searchSubreddits } from '../neo4j/queries/sources.js';
+import {
+  getSources,
+  getFeedGroups,
+  searchSubreddits,
+  getUserSources,
+  getSourceById,
+} from '../neo4j/queries/sources.js';
+import {
+  parseOPMLContent,
+  discoverFeeds,
+} from '../services/opmlParser.js';
 import {
   getClusterById,
   getMediaById,
@@ -115,6 +125,22 @@ export const queryResolvers: Resolvers = {
 
     searchSubreddits: async (_, { query }) => {
       return (await searchSubreddits(query)) as any;
+    },
+
+    getUserSources: async (_, { filters }) => {
+      return (await getUserSources(filters || undefined)) as any;
+    },
+
+    getSourceById: async (_, { id }) => {
+      return (await getSourceById(id)) as any;
+    },
+
+    parseOPML: async (_, { content }) => {
+      return parseOPMLContent(content) as any;
+    },
+
+    discoverFeeds: async (_, { url }) => {
+      return (await discoverFeeds(url)) as any;
     },
 
     checkDuplicate: async (_, { image }) => {

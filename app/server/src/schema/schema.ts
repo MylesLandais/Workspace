@@ -4,6 +4,7 @@ export const typeDefs = gql`
   scalar DateTime
 
   enum Platform {
+    RSS
     REDDIT
     YOUTUBE
     TWITTER
@@ -136,14 +137,91 @@ export const typeDefs = gql`
     subredditName: String
     sourceType: Platform!
     youtubeHandle: String
+    twitterHandle: String
+    instagramHandle: String
+    tiktokHandle: String
+    url: String
+    rssUrl: String
+    iconUrl: String
+    description: String
     entityId: String
     entityName: String
     group: String!
+    groupId: String
     tags: [String!]!
     isPaused: Boolean!
+    isEnabled: Boolean!
+    isActive: Boolean!
     lastSynced: DateTime
     mediaCount: Int!
+    storiesPerMonth: Int!
+    readsPerMonth: Int!
     health: String!
+  }
+
+  # Source Management Types
+  type SourceStats {
+    storiesPerMonth: Int!
+    readsPerMonth: Int!
+    lastFetched: String
+  }
+
+  type OPMLFeed {
+    title: String!
+    xmlUrl: String!
+    htmlUrl: String
+    category: String
+    description: String
+  }
+
+  type OPMLParseResult {
+    feeds: [OPMLFeed!]!
+    feedCount: Int!
+    categories: [String!]!
+    errors: [String!]!
+  }
+
+  type ImportResult {
+    imported: Int!
+    skipped: Int!
+    failed: Int!
+    sources: [Source!]!
+    errors: [String!]!
+  }
+
+  enum ActivityFilter {
+    ALL
+    ACTIVE
+    INACTIVE
+    PAUSED
+  }
+
+  input SourceFiltersInput {
+    groupId: String
+    sourceType: Platform
+    activity: ActivityFilter
+    searchQuery: String
+  }
+
+  input CreateSourceInput {
+    name: String!
+    sourceType: Platform!
+    url: String
+    subredditName: String
+    youtubeHandle: String
+    twitterHandle: String
+    instagramHandle: String
+    tiktokHandle: String
+    groupId: String
+    description: String
+  }
+
+  input UpdateSourceInput {
+    name: String
+    description: String
+    groupId: String
+    isPaused: Boolean
+    isEnabled: Boolean
   }
 
   type Query {
@@ -152,6 +230,10 @@ export const typeDefs = gql`
     creator(slug: String!): Creator
     getFeedGroups: [FeedGroup!]!
     getSources(groupId: String): [Source!]!
+    getUserSources(filters: SourceFiltersInput): [Source!]!
+    getSourceById(id: ID!): Source
+    parseOPML(content: String!): OPMLParseResult!
+    discoverFeeds(url: String!): [OPMLFeed!]!
     searchSubreddits(query: String!): [SubredditResult!]!
     checkDuplicate(image: Upload!): ImageIngestionResult!
     similarImages(mediaId: ID!, limit: Int): [SimilarImage!]!
@@ -306,6 +388,13 @@ export const typeDefs = gql`
     removeHandle(handleId: ID!): Boolean!
     subscribeToSource(subredditName: String!, groupId: String): Source!
     createFeedGroup(name: String!): FeedGroup!
+    # Source Management mutations
+    createSource(input: CreateSourceInput!): Source!
+    updateSource(id: ID!, input: UpdateSourceInput!): Source!
+    deleteSource(id: ID!): Boolean!
+    importOPML(feedUrls: [String!]!, groupId: String): ImportResult!
+    bulkDeleteSources(ids: [ID!]!): Int!
+    toggleSourcePause(id: ID!): Source!
     ingestImage(
       image: Upload!
       postId: String
