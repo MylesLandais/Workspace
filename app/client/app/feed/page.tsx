@@ -8,6 +8,37 @@ import { useSearchStore } from "@/lib/store/search-store";
 import { useSession } from "@/lib/auth-client";
 import { RedditPostDetails } from "@/lib/types/reddit";
 
+const GET_FEED = `
+  query Feed($limit: Int, $filters: FeedFilters) {
+    feed(limit: $limit, filters: $filters) {
+      edges {
+        node {
+          id
+          title
+          sourceUrl
+          publishDate
+          imageUrl
+          mediaType
+          platform
+          score
+          width
+          height
+          handle {
+            name
+            handle
+          }
+          subreddit {
+            name
+          }
+          author {
+            username
+          }
+        }
+      }
+    }
+  }
+`;
+
 const ASPECT_RATIOS = [
   { ratio: "aspect-[3/4]", width: 600, height: 800 },
   { ratio: "aspect-[4/3]", width: 800, height: 600 },
@@ -122,6 +153,71 @@ export default function FeedPage() {
       console.log('loadFeed: Starting...');
       
       try {
+        if (session) {
+          console.log('loadFeed: Fetching from GraphQL API...');
+          const response = await fetch('http://localhost:4002/api/graphql', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              query: GET_FEED,
+              variables: {
+                limit: 20,
+                filters: {
+                  sources: [], // Fetch all sources
+                  persons: [],
+                  tags: [],
+                  searchQuery: ""
+                }
+              }
+            }),
+          });
+
+          const result = await response.json();
+          
+          if (result.data?.feed?.edges) {
+            const apiItems = result.data.feed.edges.map((edge: any) => {
+              const node = edge.node;
+              return {
+                id: node.id,
+                type: node.mediaType === 'VIDEO' ? MediaType.VIDEO : MediaType.IMAGE,
+                caption: node.title,
+                author: { 
+                  name: node.handle.name, 
+                  handle: node.handle.handle 
+                },
+                source: node.platform === 'REDDIT' ? 'Reddit' : 
+                        node.platform === 'IMAGEBOARD' ? 'Imageboard' : 
+                        node.platform.charAt(0) + node.platform.slice(1).toLowerCase(),
+                timestamp: node.publishDate,
+                aspectRatio: node.width && node.height ? `aspect-[${node.width}/${node.height}]` : "aspect-[3/4]",
+                width: node.width || 600,
+                height: node.height || 800,
+                likes: node.score || 0,
+                mediaUrl: node.imageUrl,
+                redditData: node.platform === 'REDDIT' ? {
+                  id: node.id,
+                  title: node.title,
+                  author: node.author?.username || node.handle.handle,
+                  subreddit: node.subreddit?.name || '',
+                  score: node.score,
+                  num_comments: 0, 
+                  created_utc: node.publishDate,
+                  url: node.sourceUrl,
+                  is_image: node.mediaType === 'IMAGE',
+                  image_url: node.imageUrl
+                } : undefined
+              };
+            });
+            
+            console.log(`loadFeed: Loaded ${apiItems.length} items from API`);
+            setItems(apiItems);
+            setIsLoading(false);
+            return;
+          }
+        }
+
         console.log('loadFeed: Fetching parquet cache...');
         const threadData = await loadImageboardThreads();
         console.log(`loadFeed: Got ${threadData.length} threads`);

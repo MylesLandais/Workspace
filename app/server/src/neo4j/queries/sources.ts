@@ -119,7 +119,7 @@ function mapSourceRecord(
     id: source.id,
     name: source.name,
     subredditName: source.subreddit_name,
-    sourceType: source.source_type || 'REDDIT',
+    sourceType: (source.source_type || 'REDDIT').toUpperCase(),
     youtubeHandle: source.youtube_channel_handle,
     twitterHandle: source.twitter_handle,
     instagramHandle: source.instagram_handle,

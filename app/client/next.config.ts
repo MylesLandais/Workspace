@@ -24,9 +24,6 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === "production",
   },
   compress: true,
-  experimental: {
-    instrumentationHook: true,
-  },
 };
 
 export default nextConfig;
