@@ -1,3 +1,5 @@
+export {};
+
 const start = Date.now();
 const password = "password123";
 const salt = crypto.getRandomValues(new Uint8Array(16));
