@@ -4,10 +4,10 @@ from typing import Optional, List
 from datetime import timedelta
 import json
 
-from feed.interfaces.repository import PostRepository
-from feed.models.post import Post
-from feed.storage.neo4j_connection import get_connection
-from feed.storage.cache_adapter import CacheAdapter
+from ..interfaces.repository import PostRepository
+from ..models.post import Post
+from ..storage.neo4j_connection import get_connection
+from ..storage.cache_adapter import CacheAdapter
 
 
 class CachedPostRepository(PostRepository):
