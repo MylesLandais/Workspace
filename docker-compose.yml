@@ -225,6 +225,7 @@ services:
       postgres:
         condition: service_healthy
     environment:
+      - PYTHONPATH=/home/jovyan/workspaces
       - CELERY_BROKER_URL=redis://valkey:6379/0
       - CELERY_RESULT_BACKEND=redis://valkey:6379/1
       - POSTGRES_URL=postgresql://scheduler:localpassword@postgres:5432/feed_scheduler
@@ -259,6 +260,7 @@ services:
       postgres:
         condition: service_healthy
     environment:
+      - PYTHONPATH=/home/jovyan/workspaces
       - CELERY_BROKER_URL=redis://valkey:6379/0
       - CELERY_RESULT_BACKEND=redis://valkey:6379/1
       - POSTGRES_URL=postgresql://scheduler:localpassword@postgres:5432/feed_scheduler
@@ -282,7 +284,10 @@ services:
     depends_on:
       - valkey
       - celery-worker
+    volumes:
+      - .:/home/jovyan/workspaces
     environment:
+      - PYTHONPATH=/home/jovyan/workspaces
       - CELERY_BROKER_URL=redis://valkey:6379/0
       - CELERY_RESULT_BACKEND=redis://valkey:6379/1
     env_file:
