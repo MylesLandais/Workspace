@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed Monitor - GraphQL Client Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/graphql-ws@5/umd/graphql-ws.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #F7F9FB;
+        }
+        .container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #2D3436;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: #4A90E2;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        .feed-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .post-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .post-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .post-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #f0f0f0;
+        }
+        .post-content {
+            padding: 15px;
+        }
+        .post-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2D3436;
+        }
+        .post-meta {
+            font-size: 0.85em;
+            color: #666;
+            display: flex;
+            gap: 15px;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .status.connected {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status.disconnected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        button {
+            background: #4A90E2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        button:hover {
+            background: #357ABD;
+        }
+    </style>
+</head>
+<body>
+    <h1>Feed Monitor - GraphQL Client</h1>
+    
+    <div class="container">
+        <h2>Connection Status</h2>
+        <div id="status" class="status disconnected">Disconnected</div>
+        <button onclick="connect()">Connect</button>
+        <button onclick="disconnect()">Disconnect</button>
+    </div>
+
+    <div class="container">
+        <h2>Statistics</h2>
+        <div id="stats" class="stats">
+            <div class="stat-card">
+                <div class="stat-value" id="total-posts">-</div>
+                <div class="stat-label">Total Posts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="total-subreddits">-</div>
+                <div class="stat-label">Subreddits</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="total-users">-</div>
+                <div class="stat-label">Users</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="posts-today">-</div>
+                <div class="stat-label">Posts Today</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Feed Lists</h2>
+        <div id="feeds"></div>
+    </div>
+
+    <div class="container">
+        <h2>Live Updates (Subscription)</h2>
+        <div id="updates"></div>
+    </div>
+
+    <script>
+        const GRAPHQL_URL = 'http://localhost:8001/graphql';
+        const WS_URL = 'ws://localhost:8001/graphql';
+        
+        let wsClient = null;
+        let subscription = null;
+
+        // GraphQL query helper
+        async function query(query, variables = {}) {
+            const response = await fetch(GRAPHQL_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query, variables }),
+            });
+            return response.json();
+        }
+
+        // Load statistics
+        async function loadStats() {
+            const result = await query(`
+                query {
+                    stats {
+                        total_posts
+                        total_subreddits
+                        total_users
+                        posts_today
+                    }
+                }
+            `);
+            
+            if (result.data) {
+                const stats = result.data.stats;
+                document.getElementById('total-posts').textContent = stats.total_posts;
+                document.getElementById('total-subreddits').textContent = stats.total_subreddits;
+                document.getElementById('total-users').textContent = stats.total_users;
+                document.getElementById('posts-today').textContent = stats.posts_today;
+            }
+        }
+
+        // Load feed lists
+        async function loadFeeds() {
+            const result = await query(`
+                query {
+                    feedList {
+                        subreddit
+                        total_count
+                        posts {
+                            id
+                            title
+                            score
+                            num_comments
+                            url
+                            image_url
+                            is_image
+                            author
+                            created_utc
+                        }
+                    }
+                }
+            `);
+            
+            if (result.data) {
+                const feeds = result.data.feedList;
+                const container = document.getElementById('feeds');
+                
+                feeds.forEach(feed => {
+                    const feedDiv = document.createElement('div');
+                    feedDiv.innerHTML = `
+                        <h3>r/${feed.subreddit} (${feed.total_count} posts)</h3>
+                        <div class="feed-grid">
+                            ${feed.posts.map(post => `
+                                <div class="post-card">
+                                    ${post.is_image ? `<img src="${post.image_url}" alt="${post.title}" class="post-image" onerror="this.style.display='none'">` : ''}
+                                    <div class="post-content">
+                                        <div class="post-title">${post.title}</div>
+                                        <div class="post-meta">
+                                            <span>👍 ${post.score}</span>
+                                            <span>💬 ${post.num_comments}</span>
+                                            ${post.author ? `<span>👤 ${post.author}</span>` : ''}
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    container.appendChild(feedDiv);
+                });
+            }
+        }
+
+        // Connect WebSocket subscription
+        function connect() {
+            if (wsClient) return;
+            
+            wsClient = new graphqlWs.Client({
+                url: WS_URL,
+            });
+            
+            wsClient.on('opened', () => {
+                document.getElementById('status').textContent = 'Connected';
+                document.getElementById('status').className = 'status connected';
+                
+                // Subscribe to feed updates
+                subscription = wsClient.subscribe(
+                    {
+                        query: `
+                            subscription {
+                                feedUpdates {
+                                    id
+                                    title
+                                    score
+                                    image_url
+                                    is_image
+                                    subreddit
+                                    created_utc
+                                }
+                            }
+                        `,
+                    },
+                    {
+                        next: (data) => {
+                            const updates = document.getElementById('updates');
+                            const post = data.data.feedUpdates;
+                            const updateDiv = document.createElement('div');
+                            updateDiv.className = 'post-card';
+                            updateDiv.innerHTML = `
+                                ${post.is_image ? `<img src="${post.image_url}" alt="${post.title}" class="post-image" onerror="this.style.display='none'">` : ''}
+                                <div class="post-content">
+                                    <div class="post-title">${post.title}</div>
+                                    <div class="post-meta">
+                                        <span>r/${post.subreddit}</span>
+                                        <span>👍 ${post.score}</span>
+                                        <span>🕐 ${new Date(post.created_utc).toLocaleString()}</span>
+                                    </div>
+                                </div>
+                            `;
+                            updates.insertBefore(updateDiv, updates.firstChild);
+                        },
+                        error: (err) => console.error('Subscription error:', err),
+                        complete: () => console.log('Subscription completed'),
+                    }
+                );
+            });
+            
+            wsClient.on('error', (err) => {
+                console.error('WebSocket error:', err);
+                document.getElementById('status').textContent = 'Error: ' + err.message;
+                document.getElementById('status').className = 'status disconnected';
+            });
+            
+            wsClient.on('closed', () => {
+                document.getElementById('status').textContent = 'Disconnected';
+                document.getElementById('status').className = 'status disconnected';
+            });
+        }
+
+        function disconnect() {
+            if (subscription) {
+                subscription.return();
+                subscription = null;
+            }
+            if (wsClient) {
+                wsClient.dispose();
+                wsClient = null;
+            }
+        }
+
+        // Initialize
+        loadStats();
+        loadFeeds();
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+

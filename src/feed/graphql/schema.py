@@ -16,6 +16,37 @@ from .creator_schema import (
     CreatorQuery,
     FeedQuery,
 )
+from .chan_schema import (
+    ChanQueryType,
+    ChanThread,
+    ChanPost,
+    ChanImage,
+    ChanStats,
+    ThreadFilter,
+    PostFilter,
+)
+from .ecommerce_schema import (
+    EcommerceQuery,
+    Product,
+    GarmentStyle,
+    ProductFilter,
+    StyleFilter,
+)
+from .image_search_schema import (
+    ImageSearchQuery,
+    ImageSearchMutation,
+    ImageLookupResultType,
+    SimilarImageResult,
+    ImageStatusResult,
+    PublicSearchResult,
+    ImageMatchResult,
+    RecoveryResult,
+    IndexResult,
+    ImageSearchProvider,
+    VideoIdentificationResultType,
+    StashSceneType,
+    StashPerformerType,
+)
 
 
 @strawberry.type
@@ -82,7 +113,46 @@ class PostFilter:
 class Query:
     """GraphQL queries."""
     
-    # Delegate to sub-queries
+    # E-commerce queries - delegate to EcommerceQuery
+    _ecommerce_query = None
+    
+    def _get_ecommerce_query(self):
+        """Lazy initialization of EcommerceQuery."""
+        if self._ecommerce_query is None:
+            self._ecommerce_query = EcommerceQuery()
+        return self._ecommerce_query
+    
+    @strawberry.field
+    def product(self, id: str) -> Optional[Product]:
+        """Get product by ID."""
+        return self._get_ecommerce_query().product(id)
+    
+    @strawberry.field
+    def products(self, filter: Optional[ProductFilter] = None) -> List[Product]:
+        """Get products with filtering."""
+        return self._get_ecommerce_query().products(filter)
+    
+    @strawberry.field
+    def search_products(self, query_text: str, limit: int = 20) -> List[Product]:
+        """Full-text search for products."""
+        return self._get_ecommerce_query().search_products(query_text, limit)
+    
+    @strawberry.field
+    def garment_style(self, uuid: str) -> Optional[GarmentStyle]:
+        """Get garment style by UUID."""
+        return self._get_ecommerce_query().garment_style(uuid)
+    
+    @strawberry.field
+    def garment_styles(self, filter: Optional[StyleFilter] = None) -> List[GarmentStyle]:
+        """Get garment styles with filtering."""
+        return self._get_ecommerce_query().garment_styles(filter)
+    
+    @strawberry.field
+    def similar_styles(self, style_uuid: str, min_shared_features: int = 2) -> List[GarmentStyle]:
+        """Find similar garment styles."""
+        return self._get_ecommerce_query().similar_styles(style_uuid, min_shared_features)
+    
+    # Creator queries - delegate to sub-queries
     @strawberry.field
     def creator(self, slug: str) -> Optional[CreatorType]:
         """Get creator by slug with all handles."""
@@ -101,6 +171,51 @@ class Query:
     ) -> List[Media]:
         """Get aggregated omni-feed for a creator."""
         return FeedQuery().feed(creator_id, filter)
+    
+    # imageboard queries - delegate to ChanQueryType
+    _chan_query = None
+    
+    def _get_chan_query(self):
+        """Lazy initialization of ChanQueryType."""
+        if self._chan_query is None:
+            from .chan_schema import ChanQueryType
+            self._chan_query = ChanQueryType()
+        return self._chan_query
+    
+    @strawberry.field
+    def chan_thread(self, board: str, thread_id: int) -> Optional[ChanThread]:
+        """Get a specific imageboard thread."""
+        return self._get_chan_query().thread(board, thread_id)
+    
+    @strawberry.field
+    def chan_threads(self, filter: Optional[ThreadFilter] = None) -> List[ChanThread]:
+        """Get list of imageboard threads."""
+        return self._get_chan_query().threads(filter)
+    
+    @strawberry.field
+    def chan_thread_chain(self, board: str, thread_id: int) -> List[ChanThread]:
+        """Get thread chain (continuation threads)."""
+        return self._get_chan_query().thread_chain(board, thread_id)
+    
+    @strawberry.field
+    def chan_posts(self, filter: Optional[PostFilter] = None) -> List[ChanPost]:
+        """Get imageboard posts."""
+        return self._get_chan_query().posts(filter)
+    
+    @strawberry.field
+    def chan_images(self, board: Optional[str] = None, thread_id: Optional[int] = None, limit: int = 50) -> List[ChanImage]:
+        """Get images from imageboard threads."""
+        return self._get_chan_query().images(board, thread_id, limit)
+    
+    @strawberry.field
+    def chan_stats(self) -> ChanStats:
+        """Get imageboard statistics."""
+        return self._get_chan_query().chan_stats()
+    
+    @strawberry.field
+    def cached_data(self, key: str) -> Optional[str]:
+        """Get cached data from Valkey."""
+        return self._get_chan_query().cached_data(key)
     
     @strawberry.field
     def stats(self) -> FeedStats:
@@ -327,6 +442,122 @@ class Query:
         except Exception as e:
             print(f"Error getting posts: {e}")
             return []
+    
+    # Image search queries - delegate to ImageSearchQuery
+    _image_search_query = None
+    
+    def _get_image_search_query(self):
+        """Lazy initialization of ImageSearchQuery."""
+        if self._image_search_query is None:
+            self._image_search_query = ImageSearchQuery()
+        return self._image_search_query
+    
+    @strawberry.field
+    def check_image_crawled(self, image_url: str) -> ImageLookupResultType:
+        """Check if an image URL has already been crawled/stored."""
+        return self._get_image_search_query().check_image_crawled(image_url)
+    
+    @strawberry.field
+    def find_image_source(
+        self,
+        image_url: str,
+        include_external: bool = False
+    ) -> ImageLookupResultType:
+        """Find the original source of an image."""
+        return self._get_image_search_query().find_image_source(image_url, include_external)
+    
+    @strawberry.field
+    def find_exact_matches(
+        self,
+        image_url: str,
+        include_external: bool = False
+    ) -> ImageLookupResultType:
+        """Find all exact and near-exact matches of an image."""
+        return self._get_image_search_query().find_exact_matches(image_url, include_external)
+    
+    @strawberry.field
+    def find_similar_images(
+        self,
+        image_url: str,
+        min_similarity: float = 0.85,
+        limit: int = 10
+    ) -> SimilarImageResult:
+        """Find visually similar images using CLIP embeddings."""
+        return self._get_image_search_query().find_similar_images(image_url, min_similarity, limit)
+    
+    @strawberry.field
+    def check_image_status(self, image_url: str) -> ImageStatusResult:
+        """Check status of an image and determine if recovery is needed."""
+        return self._get_image_search_query().check_image_status(image_url)
+    
+    @strawberry.field
+    def public_image_search(
+        self,
+        image_url: str,
+        providers: Optional[List[ImageSearchProvider]] = None
+    ) -> PublicSearchResult:
+        """Search external reverse image search APIs."""
+        return self._get_image_search_query().public_image_search(image_url, providers)
+    
+    @strawberry.field
+    def find_image_matches(self, image_url: str) -> ImageMatchResult:
+        """Find image matches with ontology integration."""
+        return self._get_image_search_query().find_image_matches(image_url)
+    
+    @strawberry.field
+    def identify_video(
+        self,
+        video_path: str,
+        watermark_patterns: Optional[List[str]] = None,
+        stash_url: Optional[str] = None
+    ) -> VideoIdentificationResultType:
+        """Identify video using watermark detection, face matching, and database lookups."""
+        return self._get_image_search_query().identify_video(video_path, watermark_patterns, stash_url)
+    
+    @strawberry.field
+    def stash_scenes(
+        self,
+        stash_url: str,
+        studio: Optional[str] = None,
+        performer_name: Optional[str] = None,
+        limit: int = 50
+    ) -> List[StashSceneType]:
+        """Query Stash instance for scenes."""
+        return self._get_image_search_query().stash_scenes(stash_url, studio, performer_name, limit)
+    
+    @strawberry.field
+    def stash_performers(
+        self,
+        stash_url: str,
+        query: Optional[str] = None,
+        limit: int = 50
+    ) -> List[StashPerformerType]:
+        """Query Stash instance for performers."""
+        return self._get_image_search_query().stash_performers(stash_url, query, limit)
+
+
+@strawberry.type
+class Mutation:
+    """GraphQL mutations."""
+    
+    # Image search mutations - delegate to ImageSearchMutation
+    _image_search_mutation = None
+    
+    def _get_image_search_mutation(self):
+        """Lazy initialization of ImageSearchMutation."""
+        if self._image_search_mutation is None:
+            self._image_search_mutation = ImageSearchMutation()
+        return self._image_search_mutation
+    
+    @strawberry.mutation
+    def recover_post(self, post_url: str) -> RecoveryResult:
+        """Recover a missed Reddit post and ingest it into the database."""
+        return self._get_image_search_mutation().recover_post(post_url)
+    
+    @strawberry.mutation
+    def index_image(self, image_url: str) -> IndexResult:
+        """Index an image for future reverse search."""
+        return self._get_image_search_mutation().index_image(image_url)
 
 
 @strawberry.type
@@ -410,8 +641,12 @@ class Subscription:
                 await asyncio.sleep(5)
 
 
-# Create schema
-schema = strawberry.Schema(query=Query, subscription=Subscription)
+# Create schema with all queries, mutations, and subscriptions
+schema = strawberry.Schema(
+    query=Query,
+    mutation=Mutation,
+    subscription=Subscription,
+)
 
 
 def create_graphql_router() -> GraphQLRouter:

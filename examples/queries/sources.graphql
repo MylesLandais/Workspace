@@ -1,0 +1,225 @@
+# Source Management Queries and Mutations
+# Sources define what content appears in your feed
+
+# List all sources with optional filtering
+query GetUserSources($filters: SourceFiltersInput) {
+  getUserSources(filters: $filters) {
+    id
+    name
+    sourceType
+    subredditName
+    youtubeHandle
+    twitterHandle
+    instagramHandle
+    tiktokHandle
+    url
+    rssUrl
+    iconUrl
+    description
+    entityId
+    entityName
+    group
+    groupId
+    tags
+    isPaused
+    isEnabled
+    isActive
+    lastSynced
+    mediaCount
+    storiesPerMonth
+    readsPerMonth
+    health
+  }
+}
+
+# Get single source by ID
+query GetSourceById($id: ID!) {
+  getSourceById(id: $id) {
+    id
+    name
+    sourceType
+    subredditName
+    youtubeHandle
+    twitterHandle
+    instagramHandle
+    tiktokHandle
+    url
+    rssUrl
+    iconUrl
+    description
+    entityId
+    entityName
+    group
+    groupId
+    tags
+    isPaused
+    isEnabled
+    isActive
+    lastSynced
+    mediaCount
+    storiesPerMonth
+    readsPerMonth
+    health
+  }
+}
+
+# List feed groups
+query GetFeedGroups {
+  getFeedGroups {
+    id
+    name
+    createdAt
+  }
+}
+
+# Search subreddits
+query SearchSubreddits($query: String!) {
+  searchSubreddits(query: $query) {
+    name
+    displayName
+    subscriberCount
+    description
+    iconUrl
+    isSubscribed
+  }
+}
+
+# Create a new source
+mutation CreateSource($input: CreateSourceInput!) {
+  createSource(input: $input) {
+    id
+    name
+    sourceType
+    subredditName
+    youtubeHandle
+    twitterHandle
+    instagramHandle
+    tiktokHandle
+    url
+    rssUrl
+    isPaused
+    isEnabled
+  }
+}
+
+# Update existing source
+mutation UpdateSource($id: ID!, $input: UpdateSourceInput!) {
+  updateSource(id: $id, input: $input) {
+    id
+    name
+    description
+    groupId
+    isPaused
+    isEnabled
+  }
+}
+
+# Delete source
+mutation DeleteSource($id: ID!) {
+  deleteSource(id: $id)
+}
+
+# Bulk delete sources
+mutation BulkDeleteSources($ids: [ID!]!) {
+  bulkDeleteSources(ids: $ids)
+}
+
+# Toggle pause state
+mutation ToggleSourcePause($id: ID!) {
+  toggleSourcePause(id: $id) {
+    id
+    isPaused
+  }
+}
+
+# Quick subscribe to subreddit
+mutation SubscribeToSource($subredditName: String!, $groupId: String) {
+  subscribeToSource(subredditName: $subredditName, groupId: $groupId) {
+    id
+    name
+    subredditName
+  }
+}
+
+# Create feed group
+mutation CreateFeedGroup($name: String!) {
+  createFeedGroup(name: $name) {
+    id
+    name
+    createdAt
+  }
+}
+
+# Import RSS feeds from OPML
+mutation ImportOPML($feedUrls: [String!]!, $groupId: String) {
+  importOPML(feedUrls: $feedUrls, groupId: $groupId) {
+    imported
+    skipped
+    failed
+    sources {
+      id
+      name
+      rssUrl
+    }
+    errors
+  }
+}
+
+# Input types reference:
+#
+# input SourceFiltersInput {
+#   groupId: String
+#   sourceType: Platform  # REDDIT, YOUTUBE, RSS, etc.
+#   activity: ActivityFilter  # ALL, ACTIVE, INACTIVE, PAUSED
+#   searchQuery: String
+# }
+#
+# input CreateSourceInput {
+#   name: String!
+#   sourceType: Platform!
+#   url: String
+#   subredditName: String
+#   youtubeHandle: String
+#   twitterHandle: String
+#   instagramHandle: String
+#   tiktokHandle: String
+#   groupId: String
+#   description: String
+# }
+#
+# input UpdateSourceInput {
+#   name: String
+#   description: String
+#   groupId: String
+#   isPaused: Boolean
+#   isEnabled: Boolean
+# }
+
+# Example mutations:
+#
+# // Add Reddit source
+# {
+#   "input": {
+#     "name": "r/unixporn",
+#     "sourceType": "REDDIT",
+#     "subredditName": "unixporn"
+#   }
+# }
+#
+# // Add YouTube channel
+# {
+#   "input": {
+#     "name": "Fireship",
+#     "sourceType": "YOUTUBE",
+#     "youtubeHandle": "@Fireship"
+#   }
+# }
+#
+# // Add RSS feed
+# {
+#   "input": {
+#     "name": "Hacker News",
+#     "sourceType": "RSS",
+#     "url": "https://news.ycombinator.com/rss"
+#   }
+# }

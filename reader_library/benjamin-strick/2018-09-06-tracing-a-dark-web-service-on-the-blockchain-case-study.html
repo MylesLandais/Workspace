@@ -1,0 +1,392 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracing a dark web service on the blockchain [Case Study]</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max_width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        article {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 { margin-top: 0; color: #1a1a1a; }
+        .meta {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        img { max-width: 100%; height: auto; display: block; margin: 20px auto; }
+        a { color: #0066cc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        pre { background: #f4f4f4; padding: 15px; overflow-x: auto; border-radius: 4px; }
+        blockquote {
+            border-left: 4px solid #ddd;
+            margin: 0;
+            padding-left: 20px;
+            color: #555;
+        }
+        .nav { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="../../index.html">← Back to Dashboard</a>
+    </div>
+    <article>
+        <header>
+            <h1>Tracing a dark web service on the blockchain [Case Study]</h1>
+            <div class="meta">
+                <strong>Source:</strong> Benjamin Strick<br>
+                <strong>Date:</strong> September 06, 2018<br>
+                <strong>Author:</strong> Ben
+            </div>
+        </header>
+        <div class="content">
+            <p><strong>Cryptocurrency crimes and scams are inevitable, and there’s no place better than the dark web with the added anonymity.</strong></p>
+
+
+
+<p><strong>However</strong>, not only is it easy to identify the relationship between certain sites, but there are also a number of ‘digital fingerprints’ an onion site can leave behind.</p>
+
+
+
+<p>In this case study, we take a look at:</p>
+
+
+
+<ul class="wp-block-list"><li>How to identify the&nbsp;<strong>link between onion sites</strong>&nbsp;(the dark web)</li><li>How to identify the&nbsp;<strong>relationship between two bitcoin addresses</strong></li><li>How to&nbsp;<strong>trace addresses to a registered exchange</strong></li></ul>
+
+
+
+<p>For a visual explanation, this is what we are going to look at:</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1704" height="546" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_KW3mcwk6r1nHDPYU2lO0bA.png?resize=1024%2C546&#038;ssl=1" width="1024" /></figure>
+
+
+
+<h3 class="wp-block-heading" id="de8e">The Dark Web Services —Two Of The Many</h3>
+
+
+
+<p>The two subjects of this case study are&nbsp;<a href="http://bancopanuemswrrz.onion/index.html" rel="noreferrer noopener" target="_blank"><strong>BancoPanama</strong></a>, a banking site selling anonymous ‘offshore banking accounts’ for bitcoin, and&nbsp;<a href="http://unlockdehrka3cbn.onion/#home" rel="noreferrer noopener" target="_blank"><strong>Dark Web UnlockDevices</strong></a>, a service that allows you to anonymously unlock phones through bitcoin payment.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1705" height="518" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_o0ZWWqwUCwZThZfpdKcwUg.png?resize=956%2C518&#038;ssl=1" width="956" /></figure>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1706" height="507" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_WBY-tQ3SA5E1_A_laAYc7g.png?resize=1024%2C507&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>This case study is not to identify whether these are scam sites or not. Rather, it is to identify the relationship between them, to show that they are owned by the same person, and to trace their blockchain fingerprints to a registered cryptocurrency exchange.</p>
+
+
+
+<h3 class="wp-block-heading" id="c278">Analysis Tools For Dark Web Onion Sites</h3>
+
+
+
+<p>In this case study, we are going to use four tools, they are:</p>
+
+
+
+<ol class="wp-block-list"><li><strong>Fresh Onions</strong>&nbsp;(<a href="http://zlal32teyptf4tvi.onion/" rel="noreferrer noopener" target="_blank">http://zlal32teyptf4tvi.onion/</a>)</li><li><strong>Wallet Explorer</strong>&nbsp;(<a href="https://www.walletexplorer.com/" rel="noreferrer noopener" target="_blank">https://www.walletexplorer.com/</a>)</li><li><strong>Blockchain Explorer</strong>&nbsp;(<a href="https://www.blockchain.com/explorer" rel="noreferrer noopener" target="_blank">https://www.blockchain.com/explorer</a>)</li><li><strong>Tor Browser</strong>&nbsp;(<a href="https://www.torproject.org/" rel="noreferrer noopener" target="_blank">https://www.torproject.org/</a>)</li></ol>
+
+
+
+<p>The most important of these two tools are&nbsp;<strong>Fresh Onions</strong>&nbsp;and&nbsp;<strong>Wallet Explorer</strong>.</p>
+
+
+
+<p><strong>Fresh Onions</strong> is a crawler for websites. It basically tells you any hidden information that you might not see on an onion site and is great for identifying any of these ‘digital fingerprints’ we are looking for.</p>
+
+
+
+<p><strong>Wallet Explorer</strong>&nbsp;is useful as it identifies all Bitcoin addresses owned by one single wallet. When dealing with cryptocurrencies, one wallet may own numerous addresses.</p>
+
+
+
+<p>The&nbsp;<strong>Blockchain Explorer</strong>&nbsp;and&nbsp;<strong>Tor</strong>&nbsp;browser are platforms you will already be familiar with. You will need Tor to open any of the onion links I have provided here.</p>
+
+
+
+<h3 class="wp-block-heading" id="d46a">Identifying ‘Fingerprints’ Of Dark Web Services</h3>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1707" height="533" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_yZGCm69M99Tk4auZ1afOvw.png?resize=1024%2C533&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>The relationship between these two dark web onion sites can identified using the Fresh Onion crawler.</p>
+
+
+
+<p>The relevant details we are looking for is an ‘<strong>SSH Fingerprint</strong>’. Essentially it is a unique marker a site will carry. With Fresh Onions, we can see all of the other sites that hold that same fingerprint.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1708" height="511" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_mCq-kyGnF8LgOxEd-p-rQA.png?resize=1024%2C511&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>This shows that there is a SSH relationship between the two onion sites we identified earlier.</p>
+
+
+
+<p>Now let’s take a look at the blockchain evidence.</p>
+
+
+
+<h3 class="wp-block-heading" id="e337"><strong>How To Use Blockchain Forensics On Transactions</strong></h3>
+
+
+
+<p>The first step to any analysis of a dark web site is to locate its cryptocurrency address.</p>
+
+
+
+<p>This may be various currencies, but for the most part, bitcoin is the ruler of the crypto world, and thankfully it has a very public blockchain.</p>
+
+
+
+<p>We can tell <strong>a number of things</strong> just from <strong>one bitcoin address</strong>, such as:</p>
+
+
+
+<ul class="wp-block-list"><li>How many&nbsp;<strong>transactions</strong>&nbsp;have taken place</li><li>Where&nbsp;<strong>money has come from</strong>&nbsp;and how much</li><li>Where&nbsp;<strong>money has been sent</strong>&nbsp;and how much</li><li>A&nbsp;<strong>historical timeline</strong>&nbsp;of transactions</li><li>And other&nbsp;<strong>associated bitcoin addresses</strong>&nbsp;in that wallet</li></ul>
+
+
+
+<p>The last one of these is where the site&nbsp;<a href="https://www.walletexplorer.com/" rel="noreferrer noopener" target="_blank"><strong>Wallet Explorer</strong></a>comes into effect.</p>
+
+
+
+<p>With this tool, we are able to identify any other bitcoin addresses owned by the same wallet.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1709" height="268" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_Usr9hHKaAjITwqUeBopu6A.png?resize=1024%2C268&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>So what’s the&nbsp;<strong>relationship</strong>&nbsp;between the two sites I mentioned?</p>
+
+
+
+<p>When we access their bitcoin addresses through the ‘purchase’ section of the website, we can identify two main addresses:</p>
+
+
+
+<p>The&nbsp;<a href="https://www.blockchain.com/btc/address/37s7r9QiE6pJM5aipFHgpHigCswamXZ4jo" rel="noreferrer noopener" target="_blank"><strong>address</strong></a>&nbsp;of the ‘<strong>BancoPanama</strong>’ site ending in&nbsp;<strong>XZ4jo</strong></p>
+
+
+
+<p>And the&nbsp;<a href="https://www.blockchain.com/btc/address/3LnzwDcMdRFbVLG6B71e68ydQ4JYWaKUrE" rel="noreferrer noopener" target="_blank"><strong>address</strong></a>&nbsp;of the ‘<strong>Dark Web UnlockDevices</strong>’ site ending in&nbsp;<strong>KUrE</strong></p>
+
+
+
+<p>The relationship between these two websites is that they are from the same wallet, meaning that they are owned by the same entity or person.</p>
+
+
+
+<p>I found this using Wallet Explorer, where we can identify the dual ownership of the addresses by simply&nbsp;<a href="https://www.walletexplorer.com/wallet/01204f90ab6f1d46/addresses" rel="noreferrer noopener" target="_blank">entering one into the search function</a>, and then revealing the entire wallet. Using a simple ‘CNTRL F’ reveals both are present.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1710" height="327" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_F35AI7V377_Uaetu5IT9iA.png?resize=820%2C327&#038;ssl=1" width="820" /></figure>
+
+
+
+<p>Now let’s take a look at the specific transactions of each of these bitcoin addresses.</p>
+
+
+
+<h3 class="wp-block-heading" id="183a">Tracing the payments through to an exchange</h3>
+
+
+
+<p>The transactions paid into these accounts are what normal transactions should look like when viewed on the blockchain.</p>
+
+
+
+<p>For instance, in the&nbsp;<a href="https://www.blockchain.com/btc/tx/ee323b528c63bdd9c92ec1ddb4f7ef55bb2545da65e573e19e136046f754148d" rel="noreferrer noopener" target="_blank">transaction below</a>&nbsp;we see money shifted from one bitcoin address to the Dark Web UnlockDevices address ending in KUrE:</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1711" height="156" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_tjARrVXlfENOhvgQLZZvmw.png?resize=1024%2C156&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>But following the&nbsp;<a href="https://www.blockchain.com/btc/tx/3ca9cc1700f95ffab2751b268cffc4c36194d3678b12fc7f836120b9d0556e35" rel="noreferrer noopener" target="_blank">outgoing transactions</a>&nbsp;use more addresses:</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1712" height="343" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_xM3P-EZ3f_e2G88VPIoBrQ.png?resize=1024%2C343&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>As you can see in the screenshot above, there are a number of addresses included in the same exchange.</p>
+
+
+
+<p>For this transaction, the&nbsp;<strong>key recipient address ending in&nbsp;</strong><a href="https://www.blockchain.com/btc/address/16csF6xeY2bj1EZWk3B8nGj9mdvTWaNdpe" rel="noreferrer noopener" target="_blank"><strong>Ndpe</strong></a>can be one of two things:</p>
+
+
+
+<ol class="wp-block-list"><li>A&nbsp;<strong>bitcoin&nbsp;</strong><a href="https://en.wikipedia.org/wiki/Cryptocurrency_tumbler" rel="noreferrer noopener" target="_blank"><strong>mixing service</strong></a>, or</li><li>An&nbsp;<strong>exchange</strong></li></ol>
+
+
+
+<p>For many vendors on the dark web, a mixing service, or cryptocurrency tumbler, guarantees anonymity as it essentially scrambles the addresses and the payments made — perfect for illegal vendors and scammers, not for law enforcement.</p>
+
+
+
+<p><strong>Ndpe</strong>&nbsp;is a unique address as the majority of its payments are made into<strong>&nbsp;bitcoin address&nbsp;</strong><a href="https://www.blockchain.com/btc/address/1NDyJtNTjmwk5xPNhjgAMu4HDHigtobu1s" rel="noreferrer noopener" target="_blank"><strong>1NDyJtNTjmwk5xPNhjgAMu4HDHigtobu1s</strong></a><strong>.</strong></p>
+
+
+
+<p>You can see this in the screenshots below:</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1713" height="165" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_7dkCipUQ0AmXvmUeEryB-A.png?resize=1024%2C165&#038;ssl=1" width="1024" /></figure>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1714" height="171" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_lBlAEebseZLFKjDgZBpmkQ.png?resize=942%2C171&#038;ssl=1" width="942" /></figure>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1715" height="154" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_xFMQfBXINyih3Ejlfm2keQ.png?resize=1024%2C154&#038;ssl=1" width="1024" /></figure>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1716" height="171" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_6Iqlh_Q0drAxtnkD20QOGg.png?resize=864%2C171&#038;ssl=1" width="864" /></figure>
+
+
+
+<p>This bitcoin address ending in bu1s belongs to<a href="https://www.binance.com/" rel="noreferrer noopener" target="_blank"><strong>Binance</strong></a><strong>,</strong>&nbsp;a&nbsp;<strong>registered cryptocurrency exchange</strong>.</p>
+
+
+
+<p>We can see this through a simple Google search, which also reveals the following Tweet from Binance themselves.</p>
+
+
+
+<figure></figure>
+
+
+
+<h3 class="wp-block-heading" id="9b59">Blockchain Analysis of the Ndpe Address</h3>
+
+
+
+<p>The address of&nbsp;<strong>Ndpe</strong>&nbsp;belongs to the&nbsp;<strong>wallet&nbsp;</strong><a href="https://www.walletexplorer.com/wallet/000030bc2e205f64/addresses" rel="noreferrer noopener" target="_blank"><strong>000030bc2e</strong></a><strong>.</strong></p>
+
+
+
+<p>As you can see in the screenshot below, this wallet contains more than 120,000 bitcoin addresses, many of which are seeing large volumes of transactions every day.</p>
+
+
+
+<p><a href="https://www.blockchain.com/btc/address/16csF6xeY2bj1EZWk3B8nGj9mdvTWaNdpe" rel="noreferrer noopener" target="_blank">Ndpe</a>&nbsp;is likely the bitcoin address of an exchange, or it may be a very well-used bitcoin tumbling service, which would explain the large volume of bitcoin addresses it holds in its wallet, allowing it to essentially scramble transactions.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1717" height="457" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_hBo2kAlvBeXNA4P8Sd5Cmg.png?resize=824%2C457&#038;ssl=1" width="824" /></figure>
+
+
+
+<p>Each one of the addresses in this wallet use Binance as the final source of all of their transactions.</p>
+
+
+
+<p>In the above screenshot, the top five addresses all show their largest payouts to Binance. We can see this on the blockchain.</p>
+
+
+
+<p>Here is a recent outgoing transaction to&nbsp;<strong>Binance from&nbsp;</strong><a href="https://www.blockchain.com/btc/address/1AfBhd8sURS3DgkBWdWWTjhbpQGg7AFnhy" rel="noreferrer noopener" target="_blank"><strong>Fnhy</strong></a>:</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1718" height="478" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_UIl9Ihto5eLcafAW9AVoTg.png?resize=1024%2C478&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>Here is a recent outgoing transaction&nbsp;<strong>to Binance from&nbsp;</strong><a href="https://www.blockchain.com/btc/address/169neT3M9aYphKbsaRkg4Awocey6knsjjd" rel="noreferrer noopener" target="_blank"><strong>sjjd</strong></a><strong>:</strong></p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1719" height="537" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_zS6deN-auWwqJnoH7YD3Yw.png?resize=1024%2C537&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>Here is a recent outgoing transaction&nbsp;<strong>to Binance from&nbsp;</strong><a href="https://www.blockchain.com/btc/address/13eJ4bz7Div4U3wPKGbAcaB6M2GXFHd6E1" rel="noreferrer noopener" target="_blank"><strong>d6E1</strong></a><strong>:</strong></p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1721" height="478" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_wtLpC4r3iZn4pXOyxChTXQ.png?resize=1024%2C478&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>Here is a recent outgoing transaction<strong>&nbsp;to Binance from&nbsp;</strong><a href="https://www.blockchain.com/btc/address/1s2bTMFkXkr8Y9bwWSak5XevRwt4b3R3r" rel="noreferrer noopener" target="_blank"><strong>3R3r</strong></a><strong>:</strong></p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1722" height="260" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_v3JOKm67n0xrJc-Cx_886w.png?resize=1024%2C260&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>Here is a recent outgoing transaction&nbsp;<strong>to Binance from&nbsp;</strong><a href="https://www.blockchain.com/btc/address/18zYmy5CsfjBfQph7i8Wm1UHQWMaMRhEe9" rel="noreferrer noopener" target="_blank"><strong>hEe9</strong></a><strong>:</strong></p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1723" height="215" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_eTeYKHlUNxa8nTkb2uq6Jg.png?resize=1024%2C215&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>As you can see, there is a relationship of funds from these two dark web onion sites, to the Ndpe address on the blockchain.</p>
+
+
+
+<p>Since we have established that these two dark web onion sites are ran by the same owner, it is likely the person is using a single tumbler or exchange.</p>
+
+
+
+<p>There is also an ongoing financial relationship between the Ndpe address, and other addresses in the same wallet, and Binance’s address ending in bu1s.</p>
+
+
+
+<h3 class="wp-block-heading" id="a36b">Where open-source methods stop</h3>
+
+
+
+<p>Using open-source information on the dark web and the blockchain only gets you so far.</p>
+
+
+
+<p>Once we have hit this point, it is now up to&nbsp;<strong>relevant parties</strong>, as well as a cryptocurrency exchange’s own housekeeping to find the registration details of any accounts associated with illegal activity on the dark web.</p>
+<p>The post <a href="https://benjaminstrick.com/tracing-an-offshore-bank-and-a-dark-web-service-using-the-blockchain-an-osint-investigation/">Tracing a dark web service on the blockchain [Case Study]</a> appeared first on <a href="https://benjaminstrick.com">Benjamin Strick</a>.</p>
+        </div>
+    </article>
+</body>
+</html>

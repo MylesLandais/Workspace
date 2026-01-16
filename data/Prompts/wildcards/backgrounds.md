@@ -40,6 +40,11 @@
 - **Description**: indoor environment with warm fairy-light bokeh in background, cozy atmosphere
 - **Camera Notes**: indoor setting, shallow depth of field
 
+## shay_bedroom_lilac
+- **Short**: "Shay's bedroom with lilac purple walls and fairy lights"
+- **Description**: Shay's personal bedroom with soft lilac purple painted walls, warm 2700K lighting creating flattering glow on skin, fairy lights creating soft bokeh in background. Warm intimate atmosphere, cozy personal space
+- **Camera Notes**: shallow depth of field keeps fairy lights as soft bokeh while focusing on subject, warm lighting enhances skin tones
+
 ## couch_interior
 - **Short**: "couch interior"
 - **Description**: sitting on a couch, interior background, home setting
@@ -99,6 +104,13 @@
 - **Short**: "modern interior background"
 - **Description**: modern interior background with soft blur, contemporary indoor setting
 - **Camera Notes**: indoor setting, shallow depth of field
+
+
+
+
+
+
+
 
 
 

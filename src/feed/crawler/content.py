@@ -245,3 +245,10 @@ class ContentAnalyzer:
         else:
             return "text/plain"
 
+
+
+
+
+
+
+

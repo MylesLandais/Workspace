@@ -70,5 +70,22 @@
 - **Description**: casual t-shirt and jeans, everyday casual wear
 - **Camera Notes**: medium shot shows full outfit
 
+## stop_traffic
+- **Short**: "Stop Traffic police cop costume"
+- **Description**: Amscan "Stop Traffic" Police Cop Officer Sexy Catsuit Halloween Costume (SKU AS-8407473-S). Navy blue catsuit with crisp structured collar, cuffed sleeves, center-front zipper with silver badge pull tab, black side stripes along pant legs, and "Stop Traffic" name plate on chest. Includes police cap with silver badge decoration, faux leather gloves, and functional belt with adjustable leg-strap holster. Costume should appear accurate to retail catalog photography, properly fitted, showing natural body shape with realistic fabric tension and seams.
+- **Camera Notes**: full body shot required to show complete costume with all accessories. Eye-level camera angle recommended.
+
+## racy_referee
+- **Short**: "Racy Referee Halloween costume"
+- **Description**: Black and white vertically striped referee-style top with short sleeves and black trim. Features bright pink collar and lace-up front closure with hot pink laces. Fitted silhouette. Paired with short black flirty flared skirt with coordinating black and white striped ruffle trim at hem, edged with bright pink. Styled with white knee-high socks featuring pink and black horizontal stripes near top.
+- **Camera Notes**: full body shot required to show complete costume with all accessories. Eye-level camera angle recommended.
+
+
+
+
+
+
+
+
 
 

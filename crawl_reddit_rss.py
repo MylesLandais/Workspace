@@ -2,7 +2,14 @@
 """
 Reddit RSS Feed Crawler
 
-Slowly crawls Reddit RSS feeds to gather posts for model building.
+Alternative method for crawling Reddit using RSS feeds (instead of JSON API).
+This is a slower, more rate-limited approach suitable for long-running background
+data collection. The primary production system uses Reddit's JSON API endpoints
+(see src/feed/platforms/reddit.py).
+
+Note: RSS feeds are a valid alternative but provide less metadata (no scores,
+comment counts, etc.) compared to the JSON API approach.
+
 Rate limits to 1-2 requests per minute, collecting 50-100 posts over ~1 hour.
 """
 
@@ -55,7 +62,9 @@ class RedditRSSAdapter:
         
         Args:
             subreddit: Subreddit name (with or without r/ prefix)
-            use_old_reddit: If True, use old.reddit.com (better compatibility)
+            use_old_reddit: If True, use old.reddit.com RSS endpoint as fallback.
+                          Some RSS feeds may be more reliable on old.reddit.com.
+                          This is for RSS feed compatibility only, not HTML scraping.
         
         Returns:
             List of Post objects
@@ -336,4 +345,5 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
+
 

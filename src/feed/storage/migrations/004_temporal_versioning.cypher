@@ -105,3 +105,10 @@ FOR (v:CrawlVersion) ON (v.normalized_url, v.crawled_at);
 // MATCH (v2:CrawlVersion {version_id: $version2})
 // RETURN v1.delta_properties as delta1, v2.delta_properties as delta2
 
+
+
+
+
+
+
+

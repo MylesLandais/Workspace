@@ -46,3 +46,10 @@ class PlatformAdapter(ABC):
         """
         pass
 
+
+
+
+
+
+
+

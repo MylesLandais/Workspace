@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 """
-Reddit JSON API Crawler - Alternative to RSS feed method.
+Reddit JSON API Crawler - Production method for Reddit data collection.
 
-Uses Reddit's public JSON API endpoints which provide:
+Uses Reddit's public JSON API endpoints (preferred method per ADR).
+Provides:
 - Direct image URLs (i.redd.it, imgur, etc.)
-- Better metadata (scores, comments, upvote_ratio)
+- Rich metadata (scores, comments, upvote_ratio)
 - Ability to filter for image posts specifically
+- No HTML parsing required (cleaner, more reliable)
 
-This is slower but more reliable for getting image posts.
+This is the primary production method for Reddit crawling.
+See: docs/architecture/adr/reddit-scraping-strategy.md
 """
 
 import sys
@@ -16,6 +19,7 @@ import random
 from pathlib import Path
 from typing import List
 
+# Add src to path (same as test_feed_subreddit.py)
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from feed.platforms.reddit import RedditAdapter
@@ -201,4 +205,5 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
+
 

@@ -9,14 +9,30 @@ from .temporal import TemporalVersionManager
 from .temporal_queries import TemporalQueries
 from .temporal_analytics import TemporalAnalytics
 
-__all__ = [
-    "URLFrontier",
-    "AdaptiveScheduler",
-    "DuplicateDetector",
-    "ContentAnalyzer",
-    "RobotsParser",
-    "TemporalVersionManager",
-    "TemporalQueries",
-    "TemporalAnalytics",
-]
+# Try to import reddit_crawler (may not be available if dependencies missing)
+try:
+    from .reddit_crawler import RedditCrawler, CrawlerConfig
+    __all__ = [
+        "URLFrontier",
+        "AdaptiveScheduler",
+        "DuplicateDetector",
+        "ContentAnalyzer",
+        "RobotsParser",
+        "TemporalVersionManager",
+        "TemporalQueries",
+        "TemporalAnalytics",
+        "RedditCrawler",
+        "CrawlerConfig",
+    ]
+except ImportError:
+    __all__ = [
+        "URLFrontier",
+        "AdaptiveScheduler",
+        "DuplicateDetector",
+        "ContentAnalyzer",
+        "RobotsParser",
+        "TemporalVersionManager",
+        "TemporalQueries",
+        "TemporalAnalytics",
+    ]
 

@@ -266,3 +266,10 @@ class TemplateAnalyzer:
         return result_df
 
 
+
+
+
+
+
+
+

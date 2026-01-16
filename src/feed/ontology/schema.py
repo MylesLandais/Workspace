@@ -204,3 +204,10 @@ class GraphOntology:
         
         return errors
 
+
+
+
+
+
+
+

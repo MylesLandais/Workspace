@@ -232,6 +232,62 @@ TALISMAN_UNSAFE_SKIP=true git commit -m "Emergency commit"
 3. Run `talisman --githook pre-commit --scan` to update checksums
 
 
+## Writing User Stories and Design Specifications
+
+Before starting work on a new feature, ensure you have a well-written user story or design specification. This helps:
+- Clarify requirements and acceptance criteria
+- Identify technical risks early
+- Enable better code reviews
+- Maintain project documentation
+
+### Quick Reference
+
+- **User Stories**: See [docs/WRITING_USER_STORIES.md](docs/WRITING_USER_STORIES.md) for templates and best practices
+- **Design Specifications**: See [docs/WRITING_USER_STORIES.md#design-specifications](docs/WRITING_USER_STORIES.md#design-specifications) for the specification template
+- **Architecture Decisions**: See [docs/ARCHITECTURE_DECISIONS.md](docs/ARCHITECTURE_DECISIONS.md) for recording architectural choices
+
+### Story Requirements
+
+All new features should have:
+1. A user story with clear acceptance criteria
+2. Technical notes if implementation is non-trivial
+3. Testing plan
+4. Documentation updates
+
+For complex features, create a design specification that includes:
+- Architecture diagrams
+- API design
+- Data model changes
+- Migration plan (if applicable)
+
+### Story Review Process
+
+1. Create an issue with the user story template
+2. Get feedback from team members
+3. Update story based on feedback
+4. Link PR to the story issue
+5. Mark story as complete when all acceptance criteria are met
+
+## Refactoring Guidelines
+
+When refactoring code, follow the guidelines in [docs/REFACTORING_GUIDELINES.md](docs/REFACTORING_GUIDELINES.md). Key principles:
+
+1. **Work incrementally** - Small, testable changes
+2. **Maintain functionality** - Don't change behavior unless that's the goal
+3. **Update documentation** - Keep docs in sync with code changes
+4. **Use git mv** - Preserve file history when moving files
+
+### Repository Layout
+
+The repository has had layout problems in the past. When adding new code:
+
+- **Production code** → `src/` (installable packages)
+- **Utility scripts** → `scripts/` (organized by function)
+- **Experiments** → `notebooks/experiments/`
+- **Documentation** → `docs/`
+
+See [docs/REFACTORING_GUIDELINES.md#repository-layout-principles](docs/REFACTORING_GUIDELINES.md#repository-layout-principles) for the target structure.
+
 ## RunPod / ComfyUI notebooks
 
 We keep small, runnable notebooks to help deploy ComfyUI test instances on RunPod using `runpodctl`.

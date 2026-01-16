@@ -1,0 +1,938 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How I Scrape and Analyse Twitter Networks [Case Study]</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max_width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        article {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 { margin-top: 0; color: #1a1a1a; }
+        .meta {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        img { max-width: 100%; height: auto; display: block; margin: 20px auto; }
+        a { color: #0066cc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        pre { background: #f4f4f4; padding: 15px; overflow-x: auto; border-radius: 4px; }
+        blockquote {
+            border-left: 4px solid #ddd;
+            margin: 0;
+            padding-left: 20px;
+            color: #555;
+        }
+        .nav { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="../../index.html">← Back to Dashboard</a>
+    </div>
+    <article>
+        <header>
+            <h1>How I Scrape and Analyse Twitter Networks [Case Study]</h1>
+            <div class="meta">
+                <strong>Source:</strong> Benjamin Strick<br>
+                <strong>Date:</strong> May 27, 2020<br>
+                <strong>Author:</strong> Ben
+            </div>
+        </header>
+        <div class="content">
+            <p><strong><span class="has-inline-color has-very-dark-gray-color">This &#8216;how-to&#8217; report is to assist those conducting research on information operations or performing a network analysis on Twitter. It may also be useful to those <strong>seeking to hunt bots, track automation, capture breaking events or learn how to scrape data</strong></span></strong>.</p>
+
+
+
+<p>Because many have asked about this from varying pockets of the world, I have made sure all of the resources in this analysis are free. </p>
+
+
+
+<p>I have broken this research down into three sections. They are based on how I conduct my network analysis &#8211; so a preliminary research stage, getting data and presenting the data.</p>
+
+
+
+<ul class="wp-block-list"><li><strong><strong>Research </strong>preparation</strong><ul><li>Past information operation case studies</li><li>Identification of a trend</li><li>Monitoring hashtags in Tweetdeck</li><li>What data do you need for a network visualisation</li></ul></li><li><strong>Essential raw data</strong><ul><li>Tools to capture data from Twitter</li><li>Capturing data using Python</li><li>Converting captured data to graph</li><li>Location capture tweets to graph</li><li>Capturing data using Twitter API</li></ul></li><li><strong>How to cook data and present it nicely in Gephi</strong><ul><li>How I display network visualisations</li></ul><ul><li>How I organise nodes (accounts) into clusters</li><li>Analysis in Gephi&#8217;s Data Laboratory</li><li>Running a brief analysis of accounts<ul><li>Botometer</li><li>TwitterAudit</li><li>Image reverse search</li></ul></li></ul></li><li><strong>Concluding remarks</strong></li></ul>
+
+
+
+<p>For the purpose of this report, I chose to use a dataset I worked on in 2019 on the #bolivianohaygolpe network. The data captured was based on a prominent hashtag used on the context of a coup in Bolivia at the time. </p>
+
+
+
+<p>If you would like to follow along with this &#8216;how-to&#8217; approach I have taken to this report with your own data, please do.</p>
+
+
+
+<h2 class="wp-block-heading"><strong>Research preparation</strong></h2>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1422" height="146" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-17-at-1.33.28-pm-e1589834013390-1024x146.png?resize=1024%2C146&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>Before we start scouring the entire internet looking for big networks, we need to know what we&#8217;re looking for, and that&#8217;s what I have covered in this section.</p>
+
+
+
+<p>Simply put, we need to &#8216;know thy enemy&#8217;. We can do that by reviewing past case studies. These are best as we can follow someone&#8217;s experience down the rabbit hole of network analysis and get an understanding of how we might be able to tackle them in the future.</p>
+
+
+
+<p>A struggle of researchers is the time it takes to monitor networks on Twitter. So in this section I have also given an insight into my setup for monitoring Twitter activity. </p>
+
+
+
+<h3 class="wp-block-heading">Past Information Operation Case Studies</h3>
+
+
+
+<p>As mentioned above, researching case studies that have been transparent about their research method can lead to a practical insight into how to identify information operations in the future. </p>
+
+
+
+<p>Two case studies I have published on this are:</p>
+
+
+
+<ul class="wp-block-list"><li><strong>China network</strong>: <em><a href="https://www.bellingcat.com/news/2020/05/05/uncovering-a-pro-chinese-government-information-operation-on-twitter-and-facebook-analysis-of-the-milesguo-bot-network/" rel="noreferrer noopener" target="_blank">Uncovering A Pro-Chinese Government Information Operation On Twitter and Facebook: Analysis Of The #MilesGuo Bot Network; and</a></em></li><li><strong>West Papua network</strong>: <em><a href="https://www.bellingcat.com/news/rest-of-world/2019/10/11/investigating-information-operations-in-west-papua-a-digital-forensic-case-study-of-cross-platform-network-analysis/" rel="noreferrer noopener" target="_blank">Investigating Information Operations in West Papua: A Digital Forensic Case Study of Cross-Platform Network Analysis</a></em></li></ul>
+
+
+
+<p>Both of those investigations originated out of the capture of a network and analysis of the dataset. </p>
+
+
+
+<p>Subsequent investigations sought to identify, where possible, the origins of the information campaign and those behind it. </p>
+
+
+
+<h3 class="wp-block-heading">Identification of a trend</h3>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1474" height="656" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/wen3-1-2.png?resize=1024%2C656&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>So how do we find suspected networks? </p>
+
+
+
+<p>The answer: become familiar with the platform and how these networks operate by looking at the data of past takedowns. </p>
+
+
+
+<p>Learning about past networks gives you a general knowledge of information operations, such as their aim, appearance, and more importantly, where you might find them. </p>
+
+
+
+<p>There are number of resources online to get into the data of past information operations on Twitter. </p>
+
+
+
+<p>Below are some:</p>
+
+
+
+<ul class="wp-block-list"><li><a href="https://transparency.twitter.com/en/information-operations.html" rel="noreferrer noopener" target="_blank">Twitter Transparency Report</a> &#8211; data on information operations (very detailed including datasets on networks as well as the media they used).</li><li><a href="https://cyber.fsi.stanford.edu/io" rel="noreferrer noopener" target="_blank">Standford Internet Observatory Cyber Policy Center</a></li><li><a href="https://www.graphika.com/reports" rel="noreferrer noopener" target="_blank">Graphika Reports</a></li><li><a href="https://medium.com/dfrlab" rel="noreferrer noopener" target="_blank">DFRLab on Medium</a></li><li><a href="https://euvsdisinfo.eu/report" rel="noreferrer noopener" target="_blank">EUvsDisinfo Reports</a></li><li><a href="https://www.aspi.org.au/program/international-cyber-policy-centre" rel="noreferrer noopener" target="_blank">Australian Strategic Policy Institute &#8211; International Cyber Policy Center</a></li><li><a href="https://www.bellingcat.com/tag/bots/" rel="noreferrer noopener" target="_blank">Bellingcat (reports on bot networks)</a></li></ul>
+
+
+
+<p>But what about that magic question: &#8220;how do we find them?&#8221;. Well, the first step starts with paying attention to the world of Twitter and what&#8217;s being said. </p>
+
+
+
+<p>One way I tackle that problem is by monitoring hashtags in Tweetdeck.</p>
+
+
+
+<h3 class="wp-block-heading">Monitoring hashtags in Tweetdeck</h3>
+
+
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-9d6595d7 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1476" height="760" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-26-at-7.28.49-pm_censored-1.jpg?resize=358%2C760&#038;ssl=1" width="358" /></figure>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1477" height="748" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-26-at-7.29.01-pm_censored.jpg?resize=359%2C748&#038;ssl=1" width="359" /></figure>
+</div>
+</div>
+
+
+
+<p>The monitoring of hashtags is important in being able to detect when there might be automation, or a coordinated effort to either shift the narrative of a subject, or a boost of a specific topic. </p>
+
+
+
+<p>You might be wondering why I keep mentioning automation. An automated Twitter account isn&#8217;t always bad, there&#8217;s actually some pretty fun automated accounts on Twitter. </p>
+
+
+
+<p>But when there&#8217;s an army of fake accounts automating a political issue, community sensitivity, or attacking a company, then there&#8217;s smoke and fire. </p>
+
+
+
+<p>For monitoring specific hashtags on Twitter, I like to use the monitoring functionality of <a href="https://tweetdeck.twitter.com/" rel="noreferrer noopener" target="_blank">Tweetdeck</a>. </p>
+
+
+
+<p>Simply add a hashtag using the &#8216;search&#8217; style of column, as seen below.</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img alt="" class="wp-image-1391" height="509" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-16-at-12.55.59-pm.png?resize=510%2C509&#038;ssl=1" width="510" /></figure></div>
+
+
+
+<p>This will give you a column which you can customise with content settings to choose specific languages, date range, tweets with only images and filtering out retweets. </p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img alt="" class="wp-image-1392" height="566" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-16-at-1.01.16-pm.png?resize=355%2C566&#038;ssl=1" width="355" /></figure></div>
+
+
+
+<p>When looking at networks not all of them use hashtags. Some might instead use a specific string of words or letters in their content, so you could use that as your monitoring list.</p>
+
+
+
+<p>Anything you can identify that is unique to a subject you want to monitor is a starting point to pivot into data collection for analysis. </p>
+
+
+
+<p>In the example in the image above I was monitoring the tag #bolivianohaygolpe, which loosely meant &#8216;no coup in Bolivia&#8217;. There was an abundance of tweets using this same tag, so it was the common link for me to use what tools I had available to monitor the trend. </p>
+
+
+
+<p>Any common link you can identify is a great starting point to look at what data you want to collect, or scrape. For example, the propaganda operation below was captured using only three tags.</p>
+
+
+
+<figure class="wp-block-embed-twitter wp-block-embed is-type-rich is-provider-twitter"><div class="wp-block-embed__wrapper">
+<div class="video-shortcode"><div class="embed-twitter"><blockquote class="twitter-tweet"><p dir="ltr" lang="en">I captured five days of tweets using <a href="https://twitter.com/hashtag/WestPapua?src=hash&amp;ref_src=twsrc%5Etfw">#WestPapua</a> &amp; <a href="https://twitter.com/hashtag/FreeWestPapua?src=hash&amp;ref_src=twsrc%5Etfw">#FreeWestPapua</a> tags after a crackdown by Indonesian forces against Papuans in Aug. What I found was a bot network spreading pro-govt propaganda. <br /><br />Follow this thread for an <a href="https://twitter.com/hashtag/OSINT?src=hash&amp;ref_src=twsrc%5Etfw">#OSINT</a> journey with a <a href="https://twitter.com/twitter?ref_src=twsrc%5Etfw">@Twitter</a> network analysis<br />👇👇👇 <a href="https://t.co/N7PrJ33WtJ">pic.twitter.com/N7PrJ33WtJ</a></p>&mdash; Benjamin Strick (@BenDoBrown) <a href="https://twitter.com/BenDoBrown/status/1168897466810454016?ref_src=twsrc%5Etfw">September 3, 2019</a></blockquote></div></div>
+</div></figure>
+
+
+
+<p>This has been the key starting point for most of my investigations and often the hardest, but once found, then follows a sequence of logical steps to identify the possible network. </p>
+
+
+
+<h3 class="wp-block-heading">What data do you need for a network visualisation?</h3>
+
+
+
+<p>Before we get into the details of exactly how to capture data from Twitter for network visualisations and analysis, we first need to identify what we require to make a network visualisation.</p>
+
+
+
+<p>Take the following example illustration I have made below from a small cluster of five accounts in Gephi.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1417" height="459" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-17-at-12.49.44-pm-1.png?resize=761%2C459&#038;ssl=1" width="761" /></figure>
+
+
+
+<p>In the cluster above we have twitter accounts identified by their handles @a,@b,@c,@d,@e. In a network, these are called nodes. </p>
+
+
+
+<p>Connecting them are the connections, (referred to in a network as edges). In this case, the edges are going &#8216;outwards&#8217;. That means Twitter account @a tweeted and mentioned @b,@c,@d and @e.</p>
+
+
+
+<p>On a spreadsheet, the edges table (one that holds connections) looks like this, below.</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img alt="" class="wp-image-1418" height="103" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-17-at-1.03.53-pm.png?resize=154%2C103&#038;ssl=1" width="154" /></figure></div>
+
+
+
+<p>If you wanted to see those labels in a Gephi format, you would need a nodes table (individual account information). This would be to label nodes. In Gephi, this would look like the following.</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img alt="" class="wp-image-1419" height="124" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-17-at-1.06.17-pm.png?resize=386%2C124&#038;ssl=1" width="386" /></figure></div>
+
+
+
+<p>Please note, this is a very simple description of a small network of five accounts. There are books, courses and far more in-depth resources on network theory and analysis.</p>
+
+
+
+<p>Also, much larger networks will not just be lists of account names. For a more in-depth analysis you will need attribute tables such as account creation date, weight, hashtags used, all of which will be covered further down in this report. </p>
+
+
+
+<p>But what this smaller network does give us is the essential criteria of what a network looks like in CSV (comma separated value) format when read as a spreadsheet table. </p>
+
+
+
+<p>The columns that hold the data you capture will define the links made between rows of a sheet. </p>
+
+
+
+<p>So now that we know what necessary data we need to get from a potential network, let&#8217;s get into how we can scrape it. </p>
+
+
+
+<h2 class="wp-block-heading"><strong>Getting the essential raw data </strong></h2>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1423" height="156" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-17-at-1.39.07-pm-e1589834064311-1024x156.png?resize=1024%2C156&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>In this section I am going to cover tools I find essential to capture data.</p>
+
+
+
+<p>It will provide the following two alternatives on how I capture that data:</p>
+
+
+
+<ol class="wp-block-list"><li>Twitter scraping with Python; and</li><li> Using Twitter&#8217;s API to capture data </li></ol>
+
+
+
+<p>This section will also cover how to sort raw data into a file that is friendly for processing in a visualisation platform (like Gephi).</p>
+
+
+
+<h3 class="wp-block-heading">Tools to capture data from Twitter</h3>
+
+
+
+<p>These are two tools I use to capture data from Twitter. </p>
+
+
+
+<p>They are:</p>
+
+
+
+<ol class="wp-block-list"><li>Python script <a href="https://github.com/twintproject/twint" rel="noreferrer noopener" target="_blank">Twint</a> (in conjunction with <a href="https://medialab.github.io/table2net/">Table2Net</a> to sort data)</li><li><a href="https://gephi.org/" rel="noreferrer noopener" target="_blank">Gephi</a> with <a href="https://github.com/seinecle/gephi-tutorials/blob/master/src/main/asciidoc/en/plugins/twitter-streaming-importer-en.adoc" rel="noreferrer noopener" target="_blank">TwitterStreamingImporter</a> and Twitter API</li></ol>
+
+
+
+<p>Each of these are included in the following sections.</p>
+
+
+
+<h3 class="wp-block-heading">Capturing data using Python</h3>
+
+
+
+<p>Python is a general purpose programming language. There is an abundance of python programs that are capable of collecting data from platforms, however in these case-use scenarios I use <a href="https://github.com/twintproject/twint" rel="noreferrer noopener" target="_blank">Twint</a>. </p>
+
+
+
+<p>Twint is described as: &#8220;<em>An advanced Twitter scraping &amp; OSINT tool written in Python that doesn&#8217;t use Twitter&#8217;s API, allowing you to scrape a user&#8217;s followers, following, Tweets and more while evading most API limitations.</em>&#8220;</p>
+
+
+
+<p>It is made by <a href="https://twitter.com/noneprivacy" rel="noreferrer noopener" target="_blank">Francesco Poldi</a> and is an easy-to-use tool to collect data from Twitter when requested through the command line. </p>
+
+
+
+<p>Basically, what this does is remove the reliance upon buttons for using Twitter. Instead, we get to glimpse into the realms of user-generated data. </p>
+
+
+
+<p>The GitHub page of Twint shows some of the basic commands that can be used in the script (see below). These are basic commands, and there is freedom to mix requests. </p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1402" height="676" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-16-at-2.18.47-pm.png?resize=948%2C676&#038;ssl=1" width="948" /></figure>
+
+
+
+<p>For the case study, the tag I was looking into was #bolivianohaygolpe &#8211; so a simple command in Twint allows me to pull all of the tweets that used the hashtag. </p>
+
+
+
+<p>This is the command I enterred:</p>
+
+
+
+<pre class="wp-block-code"><code>twint -s bolivianohaygolpe -o bolivianohaygolpe.csv --csv</code></pre>
+
+
+
+<p>This automates the collection of all of those tweets (seen below) into a CSV.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1406" height="644" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-16-at-2.28.09-pm.png?resize=860%2C644&#038;ssl=1" width="860" /></figure>
+
+
+
+<p>The same process can also be used to scrape mentions of a specific account. </p>
+
+
+
+<p>For the #bolivianohaygolpe campaign, many of the tweets mentioned former President of Bolivia Evo Morales. This was either through replies of his Tweets or through mentions of his Twitter handle <a href="https://twitter.com/evoespueblo" rel="noreferrer noopener" target="_blank">@evoespueblo</a>.</p>
+
+
+
+<p>I used the following command to collect all mentions of his Twitter handle:</p>
+
+
+
+<pre class="wp-block-code"><code>twint -s evoespueblo -o evoesmentions.csv --csv</code></pre>
+
+
+
+<p>This builds a CSV sheet of all of those mentions and captures the following data seen below.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1407" height="345" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-16-at-3.08.46-pm.png?resize=1024%2C345&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>For further analysis of Evo Morales followers, we can use a command such as</p>
+
+
+
+<pre class="wp-block-code"><code>twint -u evoespueblo --followers --user-full -o evoesfoll.csv --csv</code></pre>
+
+
+
+<p>This provides full follower information. For example, name, handle, verification, account creation date, followers, following, bio, location and more.</p>
+
+
+
+<p>But be warned, it is a much slower process than the previous command, so you might want to make a cup of tea while you&#8217;re waiting.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1410" height="577" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-16-at-3.33.37-pm.png?resize=1024%2C577&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>Having the .csv extension again extracts this into an easy to view spreadsheet for analysis. </p>
+
+
+
+<p>Using a filtering feature by column in excel, we can sort the data by values. I always like to check out account creation dates &#8211; as they&#8217;re indicative of odd behaviour when there&#8217;s a massive bunch made on one day.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1411" height="631" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-16-at-3.39.48-pm.png?resize=954%2C631&#038;ssl=1" width="954" /></figure>
+
+
+
+<p>This method of capturing and analysing the data is useful for identifying trends such as account name generators, same account creation dates and automated posting times which can all follow a strong pattern if automation is present. </p>
+
+
+
+<p>You&#8217;re probably wondering &#8220;what else can I do with this data?&#8221; &#8211; so let&#8217;s look at how we can visualise it.</p>
+
+
+
+<h3 class="wp-block-heading">Converting captured data to graph</h3>
+
+
+
+<p>Using the visualisation tool Gephi is much easier to capture data from Twitter in a network format. More of this will be explained in the latter sections of this report. </p>
+
+
+
+<p>But it is also possible to convert scraped data into a format friendly file for network visualisations. </p>
+
+
+
+<p>This can be done by using the tool <a href="https://medialab.github.io/table2net/" rel="noreferrer noopener" target="_blank">Table 2 Net</a>. </p>
+
+
+
+<p>Twitter user <a href="https://twitter.com/hpiedcoq" rel="noreferrer noopener" target="_blank">@hpiedcoq</a> introduced me to this tool as a way to &#8216;sort&#8217; data into network-friendly lists, and it is quite reliable for that use. </p>
+
+
+
+<p>For the purpose of showing how this works, I&#8217;m going to use the CSV file I made when I scraped the mentions of Evo Morales using the tool Twint, seen in the previous section.</p>
+
+
+
+<p>First, when you upload the CSV it will sort the data into columns. </p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1429" height="542" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-18-at-4.19.26-pm.png?resize=1024%2C542&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>I like to display this as a network based on citations.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1430" height="373" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-18-at-4.22.10-pm.png?resize=1024%2C373&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>For the following sections I set:</p>
+
+
+
+<ul class="wp-block-list"><li>My nodes as account names (and comma separated)</li><li>Links are mentions as that is the command I requested in the scrape</li><li>Then build the network</li></ul>
+
+
+
+<p>Of course, you can set attributes so that once you have your visualisation you can identify different patterns in your nodes. </p>
+
+
+
+<p>Once you have built that network, it will provide you with a GEXF file which you can upload straight to Gephi &#8211; or another visualiser.</p>
+
+
+
+<p>A stronger method to automate the capturing of data from Twitter, and the visualisation of a network is with the tool Gephi, using the Twitter API.</p>
+
+
+
+<h3 class="wp-block-heading">Location capture tweets to graph</h3>
+
+
+
+<p>If you&#8217;re reading this and a bit lost, something else you can try right now to test this on is making a network-friendly file out of geo-tagged tweets. </p>
+
+
+
+<p>For this example, I thought it would be fun to try out tweets geotagged to <a href="https://goo.gl/maps/Y7ueP8hNMzoBhXWN8" rel="noreferrer noopener" target="_blank">Canary Wharf in London</a>. There&#8217;s lots of interesting people, places and things there.</p>
+
+
+
+<p>We can get the coordinates by doing the following in Google Maps. </p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1479" height="567" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-26-at-8.00.42-pm.png?resize=1024%2C567&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>Then we can use Twint, with the following command:</p>
+
+
+
+<pre class="wp-block-code"><code>twint -g="51.505312, -0.022900,1km" -o canarytweets.csv --csv</code></pre>
+
+
+
+<p>This will give you a dataset of tweets tagged in a specific location, of which you can either manually column sort, or use in Table2Net and Gephi. To visualise the data, I&#8217;ll cover that in a bit.</p>
+
+
+
+<h3 class="wp-block-heading">Capturing data using Twitter API</h3>
+
+
+
+<p>In order to use Gephi with the plugin TwitterStreamingImporter you must have developer access to the Twitter platform and generate an API key. </p>
+
+
+
+<p>You can find the application for a <a href="https://developer.twitter.com/en/apply-for-access" rel="noreferrer noopener" target="_blank">Twitter developer account here</a>. </p>
+
+
+
+<p>The TwitterStreamingImporter was developed by <a href="https://twitter.com/Totetmatt" rel="noreferrer noopener" target="_blank">Matthieu Totet</a>. To install it, simply access it through the Gephi plugin panel, seen below.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1395" height="636" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-16-at-1.17.55-pm.png?resize=1024%2C636&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>Should you need assistance in setting up an API key or Twitter account, the team behind the TwitterStreamingImporter have a complete step-by-step <a href="https://github.com/seinecle/gephi-tutorials/blob/master/src/main/asciidoc/en/plugins/twitter-streaming-importer-en.adoc" rel="noreferrer noopener" target="_blank">guide here.</a></p>
+
+
+
+<p>Once installed, enter API keys and you are able to start streaming through Twitter&#8217;s API whenever you need.</p>
+
+
+
+<p>The function I use the most is to pull data based upon words to follow, much like what we did through the command line before. This is just an alternative, and easier, way.</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img alt="" class="wp-image-1396" height="319" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-16-at-1.23.48-pm.png?resize=305%2C319&#038;ssl=1" width="305" /></figure></div>
+
+
+
+<p>The network logic I choose is generally user network. </p>
+
+
+
+<p>The user network is based on the interaction between users, so any mention, retweet or quote will be captured and represented automatically in Gephi. </p>
+
+
+
+<p>For the others, hashtag network will create a network of tags, emoji network is for emojis, Bernardamus is for user networks based on tags in tweets. </p>
+
+
+
+<p>The full option is also very useful for individual accounts. It is a network using all Twitter activity, so tweets, tags, URLs and images.</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img alt="" class="wp-image-1397" height="129" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-16-at-1.24.01-pm.png?resize=278%2C129&#038;ssl=1" width="278" /></figure></div>
+
+
+
+<p>When you first click connect, it will start pulling activity as it happens, through the API. </p>
+
+
+
+<p>Depending on the word you choose, it may either take a long time as each tweet is made with that word, or alternatively it will crash your computer in minutes with overwhelming data.</p>
+
+
+
+<p>For example, I chose the term &#8220;covid&#8221;. You can see how it pulled the data in below. </p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1398" height="526" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-16-at-1.35.22-pm.png?resize=1024%2C526&#038;ssl=1" width="1024" /></figure>
+
+
+
+<h2 class="wp-block-heading"><strong>How to cook data and present it nicely in Gephi</strong></h2>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1425" height="158" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-17-at-3.03.18-pm-e1589834039819-1024x158.png?resize=1024%2C158&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>The past two sections focussed on where to find possible inauthentic networks, the data you need to create a small network, and how you can scrape data from Twitter. </p>
+
+
+
+<p>This section will now focus on the processing of that data in a visualisation platform so that you can visually analyse the data. </p>
+
+
+
+<p>In this section I have relied primarily on the use of open source platform Gephi. While there are other visualisation methods out there, this is one that I find reliable and flexible. </p>
+
+
+
+<p>An alternative visualisation platform I can recommend is <a href="https://www.graphistry.com/" rel="noreferrer noopener" target="_blank">Graphistry</a>. A case study using this visualisation platform is from French security researcher <a href="https://twitter.com/fs0c131y/status/1070978229224267776?s=20" rel="noreferrer noopener" target="_blank">fs0c131y</a> in his analysis on the #GiletsJaunes tag on Twitter seen below.</p>
+
+
+
+<figure class="wp-block-embed-twitter wp-block-embed is-type-rich is-provider-twitter"><div class="wp-block-embed__wrapper">
+<div class="video-shortcode"><div class="embed-twitter"><blockquote class="twitter-tweet"><p dir="ltr" lang="en">For 3 days, I'm capturing the English tweets with the <a href="https://twitter.com/hashtag/GiletsJaunes?src=hash&amp;ref_src=twsrc%5Etfw">#GiletsJaunes</a> hashtag. Based on 34K tweets,  I made this cool retweet interaction graph.<br /><br />Let see what we can find 🔽🔽🔽 <a href="https://t.co/2ValzktKoX">pic.twitter.com/2ValzktKoX</a></p>&mdash; Baptiste Robert (@fs0c131y) <a href="https://twitter.com/fs0c131y/status/1070978229224267776?ref_src=twsrc%5Etfw">December 7, 2018</a></blockquote></div></div>
+</div></figure>
+
+
+
+<p>For the purpose of the next two sections, I am going to use the data I scraped on Evo Morales mentions using Twint. That file was then processed with Table 2 Net to turn the csv data into a network-friendly file. </p>
+
+
+
+<p>Subsequently, I will also use the data I pulled through Twitter&#8217;s API to show the visualisation and analysis. </p>
+
+
+
+<h3 class="wp-block-heading">How I display network visualisations</h3>
+
+
+
+<p>Starting with a clean, unprocessed block of data, there are a lot of things we can do in Gephi. </p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1432" height="602" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-18-at-4.31.28-pm.png?resize=1024%2C602&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>First, I always like to break up the data using one of the layout functions. </p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1433" height="612" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-18-at-4.37.13-pm.png?resize=1024%2C612&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>Dissuading hubs and preventing overlap allows for a more constructive analysis and visualisation. </p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1434" height="623" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-18-at-4.39.25-pm.png?resize=1024%2C623&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>This is your basic representation of the data with quick processing, but it can look much nicer than that.</p>
+
+
+
+<h3 class="wp-block-heading">How I organise nodes (accounts) into clusters</h3>
+
+
+
+<p>Once you have displayed your network, it&#8217;s time to classify clusters with the &#8216;modularity&#8217; algorithm. The purpose of this is so you can then automatically apply individual colouring to each cluster. </p>
+
+
+
+<p>Doing so will issue you with a modularity report which often has quite interesting details for analysis.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1435" height="611" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-18-at-4.44.45-pm.png?resize=1024%2C611&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>What we&#8217;re able to do now is use the partition colouring panel to partition the nodes based on modularity class and apply a palette to them. </p>
+
+
+
+<p>Depending on the palette you choose you might want to change the background colour. </p>
+
+
+
+<p>Doing so gives you the following result for your data.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1436" height="612" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-18-at-4.46.11-pm.png?resize=1024%2C612&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>Zooming in a bit more on that shows, for effect, what we have done.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1437" height="607" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-18-at-4.49.54-pm.png?resize=1024%2C607&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>There are many ways to display Gephi data for analysis. This is just one methods I have outlined. </p>
+
+
+
+<h3 class="wp-block-heading">Analysis in Gephi&#8217;s Data Laboratory</h3>
+
+
+
+<p>The benefit of using the TwitterStreamingImporter plugin in Gephi is that while data is being pulled into your Gephi visualisation through the API in real-time, you can also conduct an ongoing analysis of accounts and trends in the network as it happens. </p>
+
+
+
+<p>For example, let&#8217;s take a look at the data we pulled using the API based on the hashtag #bolivianohaygolpe.</p>
+
+
+
+<p>This is what some of the network looks like visually.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1438" height="543" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-18-at-5.06.20-pm.png?resize=1024%2C543&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>Over in the data laboratory this is how my edges table looks.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1439" height="561" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-18-at-5.07.21-pm.png?resize=1024%2C561&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>As I mentioned in some of the beginning sections, one of the things that is important to look for in identifying possible networks is the account creation date, which the data laboratory, much like a spreadsheet, allows you to sort through for visual pattern identification.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1440" height="546" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-18-at-5.08.51-pm.png?resize=1024%2C546&#038;ssl=1" width="1024" /></figure>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1441" height="560" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-18-at-5.11.07-pm.png?resize=1024%2C560&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>As seen above, we can tell that on November 11 and November 12, 2019, many of the accounts in the #bolivianohaygolpe network were created. </p>
+
+
+
+<p>To show them clearly, we can bulk edit the node size. </p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1443" height="561" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-18-at-5.27.42-pm.png?resize=1024%2C561&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>This gives a direction as to what accounts need further investigating and allows us to focus our analysis time.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1444" height="541" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-18-at-5.27.20-pm.png?resize=1024%2C541&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>In some cases, using the data laboratory may also indicate signs of automation in the posting times. These can occur as patterns. </p>
+
+
+
+<p>When looking at those accounts in their posting times, evident through the data gathered on Twint and the API requested data through Gephi, patterns can emerge as seen in this case study tweet I posted below.</p>
+
+
+
+<figure class="wp-block-embed-twitter wp-block-embed is-type-rich is-provider-twitter"><div class="wp-block-embed__wrapper">
+<div class="video-shortcode"><div class="embed-twitter"><blockquote class="twitter-tweet"><p dir="ltr" lang="en">I only want to see the times of the two <a href="https://twitter.com/twitter?ref_src=twsrc%5Etfw">@Twitter</a> accounts &amp; when they posted. On any given day there are set patterns the bots work on. It’s automated but still runs on a programmed pattern. You can see that in the pattern of post times with B on the left, and K on the right. <a href="https://t.co/ammq3exTCb">pic.twitter.com/ammq3exTCb</a></p>&mdash; Benjamin Strick (@BenDoBrown) <a href="https://twitter.com/BenDoBrown/status/1168897657949032450?ref_src=twsrc%5Etfw">September 3, 2019</a></blockquote></div></div>
+</div></figure>
+
+
+
+<p>This, however, is only a starting point with the data. It draws the difference from being able to collect and present data, to pivoting on the results found and diving further down the analytical rabbit hole. </p>
+
+
+
+<h3 class="wp-block-heading">Running a brief analysis of accounts</h3>
+
+
+
+<p>While I did say the investigative task from here requires manual diving into clusters and accounts, there are some ways to automate the flagging of suspicious accounts and networks.</p>
+
+
+
+<p>Three tools I use for this purpose are:</p>
+
+
+
+<ol class="wp-block-list"><li><a href="https://botometer.iuni.iu.edu/#!/" rel="noreferrer noopener" target="_blank">Botometer</a></li><li><a href="https://www.twitteraudit.com/" rel="noreferrer noopener" target="_blank">TwitterAudit</a></li><li>Image reverse search (I use the <a href="https://chrome.google.com/webstore/detail/reveye-reverse-image-sear/keaaclcjhehbbapnphnmpiklalfhelgf?hl=en" rel="noreferrer noopener" target="_blank">RevEye</a> plugin)</li></ol>
+
+
+
+<p>I&#8217;ll show you how I use them. </p>
+
+
+
+<h3 class="wp-block-heading">Botometer</h3>
+
+
+
+<p>One free tool I have used in a number of Twitter-based investigations is the <a href="https://botometer.iuni.iu.edu/#!/" rel="noreferrer noopener" target="_blank">Botometer</a>. It&#8217;s a joint project of the Network Science Institute (<a href="https://iuni.iu.edu/">IUNI</a>) and the Center for Complex Networks and Systems Research (<a href="https://cnets.indiana.edu/">CNetS</a>) at Indiana University.</p>
+
+
+
+<p>Using Botometer is very simple. It can work in two ways, either through the user interface model on the website, or in an application through the API. </p>
+
+
+
+<p>So let&#8217;s run the Botometer on some of the following accounts we identified were created on November 11, 2019. These are accounts that targeted the #bolivianohaygolpe tag. </p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1462" height="538" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-19-at-7.47.17-am.png?resize=789%2C538&#038;ssl=1" width="789" /></figure>
+
+
+
+<p>Here is a sample of some of the results I got by running those accounts through Botometer. </p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1464" height="614" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-19-at-8.04.11-am.png?resize=1024%2C614&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>Note that it will also conduct a sentiment analysis, content evaluation and other factors. This is quite useful as it saves the time of a researcher conducting this analysis by hand. </p>
+
+
+
+<p>Something we can also do is run the same analysis on followers or friends of those accounts. This will automatically go through each one and conduct the same analysis. </p>
+
+
+
+<h3 class="wp-block-heading">TwitterAudit</h3>
+
+
+
+<p>Another tool that makes this quite simple is <a href="https://www.twitteraudit.com/" rel="noreferrer noopener" target="_blank">TwitterAudit</a>. For me, this tool was not relevant in the investigation but it can show some insights on Twitter accounts with much larger follower numbers. </p>
+
+
+
+<p>For example, <a href="https://www.twitteraudit.com/evoespueblo" rel="noreferrer noopener" target="_blank">this link is a search result </a>of a Twitter audit of the account of Evo Morales.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1465" height="212" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screen-Shot-2020-05-19-at-8.11.16-am.png?resize=633%2C212&#038;ssl=1" width="633" /></figure>
+
+
+
+<p>For accounts in the public eye, this is quite common to have followers that might have been flagged as &#8216;fake&#8217;. The indicia for flagging as fake can include account age and whether the accounts posts &#8211; so a person&#8217;s account made for only reading Twitter but not participating could be flagged. </p>
+
+
+
+<p>This is why there should always be a human check in an investigation, rather than the reliance upon tools for a conclusive result. </p>
+
+
+
+<h3 class="wp-block-heading">Image Reverse Search</h3>
+
+
+
+<p>A human check involves simple logic, such as checking the origin of a profile picture using an image-reverse search, as seen below. </p>
+
+
+
+<figure class="wp-block-embed-twitter wp-block-embed is-type-rich is-provider-twitter"><div class="wp-block-embed__wrapper">
+<div class="video-shortcode"><div class="embed-twitter"><blockquote class="twitter-tweet"><p dir="ltr" lang="en">Another bot account caught in the web is <a href="https://twitter.com/yerxi1?ref_src=twsrc%5Etfw">@yerxi1</a>. Yandex image reverse search prevails. Remember that these accounts were only caught after five days, the actual size of this bot network is much larger 🤖🤖🤖 <a href="https://t.co/cQAPMrBb7B">pic.twitter.com/cQAPMrBb7B</a></p>&mdash; Benjamin Strick (@BenDoBrown) <a href="https://twitter.com/BenDoBrown/status/1168897548192505856?ref_src=twsrc%5Etfw">September 3, 2019</a></blockquote></div></div>
+</div></figure>
+
+
+
+<p>To do this, I use the plugin <a href="https://chrome.google.com/webstore/detail/reveye-reverse-image-sear/keaaclcjhehbbapnphnmpiklalfhelgf?hl=en" rel="noreferrer noopener" target="_blank">RevEye</a>, it helps for a quick reverse search on a choice of platforms, as seen below. The choice of using Evo Morales profile was for example purposes only.  </p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1530" height="656" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/05/Screenshot-2020-05-27-at-10.16.04_censored.jpg?resize=1024%2C656&#038;ssl=1" width="1024" /></figure>
+
+
+
+<h2 class="wp-block-heading">Concluding remarks</h2>
+
+
+
+<p>The content I have covered in this report provides an introductory knowledge of the who, where and what of information operations on Twitter, two alternative methods of scraping data involving Python or Twitter&#8217;s API, and presenting that data in a visualisation platform. </p>
+
+
+
+<p>Please do note that there may be alternative ways of looking at this data and different tools, however I have kept this report limited to the tools I have used in successful information operation detection cases.</p>
+
+
+
+<p>While these are helpful tools for investigators, researchers and journalists, they are only a beginning to investigating an information operation. The findings made by looking at the data must be followed up in a qualitative analysis to make original findings. </p>
+
+
+
+<p>I hope this information has been helpful to those of you conducting your own research, either on Twitter or other platforms. </p>
+<p>The post <a href="https://benjaminstrick.com/how-i-scrape-and-analyse-twitter-networks/">How I Scrape and Analyse Twitter Networks [Case Study]</a> appeared first on <a href="https://benjaminstrick.com">Benjamin Strick</a>.</p>
+        </div>
+    </article>
+</body>
+</html>

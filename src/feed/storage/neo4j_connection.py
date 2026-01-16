@@ -42,7 +42,7 @@ class Neo4jConnection:
 
     def _load_environment(self) -> None:
         """Load environment variables from .env file."""
-        load_dotenv(self.env_path, override=True)
+        load_dotenv(self.env_path, override=False)
 
     def connect(self) -> Driver:
         """

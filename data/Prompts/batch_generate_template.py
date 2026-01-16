@@ -161,3 +161,10 @@ if __name__ == "__main__":
     print("Use the exported .txt files with nanobanana for batch image generation.")
 
 
+
+
+
+
+
+
+

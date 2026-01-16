@@ -1,8 +1,35 @@
 # Nebula Jupyter System
 
+Comprehensive system for rapid prototyping, AI experimentation, and data pipeline orchestration.
+
 > !Important: Organization is no longer accepting pull requests to be made with any emojis, please keep this in mind before submitting to code review channels
 > Please read `CONTRIBUTING.md` for more information on getting involved with the project
 > For a summary of our project's evolution, see the `HISTORY.md` file.
+
+## Quick Start - Reproducible Development Environment
+
+Get a complete development environment with Nix, PostgreSQL, and Docker in one command:
+
+```bash
+cd ~/Workspace/jupyter && cp .env.example .env && direnv allow && docker compose up -d && uv sync
+```
+
+For detailed setup instructions, see:
+- **[DEVENV_SETUP.md](./DEVENV_SETUP.md)** - Quick reference guide (5 min read)
+- **[docs/development-environment.md](./docs/development-environment.md)** - Complete guide with troubleshooting
+
+**Architecture & Planning:**
+- **[Implementation Plan](~/.claude/plans/compiled-mixing-pearl.md)** - Task scheduler architecture and phases
+
+## Key Components
+
+| Component | Purpose | Status |
+|-----------|---------|--------|
+| **Task Scheduler** | Celery + PostgreSQL for distributed task execution | MVP Phase 1 ✓ |
+| **Feed Poller** | Multi-source data aggregation (Reddit, web crawlers) | Active |
+| **Knowledge Graph** | Neo4j-based entity and relationship tracking | Active |
+| **GraphQL API** | Federated queries across multiple data sources | Active |
+| **Image Processing** | ML-powered image analysis and deduplication | Active |
 
 ## ASR Hearing Benchmark Roadmap
 
@@ -82,6 +109,11 @@
 - **Docker DevContainers**: Isolated, reproducible development environment with CUDA support
 - **Secret Scanning**: Talisman pre-commit hooks for security
 - **Spec-Driven Development**: Kiro AI assistant integration for structured development
+- **Media Platform**: Production-ready Node.js application with Neo4j, Valkey, and S3-compatible storage
+  - Located in `/media-platform/` - See [media-platform/README.md](media-platform/README.md)
+- **Infrastructure Documentation**: 
+  - `docs/INFRASTRUCTURE_DECISIONS.md` - Storage, database, and deployment architecture decisions
+  - `docs/ARCHITECTURE_OVERVIEW.md` - Complete integrated stack architecture and operational guide
 
 ## Legacy Components
 

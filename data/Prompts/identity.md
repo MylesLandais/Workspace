@@ -5,6 +5,8 @@
 ### Primary Face Lock Module
 
 ```
+Use the woman from the provided reference images as the subject. Her identity must match the reference exactly: same face, bone structure, proportions, skin tone, body shape, and natural features. Do not alter facial geometry, eye spacing, nose shape, jawline, lips, or body proportions. This is a 1:1 identity match to the reference photos.
+
 Young adult woman, Polish-American heritage, fair complexion with warm undertones, natural freckles scattered across nose bridge and cheeks, oval face shape with defined jawline, center-parted long straight dark brown hair (chest-length), warm brown eyes, natural full eyebrows (medium thickness, slight arch), genuine warm smile showing teeth, friendly approachable expression
 ```
 
@@ -139,6 +141,13 @@ Fair-skinned Polish-American woman with natural freckles, warm brown eyes, long 
 ## nanobanana-3 Specific Format
 
 For nanobanana-3 (Gemini 3 Image Pro), use natural language descriptions with the base identity template combined with wildcard variations. The model responds well to detailed, descriptive prompts that maintain character consistency while allowing stylistic variation.
+
+
+
+
+
+
+
 
 
 

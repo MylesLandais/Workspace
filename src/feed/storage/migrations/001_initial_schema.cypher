@@ -21,3 +21,10 @@ FOR (p:Post) ON (p.score);
 CREATE INDEX post_subreddit_index IF NOT EXISTS
 FOR (p:Post) ON (p.subreddit);
 
+
+
+
+
+
+
+

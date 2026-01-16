@@ -272,3 +272,10 @@ def get_adapter_for_platform(platform_slug: str) -> Optional[MediaAdapter]:
     }
     return adapters.get(platform_slug.lower())
 
+
+
+
+
+
+
+

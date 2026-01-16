@@ -1,0 +1,87 @@
+version: "3.8"
+
+services:
+  imageboard_orchestrator:
+    build:
+      context: .
+      dockerfile: Dockerfile.crawler
+    container_name: imageboard_orchestrator
+    volumes:
+      - ./cache:/home/warby/Workspace/jupyter/cache
+    environment:
+      - REDIS_URL=redis://localhost:6379
+      - IMAGEBOARD_BOARD=b
+      - POLL_INTERVAL=1800
+    network_mode: host
+    command: python -u imageboard_catalog_orchestrator.py
+
+  imageboard_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.crawler
+    container_name: imageboard_worker
+    volumes:
+      - ./cache:/home/warby/Workspace/jupyter/cache
+    environment:
+      - REDIS_URL=redis://localhost:6379
+      - PYTHONUNBUFFERED=1
+    network_mode: host
+    command: python -u imageboard_monitor_worker.py
+
+  imageboard_dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.crawler
+    container_name: imageboard_dashboard
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./cache:/home/warby/Workspace/jupyter/cache
+      - ./datasets:/home/warby/Workspace/jupyter/datasets
+      - ./imageboard_dashboard_v4.py:/home/warby/Workspace/jupyter/imageboard_dashboard_v4.py
+    network_mode: host
+    command: python imageboard_dashboard_v4.py
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: imageboard_prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./otel/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=24h'
+    restart: unless-stopped
+
+  pushgateway:
+    image: prom/pushgateway:latest
+    container_name: imageboard_pushgateway
+    ports:
+      - "9091:9091"
+    restart: unless-stopped
+
+  metrics_collector:
+    build:
+      context: .
+      dockerfile: Dockerfile.crawler
+    container_name: imageboard_metrics_collector
+    volumes:
+      - ./otel:/home/warby/Workspace/jupyter/otel
+      - ./logs/metrics:/var/lib/prometheus/metrics
+    environment:
+      - REDIS_URL=redis://localhost:6379
+      - PUSHGATEWAY_URL=http://localhost:9091
+      - COLLECTION_INTERVAL=30
+    network_mode: host
+    command: python otel_metrics_collector.py
+    restart: unless-stopped
+
+volumes:
+  prometheus_data: {}
+
+networks:
+  host:
+    external: true

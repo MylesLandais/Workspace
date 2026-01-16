@@ -25,5 +25,51 @@
 - **Description**: long dark brown hair styled with curls or waves, center part maintained, hair extending to mid-chest length, styled appearance with body and texture
 - **Camera Notes**: any angle suitable, shows styled texture and movement
 
+---
+
+## 2009 Emo/Scene Asymmetric Styles
+
+## asymmetric_side_sweep
+- **Short**: "asymmetric side-sweep hair"
+- **Description**: long dark brown hair with dramatic side-swept styling, hair heavily swept to one side creating asymmetric drape across face, partially covering one eye, classic 2009 emo/scene aesthetic
+- **Camera Notes**: high-angle or three-quarter angles emphasize asymmetric effect, side view shows dramatic sweep
+
+## heavy_fringe_curtain
+- **Short**: "heavy fringe curtain"
+- **Description**: long dark brown hair with heavy asymmetric fringe curtain sweeping diagonally across forehead, partially covering one eye, creating dramatic asymmetric frame, classic scene girl styling
+- **Camera Notes**: front or slightly angled shots show fringe effect, high-angle emphasizes curtain effect
+
+## razor_choppy_layers
+- **Short**: "razor-cut choppy layers"
+- **Description**: long dark brown hair cut in choppy razor-cut asymmetric layers, heavy side part with longer pieces creating dramatic diagonal sweep across face, layered texture and dimension, scene style
+- **Camera Notes**: front and side angles show choppy texture, lighting catches layered dimension
+
+## deep_side_part_drape
+- **Short**: "deep side-part asymmetric drape"
+- **Description**: long dark brown hair with extreme deep side part, hair dramatically swept across forehead and covering one eye side, heavy asymmetric drape effect, creating moody dramatic frame
+- **Camera Notes**: three-quarter or profile shots emphasize dramatic drape, front shows eye partially hidden
+
+## swooped_diagonal_fringe
+- **Short**: "swooped diagonal fringe"
+- **Description**: long dark brown hair with long swooping diagonal fringe from deep side part, hair sweeping across entire face asymmetrically, covering partial eye area, dramatic asymmetric silhouette
+- **Camera Notes**: front and slightly angled shots show diagonal effect, high-angle creates moody frame
+
+## teased_asymmetric_volume
+- **Short**: "teased asymmetric volume"
+- **Description**: long dark brown hair with teased volume on one side creating dramatic asymmetric silhouette, hair swept dramatically across face, other side smoother and tucked, dimensional scene style
+- **Camera Notes**: high-angle emphasizes teased volume, side lighting catches dramatic asymmetric shape
+
+## emo_scene_curtain
+- **Short**: "emo scene hair curtain"
+- **Description**: long dark brown hair with classic emo/scene curtain effect—hair dramatically parted and swept asymmetrically across face, creating heavy asymmetric drape that partially obscures one eye, peak 2009 aesthetic
+- **Camera Notes**: front or slightly angled shots show curtain effect, three-quarter emphasizes asymmetric frame
+
+
+
+
+
+
+
+
 
 

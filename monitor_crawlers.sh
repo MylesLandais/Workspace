@@ -41,3 +41,10 @@ for subreddit in subreddits:
 echo ""
 echo "To stop a crawler: docker exec jupyter pkill -f 'crawl_reddit_rss.py.*SubredditName'"
 
+
+
+
+
+
+
+

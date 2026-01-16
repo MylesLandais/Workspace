@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocating a Plane Shot Down in Ethiopia – Case Studies on Mountain Profiling with PeakVisor</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max_width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        article {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 { margin-top: 0; color: #1a1a1a; }
+        .meta {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        img { max-width: 100%; height: auto; display: block; margin: 20px auto; }
+        a { color: #0066cc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        pre { background: #f4f4f4; padding: 15px; overflow-x: auto; border-radius: 4px; }
+        blockquote {
+            border-left: 4px solid #ddd;
+            margin: 0;
+            padding-left: 20px;
+            color: #555;
+        }
+        .nav { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="../../index.html">← Back to Dashboard</a>
+    </div>
+    <article>
+        <header>
+            <h1>Geolocating a Plane Shot Down in Ethiopia – Case Studies on Mountain Profiling with PeakVisor</h1>
+            <div class="meta">
+                <strong>Source:</strong> Benjamin Strick<br>
+                <strong>Date:</strong> July 02, 2021<br>
+                <strong>Author:</strong> Ben
+            </div>
+        </header>
+        <div class="content">
+            <p><strong>Through the use of publicly available satellite imagery, open source investigative techniques, and a bit of creativity, we can find where and when a photo or video was taken. But sometimes, geolocating footage comes with unique challenges &#8211; all of which differ depending on the country, landscape, availability of data, or the quality of the footage you are trying to geolocate. </strong></p>
+
+
+
+<p><strong>In these case studies we look at the geolocation of footage in remote environments, and how Google Earth&#8217;s mountain ranges can play tricks on our confidence levels of locations.</strong></p>
+
+
+
+<p>I have broken this post down into two main sections:</p>
+
+
+
+<ul class="wp-block-list"><li>A primer on use of <a href="https://peakvisor.com/" rel="noreferrer noopener" target="_blank">PeakVisor</a>, a tool that gives more accurate mountain silhouettes than Google Earth and how it helps as a confirmation tool in geolocation work where Google Earth hasn&#8217;t truly represented what is seen in the footage with a case study from Yemen.</li><li>A recent case study geolocating <a href="https://www.youtube.com/watch?v=P8eYnGCDa8k" rel="noreferrer noopener" target="_blank">footage</a> circulated online showing the debris of an Ethiopian C-130, believed to be somewhere in the Tigray region. </li></ul>
+
+
+
+<h2 class="wp-block-heading">A primer on geolocation with PeakVisor</h2>
+
+
+
+<p>Finding where an image or a video was taken often involves searching for clues around, and in, a video or photo. </p>
+
+
+
+<p>I say around because there is often vital context that comes with media, such as a country, region, or possible location. By looking for clues within the imagery, can we start to consider matching that up with what we might see on a map. </p>
+
+
+
+<p>When looking at regional conflict areas, often there are no obvious clues to find a location. At least, not as obvious as a street sign or a shop name. </p>
+
+
+
+<p>When it comes to looking at these remote area, clues do exist such as mountains, tree formations, bodies of water and other natural features. I have found numerous successes in using mountain ranges as a starting point in many difficult geolocations. But caution should be applied, as mountain ranges on Google Earth might not always appear as they would in real life. </p>
+
+
+
+<p>For example, this is the Google Earth view from a base near Najran, overlooking the border between Saudi Arabia and Yemen. The location is <a href="https://goo.gl/maps/nBwJjxPNySNmBn3L8">here</a>.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-2272" height="574" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/Screen-Shot-2021-07-02-at-14.29.26.png?resize=1024%2C574&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>Using the application <a href="https://peakvisor.com/panorama.html?lat=17.455194444444444&amp;lng=44.20527777777778&amp;alt=1329&amp;yaw=-167.53&amp;pitch=2.75&amp;hfov=64.24" rel="noreferrer noopener" target="_blank">PeakVisor</a>, we can see what those mountains would look like in a more detailed profile, as seen below. Notice the difference in definition, defined peaks, and the more jagged appearance on the profile of some of the mountains. This same range can be seen at this <a href="https://peakvisor.com/panorama.html?lat=17.455194444444444&amp;lng=44.20527777777778&amp;alt=1329&amp;yaw=-167.53&amp;pitch=2.75&amp;hfov=64.24" rel="noreferrer noopener" target="_blank">link</a>. </p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-2273" height="453" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/Screen-Shot-2021-07-02-at-14.33.25.png?resize=1024%2C453&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>As you can see, the level of detail is stronger. </p>
+
+
+
+<p>Google Earth&#8217;s meshing over its elevation data is not always as precise as we&#8217;d like when we&#8217;re relying on specific peaks to locate or match an image or a video. Having this added benefit of detail from PeakVisor helps substantially.</p>
+
+
+
+<p>In another example, this time in Yemen, there was much more of an issue with Google Earth&#8217;s formations during the geolocation of a Saudi Airforce jet that was allegedly shot down by Houthi fighters in Yemen.  </p>
+
+
+
+<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+https://www.youtube.com/watch?v=4_Bv-Sf_5OY
+</div></figure>
+
+
+
+<p>The confirmation from that geolocation should have been made with two specific ridgelines seen at different intervals throughout the footage, as seen below. </p>
+
+
+
+<div class="wp-block-jetpack-tiled-gallery aligncenter is-style-columns"><div class="tiled-gallery__gallery"><div class="tiled-gallery__row"><div class="tiled-gallery__col"><figure class="tiled-gallery__item"><img alt="" src="https://i1.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/Screen-Shot-2021-07-02-at-15.16.29.png?ssl=1" /></figure></div><div class="tiled-gallery__col"><figure class="tiled-gallery__item"><img alt="" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/Screen-Shot-2021-07-02-at-15.16.47-1.png?ssl=1" /></figure></div></div></div></div>
+
+
+
+<p>However, at the location on Google Earth, seen <a href="https://goo.gl/maps/DSPu4SdygQjBPEwq8">here</a>, there is barely any resemblance to the elevation data, as seen below. I wrote about this example <a href="https://www.bellingcat.com/resources/how-tos/2019/03/05/how-to-use-google-earths-three-dimensional-view-feat-syria-yemen-sudan/">here</a>, in Bellingcat in 2019 &#8211; as it was a striking mismatch between what we see on the ground, and what we see on the satellite imagery layered over Google Earth&#8217;s elevation data.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-2282" height="576" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/Screen-Shot-2021-07-02-at-15.20.43.png?resize=1024%2C576&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>In this circumstance, we can be definite of the location given the specific &#8216;fingerprints&#8217; unique between the satellite imagery and what is seen in the footage. For example, the rock formation seen below creates a very definite match of the location between the footage and the satellite imagery. </p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img alt="" class="wp-image-2283" height="1274" src="https://i1.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/Screen-Shot-2021-07-02-at-15.28.13.png?fit=740%2C381&amp;ssl=1" width="2474" /></figure></div>
+
+
+
+<p>However, using PeakVisor creates a definite match between ridgelines. We can see them in the image below. For the extra footage from the scene, I used the video included in this link <a href="https://www.mirror.co.uk/news/world-news/saudi-fighter-jet-blown-out-11825804" rel="noreferrer noopener" target="_blank">here</a>. </p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-2300" height="653" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/Untitled-design-5.png?resize=1024%2C653&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>By going through past geolocations like this, we can see just how much a little extra detail can help in the confirmation of a location.</p>
+
+
+
+<h2 class="wp-block-heading">Case study: geolocation of crash site of a C-130 in Ethiopia</h2>
+
+
+
+<p>In this specific geoprofiling case study, we look at the verification of the footage of a crash site in Ethiopia which was circulated widely on social media. Most of the uploads claimed the wreckage was of an Ethiopian Air Force C-130 in Ethiopia&#8217;s Tigray region. </p>
+
+
+
+<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<div class="video-shortcode"></div>
+</div></figure>
+
+
+
+<p>The question to answer was where exactly was that video filmed. </p>
+
+
+
+<p>A primary starting place is always the context and content of the media. What are the circumstances of the upload, what are people saying about it, and what do we see? </p>
+
+
+
+<p>First, alternative images from the debris confirm that the plane may have been a C-130.</p>
+
+
+
+<figure class="wp-block-embed aligncenter is-type-rich is-provider-twitter wp-block-embed-twitter"><div class="wp-block-embed__wrapper">
+<div class="video-shortcode"><div class="embed-twitter"><blockquote class="twitter-tweet"><p dir="ltr" lang="en">The identification tag of the C-130 Hercules as found in the wreckages <a href="https://twitter.com/hashtag/Tigrayisprevailing?src=hash&amp;ref_src=twsrc%5Etfw">#Tigrayisprevailing</a> <a href="https://twitter.com/hashtag/TigrayGenocide?src=hash&amp;ref_src=twsrc%5Etfw">#TigrayGenocide</a> <a href="https://twitter.com/CNN?ref_src=twsrc%5Etfw">@CNN</a> <a href="https://twitter.com/cnni?ref_src=twsrc%5Etfw">@cnni</a> <a href="https://twitter.com/BBC?ref_src=twsrc%5Etfw">@bbc</a> <a href="https://twitter.com/ReutersAfrica?ref_src=twsrc%5Etfw">@ReutersAfrica</a> <a href="https://twitter.com/Tmhtvnews?ref_src=twsrc%5Etfw">@Tmhtvnews</a> <a href="https://twitter.com/OromiaMedia?ref_src=twsrc%5Etfw">@OromiaMedia</a> <a href="https://t.co/EYdHQ8F9tk">pic.twitter.com/EYdHQ8F9tk</a></p>&mdash; Kindeya Gebrehiwot, PhD, Prof (@ProfKindeya) <a href="https://twitter.com/ProfKindeya/status/1408309446246211587?ref_src=twsrc%5Etfw">June 25, 2021</a></blockquote></div></div>
+</div></figure>
+
+
+
+<p>There were also a number of posts online that claimed the plane crashed somewhere near a town called Gijet &#8211; in the Saharti Samre area. So there was a clue as to a location, but also something to use as a keyword in further social media searches.</p>
+
+
+
+<p>While searching for other imagery on Facebook, I identified this <a href="https://www.facebook.com/goyteom.gebreegziabher/posts/4319580361406532?__cft__[0]=AZWC8VLWMTtcma5tAegIuQT9XIsOTgKZsQchyYh6eR5Mn97-pqoK1UsPBX_xq3oLsCzYPyaRKd-pDDZKQxMBFRxEblWK-IOCg8Mr0J9xu7uuPHfzXk1RMqaivY5L52PsKyU&amp;__tn__=%2CO%2CP-R">post</a>. </p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-2285" height="729" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/Screen-Shot-2021-07-02-at-15.52.56.png?resize=1024%2C729&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>The post was helpful as it showed a possible location in the sky from where the plane was downed, some specific building types that should be identifiable on satellite imagery, and an easy to locate mountain range. </p>
+
+
+
+<p>The mountain range was &#8216;rolling&#8217; to the left, with no other mountains seen in the back left of the image, so this led me to believe the location was on the side of a mountain range. </p>
+
+
+
+<div class="wp-block-jetpack-tiled-gallery aligncenter is-style-columns"><div class="tiled-gallery__gallery"><div class="tiled-gallery__row"><div class="tiled-gallery__col"><figure class="tiled-gallery__item"><img alt="" src="https://i1.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/E4u4rNbXwAAA8-u.jpeg?ssl=1" /></figure></div><div class="tiled-gallery__col"><figure class="tiled-gallery__item"><img alt="" src="https://i1.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/E4u47jZXMAAVooi.jpeg?ssl=1" /></figure></div></div></div></div>
+
+
+
+<p>After a short amount of time panning around Google Earth near the area of Gijet, I identified this <a href="https://goo.gl/maps/BB5mDvRwqokSWqkx8" rel="noreferrer noopener" target="_blank">location</a>, as seen below. </p>
+
+
+
+<div class="wp-block-jetpack-tiled-gallery aligncenter is-style-columns"><div class="tiled-gallery__gallery"><div class="tiled-gallery__row"><div class="tiled-gallery__col"><figure class="tiled-gallery__item"><img alt="" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/E4u6IxkWYAMV3FZ.jpeg?ssl=1" /></figure></div><div class="tiled-gallery__col"><figure class="tiled-gallery__item"><img alt="" src="https://i1.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/E4u6J6VXEAcR77Q.jpeg?ssl=1" /></figure></div></div></div></div>
+
+
+
+<p>Now that the location of that image was firm, I used that to work towards the much bigger task of finding where the downing of the plane was. </p>
+
+
+
+<p>This was easy to do, as we can see the location in the sky where the plane might have been hit. This lines up with features on the ground. Therefore, looking along that match line would lead me to that eventual final location. </p>
+
+
+
+<div class="wp-block-jetpack-tiled-gallery aligncenter is-style-columns"><div class="tiled-gallery__gallery"><div class="tiled-gallery__row"><div class="tiled-gallery__col"><figure class="tiled-gallery__item"><img alt="" src="https://i2.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/E4u7wdhXwAEk65q.jpeg?ssl=1" /></figure></div><div class="tiled-gallery__col"><figure class="tiled-gallery__item"><img alt="" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/E4u8BHhWEAM6JK3.jpeg?ssl=1" /></figure></div></div></div></div>
+
+
+
+<p>In the original footage there also appeared to be structures that looked like powerlines, and I thought that might be a helpful resource to identify on satellite imagery to see if there were powerlines that crossed my line of site from where the plane went down. </p>
+
+
+
+<p>While it took some work to identify nearby powerlines through a close inspection of the satellite imagery, I stopped at the second set as I had started to see other features that matched, such as buildings, a road, and of course, a fitting mountain profile. </p>
+
+
+
+<div class="wp-block-jetpack-tiled-gallery aligncenter is-style-columns"><div class="tiled-gallery__gallery"><div class="tiled-gallery__row"><div class="tiled-gallery__col"><figure class="tiled-gallery__item"><img alt="" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/E4u8p2sXMAIfd8q.jpeg?ssl=1" /></figure></div><div class="tiled-gallery__col"><figure class="tiled-gallery__item"><img alt="" src="https://i1.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/E4u8t9WXoAQpffc.jpeg?ssl=1" /></figure></div></div></div></div>
+
+
+
+<p>From what can be seen on Google Earth &#8211; the mountain range makes a close fit with what we can imagine should be similar to the real footage. But there are some points in the elevation profile that are not accurate. </p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-2296" height="776" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/E4u-0wMWEAcKPW8.jpeg?resize=1024%2C776&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>As has been done above with the previous PeakVisor examples, layering the crash site footage over the mountain range seen in PeakVisor gives an almost perfect match. </p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-2297" height="629" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/E4vBDkrXwAc_Mxb.jpeg?resize=1024%2C629&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>But the final task is not yet complete. While the mountain profile is a confirmed location, further confirmation can be sought by analysing content in the footage with what is seen on the ground on satellite imagery. For example, the trees, houses, powerlines and other features &#8211; this allows me to identify an exact as possible location. </p>
+
+
+
+<p>Once I have identified some features that can create a &#8216;line&#8217; &#8211; I draw lines back from them to find my &#8216;backbearing&#8217;. This gives the exact location of the crash site footage as being filmed from <a href="https://goo.gl/maps/9v8YjcoHXngNVKFN7" rel="noreferrer noopener" target="_blank">here</a>.</p>
+
+
+
+<div class="wp-block-jetpack-tiled-gallery aligncenter is-style-columns"><div class="tiled-gallery__gallery"><div class="tiled-gallery__row"><div class="tiled-gallery__col"><figure class="tiled-gallery__item"><img alt="" src="https://i1.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/E4vDDllWQAQAXaX.jpeg?ssl=1" /></figure></div><div class="tiled-gallery__col"><figure class="tiled-gallery__item"><img alt="" src="https://i1.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/E4vDGbLWEAMTaEU.jpeg?ssl=1" /></figure></div></div></div></div>
+
+
+
+<p>In a more recent update, Twitter analyst <a href="https://twitter.com/Gerjon_" rel="noreferrer noopener" target="_blank">@Gerjon_</a> further confirmed the location, and verified the date range, by using <a href="https://apps.sentinel-hub.com/eo-browser/?zoom=10&amp;lat=41.9&amp;lng=12.5&amp;themeId=DEFAULT-THEME&amp;toTime=2021-07-02T16%3A45%3A41.815Z" rel="noreferrer noopener" target="_blank">Sentinel Hub&#8217;s EO Browser</a> with more recent satellite imagery of the area. </p>
+
+
+
+<p>Below you can see a GIF version of the difference between what is seen on June 20 and June 25, 2021. Note the two small black patches in the center of the imagery that appear on June 25 &#8211; this was the location of the crash site. </p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large is-resized"><img alt="" class="wp-image-2303" height="529" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2021/07/S2L2A-timelapse-6.gif?resize=529%2C529&#038;ssl=1" width="529" /></figure></div>
+
+
+
+<p>If you would like to read up on some other examples of PeakVisor &#8211; do check out:</p>
+
+
+
+<ul class="wp-block-list"><li><a href="https://www.bellingcat.com/news/2021/04/01/mahbere-dego-clues-to-a-clifftop-massacre-in-ethiopia/" rel="noreferrer noopener" target="_blank">https://www.bellingcat.com/news/2021/04/01/mahbere-dego-clues-to-a-clifftop-massacre-in-ethiopia/</a></li><li><a href="https://www.linkedin.com/pulse/using-alltrails-peak-visor-geolocation-jenna-dolecek-ll-m-/" rel="noreferrer noopener" target="_blank">https://www.linkedin.com/pulse/using-alltrails-peak-visor-geolocation-jenna-dolecek-ll-m-/ </a></li><li><a href="https://citizenevidence.org/2021/04/09/geolocation-mahibere-dego/" rel="noreferrer noopener" target="_blank">https://citizenevidence.org/2021/04/09/geolocation-mahibere-dego/ </a></li></ul>
+
+
+
+<p>You can also see a great feature of PeakVisor in open source investigative journalism in the video below, which was a collaborative effort between BBC Africa Eye, Bellingcat and Newsy to verify exactly where a video of an execution in Ethiopia&#8217;s Tigray region was filmed. </p>
+
+
+
+<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<div class="video-shortcode"></div>
+</div></figure>
+
+
+
+<p>If you like to learn more about geolocation, satellite imagery analysis, open source techniques or sentinel hub, I have free tutorials over at my <a href="https://www.youtube.com/channel/UCW2WOgSiMr216a27KWG_aqg" rel="noreferrer noopener" target="_blank">YouTube channel here</a>.</p>
+<p>The post <a href="https://benjaminstrick.com/geolocation-ethiopia-case-on-mountain-profiling-with-peakvisor/">Geolocating a Plane Shot Down in Ethiopia &#8211; Case Studies on Mountain Profiling with PeakVisor</a> appeared first on <a href="https://benjaminstrick.com">Benjamin Strick</a>.</p>
+        </div>
+    </article>
+</body>
+</html>

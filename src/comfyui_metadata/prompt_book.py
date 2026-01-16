@@ -159,6 +159,23 @@ class PromptBookGenerator:
                 content_lines.append(f"- {template}")
         content_lines.append("")
         
+        # Editorial Beauty Analysis
+        content_lines.append("## Editorial Beauty Analysis Template")
+        content_lines.append("")
+        content_lines.append("Use this template for consistent character likeness validation and facial analysis.")
+        content_lines.append("")
+        content_lines.append("```json")
+        content_lines.append('{')
+        content_lines.append(' "prompt": "A minimalist editorial beauty analysis board featuring {subject} with {facial_features}. Neutral gray background, clean studio lighting, high realism.\\n\\nTop section: front-facing barefaced portrait, natural skin texture, no makeup, hair pulled back. A thin blue outline tracing the face shape.\\n\\nRight side graphic text layout titled \'FACE\' with small bullet points describing: {facial_features_list}.\\n\\nMiddle section: two studio portraits labeled \'barefaced\', one straight-on view and one three-quarter profile.\\n\\nBottom section: two mirror selfie style images labeled \'with makeup\', {makeup_style}, contemporary fashion styling.\\n\\nFashion magazine editorial layout, clean modern typography, balanced spacing, muted neutral tones, professional beauty photography, high resolution.",')
+        content_lines.append(' "negative_prompt": "exaggerated makeup, heavy contour, harsh shadows, cartoon style, anime, distorted facial proportions, overly sharp jawline, low resolution, oversaturated colors, messy layout, watermark, logo, text artifacts, duplicated faces, extra limbs",')
+        content_lines.append(' "style": "editorial beauty photography",')
+        content_lines.append(' "quality": "high",')
+        content_lines.append(' "lighting": "soft studio lighting",')
+        content_lines.append(' "background": "neutral gray"')
+        content_lines.append('}')
+        content_lines.append("```")
+        content_lines.append("")
+        
         # Quality/Technical Token Recommendations
         content_lines.append("## Quality/Technical Token Recommendations")
         content_lines.append("")

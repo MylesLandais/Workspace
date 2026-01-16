@@ -17,7 +17,7 @@ from feed.crawler.deduplication import DuplicateDetector
 from feed.crawler.content import ContentAnalyzer
 from feed.crawler.robots import RobotsParser
 import requests
-from bs4 import BeautifulSoup
+# Note: BeautifulSoup not needed - using Reddit JSON API instead of HTML parsing
 
 
 def ensure_schema(neo4j):

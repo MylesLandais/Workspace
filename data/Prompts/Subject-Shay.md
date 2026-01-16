@@ -17,6 +17,7 @@ HAIR_PART: clean center part
 - crew neck sweaters (no hoodies)
 - Tight fits (alo)
 - socks high top, white crew
+- **Lululemon Nulu High-Rise Mesh-Panel Tight** (25" or 28" inseam, black): Buttery-soft Nulu fabric with large, curving sheer mesh panels along the outer thighs and legs for breathability and distinctive see-through effect (styled to mimic dance tights over briefs). High-rise waistband, no front seam for smoothness. Mesh placement: starts opaque at hips/crotch, transitions to sheer mesh down the sides of the thighs. Yoga-focused line, popular style.
 
 ### Swimsuits
 - Black 'v'
@@ -62,12 +63,26 @@ styled-curled
 
 ## Prompt Generation System
 
+### Production-Grade Template
+
+For retail-catalog quality prompts with maximum identity consistency, use the [Production-Grade Prompt Template](PRODUCTION_PROMPT_TEMPLATE.md).
+
+This template provides:
+- Explicit identity lock language (1:1 match guarantees)
+- Retail-catalog wardrobe descriptions
+- Technical photography specifications
+- Universal negative prompt for quality control
+
+### Wildcard System
+
 For automated prompt generation and batch processing, see the [wildcard-based prompt system](index.md).
 
 The system includes:
 - [Identity & Face Lock](identity.md) - Character consistency tokens
 - [Wildcard Categories](wildcards/) - Variable elements (hairstyles, outfits, poses, framing, lighting, backgrounds)
 - [Batch Generator](batch_generator.py) - Automated prompt combination tool
+- [Yoga & Fitness Workouts](Subject-Shay-Yoga.md) - Complete ComfyUI-ready yoga and fitness pose prompts
+- [Cinematography Techniques](Cinematography-Techniques.md) - Camera movement strategies for dynamic shots
 
 **Target Model**: nanobanana-3 (Gemini 3 Image Pro)
 

@@ -1,0 +1,364 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finding McAfee: Geolocation & Imagery Analysis [Case Study]</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max_width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        article {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 { margin-top: 0; color: #1a1a1a; }
+        .meta {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        img { max-width: 100%; height: auto; display: block; margin: 20px auto; }
+        a { color: #0066cc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        pre { background: #f4f4f4; padding: 15px; overflow-x: auto; border-radius: 4px; }
+        blockquote {
+            border-left: 4px solid #ddd;
+            margin: 0;
+            padding-left: 20px;
+            color: #555;
+        }
+        .nav { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="../../index.html">← Back to Dashboard</a>
+    </div>
+    <article>
+        <header>
+            <h1>Finding McAfee: Geolocation & Imagery Analysis [Case Study]</h1>
+            <div class="meta">
+                <strong>Source:</strong> Benjamin Strick<br>
+                <strong>Date:</strong> March 15, 2020<br>
+                <strong>Author:</strong> Ben
+            </div>
+        </header>
+        <div class="content">
+            <h3 class="wp-block-heading"><em>Identifying past, current, and possible future locations through the geolocation and chronolocation of media provided by a specific user.</em></h3>
+
+
+
+<p>This case study is based on a challenge from well-known entrepreneur, John McAfee, to show how relative geolocation of two points on a chronological timeline can give a likely path and possible locations in between.</p>
+
+
+
+<p>To do this, two geographical points will be used, categorised by day, to geolocate a photo that was taken between those two points.</p>
+
+
+
+<p>This research post is split into the following four sections, in this order:</p>
+
+
+
+<ul class="wp-block-list"><li><strong>Point B (the photo to geolocate)</strong></li><li><strong>Point C (where the subject is traveling to)</strong></li><li><strong>Point A (where and when the subject started the journey)</strong></li><li><strong>Geolocation analysis of the Point B image</strong></li></ul>
+
+
+
+<p>The tools in this case study are completely free, so please do use them to follow along. I used Google Maps, GIMP (image editing) and Twitter.</p>
+
+
+
+<h2 class="wp-block-heading" id="aa75">Point B — The image to geolocate</h2>
+
+
+
+<p>Below is the tweet in question. The challenge: self-explanatory.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Geolocation of John Mcafee" class="wp-image-1614" height="462" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1y_OvhIrRKrNBHW0suOe6Hw.png?resize=592%2C462&#038;ssl=1" width="592" /></figure>
+
+
+
+<p>So where do you start in a case like this? Using a first approach to imagery intelligence (IMINT), look in the image and ask: “what do I see?”.</p>
+
+
+
+<p>In the image, we have a number of clues that may indicate where this photo was taken. I’m going to number some of them in the image below.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Finding John Mcafee" class="wp-image-1642" height="525" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_4hV5ZNEQt6VN-BTSoC6HfA.png?resize=700%2C525&#038;ssl=1" width="700" /></figure>
+
+
+
+<p>What do we see here?</p>
+
+
+
+<ol class="wp-block-list"><li>First, we’ve got McAfee. Who through his accounts may help give more clues. I’ll get to him later.</li><li>This roof colouring gives an indication that it might be a brand colour.</li><li>Coloured fuel bowsers indicate that this is both a fuel station, and is a unique identifier for what the brand or name of the fuel station may be.</li><li>Large trucks use this fuel station, so it is likely that it is in an open area, or along a highway.</li><li>There are flowers in front of the building McAfee is next to, which means it might be a store for the fuel station</li><li>There’s a light blue band along the horizon. This is usually synonymous with a large body of water.</li><li>This post and building would be a unique identifier on satellite imagery</li><li>The horizon is not cluttered with buildings or trees, indicating it might be a flat plain and out of built-up urban areas.</li></ol>
+
+
+
+<p>That’s a lot of reference points we have to go off. And now, since we have done an initial imagery analysis checklist, we can work our way down that list to investigate each of those leads.</p>
+
+
+
+<p>First is John McAfee. He is likely to indicate relevant information in his social media.</p>
+
+
+
+<h2 class="wp-block-heading" id="89e5">Point C (where the subject is traveling to)</h2>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1648" height="545" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/03/1_NuxyFGxgIoI8746lM-vVPg-1.png?resize=700%2C545&#038;ssl=1" width="700" /></figure>
+
+
+
+<p>In the initial tweet above the subject indicated he was “on the way to London” and that the photo was taken in the past. This identifies our destination.</p>
+
+
+
+<p>How is he traveling there? Considering the location of the photo as we analysed in the eight takeaways above, it’s clear he is at a service station with his large security crew. So it’s likely he is driving to his destination.</p>
+
+
+
+<h2 class="wp-block-heading" id="46d2">Point A — Where and when the subject started the journey</h2>
+
+
+
+<p>Where did the subject come from?</p>
+
+
+
+<p>This is where we can start using the intelligence tool I’d like to refer to as ‘geoprofiling’ — essentially we’re going to map out a short chronological timeline of where McAfee was in order to find where he is.</p>
+
+
+
+<p>Scrolling back through his Twitter timeline, we can find this tweet. It was posted two days before the other photo.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1649" height="501" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_Vi07n7R-fRoL9fFUIh0W2w-1.png?resize=700%2C501&#038;ssl=1" width="700" /></figure>
+
+
+
+<p>What’s important about this tweet is it gives us a location as well as a destination. Take a look in the red box in the right of the image below.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1650" height="525" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_Aai0ap3PqGRNhO8gkeR1hQ.jpeg?resize=700%2C525&#038;ssl=1" width="700" /></figure>
+
+
+
+<p>Here is a closeup below. It says “Hotel Schlicker”.</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img alt="Image for post" class="wp-image-1651" height="216" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_EG2Gq1rlCkwLuhg_WpdH4Q-1.jpeg?resize=267%2C216&#038;ssl=1" width="267" /></figure></div>
+
+
+
+<p>It is in&nbsp;<a href="https://g.page/hotel-schlicker?share" rel="noreferrer noopener" target="_blank">Munich, Germany</a>.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Image for post" class="wp-image-1652" height="609" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/Screen-Shot-2020-08-04-at-4.25.24-pm.png?resize=1024%2C609&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>We know this is the place where the photo was taken as there are a number of features that match those seen in geotagged images on Google Maps and Facebook.</p>
+
+
+
+<p>First is the identical match of the sign and wall lining to this one found on&nbsp;<a href="https://www.google.com/maps/place/Hotel+Schlicker+%22Zum+Goldenen+L%C3%B6wen%22/@48.1362005,11.5782805,3a,75y,90t/data=!3m8!1e2!3m6!1sAF1QipPijyq2zg6pbudM6CEWUoUP5W3mtDW3zJMiJV9E!2e10!3e12!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipPijyq2zg6pbudM6CEWUoUP5W3mtDW3zJMiJV9E%3Dw203-h152-k-no!7i4032!8i3024!4m18!1m9!3m8!1s0x0:0x39cc5bee2f4aafeb!2sHotel+Schlicker+%22Zum+Goldenen+L%C3%B6wen%22!5m2!4m1!1i2!8m2!3d48.136062!4d11.578221!3m7!1s0x0:0x39cc5bee2f4aafeb!5m2!4m1!1i2!8m2!3d48.136062!4d11.578221?hl=en" rel="noreferrer noopener" target="_blank">Google Maps</a>.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1654" height="471" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_rehUfWykRY4mc3vOEL-e8g-2.png?resize=1024%2C471&#038;ssl=1" width="1024" /></figure>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1653" height="571" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_o9ozXp-wKj2hRYDu9P4ZNg-1.jpeg?resize=762%2C571&#038;ssl=1" width="762" /></figure>
+
+
+
+<p>Second, for further verification, we can identify both the sign and the white paint on the ground from this image on the Hotel Schlicker Facebook page.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1668" height="726" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_3tWKcb6HKT9ed2c_FybW7A.jpeg?resize=1024%2C726&#038;ssl=1" width="1024" /></figure>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1667" height="730" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_TE34u2RN6k1LlRe2cCT_xA.jpeg?resize=974%2C730&#038;ssl=1" width="974" /></figure>
+
+
+
+<p>For chronolocation, for the purposes of this post there is no necessity to conduct a shadow calculation. Merely being able to plot this geolocated image on our timeline gives us an original lead for the following two reference points:</p>
+
+
+
+<ol class="wp-block-list"><li>Hotel Schlicker in Munich, Germany on January 26, 2020</li><li>?</li></ol>
+
+
+
+<p>3. London (at a future point in time)</p>
+
+
+
+<p>Why did I skip the second point? Because that’s the initial location we need to find. And we’re going to do that now.</p>
+
+
+
+<h2 class="wp-block-heading" id="4dd3">Geolocation analysis of Point B image</h2>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1666" height="768" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_XHoZZrepzSIX0L1bp70abQ.jpeg?resize=1024%2C768&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>We already know two things about the image above. It was taken on the road between between Hotel Schlicker and London.</p>
+
+
+
+<p>Using Google Maps ‘direction’ feature we can make a simple indication of the route between those two points.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1665" height="445" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_-0OL0mB1eLRWhB1n-xHz4g.png?resize=1024%2C445&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>That’s a lot of empty space to cover. But we have a list of eight points we can use to filter that information down.</p>
+
+
+
+<p>First, what is the place they stopped at in the image? The following features of the roof and fuel pumps will help with that.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Geolocate an object" class="wp-image-1664" height="768" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_dhuDwN96krWpHK7UJ35K7g.jpeg?resize=1024%2C768&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>Those features are something we can use in a Google Search term. For this, I used what we know and what I see in the following string search for Google Images:</p>
+
+
+
+<ul class="wp-block-list"><li>It’s likely in Europe, so that’s aterm I used — ‘Europe’</li><li>‘Fuel Station’</li><li>‘Red and White’</li></ul>
+
+
+
+<p>This is what we get from that Google Image&nbsp;<a href="https://www.google.com/search?q=europe,+fuel+station,+red+and+white&amp;hl=en&amp;source=lnms&amp;tbm=isch&amp;sa=X&amp;ved=2ahUKEwiX95KYo5roAhWSYsAKHVDjAskQ_AUoAnoECA0QBA" rel="noreferrer noopener" target="_blank">search</a>.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1663" height="446" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_pAVSduZmhT2GMODoGrpuJw.png?resize=1024%2C446&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>We also have blue bowser pumps in the image, and some of the above images have that.</p>
+
+
+
+<p>The features in the photo match those pictured in Google Images as an Esso Petrol Station.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1662" height="455" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_AiEH1iU_oUhJNkKNUfjDaw.png?resize=1024%2C455&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>Now we can search for “Esso” in Google Maps to find any Esso fuel stations on the way from Munich to London.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1661" height="446" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_tvKdY15m85eegZtNNSYrZA.png?resize=1024%2C446&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>To further refine our search area, looking back at the eight points, the photo was likely taken:</p>
+
+
+
+<ul class="wp-block-list"><li>Near a body of water</li><li>Possibly in an open area or out of a city</li><li>Along a highway</li></ul>
+
+
+
+<p>In looking at places where there is a main road near a large body of water I identified two possible locations on the route.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1660" height="446" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_HTP42mtdD01FFeB21-jGaA.png?resize=1024%2C446&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>To layer both the location of Esso petrol stations and the routes to London, I used photo editor GIMP to layer the two images (changing the transparency of one of them). There are alternative ways using KMZ points, but this one is also quite simple and keeps Google Maps as our main operating tool.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1659" height="413" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_-yBHjEkVC1rZSKCfZ5OfiQ.png?resize=1024%2C413&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>One of these stations along the route is near a body of water.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Geospatial " class="wp-image-1658" height="413" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_oBng5Sv56CDqas0fEpxq0A.png?resize=1024%2C413&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>It is near&nbsp;<a href="https://www.google.com/maps/search/esso/@48.8130586,8.179547,2721m/data=!3m1!1e3?authuser=1" rel="noreferrer noopener" target="_blank">Baden-Baden</a>.</p>
+
+
+
+<p>It satisfies a number of the indicators we are after, such as water, main road, quiet area and an Esso station on our route.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1657" height="422" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_DJNGXcY_o0ZZE334bzN-hQ.png?resize=1002%2C422&#038;ssl=1" width="1002" /></figure>
+
+
+
+<figure class="wp-block-image size-large"><img alt="" class="wp-image-1656" height="423" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_OPZr2uxqs-D3BoQoWiHElQ.png?resize=1000%2C423&#038;ssl=1" width="1000" /></figure>
+
+
+
+<p>We can start to match this location with the Point B image to see if it fits the fingerprint of what is visible on the Google Maps satellite image.</p>
+
+
+
+<figure class="wp-block-image size-large"><img alt="Geolocation of Mcafee" class="wp-image-1655" height="433" src="https://i0.wp.com/benjaminstrick.com/wp-content/uploads/2020/08/1_Tap6l7hPyt9PLvIvaszgzg.png?resize=1024%2C433&#038;ssl=1" width="1024" /></figure>
+
+
+
+<p>Using all of the information derived from geolocating objects in the image, we can say, for certainty, that the photo was taken here:&nbsp;<a href="https://goo.gl/maps/EwTD6HKfeQupNka98" rel="noreferrer noopener" target="_blank">https://goo.gl/maps/EwTD6HKfeQupNka98</a></p>
+
+
+
+<p>Further verification can be made by matching the Google Maps embedded images. However, for the purpose of this case study, the indicators seen in the photo are uniquely matched to the satellite image therefore giving a stronger level of geolocated evidence.</p>
+
+
+
+<p><strong>A NOTE ON THIS CASE STUDY</strong>: The purpose of this case study is to stimulate conversation, research and development in the open source community and is in no way to the detriment of the subject or any business or person identified in this case study.</p>
+<p>The post <a href="https://benjaminstrick.com/finding-mcafee-a-case-study-on-geoprofiling-and-imagery-analysis/">Finding McAfee: Geolocation &#038; Imagery Analysis [Case Study]</a> appeared first on <a href="https://benjaminstrick.com">Benjamin Strick</a>.</p>
+        </div>
+    </article>
+</body>
+</html>

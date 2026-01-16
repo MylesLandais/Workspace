@@ -60,5 +60,64 @@
 - **Description**: mixed warm indoor light and cool window light, subtle color contrast on both sides of face, complex lighting setup
 - **Camera Notes**: indoor setting, multiple light sources
 
+---
+
+## Mood & Atmosphere
+
+### warm_bedroom_lamp
+- **Short**: "warm bedroom lamp lighting"
+- **Description**: Natural, soft bedroom lighting from warm bedside lamp or nearby window, flattering and inviting glow on skin, gentle illumination, romantic intimate atmosphere
+- **Camera Notes**: background soft and out-of-focus, focus on subject
+
+### dim_mood_tv_blue
+- **Short**: "dim moody TV blue glow"
+- **Description**: Dimmer moody lighting with blueish glow from TV or computer screen visible as faint reflection in eyes or soft background lighting, late-night authentic mobile photography vibe
+- **Camera Notes**: blue glow visible in eyes or background edges, focus sharp on face
+
+---
+
+## Nostalgic Camera Styles
+
+### digicam_direct_flash
+- **Short**: "8MP digicam direct flash"
+- **Description**: Early 2000s digital camera aesthetic with bright direct on-camera flash, high-contrast colorful and sharp look, subject fully illuminated, background slightly overexposed by flash, candid fun snapshot vibe
+- **Camera Notes**: bright colors, saturated pinks/blacks, authentic 2000s party photo feel
+
+### myspace_high_angle
+- **Short**: "classic MySpace high-angle flash"
+- **Description**: Classic 2009 MySpace selfie with phone held high above, harsh direct flash creating dramatic illumination, background slightly blown out, authentic early social media photography
+- **Camera Notes**: extreme high angle, flash creates drop shadows and bright highlights
+
+### late_night_phone_no_flash
+- **Short**: "late-night phone no flash"
+- **Description**: Very dim late-night smartphone photography without flash, extremely grainy low-light quality, underexposed with visible noise, authentic "3am feeling" aesthetic
+- **Camera Notes**: dark background, minimal light source, heavy grain/noise
+
+---
+
+## Polished & Smoother Girlfriend Style
+
+### smothed_glowy_touchup
+- **Short**: "smoothered glowy touchup filter"
+- **Description**: Clean polished smartphone photo with light retouch/smoothing filter applied, healthy glow on skin, no visible grain or imperfections, bright and flawless appearance, girlfriend-message aesthetic
+- **Camera Notes**: bright even illumination, skin appears smooth and glowing
+
+### polished_warm_girlfriend
+- **Short**: "polished warm girlfriend message"
+- **Description**: Warm loving girlfriend photo with natural soft glow on skin, gently enhanced not overly processed, authentic affectionate moment feel, bright and polished
+- **Camera Notes**: warm flattering lighting, natural but enhanced appearance
+
+### bright_clen_girlfriend_snap
+- **Short**: "bright clean girlfriend snap"
+- **Description**: Bright daylight or well-lit girlfriend selfie, clean and polished appearance, soft glow on skin, no grain, perfect "good morning" or "miss you" message aesthetic
+- **Camera Notes**: well-lit, bright colors, flawless skin tone
+
+
+
+
+
+
+
+
 
 

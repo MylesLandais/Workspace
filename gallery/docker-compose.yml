@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  gallery:
+    build:
+      context: .
+      dockerfile: gallery/Dockerfile
+    container_name: gallery-server
+    ports:
+      - "8001:8001"
+    volumes:
+      # Mount cache directory for persistence
+      - gallery-cache:/app/cache
+      # Optional: Mount local development files
+      - ./gallery:/app/gallery
+    environment:
+      - PORT=8001
+      - HOST=0.0.0.0
+      - CACHE_DIR=/app/cache
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - gallery-network
+
+volumes:
+  gallery-cache:
+    driver: local
+
+networks:
+  gallery-network:
+    driver: bridge

@@ -243,3 +243,136 @@ class CreatorService:
             },
         )
 
+    def get_or_create_creator(
+        self,
+        name: str,
+        slug: Optional[str] = None,
+        bio: Optional[str] = None,
+        avatar_url: Optional[str] = None,
+    ) -> Dict:
+        """
+        Get an existing creator or create a new one.
+
+        Args:
+            name: Creator name
+            slug: Optional slug (auto-generated if not provided)
+            bio: Optional bio
+            avatar_url: Optional avatar URL
+
+        Returns:
+            Dictionary with creator data (uuid, name, slug, etc.)
+        """
+        neo4j = get_connection()
+
+        if not slug:
+            slug = self._generate_slug(name)
+
+        # Try to get existing creator
+        query = """
+        MATCH (c:Creator {slug: $slug})
+        RETURN c.uuid as uuid,
+               c.name as name,
+               c.slug as slug,
+               c.bio as bio,
+               c.avatar_url as avatar_url,
+               c.created_at as created_at,
+               c.updated_at as updated_at
+        LIMIT 1
+        """
+        result = neo4j.execute_read(query, parameters={"slug": slug})
+        if result:
+            return result[0]
+
+        # Creator doesn't exist, create it
+        creator = self.create_creator(name=name, slug=slug, bio=bio, avatar_url=avatar_url)
+        if creator:
+            return {
+                "uuid": str(creator.uuid),
+                "name": creator.name,
+                "slug": creator.slug,
+                "bio": creator.bio,
+                "avatar_url": creator.avatar_url,
+                "created_at": creator.created_at,
+                "updated_at": creator.updated_at,
+            }
+
+        # Fallback: return minimal dict
+        return {"name": name, "slug": slug}
+
+    def link_source_to_creator(
+        self,
+        creator_slug: str,
+        source_name: str,
+        source_type: str,
+        source_url: Optional[str] = None,
+    ) -> bool:
+        """
+        Link a source (subreddit, blog, etc.) to a creator.
+        
+        Args:
+            creator_slug: Creator slug
+            source_name: Source name (e.g., subreddit name, blog name)
+            source_type: Source type ('reddit', 'blog', 'twitter', 'iwantclips', etc.)
+            source_url: Optional source URL
+            
+        Returns:
+            True if successful
+        """
+        neo4j = get_connection()
+        
+        # Ensure creator exists
+        creator = self.get_or_create_creator(name=creator_slug.replace('-', ' ').title(), slug=creator_slug)
+        if not creator:
+            return False
+        
+        # Create or update source node (using Subreddit node type for compatibility)
+        source_query = """
+        MERGE (s:Subreddit {name: $name})
+        ON CREATE SET s.created_at = datetime(),
+                      s.source_type = $source_type
+        SET s.source_type = $source_type,
+            s.updated_at = datetime()
+        RETURN s
+        """
+        neo4j.execute_write(
+            source_query,
+            parameters={
+                "name": source_name,
+                "source_type": source_type,
+            }
+        )
+        
+        # Link source to creator
+        link_query = """
+        MATCH (c:Creator {slug: $creator_slug})
+        MATCH (s:Subreddit {name: $source_name})
+        MERGE (c)-[r:HAS_SOURCE]->(s)
+        ON CREATE SET 
+            r.source_type = $source_type,
+            r.source_url = $source_url,
+            r.discovered_at = datetime(),
+            r.created_at = datetime()
+        ON MATCH SET
+            r.source_type = $source_type,
+            r.source_url = $source_url,
+            r.updated_at = datetime()
+        RETURN r
+        """
+        
+        try:
+            result = neo4j.execute_write(
+                link_query,
+                parameters={
+                    "creator_slug": creator_slug,
+                    "source_name": source_name,
+                    "source_type": source_type,
+                    "source_url": source_url,
+                }
+            )
+            return len(result) > 0
+        except Exception as e:
+            print(f"Error linking source to creator: {e}")
+            return False
+
+
+
