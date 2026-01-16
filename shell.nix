@@ -31,7 +31,7 @@ pkgs.mkShell {
 
     # System packages
     pkgs.git
-    pkgs.make
+    pkgs.gnumake
     pkgs.postgresql_16
     pkgs.docker-compose
     pkgs.nodejs
