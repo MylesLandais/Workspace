@@ -18,12 +18,12 @@ export function SourceManagerWidget({
   title = "Source Manager",
 }: SourceManagerWidgetProps) {
   const {
-    sources,
+    sources = [],
     isLoading,
     refresh,
     togglePause,
-    totalCount,
-    activeSources,
+    totalCount = 0,
+    activeSources = [],
   } = useUserSources();
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -43,12 +43,18 @@ export function SourceManagerWidget({
   }, [sources, searchQuery, filterType]);
 
   const handleToggle = async (id: string, enabled: boolean) => {
-    // Note: enabled=true means we want it active, so we toggle pause OFF
-    // enabled=false means we want it hidden, so we toggle pause ON
-    await togglePause(id);
+    try {
+      // Note: enabled=true means we want it active, so we toggle pause OFF
+      // enabled=false means we want it hidden, so we toggle pause ON
+      await togglePause(id);
+    } catch (error) {
+      console.error("Failed to toggle source:", error);
+    }
   };
 
-  if (isLoading && sources.length === 0) {
+  // Show loading state only if we truly have no data AND are loading
+  // Don't block forever if session/data never loads
+  if (isLoading && sources.length === 0 && totalCount === 0) {
     return (
       <div
         className={`flex flex-col items-center justify-center p-8 bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl ${className}`}
