@@ -26,7 +26,8 @@ export function useUserSources() {
     if (userId && filters.userId !== userId) {
       setFilters({ ...filters, userId });
     }
-  }, [userId, filters, setFilters]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId, filters.userId, setFilters]);
 
   // Extract active sources for feed filtering
   const activeSources = useMemo(
