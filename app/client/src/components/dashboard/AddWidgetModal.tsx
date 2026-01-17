@@ -14,6 +14,7 @@ import {
   Grid3x3,
   FileCode,
   Hash,
+  Settings2,
 } from "lucide-react";
 import { Widget, WidgetType } from "@/lib/types/dashboard";
 

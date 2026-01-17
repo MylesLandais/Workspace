@@ -16,6 +16,7 @@ import ChartWidget from "./widgets/ChartWidget";
 import IframeWidget from "./widgets/IframeWidget";
 import MermaidWidget from "./widgets/MermaidWidget";
 import TagMonitorWidget from "./widgets/TagMonitorWidget";
+import SourcesWidget from "./widgets/SourcesWidget";
 
 interface WidgetFrameProps {
   widget: Widget;
