@@ -1,6 +1,4 @@
-import gql from 'graphql-tag';
-
-export const typeDefs = gql`
+export const typeDefs = `
   scalar DateTime
 
   enum Platform {
@@ -128,6 +126,7 @@ export const typeDefs = gql`
   type FeedGroup {
     id: ID!
     name: String!
+    userId: ID
     createdAt: DateTime!
   }
 
@@ -198,6 +197,7 @@ export const typeDefs = gql`
 
   input SourceFiltersInput {
     groupId: String
+    userId: String
     sourceType: Platform
     activity: ActivityFilter
     searchQuery: String
@@ -224,11 +224,37 @@ export const typeDefs = gql`
     isEnabled: Boolean
   }
 
+  # Reddit post types for direct Post node queries
+  type RedditPost {
+    id: ID!
+    title: String!
+    url: String!
+    permalink: String!
+    author: String
+    score: Int!
+    numComments: Int!
+    upvoteRatio: Float!
+    over18: Boolean!
+    selftext: String
+    createdAt: DateTime!
+    subreddit: String!
+    isImage: Boolean!
+    imageUrl: String
+    imageWidth: Int
+    imageHeight: Int
+  }
+
+  type NodeStats {
+    mediaCount: Int!
+    postCount: Int!
+    subredditCount: Int!
+  }
+
   type Query {
     feed(cursor: String, limit: Int, filters: FeedFilters): FeedConnection!
     creators(query: String, limit: Int): [Creator!]!
     creator(slug: String!): Creator
-    getFeedGroups: [FeedGroup!]!
+    getFeedGroups(userId: ID): [FeedGroup!]!
     getSources(groupId: String): [Source!]!
     getUserSources(filters: SourceFiltersInput): [Source!]!
     getSourceById(id: ID!): Source
@@ -243,6 +269,9 @@ export const typeDefs = gql`
     getSavedBoards(userId: ID!): [SavedBoard!]!
     getIdentityProfiles(query: String, limit: Int): [IdentityProfile!]!
     getIdentityProfile(id: ID!): IdentityProfile
+    # Reddit post queries
+    redditPosts(subreddit: String!, limit: Int): [RedditPost!]!
+    debugStats: NodeStats!
   }
 
   type SubredditResult {
@@ -381,13 +410,19 @@ export const typeDefs = gql`
 
   type Mutation {
     createCreator(name: String!, displayName: String!): Creator!
-    addHandle(creatorId: ID!, platform: Platform!, username: String!, url: String!): Handle!
+    addHandle(
+      creatorId: ID!
+      platform: Platform!
+      username: String!
+      url: String!
+    ): Handle!
     verifyHandle(handleId: ID!): Handle!
     updateHandleStatus(handleId: ID!, status: HandleStatus!): Handle!
     toggleHandlePause(handleId: ID!): Handle!
     removeHandle(handleId: ID!): Boolean!
     subscribeToSource(subredditName: String!, groupId: String): Source!
     createFeedGroup(name: String!): FeedGroup!
+    createUserFeedGroup(userId: ID!, name: String!): FeedGroup!
     # Source Management mutations
     createSource(input: CreateSourceInput!): Source!
     updateSource(id: ID!, input: UpdateSourceInput!): Source!
@@ -407,11 +442,18 @@ export const typeDefs = gql`
     createSavedBoard(userId: ID!, input: SavedBoardInput!): SavedBoard!
     updateSavedBoard(id: ID!, input: SavedBoardInput!): SavedBoard!
     deleteSavedBoard(id: ID!): Boolean!
-    createIdentityProfile(userId: ID!, input: IdentityProfileInput!): IdentityProfile!
-    updateIdentityProfile(id: ID!, input: IdentityProfileInput!): IdentityProfile!
+    createIdentityProfile(
+      userId: ID!
+      input: IdentityProfileInput!
+    ): IdentityProfile!
+    updateIdentityProfile(
+      id: ID!
+      input: IdentityProfileInput!
+    ): IdentityProfile!
     deleteIdentityProfile(id: ID!): Boolean!
     createRelationship(profileId: ID!, input: RelationshipInput!): Relationship!
     deleteRelationship(profileId: ID!, targetId: ID!): Boolean!
   }
 `;
 
+export const schema = typeDefs;

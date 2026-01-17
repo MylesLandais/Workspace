@@ -2,9 +2,24 @@
 
 import { useState, useEffect } from "react";
 import { useSession } from "@/lib/auth-client";
-import { ArrowLeft, Loader2, User } from "lucide-react";
+import {
+  ArrowLeft,
+  Loader2,
+  User,
+  Plus,
+  Link as LinkIcon,
+  Trash2,
+  Settings,
+  Rss,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+
+interface LinkItem {
+  id: string;
+  title: string;
+  url: string;
+}
 
 export default function EditProfilePage() {
   const router = useRouter();
@@ -15,6 +30,8 @@ export default function EditProfilePage() {
   const [location, setLocation] = useState("");
   const [website, setWebsite] = useState("");
   const [company, setCompany] = useState("");
+  const [customLink, setCustomLink] = useState("");
+  const [links, setLinks] = useState<LinkItem[]>([]);
   const [profilePublic, setProfilePublic] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -28,20 +45,43 @@ export default function EditProfilePage() {
 
     if (session?.user) {
       fetch("/api/user/profile")
-        .then(res => res.json())
-        .then(data => {
+        .then((res) => res.json())
+        .then((data) => {
           if (data.user) {
             setName(data.user.name || "");
             setBio(data.user.bio || "");
             setLocation(data.user.location || "");
             setWebsite(data.user.website || "");
             setCompany(data.user.company || "");
+            setLinks(data.user.links ? JSON.parse(data.user.links) : []);
             setProfilePublic(data.user.profilePublic || false);
           }
         })
-        .catch(err => console.error("Failed to load profile:", err));
+        .catch((err) => console.error("Failed to load profile:", err));
     }
   }, [session, isPending, router]);
+
+  const generateId = () => Math.random().toString(36).substring(2, 9);
+
+  const handleAddLink = () => {
+    setLinks([...links, { id: generateId(), title: "", url: "" }]);
+  };
+
+  const handleLinkChange = (
+    id: string,
+    field: "title" | "url",
+    value: string,
+  ) => {
+    setLinks(
+      links.map((link) =>
+        link.id === id ? { ...link, [field]: value } : link,
+      ),
+    );
+  };
+
+  const handleRemoveLink = (id: string) => {
+    setLinks(links.filter((link) => link.id !== id));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,6 +99,7 @@ export default function EditProfilePage() {
           location,
           website,
           company,
+          links: JSON.stringify(links),
           profilePublic,
         }),
       });
@@ -75,7 +116,7 @@ export default function EditProfilePage() {
       setLoading(false);
 
       setTimeout(() => {
-        router.push("/feed");
+        router.push("/dashboard");
       }, 1500);
     } catch (err) {
       console.error("Profile update error:", err);
@@ -85,7 +126,7 @@ export default function EditProfilePage() {
   };
 
   const handleCancel = () => {
-    router.push("/feed");
+    router.push("/dashboard");
   };
 
   if (isPending) {
@@ -103,11 +144,11 @@ export default function EditProfilePage() {
   return (
     <main className="min-h-screen bg-[#0a0a0a] flex flex-col items-center p-4 relative overflow-hidden">
       <Link
-        href="/feed"
+        href="/dashboard"
         className="absolute top-8 left-8 text-zinc-500 hover:text-white transition-colors flex items-center gap-2"
       >
         <ArrowLeft className="w-5 h-5" />
-        <span className="text-sm">Back to Feed</span>
+        <span className="text-sm">Back to Dashboard</span>
       </Link>
 
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
@@ -133,7 +174,9 @@ export default function EditProfilePage() {
               </div>
               <div>
                 <p className="text-white font-semibold">{session.user.email}</p>
-                <p className="text-zinc-500 text-sm">@{session.user.username || "username"}</p>
+                <p className="text-zinc-500 text-sm">
+                  @{session.user.name || "username"}
+                </p>
               </div>
             </div>
 
@@ -162,7 +205,9 @@ export default function EditProfilePage() {
                 className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl text-zinc-200 focus:outline-none focus:ring-2 focus:ring-white/10 transition-all sm:text-sm resize-none"
                 placeholder="Tell us about yourself..."
               />
-              <p className="text-xs text-zinc-600 mt-1 px-1">{bio.length}/500 characters</p>
+              <p className="text-xs text-zinc-600 mt-1 px-1">
+                {bio.length}/500 characters
+              </p>
             </div>
 
             <div>
@@ -204,6 +249,96 @@ export default function EditProfilePage() {
               />
             </div>
 
+            <div>
+              <label className="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2 px-1">
+                Custom Link
+              </label>
+              <input
+                type="url"
+                value={customLink}
+                onChange={(e) => setCustomLink(e.target.value)}
+                className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl text-zinc-200 focus:outline-none focus:ring-2 focus:ring-white/10 transition-all sm:text-sm"
+                placeholder="https://my-custom-link.com"
+              />
+            </div>
+
+            <div className="space-y-4">
+              <label className="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2 px-1">
+                Link-Tree Links
+              </label>
+              <div className="space-y-3">
+                {links.map((link, index) => (
+                  <div
+                    key={link.id}
+                    className="flex items-center gap-3 p-3 bg-zinc-900/50 border border-white/5 rounded-xl transition-all"
+                  >
+                    <LinkIcon className="w-5 h-5 text-zinc-500 flex-shrink-0" />
+                    <div className="flex-grow flex gap-3">
+                      <input
+                        type="text"
+                        value={link.title}
+                        onChange={(e) =>
+                          handleLinkChange(link.id, "title", e.target.value)
+                        }
+                        className="flex-1 px-3 py-2 bg-transparent text-zinc-200 focus:outline-none placeholder-zinc-500 sm:text-sm"
+                        placeholder="Link Title (e.g., Twitter)"
+                      />
+                      <input
+                        type="url"
+                        value={link.url}
+                        onChange={(e) =>
+                          handleLinkChange(link.id, "url", e.target.value)
+                        }
+                        className="flex-1 px-3 py-2 bg-transparent text-zinc-200 focus:outline-none placeholder-zinc-500 sm:text-sm"
+                        placeholder="https://link.com"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveLink(link.id)}
+                      className="p-2 text-zinc-500 hover:text-red-500 transition-colors rounded-full"
+                      aria-label="Remove link"
+                    >
+                      <Trash2 className="w-5 h-5" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={handleAddLink}
+                className="w-full py-3 px-4 bg-zinc-800 text-white font-semibold rounded-xl hover:bg-zinc-700 transition-colors flex items-center justify-center gap-2 border border-white/10"
+              >
+                <Plus className="w-5 h-5" />
+                Add Custom Link
+              </button>
+            </div>
+
+            <div className="pt-4 border-t border-white/5">
+              <Link
+                href="/sources/manage"
+                className="flex items-center justify-between p-4 bg-zinc-900/50 border border-white/5 rounded-xl hover:bg-zinc-800/50 transition-all group"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-zinc-400 group-hover:text-white transition-colors">
+                    <Rss className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-zinc-300 group-hover:text-white transition-colors">
+                      Manage Content Sources
+                    </p>
+                    <p className="text-xs text-zinc-500">
+                      Customize your feed subreddits and RSS
+                    </p>
+                  </div>
+                </div>
+                <div className="px-3 py-1 bg-white/5 rounded-full text-[10px] font-bold uppercase tracking-wider text-zinc-500 group-hover:text-zinc-300 transition-colors">
+                  Configure
+                </div>
+              </Link>
+            </div>
+
             <div className="pt-4 border-t border-white/5">
               <label className="flex items-center justify-between cursor-pointer group">
                 <div>
@@ -211,7 +346,8 @@ export default function EditProfilePage() {
                     Make profile public
                   </p>
                   <p className="text-xs text-zinc-500 mt-1">
-                    Allow others to view your profile at /u/{session?.user?.username || "username"}
+                    Allow others to view your profile at /u/
+                    {session?.user?.name || "username"}
                   </p>
                 </div>
                 <button

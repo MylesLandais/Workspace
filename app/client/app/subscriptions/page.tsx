@@ -19,7 +19,9 @@ export default function SubscriptionsPage() {
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
-  const [measuredHeights, setMeasuredHeights] = useState<Record<string, number>>({});
+  const [measuredHeights, setMeasuredHeights] = useState<
+    Record<string, number>
+  >({});
 
   // Store state
   const {
@@ -59,7 +61,13 @@ export default function SubscriptionsPage() {
       searchQuery: searchQuery || undefined,
       activity: showPausedOnly ? "paused" : undefined,
     });
-  }, [activeGroupId, activeSourceType, searchQuery, showPausedOnly, setFilters]);
+  }, [
+    activeGroupId,
+    activeSourceType,
+    searchQuery,
+    showPausedOnly,
+    setFilters,
+  ]);
 
   // Filter sources client-side for immediate feedback
   const filteredSources = useMemo(() => {
@@ -76,7 +84,7 @@ export default function SubscriptionsPage() {
           s.twitterHandle?.toLowerCase().includes(query) ||
           s.instagramHandle?.toLowerCase().includes(query) ||
           s.tiktokHandle?.toLowerCase().includes(query) ||
-          s.description?.toLowerCase().includes(query)
+          s.description?.toLowerCase().includes(query),
       );
     }
 
@@ -135,12 +143,14 @@ export default function SubscriptionsPage() {
   }, []);
 
   const columnWidth =
-    containerWidth > 0 ? (containerWidth - (columnCount - 1) * gap) / columnCount : 300;
+    containerWidth > 0
+      ? (containerWidth - (columnCount - 1) * gap) / columnCount
+      : 300;
 
   // Convert sources to items for masonry layout
   const sourceItems = useMemo(
     () => filteredSources.map((s) => ({ id: s.id, width: 1, height: 1 })),
-    [filteredSources]
+    [filteredSources],
   );
 
   const { itemPositions, containerHeight } = useMasonryLayout(
@@ -148,15 +158,15 @@ export default function SubscriptionsPage() {
     columnCount,
     columnWidth,
     gap,
-    measuredHeights
+    measuredHeights,
   );
 
   // Handlers
   const handleViewFeed = useCallback(
     (sourceId: string) => {
-      router.push(`/feed?source=${sourceId}`);
+      router.push(`/dashboard?source=${sourceId}`);
     },
-    [router]
+    [router],
   );
 
   const handlePause = useCallback(
@@ -168,14 +178,14 @@ export default function SubscriptionsPage() {
         console.error("Failed to toggle pause:", err);
       }
     },
-    [togglePause, refresh]
+    [togglePause, refresh],
   );
 
   const handleEdit = useCallback(
     (source: Source) => {
       setEditingSource(source);
     },
-    [setEditingSource]
+    [setEditingSource],
   );
 
   const handleDelete = useCallback(
@@ -188,7 +198,7 @@ export default function SubscriptionsPage() {
         console.error("Failed to delete source:", err);
       }
     },
-    [deleteSource, refresh]
+    [deleteSource, refresh],
   );
 
   // Empty state
@@ -205,7 +215,9 @@ export default function SubscriptionsPage() {
           <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6">
             <Inbox className="w-8 h-8 text-white/40" />
           </div>
-          <h2 className="text-xl font-semibold text-white mb-2">No sources found</h2>
+          <h2 className="text-xl font-semibold text-white mb-2">
+            No sources found
+          </h2>
           <p className="text-sm text-white/50 text-center max-w-md mb-6">
             {searchQuery
               ? `No sources match "${searchQuery}". Try a different search term.`

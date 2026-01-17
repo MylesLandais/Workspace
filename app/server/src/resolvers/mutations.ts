@@ -1,4 +1,4 @@
-import { getCreatorBySlug } from '../neo4j/queries/creators.js';
+import { getCreatorBySlug } from "../neo4j/queries/creators.js";
 import {
   getSources,
   getFeedGroups,
@@ -8,16 +8,17 @@ import {
   bulkDeleteSources,
   toggleSourcePause,
   bulkCreateSources,
-} from '../neo4j/queries/sources.js';
-import { ImageIngestionService } from '../services/imageIngestion.js';
-import { withSession } from '../lib/session.js';
-import { Resolvers } from '../schema/generated/resolvers.js';
+  createUserFeedGroup,
+} from "../neo4j/queries/sources.js";
+import { ImageIngestionService } from "../services/imageIngestion.js";
+import { withSession } from "../lib/session.js";
+import { Resolvers } from "../schema/generated/resolvers.js";
 
 export const mutationResolvers: Resolvers = {
   Mutation: {
     createCreator: async (_, { name, displayName }) => {
       return withSession(async (session) => {
-        const slug = name.toLowerCase().replace(/\s+/g, '-');
+        const slug = name.toLowerCase().replace(/\s+/g, "-");
         const id = slug;
 
         const query = `
@@ -33,7 +34,7 @@ export const mutationResolvers: Resolvers = {
         const result = await session.run(query, { id, name, displayName });
 
         if (result.records.length === 0) {
-          throw new Error('Failed to create creator');
+          throw new Error("Failed to create creator");
         }
 
         return (await getCreatorBySlug(id)) as any;
@@ -44,12 +45,12 @@ export const mutationResolvers: Resolvers = {
       return withSession(async (session) => {
         const id = crypto.randomUUID();
         const sourceType = platform.toLowerCase();
-        let handleStr = '';
-        
-        if (platform === 'REDDIT') {
+        let handleStr = "";
+
+        if (platform === "REDDIT") {
           handleStr = `r/${username}`;
-        } else if (platform === 'YOUTUBE') {
-          handleStr = username.startsWith('@') ? username : `@${username}`;
+        } else if (platform === "YOUTUBE") {
+          handleStr = username.startsWith("@") ? username : `@${username}`;
         } else {
           handleStr = username;
         }
@@ -60,8 +61,8 @@ export const mutationResolvers: Resolvers = {
             id: $id,
             name: $username,
             source_type: $sourceType,
-            subreddit_name: ${platform === 'REDDIT' ? '$username' : 'null'},
-            youtube_channel_handle: ${platform === 'YOUTUBE' ? '$username' : 'null'},
+            subreddit_name: ${platform === "REDDIT" ? "$username" : "null"},
+            youtube_channel_handle: ${platform === "YOUTUBE" ? "$username" : "null"},
             url: $url,
             is_paused: false,
             media_count: 0,
@@ -76,9 +77,9 @@ export const mutationResolvers: Resolvers = {
 
         const sources = await getSources();
         const handle = sources.find((s) => s.id === id);
-        
+
         if (!handle) {
-          throw new Error('Failed to create handle');
+          throw new Error("Failed to create handle");
         }
 
         return {
@@ -88,10 +89,10 @@ export const mutationResolvers: Resolvers = {
           handle: handleStr,
           url: handle.name,
           verified: false,
-          status: 'ACTIVE' as any,
+          status: "ACTIVE" as any,
           mediaCount: 0,
           lastSynced: null,
-          health: 'red',
+          health: "red",
         } as any;
       });
     },
@@ -108,19 +109,21 @@ export const mutationResolvers: Resolvers = {
 
         const sources = await getSources();
         const handle = sources.find((s) => s.id === handleId);
-        
+
         if (!handle) {
-          throw new Error('Handle not found');
+          throw new Error("Handle not found");
         }
 
         return {
           id: handle.id,
           platform: handle.sourceType.toUpperCase() as any,
           username: handle.subredditName || handle.youtubeHandle || handle.name,
-          handle: handle.subredditName ? `r/${handle.subredditName}` : handle.name,
+          handle: handle.subredditName
+            ? `r/${handle.subredditName}`
+            : handle.name,
           url: handle.name,
           verified: true,
-          status: 'ACTIVE' as any,
+          status: "ACTIVE" as any,
           mediaCount: handle.mediaCount,
           lastSynced: handle.lastSynced,
           health: handle.health,
@@ -140,16 +143,18 @@ export const mutationResolvers: Resolvers = {
 
         const sources = await getSources();
         const handle = sources.find((s) => s.id === handleId);
-        
+
         if (!handle) {
-          throw new Error('Handle not found');
+          throw new Error("Handle not found");
         }
 
         return {
           id: handle.id,
           platform: handle.sourceType.toUpperCase() as any,
           username: handle.subredditName || handle.youtubeHandle || handle.name,
-          handle: handle.subredditName ? `r/${handle.subredditName}` : handle.name,
+          handle: handle.subredditName
+            ? `r/${handle.subredditName}`
+            : handle.name,
           url: handle.name,
           verified: false,
           status: status as any,
@@ -172,19 +177,21 @@ export const mutationResolvers: Resolvers = {
 
         const sources = await getSources();
         const handle = sources.find((s) => s.id === handleId);
-        
+
         if (!handle) {
-          throw new Error('Handle not found');
+          throw new Error("Handle not found");
         }
 
         return {
           id: handle.id,
           platform: handle.sourceType.toUpperCase() as any,
           username: handle.subredditName || handle.youtubeHandle || handle.name,
-          handle: handle.subredditName ? `r/${handle.subredditName}` : handle.name,
+          handle: handle.subredditName
+            ? `r/${handle.subredditName}`
+            : handle.name,
           url: handle.name,
           verified: false,
-          status: 'ACTIVE' as any,
+          status: "ACTIVE" as any,
           mediaCount: handle.mediaCount,
           lastSynced: handle.lastSynced,
           health: handle.health,
@@ -201,7 +208,7 @@ export const mutationResolvers: Resolvers = {
         `;
 
         const result = await session.run(query, { handleId });
-        return result.records[0].get('deleted').toNumber() > 0;
+        return result.records[0].get("deleted").toNumber() > 0;
       });
     },
 
@@ -214,7 +221,7 @@ export const mutationResolvers: Resolvers = {
           const groups = await getFeedGroups();
           groupIdToUse = groups[0]?.id;
           if (!groupIdToUse) {
-            throw new Error('No feed group available');
+            throw new Error("No feed group available");
           }
         }
 
@@ -248,9 +255,9 @@ export const mutationResolvers: Resolvers = {
 
         const sources = await getSources(groupIdToUse);
         const source = sources.find((s) => s.id === id);
-        
+
         if (!source) {
-          throw new Error('Failed to create source');
+          throw new Error("Failed to create source");
         }
 
         return source as any;
@@ -273,11 +280,19 @@ export const mutationResolvers: Resolvers = {
         const record = result.records[0];
 
         return {
-          id: record.get('id'),
-          name: record.get('name'),
-          createdAt: new Date(record.get('createdAt').toString()).toISOString(),
+          id: record.get("id"),
+          name: record.get("name"),
+          createdAt: new Date(record.get("createdAt").toString()).toISOString(),
         } as any;
       });
+    },
+
+    createUserFeedGroup: async (_, { userId, name }) => {
+      const group = await createUserFeedGroup(userId, name);
+      return {
+        ...group,
+        createdAt: new Date().toISOString(), // The query returns it but let's be safe
+      } as any;
     },
 
     // Source Management mutations
@@ -306,7 +321,7 @@ export const mutationResolvers: Resolvers = {
         isEnabled: input.isEnabled ?? undefined,
       });
       if (!source) {
-        throw new Error('Source not found');
+        throw new Error("Source not found");
       }
       return source as any;
     },
@@ -318,7 +333,7 @@ export const mutationResolvers: Resolvers = {
     importOPML: async (_, { feedUrls, groupId }) => {
       const sources = feedUrls.map((url) => ({
         name: url, // Will be replaced with actual title later
-        sourceType: 'RSS',
+        sourceType: "RSS",
         url,
       }));
 
@@ -340,24 +355,17 @@ export const mutationResolvers: Resolvers = {
     toggleSourcePause: async (_, { id }) => {
       const source = await toggleSourcePause(id);
       if (!source) {
-        throw new Error('Source not found');
+        throw new Error("Source not found");
       }
       return source as any;
     },
 
     ingestImage: async (
       _,
-      {
-        image,
-        postId,
-        subreddit,
-        author,
-        title,
-        createdAt,
-      }
+      { image, postId, subreddit, author, title, createdAt },
     ) => {
       const ingestionService = new ImageIngestionService();
-      
+
       const file = await image;
       const { createReadStream, mimetype } = await file;
       const stream = createReadStream();
@@ -370,11 +378,11 @@ export const mutationResolvers: Resolvers = {
       const imageBuffer = Buffer.concat(chunks);
 
       if (imageBuffer.length > 10 * 1024 * 1024) {
-        throw new Error('Image size exceeds 10MB limit');
+        throw new Error("Image size exceeds 10MB limit");
       }
 
-      if (!mimetype || !mimetype.startsWith('image/')) {
-        throw new Error('File must be an image');
+      if (!mimetype || !mimetype.startsWith("image/")) {
+        throw new Error("File must be an image");
       }
 
       const result = await ingestionService.ingestImage(imageBuffer, {
@@ -392,14 +400,14 @@ export const mutationResolvers: Resolvers = {
         isRepost: result.isRepost,
         confidence: result.confidence,
         matchedMethod: result.matchedMethod,
-        original: result.original ? {
-          mediaId: result.original.mediaId,
-          firstSeen: result.original.firstSeen.toISOString(),
-          postId: result.original.postId,
-        } : null,
+        original: result.original
+          ? {
+              mediaId: result.original.mediaId,
+              firstSeen: result.original.firstSeen.toISOString(),
+              postId: result.original.postId,
+            }
+          : null,
       } as any;
     },
   },
 };
-
-

@@ -6,7 +6,7 @@ import { generateFeedPage } from "../mock-data/factory";
 import { decodeHtmlEntities } from "../utils";
 
 // TEMPORARY: Force mock mode for development
-const USE_MOCK = true; // process.env.NEXT_PUBLIC_USE_MOCK_DATA !== "false"; // Default to true
+const USE_MOCK = false; // process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true";
 
 const INITIAL_STATE: InfiniteFeedState = {
   items: [],
@@ -40,128 +40,165 @@ export interface FeedFilters {
   query: string;
   categories: string[];
   tags: string[];
+  sources?: string[];
+  persons?: string[];
 }
 
 export function useInfiniteFeed(pageSize: number = 20, filters?: FeedFilters) {
-  console.log('=== useInfiniteFeed: Hook called ===');
-  console.log('pageSize:', pageSize);
-  console.log('filters:', filters);
-  
+  console.log("=== useInfiniteFeed: Hook called ===");
+  console.log("pageSize:", pageSize);
+  console.log("filters:", filters);
+
   const [state, setState] = useState<InfiniteFeedState>(INITIAL_STATE);
 
-  const loadPage = useCallback(async (cursor: string | null = null, isInitial: boolean = false) => {
-    setState(prev => ({ ...prev, isLoading: true }));
-    try {
-      console.log('useInfiniteFeed: ENTERING LOAD PAGE, USE_MOCK =', USE_MOCK);
-      
-      if (USE_MOCK) {
-        console.log('useInfiniteFeed: IN MOCK MODE, calling generateFeedPage');
-        await new Promise((resolve) => setTimeout(resolve, isInitial ? 50 : 150));
+  const loadPage = useCallback(
+    async (cursor: string | null = null, isInitial: boolean = false) => {
+      setState((prev) => ({ ...prev, isLoading: true }));
+      try {
+        console.log(
+          "useInfiniteFeed: ENTERING LOAD PAGE, USE_MOCK =",
+          USE_MOCK,
+        );
 
-        const page = await generateFeedPage(cursor, pageSize);
-        let items = page.items;
-        
-        console.log(`useInfiniteFeed: Generated page with ${items.length} items`);
-        items.forEach((item, index) => {
-          console.log(`  ${index + 1}. [${item.source}] ${item.caption || 'No caption'}`);
-        });
+        if (USE_MOCK) {
+          console.log(
+            "useInfiniteFeed: IN MOCK MODE, calling generateFeedPage",
+          );
+          await new Promise((resolve) =>
+            setTimeout(resolve, isInitial ? 50 : 150),
+          );
 
-        if (filters) {
-          if (filters.query) {
-            const q = filters.query.toLowerCase();
-            items = items.filter(item =>
-              item.caption?.toLowerCase().includes(q) ||
-              item.author.handle?.toLowerCase().includes(q) ||
-              item.source?.toLowerCase().includes(q)
+          const page = await generateFeedPage(cursor, pageSize);
+          let items = page.items;
+
+          console.log(
+            `useInfiniteFeed: Generated page with ${items.length} items`,
+          );
+          items.forEach((item, index) => {
+            console.log(
+              `  ${index + 1}. [${item.source}] ${item.caption || "No caption"}`,
             );
+          });
+
+          if (filters) {
+            if (filters.query) {
+              const q = filters.query.toLowerCase();
+              items = items.filter(
+                (item) =>
+                  item.caption?.toLowerCase().includes(q) ||
+                  item.author.handle?.toLowerCase().includes(q) ||
+                  item.source?.toLowerCase().includes(q),
+              );
+            }
+            if (filters.categories.length > 0) {
+              items = items.filter((item) => {
+                const type = item.type.toLowerCase();
+                return filters.categories.some((c) =>
+                  type.includes(c.toLowerCase()),
+                );
+              });
+            }
           }
-          if (filters.categories.length > 0) {
-            items = items.filter(item => {
-              const type = item.type.toLowerCase();
-              return filters.categories.some(c => type.includes(c.toLowerCase()));
-            });
-          }
+
+          setState((prev) => ({
+            items: isInitial ? items : [...prev.items, ...items],
+            hasNextPage: page.hasNextPage,
+            endCursor: page.endCursor,
+            isLoading: false,
+            error: null,
+          }));
+          return;
         }
 
-        setState(prev => ({
+        const params = new URLSearchParams({
+          limit: pageSize.toString(),
+        });
+        if (cursor) params.append("cursor", cursor);
+        if (filters?.query) params.append("searchQuery", filters.query);
+        if (filters?.categories.length)
+          params.append("categories", filters.categories.join(","));
+        if (filters?.sources?.length)
+          params.append("sources", filters.sources.join(","));
+        if (filters?.persons?.length)
+          params.append("persons", filters.persons.join(","));
+        if (filters?.tags?.length)
+          params.append("tags", filters.tags.join(","));
+
+        const response = await fetch(`/api/feed?${params.toString()}`);
+        if (!response.ok)
+          throw new Error(`Failed to fetch feed: ${response.statusText}`);
+
+        const page = await response.json();
+        const items: FeedItem[] = page.edges.map(
+          (edge: {
+            node: {
+              id: string;
+              imageUrl?: string;
+              sha256?: string;
+              storagePath?: string;
+              mediaType: string;
+              title?: string;
+              handle?: { name: string; handle: string };
+              platform?: string;
+              publishDate: string;
+              width?: number;
+              height?: number;
+              urlExpiresAt?: string;
+            };
+          }) => {
+            const node = edge.node;
+            let mediaUrl = node.imageUrl;
+            if (node.sha256 && node.storagePath) {
+              const encodedPath = encodeURIComponent(node.storagePath);
+              mediaUrl = `/api/image/${node.sha256}?path=${encodedPath}`;
+            }
+            return {
+              id: node.id,
+              type: mapMediaType(node.mediaType),
+              caption: decodeHtmlEntities(node.title || ""),
+              author: {
+                name: decodeHtmlEntities(node.handle?.name || "Unknown"),
+                handle: decodeHtmlEntities(node.handle?.handle || "unknown"),
+              },
+              source: node.platform || "UNKNOWN",
+              timestamp: node.publishDate,
+              aspectRatio: calculateAspectRatio(
+                node.width || 1,
+                node.height || 1,
+              ),
+              width: node.width || 800,
+              height: node.height || 600,
+              likes: 0,
+              mediaUrl,
+              urlExpiresAt: node.urlExpiresAt,
+            };
+          },
+        );
+
+        setState((prev) => ({
           items: isInitial ? items : [...prev.items, ...items],
-          hasNextPage: page.hasNextPage,
-          endCursor: page.endCursor,
+          hasNextPage: page.pageInfo.hasNextPage,
+          endCursor: page.pageInfo.endCursor,
           isLoading: false,
           error: null,
         }));
-        return;
+      } catch (error) {
+        setState((prev) => ({
+          ...prev,
+          isLoading: false,
+          error:
+            error instanceof Error ? error : new Error("Failed to load feed"),
+        }));
       }
-
-      const params = new URLSearchParams({
-        limit: pageSize.toString(),
-      });
-      if (cursor) params.append("cursor", cursor);
-      if (filters?.query) params.append("searchQuery", filters.query);
-      if (filters?.categories.length) params.append("categories", filters.categories.join(","));
-
-      const response = await fetch(`/api/feed?${params.toString()}`);
-      if (!response.ok) throw new Error(`Failed to fetch feed: ${response.statusText}`);
-
-      const page = await response.json();
-      const items: FeedItem[] = page.edges.map((edge: { node: {
-        id: string;
-        imageUrl?: string;
-        sha256?: string;
-        storagePath?: string;
-        mediaType: string;
-        title?: string;
-        handle?: { name: string; handle: string };
-        platform?: string;
-        publishDate: string;
-        width?: number;
-        height?: number;
-        urlExpiresAt?: string;
-      } }) => {
-        const node = edge.node;
-        let mediaUrl = node.imageUrl;
-        if (node.sha256 && node.storagePath) {
-          const encodedPath = encodeURIComponent(node.storagePath);
-          mediaUrl = `/api/image/${node.sha256}?path=${encodedPath}`;
-        }
-        return {
-          id: node.id,
-          type: mapMediaType(node.mediaType),
-          caption: decodeHtmlEntities(node.title || ""),
-          author: {
-            name: decodeHtmlEntities(node.handle?.name || "Unknown"),
-            handle: decodeHtmlEntities(node.handle?.handle || "unknown"),
-          },
-          source: node.platform || "UNKNOWN",
-          timestamp: node.publishDate,
-          aspectRatio: calculateAspectRatio(node.width || 1, node.height || 1),
-          width: node.width || 800,
-          height: node.height || 600,
-          likes: 0,
-          mediaUrl,
-          urlExpiresAt: node.urlExpiresAt,
-        };
-      });
-
-      setState(prev => ({
-        items: isInitial ? items : [...prev.items, ...items],
-        hasNextPage: page.pageInfo.hasNextPage,
-        endCursor: page.pageInfo.endCursor,
-        isLoading: false,
-        error: null,
-      }));
-    } catch (error) {
-      setState(prev => ({
-        ...prev,
-        isLoading: false,
-        error: error instanceof Error ? error : new Error("Failed to load feed"),
-      }));
-    }
-  }, [pageSize, filters]);
+    },
+    [pageSize, filters],
+  );
 
   // Initial load or on filter change
   useEffect(() => {
-    console.log('useInfiniteFeed: useEffect triggered - calling loadPage(null, true)');
+    console.log(
+      "useInfiniteFeed: useEffect triggered - calling loadPage(null, true)",
+    );
     loadPage(null, true);
   }, [loadPage]);
 

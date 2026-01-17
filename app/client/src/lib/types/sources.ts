@@ -49,6 +49,7 @@ export interface SourceStats {
 
 export interface SourceFilters {
   groupId?: string;
+  userId?: string;
   sourceType?: SourceType;
   activity?: ActivityFilter;
   searchQuery?: string;
@@ -57,6 +58,7 @@ export interface SourceFilters {
 export interface FeedGroup {
   id: string;
   name: string;
+  userId?: string;
   createdAt?: string;
 }
 
@@ -86,6 +88,7 @@ export interface ImportResult {
 export interface CreateSourceInput {
   name: string;
   sourceType: SourceType;
+  userId?: string;
   url?: string;
   subredditName?: string;
   youtubeHandle?: string;

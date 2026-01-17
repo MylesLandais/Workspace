@@ -1,4 +1,4 @@
-import { getSession } from '../driver.js';
+import { getSession } from "../driver.js";
 
 export interface Source {
   id: string;
@@ -30,14 +30,16 @@ export interface Source {
 
 export interface SourceFilters {
   groupId?: string;
+  userId?: string;
   sourceType?: string;
-  activity?: 'ALL' | 'ACTIVE' | 'INACTIVE' | 'PAUSED';
+  activity?: "ALL" | "ACTIVE" | "INACTIVE" | "PAUSED";
   searchQuery?: string;
 }
 
 export interface CreateSourceInput {
   name: string;
   sourceType: string;
+  userId?: string;
   url?: string;
   subredditName?: string;
   youtubeHandle?: string;
@@ -81,10 +83,10 @@ export async function getSources(groupId?: string): Promise<Source[]> {
     const result = await session.run(query, params);
 
     return result.records.map((record) => {
-      const source = record.get('s').properties;
-      const groupName = record.get('groupName') || 'Uncategorized';
-      const entityId = record.get('entityId');
-      const entityName = record.get('entityName');
+      const source = record.get("s").properties;
+      const groupName = record.get("groupName") || "Uncategorized";
+      const entityId = record.get("entityId");
+      const entityName = record.get("entityName");
       return mapSourceRecord(source, groupName, entityId, entityName);
     });
   } finally {
@@ -97,29 +99,29 @@ function mapSourceRecord(
   groupName: string,
   entityId?: string,
   entityName?: string,
-  groupId?: string
+  groupId?: string,
 ): Source {
   const lastSynced = source.last_synced
     ? new Date(source.last_synced.toString()).toISOString()
     : null;
 
-  let health = 'red';
+  let health = "red";
   if (lastSynced) {
     const hoursAgo =
       (Date.now() - new Date(lastSynced).getTime()) / (1000 * 60 * 60);
-    if (hoursAgo < 1) health = 'green';
-    else if (hoursAgo < 24) health = 'yellow';
+    if (hoursAgo < 1) health = "green";
+    else if (hoursAgo < 24) health = "yellow";
   }
 
   const isPaused = source.is_paused || false;
   const isEnabled = source.is_enabled !== false;
-  const isActive = isEnabled && !isPaused && health !== 'red';
+  const isActive = isEnabled && !isPaused && health !== "red";
 
   return {
     id: source.id,
     name: source.name,
     subredditName: source.subreddit_name,
-    sourceType: (source.source_type || 'REDDIT').toUpperCase(),
+    sourceType: (source.source_type || "REDDIT").toUpperCase(),
     youtubeHandle: source.youtube_channel_handle,
     twitterHandle: source.twitter_handle,
     instagramHandle: source.instagram_handle,
@@ -144,29 +146,84 @@ function mapSourceRecord(
   };
 }
 
-export async function getFeedGroups(): Promise<Array<{ id: string; name: string }>> {
+export async function getFeedGroups(
+  userId?: string,
+): Promise<Array<{ id: string; name: string; userId?: string }>> {
   const session = getSession();
   try {
-    const query = `
+    let query = `
       MATCH (fg:FeedGroup)
-      RETURN fg.id AS id, fg.name AS name
+    `;
+    const params: any = {};
+
+    if (userId) {
+      query += ` WHERE fg.userId = $userId`;
+      params.userId = userId;
+    }
+
+    query += `
+      RETURN fg.id AS id, fg.name AS name, fg.userId AS userId
       ORDER BY fg.name
     `;
 
-    const result = await session.run(query);
+    const result = await session.run(query, params);
 
-    if (result.records.length === 0) {
+    if (result.records.length === 0 && !userId) {
       const defaultGroup = await createDefaultFeedGroup();
       return [defaultGroup];
     }
 
     return result.records.map((record) => ({
-      id: record.get('id'),
-      name: record.get('name'),
+      id: record.get("id"),
+      name: record.get("name"),
+      userId: record.get("userId"),
     }));
   } finally {
     await session.close();
   }
+}
+
+export async function createUserFeedGroup(
+  userId: string,
+  name: string,
+): Promise<{ id: string; name: string; userId: string }> {
+  const session = getSession();
+  try {
+    const id = crypto.randomUUID();
+    const query = `
+      CREATE (fg:FeedGroup {
+        id: $id,
+        name: $name,
+        userId: $userId,
+        created_at: datetime()
+      })
+      RETURN fg.id AS id, fg.name AS name, fg.userId AS userId
+    `;
+
+    const result = await session.run(query, {
+      id,
+      name,
+      userId,
+    });
+
+    return {
+      id: result.records[0].get("id"),
+      name: result.records[0].get("name"),
+      userId: result.records[0].get("userId"),
+    };
+  } finally {
+    await session.close();
+  }
+}
+
+export async function getOrCreateUserDefaultGroup(
+  userId: string,
+): Promise<{ id: string; name: string }> {
+  const groups = await getFeedGroups(userId);
+  if (groups.length > 0) {
+    return groups[0];
+  }
+  return await createUserFeedGroup(userId, "My Subreddits");
 }
 
 async function createDefaultFeedGroup(): Promise<{ id: string; name: string }> {
@@ -184,26 +241,28 @@ async function createDefaultFeedGroup(): Promise<{ id: string; name: string }> {
 
     const result = await session.run(query, {
       id,
-      name: 'All',
+      name: "All",
     });
 
     return {
-      id: result.records[0].get('id'),
-      name: result.records[0].get('name'),
+      id: result.records[0].get("id"),
+      name: result.records[0].get("name"),
     };
   } finally {
     await session.close();
   }
 }
 
-export async function searchSubreddits(query: string): Promise<Array<{
-  name: string;
-  displayName: string;
-  subscriberCount: number;
-  description: string;
-  iconUrl?: string;
-  isSubscribed: boolean;
-}>> {
+export async function searchSubreddits(query: string): Promise<
+  Array<{
+    name: string;
+    displayName: string;
+    subscriberCount: number;
+    description: string;
+    iconUrl?: string;
+    isSubscribed: boolean;
+  }>
+> {
   const session = getSession();
   try {
     const searchQuery = `
@@ -215,17 +274,19 @@ export async function searchSubreddits(query: string): Promise<Array<{
       LIMIT 20
     `;
 
-    const result = await session.run(searchQuery, { query: query.toLowerCase() });
+    const result = await session.run(searchQuery, {
+      query: query.toLowerCase(),
+    });
 
     return result.records.map((record) => {
-      const subreddit = record.get('s').properties;
-      const isSubscribed = record.get('isSubscribed');
+      const subreddit = record.get("s").properties;
+      const isSubscribed = record.get("isSubscribed");
 
       return {
         name: subreddit.name,
         displayName: subreddit.display_name || subreddit.name,
         subscriberCount: subreddit.subscribers || 0,
-        description: subreddit.description || '',
+        description: subreddit.description || "",
         iconUrl: subreddit.icon_url,
         isSubscribed,
       };
@@ -238,7 +299,9 @@ export async function searchSubreddits(query: string): Promise<Array<{
 /**
  * Get sources with filtering support
  */
-export async function getUserSources(filters?: SourceFilters): Promise<Source[]> {
+export async function getUserSources(
+  filters?: SourceFilters,
+): Promise<Source[]> {
   const session = getSession();
   try {
     let query = `
@@ -251,36 +314,45 @@ export async function getUserSources(filters?: SourceFilters): Promise<Source[]>
     const params: Record<string, any> = {};
 
     if (filters?.groupId) {
-      whereClauses.push('fg.id = $groupId');
+      whereClauses.push("fg.id = $groupId");
       params.groupId = filters.groupId;
     }
 
+    if (filters?.userId) {
+      whereClauses.push("fg.userId = $userId");
+      params.userId = filters.userId;
+    }
+
     if (filters?.sourceType) {
-      whereClauses.push('s.source_type = $sourceType');
+      whereClauses.push("s.source_type = $sourceType");
       params.sourceType = filters.sourceType;
     }
 
     if (filters?.searchQuery) {
-      whereClauses.push('(toLower(s.name) CONTAINS toLower($searchQuery) OR toLower(s.subreddit_name) CONTAINS toLower($searchQuery))');
+      whereClauses.push(
+        "(toLower(s.name) CONTAINS toLower($searchQuery) OR toLower(s.subreddit_name) CONTAINS toLower($searchQuery))",
+      );
       params.searchQuery = filters.searchQuery;
     }
 
     if (filters?.activity) {
       switch (filters.activity) {
-        case 'ACTIVE':
-          whereClauses.push('s.is_paused = false AND s.is_enabled <> false');
+        case "ACTIVE":
+          whereClauses.push("s.is_paused = false AND s.is_enabled <> false");
           break;
-        case 'INACTIVE':
-          whereClauses.push('(s.is_enabled = false OR s.last_synced IS NULL OR datetime() - s.last_synced > duration("P1D"))');
+        case "INACTIVE":
+          whereClauses.push(
+            '(s.is_enabled = false OR s.last_synced IS NULL OR datetime() - s.last_synced > duration("P1D"))',
+          );
           break;
-        case 'PAUSED':
-          whereClauses.push('s.is_paused = true');
+        case "PAUSED":
+          whereClauses.push("s.is_paused = true");
           break;
       }
     }
 
     if (whereClauses.length > 0) {
-      query += ` WHERE ${whereClauses.join(' AND ')}`;
+      query += ` WHERE ${whereClauses.join(" AND ")}`;
     }
 
     query += `
@@ -291,11 +363,11 @@ export async function getUserSources(filters?: SourceFilters): Promise<Source[]>
     const result = await session.run(query, params);
 
     return result.records.map((record) => {
-      const source = record.get('s').properties;
-      const groupName = record.get('groupName') || 'Uncategorized';
-      const groupId = record.get('groupId');
-      const entityId = record.get('entityId');
-      const entityName = record.get('entityName');
+      const source = record.get("s").properties;
+      const groupName = record.get("groupName") || "Uncategorized";
+      const groupId = record.get("groupId");
+      const entityId = record.get("entityId");
+      const entityName = record.get("entityName");
       return mapSourceRecord(source, groupName, entityId, entityName, groupId);
     });
   } finally {
@@ -323,11 +395,11 @@ export async function getSourceById(id: string): Promise<Source | null> {
     }
 
     const record = result.records[0];
-    const source = record.get('s').properties;
-    const groupName = record.get('groupName') || 'Uncategorized';
-    const groupId = record.get('groupId');
-    const entityId = record.get('entityId');
-    const entityName = record.get('entityName');
+    const source = record.get("s").properties;
+    const groupName = record.get("groupName") || "Uncategorized";
+    const groupId = record.get("groupId");
+    const entityId = record.get("entityId");
+    const entityName = record.get("entityName");
 
     return mapSourceRecord(source, groupName, entityId, entityName, groupId);
   } finally {
@@ -338,7 +410,9 @@ export async function getSourceById(id: string): Promise<Source | null> {
 /**
  * Create a new source
  */
-export async function createSourceNode(input: CreateSourceInput): Promise<Source> {
+export async function createSourceNode(
+  input: CreateSourceInput,
+): Promise<Source> {
   const session = getSession();
   try {
     const id = crypto.randomUUID();
@@ -346,8 +420,13 @@ export async function createSourceNode(input: CreateSourceInput): Promise<Source
     // First, ensure the feed group exists or use default
     let groupId = input.groupId;
     if (!groupId) {
-      const groups = await getFeedGroups();
-      groupId = groups[0]?.id;
+      if (input.userId) {
+        const defaultGroup = await getOrCreateUserDefaultGroup(input.userId);
+        groupId = defaultGroup.id;
+      } else {
+        const groups = await getFeedGroups();
+        groupId = groups[0]?.id;
+      }
     }
 
     const query = `
@@ -390,11 +469,17 @@ export async function createSourceNode(input: CreateSourceInput): Promise<Source
     });
 
     const record = result.records[0];
-    const source = record.get('s').properties;
-    const groupName = record.get('groupName');
-    const resultGroupId = record.get('groupId');
+    const source = record.get("s").properties;
+    const groupName = record.get("groupName");
+    const resultGroupId = record.get("groupId");
 
-    return mapSourceRecord(source, groupName, undefined, undefined, resultGroupId);
+    return mapSourceRecord(
+      source,
+      groupName,
+      undefined,
+      undefined,
+      resultGroupId,
+    );
   } finally {
     await session.close();
   }
@@ -403,32 +488,35 @@ export async function createSourceNode(input: CreateSourceInput): Promise<Source
 /**
  * Update an existing source
  */
-export async function updateSourceNode(id: string, input: UpdateSourceInput): Promise<Source | null> {
+export async function updateSourceNode(
+  id: string,
+  input: UpdateSourceInput,
+): Promise<Source | null> {
   const session = getSession();
   try {
-    const setClauses: string[] = ['s.updated_at = datetime()'];
+    const setClauses: string[] = ["s.updated_at = datetime()"];
     const params: Record<string, any> = { id };
 
     if (input.name !== undefined) {
-      setClauses.push('s.name = $name');
+      setClauses.push("s.name = $name");
       params.name = input.name;
     }
     if (input.description !== undefined) {
-      setClauses.push('s.description = $description');
+      setClauses.push("s.description = $description");
       params.description = input.description;
     }
     if (input.isPaused !== undefined) {
-      setClauses.push('s.is_paused = $isPaused');
+      setClauses.push("s.is_paused = $isPaused");
       params.isPaused = input.isPaused;
     }
     if (input.isEnabled !== undefined) {
-      setClauses.push('s.is_enabled = $isEnabled');
+      setClauses.push("s.is_enabled = $isEnabled");
       params.isEnabled = input.isEnabled;
     }
 
     let query = `
       MATCH (s:Source {id: $id})
-      SET ${setClauses.join(', ')}
+      SET ${setClauses.join(", ")}
     `;
 
     // Handle group change
@@ -440,7 +528,7 @@ export async function updateSourceNode(id: string, input: UpdateSourceInput): Pr
         WITH s
         MATCH (newFg:FeedGroup {id: $newGroupId})
         CREATE (newFg)-[:CONTAINS]->(s)
-        SET ${setClauses.join(', ')}
+        SET ${setClauses.join(", ")}
       `;
       params.newGroupId = input.groupId;
     }
@@ -459,11 +547,11 @@ export async function updateSourceNode(id: string, input: UpdateSourceInput): Pr
     }
 
     const record = result.records[0];
-    const source = record.get('s').properties;
-    const groupName = record.get('groupName') || 'Uncategorized';
-    const groupId = record.get('groupId');
-    const entityId = record.get('entityId');
-    const entityName = record.get('entityName');
+    const source = record.get("s").properties;
+    const groupName = record.get("groupName") || "Uncategorized";
+    const groupId = record.get("groupId");
+    const entityId = record.get("entityId");
+    const entityName = record.get("entityName");
 
     return mapSourceRecord(source, groupName, entityId, entityName, groupId);
   } finally {
@@ -484,7 +572,7 @@ export async function deleteSourceNode(id: string): Promise<boolean> {
     `;
 
     const result = await session.run(query, { id });
-    const deleted = result.records[0]?.get('deleted')?.toNumber() || 0;
+    const deleted = result.records[0]?.get("deleted")?.toNumber() || 0;
 
     return deleted > 0;
   } finally {
@@ -506,7 +594,7 @@ export async function bulkDeleteSources(ids: string[]): Promise<number> {
     `;
 
     const result = await session.run(query, { ids });
-    return result.records[0]?.get('deleted')?.toNumber() || 0;
+    return result.records[0]?.get("deleted")?.toNumber() || 0;
   } finally {
     await session.close();
   }
@@ -535,11 +623,11 @@ export async function toggleSourcePause(id: string): Promise<Source | null> {
     }
 
     const record = result.records[0];
-    const source = record.get('s').properties;
-    const groupName = record.get('groupName') || 'Uncategorized';
-    const groupId = record.get('groupId');
-    const entityId = record.get('entityId');
-    const entityName = record.get('entityName');
+    const source = record.get("s").properties;
+    const groupName = record.get("groupName") || "Uncategorized";
+    const groupId = record.get("groupId");
+    const entityId = record.get("entityId");
+    const entityName = record.get("entityName");
 
     return mapSourceRecord(source, groupName, entityId, entityName, groupId);
   } finally {
@@ -552,8 +640,13 @@ export async function toggleSourcePause(id: string): Promise<Source | null> {
  */
 export async function bulkCreateSources(
   sources: CreateSourceInput[],
-  groupId?: string
-): Promise<{ imported: number; skipped: number; failed: number; sources: Source[] }> {
+  groupId?: string,
+): Promise<{
+  imported: number;
+  skipped: number;
+  failed: number;
+  sources: Source[];
+}> {
   const session = getSession();
   try {
     // Ensure we have a group
@@ -579,7 +672,7 @@ export async function bulkCreateSources(
         `;
 
         const checkResult = await session.run(checkQuery, {
-          url: input.url || '',
+          url: input.url || "",
           name: input.name,
           sourceType: input.sourceType,
         });
@@ -622,10 +715,18 @@ export async function bulkCreateSources(
 
         if (createResult.records.length > 0) {
           const record = createResult.records[0];
-          const source = record.get('s').properties;
-          const groupName = record.get('groupName');
-          const resultGroupId = record.get('groupId');
-          createdSources.push(mapSourceRecord(source, groupName, undefined, undefined, resultGroupId));
+          const source = record.get("s").properties;
+          const groupName = record.get("groupName");
+          const resultGroupId = record.get("groupId");
+          createdSources.push(
+            mapSourceRecord(
+              source,
+              groupName,
+              undefined,
+              undefined,
+              resultGroupId,
+            ),
+          );
           imported++;
         }
       } catch {

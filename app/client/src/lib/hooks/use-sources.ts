@@ -9,7 +9,9 @@ import type {
   ViewMode,
 } from "@/lib/types/sources";
 
-const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT || "http://localhost:4002/api/graphql";
+const GRAPHQL_ENDPOINT =
+  process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ||
+  "http://localhost:4003/api/graphql";
 
 interface UseSourcesReturn {
   sources: Source[];
@@ -72,23 +74,30 @@ export function useSources(): UseSourcesReturn {
             readsPerMonth
             health
           }
-          getFeedGroups {
+          getFeedGroups(userId: ${filters.userId ? `"${filters.userId}"` : "null"}) {
             id
             name
+            userId
             createdAt
           }
         }
       `;
 
       const variables = {
-        filters: filters.groupId || filters.sourceType || filters.activity || filters.searchQuery
-          ? {
-              groupId: filters.groupId,
-              sourceType: filters.sourceType,
-              activity: filters.activity?.toUpperCase(),
-              searchQuery: filters.searchQuery,
-            }
-          : null,
+        filters:
+          filters.groupId ||
+          filters.userId ||
+          filters.sourceType ||
+          filters.activity ||
+          filters.searchQuery
+            ? {
+                groupId: filters.groupId,
+                userId: filters.userId,
+                sourceType: filters.sourceType,
+                activity: filters.activity?.toUpperCase(),
+                searchQuery: filters.searchQuery,
+              }
+            : null,
       };
 
       const response = await fetch(GRAPHQL_ENDPOINT, {
@@ -121,13 +130,16 @@ export function useSources(): UseSourcesReturn {
     fetchSources();
   }, [fetchSources]);
 
-  const selectAll = useCallback((selected: boolean) => {
-    if (selected) {
-      setSelectedIds(new Set(sources.map((s) => s.id)));
-    } else {
-      setSelectedIds(new Set());
-    }
-  }, [sources]);
+  const selectAll = useCallback(
+    (selected: boolean) => {
+      if (selected) {
+        setSelectedIds(new Set(sources.map((s) => s.id)));
+      } else {
+        setSelectedIds(new Set());
+      }
+    },
+    [sources],
+  );
 
   const selectOne = useCallback((id: string, selected: boolean) => {
     setSelectedIds((prev) => {
@@ -165,11 +177,17 @@ export function useSources(): UseSourcesReturn {
 
 interface UseSourceMutationsReturn {
   createSource: (input: CreateSourceInput) => Promise<Source>;
-  updateSource: (id: string, input: Partial<CreateSourceInput>) => Promise<Source>;
+  updateSource: (
+    id: string,
+    input: Partial<CreateSourceInput>,
+  ) => Promise<Source>;
   deleteSource: (id: string) => Promise<boolean>;
   togglePause: (id: string) => Promise<Source>;
   bulkDelete: (ids: string[]) => Promise<number>;
-  importOPML: (feedUrls: string[], groupId?: string) => Promise<{ imported: number; skipped: number }>;
+  importOPML: (
+    feedUrls: string[],
+    groupId?: string,
+  ) => Promise<{ imported: number; skipped: number }>;
   isLoading: boolean;
   error: string | null;
 }
@@ -178,40 +196,44 @@ export function useSourceMutations(): UseSourceMutationsReturn {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const executeMutation = useCallback(async <T>(
-    mutation: string,
-    variables: Record<string, unknown>
-  ): Promise<T> => {
-    setIsLoading(true);
-    setError(null);
+  const executeMutation = useCallback(
+    async <T>(
+      mutation: string,
+      variables: Record<string, unknown>,
+    ): Promise<T> => {
+      setIsLoading(true);
+      setError(null);
 
-    try {
-      const response = await fetch(GRAPHQL_ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query: mutation, variables }),
-      });
+      try {
+        const response = await fetch(GRAPHQL_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ query: mutation, variables }),
+        });
 
-      const result = await response.json();
+        const result = await response.json();
 
-      if (result.errors) {
-        throw new Error(result.errors[0]?.message || "GraphQL error");
+        if (result.errors) {
+          throw new Error(result.errors[0]?.message || "GraphQL error");
+        }
+
+        return result.data;
+      } catch (err) {
+        const errorMessage = (err as Error).message;
+        setError(errorMessage);
+        throw err;
+      } finally {
+        setIsLoading(false);
       }
+    },
+    [],
+  );
 
-      return result.data;
-    } catch (err) {
-      const errorMessage = (err as Error).message;
-      setError(errorMessage);
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  const createSource = useCallback(async (input: CreateSourceInput): Promise<Source> => {
-    const mutation = `
+  const createSource = useCallback(
+    async (input: CreateSourceInput & { userId?: string }): Promise<Source> => {
+      const mutation = `
       mutation CreateSource($input: CreateSourceInput!) {
         createSource(input: $input) {
           id
@@ -225,15 +247,17 @@ export function useSourceMutations(): UseSourceMutationsReturn {
       }
     `;
 
-    const result = await executeMutation<{ createSource: Source }>(mutation, { input });
-    return result.createSource;
-  }, [executeMutation]);
+      const result = await executeMutation<{ createSource: Source }>(mutation, {
+        input,
+      });
+      return result.createSource;
+    },
+    [executeMutation],
+  );
 
-  const updateSource = useCallback(async (
-    id: string,
-    input: Partial<CreateSourceInput>
-  ): Promise<Source> => {
-    const mutation = `
+  const updateSource = useCallback(
+    async (id: string, input: Partial<CreateSourceInput>): Promise<Source> => {
+      const mutation = `
       mutation UpdateSource($id: ID!, $input: UpdateSourceInput!) {
         updateSource(id: $id, input: $input) {
           id
@@ -247,23 +271,35 @@ export function useSourceMutations(): UseSourceMutationsReturn {
       }
     `;
 
-    const result = await executeMutation<{ updateSource: Source }>(mutation, { id, input });
-    return result.updateSource;
-  }, [executeMutation]);
+      const result = await executeMutation<{ updateSource: Source }>(mutation, {
+        id,
+        input,
+      });
+      return result.updateSource;
+    },
+    [executeMutation],
+  );
 
-  const deleteSource = useCallback(async (id: string): Promise<boolean> => {
-    const mutation = `
+  const deleteSource = useCallback(
+    async (id: string): Promise<boolean> => {
+      const mutation = `
       mutation DeleteSource($id: ID!) {
         deleteSource(id: $id)
       }
     `;
 
-    const result = await executeMutation<{ deleteSource: boolean }>(mutation, { id });
-    return result.deleteSource;
-  }, [executeMutation]);
+      const result = await executeMutation<{ deleteSource: boolean }>(
+        mutation,
+        { id },
+      );
+      return result.deleteSource;
+    },
+    [executeMutation],
+  );
 
-  const togglePause = useCallback(async (id: string): Promise<Source> => {
-    const mutation = `
+  const togglePause = useCallback(
+    async (id: string): Promise<Source> => {
+      const mutation = `
       mutation ToggleSourcePause($id: ID!) {
         toggleSourcePause(id: $id) {
           id
@@ -274,26 +310,38 @@ export function useSourceMutations(): UseSourceMutationsReturn {
       }
     `;
 
-    const result = await executeMutation<{ toggleSourcePause: Source }>(mutation, { id });
-    return result.toggleSourcePause;
-  }, [executeMutation]);
+      const result = await executeMutation<{ toggleSourcePause: Source }>(
+        mutation,
+        { id },
+      );
+      return result.toggleSourcePause;
+    },
+    [executeMutation],
+  );
 
-  const bulkDelete = useCallback(async (ids: string[]): Promise<number> => {
-    const mutation = `
+  const bulkDelete = useCallback(
+    async (ids: string[]): Promise<number> => {
+      const mutation = `
       mutation BulkDeleteSources($ids: [ID!]!) {
         bulkDeleteSources(ids: $ids)
       }
     `;
 
-    const result = await executeMutation<{ bulkDeleteSources: number }>(mutation, { ids });
-    return result.bulkDeleteSources;
-  }, [executeMutation]);
+      const result = await executeMutation<{ bulkDeleteSources: number }>(
+        mutation,
+        { ids },
+      );
+      return result.bulkDeleteSources;
+    },
+    [executeMutation],
+  );
 
-  const importOPML = useCallback(async (
-    feedUrls: string[],
-    groupId?: string
-  ): Promise<{ imported: number; skipped: number }> => {
-    const mutation = `
+  const importOPML = useCallback(
+    async (
+      feedUrls: string[],
+      groupId?: string,
+    ): Promise<{ imported: number; skipped: number }> => {
+      const mutation = `
       mutation ImportOPML($feedUrls: [String!]!, $groupId: String) {
         importOPML(feedUrls: $feedUrls, groupId: $groupId) {
           imported
@@ -303,15 +351,17 @@ export function useSourceMutations(): UseSourceMutationsReturn {
       }
     `;
 
-    const result = await executeMutation<{
-      importOPML: { imported: number; skipped: number; failed: number };
-    }>(mutation, { feedUrls, groupId });
+      const result = await executeMutation<{
+        importOPML: { imported: number; skipped: number; failed: number };
+      }>(mutation, { feedUrls, groupId });
 
-    return {
-      imported: result.importOPML.imported,
-      skipped: result.importOPML.skipped,
-    };
-  }, [executeMutation]);
+      return {
+        imported: result.importOPML.imported,
+        skipped: result.importOPML.skipped,
+      };
+    },
+    [executeMutation],
+  );
 
   return {
     createSource,

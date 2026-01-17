@@ -1,33 +1,36 @@
-import { getFeed } from '../neo4j/queries/feed.js';
-import { getCreators, getCreatorBySlug } from '../neo4j/queries/creators.js';
+import { getFeed } from "../neo4j/queries/feed.js";
+import { getFeedHybrid } from "../neo4j/queries/feed-compat.js";
+import { getCreators, getCreatorBySlug } from "../neo4j/queries/creators.js";
 import {
   getSources,
   getFeedGroups,
   searchSubreddits,
   getUserSources,
   getSourceById,
-} from '../neo4j/queries/sources.js';
-import {
-  parseOPMLContent,
-  discoverFeeds,
-} from '../services/opmlParser.js';
+} from "../neo4j/queries/sources.js";
+import { parseOPMLContent, discoverFeeds } from "../services/opmlParser.js";
 import {
   getClusterById,
   getMediaById,
   getImageLineage,
   getSimilarImages,
-} from '../neo4j/queries/images.js';
-import { ImageIngestionService } from '../services/imageIngestion.js';
-import logger from '../lib/logger.js';
-import { withSession } from '../lib/session.js';
-import { getPresignedUrlService } from '../lib/serviceRegistry.js';
-import { Resolvers } from '../schema/generated/resolvers.js';
+} from "../neo4j/queries/images.js";
+import { ImageIngestionService } from "../services/imageIngestion.js";
+import logger from "../lib/logger.js";
+import { withSession } from "../lib/session.js";
+import { getPresignedUrlService } from "../lib/serviceRegistry.js";
+import { Resolvers } from "../schema/generated/resolvers.js";
 
 export const queryResolvers: Resolvers = {
   Query: {
     feed: async (_, { cursor, limit = 20, filters }) => {
       try {
-        const feedResult = await getFeed(cursor || null, limit || 20, filters || undefined);
+        // Use hybrid feed that auto-detects Media vs Post nodes
+        const feedResult = await getFeedHybrid(
+          cursor || null,
+          limit || 20,
+          filters || undefined,
+        );
 
         if (!feedResult || !feedResult.posts) {
           return {
@@ -48,7 +51,8 @@ export const queryResolvers: Resolvers = {
             mimeType: post.mimeType!,
           }));
 
-        let presignedUrls: Map<string, { url: string; expiresAt: Date }> = new Map();
+        let presignedUrls: Map<string, { url: string; expiresAt: Date }> =
+          new Map();
 
         if (items.length > 0) {
           try {
@@ -57,10 +61,10 @@ export const queryResolvers: Resolvers = {
               urlResults.map((result) => [
                 result.sha256,
                 { url: result.url, expiresAt: result.expiresAt },
-              ])
+              ]),
             );
           } catch (error: any) {
-            logger.error('Error generating presigned URLs', error);
+            logger.error("Error generating presigned URLs", error);
           }
         }
 
@@ -68,17 +72,17 @@ export const queryResolvers: Resolvers = {
           const urlData = post.sha256 ? presignedUrls.get(post.sha256) : null;
           return {
             ...post,
-            id: post.id || '',
-            title: post.title || '',
-            sourceUrl: post.sourceUrl || '',
-            imageUrl: post.imageUrl || '',
+            id: post.id || "",
+            title: post.title || "",
+            sourceUrl: post.sourceUrl || "",
+            imageUrl: post.imageUrl || "",
             publishDate: post.publishDate,
-            mediaType: (post.mediaType as any) || 'IMAGE',
-            platform: (post.platform as any) || 'REDDIT',
+            mediaType: (post.mediaType as any) || "IMAGE",
+            platform: (post.platform as any) || "REDDIT",
             handle: {
               ...post.handle,
-              name: post.handle.name || '',
-              handle: post.handle.handle || '',
+              name: post.handle.name || "",
+              handle: post.handle.handle || "",
             },
             presignedUrl: urlData?.url || null,
             urlExpiresAt: urlData?.expiresAt?.toISOString() || null,
@@ -96,7 +100,7 @@ export const queryResolvers: Resolvers = {
           },
         };
       } catch (error: any) {
-        logger.error('Feed resolver error', error);
+        logger.error("Feed resolver error", error);
         return {
           edges: [],
           pageInfo: {
@@ -115,8 +119,8 @@ export const queryResolvers: Resolvers = {
       return (await getCreatorBySlug(slug)) as any;
     },
 
-    getFeedGroups: async () => {
-      return (await getFeedGroups()) as any;
+    getFeedGroups: async (_, { userId }) => {
+      return (await getFeedGroups(userId || undefined)) as any;
     },
 
     getSources: async (_, { groupId }) => {
@@ -145,7 +149,7 @@ export const queryResolvers: Resolvers = {
 
     checkDuplicate: async (_, { image }) => {
       const ingestionService = new ImageIngestionService();
-      
+
       const file = await image;
       const { createReadStream, mimetype } = await file;
       const stream = createReadStream();
@@ -158,11 +162,11 @@ export const queryResolvers: Resolvers = {
       const imageBuffer = Buffer.concat(chunks);
 
       if (imageBuffer.length > 10 * 1024 * 1024) {
-        throw new Error('Image size exceeds 10MB limit');
+        throw new Error("Image size exceeds 10MB limit");
       }
 
-      if (!mimetype || !mimetype.startsWith('image/')) {
-        throw new Error('File must be an image');
+      if (!mimetype || !mimetype.startsWith("image/")) {
+        throw new Error("File must be an image");
       }
 
       const result = await ingestionService.ingestImage(imageBuffer);
@@ -174,11 +178,13 @@ export const queryResolvers: Resolvers = {
         isRepost: result.isRepost,
         confidence: result.confidence,
         matchedMethod: result.matchedMethod,
-        original: result.original ? {
-          mediaId: result.original.mediaId,
-          firstSeen: result.original.firstSeen.toISOString(),
-          postId: result.original.postId,
-        } : null,
+        original: result.original
+          ? {
+              mediaId: result.original.mediaId,
+              firstSeen: result.original.firstSeen.toISOString(),
+              postId: result.original.postId,
+            }
+          : null,
       } as any;
     },
 
@@ -216,37 +222,45 @@ export const queryResolvers: Resolvers = {
         `;
         const result = await session.run(query, { clusterId });
         const record = result.records[0];
-        const canonicalId = record.get('canonicalId');
-        const memberIds = record.get('memberIds') || [];
-        
-        const canonicalMedia = canonicalId ? await getMediaById(canonicalId) : null;
-        const allMemberIds = [...new Set([...memberIds, canonicalId].filter(Boolean))];
+        const canonicalId = record.get("canonicalId");
+        const memberIds = record.get("memberIds") || [];
+
+        const canonicalMedia = canonicalId
+          ? await getMediaById(canonicalId)
+          : null;
+        const allMemberIds = [
+          ...new Set([...memberIds, canonicalId].filter(Boolean)),
+        ];
         const members = await Promise.all(
           allMemberIds
             .filter((id: string) => id !== canonicalId)
-            .map((id: string) => getMediaById(id))
+            .map((id: string) => getMediaById(id)),
         );
 
         return {
           id: cluster.id,
           canonicalSha256: cluster.canonicalSha256,
-          canonicalMedia: canonicalMedia ? {
-            id: canonicalMedia.id,
-            sha256: canonicalMedia.sha256,
-            url: canonicalMedia.url,
-            width: canonicalMedia.width,
-            height: canonicalMedia.height,
-          } : null,
+          canonicalMedia: canonicalMedia
+            ? {
+                id: canonicalMedia.id,
+                sha256: canonicalMedia.sha256,
+                url: canonicalMedia.url,
+                width: canonicalMedia.width,
+                height: canonicalMedia.height,
+              }
+            : null,
           repostCount: cluster.repostCount,
           firstSeen: cluster.firstSeen,
           lastSeen: cluster.lastSeen,
-          memberImages: members.filter((m) => m !== null).map((m) => ({
-            id: m!.id,
-            sha256: m!.sha256,
-            url: m!.url,
-            width: m!.width,
-            height: m!.height,
-          })),
+          memberImages: members
+            .filter((m) => m !== null)
+            .map((m) => ({
+              id: m!.id,
+              sha256: m!.sha256,
+              url: m!.url,
+              width: m!.width,
+              height: m!.height,
+            })),
         } as any;
       });
     },
@@ -258,14 +272,16 @@ export const queryResolvers: Resolvers = {
 
       return {
         mediaId,
-        clusterId: clusterId || '',
-        original: lineage.original ? {
-          id: lineage.original.id,
-          sha256: lineage.original.sha256,
-          url: lineage.original.url,
-          width: lineage.original.width,
-          height: lineage.original.height,
-        } : null,
+        clusterId: clusterId || "",
+        original: lineage.original
+          ? {
+              id: lineage.original.id,
+              sha256: lineage.original.sha256,
+              url: lineage.original.url,
+              width: lineage.original.width,
+              height: lineage.original.height,
+            }
+          : null,
         reposts: lineage.reposts.map((r) => ({
           media: {
             id: r.media.id,
@@ -282,5 +298,3 @@ export const queryResolvers: Resolvers = {
     },
   },
 };
-
-
