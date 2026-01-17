@@ -13,7 +13,9 @@ test("Home page displays correctly and collects emails", async ({ page }) => {
   await page.fill('input[placeholder="Enter your email"]', email);
   await page.click('button:has-text("Join Mailing List")');
 
-  await expect(page.locator("text=You've joined the mailing list")).toBeVisible();
+  await expect(
+    page.locator("text=You've joined the mailing list"),
+  ).toBeVisible();
 });
 
 test("Invite key validation flow", async ({ page }) => {
@@ -31,7 +33,10 @@ test("Invite key validation flow", async ({ page }) => {
   await expect(page.locator("text=Invalid Invitation")).toBeVisible();
   await page.click('button:has-text("Try Again")');
 
-  await page.fill('input[placeholder="Enter your invite key"]', "SN-TEST-1234-ABCD");
+  await page.fill(
+    'input[placeholder="Enter your invite key"]',
+    "SN-TEST-1234-ABCD",
+  );
   await page.click('button:has-text("Validate Invite")');
 
   await expect(page.locator("text=Valid Invitation")).toBeVisible();
@@ -41,7 +46,10 @@ test("Invite key validation flow", async ({ page }) => {
 test("User can sign up with invite key and sign out", async ({ page }) => {
   await page.goto("/invite");
 
-  await page.fill('input[placeholder="Enter your invite key"]', "ASDF-WHALECUM");
+  await page.fill(
+    'input[placeholder="Enter your invite key"]',
+    "ASDF-WHALECUM",
+  );
   await page.click('button:has-text("Validate Invite")');
   await page.click('button:has-text("Create Account")');
 
@@ -59,9 +67,11 @@ test("User can sign up with invite key and sign out", async ({ page }) => {
 
   await page.click('button:has-text("Create Account")');
 
-  await expect(page).toHaveURL("/feed", { timeout: 10000 });
+  await expect(page).toHaveURL("/dashboard", { timeout: 10000 });
 
-  const userMenuButton = page.locator("button.rounded-full.border.border-white\\/10");
+  const userMenuButton = page.locator(
+    "button.rounded-full.border.border-white\\/10",
+  );
   await expect(userMenuButton).toBeVisible();
 
   await userMenuButton.click();

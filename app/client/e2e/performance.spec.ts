@@ -55,7 +55,7 @@ test.describe("Performance", () => {
     await page.waitForLoadState("networkidle");
 
     const startTime = Date.now();
-    await page.click('text=Have an invite key?');
+    await page.click("text=Have an invite key?");
     await page.waitForURL("/invite");
     const navigationTime = Date.now() - startTime;
 
@@ -67,12 +67,12 @@ test.describe("Performance", () => {
     await page.goto("/");
 
     const jsFiles = await page.evaluate(() => {
-      return Array.from(document.querySelectorAll('script[src]'))
-        .filter(script => script.src.includes('.js'))
-        .map(script => {
+      return Array.from(document.querySelectorAll("script[src]"))
+        .filter((script) => script.src.includes(".js"))
+        .map((script) => {
           return {
             src: (script as HTMLScriptElement).src,
-            size: 0 
+            size: 0,
           };
         });
     });
@@ -88,7 +88,7 @@ test.describe("Authentication Flow", () => {
 
     const doorIcon = page.locator('a[href="/auth"]');
     await expect(doorIcon).toBeVisible();
-    
+
     await doorIcon.click();
     await expect(page).toHaveURL("/auth");
     await expect(page.locator("h1")).toContainText("Existing Users");
@@ -103,11 +103,11 @@ test.describe("Authentication Flow", () => {
     await page.fill('input[type="password"]', "password123");
     await page.click('button:has-text("Sign In")');
 
-    await expect(page).toHaveURL("/feed", { timeout: 10000 });
+    await expect(page).toHaveURL("/dashboard", { timeout: 10000 });
   });
 
-  test("Unauthenticated user redirected from feed", async ({ page }) => {
-    await page.goto("/feed");
+  test("Unauthenticated user redirected from dashboard", async ({ page }) => {
+    await page.goto("/dashboard");
 
     await expect(page).toHaveURL("/", { timeout: 5000 });
   });
@@ -117,7 +117,10 @@ test.describe("Invite System", () => {
   test("Invalid invite key shows error", async ({ page }) => {
     await page.goto("/invite");
 
-    await page.fill('input[placeholder="Enter your invite key"]', "INVALID-KEY");
+    await page.fill(
+      'input[placeholder="Enter your invite key"]',
+      "INVALID-KEY",
+    );
     await page.click('button:has-text("Validate Invite")');
 
     await expect(page.locator("text=Invalid Invitation")).toBeVisible();
@@ -126,27 +129,40 @@ test.describe("Invite System", () => {
   test("SN- prefix invite keys work", async ({ page }) => {
     await page.goto("/invite");
 
-    await page.fill('input[placeholder="Enter your invite key"]', "SN-VALID-TEST-KEY");
+    await page.fill(
+      'input[placeholder="Enter your invite key"]',
+      "SN-VALID-TEST-KEY",
+    );
     await page.click('button:has-text("Validate Invite")');
 
     await expect(page.locator("text=Valid Invitation")).toBeVisible();
-    await expect(page.locator('button:has-text("Create Account")')).toBeVisible();
+    await expect(
+      page.locator('button:has-text("Create Account")'),
+    ).toBeVisible();
   });
 
   test("Specific invite code ASDF-WHALECUM works", async ({ page }) => {
     await page.goto("/invite");
 
-    await page.fill('input[placeholder="Enter your invite key"]', "ASDF-WHALECUM");
+    await page.fill(
+      'input[placeholder="Enter your invite key"]',
+      "ASDF-WHALECUM",
+    );
     await page.click('button:has-text("Validate Invite")');
 
     await expect(page.locator("text=Valid Invitation")).toBeVisible();
-    await expect(page.locator('button:has-text("Create Account")')).toBeVisible();
+    await expect(
+      page.locator('button:has-text("Create Account")'),
+    ).toBeVisible();
   });
 
   test("Valid invite navigates to signup", async ({ page }) => {
     await page.goto("/invite");
 
-    await page.fill('input[placeholder="Enter your invite key"]', "ASDF-WHALECUM");
+    await page.fill(
+      'input[placeholder="Enter your invite key"]',
+      "ASDF-WHALECUM",
+    );
     await page.click('button:has-text("Validate Invite")');
     await page.click('button:has-text("Create Account")');
 
@@ -165,7 +181,9 @@ test.describe("Mailing List", () => {
     await page.fill('input[placeholder="Enter your email"]', email);
     await page.click('button:has-text("Join Mailing List")');
 
-    await expect(page.locator("text=You've joined the mailing list")).toBeVisible();
+    await expect(
+      page.locator("text=You've joined the mailing list"),
+    ).toBeVisible();
   });
 
   test("Mailing list form has validation", async ({ page }) => {
@@ -204,14 +222,16 @@ test.describe("Error Handling", () => {
   });
 
   test("Network error handling", async ({ page, context }) => {
-    await context.route("**/api/**", route => route.abort());
-    
+    await context.route("**/api/**", (route) => route.abort());
+
     await page.goto("/auth");
     await page.fill('input[type="email"]', "test@example.com");
     await page.fill('input[type="password"]', "password123");
     await page.click('button:has-text("Sign In")');
 
-    await expect(page.locator("text=Network error")).toBeVisible({ timeout: 5000 });
+    await expect(page.locator("text=Network error")).toBeVisible({
+      timeout: 5000,
+    });
   });
 });
 
@@ -228,7 +248,7 @@ test.describe("Accessibility", () => {
 
     const emailInput = page.locator('input[type="email"]');
     await expect(emailInput).toHaveAttribute("required");
-    
+
     const submitButton = page.locator('button[type="submit"]');
     await expect(submitButton).toBeVisible();
   });

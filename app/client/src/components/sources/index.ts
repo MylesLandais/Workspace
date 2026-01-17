@@ -8,3 +8,5 @@ export { SourceRow } from "./SourceRow";
 export { SourceTable } from "./SourceTable";
 export { OPMLImportDialog } from "./OPMLImportDialog";
 export { AddSourceDialog } from "./AddSourceDialog";
+export { SourceChecklistItem } from "./SourceChecklistItem";
+export { SourceManagerWidget } from "./SourceManagerWidget";

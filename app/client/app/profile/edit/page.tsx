@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useSession } from "@/lib/auth-client";
+import { useUserSources } from "@/lib/hooks/use-user-sources";
 import {
   ArrowLeft,
   Loader2,
@@ -24,6 +25,7 @@ interface LinkItem {
 export default function EditProfilePage() {
   const router = useRouter();
   const { data: session, isPending } = useSession();
+  const { activeSources, totalCount } = useUserSources();
 
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
@@ -329,12 +331,13 @@ export default function EditProfilePage() {
                       Manage Content Sources
                     </p>
                     <p className="text-xs text-zinc-500">
-                      Customize your feed subreddits and RSS
+                      {activeSources.length} active of {totalCount} total
+                      sources
                     </p>
                   </div>
                 </div>
                 <div className="px-3 py-1 bg-white/5 rounded-full text-[10px] font-bold uppercase tracking-wider text-zinc-500 group-hover:text-zinc-300 transition-colors">
-                  Configure
+                  {activeSources.length} Active
                 </div>
               </Link>
             </div>
