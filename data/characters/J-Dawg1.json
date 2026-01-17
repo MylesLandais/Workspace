@@ -37,7 +37,7 @@
         "extensions": {
             "talkativeness": "0.5",
             "fav": false,
-            "world": "",
+            "world": "in_training",
             "depth_prompt": {
                 "prompt": "",
                 "depth": 4,
