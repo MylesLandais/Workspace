@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { Checkbox } from "@/components/ui/checkbox";
 import { SourceIcon } from "./SourceIcon";
 import { Source } from "@/lib/types/sources";
 import { SourceType } from "@/lib/types/sources";
@@ -35,11 +34,12 @@ export function SourceChecklistItem({
         source.isPaused ? "opacity-50" : ""
       }`}
     >
-      <Checkbox
+      <input
+        type="checkbox"
         id={`source-${source.id}`}
         checked={!source.isPaused}
-        onCheckedChange={(checked) => onToggle(source.id, !!checked)}
-        className="border-white/20 data-[state=checked]:bg-app-accent data-[state=checked]:border-app-accent"
+        onChange={(e) => onToggle(source.id, e.target.checked)}
+        className="w-4 h-4 rounded border-white/20 bg-zinc-900 text-app-accent accent-emerald-500 focus:ring-app-accent/50 cursor-pointer"
       />
 
       <div className="flex items-center gap-2 flex-1 min-w-0">
