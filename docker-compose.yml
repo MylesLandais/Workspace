@@ -11,7 +11,7 @@
 #   Neo4j Browser: http://localhost:7474 (neo4j/localpassword)
 #   Neo4j Bolt:    bolt://localhost:7687
 #   Valkey/Redis:  redis://localhost:6379
-#   PostgreSQL:    postgresql://localhost:5432 (scheduler/localpassword)
+#   MySQL:         mysql://localhost:3307/feed_scheduler (root/secret)
 #   Flower:        http://localhost:5555
 
 networks:
@@ -157,27 +157,27 @@ services:
       timeout: 3s
       retries: 3
 
-  # PostgreSQL - Task scheduler database
-  # Access: postgresql://localhost:5432
-  postgres:
-    image: postgres:16-alpine
-    container_name: postgres.jupyter.dev.local
-    hostname: postgres.jupyter.dev.local
+  # MySQL - Task scheduler database
+  # Access: mysql://root:secret@localhost:3307/feed_scheduler
+  mysql_scheduler:
+    image: mysql:8.0
+    container_name: mysql-scheduler.jupyter.dev.local
+    hostname: mysql-scheduler.jupyter.dev.local
     networks:
       jupyter-dev:
         aliases:
-          - postgres.jupyter.dev.local
+          - mysql-scheduler.jupyter.dev.local
     ports:
-      - "5432:5432"
+      - "3307:3306"
     environment:
-      - POSTGRES_DB=feed_scheduler
-      - POSTGRES_USER=${POSTGRES_USER:-scheduler}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-localpassword}
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=feed_scheduler
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./src/feed/storage/migrations/postgres:/docker-entrypoint-initdb.d
+      - mysql_scheduler_data:/var/lib/mysql
+      - ./src/feed/storage/migrations/mysql:/docker-entrypoint-initdb.d
+    command: --default-authentication-plugin=mysql_native_password
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U scheduler -d feed_scheduler"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -213,7 +213,7 @@ services:
       dockerfile: Dockerfile
     container_name: celery-worker.dev.local
     hostname: celery-worker.dev.local
-    command: celery -A src.feed.scheduler.celery_app worker --loglevel=info --concurrency=4
+    command: celery -A src.feed.scheduler.celery_app worker --loglevel=info --concurrency=8
     networks:
       - jupyter-dev
     volumes:
@@ -222,13 +222,19 @@ services:
     depends_on:
       valkey:
         condition: service_healthy
-      postgres:
+      mysql_scheduler:
         condition: service_healthy
     environment:
       - PYTHONPATH=/home/jovyan/workspaces
       - CELERY_BROKER_URL=redis://valkey:6379/0
       - CELERY_RESULT_BACKEND=redis://valkey:6379/1
-      - POSTGRES_URL=postgresql://scheduler:localpassword@postgres:5432/feed_scheduler
+      - CACHE_DIR=/home/jovyan/workspaces/cache/imageboard
+      - REDIS_URL=redis://valkey:6379
+      - MYSQL_HOST=mysql-scheduler.jupyter.dev.local
+      - MYSQL_PORT=3306
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=secret
+      - MYSQL_DATABASE=feed_scheduler
       - NEO4J_URI=bolt://neo4j:7687
       - NEO4J_USER=${NEO4J_USER:-neo4j}
       - NEO4J_PASSWORD=${NEO4J_PASSWORD:-localpassword}
@@ -257,13 +263,17 @@ services:
     depends_on:
       valkey:
         condition: service_healthy
-      postgres:
+      mysql_scheduler:
         condition: service_healthy
     environment:
       - PYTHONPATH=/home/jovyan/workspaces
       - CELERY_BROKER_URL=redis://valkey:6379/0
       - CELERY_RESULT_BACKEND=redis://valkey:6379/1
-      - POSTGRES_URL=postgresql://scheduler:localpassword@postgres:5432/feed_scheduler
+      - MYSQL_HOST=mysql-scheduler.jupyter.dev.local
+      - MYSQL_PORT=3306
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=secret
+      - MYSQL_DATABASE=feed_scheduler
     env_file:
       - .env
     restart: unless-stopped
@@ -324,4 +334,4 @@ volumes:
   neo4j_logs: {}
   neo4j_import: {}
   neo4j_plugins: {}
-  postgres_data: {}
+  mysql_scheduler_data: {}

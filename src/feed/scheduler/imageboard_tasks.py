@@ -22,7 +22,7 @@ logger = get_task_logger(__name__)
 PRIMARY_KEYWORDS = [
     "irl", "face", "celeb", "JJ", "girl", "girls", "feet", "cel",
     "panties", "gooning", "goon", "zoomers", "goddess", "built", "ss",
-    "actresses", "tiny", "cosplay"
+    "actresses", "tiny", "cosplay", "Retro"
 ]
 
 
@@ -57,10 +57,8 @@ def poll_catalog_for_keywords(
 
     try:
         from src.feed.storage.valkey_connection import get_valkey_connection
-        from src.feed.storage.postgres_connection import get_postgres_connection
 
-        valkey = get_valkey_connection()
-        pg = get_postgres_connection()
+        valkey = get_valkey_connection().client
 
         # Fetch catalog
         catalog_url = f"https://a.4cdn.org/{board}/catalog.json"
@@ -170,10 +168,8 @@ def archive_and_monitor_thread(
 
     try:
         from src.feed.storage.valkey_connection import get_valkey_connection
-        from src.feed.storage.postgres_connection import get_postgres_connection
 
-        valkey = get_valkey_connection()
-        pg = get_postgres_connection()
+        valkey = get_valkey_connection().client
 
         # Initialize monitoring state
         monitor_key = f"thread_monitor:{board}:{thread_id}"
@@ -242,9 +238,8 @@ def check_in_thread(
     """
     try:
         from src.feed.storage.valkey_connection import get_valkey_connection
-        import imageboard_monitor_worker
 
-        valkey = get_valkey_connection()
+        valkey = get_valkey_connection().client
 
         # Get current monitoring state
         state_json = valkey.get(monitor_key)
@@ -254,8 +249,21 @@ def check_in_thread(
 
         state = json.loads(state_json)
 
-        # Fetch thread data
-        thread_data = self._fetch_thread(board, thread_id)
+        # Fetch thread data (using nested function for self-containment)
+        def _fetch_thread(board: str, thread_id: int) -> Optional[Dict]:
+            """Fetch thread data from 4cdn API (embedded)."""
+            try:
+                url = f"https://a.4cdn.org/{board}/thread/{thread_id}.json"
+                resp = requests.get(url, timeout=30)
+                if resp.status_code == 200:
+                    return resp.json()
+                elif resp.status_code == 404:
+                    return None
+            except Exception as e:
+                logger.warning(f"Error fetching thread: {e}")
+            return None
+        
+        thread_data = _fetch_thread(board, thread_id)
 
         if thread_data is None:
             # Thread archived or deleted
@@ -285,6 +293,13 @@ def check_in_thread(
             )
             state["status"] = "completed_image_limit"
             valkey.set(monitor_key, json.dumps(state), ex=86400)
+            
+            # Trigger actual archival process
+            import imageboard_monitor_worker
+            job_data = {"board": board, "thread_id": thread_id, "subject": state.get("subject", "")}
+            logger.info(f"Triggering archival process for /{board}/{thread_id}")
+            imageboard_monitor_worker.process_monitor_job(job_data)
+            
             return {
                 "status": "image_limit_reached",
                 "images": images_in_thread,
@@ -337,19 +352,7 @@ def check_in_thread(
         )
         return {"status": "check_in_error", "error": str(e)}
 
-    @staticmethod
-    def _fetch_thread(board: str, thread_id: int) -> Optional[Dict]:
-        """Fetch thread data from 4cdn API."""
-        try:
-            url = f"https://a.4cdn.org/{board}/thread/{thread_id}.json"
-            resp = requests.get(url, timeout=30)
-            if resp.status_code == 200:
-                return resp.json()
-            elif resp.status_code == 404:
-                return None
-        except Exception as e:
-            logger.warning(f"Error fetching thread: {e}")
-        return None
+    
 
 
 @shared_task(bind=True, queue="imageboards")
@@ -371,7 +374,7 @@ def monitor_for_new_priority_thread(
     try:
         from src.feed.storage.valkey_connection import get_valkey_connection
 
-        valkey = get_valkey_connection()
+        valkey = get_valkey_connection().client
 
         # Get list of currently monitored threads
         monitored_pattern = f"thread_monitor:{board}:*"
