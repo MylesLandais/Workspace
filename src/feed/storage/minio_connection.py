@@ -38,10 +38,8 @@ class MinIOConnection:
         self.secure = os.getenv("MINIO_SECURE", "false").lower() == "true"
         
         # Ensure endpoint has protocol prefix
-        if not self.endpoint.startswith(("http://", "https://")):
-            self.endpoint = f"http://{self.endpoint}"
-            if self.secure:
-                self.endpoint = f"https://{self.endpoint}"
+        # The endpoint should remain host:port for the MinIO client.
+        self.boto3_endpoint_url = f"{'https' if self.secure else 'http'}://{self.endpoint}"
         
         self._minio_client: Optional[Minio] = None
         self._boto3_client: Optional[boto3.client] = None
@@ -76,14 +74,12 @@ class MinIOConnection:
         if self._boto3_client is None:
             self._boto3_client = boto3.client(
                 "s3",
-                endpoint_url=f"{'https' if self.secure else 'http'}://{self.endpoint}",
+                endpoint_url=self.boto3_endpoint_url,
                 aws_access_key_id=self.access_key,
                 aws_secret_access_key=self.secret_key,
                 region_name=self.region,
                 config=Config(signature_version="s3v4"),
             )
-        return self._boto3_client
-
     def ensure_bucket(self, bucket_name: str) -> bool:
         """
         Ensure bucket exists, creating it if necessary.
