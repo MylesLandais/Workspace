@@ -2,7 +2,11 @@
 
 import { Search, ChevronDown } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
-import type { FeedGroup, SourceFilters as Filters, ActivityFilter } from "@/lib/types/sources";
+import type {
+  FeedGroup,
+  SourceFilters as Filters,
+  ActivityFilter,
+} from "@/lib/types/sources";
 
 interface SourceFiltersProps {
   filters: Filters;
@@ -22,10 +26,16 @@ export function SourceFilters({
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (folderRef.current && !folderRef.current.contains(event.target as Node)) {
+      if (
+        folderRef.current &&
+        !folderRef.current.contains(event.target as Node)
+      ) {
         setFolderOpen(false);
       }
-      if (activityRef.current && !activityRef.current.contains(event.target as Node)) {
+      if (
+        activityRef.current &&
+        !activityRef.current.contains(event.target as Node)
+      ) {
         setActivityOpen(false);
       }
     }
@@ -35,13 +45,18 @@ export function SourceFilters({
   }, []);
 
   const selectedGroup = feedGroups.find((g) => g.id === filters.groupId);
-  const activityOptions: { value: ActivityFilter | undefined; label: string }[] = [
+  const activityOptions: {
+    value: ActivityFilter | undefined;
+    label: string;
+  }[] = [
     { value: undefined, label: "Any" },
     { value: "active", label: "Active" },
     { value: "inactive", label: "Inactive" },
     { value: "paused", label: "Paused" },
   ];
-  const selectedActivity = activityOptions.find((a) => a.value === filters.activity);
+  const selectedActivity = activityOptions.find(
+    (a) => a.value === filters.activity,
+  );
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -55,7 +70,9 @@ export function SourceFilters({
           className="w-full flex items-center justify-between px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl text-sm text-app-text hover:bg-zinc-800 transition-colors"
         >
           <span>{selectedGroup?.name || "All Your Feeds"}</span>
-          <ChevronDown className={`w-4 h-4 transition-transform ${folderOpen ? "rotate-180" : ""}`} />
+          <ChevronDown
+            className={`w-4 h-4 transition-transform ${folderOpen ? "rotate-180" : ""}`}
+          />
         </button>
         {folderOpen && (
           <div className="absolute z-50 top-full left-0 right-0 mt-1 bg-zinc-900 border border-white/10 rounded-xl shadow-xl overflow-hidden">
@@ -65,7 +82,9 @@ export function SourceFilters({
                 setFolderOpen(false);
               }}
               className={`w-full px-4 py-2 text-sm text-left hover:bg-white/5 ${
-                !filters.groupId ? "bg-white/10 text-app-text" : "text-app-muted"
+                !filters.groupId
+                  ? "bg-white/10 text-app-text"
+                  : "text-app-muted"
               }`}
             >
               All Your Feeds
@@ -78,7 +97,9 @@ export function SourceFilters({
                   setFolderOpen(false);
                 }}
                 className={`w-full px-4 py-2 text-sm text-left hover:bg-white/5 ${
-                  filters.groupId === group.id ? "bg-white/10 text-app-text" : "text-app-muted"
+                  filters.groupId === group.id
+                    ? "bg-white/10 text-app-text"
+                    : "text-app-muted"
                 }`}
               >
                 {group.name}
@@ -98,7 +119,9 @@ export function SourceFilters({
           className="w-full flex items-center justify-between px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl text-sm text-app-text hover:bg-zinc-800 transition-colors"
         >
           <span>{selectedActivity?.label || "Any"}</span>
-          <ChevronDown className={`w-4 h-4 transition-transform ${activityOpen ? "rotate-180" : ""}`} />
+          <ChevronDown
+            className={`w-4 h-4 transition-transform ${activityOpen ? "rotate-180" : ""}`}
+          />
         </button>
         {activityOpen && (
           <div className="absolute z-50 top-full left-0 right-0 mt-1 bg-zinc-900 border border-white/10 rounded-xl shadow-xl overflow-hidden">
@@ -110,7 +133,9 @@ export function SourceFilters({
                   setActivityOpen(false);
                 }}
                 className={`w-full px-4 py-2 text-sm text-left hover:bg-white/5 ${
-                  filters.activity === option.value ? "bg-white/10 text-app-text" : "text-app-muted"
+                  filters.activity === option.value
+                    ? "bg-white/10 text-app-text"
+                    : "text-app-muted"
                 }`}
               >
                 {option.label}
@@ -131,7 +156,9 @@ export function SourceFilters({
             type="text"
             placeholder="Filter feeds..."
             value={filters.searchQuery || ""}
-            onChange={(e) => onFiltersChange({ ...filters, searchQuery: e.target.value })}
+            onChange={(e) =>
+              onFiltersChange({ ...filters, searchQuery: e.target.value })
+            }
             className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl text-sm text-app-text placeholder:text-app-muted focus:outline-none focus:ring-2 focus:ring-white/10"
           />
         </div>

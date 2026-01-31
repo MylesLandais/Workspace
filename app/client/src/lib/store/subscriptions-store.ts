@@ -110,6 +110,6 @@ export const useSubscriptionsStore = create<SubscriptionsState>()(
         sortColumn: state.sortColumn,
         sortDirection: state.sortDirection,
       }),
-    }
-  )
+    },
+  ),
 );

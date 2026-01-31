@@ -11,15 +11,27 @@ export function useUserSources() {
     sources,
     feedGroups,
     filters,
+    viewMode,
+    selectedIds,
     isLoading,
     error,
     totalCount,
+    inactiveCount,
     setFilters,
+    setViewMode,
+    setSelectedIds,
+    selectAll,
+    selectOne,
     refresh,
     ...rest
   } = useSources();
 
-  const { createSource: baseCreateSource, ...mutations } = useSourceMutations();
+  const {
+    createSource: baseCreateSource,
+    isLoading: _mutationsLoading,
+    error: _mutationsError,
+    ...mutations
+  } = useSourceMutations();
 
   // Automatically apply userId filter when session is available
   useEffect(() => {
@@ -59,9 +71,18 @@ export function useUserSources() {
     activeSources,
     feedFilters,
     feedGroups,
+    filters,
+    viewMode,
+    selectedIds,
     isLoading: isLoading || !userId,
     error,
     totalCount,
+    inactiveCount,
+    setFilters,
+    setViewMode,
+    setSelectedIds,
+    selectAll,
+    selectOne,
     refresh,
     createSource,
     ...mutations,

@@ -42,8 +42,8 @@ The generator creates:
 ### Example Usage
 
 ```typescript
-import { useQuery } from '@apollo/client';
-import { GetFeedDocument, GetFeedQuery } from '../lib/generated/graphql';
+import { useQuery } from "@apollo/client";
+import { GetFeedDocument, GetFeedQuery } from "../lib/generated/graphql";
 
 // Hook with full type safety
 const { data, loading, error } = useQuery(GetFeedDocument);
@@ -72,20 +72,23 @@ When modifying GraphQL schema:
 ## Migration Path
 
 ### Current State
+
 - Client uses manual type definitions (`src/lib/types/`)
 - No generated types from GraphQL schema
 - Risk of schema/client mismatch
 
 ### Target State
+
 - All GraphQL operations use generated types
 - Manual types only for non-GraphQL data (mock, UI state)
 - Full end-to-end type safety
 
 ### Steps to Migrate
 
-1. ✅ Set up codegen configuration
+1. [DONE] Set up codegen configuration
 2. Run initial generation: `bun run codegen`
 3. Convert one operation at a time:
+
    ```typescript
    // Before
    interface FeedItem { ... }
@@ -94,20 +97,24 @@ When modifying GraphQL schema:
    const { data } = useQuery(GET_FEED);
    type FeedItem = GetFeedQuery['feed']['edges'][0]['node'];
    ```
+
 4. Remove manual types as they become unused
 5. Add codegen to CI pipeline
 
 ## Troubleshooting
 
 ### Schema Not Found
+
 - Ensure server is running at `http://localhost:4002`
 - Check `codegen.yml` schema path
 
 ### Type Conflicts
+
 - Remove manual type definitions
 - Use generated types exclusively for GraphQL data
 
 ### Missing Imports
+
 - Import from `lib/generated/graphql`
 - Not from manual type files
 

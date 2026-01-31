@@ -42,7 +42,9 @@ export default function InvitePage() {
     setLoading(true);
 
     try {
-      const response = await fetch(`/api/invite/validate?code=${encodeURIComponent(inviteKey)}`);
+      const response = await fetch(
+        `/api/invite/validate?code=${encodeURIComponent(inviteKey)}`,
+      );
       const data = await response.json();
 
       setLoading(false);
@@ -55,7 +57,8 @@ export default function InvitePage() {
   };
 
   const handleCreateAccount = () => {
-    window.location.href = "/auth?mode=signup&invite=" + encodeURIComponent(inviteKey);
+    window.location.href =
+      "/auth?mode=signup&invite=" + encodeURIComponent(inviteKey);
   };
 
   return (
@@ -72,7 +75,7 @@ export default function InvitePage() {
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-white/5 rounded-full blur-[120px]" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-zinc-500/5 rounded-full blur-[120px]" />
       </div>
-      
+
       <div className="w-full max-w-md flex flex-col items-center gap-8 relative z-10">
         <div className="flex flex-col items-center space-y-4 text-center">
           <div className="w-20 h-20 bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center rounded-2xl">
@@ -127,9 +130,12 @@ export default function InvitePage() {
                 <Check className="w-5 h-5 text-green-500" />
               </div>
               <div className="flex-1">
-                <h3 className="text-green-400 font-semibold mb-1">Valid Invitation</h3>
+                <h3 className="text-green-400 font-semibold mb-1">
+                  Valid Invitation
+                </h3>
                 <p className="text-zinc-400 text-sm">
-                  Your invite key has been verified. You can now create your account.
+                  Your invite key has been verified. You can now create your
+                  account.
                 </p>
               </div>
             </div>
@@ -148,9 +154,12 @@ export default function InvitePage() {
                 <X className="w-5 h-5 text-red-500" />
               </div>
               <div className="flex-1">
-                <h3 className="text-red-400 font-semibold mb-1">Invalid Invitation</h3>
+                <h3 className="text-red-400 font-semibold mb-1">
+                  Invalid Invitation
+                </h3>
                 <p className="text-zinc-400 text-sm">
-                  This invite key is not valid or has already been used. Please check the key and try again.
+                  This invite key is not valid or has already been used. Please
+                  check the key and try again.
                 </p>
               </div>
             </div>

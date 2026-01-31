@@ -5,18 +5,18 @@
 :root {
   /* Kanagawa Dragon Theme (default) */
   --theme-bg-primary: #181616;
-  --theme-bg-secondary: #1F1F1F;
-  --theme-bg-hover: #2A2A2A;
-  --theme-border-primary: #2A2A2A;
-  --theme-text-primary: #DCD7BA;
+  --theme-bg-secondary: #1f1f1f;
+  --theme-bg-hover: #2a2a2a;
+  --theme-border-primary: #2a2a2a;
+  --theme-text-primary: #dcd7ba;
   --theme-text-secondary: #727169;
-  --theme-accent-primary: #98BB6C;
-  --theme-accent-secondary: #2D4F67;
-  --theme-accent-tertiary: #7FB4CA;
-  --theme-accent-alert: #E46876;
+  --theme-accent-primary: #98bb6c;
+  --theme-accent-secondary: #2d4f67;
+  --theme-accent-tertiary: #7fb4ca;
+  --theme-accent-alert: #e46876;
   --theme-scrollbar-track: #181616;
-  --theme-scrollbar-thumb: #2D4F67;
-  --theme-scrollbar-thumb-hover: #98BB6C;
+  --theme-scrollbar-thumb: #2d4f67;
+  --theme-scrollbar-thumb-hover: #98bb6c;
 }
 
 [data-theme="default"] {
@@ -33,6 +33,40 @@
   --theme-scrollbar-track: #0a0a0a;
   --theme-scrollbar-thumb: #374151;
   --theme-scrollbar-thumb-hover: #4b5563;
+}
+
+[data-theme="industrial"] {
+  /* Industrial theme - monospace dark with amber accents */
+  --theme-bg-primary: #0f172a;
+  --theme-bg-secondary: #1e293b;
+  --theme-bg-hover: #334155;
+  --theme-border-primary: #475569;
+  --theme-text-primary: #f1f5f9;
+  --theme-text-secondary: #94a3b8;
+  --theme-accent-primary: #f59e0b;
+  --theme-accent-secondary: #d97706;
+  --theme-accent-tertiary: #fbbf24;
+  --theme-accent-alert: #ef4444;
+  --theme-scrollbar-track: #0f172a;
+  --theme-scrollbar-thumb: #475569;
+  --theme-scrollbar-thumb-hover: #f59e0b;
+}
+
+[data-theme="matcha"] {
+  /* Matcha theme - cozy green tea vibes */
+  --theme-bg-primary: #052e16;
+  --theme-bg-secondary: #14532d;
+  --theme-bg-hover: #166534;
+  --theme-border-primary: #15803d;
+  --theme-text-primary: #f0fdf4;
+  --theme-text-secondary: #86efac;
+  --theme-accent-primary: #22c55e;
+  --theme-accent-secondary: #16a34a;
+  --theme-accent-tertiary: #4ade80;
+  --theme-accent-alert: #ef4444;
+  --theme-scrollbar-track: #052e16;
+  --theme-scrollbar-thumb: #15803d;
+  --theme-scrollbar-thumb-hover: #22c55e;
 }
 
 * {
@@ -184,4 +218,120 @@ body {
 .yarl__thumbnail img {
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
+}
+
+/* Dashboard Theme CSS Variables Support */
+:root {
+  /* Base Colors */
+  --bg-base: #ffffff;
+  --bg-surface: #f8f9fa;
+  --bg-elevated: #ffffff;
+  --bg-hover: #f1f3f5;
+
+  /* Text Colors */
+  --text-primary: #1a1a1a;
+  --text-secondary: #6c757d;
+  --text-muted: #adb5bd;
+
+  /* Border Colors */
+  --border-default: #e9ecef;
+
+  /* Accent Colors */
+  --accent-primary: #3b82f6;
+  --accent-primary-hover: #2563eb;
+  --accent-text: #ffffff;
+
+  /* Focus Ring */
+  --focus-ring: #3b82f6;
+}
+
+.dark {
+  /* Base Colors */
+  --bg-base: #0a0a0a;
+  --bg-surface: #111827;
+  --bg-elevated: #1f2937;
+  --bg-hover: #374151;
+
+  /* Text Colors */
+  --text-primary: #f3f4f6;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+
+  /* Border Colors */
+  --border-default: #374151;
+
+  /* Accent Colors */
+  --accent-primary: #3b82f6;
+  --accent-primary-hover: #60a5fa;
+  --accent-text: #ffffff;
+
+  /* Focus Ring */
+  --focus-ring: #60a5fa;
+}
+
+/* Sidebar Transitions */
+.sidebar-transition {
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hide scrollbar but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Animation utilities */
+@keyframes slide-in-from-top {
+  from {
+    transform: translateY(-4px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-from-top-1 {
+  animation: slide-in-from-top 0.2s ease-out;
+}
+
+.slide-in-from-top-2 {
+  animation: slide-in-from-top 0.3s ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fade-in 0.2s ease-out;
+}
+
+@keyframes zoom-in-95 {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.zoom-in-95 {
+  animation: zoom-in-95 0.2s ease-out;
+}
+
+.animate-in {
+  animation-fill-mode: both;
 }

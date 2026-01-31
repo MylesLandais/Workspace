@@ -1,0 +1,12 @@
+{
+  "ops.sentry.enabled": {
+    "key": "ops.sentry.enabled",
+    "description": "Master switch to enable/disable sending data to Sentry",
+    "enabled": true
+  },
+  "ops.sentry.debug-trigger.enabled": {
+    "key": "ops.sentry.debug-trigger.enabled",
+    "description": "Enable a specific route to intentionally throw an error for testing Sentry",
+    "enabled": false
+  }
+}

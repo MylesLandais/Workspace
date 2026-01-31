@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import { FeedItem } from '@/lib/types/feed';
-import { RedditPostDetails } from '@/lib/types/reddit';
+import { create } from "zustand";
+import { FeedItem } from "@/lib/types/feed";
+import { RedditPostDetails } from "@/lib/types/reddit";
 
 interface LightboxState {
   isOpen: boolean;

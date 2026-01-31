@@ -1,0 +1,71 @@
+/**
+ * OmniDash Theme: Midnight Blue
+ * Deep blue accents on dark backgrounds
+ * Professional and calming
+ */
+
+:root {
+  /* ===== LIGHT MODE ===== */
+  /* Backgrounds */
+  --bg-base: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-elevated: #f1f5f9;
+  --bg-hover: #e2e8f0;
+
+  /* Text */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-faint: #94a3b8;
+
+  /* Borders */
+  --border-default: #e2e8f0;
+  --border-muted: #f1f5f9;
+
+  /* Accent - Blue */
+  --accent-primary: #3b82f6;
+  --accent-primary-hover: #2563eb;
+  --accent-text: #ffffff;
+
+  /* Focus */
+  --focus-ring: rgba(59, 130, 246, 0.4);
+
+  /* Status Colors */
+  --status-success: #22c55e;
+  --status-warning: #f59e0b;
+  --status-error: #ef4444;
+  --status-info: #3b82f6;
+}
+
+.dark {
+  /* ===== DARK MODE ===== */
+  /* Backgrounds - Deep navy */
+  --bg-base: #0f172a;
+  --bg-surface: #1e293b;
+  --bg-elevated: #334155;
+  --bg-hover: #475569;
+
+  /* Text */
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-faint: #64748b;
+
+  /* Borders */
+  --border-default: #334155;
+  --border-muted: #1e293b;
+
+  /* Accent - Bright blue */
+  --accent-primary: #60a5fa;
+  --accent-primary-hover: #93c5fd;
+  --accent-text: #0f172a;
+
+  /* Focus */
+  --focus-ring: rgba(96, 165, 250, 0.3);
+}
+
+/* Custom chart colors for this theme */
+.dark .recharts-bar-rectangle path,
+.dark .recharts-area-curve {
+  stroke: #60a5fa;
+}

@@ -5,7 +5,16 @@
  * and Better Auth's expected column naming.
  */
 import { relations } from "drizzle-orm";
-import { mysqlTable, text, datetime, tinyint, varchar, index, uniqueIndex, mysqlEnum } from "drizzle-orm/mysql-core";
+import {
+  mysqlTable,
+  text,
+  datetime,
+  tinyint,
+  varchar,
+  index,
+  uniqueIndex,
+  mysqlEnum,
+} from "drizzle-orm/mysql-core";
 
 export const user = mysqlTable("user", {
   id: varchar("id", { length: 255 }).primaryKey(),
@@ -17,6 +26,7 @@ export const user = mysqlTable("user", {
   bio: text("bio"),
   location: varchar("location", { length: 255 }),
   website: varchar("website", { length: 500 }),
+  links: text("links"),
   company: varchar("company", { length: 255 }),
   profilePublic: tinyint("profile_public").default(0).notNull(),
   joinDate: datetime("join_date", { mode: "date", fsp: 3 }),
@@ -57,8 +67,14 @@ export const account = mysqlTable(
     refreshToken: text("refresh_token"),
     idToken: text("id_token"),
     expiresAt: datetime("expires_at", { mode: "date", fsp: 3 }),
-    accessTokenExpiresAt: datetime("access_token_expires_at", { mode: "date", fsp: 3 }),
-    refreshTokenExpiresAt: datetime("refresh_token_expires_at", { mode: "date", fsp: 3 }),
+    accessTokenExpiresAt: datetime("access_token_expires_at", {
+      mode: "date",
+      fsp: 3,
+    }),
+    refreshTokenExpiresAt: datetime("refresh_token_expires_at", {
+      mode: "date",
+      fsp: 3,
+    }),
     scope: text("scope"),
     password: text("password"),
     createdAt: datetime("created_at", { mode: "date", fsp: 3 }).notNull(),
@@ -66,7 +82,10 @@ export const account = mysqlTable(
   },
   (table) => [
     index("account_userId_idx").on(table.userId),
-    uniqueIndex("account_provider_accountId_idx").on(table.providerId, table.accountId),
+    uniqueIndex("account_provider_accountId_idx").on(
+      table.providerId,
+      table.accountId,
+    ),
   ],
 );
 
@@ -108,7 +127,9 @@ export const waitlist = mysqlTable(
     id: varchar("id", { length: 255 }).primaryKey(),
     email: varchar("email", { length: 255 }).notNull().unique(),
     name: varchar("name", { length: 255 }),
-    status: mysqlEnum("status", ["pending", "invited", "joined"]).default("pending").notNull(),
+    status: mysqlEnum("status", ["pending", "invited", "joined"])
+      .default("pending")
+      .notNull(),
     inviteCode: varchar("invite_code", { length: 255 }).unique(),
     inviteSentAt: datetime("invite_sent_at", { mode: "date", fsp: 3 }),
     source: varchar("source", { length: 100 }),

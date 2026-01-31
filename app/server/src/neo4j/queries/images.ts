@@ -1,5 +1,5 @@
-import { getSession } from '../driver.js';
-import { v4 as uuidv4 } from 'uuid';
+import { getSession } from "../driver.js";
+import { v4 as uuidv4 } from "uuid";
 
 export interface ImageCluster {
   id: string;
@@ -24,7 +24,10 @@ export interface MediaWithHashes {
   clusterId?: string;
 }
 
-export async function createImageCluster(canonicalSha256: string, firstSeen: Date): Promise<string> {
+export async function createImageCluster(
+  canonicalSha256: string,
+  firstSeen: Date,
+): Promise<string> {
   const session = getSession();
   try {
     const clusterId = uuidv4();
@@ -45,26 +48,24 @@ export async function createImageCluster(canonicalSha256: string, firstSeen: Dat
       firstSeen: firstSeen.toISOString(),
     });
 
-    return result.records[0].get('id');
+    return result.records[0].get("id");
   } finally {
     await session.close();
   }
 }
 
-export async function createMediaWithHashes(
-  mediaData: {
-    sha256: string;
-    phash: bigint;
-    dhash: bigint;
-    width: number;
-    height: number;
-    sizeBytes: number;
-    mimeType: string;
-    url: string;
-    storagePath: string;
-    createdAt: Date;
-  }
-): Promise<string> {
+export async function createMediaWithHashes(mediaData: {
+  sha256: string;
+  phash: bigint;
+  dhash: bigint;
+  width: number;
+  height: number;
+  sizeBytes: number;
+  mimeType: string;
+  url: string;
+  storagePath: string;
+  createdAt: Date;
+}): Promise<string> {
   const session = getSession();
   try {
     const mediaId = uuidv4();
@@ -100,13 +101,17 @@ export async function createMediaWithHashes(
       createdAt: mediaData.createdAt.toISOString(),
     });
 
-    return result.records[0].get('id');
+    return result.records[0].get("id");
   } finally {
     await session.close();
   }
 }
 
-export async function linkMediaToCluster(mediaId: string, clusterId: string, confidence: number): Promise<void> {
+export async function linkMediaToCluster(
+  mediaId: string,
+  clusterId: string,
+  confidence: number,
+): Promise<void> {
   const session = getSession();
   try {
     const query = `
@@ -123,7 +128,10 @@ export async function linkMediaToCluster(mediaId: string, clusterId: string, con
   }
 }
 
-export async function setCanonicalImage(clusterId: string, mediaId: string): Promise<void> {
+export async function setCanonicalImage(
+  clusterId: string,
+  mediaId: string,
+): Promise<void> {
   const session = getSession();
   try {
     const query = `
@@ -138,7 +146,10 @@ export async function setCanonicalImage(clusterId: string, mediaId: string): Pro
   }
 }
 
-export async function updateClusterLastSeen(clusterId: string, lastSeen: Date): Promise<void> {
+export async function updateClusterLastSeen(
+  clusterId: string,
+  lastSeen: Date,
+): Promise<void> {
   const session = getSession();
   try {
     const query = `
@@ -152,7 +163,9 @@ export async function updateClusterLastSeen(clusterId: string, lastSeen: Date): 
   }
 }
 
-export async function incrementClusterRepostCount(clusterId: string): Promise<void> {
+export async function incrementClusterRepostCount(
+  clusterId: string,
+): Promise<void> {
   const session = getSession();
   try {
     const query = `
@@ -170,7 +183,7 @@ export async function createRepostRelationship(
   repostMediaId: string,
   originalMediaId: string,
   confidence: number,
-  method: string
+  method: string,
 ): Promise<void> {
   const session = getSession();
   try {
@@ -183,13 +196,22 @@ export async function createRepostRelationship(
           r.detected_at = datetime()
     `;
 
-    await session.run(query, { repostMediaId, originalMediaId, confidence, method });
+    await session.run(query, {
+      repostMediaId,
+      originalMediaId,
+      confidence,
+      method,
+    });
   } finally {
     await session.close();
   }
 }
 
-export async function linkMediaToPost(mediaId: string, postId: string, position: number = 0): Promise<void> {
+export async function linkMediaToPost(
+  mediaId: string,
+  postId: string,
+  position: number = 0,
+): Promise<void> {
   const session = getSession();
   try {
     const query = `
@@ -205,7 +227,9 @@ export async function linkMediaToPost(mediaId: string, postId: string, position:
   }
 }
 
-export async function getClusterById(clusterId: string): Promise<ImageCluster | null> {
+export async function getClusterById(
+  clusterId: string,
+): Promise<ImageCluster | null> {
   const session = getSession();
   try {
     const query = `
@@ -227,18 +251,22 @@ export async function getClusterById(clusterId: string): Promise<ImageCluster | 
 
     const record = result.records[0];
     return {
-      id: record.get('id'),
-      canonicalSha256: record.get('canonicalSha256') || record.get('canonicalSha256FromMedia'),
-      firstSeen: record.get('firstSeen')?.toString() || new Date().toISOString(),
-      lastSeen: record.get('lastSeen')?.toString() || new Date().toISOString(),
-      repostCount: record.get('repostCount')?.toNumber() || 0,
+      id: record.get("id"),
+      canonicalSha256:
+        record.get("canonicalSha256") || record.get("canonicalSha256FromMedia"),
+      firstSeen:
+        record.get("firstSeen")?.toString() || new Date().toISOString(),
+      lastSeen: record.get("lastSeen")?.toString() || new Date().toISOString(),
+      repostCount: record.get("repostCount")?.toNumber() || 0,
     };
   } finally {
     await session.close();
   }
 }
 
-export async function getMediaById(mediaId: string): Promise<MediaWithHashes | null> {
+export async function getMediaById(
+  mediaId: string,
+): Promise<MediaWithHashes | null> {
   const session = getSession();
   try {
     const query = `
@@ -265,18 +293,18 @@ export async function getMediaById(mediaId: string): Promise<MediaWithHashes | n
 
     const record = result.records[0];
     return {
-      id: record.get('id'),
-      sha256: record.get('sha256'),
-      phash: record.get('phash'),
-      dhash: record.get('dhash'),
-      width: record.get('width').toNumber(),
-      height: record.get('height').toNumber(),
-      sizeBytes: record.get('sizeBytes').toNumber(),
-      mimeType: record.get('mimeType'),
-      url: record.get('url'),
-      storagePath: record.get('storagePath'),
-      createdAt: record.get('createdAt').toString(),
-      clusterId: record.get('clusterId'),
+      id: record.get("id"),
+      sha256: record.get("sha256"),
+      phash: record.get("phash"),
+      dhash: record.get("dhash"),
+      width: record.get("width").toNumber(),
+      height: record.get("height").toNumber(),
+      sizeBytes: record.get("sizeBytes").toNumber(),
+      mimeType: record.get("mimeType"),
+      url: record.get("url"),
+      storagePath: record.get("storagePath"),
+      createdAt: record.get("createdAt").toString(),
+      clusterId: record.get("clusterId"),
     };
   } finally {
     await session.close();
@@ -285,7 +313,12 @@ export async function getMediaById(mediaId: string): Promise<MediaWithHashes | n
 
 export async function getImageLineage(mediaId: string): Promise<{
   original: MediaWithHashes | null;
-  reposts: Array<{ media: MediaWithHashes; postId: string; createdAt: string; confidence: number }>;
+  reposts: Array<{
+    media: MediaWithHashes;
+    postId: string;
+    createdAt: string;
+    confidence: number;
+  }>;
 }> {
   const session = getSession();
   try {
@@ -312,10 +345,10 @@ export async function getImageLineage(mediaId: string): Promise<{
     }
 
     const record = result.records[0];
-    const originalId = record.get('originalId');
+    const originalId = record.get("originalId");
     const original = originalId ? await getMediaById(originalId) : null;
 
-    const members = record.get('allMembers') || [];
+    const members = record.get("allMembers") || [];
     const reposts = [];
 
     for (const member of members) {
@@ -324,8 +357,8 @@ export async function getImageLineage(mediaId: string): Promise<{
         if (media) {
           reposts.push({
             media,
-            postId: member.postId || '',
-            createdAt: member.created?.toString() || '',
+            postId: member.postId || "",
+            createdAt: member.created?.toString() || "",
             confidence: 0.95,
           });
         }
@@ -338,11 +371,16 @@ export async function getImageLineage(mediaId: string): Promise<{
   }
 }
 
-export async function getSimilarImages(mediaId: string, limit: number = 10): Promise<Array<{
-  media: MediaWithHashes;
-  similarity: number;
-  method: string;
-}>> {
+export async function getSimilarImages(
+  mediaId: string,
+  limit: number = 10,
+): Promise<
+  Array<{
+    media: MediaWithHashes;
+    similarity: number;
+    method: string;
+  }>
+> {
   const session = getSession();
   try {
     const query = `
@@ -357,13 +395,13 @@ export async function getSimilarImages(mediaId: string, limit: number = 10): Pro
     const similar = [];
 
     for (const record of result.records) {
-      const similarId = record.get('similarId');
+      const similarId = record.get("similarId");
       const media = await getMediaById(similarId);
       if (media) {
         similar.push({
           media,
           similarity: 0.95,
-          method: 'cluster',
+          method: "cluster",
         });
       }
     }
@@ -373,4 +411,3 @@ export async function getSimilarImages(mediaId: string, limit: number = 10): Pro
     await session.close();
   }
 }
-

@@ -1,5 +1,5 @@
-import 'dotenv/config';
-import { getSession } from '../neo4j/driver.js';
+import "dotenv/config";
+import { getSession } from "../neo4j/driver.js";
 
 async function main() {
   const session = getSession();
@@ -12,12 +12,12 @@ async function main() {
       LIMIT 5
     `);
 
-    console.log('Handle nodes:');
-    handleResult.records.forEach(record => {
-      console.log('  Platform:', record.get('platform'));
-      console.log('  Handle:', record.get('handle'));
-      console.log('  Username:', record.get('username'));
-      console.log('');
+    console.log("Handle nodes:");
+    handleResult.records.forEach((record) => {
+      console.log("  Platform:", record.get("platform"));
+      console.log("  Handle:", record.get("handle"));
+      console.log("  Username:", record.get("username"));
+      console.log("");
     });
 
     // Check User nodes
@@ -27,11 +27,10 @@ async function main() {
       LIMIT 5
     `);
 
-    console.log('User nodes:');
-    userResult.records.forEach(record => {
-      console.log('  Username:', record.get('username'));
+    console.log("User nodes:");
+    userResult.records.forEach((record) => {
+      console.log("  Username:", record.get("username"));
     });
-
   } finally {
     await session.close();
     process.exit(0);
@@ -39,6 +38,6 @@ async function main() {
 }
 
 main().catch((error) => {
-  console.error('Error:', error);
+  console.error("Error:", error);
   process.exit(1);
 });

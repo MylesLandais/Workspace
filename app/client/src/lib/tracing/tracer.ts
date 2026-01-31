@@ -1,16 +1,16 @@
-import { trace, Span, SpanStatusCode, context } from '@opentelemetry/api';
+import { trace, Span, SpanStatusCode, context } from "@opentelemetry/api";
 
-const tracer = trace.getTracer('bunny-client', '0.1.0');
+const tracer = trace.getTracer("bunny-client", "0.1.0");
 
 export interface SpanOptions {
   attributes?: Record<string, string | number | boolean>;
-  kind?: 'server' | 'client' | 'internal';
+  kind?: "server" | "client" | "internal";
 }
 
 export async function withSpan<T>(
   name: string,
   fn: (span: Span) => Promise<T>,
-  options?: SpanOptions
+  options?: SpanOptions,
 ): Promise<T> {
   return tracer.startActiveSpan(name, async (span) => {
     try {
@@ -25,7 +25,7 @@ export async function withSpan<T>(
     } catch (error) {
       span.setStatus({
         code: SpanStatusCode.ERROR,
-        message: error instanceof Error ? error.message : 'Unknown error',
+        message: error instanceof Error ? error.message : "Unknown error",
       });
 
       if (error instanceof Error) {
@@ -63,7 +63,11 @@ export function endSpan(span: Span, error?: Error) {
   span.end();
 }
 
-export function addSpanEvent(span: Span, name: string, attributes?: Record<string, string | number>) {
+export function addSpanEvent(
+  span: Span,
+  name: string,
+  attributes?: Record<string, string | number>,
+) {
   span.addEvent(name, attributes);
 }
 

@@ -1,4 +1,4 @@
-import { Platform } from '../schema/generated/resolvers.js';
+import { Platform } from "../schema/generated/resolvers.js";
 
 export type IdentityProfile = {
   id: string;

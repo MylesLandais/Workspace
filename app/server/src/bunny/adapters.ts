@@ -1,12 +1,15 @@
-import { Creator, Handle } from '../neo4j/queries/creators.js';
-import { IdentityProfile, SourceLink, Relationship } from './types.js';
+import { Creator, Handle } from "../neo4j/queries/creators.js";
+import { IdentityProfile, SourceLink, Relationship } from "./types.js";
 
 /**
  * Converts a Creator + Handles to an IdentityProfile
  */
-export function creatorToIdentityProfile(creator: Creator, handles: Handle[]): IdentityProfile {
-  const sources: SourceLink[] = handles.map(handle => ({
-    platform: handle.platform.toLowerCase() as SourceLink['platform'],
+export function creatorToIdentityProfile(
+  creator: Creator,
+  handles: Handle[],
+): IdentityProfile {
+  const sources: SourceLink[] = handles.map((handle) => ({
+    platform: handle.platform.toLowerCase() as SourceLink["platform"],
     id: handle.username,
     label: handle.label || undefined,
     hidden: handle.hidden || false,
@@ -15,8 +18,8 @@ export function creatorToIdentityProfile(creator: Creator, handles: Handle[]): I
   return {
     id: creator.id,
     name: creator.name,
-    bio: creator.bio || '',
-    avatarUrl: creator.avatarUrl || '',
+    bio: creator.bio || "",
+    avatarUrl: creator.avatarUrl || "",
     aliases: creator.aliases || [],
     sources,
     contextKeywords: creator.contextKeywords || [],
@@ -44,7 +47,10 @@ export function identityProfileToCreatorData(profile: IdentityProfile) {
 /**
  * Converts SourceLink to Handle data for Neo4j
  */
-export function sourceLinkToHandleData(sourceLink: SourceLink, creatorId: string) {
+export function sourceLinkToHandleData(
+  sourceLink: SourceLink,
+  creatorId: string,
+) {
   return {
     platform: sourceLink.platform.toUpperCase(),
     username: sourceLink.id,
@@ -55,8 +61,3 @@ export function sourceLinkToHandleData(sourceLink: SourceLink, creatorId: string
     creatorId,
   };
 }
-
-
-
-
-

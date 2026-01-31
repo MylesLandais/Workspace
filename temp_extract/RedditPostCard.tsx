@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import type { RedditPost, RedditImage } from '@/lib/types/reddit';
+import React, { useState } from "react";
+import type { RedditPost, RedditImage } from "@/lib/types/reddit";
 
 interface RedditPostCardProps {
   post: RedditPost;
   images?: RedditImage[];
-  variant?: 'compact' | 'expanded' | 'minimal';
+  variant?: "compact" | "expanded" | "minimal";
   showNSFWBlur?: boolean;
   onImageClick?: (image: RedditImage, index: number) => void;
   className?: string;
@@ -14,14 +14,14 @@ interface RedditPostCardProps {
 
 /**
  * RedditPostCard
- * 
+ *
  * A premium embeddable Reddit post component following Bunny's
  * dark, editorial aesthetic. Supports single images, galleries,
  * and text posts.
- * 
+ *
  * @example
- * <RedditPostCard 
- *   post={post} 
+ * <RedditPostCard
+ *   post={post}
  *   images={images}
  *   variant="expanded"
  * />
@@ -29,10 +29,10 @@ interface RedditPostCardProps {
 export function RedditPostCard({
   post,
   images = [],
-  variant = 'expanded',
+  variant = "expanded",
   showNSFWBlur = true,
   onImageClick,
-  className = '',
+  className = "",
 }: RedditPostCardProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isNSFWRevealed, setIsNSFWRevealed] = useState(false);
@@ -50,11 +50,15 @@ export function RedditPostCard({
     const diffHours = Math.floor(diffMins / 60);
     const diffDays = Math.floor(diffHours / 24);
 
-    if (diffDays > 30) return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    if (diffDays > 30)
+      return date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      });
     if (diffDays > 0) return `${diffDays}d ago`;
     if (diffHours > 0) return `${diffHours}h ago`;
     if (diffMins > 0) return `${diffMins}m ago`;
-    return 'just now';
+    return "just now";
   };
 
   const formatScore = (score: number): string => {
@@ -86,12 +90,12 @@ export function RedditPostCard({
     }
   };
 
-  const redditUrl = post.permalink 
+  const redditUrl = post.permalink
     ? `https://reddit.com${post.permalink}`
     : `https://reddit.com/r/${post.subreddit}/comments/${post.id}`;
 
   return (
-    <article 
+    <article
       className={`
         reddit-post-card
         reddit-post-card--${variant}
@@ -103,7 +107,7 @@ export function RedditPostCard({
       {/* Header: Subreddit + Author + Time */}
       <header className="reddit-post-card__header">
         <div className="reddit-post-card__source">
-          <a 
+          <a
             href={`https://reddit.com/r/${post.subreddit}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -115,7 +119,7 @@ export function RedditPostCard({
           {post.author && (
             <>
               <span className="reddit-post-card__separator">•</span>
-              <a 
+              <a
                 href={`https://reddit.com/u/${post.author}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -126,7 +130,7 @@ export function RedditPostCard({
             </>
           )}
         </div>
-        <time 
+        <time
           className="reddit-post-card__time"
           dateTime={post.created_utc}
           title={new Date(post.created_utc).toLocaleString()}
@@ -137,11 +141,7 @@ export function RedditPostCard({
 
       {/* Title */}
       <h3 className="reddit-post-card__title">
-        <a 
-          href={redditUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href={redditUrl} target="_blank" rel="noopener noreferrer">
           {post.title}
           {post.over_18 && (
             <span className="reddit-post-card__nsfw-badge">NSFW</span>
@@ -151,10 +151,10 @@ export function RedditPostCard({
 
       {/* Image / Gallery */}
       {hasImage && !imageError && (
-        <div 
+        <div
           className={`
             reddit-post-card__media
-            ${shouldBlur ? 'reddit-post-card__media--blurred' : ''}
+            ${shouldBlur ? "reddit-post-card__media--blurred" : ""}
           `}
         >
           {shouldBlur && (
@@ -167,9 +167,9 @@ export function RedditPostCard({
               <span>Click to reveal</span>
             </button>
           )}
-          
+
           <img
-            src={getCurrentImageUrl() || ''}
+            src={getCurrentImageUrl() || ""}
             alt={post.title}
             className="reddit-post-card__image"
             onClick={handleImageClick}
@@ -200,7 +200,7 @@ export function RedditPostCard({
                     key={idx}
                     className={`
                       reddit-post-card__gallery-dot
-                      ${idx === currentImageIndex ? 'reddit-post-card__gallery-dot--active' : ''}
+                      ${idx === currentImageIndex ? "reddit-post-card__gallery-dot--active" : ""}
                     `}
                   />
                 ))}
@@ -211,9 +211,12 @@ export function RedditPostCard({
       )}
 
       {/* Self Text (if text post and expanded) */}
-      {variant === 'expanded' && post.selftext && (
+      {variant === "expanded" && post.selftext && (
         <div className="reddit-post-card__body">
-          <p>{post.selftext.slice(0, 280)}{post.selftext.length > 280 ? '...' : ''}</p>
+          <p>
+            {post.selftext.slice(0, 280)}
+            {post.selftext.length > 280 ? "..." : ""}
+          </p>
         </div>
       )}
 
@@ -221,18 +224,29 @@ export function RedditPostCard({
       <footer className="reddit-post-card__footer">
         <div className="reddit-post-card__stats">
           <span className="reddit-post-card__stat reddit-post-card__stat--score">
-            <svg className="reddit-post-card__stat-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z" transform="rotate(-90 12 12)"/>
+            <svg
+              className="reddit-post-card__stat-icon"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z"
+                transform="rotate(-90 12 12)"
+              />
             </svg>
             {formatScore(post.score)}
           </span>
           <span className="reddit-post-card__stat reddit-post-card__stat--comments">
-            <svg className="reddit-post-card__stat-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"/>
+            <svg
+              className="reddit-post-card__stat-icon"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z" />
             </svg>
             {post.num_comments}
           </span>
-          <span 
+          <span
             className="reddit-post-card__stat reddit-post-card__stat--ratio"
             title={`${Math.round(post.upvote_ratio * 100)}% upvoted`}
           >
@@ -240,15 +254,19 @@ export function RedditPostCard({
           </span>
         </div>
 
-        <a 
+        <a
           href={redditUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="reddit-post-card__link"
         >
           View on Reddit
-          <svg className="reddit-post-card__link-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+          <svg
+            className="reddit-post-card__link-icon"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
           </svg>
         </a>
       </footer>
@@ -265,13 +283,16 @@ export function RedditPostCard({
           --accent-hover: #ff5722;
           --nsfw-badge: #d32f2f;
           --upvote: #ff8b60;
-          
+
           background: var(--card-bg);
           border: 1px solid var(--card-border);
           border-radius: 12px;
           overflow: hidden;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-          transition: border-color 0.2s ease, box-shadow 0.2s ease;
+          font-family:
+            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease;
         }
 
         .reddit-post-card:hover {
@@ -458,7 +479,9 @@ export function RedditPostCard({
           font-size: 24px;
           cursor: pointer;
           opacity: 0;
-          transition: opacity 0.2s ease, background 0.2s ease;
+          transition:
+            opacity 0.2s ease,
+            background 0.2s ease;
           z-index: 5;
         }
 
@@ -493,7 +516,9 @@ export function RedditPostCard({
           height: 6px;
           border-radius: 50%;
           background: rgba(255, 255, 255, 0.4);
-          transition: background 0.2s ease, transform 0.2s ease;
+          transition:
+            background 0.2s ease,
+            transform 0.2s ease;
         }
 
         .reddit-post-card__gallery-dot--active {
@@ -571,7 +596,7 @@ export function RedditPostCard({
             /* Firefox aspect-ratio fallback */
             min-height: 200px;
           }
-          
+
           .reddit-post-card__nav {
             /* Ensure visibility on Firefox */
             opacity: 0.8;

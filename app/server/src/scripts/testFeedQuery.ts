@@ -1,5 +1,5 @@
-import 'dotenv/config';
-import { getSession } from '../neo4j/driver.js';
+import "dotenv/config";
+import { getSession } from "../neo4j/driver.js";
 
 async function main() {
   const session = getSession();
@@ -12,9 +12,9 @@ async function main() {
       LIMIT 5
     `);
 
-    console.log('Media nodes:');
-    mediaResult.records.forEach(record => {
-      console.log('  -', record.get('id'), record.get('mimeType'));
+    console.log("Media nodes:");
+    mediaResult.records.forEach((record) => {
+      console.log("  -", record.get("id"), record.get("mimeType"));
     });
 
     // Test Media with Post relationship
@@ -24,10 +24,10 @@ async function main() {
       LIMIT 5
     `);
 
-    console.log('\nMedia-Post relationships:');
-    postResult.records.forEach(record => {
-      console.log('  -', record.get('mediaId'), '->', record.get('postId'));
-      console.log('    Title:', record.get('title'));
+    console.log("\nMedia-Post relationships:");
+    postResult.records.forEach((record) => {
+      console.log("  -", record.get("mediaId"), "->", record.get("postId"));
+      console.log("    Title:", record.get("title"));
     });
 
     // Test the feed query pattern
@@ -40,13 +40,12 @@ async function main() {
       LIMIT 5
     `);
 
-    console.log('\nFeed query pattern:');
-    feedResult.records.forEach(record => {
-      console.log('  - Media:', record.get('mediaId'));
-      console.log('    Post:', record.get('postId'));
-      console.log('    URL:', record.get('url').substring(0, 80) + '...');
+    console.log("\nFeed query pattern:");
+    feedResult.records.forEach((record) => {
+      console.log("  - Media:", record.get("mediaId"));
+      console.log("    Post:", record.get("postId"));
+      console.log("    URL:", record.get("url").substring(0, 80) + "...");
     });
-
   } finally {
     await session.close();
     process.exit(0);
@@ -54,6 +53,6 @@ async function main() {
 }
 
 main().catch((error) => {
-  console.error('Error:', error);
+  console.error("Error:", error);
   process.exit(1);
 });

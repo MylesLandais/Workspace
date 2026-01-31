@@ -20,7 +20,8 @@ const platformColors: Record<SourceType, string> = {
   [SourceType.REDDIT]: "bg-orange-600",
   [SourceType.YOUTUBE]: "bg-red-600",
   [SourceType.TWITTER]: "bg-sky-500",
-  [SourceType.INSTAGRAM]: "bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400",
+  [SourceType.INSTAGRAM]:
+    "bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400",
   [SourceType.TIKTOK]: "bg-black",
   [SourceType.VSCO]: "bg-neutral-800",
   [SourceType.IMAGEBOARD]: "bg-green-600",

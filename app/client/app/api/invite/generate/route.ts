@@ -14,7 +14,8 @@ export async function POST(request: NextRequest) {
   try {
     const body: GenerateInviteRequest = await request.json();
 
-    const generatedCode = body.code || `SN-${uuidv4().slice(0, 8).toUpperCase()}`;
+    const generatedCode =
+      body.code || `SN-${uuidv4().slice(0, 8).toUpperCase()}`;
     const normalizedCode = generatedCode.toUpperCase().trim();
 
     const expiresInDays = body.expiresInDays || 365;
@@ -40,13 +41,13 @@ export async function POST(request: NextRequest) {
         expiresAt,
         maxUses: body.maxUses,
       },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     console.error("Invite generation error:", error);
     return NextResponse.json(
       { error: "Failed to generate invite code" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

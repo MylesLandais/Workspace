@@ -10,7 +10,11 @@ interface AddSourceDialogProps {
   onAdd: (input: CreateSourceInput) => Promise<void>;
 }
 
-export function AddSourceDialog({ isOpen, onClose, onAdd }: AddSourceDialogProps) {
+export function AddSourceDialog({
+  isOpen,
+  onClose,
+  onAdd,
+}: AddSourceDialogProps) {
   const [sourceType, setSourceType] = useState<SourceType>(SourceType.RSS);
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);

@@ -1,70 +1,64 @@
+# E2E Testing environment
+# Backing services should be started via root docker-compose.yml first
+#
+# Run E2E tests: docker compose run --rm e2e-runner
+
 services:
-  mysql:
-    image: mysql:8.4
-    environment:
-      MYSQL_ROOT_PASSWORD: betterauth
-      MYSQL_DATABASE: bunny_auth
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-      - ./mysql-schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pbetterauth"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-    restart: always
-
-  redis:
-    image: redis:7-alpine
-    ports:
-      - "6381:6379"
-    volumes:
-      - redis_data:/data
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-    restart: always
-
   client:
-    image: oven/bun:1.1-slim
+    build: .
+    container_name: bunny-client-test
     ports:
       - "3000:3000"
-    volumes:
-      - .:/app
-    working_dir: /app
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=test
       - NEXT_TELEMETRY_DISABLED=1
       - HOSTNAME=0.0.0.0
-      - PLAYWRIGHT_SERVICE_URL=ws://browserless:3000
-      - MYSQL_HOST=mysql
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=betterauth
+      # Connect to shared backing services via host network
+      - MYSQL_HOST=host.docker.internal
+      - MYSQL_PORT=3306
+      - MYSQL_USER=bunny
+      - MYSQL_PASSWORD=password
       - MYSQL_DATABASE=bunny_auth
-      - REDIS_URL=redis://redis:6379
-    env_file:
-      - .env.local
+      - REDIS_URL=redis://host.docker.internal:6379
     extra_hosts:
       - "host.docker.internal:host-gateway"
     stdin_open: true
     tty: true
-    command: ["sh", "-c", "./scripts/setup.sh && bun run dev --hostname 0.0.0.0"]
+    command: ["bun", "run", "dev", "--hostname", "0.0.0.0"]
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 15s
-    depends_on:
-      mysql:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
 
-volumes:
-  mysql_data:
-  redis_data:
+  browserless:
+    image: browserless/chrome:latest
+    container_name: bunny-browserless
+    ports:
+      - "3001:3000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/json/version"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  e2e-runner:
+    image: mcr.microsoft.com/playwright:v1.48.1-jammy
+    container_name: bunny-e2e
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      - PLAYWRIGHT_SERVICE_URL=ws://browserless:3000
+      - NEXT_TELEMETRY_DISABLED=1
+      - NODE_ENV=test
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      client:
+        condition: service_healthy
+      browserless:
+        condition: service_healthy
+    command: ["npx", "playwright", "test"]

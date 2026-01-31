@@ -14,7 +14,9 @@ import { useSources, useSourceMutations } from "@/lib/hooks/use-sources";
 import type { CreateSourceInput } from "@/lib/types/sources";
 
 export default function SourcesPage() {
-  const [activeTab, setActiveTab] = useState<"organize" | "discover">("organize");
+  const [activeTab, setActiveTab] = useState<"organize" | "discover">(
+    "organize",
+  );
   const [showImportDialog, setShowImportDialog] = useState(false);
   const [showAddDialog, setShowAddDialog] = useState(false);
 
@@ -34,34 +36,47 @@ export default function SourcesPage() {
     refresh,
   } = useSources();
 
-  const { createSource, togglePause, deleteSource, importOPML } = useSourceMutations();
+  const { createSource, togglePause, deleteSource, importOPML } =
+    useSourceMutations();
 
-  const handleImport = useCallback(async (feedUrls: string[]) => {
-    await importOPML(feedUrls);
-    await refresh();
-  }, [importOPML, refresh]);
+  const handleImport = useCallback(
+    async (feedUrls: string[]) => {
+      await importOPML(feedUrls);
+      await refresh();
+    },
+    [importOPML, refresh],
+  );
 
-  const handleAddSource = useCallback(async (input: CreateSourceInput) => {
-    await createSource(input);
-    await refresh();
-  }, [createSource, refresh]);
+  const handleAddSource = useCallback(
+    async (input: CreateSourceInput) => {
+      await createSource(input);
+      await refresh();
+    },
+    [createSource, refresh],
+  );
 
-  const handlePause = useCallback(async (id: string) => {
-    await togglePause(id);
-    await refresh();
-  }, [togglePause, refresh]);
+  const handlePause = useCallback(
+    async (id: string) => {
+      await togglePause(id);
+      await refresh();
+    },
+    [togglePause, refresh],
+  );
 
   const handleMove = useCallback((id: string) => {
     // TODO: Implement move to folder dialog
     console.log("Move source:", id);
   }, []);
 
-  const handleDelete = useCallback(async (id: string) => {
-    if (confirm("Are you sure you want to unsubscribe from this source?")) {
-      await deleteSource(id);
-      await refresh();
-    }
-  }, [deleteSource, refresh]);
+  const handleDelete = useCallback(
+    async (id: string) => {
+      if (confirm("Are you sure you want to unsubscribe from this source?")) {
+        await deleteSource(id);
+        await refresh();
+      }
+    },
+    [deleteSource, refresh],
+  );
 
   return (
     <div className="min-h-screen bg-app-bg">

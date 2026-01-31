@@ -1,5 +1,5 @@
-import 'dotenv/config';
-import { getSession } from '../neo4j/driver.js';
+import "dotenv/config";
+import { getSession } from "../neo4j/driver.js";
 
 async function main() {
   const session = getSession();
@@ -11,14 +11,13 @@ async function main() {
       LIMIT 10
     `);
 
-    console.log('Media storage paths:');
-    result.records.forEach(record => {
-      console.log('  SHA256:', record.get('sha256').substring(0, 16) + '...');
-      console.log('  Storage Path:', record.get('storagePath'));
-      console.log('  MIME Type:', record.get('mimeType'));
-      console.log('');
+    console.log("Media storage paths:");
+    result.records.forEach((record) => {
+      console.log("  SHA256:", record.get("sha256").substring(0, 16) + "...");
+      console.log("  Storage Path:", record.get("storagePath"));
+      console.log("  MIME Type:", record.get("mimeType"));
+      console.log("");
     });
-
   } finally {
     await session.close();
     process.exit(0);
@@ -26,6 +25,6 @@ async function main() {
 }
 
 main().catch((error) => {
-  console.error('Error:', error);
+  console.error("Error:", error);
   process.exit(1);
 });

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { db } from "@/lib/db/mysql";
+import { mysqlDb as db } from "@/lib/db/mysql";
 import { waitlist, user } from "@/lib/db/schema/mysql-auth";
 import { count } from "drizzle-orm";
 
@@ -7,7 +7,7 @@ export async function GET() {
   try {
     const startTime = Date.now();
 
-    let stats = {
+    const stats = {
       waitlistCount: 0,
       userCount: 0,
       waitlistByStatus: {
@@ -32,7 +32,7 @@ export async function GET() {
           status: "error",
           message: "Failed to collect metrics",
         },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -51,7 +51,7 @@ export async function GET() {
         status: "error",
         message: "Internal server error",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

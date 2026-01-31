@@ -24,7 +24,11 @@ interface SubscriptionsHeaderProps {
   onExportOPML: () => void;
 }
 
-const viewModes: { mode: SubscriptionsViewMode; icon: typeof LayoutGrid; label: string }[] = [
+const viewModes: {
+  mode: SubscriptionsViewMode;
+  icon: typeof LayoutGrid;
+  label: string;
+}[] = [
   { mode: "masonry", icon: LayoutGrid, label: "Grid" },
   { mode: "list", icon: List, label: "List" },
   { mode: "table", icon: Table2, label: "Table" },
@@ -36,7 +40,8 @@ export function SubscriptionsHeader({
   onImportOPML,
   onExportOPML,
 }: SubscriptionsHeaderProps) {
-  const { viewMode, setViewMode, searchQuery, setSearchQuery } = useSubscriptionsStore();
+  const { viewMode, setViewMode, searchQuery, setSearchQuery } =
+    useSubscriptionsStore();
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -75,7 +80,7 @@ export function SubscriptionsHeader({
                 "relative flex items-center rounded-xl border transition-all duration-200",
                 isSearchFocused
                   ? "bg-white/10 border-white/20 ring-2 ring-app-accent/20"
-                  : "bg-white/5 border-white/5 hover:border-white/10"
+                  : "bg-white/5 border-white/5 hover:border-white/10",
               )}
             >
               <Search className="w-4 h-4 text-white/40 ml-3" />
@@ -113,7 +118,7 @@ export function SubscriptionsHeader({
                     "p-2 rounded-lg transition-colors",
                     viewMode === mode
                       ? "bg-white/10 text-white"
-                      : "text-white/40 hover:text-white/60 hover:bg-white/5"
+                      : "text-white/40 hover:text-white/60 hover:bg-white/5",
                   )}
                 >
                   <Icon className="w-4 h-4" />

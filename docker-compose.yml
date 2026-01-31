@@ -1,0 +1,13 @@
+# Bunny application containers only
+# Backing services are shared with data engineering/MLOps team
+#
+# Shared services (managed externally):
+#   - MySQL: mysql-scheduler.jupyter.dev.local:3307
+#   - Valkey: cache.jupyter.dev.local:6379
+#   - Neo4j: neo4j-devenv:7474/7687
+#   - MinIO: s3.jupyter.dev.local:9000
+#
+# This file is kept for reference but typically not needed for local dev.
+# Use 'devenv up' instead which connects to shared services.
+
+services: {}

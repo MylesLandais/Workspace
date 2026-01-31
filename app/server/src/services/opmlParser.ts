@@ -107,7 +107,7 @@ function parseWithCategories(xml: string): OPMLFeed[] {
 function parseOutlineLevel(
   content: string,
   parentCategory: string,
-  feeds: OPMLFeed[]
+  feeds: OPMLFeed[],
 ): void {
   // Match outline tags at current level
   const outlineStartRegex = /<outline\s+([^>]*)(?:\/>|>)/gi;
@@ -210,7 +210,7 @@ function decodeXMLEntities(text: string): string {
     .replace(/&apos;/g, "'")
     .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(parseInt(code, 10)))
     .replace(/&#x([0-9a-fA-F]+);/g, (_, code) =>
-      String.fromCharCode(parseInt(code, 16))
+      String.fromCharCode(parseInt(code, 16)),
     );
 }
 
@@ -268,9 +268,11 @@ export async function fetchFeedMetadata(url: string): Promise<FeedMetadata> {
     // Extract description
     const descMatch =
       xml.match(
-        /<description[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/description>/i
+        /<description[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/description>/i,
       ) ||
-      xml.match(/<subtitle[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/subtitle>/i);
+      xml.match(
+        /<subtitle[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/subtitle>/i,
+      );
     const description = descMatch
       ? decodeXMLEntities(descMatch[1].trim()).substring(0, 500)
       : undefined;
@@ -280,13 +282,17 @@ export async function fetchFeedMetadata(url: string): Promise<FeedMetadata> {
       xml.match(/<image[^>]*>[\s\S]*?<url>([^<]+)<\/url>/i) ||
       xml.match(/<icon>([^<]+)<\/icon>/i) ||
       xml.match(/<logo>([^<]+)<\/logo>/i);
-    const iconUrl = iconMatch ? decodeXMLEntities(iconMatch[1].trim()) : undefined;
+    const iconUrl = iconMatch
+      ? decodeXMLEntities(iconMatch[1].trim())
+      : undefined;
 
     // Extract site URL
     const linkMatch =
       xml.match(/<link[^>]*href="([^"]+)"[^>]*rel="alternate"/i) ||
       xml.match(/<link>([^<]+)<\/link>/i);
-    const siteUrl = linkMatch ? decodeXMLEntities(linkMatch[1].trim()) : undefined;
+    const siteUrl = linkMatch
+      ? decodeXMLEntities(linkMatch[1].trim())
+      : undefined;
 
     return {
       title,
@@ -335,8 +341,7 @@ export async function discoverFeeds(websiteUrl: string): Promise<OPMLFeed[]> {
 
     while ((match = linkRegex.exec(html)) !== null) {
       const href = extractAttribute(match[0], "href");
-      const title =
-        extractAttribute(match[0], "title") || "RSS Feed";
+      const title = extractAttribute(match[0], "title") || "RSS Feed";
 
       if (href) {
         // Resolve relative URLs
@@ -398,7 +403,7 @@ export async function discoverFeeds(websiteUrl: string): Promise<OPMLFeed[]> {
  * Detect source type from URL
  */
 export function detectSourceType(
-  url: string
+  url: string,
 ): "RSS" | "REDDIT" | "YOUTUBE" | "TWITTER" | "INSTAGRAM" | "TIKTOK" | null {
   const lowercaseUrl = url.toLowerCase();
 
@@ -473,7 +478,10 @@ export function extractHandleFromUrl(url: string): string | null {
       urlObj.hostname.includes("x.com")
     ) {
       const match = pathname.match(/\/([^\/]+)/);
-      if (match && !["home", "explore", "notifications", "messages"].includes(match[1])) {
+      if (
+        match &&
+        !["home", "explore", "notifications", "messages"].includes(match[1])
+      ) {
         return match[1];
       }
     }
@@ -481,7 +489,10 @@ export function extractHandleFromUrl(url: string): string | null {
     // Instagram: /username
     if (urlObj.hostname.includes("instagram.com")) {
       const match = pathname.match(/\/([^\/]+)/);
-      if (match && !["explore", "reels", "stories", "p", "reel"].includes(match[1])) {
+      if (
+        match &&
+        !["explore", "reels", "stories", "p", "reel"].includes(match[1])
+      ) {
         return match[1];
       }
     }

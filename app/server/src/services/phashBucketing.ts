@@ -1,5 +1,5 @@
 export function getBucketKey(phash: bigint, bits: number = 16): string {
-  if (typeof phash !== 'bigint') {
+  if (typeof phash !== "bigint") {
     throw new Error(`phash must be bigint, got ${typeof phash}: ${phash}`);
   }
   const bitsBigInt = BigInt(bits);
@@ -8,7 +8,7 @@ export function getBucketKey(phash: bigint, bits: number = 16): string {
   const shifted = phash >> shift;
   const highBits = shifted & mask;
   const hexString = highBits.toString(16);
-  const paddedHex = hexString.padStart(4, '0');
+  const paddedHex = hexString.padStart(4, "0");
   return `phash:bucket:${paddedHex}`;
 }
 
@@ -22,7 +22,7 @@ export function getBucketKeys(phash: bigint, bits: number = 16): string[] {
   for (let i = 0; i < bits; i++) {
     const bitMask = 1n << (bitsBigInt - 1n - BigInt(i));
     const flipped = highBits ^ bitMask;
-    const key = `phash:bucket:${flipped.toString(16).padStart(4, '0')}`;
+    const key = `phash:bucket:${flipped.toString(16).padStart(4, "0")}`;
     if (key !== baseKey) {
       keys.push(key);
     }
@@ -35,12 +35,11 @@ export function hammingDistance(hash1: bigint, hash2: bigint): number {
   const xor = hash1 ^ hash2;
   let distance = 0;
   let value = xor;
-  
+
   while (value > 0n) {
     distance += Number(value & 1n);
     value >>= 1n;
   }
-  
+
   return distance;
 }
-

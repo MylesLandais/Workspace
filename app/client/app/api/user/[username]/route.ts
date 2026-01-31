@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ username: string }> }
+  { params }: { params: Promise<{ username: string }> },
 ) {
   try {
     const { username } = await params;
@@ -13,7 +13,7 @@ export async function GET(
     if (!username) {
       return NextResponse.json(
         { error: "Username is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -24,16 +24,13 @@ export async function GET(
       .limit(1);
 
     if (userProfile.length === 0) {
-      return NextResponse.json(
-        { error: "User not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     if (userProfile[0].profilePublic !== 1) {
       return NextResponse.json(
         { error: "This profile is private" },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
@@ -53,7 +50,7 @@ export async function GET(
     console.error("Get public profile error:", error);
     return NextResponse.json(
       { error: "Failed to fetch profile" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

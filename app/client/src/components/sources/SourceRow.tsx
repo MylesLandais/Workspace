@@ -43,7 +43,9 @@ export function SourceRow({
   onDelete,
 }: SourceRowProps) {
   return (
-    <tr className={`border-b border-white/5 hover:bg-white/[0.02] transition-colors ${source.isPaused ? "opacity-50" : ""}`}>
+    <tr
+      className={`border-b border-white/5 hover:bg-white/[0.02] transition-colors ${source.isPaused ? "opacity-50" : ""}`}
+    >
       <td className="py-3 px-4">
         <input
           type="checkbox"

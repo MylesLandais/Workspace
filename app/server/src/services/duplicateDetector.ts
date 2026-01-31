@@ -1,14 +1,14 @@
-import { getValkeyClient } from '../valkey/client.js';
-import { ImageHashes } from './imageHasher.js';
-import { getBucketKeys, hammingDistance } from './phashBucketing.js';
-import { ClipEmbedder } from './clipEmbedder.js';
-import logger from '../lib/logger.js';
+import { getValkeyClient } from "../valkey/client.js";
+import { ImageHashes } from "./imageHasher.js";
+import { getBucketKeys, hammingDistance } from "./phashBucketing.js";
+import { ClipEmbedder } from "./clipEmbedder.js";
+import logger from "../lib/logger.js";
 
 export interface DuplicateMatch {
   mediaId: string;
   clusterId: string;
   confidence: number;
-  method: 'sha256' | 'phash' | 'dhash' | 'clip';
+  method: "sha256" | "phash" | "dhash" | "clip";
   hammingDistance?: number;
   clipSimilarity?: number;
 }
@@ -35,27 +35,33 @@ export class DuplicateDetector {
   async checkExactDuplicate(sha256: string): Promise<string | null> {
     const client = getValkeyClient();
     const key = `image:hashes:${sha256}`;
-    
+
     const existing = await client.hGetAll(key);
     if (existing && existing.mediaId) {
       await client.setEx(`recent:sha256:${sha256}`, 86400, existing.mediaId);
       return existing.mediaId;
     }
-    
+
     return null;
   }
 
-  async storeHashMapping(sha256: string, phash: bigint, dhash: bigint, clusterId: string, mediaId: string): Promise<void> {
+  async storeHashMapping(
+    sha256: string,
+    phash: bigint,
+    dhash: bigint,
+    clusterId: string,
+    mediaId: string,
+  ): Promise<void> {
     const client = getValkeyClient();
     const key = `image:hashes:${sha256}`;
-    
+
     await client.hSet(key, {
       phash: phash.toString(),
       dhash: dhash.toString(),
       clusterId,
       mediaId,
     });
-    
+
     await client.setEx(`recent:sha256:${sha256}`, 86400, mediaId);
   }
 
@@ -66,7 +72,7 @@ export class DuplicateDetector {
     const candidateClusterIds = new Set<string>();
 
     const bucketPromises = bucketKeys.map((bucketKey) =>
-      client.sMembers(bucketKey)
+      client.sMembers(bucketKey),
     );
     const bucketResults = await Promise.all(bucketPromises);
 
@@ -99,12 +105,12 @@ export class DuplicateDetector {
           clusterId: meta.clusterId,
           canonicalSha256: meta.canonicalSha256,
           canonicalMediaId: meta.canonicalMediaId,
-          repostCount: parseInt(meta.repostCount || '0', 10),
+          repostCount: parseInt(meta.repostCount || "0", 10),
           firstSeen: meta.firstSeen,
         });
 
         hashPromises.push(
-          client.hGetAll(`image:hashes:${meta.canonicalSha256}`)
+          client.hGetAll(`image:hashes:${meta.canonicalSha256}`),
         );
       }
     }
@@ -131,7 +137,7 @@ export class DuplicateDetector {
           mediaId: clusterMeta.canonicalMediaId,
           clusterId: clusterMeta.clusterId,
           confidence,
-          method: 'phash',
+          method: "phash",
           hammingDistance: phashDist,
         });
       } else if (canonicalDhash) {
@@ -142,7 +148,7 @@ export class DuplicateDetector {
             mediaId: clusterMeta.canonicalMediaId,
             clusterId: clusterMeta.clusterId,
             confidence,
-            method: 'dhash',
+            method: "dhash",
             hammingDistance: dhashDist,
           });
         }
@@ -153,32 +159,39 @@ export class DuplicateDetector {
     return matches;
   }
 
-  async checkClipSimilarity(imageBuffer: Buffer, canonicalSha256: string): Promise<number | null> {
+  async checkClipSimilarity(
+    imageBuffer: Buffer,
+    canonicalSha256: string,
+  ): Promise<number | null> {
     try {
       const client = getValkeyClient();
       const embeddingKey = `clip:embedding:${canonicalSha256}`;
-      
+
       let canonicalEmbedding: number[] | null = null;
       const cached = await client.get(embeddingKey);
-      
+
       if (cached) {
         canonicalEmbedding = JSON.parse(cached);
       } else {
         return null;
       }
-      
-      const queryEmbedding = await this.clipEmbedder.computeEmbeddingFromBuffer(imageBuffer);
-      const similarity = this.clipEmbedder.cosineSimilarity(queryEmbedding, canonicalEmbedding!);
-      
+
+      const queryEmbedding =
+        await this.clipEmbedder.computeEmbeddingFromBuffer(imageBuffer);
+      const similarity = this.clipEmbedder.cosineSimilarity(
+        queryEmbedding,
+        canonicalEmbedding!,
+      );
+
       return similarity >= CLIP_THRESHOLD ? similarity : null;
     } catch (error) {
-      logger.error('CLIP similarity check failed', error);
+      logger.error("CLIP similarity check failed", error);
       return null;
     }
   }
 
   async storeClipEmbedding(sha256: string, embedding: number[]): Promise<void> {
-    const { VectorSearchService } = await import('./vectorSearch.js');
+    const { VectorSearchService } = await import("./vectorSearch.js");
     const vectorSearch = new VectorSearchService();
     await vectorSearch.storeEmbedding(sha256, embedding);
 
@@ -189,7 +202,7 @@ export class DuplicateDetector {
   async addToPhashBuckets(phash: bigint, clusterId: string): Promise<void> {
     const client = getValkeyClient();
     const bucketKeys = getBucketKeys(phash, 16);
-    
+
     for (const bucketKey of bucketKeys) {
       await client.sAdd(bucketKey, clusterId);
     }
@@ -198,17 +211,17 @@ export class DuplicateDetector {
   async getClusterMetadata(clusterId: string): Promise<ClusterMetadata | null> {
     const client = getValkeyClient();
     const key = `cluster:meta:${clusterId}`;
-    
+
     const meta = await client.hGetAll(key);
     if (!meta || !meta.clusterId) {
       return null;
     }
-    
+
     return {
       clusterId: meta.clusterId,
       canonicalSha256: meta.canonicalSha256,
       canonicalMediaId: meta.canonicalMediaId,
-      repostCount: parseInt(meta.repostCount || '0', 10),
+      repostCount: parseInt(meta.repostCount || "0", 10),
       firstSeen: meta.firstSeen,
     };
   }
@@ -229,7 +242,9 @@ export class DuplicateDetector {
     await client.set(sha256IndexKey, metadata.clusterId);
   }
 
-  async getClusterMetadataBySha256(sha256: string): Promise<ClusterMetadata | null> {
+  async getClusterMetadataBySha256(
+    sha256: string,
+  ): Promise<ClusterMetadata | null> {
     const client = getValkeyClient();
     const sha256IndexKey = `sha256:to:cluster:${sha256}`;
     const clusterId = await client.get(sha256IndexKey);
@@ -239,8 +254,10 @@ export class DuplicateDetector {
     return this.getClusterMetadata(clusterId);
   }
 
-  calculateConfidence(hammingDistance: number, maxDistance: number = 64): number {
+  calculateConfidence(
+    hammingDistance: number,
+    maxDistance: number = 64,
+  ): number {
     return Math.max(0.0, 1.0 - hammingDistance / maxDistance);
   }
 }
-

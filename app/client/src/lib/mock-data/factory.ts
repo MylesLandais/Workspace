@@ -1,26 +1,37 @@
 import { FeedItem, FeedPage, MediaType } from "../types/feed";
 import { generateParquetFeed } from "./parquet-loader";
 import { generateImageboardFeed } from "./imageboard-loader";
+import { generateRedditFeed } from "./reddit-loader";
 import testFiles from "./test-files.json";
 
 export async function generateFeedPage(
   cursor: string | null,
-  pageSize: number = 20
+  pageSize: number = 20,
 ): Promise<FeedPage> {
   const startIndex = cursor ? parseInt(cursor, 10) : 0;
   const items: FeedItem[] = [];
 
   // Load all data sources in parallel
-  const [parquetFeed, imageboardFeed] = await Promise.all([
+  const [parquetFeed, imageboardFeed, redditFeed] = await Promise.all([
     generateParquetFeed(),
-    generateImageboardFeed()
+    generateImageboardFeed(),
+    generateRedditFeed(),
   ]);
-  
+
   // Simple approach: add items in order
   const allItems = [
+    ...redditFeed,
     ...parquetFeed,
     ...imageboardFeed,
-    ...Array.from({ length: Math.max(0, 20 - parquetFeed.length - imageboardFeed.length) }, (_, i) => generateFeedItem(i))
+    ...Array.from(
+      {
+        length: Math.max(
+          0,
+          20 - redditFeed.length - parquetFeed.length - imageboardFeed.length,
+        ),
+      },
+      (_, i) => generateFeedItem(i),
+    ),
   ];
 
   // Take first pageSize items
@@ -29,7 +40,8 @@ export async function generateFeedPage(
   }
 
   const nextCursor = startIndex + pageSize;
-  const totalItems = 500 + parquetFeed.length + imageboardFeed.length;
+  const totalItems =
+    500 + parquetFeed.length + imageboardFeed.length + redditFeed.length;
   const hasNextPage = nextCursor < totalItems;
 
   return {
@@ -39,7 +51,9 @@ export async function generateFeedPage(
   };
 }
 
-export async function generateInitialFeed(pageSize: number = 20): Promise<FeedPage> {
+export async function generateInitialFeed(
+  pageSize: number = 20,
+): Promise<FeedPage> {
   return generateFeedPage(null, pageSize);
 }
 
@@ -98,32 +112,36 @@ export function generateFeedItem(index: number): FeedItem {
   if (testFiles.length > 0) {
     const fileName = testFiles[index % testFiles.length];
     mediaUrl = `/test-media/${fileName}`;
-    
-    if (fileName.endsWith('.mp4') || fileName.endsWith('.webm')) {
+
+    if (fileName.endsWith(".mp4") || fileName.endsWith(".webm")) {
       type = MediaType.VIDEO;
-    } else if (fileName.endsWith('.gif')) {
+    } else if (fileName.endsWith(".gif")) {
       type = MediaType.GIF;
     }
   } else {
     mediaUrl = `https://picsum.photos/seed/${index}/${aspectData.width}/${aspectData.height}`;
   }
 
-  const redditData = source === "Reddit" ? {
-    id: `reddit-${index}`,
-    title: caption,
-    created_utc: date.toISOString(),
-    score: Math.floor(random() * 50000),
-    num_comments: Math.floor(random() * 1000),
-    upvote_ratio: 0.8 + random() * 0.2,
-    over_18: random() > 0.9,
-    url: mediaUrl,
-    selftext: random() > 0.5 ? "This is a mock selftext for testing." : "",
-    permalink: `/r/${source.toLowerCase()}/comments/${index}`,
-    subreddit: "artwork",
-    author: author.handle.replace('@', ''),
-    is_image: type === MediaType.IMAGE,
-    image_url: type === MediaType.IMAGE ? mediaUrl : null,
-  } : undefined;
+  const redditData =
+    source === "Reddit"
+      ? {
+          id: `reddit-${index}`,
+          title: caption,
+          created_utc: date.toISOString(),
+          score: Math.floor(random() * 50000),
+          num_comments: Math.floor(random() * 1000),
+          upvote_ratio: 0.8 + random() * 0.2,
+          over_18: random() > 0.9,
+          url: mediaUrl,
+          selftext:
+            random() > 0.5 ? "This is a mock selftext for testing." : "",
+          permalink: `/r/${source.toLowerCase()}/comments/${index}`,
+          subreddit: "artwork",
+          author: author.handle.replace("@", ""),
+          is_image: type === MediaType.IMAGE,
+          image_url: type === MediaType.IMAGE ? mediaUrl : null,
+        }
+      : undefined;
 
   return {
     id: `item-${index}`,

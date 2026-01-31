@@ -1,25 +1,19 @@
-import { readdirSync } from 'fs';
-import { join } from 'path';
-import { NextRequest, NextResponse } from 'next/server';
+import { readdirSync } from "fs";
+import { join } from "path";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const thread = request.nextUrl.searchParams.get('thread');
+  const thread = request.nextUrl.searchParams.get("thread");
 
   if (!thread) {
     return NextResponse.json(
-      { error: 'Missing thread parameter' },
-      { status: 400 }
+      { error: "Missing thread parameter" },
+      { status: 400 },
     );
   }
 
   try {
-    const imageDir = join(
-      process.cwd(),
-      'public',
-      'imageboard',
-      'b',
-      thread
-    );
+    const imageDir = join(process.cwd(), "public", "imageboard", "b", thread);
 
     // Read actual files from the directory
     const files = readdirSync(imageDir)
@@ -33,10 +27,13 @@ export async function GET(request: NextRequest) {
       files,
     });
   } catch (error) {
-    console.error(`Failed to read imageboard directory for thread ${thread}:`, error);
+    console.error(
+      `Failed to read imageboard directory for thread ${thread}:`,
+      error,
+    );
     return NextResponse.json(
-      { error: 'Failed to read thread images', thread },
-      { status: 404 }
+      { error: "Failed to read thread images", thread },
+      { status: 404 },
     );
   }
 }

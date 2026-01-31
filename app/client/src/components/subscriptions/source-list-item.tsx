@@ -174,7 +174,7 @@ export function SourceListItem({
         isSelected
           ? "bg-app-accent/10 border-app-accent/30"
           : "bg-white/5 border-white/5 hover:bg-white/10 hover:border-white/10",
-        source.isPaused && "opacity-60"
+        source.isPaused && "opacity-60",
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -189,7 +189,7 @@ export function SourceListItem({
           "w-5 h-5 rounded-md border-2 flex items-center justify-center transition-colors flex-shrink-0",
           isSelected
             ? "bg-app-accent border-app-accent"
-            : "border-white/20 hover:border-white/40"
+            : "border-white/20 hover:border-white/40",
         )}
       >
         {isSelected && <Check className="w-3 h-3 text-black" />}
@@ -199,7 +199,7 @@ export function SourceListItem({
       <div
         className={cn(
           "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0",
-          getSourceTypeColor(source.sourceType)
+          getSourceTypeColor(source.sourceType),
         )}
       >
         {getSourceIcon(source.sourceType)}
@@ -235,16 +235,22 @@ export function SourceListItem({
       {/* Stats */}
       <div className="hidden lg:flex items-center gap-4 flex-shrink-0">
         <div className="w-16 text-right">
-          <span className="text-xs text-white/40">{source.storiesPerMonth}/mo</span>
+          <span className="text-xs text-white/40">
+            {source.storiesPerMonth}/mo
+          </span>
         </div>
         <div className="w-16 text-right">
-          <span className="text-xs text-white/40">{formatLastSynced(source.lastSynced)}</span>
+          <span className="text-xs text-white/40">
+            {formatLastSynced(source.lastSynced)}
+          </span>
         </div>
       </div>
 
       {/* Health */}
       <div className="flex items-center gap-1.5 flex-shrink-0">
-        <div className={cn("w-2 h-2 rounded-full", getHealthColor(source.health))} />
+        <div
+          className={cn("w-2 h-2 rounded-full", getHealthColor(source.health))}
+        />
       </div>
 
       {/* Actions */}
@@ -256,7 +262,9 @@ export function SourceListItem({
           }}
           className={cn(
             "p-1.5 rounded-lg transition-colors",
-            menuOpen || isHovered ? "bg-white/10 text-white/60" : "text-white/30 hover:text-white/60"
+            menuOpen || isHovered
+              ? "bg-white/10 text-white/60"
+              : "text-white/30 hover:text-white/60",
           )}
         >
           <MoreHorizontal className="w-4 h-4" />

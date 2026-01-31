@@ -15,7 +15,6 @@ import {
   getImageLineage,
   getSimilarImages,
 } from "../neo4j/queries/images.js";
-import { ImageIngestionService } from "../services/imageIngestion.js";
 import logger from "../lib/logger.js";
 import { withSession } from "../lib/session.js";
 import { getPresignedUrlService } from "../lib/serviceRegistry.js";
@@ -148,6 +147,9 @@ export const queryResolvers: Resolvers = {
     },
 
     checkDuplicate: async (_, { image }) => {
+      const { ImageIngestionService } = await import(
+        "../services/imageIngestion.js"
+      );
       const ingestionService = new ImageIngestionService();
 
       const file = await image;

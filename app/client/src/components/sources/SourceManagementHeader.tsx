@@ -20,7 +20,10 @@ export function SourceManagementHeader({
         <p className="text-sm text-app-muted mt-1">
           Following {totalCount} feeds
           {inactiveCount > 0 && (
-            <span className="text-yellow-500"> with {inactiveCount} inactive</span>
+            <span className="text-yellow-500">
+              {" "}
+              with {inactiveCount} inactive
+            </span>
           )}
         </p>
       </div>

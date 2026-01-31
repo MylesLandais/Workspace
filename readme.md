@@ -9,6 +9,7 @@ Bunny is a modern full-stack application designed for managing and exploring lar
 ### Key Features
 
 - **Intelligent Feed**: Responsive masonry layout with infinite scroll and server-side filtering.
+- **Customizable Dashboard**: Drag-and-drop workspace with 11 widget types, real-time collaboration, and canvas mode.
 - **Vector Discovery**: Similarity-based media discovery using CLIP embeddings and Redis Vector Similarity Search (VSS).
 - **Media Management**: Automated image ingestion, hashing (pHash) for deduplication, and clustering.
 - **Graph-Powered**: Relationships and metadata managed via Neo4j for complex querying and discovery.
@@ -18,6 +19,7 @@ Bunny is a modern full-stack application designed for managing and exploring lar
 ## Tech Stack
 
 ### Frontend
+
 - **Framework**: Next.js 15 (App Router)
 - **Library**: React 19
 - **Styling**: Tailwind CSS + Framer Motion
@@ -25,6 +27,7 @@ Bunny is a modern full-stack application designed for managing and exploring lar
 - **Auth**: Better Auth
 
 ### Backend
+
 - **Server**: Node.js + Express (GraphQL)
 - **Database**: Neo4j (Graph)
 - **Cache & Vector Store**: Redis/Valkey (HNSW Index)
@@ -32,31 +35,49 @@ Bunny is a modern full-stack application designed for managing and exploring lar
 - **Schema**: GraphQL + Drizzle ORM
 
 ### Infrastructure
+
 - **Runtime**: Bun
 - **Containerization**: Docker + Docker Compose
 - **Testing**: Playwright (E2E) + Bun (Unit)
 
 ## Getting Started
 
-### Prerequisites
+### Quick Start with devenv (Recommended)
+
+Use Nix and devenv for a fully reproducible environment:
+
+```bash
+# Enter the dev shell
+devenv shell
+
+# Start Neo4j (required for data)
+neo4j start
+
+# Start GraphQL server
+server-start
+
+# Start all client services
+devenv up
+
+# Visit: http://localhost:3000
+```
+
+**Important**: Neo4j and the GraphQL server must be running for the feed/dashboard to work.
+
+See **[docs/setup-guide.md](docs/setup-guide.md)** for complete setup instructions including data compatibility layer.
+
+### Alternative: Docker
+
 - [Docker](https://www.docker.com/)
-- [Bun](https://bun.sh/) (optional, for local task execution)
+- [Bun](https://bun.sh/)
 
-### Installation
+```bash
+# Start GraphQL server
+cd app/server && docker-compose up -d
 
-1. **Clone the repository**
-2. **Start the infrastructure:**
-   ```bash
-   docker compose up -d
-   ```
-3. **Run the development servers:**
-   ```bash
-   # Client
-   cd app/client && bun run dev
-   
-   # Server
-   cd app/server && bun run dev
-   ```
+# Start client
+cd app/client && bun run dev
+```
 
 ## Project Structure
 
@@ -67,7 +88,20 @@ Bunny is a modern full-stack application designed for managing and exploring lar
 
 ## Documentation
 
-For more detailed information, please refer to the files in the `docs/` directory:
+For detailed information, see the `docs/` directory:
+
+### Setup & Configuration
+
+- **[Setup Guide](docs/setup-guide.md)** - Complete system setup with Neo4j, GraphQL, and dashboard
+- **[Contributing Guide](contributing.md)** - Development environment setup with devenv
+- **[Data Compatibility Layer](docs/data-compatibility-layer.md)** - Post/Media schema bridging
+
+### Features
+
+- **[Dashboard Guide](docs/dashboard.md)** - Dashboard features, widgets, and collaboration
+
+### Architecture
+
 - [Architecture Decision Records](docs/adr-001-express-elysia.md)
 - [GraphQL Code Generation](docs/graphql-codegen.md)
 - [Neo4j Optimization](docs/neo4j-optimization.md)

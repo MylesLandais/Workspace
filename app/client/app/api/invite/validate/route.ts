@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     if (!code) {
       return NextResponse.json(
         { error: "Code parameter is required", valid: false },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
     if (codeEntry.length === 0) {
       return NextResponse.json(
         { valid: false, message: "Invalid invite code" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -35,14 +35,14 @@ export async function GET(request: NextRequest) {
     if (invite.expiresAt && invite.expiresAt < now) {
       return NextResponse.json(
         { valid: false, message: "Invite code has expired" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     if (invite.maxUses && invite.usedCount >= invite.maxUses) {
       return NextResponse.json(
         { valid: false, message: "Invite code has reached maximum uses" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -56,7 +56,7 @@ export async function GET(request: NextRequest) {
     console.error("Invite validation error:", error);
     return NextResponse.json(
       { error: "Failed to validate invite code", valid: false },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -57,7 +57,13 @@ interface SourceTableProps {
   onViewFeed: (id: string) => void;
 }
 
-type SortColumn = "name" | "sourceType" | "group" | "storiesPerMonth" | "health" | "lastSynced";
+type SortColumn =
+  | "name"
+  | "sourceType"
+  | "group"
+  | "storiesPerMonth"
+  | "health"
+  | "lastSynced";
 
 function getSourceIcon(sourceType: SourceType) {
   switch (sourceType) {
@@ -134,13 +140,28 @@ function formatLastSynced(lastSynced: string | undefined): string {
   return date.toLocaleDateString();
 }
 
-const columns: { key: SortColumn; label: string; sortable: boolean; className?: string }[] = [
+const columns: {
+  key: SortColumn;
+  label: string;
+  sortable: boolean;
+  className?: string;
+}[] = [
   { key: "name", label: "Name", sortable: true, className: "min-w-[200px]" },
   { key: "sourceType", label: "Type", sortable: true, className: "w-28" },
   { key: "group", label: "Group", sortable: true, className: "w-36" },
-  { key: "storiesPerMonth", label: "Posts/mo", sortable: true, className: "w-24 text-right" },
+  {
+    key: "storiesPerMonth",
+    label: "Posts/mo",
+    sortable: true,
+    className: "w-24 text-right",
+  },
   { key: "health", label: "Health", sortable: true, className: "w-24" },
-  { key: "lastSynced", label: "Last Synced", sortable: true, className: "w-28" },
+  {
+    key: "lastSynced",
+    label: "Last Synced",
+    sortable: true,
+    className: "w-28",
+  },
 ];
 
 export function SourceTable({
@@ -203,7 +224,8 @@ export function SourceTable({
   };
 
   const allSelected = sources.length > 0 && selectedIds.size === sources.length;
-  const someSelected = selectedIds.size > 0 && selectedIds.size < sources.length;
+  const someSelected =
+    selectedIds.size > 0 && selectedIds.size < sources.length;
 
   const handleSelectAll = () => {
     if (allSelected) {
@@ -228,10 +250,12 @@ export function SourceTable({
                     ? "bg-app-accent border-app-accent"
                     : someSelected
                       ? "bg-app-accent/50 border-app-accent"
-                      : "border-white/20 hover:border-white/40"
+                      : "border-white/20 hover:border-white/40",
                 )}
               >
-                {(allSelected || someSelected) && <Check className="w-3 h-3 text-black" />}
+                {(allSelected || someSelected) && (
+                  <Check className="w-3 h-3 text-black" />
+                )}
               </button>
             </th>
 
@@ -242,19 +266,20 @@ export function SourceTable({
                 className={cn(
                   "px-4 py-3 text-left text-xs font-medium text-white/60 uppercase tracking-wider",
                   col.className,
-                  col.sortable && "cursor-pointer hover:text-white/80 select-none"
+                  col.sortable &&
+                    "cursor-pointer hover:text-white/80 select-none",
                 )}
                 onClick={() => col.sortable && handleSort(col.key)}
               >
                 <div className="flex items-center gap-1">
                   {col.label}
-                  {col.sortable && sortColumn === col.key && (
-                    sortDirection === "asc" ? (
+                  {col.sortable &&
+                    sortColumn === col.key &&
+                    (sortDirection === "asc" ? (
                       <ChevronUp className="w-3.5 h-3.5" />
                     ) : (
                       <ChevronDown className="w-3.5 h-3.5" />
-                    )
-                  )}
+                    ))}
                 </div>
               </th>
             ))}
@@ -275,7 +300,7 @@ export function SourceTable({
                 selectedIds.has(source.id)
                   ? "bg-app-accent/5"
                   : "hover:bg-white/5",
-                source.isPaused && "opacity-60"
+                source.isPaused && "opacity-60",
               )}
             >
               {/* Checkbox */}
@@ -286,10 +311,12 @@ export function SourceTable({
                     "w-5 h-5 rounded-md border-2 flex items-center justify-center transition-colors",
                     selectedIds.has(source.id)
                       ? "bg-app-accent border-app-accent"
-                      : "border-white/20 hover:border-white/40"
+                      : "border-white/20 hover:border-white/40",
                   )}
                 >
-                  {selectedIds.has(source.id) && <Check className="w-3 h-3 text-black" />}
+                  {selectedIds.has(source.id) && (
+                    <Check className="w-3 h-3 text-black" />
+                  )}
                 </button>
               </td>
 
@@ -302,7 +329,7 @@ export function SourceTable({
                   <div
                     className={cn(
                       "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0",
-                      getSourceTypeColor(source.sourceType)
+                      getSourceTypeColor(source.sourceType),
                     )}
                   >
                     {getSourceIcon(source.sourceType)}
@@ -329,7 +356,9 @@ export function SourceTable({
 
               {/* Type */}
               <td className="px-4 py-3">
-                <span className="text-xs text-white/60">{source.sourceType}</span>
+                <span className="text-xs text-white/60">
+                  {source.sourceType}
+                </span>
               </td>
 
               {/* Group */}
@@ -349,8 +378,15 @@ export function SourceTable({
               {/* Health */}
               <td className="px-4 py-3">
                 <div className="flex items-center gap-2">
-                  <div className={cn("w-2 h-2 rounded-full", getHealthColor(source.health))} />
-                  <span className="text-xs text-white/40 capitalize">{source.health}</span>
+                  <div
+                    className={cn(
+                      "w-2 h-2 rounded-full",
+                      getHealthColor(source.health),
+                    )}
+                  />
+                  <span className="text-xs text-white/40 capitalize">
+                    {source.health}
+                  </span>
                 </div>
               </td>
 

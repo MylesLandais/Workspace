@@ -8,7 +8,10 @@ interface SourceViewToggleProps {
   onViewModeChange: (mode: ViewMode) => void;
 }
 
-export function SourceViewToggle({ viewMode, onViewModeChange }: SourceViewToggleProps) {
+export function SourceViewToggle({
+  viewMode,
+  onViewModeChange,
+}: SourceViewToggleProps) {
   return (
     <div className="flex items-center gap-1 bg-zinc-900/50 border border-white/5 rounded-lg p-1">
       <button

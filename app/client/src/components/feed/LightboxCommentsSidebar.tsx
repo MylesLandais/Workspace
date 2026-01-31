@@ -44,7 +44,9 @@ export function LightboxCommentsSidebar({
           <h3 className="text-xs font-bold uppercase tracking-widest text-white/60">
             Comments
           </h3>
-          {isLoading && <Loader2 className="w-4 h-4 animate-spin text-app-accent" />}
+          {isLoading && (
+            <Loader2 className="w-4 h-4 animate-spin text-app-accent" />
+          )}
         </div>
         <a
           href={redditUrl}

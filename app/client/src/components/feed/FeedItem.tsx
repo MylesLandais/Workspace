@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useId } from "react";
 import { FeedItem as FeedItemType, MediaType } from "@/lib/types/feed";
 import { Heart, Play, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { RedditPostCard } from "@/components/reddit";
+import { startSpan, endSpan, addSpanEvent } from "@/lib/tracing/tracer";
 
 function CloverIcon({ className }: { className?: string }) {
   return (
@@ -36,7 +37,8 @@ function getSourceIcon(source: string) {
   if (s.includes("instagram")) return <span className="text-[10px]">IG</span>;
   if (s.includes("twitter") || s.includes("x"))
     return <span className="text-[10px]">X</span>;
-  if (s.includes("reddit")) return <span className="text-[10px] font-bold">r/</span>;
+  if (s.includes("reddit"))
+    return <span className="text-[10px] font-bold">r/</span>;
   if (s.includes("tiktok")) return <span className="text-[10px]">TT</span>;
   if (s.includes("pinterest")) return <span className="text-[10px]">P</span>;
   return <span className="text-[10px]">W</span>;
@@ -55,24 +57,53 @@ export function FeedItem({
   y,
   onHeightMeasured,
   onClick,
-  isPlaceholder = false
+  isPlaceholder = false,
 }: FeedItemProps) {
   const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const componentId = useId();
 
   const isImageboard = item.source.toLowerCase().includes("imageboard");
   const hasGallery = item.galleryUrls && item.galleryUrls.length > 0;
   const shouldRotate = isImageboard && hasGallery;
 
   useEffect(() => {
+    const span = startSpan(`feed.card.${componentId}`);
+    addSpanEvent(span, "card.render", {
+      itemId: item.id,
+      source: item.source,
+      type: item.type,
+      isPlaceholder: isPlaceholder ? 1 : 0,
+      hasGallery: hasGallery ? 1 : 0,
+      columnWidth,
+      x,
+      y,
+    });
+    return () => endSpan(span);
+  }, [componentId]);
+
+  useEffect(() => {
     if (!cardRef.current) return;
+
+    const resizeSpan = startSpan(`feed.card.${componentId}.resizeObserver`);
+    let callbackCount = 0;
 
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         if (entry.contentRect.height > 0) {
-          onHeightMeasured(item.id, entry.target.getBoundingClientRect().height);
+          callbackCount++;
+          const height = entry.target.getBoundingClientRect().height;
+          onHeightMeasured(item.id, height);
+
+          if (callbackCount <= 5) {
+            addSpanEvent(resizeSpan, "resize_callback", {
+              callbackNumber: callbackCount,
+              height,
+              width: entry.contentRect.width,
+            });
+          }
         }
       }
     });
@@ -82,33 +113,55 @@ export function FeedItem({
     const initialHeight = cardRef.current.getBoundingClientRect().height;
     if (initialHeight > 0) {
       onHeightMeasured(item.id, initialHeight);
+      addSpanEvent(resizeSpan, "initial_height_measured", {
+        height: initialHeight,
+      });
     }
 
     return () => {
+      addSpanEvent(resizeSpan, "resize_observer_cleanup", {
+        totalCallbacks: callbackCount,
+      });
+      endSpan(resizeSpan);
       resizeObserver.disconnect();
     };
-  }, [item.id, onHeightMeasured]);
+  }, [item.id, onHeightMeasured, componentId]);
 
-  // Rotate through first 5 images only when hovered
   useEffect(() => {
     if (!shouldRotate || !isHovered) return;
+
+    const rotationSpan = startSpan(`feed.card.${componentId}.galleryRotation`);
+    let rotationCount = 0;
 
     const maxImages = Math.min(5, item.galleryUrls!.length);
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % maxImages);
+      rotationCount++;
+
+      addSpanEvent(rotationSpan, "gallery_rotate", {
+        rotationNumber: rotationCount,
+        imageIndex: rotationCount % maxImages,
+        imageUrl: item.galleryUrls![rotationCount % maxImages],
+      });
     }, 2500);
 
-    return () => clearInterval(interval);
-  }, [shouldRotate, item.galleryUrls, isHovered]);
+    return () => {
+      addSpanEvent(rotationSpan, "gallery_rotation_cleanup", {
+        totalRotations: rotationCount,
+      });
+      endSpan(rotationSpan);
+      clearInterval(interval);
+    };
+  }, [shouldRotate, item.galleryUrls, isHovered, componentId]);
 
-  const isVideo = item.type === MediaType.VIDEO || item.type === MediaType.SHORT;
+  const isVideo =
+    item.type === MediaType.VIDEO || item.type === MediaType.SHORT;
   const isReddit = item.source.toLowerCase() === "reddit" && !!item.redditData;
 
   const imageUrl =
     shouldRotate && item.galleryUrls
       ? item.galleryUrls[currentImageIndex]
-      : item.mediaUrl ||
-        `https://picsum.photos/seed/${item.id}/${item.width}/${item.height}`;
+      : item.presignedUrl || item.mediaUrl || "";
 
   return (
     <div
@@ -117,21 +170,46 @@ export function FeedItem({
         "absolute group rounded-3xl overflow-hidden",
         isPlaceholder
           ? "bg-white/5 animate-pulse border-white/5"
-          : "bg-white/5 backdrop-blur-sm border border-white/5 hover:border-white/20 hover:bg-white/10 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] cursor-pointer"
+          : "bg-white/5 backdrop-blur-sm border border-white/5 hover:border-white/20 hover:bg-white/10 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] cursor-pointer",
       )}
       style={{
         width: columnWidth,
         left: x,
         top: y,
       }}
-      onClick={() => onClick?.(item)}
+      onClick={() => {
+        const clickSpan = startSpan(`feed.card.${componentId}.click`);
+        addSpanEvent(clickSpan, "card.clicked", {
+          itemId: item.id,
+          source: item.source,
+          type: item.type,
+          hasGallery: hasGallery ? 1 : 0,
+        });
+        endSpan(clickSpan);
+        onClick?.(item);
+      }}
       onMouseEnter={() => {
         setIsHovered(true);
-        if (isVideo && videoRef) videoRef.play().catch(() => { });
+        const hoverSpan = startSpan(`feed.card.${componentId}.hover`);
+        addSpanEvent(hoverSpan, "card.hover_start", {
+          itemId: item.id,
+          isVideo: isVideo ? 1 : 0,
+          shouldRotate: shouldRotate ? 1 : 0,
+        });
+        endSpan(hoverSpan);
+
+        if (isVideo && videoRef) videoRef.play().catch(() => {});
       }}
       onMouseLeave={() => {
         setIsHovered(false);
         setCurrentImageIndex(0);
+        const hoverEndSpan = startSpan(`feed.card.${componentId}.hoverEnd`);
+        addSpanEvent(hoverEndSpan, "card.hover_end", {
+          itemId: item.id,
+          finalImageIndex: currentImageIndex,
+        });
+        endSpan(hoverEndSpan);
+
         if (isVideo && videoRef) {
           videoRef.pause();
           videoRef.currentTime = 0;
@@ -139,8 +217,8 @@ export function FeedItem({
       }}
     >
       {isReddit ? (
-        <RedditPostCard 
-          post={item.redditData!} 
+        <RedditPostCard
+          post={item.redditData!}
           variant="compact"
           className="border-none bg-transparent hover:shadow-none"
         />
@@ -150,7 +228,7 @@ export function FeedItem({
             className={cn(
               "relative w-full overflow-hidden isolate bg-black/40",
               // Remove Tailwind aspect classes to use robust style-based aspect ratio
-              "aspect-auto"
+              "aspect-auto",
             )}
             style={{
               aspectRatio: `${item.width} / ${item.height}`,
@@ -166,7 +244,7 @@ export function FeedItem({
                   <Play className="w-3 h-3 fill-current" />
                 </div>
               )}
-              {item.source.toLowerCase().includes('booru') && (
+              {item.source.toLowerCase().includes("booru") && (
                 <div className="p-2 rounded-xl bg-app-accent/80 backdrop-blur-md border border-white/10 text-black">
                   <Sparkles className="w-3 h-3" />
                 </div>
@@ -180,16 +258,42 @@ export function FeedItem({
                 src={item.mediaUrl}
                 className={cn(
                   "absolute inset-0 w-full h-full object-cover transform will-change-transform",
-                  "group-hover:scale-110 transition-transform duration-500 ease-out"
+                  "group-hover:scale-110 transition-transform duration-500 ease-out",
                 )}
                 muted
                 loop
                 playsInline
                 preload="auto"
                 onLoadedMetadata={() => {
+                  const loadSpan = startSpan(
+                    `feed.card.${componentId}.videoLoaded`,
+                  );
                   if (cardRef.current) {
-                    onHeightMeasured(item.id, cardRef.current.getBoundingClientRect().height);
+                    onHeightMeasured(
+                      item.id,
+                      cardRef.current.getBoundingClientRect().height,
+                    );
                   }
+                  addSpanEvent(loadSpan, "video.loaded_metadata", {
+                    itemId: item.id,
+                    mediaUrl: item.mediaUrl || "",
+                    cardHeight:
+                      cardRef.current?.getBoundingClientRect().height || 0,
+                  });
+                  endSpan(loadSpan);
+                }}
+                onError={(e) => {
+                  const errorSpan = startSpan(
+                    `feed.card.${componentId}.videoError`,
+                  );
+                  addSpanEvent(errorSpan, "video.error", {
+                    itemId: item.id,
+                    mediaUrl: item.mediaUrl || "",
+                    error:
+                      (e.target as HTMLVideoElement).error?.message ||
+                      "Unknown video error",
+                  });
+                  endSpan(errorSpan);
                 }}
               />
             )}
@@ -201,14 +305,50 @@ export function FeedItem({
                 alt={item.caption}
                 className={cn(
                   "absolute inset-0 w-full h-full object-cover transform will-change-transform",
-                  "group-hover:scale-110 transition-transform duration-500 ease-out"
+                  "group-hover:scale-110 transition-transform duration-500 ease-out",
                 )}
                 loading="eager"
                 decoding="async"
-                onLoad={() => {
+                onLoad={(e) => {
+                  const loadSpan = startSpan(
+                    `feed.card.${componentId}.imageLoaded`,
+                  );
+                  const img = e.target as HTMLImageElement;
+
                   if (cardRef.current) {
-                    onHeightMeasured(item.id, cardRef.current.getBoundingClientRect().height);
+                    onHeightMeasured(
+                      item.id,
+                      cardRef.current.getBoundingClientRect().height,
+                    );
                   }
+
+                  addSpanEvent(loadSpan, "image.loaded", {
+                    itemId: item.id,
+                    imageUrl: imageUrl.substring(0, 200),
+                    currentImageIndex,
+                    isGallery: !!item.galleryUrls ? 1 : 0,
+                    naturalWidth: img.naturalWidth,
+                    naturalHeight: img.naturalHeight,
+                    aspectRatio: `${img.naturalWidth}/${img.naturalHeight}`,
+                    loadingStrategy: "eager",
+                    decodingStrategy: "async",
+                  });
+                  endSpan(loadSpan);
+                }}
+                onError={(e) => {
+                  const errorSpan = startSpan(
+                    `feed.card.${componentId}.imageError`,
+                  );
+                  addSpanEvent(errorSpan, "image.error", {
+                    itemId: item.id,
+                    imageUrl: imageUrl.substring(0, 200),
+                    currentImageIndex,
+                    error:
+                      (e.target as HTMLImageElement).naturalWidth === 0
+                        ? "Image failed to load (naturalWidth = 0)"
+                        : "Unknown image error",
+                  });
+                  endSpan(errorSpan);
                 }}
               />
             )}
@@ -219,12 +359,14 @@ export function FeedItem({
             {/* Gallery rotation indicator for imageboard */}
             {shouldRotate && isHovered && (
               <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 transition-opacity">
-                {Array.from({ length: Math.min(5, item.galleryUrls!.length) }).map((_, i) => (
+                {Array.from({
+                  length: Math.min(5, item.galleryUrls!.length),
+                }).map((_, i) => (
                   <div
                     key={i}
                     className={cn(
                       "w-1 h-1 rounded-full transition-colors",
-                      i === currentImageIndex ? "bg-white" : "bg-white/40"
+                      i === currentImageIndex ? "bg-white" : "bg-white/40",
                     )}
                   />
                 ))}
@@ -235,28 +377,35 @@ export function FeedItem({
           <div className="p-5 flex flex-col gap-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className={cn(
-                  "w-6 h-6 rounded-lg flex items-center justify-center text-[10px] font-black border",
-                  item.source.toLowerCase().includes("imageboard")
-                    ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
-                    : "bg-white/10 text-white/50 border-white/5"
-                )}>
+                <div
+                  className={cn(
+                    "w-6 h-6 rounded-lg flex items-center justify-center text-[10px] font-black border",
+                    item.source.toLowerCase().includes("imageboard")
+                      ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
+                      : "bg-white/10 text-white/50 border-white/5",
+                  )}
+                >
                   {getSourceIcon(item.source)}
                 </div>
-                <span className="text-[10px] font-bold tracking-widest uppercase text-white/40">{item.source}</span>
+                <span className="text-[10px] font-bold tracking-widest uppercase text-white/40">
+                  {item.source}
+                </span>
               </div>
 
               <div className="flex items-center gap-3">
                 {item.source.toLowerCase().includes("imageboard") ? (
                   <div className="flex items-center gap-1.5 text-white/40">
                     <span className="text-[10px] font-bold">
-                      R: {formatNumber(item.replyCount || 0)} / I: {formatNumber(item.imageCount || 0)}
+                      R: {formatNumber(item.replyCount || 0)} / I:{" "}
+                      {formatNumber(item.imageCount || 0)}
                     </span>
                   </div>
                 ) : (
                   <div className="flex items-center gap-1.5 text-white/40 hover:text-app-accent transition-colors">
                     <Heart className="w-3.5 h-3.5" />
-                    <span className="text-[10px] font-bold">{formatNumber(item.likes)}</span>
+                    <span className="text-[10px] font-bold">
+                      {formatNumber(item.likes)}
+                    </span>
                   </div>
                 )}
               </div>
@@ -269,17 +418,28 @@ export function FeedItem({
             <div className="flex items-center gap-3 mt-1 pt-3 border-t border-white/5">
               {item.source.toLowerCase().includes("imageboard") ? (
                 <div className="flex flex-col">
-                  <span className="text-[11px] font-bold text-white/90 leading-none">Anonymous</span>
-                  <span className="text-[9px] font-medium text-white/30 tracking-tight">No ID</span>
+                  <span className="text-[11px] font-bold text-white/90 leading-none">
+                    Anonymous
+                  </span>
+                  <span className="text-[9px] font-medium text-white/30 tracking-tight">
+                    No ID
+                  </span>
                 </div>
               ) : (
                 <>
                   <div className="w-6 h-6 rounded-full overflow-hidden ring-1 ring-white/10">
-                    <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${item.author.handle}`} alt={item.author.handle} />
+                    <img
+                      src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${item.author.handle}`}
+                      alt={item.author.handle}
+                    />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[11px] font-bold text-white/90 leading-none">{item.author.name || item.author.handle}</span>
-                    <span className="text-[9px] font-medium text-white/30 tracking-tight">@{item.author.handle}</span>
+                    <span className="text-[11px] font-bold text-white/90 leading-none">
+                      {item.author.name || item.author.handle}
+                    </span>
+                    <span className="text-[9px] font-medium text-white/30 tracking-tight">
+                      @{item.author.handle}
+                    </span>
                   </div>
                 </>
               )}

@@ -7,11 +7,11 @@ export type {
   RedditSubreddit,
   RedditStats,
   PostsQueryParams,
-} from './types/reddit';
+} from "./types/reddit";
 
 // Components
-export { RedditPostCard } from './components/RedditPostCard';
-export { RedditGalleryEmbed } from './components/RedditGalleryEmbed';
+export { RedditPostCard } from "./components/RedditPostCard";
+export { RedditGalleryEmbed } from "./components/RedditGalleryEmbed";
 
 // Hooks
 export {
@@ -20,4 +20,4 @@ export {
   useSubredditPosts,
   useSubreddits,
   useRedditStats,
-} from './hooks/useReddit';
+} from "./hooks/useReddit";

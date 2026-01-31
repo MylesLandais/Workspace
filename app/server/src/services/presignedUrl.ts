@@ -1,5 +1,5 @@
-import { getStorageBackend, S3Storage } from './storage.js';
-import { UrlCacheService, UrlVariant } from './urlCache.js';
+import { getStorageBackend, S3Storage } from "./storage.js";
+import { UrlCacheService, UrlVariant } from "./urlCache.js";
 
 export interface PresignedUrlResult {
   url: string;
@@ -20,7 +20,7 @@ export class PresignedUrlService {
   async getPresignedUrl(
     sha256: string,
     mimeType: string,
-    variant: UrlVariant = 'full'
+    variant: UrlVariant = "full",
   ): Promise<PresignedUrlResult> {
     const cached = await this.cache.getCachedUrl(sha256, variant);
     if (cached) {
@@ -30,7 +30,11 @@ export class PresignedUrlService {
       };
     }
 
-    const url = await this.storage.getPresignedUrl(sha256, mimeType, this.defaultExpiresIn);
+    const url = await this.storage.getPresignedUrl(
+      sha256,
+      mimeType,
+      this.defaultExpiresIn,
+    );
     await this.cache.setCachedUrl(sha256, variant, url);
 
     return {
@@ -41,13 +45,13 @@ export class PresignedUrlService {
 
   async batchGetPresignedUrls(
     items: Array<{ sha256: string; mimeType: string }>,
-    variant: UrlVariant = 'full'
+    variant: UrlVariant = "full",
   ): Promise<BatchPresignedUrlResult[]> {
     if (items.length === 0) {
       return [];
     }
 
-    const sha256s = items.map(item => item.sha256);
+    const sha256s = items.map((item) => item.sha256);
     const cached = await this.cache.batchGetUrls(sha256s, variant);
 
     const results: BatchPresignedUrlResult[] = [];
@@ -72,7 +76,7 @@ export class PresignedUrlService {
           const url = await this.storage.getPresignedUrl(
             item.sha256,
             item.mimeType,
-            this.defaultExpiresIn
+            this.defaultExpiresIn,
           );
           await this.cache.setCachedUrl(item.sha256, variant, url);
           return {
@@ -80,14 +84,14 @@ export class PresignedUrlService {
             url,
             expiresAt: this.getExpirationDate(this.defaultExpiresIn),
           };
-        })
+        }),
       );
 
       results.push(...newUrls);
     }
 
-    const sortedResults = items.map(item =>
-      results.find(r => r.sha256 === item.sha256)!
+    const sortedResults = items.map(
+      (item) => results.find((r) => r.sha256 === item.sha256)!,
     );
 
     return sortedResults;

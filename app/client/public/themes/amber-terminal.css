@@ -1,0 +1,90 @@
+/**
+ * OmniDash Theme: Amber Terminal
+ * Retro amber CRT monitor aesthetic
+ * Nostalgic hacker vibes
+ */
+
+:root {
+  /* ===== LIGHT MODE ===== */
+  /* Backgrounds - Warm cream */
+  --bg-base: #fefce8;
+  --bg-surface: #ffffff;
+  --bg-elevated: #fef9c3;
+  --bg-hover: #fef08a;
+
+  /* Text - Warm browns */
+  --text-primary: #451a03;
+  --text-secondary: #78350f;
+  --text-muted: #a16207;
+  --text-faint: #ca8a04;
+
+  /* Borders */
+  --border-default: #fef08a;
+  --border-muted: #fef9c3;
+
+  /* Accent - Amber */
+  --accent-primary: #d97706;
+  --accent-primary-hover: #b45309;
+  --accent-text: #ffffff;
+
+  /* Focus */
+  --focus-ring: rgba(217, 119, 6, 0.4);
+
+  /* Status Colors */
+  --status-success: #65a30d;
+  --status-warning: #d97706;
+  --status-error: #dc2626;
+  --status-info: #0284c7;
+}
+
+.dark {
+  /* ===== DARK MODE ===== */
+  /* Backgrounds - CRT black */
+  --bg-base: #0c0a05;
+  --bg-surface: #1a1508;
+  --bg-elevated: #2d2410;
+  --bg-hover: #3d3118;
+
+  /* Text - Amber glow */
+  --text-primary: #fef3c7;
+  --text-secondary: #fcd34d;
+  --text-muted: #fbbf24;
+  --text-faint: #a16207;
+
+  /* Borders */
+  --border-default: #2d2410;
+  --border-muted: #1a1508;
+
+  /* Accent - Bright amber */
+  --accent-primary: #fbbf24;
+  --accent-primary-hover: #fcd34d;
+  --accent-text: #0c0a05;
+
+  /* Focus */
+  --focus-ring: rgba(251, 191, 36, 0.3);
+}
+
+/* CRT scanline effect (optional) */
+.dark body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Amber text glow effect */
+.dark .font-mono,
+.dark .font-bold {
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+}

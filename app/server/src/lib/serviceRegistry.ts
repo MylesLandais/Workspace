@@ -1,8 +1,8 @@
-import logger from './logger.js';
-import { getStorageBackend } from '../services/storage.js';
-import { PresignedUrlService } from '../services/presignedUrl.js';
-import { VectorSearchService } from '../services/vectorSearch.js';
-import { DuplicateDetector } from '../services/duplicateDetector.js';
+import logger from "./logger.js";
+import { getStorageBackend } from "../services/storage.js";
+import { PresignedUrlService } from "../services/presignedUrl.js";
+import { VectorSearchService } from "../services/vectorSearch.js";
+import { DuplicateDetector } from "../services/duplicateDetector.js";
 
 class ServiceRegistry {
   private static instance: ServiceRegistry;
@@ -26,23 +26,23 @@ class ServiceRegistry {
   }
 
   getStorage() {
-    return this.get('storage', () => getStorageBackend());
+    return this.get("storage", () => getStorageBackend());
   }
 
   getPresignedUrlService() {
-    return this.get('presignedUrl', () => new PresignedUrlService());
+    return this.get("presignedUrl", () => new PresignedUrlService());
   }
 
   getVectorSearchService() {
-    return this.get('vectorSearch', () => new VectorSearchService());
+    return this.get("vectorSearch", () => new VectorSearchService());
   }
 
   getDuplicateDetector() {
-    return this.get('duplicateDetector', () => new DuplicateDetector());
+    return this.get("duplicateDetector", () => new DuplicateDetector());
   }
 
   clear(): void {
-    logger.info('Clearing service registry cache');
+    logger.info("Clearing service registry cache");
     this.cache.clear();
   }
 }

@@ -310,7 +310,7 @@ export async function getUserSources(
       OPTIONAL MATCH (e:Entity)-[:HAS_SOURCE]->(s)
     `;
 
-    const whereClauses: string[] = [];
+    const whereClauses: string[] = ["s.id IS NOT NULL"];
     const params: Record<string, any> = {};
 
     if (filters?.groupId) {
@@ -362,14 +362,30 @@ export async function getUserSources(
 
     const result = await session.run(query, params);
 
-    return result.records.map((record) => {
-      const source = record.get("s").properties;
-      const groupName = record.get("groupName") || "Uncategorized";
-      const groupId = record.get("groupId");
-      const entityId = record.get("entityId");
-      const entityName = record.get("entityName");
-      return mapSourceRecord(source, groupName, entityId, entityName, groupId);
-    });
+    return result.records
+      .map((record) => {
+        const sourceNode = record.get("s");
+        const source = sourceNode?.properties;
+
+        // Skip records with null or invalid source nodes
+        if (!source || !source.id) {
+          return null;
+        }
+
+        const groupName = record.get("groupName") || "Uncategorized";
+        const groupId = record.get("groupId");
+        const entityId = record.get("entityId");
+        const entityName = record.get("entityName");
+
+        return mapSourceRecord(
+          source,
+          groupName,
+          entityId,
+          entityName,
+          groupId,
+        );
+      })
+      .filter((s): s is Source => s !== null);
   } finally {
     await session.close();
   }

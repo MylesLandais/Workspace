@@ -92,14 +92,17 @@ Consider migration to Elysia.js if:
 ## Alternatives Considered
 
 ### 1. Keep Express, Use Elysia for New Services
+
 **Status**: Not recommended
 **Rationale**: Mixed stack complexity outweighs benefits
 
 ### 2. Use Fastify instead of Express
+
 **Status**: Considered but rejected
 **Rationale**: Express performance is sufficient, migration cost not justified
 
 ### 3. Pure GraphQL with Yoga
+
 **Status**: Considered but rejected
 **Rationale**: Apollo Server has more features and better tooling
 

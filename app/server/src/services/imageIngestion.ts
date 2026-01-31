@@ -1,7 +1,7 @@
-import { ImageHasher } from './imageHasher.js';
-import { DuplicateDetector } from './duplicateDetector.js';
-import { ClipEmbedder } from './clipEmbedder.js';
-import { getStorage } from '../lib/serviceRegistry.js';
+import { ImageHasher } from "./imageHasher.js";
+import { DuplicateDetector } from "./duplicateDetector.js";
+import { ClipEmbedder } from "./clipEmbedder.js";
+import { getStorage } from "../lib/serviceRegistry.js";
 import {
   createImageCluster,
   createMediaWithHashes,
@@ -13,8 +13,8 @@ import {
   linkMediaToPost,
   getMediaById,
   getClusterById,
-} from '../neo4j/queries/images.js';
-import { withSession } from '../lib/session.js';
+} from "../neo4j/queries/images.js";
+import { withSession } from "../lib/session.js";
 
 export interface IngestionMetadata {
   postId?: string;
@@ -51,7 +51,7 @@ export class ImageIngestionService {
 
   async ingestImage(
     imageBuffer: Buffer,
-    metadata: IngestionMetadata = {}
+    metadata: IngestionMetadata = {},
   ): Promise<IngestionResult> {
     const storage = getStorage();
     const hashes = await this.hasher.computeHashesFromBuffer(imageBuffer);
@@ -67,18 +67,20 @@ export class ImageIngestionService {
           isDuplicate: true,
           isRepost: false,
           confidence: 1.0,
-          matchedMethod: 'sha256',
-          original: cluster ? {
-            mediaId: exactMatch,
-            firstSeen: new Date(cluster.firstSeen),
-            postId: metadata.postId,
-          } : undefined,
+          matchedMethod: "sha256",
+          original: cluster
+            ? {
+                mediaId: exactMatch,
+                firstSeen: new Date(cluster.firstSeen),
+                postId: metadata.postId,
+              }
+            : undefined,
         };
       }
     }
 
     const nearDuplicates = await this.detector.findNearDuplicates(hashes);
-    
+
     let clusterId: string;
     let isRepost = false;
     let confidence: number | undefined;
@@ -102,7 +104,7 @@ export class ImageIngestionService {
         clusterId = bestMatch.clusterId;
         isRepost = true;
         confidence = bestMatch.similarity;
-        matchedMethod = 'clip';
+        matchedMethod = "clip";
         originalMediaId = bestMatch.mediaId;
 
         await incrementClusterRepostCount(clusterId);
@@ -113,7 +115,11 @@ export class ImageIngestionService {
       }
     }
 
-    const storagePath = await storage.storeImage(imageBuffer, hashes.sha256, hashes.mimeType);
+    const storagePath = await storage.storeImage(
+      imageBuffer,
+      hashes.sha256,
+      hashes.mimeType,
+    );
     const imageUrl = storage.getImageUrl(hashes.sha256);
 
     const mediaId = await createMediaWithHashes({
@@ -142,7 +148,12 @@ export class ImageIngestionService {
       });
       await this.detector.addToPhashBuckets(hashes.phash, clusterId);
     } else if (originalMediaId) {
-      await createRepostRelationship(mediaId, originalMediaId, confidence || 0.95, matchedMethod || 'unknown');
+      await createRepostRelationship(
+        mediaId,
+        originalMediaId,
+        confidence || 0.95,
+        matchedMethod || "unknown",
+      );
     }
 
     await this.detector.storeHashMapping(
@@ -150,11 +161,12 @@ export class ImageIngestionService {
       hashes.phash,
       hashes.dhash,
       clusterId,
-      mediaId
+      mediaId,
     );
 
     if (!isRepost) {
-      const embedding = await this.clipEmbedder.computeEmbeddingFromBuffer(imageBuffer);
+      const embedding =
+        await this.clipEmbedder.computeEmbeddingFromBuffer(imageBuffer);
       await this.detector.storeClipEmbedding(hashes.sha256, embedding);
     }
 
@@ -164,7 +176,9 @@ export class ImageIngestionService {
     }
 
     const cluster = await getClusterById(clusterId);
-    const original = originalMediaId ? await getMediaById(originalMediaId) : null;
+    const original = originalMediaId
+      ? await getMediaById(originalMediaId)
+      : null;
 
     return {
       mediaId,
@@ -173,32 +187,51 @@ export class ImageIngestionService {
       isRepost,
       confidence,
       matchedMethod,
-      original: original && cluster ? {
-        mediaId: original.id,
-        firstSeen: new Date(cluster.firstSeen),
-        postId: metadata.postId,
-      } : undefined,
+      original:
+        original && cluster
+          ? {
+              mediaId: original.id,
+              firstSeen: new Date(cluster.firstSeen),
+              postId: metadata.postId,
+            }
+          : undefined,
     };
   }
 
   private async checkClipSimilarity(
     imageBuffer: Buffer,
-    hashes: { sha256: string }
-  ): Promise<Array<{ clusterId: string; mediaId: string; similarity: number }> | null> {
-    const { getVectorSearchService } = await import('../lib/serviceRegistry.js');
+    hashes: { sha256: string },
+  ): Promise<Array<{
+    clusterId: string;
+    mediaId: string;
+    similarity: number;
+  }> | null> {
+    const { getVectorSearchService } = await import(
+      "../lib/serviceRegistry.js"
+    );
     const vectorSearch = getVectorSearchService();
 
-    const queryEmbedding = await this.clipEmbedder.computeEmbeddingFromBuffer(imageBuffer);
-    const similarEmbeddings = await vectorSearch.searchSimilar(queryEmbedding, 10, 0.95);
+    const queryEmbedding =
+      await this.clipEmbedder.computeEmbeddingFromBuffer(imageBuffer);
+    const similarEmbeddings = await vectorSearch.searchSimilar(
+      queryEmbedding,
+      10,
+      0.95,
+    );
 
     if (!similarEmbeddings || similarEmbeddings.length === 0) {
       return null;
     }
 
-    const matches: Array<{ clusterId: string; mediaId: string; similarity: number }> = [];
+    const matches: Array<{
+      clusterId: string;
+      mediaId: string;
+      similarity: number;
+    }> = [];
 
     for (const { sha256, similarity } of similarEmbeddings) {
-      const clusterMeta = await this.detector.getClusterMetadataBySha256(sha256);
+      const clusterMeta =
+        await this.detector.getClusterMetadataBySha256(sha256);
       if (!clusterMeta) continue;
 
       matches.push({
@@ -208,7 +241,9 @@ export class ImageIngestionService {
       });
     }
 
-    return matches.length > 0 ? matches.sort((a, b) => b.similarity - a.similarity) : null;
+    return matches.length > 0
+      ? matches.sort((a, b) => b.similarity - a.similarity)
+      : null;
   }
 
   private async ensurePostExists(metadata: IngestionMetadata): Promise<void> {
@@ -235,12 +270,11 @@ export class ImageIngestionService {
 
       await session.run(query, {
         postId: metadata.postId,
-        title: metadata.title || '',
+        title: metadata.title || "",
         createdAt: (metadata.createdAt || new Date()).toISOString(),
-        subreddit: metadata.subreddit || '',
-        author: metadata.author || 'deleted',
+        subreddit: metadata.subreddit || "",
+        author: metadata.author || "deleted",
       });
     });
   }
 }
-

@@ -42,7 +42,7 @@ export function measurePerformance<T>(name: string, fn: () => T): T {
 
 export async function measureAsyncPerformance<T>(
   name: string,
-  fn: () => Promise<T>
+  fn: () => Promise<T>,
 ): Promise<T> {
   const start = performance.now();
   const result = await fn();
@@ -61,7 +61,10 @@ export async function measureAsyncPerformance<T>(
 }
 
 export function getMetrics() {
-  const result: Record<string, { avg: number; min: number; max: number; count: number }> = {};
+  const result: Record<
+    string,
+    { avg: number; min: number; max: number; count: number }
+  > = {};
 
   metrics.forEach((durations, name) => {
     const avg = durations.reduce((a, b) => a + b, 0) / durations.length;

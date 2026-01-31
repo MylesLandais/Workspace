@@ -11,7 +11,12 @@ interface SourceActionsProps {
   onDelete: (id: string) => void;
 }
 
-export function SourceActions({ source, onPause, onMove, onDelete }: SourceActionsProps) {
+export function SourceActions({
+  source,
+  onPause,
+  onMove,
+  onDelete,
+}: SourceActionsProps) {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 

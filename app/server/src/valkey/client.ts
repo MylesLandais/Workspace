@@ -1,10 +1,10 @@
-import { createClient } from 'redis';
-import dotenv from 'dotenv';
-import logger from '../lib/logger.js';
+import { createClient } from "redis";
+import dotenv from "dotenv";
+import logger from "../lib/logger.js";
 
 dotenv.config();
 
-const uri = process.env.VALKEY_URI || 'redis://valkey:6379';
+const uri = process.env.VALKEY_URI || "redis://valkey:6379";
 const password = process.env.VALKEY_PASSWORD || undefined;
 
 let client: ReturnType<typeof createClient> | null = null;
@@ -15,21 +15,21 @@ export function getValkeyClient() {
     client = createClient({
       socket: {
         host: url.hostname,
-        port: parseInt(url.port || '6379'),
+        port: parseInt(url.port || "6379"),
       },
       password: password || undefined,
     });
 
-    client.on('error', (err) => {
-      logger.error('Valkey client error', err);
+    client.on("error", (err) => {
+      logger.error("Valkey client error", err);
     });
 
-    client.on('connect', () => {
-      logger.debug('Valkey client connected');
+    client.on("connect", () => {
+      logger.debug("Valkey client connected");
     });
 
     client.connect().catch((err) => {
-      logger.error('Failed to connect to Valkey', err);
+      logger.error("Failed to connect to Valkey", err);
     });
   }
   return client;
@@ -39,10 +39,10 @@ export async function verifyValkeyConnection() {
   const client = getValkeyClient();
   try {
     await client.ping();
-    logger.info('Valkey connection verified');
+    logger.info("Valkey connection verified");
     return true;
   } catch (error) {
-    logger.error('Failed to connect to Valkey', error);
+    logger.error("Failed to connect to Valkey", error);
     throw error;
   }
 }
@@ -53,4 +53,3 @@ export async function closeValkeyConnection() {
     client = null;
   }
 }
-

@@ -4,6 +4,8 @@ import { RefreshCw } from "lucide-react";
 import type { Source } from "@/lib/types/sources";
 import { SourceRow } from "./SourceRow";
 import { SourceViewToggle } from "./SourceViewToggle";
+import { SourceIcon } from "./SourceIcon";
+import { SourceActions } from "./SourceActions";
 import type { ViewMode } from "@/lib/types/sources";
 
 interface SourceTableProps {
@@ -34,7 +36,8 @@ export function SourceTable({
   isLoading,
 }: SourceTableProps) {
   const allSelected = sources.length > 0 && selectedIds.size === sources.length;
-  const someSelected = selectedIds.size > 0 && selectedIds.size < sources.length;
+  const someSelected =
+    selectedIds.size > 0 && selectedIds.size < sources.length;
 
   return (
     <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden">
@@ -53,14 +56,19 @@ export function SourceTable({
           <span className="text-sm text-app-muted">Select All</span>
         </div>
         <div className="flex items-center gap-3">
-          <SourceViewToggle viewMode={viewMode} onViewModeChange={onViewModeChange} />
+          <SourceViewToggle
+            viewMode={viewMode}
+            onViewModeChange={onViewModeChange}
+          />
           <button
             onClick={onRefresh}
             disabled={isLoading}
             className="p-2 rounded-lg hover:bg-white/5 text-app-muted hover:text-app-text transition-colors disabled:opacity-50"
             title="Refresh"
           >
-            <RefreshCw className={`w-4 h-4 ${isLoading ? "animate-spin" : ""}`} />
+            <RefreshCw
+              className={`w-4 h-4 ${isLoading ? "animate-spin" : ""}`}
+            />
           </button>
         </div>
       </div>
@@ -100,7 +108,9 @@ export function SourceTable({
           </tbody>
         </table>
       ) : (
-        <div className={`p-4 ${viewMode === "grid" ? "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" : "space-y-2"}`}>
+        <div
+          className={`p-4 ${viewMode === "grid" ? "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" : "space-y-2"}`}
+        >
           {sources.map((source) => (
             <SourceCard
               key={source.id}
@@ -144,13 +154,13 @@ function SourceCard({
   onDelete: (id: string) => void;
   viewMode: "grid" | "list";
 }) {
-  const { SourceIcon } = require("./SourceIcon");
-  const { SourceActions } = require("./SourceActions");
-
   const getDisplayName = () => {
     if (source.subredditName) return `r/${source.subredditName}`;
     if (source.twitterHandle) return `@${source.twitterHandle}`;
-    if (source.youtubeHandle) return source.youtubeHandle.startsWith("@") ? source.youtubeHandle : `@${source.youtubeHandle}`;
+    if (source.youtubeHandle)
+      return source.youtubeHandle.startsWith("@")
+        ? source.youtubeHandle
+        : `@${source.youtubeHandle}`;
     if (source.instagramHandle) return `@${source.instagramHandle}`;
     if (source.tiktokHandle) return `@${source.tiktokHandle}`;
     return source.name;
@@ -158,7 +168,9 @@ function SourceCard({
 
   if (viewMode === "grid") {
     return (
-      <div className={`p-4 bg-zinc-900/50 border border-white/5 rounded-xl ${source.isPaused ? "opacity-50" : ""}`}>
+      <div
+        className={`p-4 bg-zinc-900/50 border border-white/5 rounded-xl ${source.isPaused ? "opacity-50" : ""}`}
+      >
         <div className="flex items-start justify-between mb-3">
           <div className="flex items-center gap-2">
             <input
@@ -167,11 +179,22 @@ function SourceCard({
               onChange={(e) => onSelect(source.id, e.target.checked)}
               className="w-4 h-4 rounded border-white/20 bg-zinc-900 text-app-accent focus:ring-app-accent/50"
             />
-            <SourceIcon sourceType={source.sourceType} iconUrl={source.iconUrl} size="md" />
+            <SourceIcon
+              sourceType={source.sourceType}
+              iconUrl={source.iconUrl}
+              size="md"
+            />
           </div>
-          <SourceActions source={source} onPause={onPause} onMove={onMove} onDelete={onDelete} />
+          <SourceActions
+            source={source}
+            onPause={onPause}
+            onMove={onMove}
+            onDelete={onDelete}
+          />
         </div>
-        <div className="text-sm font-medium text-app-text truncate">{getDisplayName()}</div>
+        <div className="text-sm font-medium text-app-text truncate">
+          {getDisplayName()}
+        </div>
         <div className="flex items-center gap-4 mt-2 text-xs text-app-muted">
           <span>{source.storiesPerMonth} stories</span>
           <span>{source.readsPerMonth} reads</span>
@@ -181,25 +204,40 @@ function SourceCard({
   }
 
   return (
-    <div className={`flex items-center gap-4 p-3 bg-zinc-900/50 border border-white/5 rounded-xl ${source.isPaused ? "opacity-50" : ""}`}>
+    <div
+      className={`flex items-center gap-4 p-3 bg-zinc-900/50 border border-white/5 rounded-xl ${source.isPaused ? "opacity-50" : ""}`}
+    >
       <input
         type="checkbox"
         checked={isSelected}
         onChange={(e) => onSelect(source.id, e.target.checked)}
         className="w-4 h-4 rounded border-white/20 bg-zinc-900 text-app-accent focus:ring-app-accent/50"
       />
-      <SourceIcon sourceType={source.sourceType} iconUrl={source.iconUrl} size="md" />
+      <SourceIcon
+        sourceType={source.sourceType}
+        iconUrl={source.iconUrl}
+        size="md"
+      />
       <div className="flex-1 min-w-0">
-        <div className="text-sm font-medium text-app-text truncate">{getDisplayName()}</div>
+        <div className="text-sm font-medium text-app-text truncate">
+          {getDisplayName()}
+        </div>
         {source.description && (
-          <div className="text-xs text-app-muted truncate">{source.description}</div>
+          <div className="text-xs text-app-muted truncate">
+            {source.description}
+          </div>
         )}
       </div>
       <div className="flex items-center gap-4 text-xs text-app-muted">
         <span>{source.storiesPerMonth}</span>
         <span>{source.readsPerMonth}</span>
       </div>
-      <SourceActions source={source} onPause={onPause} onMove={onMove} onDelete={onDelete} />
+      <SourceActions
+        source={source}
+        onPause={onPause}
+        onMove={onMove}
+        onDelete={onDelete}
+      />
     </div>
   );
 }

@@ -28,7 +28,7 @@ export function InfiniteScrollSentinel({
         onIntersectRef.current();
       }
     },
-    [enabled]
+    [enabled],
   );
 
   useEffect(() => {
@@ -47,11 +47,5 @@ export function InfiniteScrollSentinel({
     };
   }, [handleIntersect, rootMargin]);
 
-  return (
-    <div
-      ref={sentinelRef}
-      className="h-1 w-full"
-      aria-hidden="true"
-    />
-  );
+  return <div ref={sentinelRef} className="h-1 w-full" aria-hidden="true" />;
 }

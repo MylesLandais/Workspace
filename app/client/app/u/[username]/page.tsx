@@ -1,7 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ArrowLeft, User, MapPin, Building2, Globe, Calendar, Lock } from "lucide-react";
+import {
+  ArrowLeft,
+  User,
+  MapPin,
+  Building2,
+  Globe,
+  Calendar,
+  Lock,
+} from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
@@ -28,8 +36,8 @@ export default function PublicProfilePage() {
     if (!username) return;
 
     fetch(`/api/user/${username}`)
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data.error) {
           setError(data.error);
         } else {
@@ -37,7 +45,7 @@ export default function PublicProfilePage() {
         }
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error("Failed to load profile:", err);
         setError("Failed to load profile");
         setLoading(false);
@@ -67,7 +75,9 @@ export default function PublicProfilePage() {
           <div className="w-20 h-20 bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center rounded-full mx-auto mb-6">
             <Lock className="w-10 h-10 text-zinc-600" />
           </div>
-          <h1 className="text-2xl font-bold text-white mb-3">Private Profile</h1>
+          <h1 className="text-2xl font-bold text-white mb-3">
+            Private Profile
+          </h1>
           <p className="text-zinc-500 text-sm">
             This user has chosen to keep their profile private.
           </p>
@@ -117,12 +127,18 @@ export default function PublicProfilePage() {
           <div className="flex flex-col items-center mb-6">
             <div className="w-32 h-32 bg-gradient-to-tr from-zinc-700 to-zinc-500 rounded-full flex items-center justify-center text-white overflow-hidden mb-4">
               {profile.image ? (
-                <img src={profile.image} alt={profile.name} className="w-full h-full object-cover" />
+                <img
+                  src={profile.image}
+                  alt={profile.name}
+                  className="w-full h-full object-cover"
+                />
               ) : (
                 <User className="w-16 h-16" />
               )}
             </div>
-            <h1 className="text-3xl font-bold text-white mb-1">{profile.name}</h1>
+            <h1 className="text-3xl font-bold text-white mb-1">
+              {profile.name}
+            </h1>
             <p className="text-zinc-500 text-sm">@{profile.username}</p>
           </div>
 
@@ -167,7 +183,11 @@ export default function PublicProfilePage() {
               <div className="flex items-center gap-3 text-sm pt-3 border-t border-white/5">
                 <Calendar className="w-4 h-4 text-zinc-500" />
                 <span className="text-zinc-500">
-                  Joined {new Date(profile.joinDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                  Joined{" "}
+                  {new Date(profile.joinDate).toLocaleDateString("en-US", {
+                    month: "long",
+                    year: "numeric",
+                  })}
                 </span>
               </div>
             )}

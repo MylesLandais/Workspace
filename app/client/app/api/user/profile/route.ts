@@ -12,6 +12,7 @@ interface UpdateProfileRequest {
   company?: string;
   image?: string;
   profilePublic?: boolean;
+  links?: string;
 }
 
 export async function GET(request: NextRequest) {
@@ -21,10 +22,7 @@ export async function GET(request: NextRequest) {
     });
 
     if (!session?.user) {
-      return NextResponse.json(
-        { error: "Unauthorized" },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const userProfile = await db
@@ -34,10 +32,7 @@ export async function GET(request: NextRequest) {
       .limit(1);
 
     if (userProfile.length === 0) {
-      return NextResponse.json(
-        { error: "User not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     return NextResponse.json({
@@ -53,13 +48,14 @@ export async function GET(request: NextRequest) {
         image: userProfile[0].image,
         profilePublic: userProfile[0].profilePublic === 1,
         joinDate: userProfile[0].joinDate,
+        links: userProfile[0].links,
       },
     });
   } catch (error) {
     console.error("Get profile error:", error);
     return NextResponse.json(
       { error: "Failed to fetch profile" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -71,18 +67,18 @@ export async function PUT(request: NextRequest) {
     });
 
     if (!session?.user) {
-      return NextResponse.json(
-        { error: "Unauthorized" },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const body: UpdateProfileRequest = await request.json();
 
     if (body.website && !body.website.match(/^https?:\/\/.+/)) {
       return NextResponse.json(
-        { error: "Website must be a valid URL starting with http:// or https://" },
-        { status: 400 }
+        {
+          error:
+            "Website must be a valid URL starting with http:// or https://",
+        },
+        { status: 400 },
       );
     }
 
@@ -95,7 +91,13 @@ export async function PUT(request: NextRequest) {
         website: body.website,
         company: body.company,
         image: body.image,
-        profilePublic: body.profilePublic !== undefined ? (body.profilePublic ? 1 : 0) : undefined,
+        profilePublic:
+          body.profilePublic !== undefined
+            ? body.profilePublic
+              ? 1
+              : 0
+            : undefined,
+        links: body.links,
         updatedAt: new Date(),
       })
       .where(eq(user.id, session.user.id));
@@ -107,7 +109,7 @@ export async function PUT(request: NextRequest) {
     console.error("Update profile error:", error);
     return NextResponse.json(
       { error: "Failed to update profile" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

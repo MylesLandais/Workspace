@@ -2,9 +2,10 @@
 
 All notable changes to System Nebula (formerly Bunny) will be documented in this file.
 
-## [Unreleased]
+## [0.2.0] - 2026-01-31
 
 ### Added
+
 - System Nebula branded landing page with stealth-mode design
 - Mailing list/waitlist signup for beta invite requests
 - Invite validation page with code support
@@ -15,6 +16,7 @@ All notable changes to System Nebula (formerly Bunny) will be documented in this
 - Docstrings to all new components
 
 ### Changed
+
 - Landing page: Updated from "Bunny Project" to "System Nebula"
 - Button text: "Join Beta" → "Join Mailing List"
 - Success message: "You're on the list" → "You've joined the mailing list"
@@ -25,12 +27,14 @@ All notable changes to System Nebula (formerly Bunny) will be documented in this
 - Root layout: Updated metadata and removed custom theme attribute
 
 ### Fixed
+
 - TypeScript errors (any types, Slide interface, RedditPost import)
 - ESLint errors (@ts-ignore, unescaped apostrophes, unused imports)
 - Build configuration issues (removed swcMinify, standalone output)
 - Client-side routing for better UX
 
 ### Performance
+
 - Enabled AVIF/WebP image formats
 - Configured proper device and image sizes
 - Added compression and SWC minification
@@ -38,6 +42,7 @@ All notable changes to System Nebula (formerly Bunny) will be documented in this
 - Optimized client-side navigation
 
 ### Documentation
+
 - Updated README with new authentication flow
 - Added INVITE_CODES.md for invite system docs
 - Added PERFORMANCE.md for optimization guide
@@ -45,6 +50,7 @@ All notable changes to System Nebula (formerly Bunny) will be documented in this
 - Added docstrings to key components (Home, Invite, Auth, SignIn, tests)
 
 ### Test Coverage
+
 - Page load performance tests
 - Authentication flow tests (sign in, sign up, invite)
 - Waitlist/mailing list signup tests

@@ -12,7 +12,11 @@ interface OPMLImportDialogProps {
 
 type Step = "upload" | "preview" | "importing" | "complete";
 
-export function OPMLImportDialog({ isOpen, onClose, onImport }: OPMLImportDialogProps) {
+export function OPMLImportDialog({
+  isOpen,
+  onClose,
+  onImport,
+}: OPMLImportDialogProps) {
   const [step, setStep] = useState<Step>("upload");
   const [isDragging, setIsDragging] = useState(false);
   const [parseResult, setParseResult] = useState<OPMLParseResult | null>(null);
@@ -40,12 +44,15 @@ export function OPMLImportDialog({ isOpen, onClose, onImport }: OPMLImportDialog
     }
   }, []);
 
-  const handleFileSelect = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      await processFile(file);
-    }
-  }, []);
+  const handleFileSelect = useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) {
+        await processFile(file);
+      }
+    },
+    [],
+  );
 
   const processFile = async (file: File) => {
     setError(null);
@@ -164,7 +171,8 @@ export function OPMLImportDialog({ isOpen, onClose, onImport }: OPMLImportDialog
                 />
               </label>
               <p className="text-xs text-app-muted mt-4">
-                Supports OPML files exported from Feedly, Inoreader, and other RSS readers
+                Supports OPML files exported from Feedly, Inoreader, and other
+                RSS readers
               </p>
             </div>
           )}
@@ -219,7 +227,9 @@ export function OPMLImportDialog({ isOpen, onClose, onImport }: OPMLImportDialog
           {step === "importing" && (
             <div className="py-12 text-center">
               <Loader2 className="w-12 h-12 mx-auto mb-4 text-app-accent animate-spin" />
-              <p className="text-app-text">Importing {selectedFeeds.size} feeds...</p>
+              <p className="text-app-text">
+                Importing {selectedFeeds.size} feeds...
+              </p>
             </div>
           )}
 

@@ -1,18 +1,21 @@
 {
   "name": "bunny-server",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "type": "module",
   "scripts": {
     "dev": "bun --watch src/index.ts",
     "build": "bun --bun tsc",
     "start": "bun dist/index.js",
     "typecheck": "bun --bun tsc --noEmit",
+    "typecheck:watch": "bun --bun tsc --watch --noEmit",
+    "lint": "bun --bun tsc --noEmit",
     "ingest:s3": "bun src/scripts/ingestFromS3.ts"
   },
   "dependencies": {
     "@apollo/server": "^4.10.0",
     "@aws-sdk/client-s3": "^3.490.0",
     "@aws-sdk/s3-request-presigner": "^3.490.0",
+    "@sentry/bun": "^10.34.0",
     "@types/uuid": "^9.0.7",
     "@upyo/core": "^0.4.0",
     "@upyo/smtp": "^0.4.0",
@@ -24,9 +27,10 @@
     "graphql-tag": "^2.12.6",
     "graphql-upload": "^15.0.0",
     "hyparquet": "^1.23.3",
+    "mysql2": "^3.16.1",
     "neo4j-driver": "^5.15.0",
     "redis": "^4.7.0",
-    "sharp": "^0.33.0",
+    "sharp": "^0.34.5",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
@@ -35,6 +39,7 @@
     "@types/node": "^20.10.6",
     "@upyo/mock": "^0.4.0",
     "tsx": "^4.7.0",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "@types/bun": "latest"
   }
 }

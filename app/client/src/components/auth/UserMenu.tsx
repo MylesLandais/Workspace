@@ -1,7 +1,14 @@
 "use client";
 
 import { useSession, signOut } from "@/lib/auth-client";
-import { LogOut, User, Settings, Shield, AlertCircle, Loader2 } from "lucide-react";
+import {
+  LogOut,
+  User,
+  Settings,
+  Shield,
+  AlertCircle,
+  Loader2,
+} from "lucide-react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -22,7 +29,7 @@ export function UserMenu() {
 
   const handleSignOut = async () => {
     setIsSigningOut(true);
-    
+
     // Set a safety timeout to force redirect even if the network hangs
     const safetyTimeout = setTimeout(() => {
       window.location.href = "/";
@@ -38,11 +45,15 @@ export function UserMenu() {
     }
   };
 
-  if (isPending) return <div className="w-10 h-10 rounded-full bg-zinc-800 animate-pulse" />;
-  
+  if (isPending)
+    return <div className="w-10 h-10 rounded-full bg-zinc-800 animate-pulse" />;
+
   if (error) {
     return (
-      <div className="flex items-center gap-2 p-2 rounded-full border border-red-500/20 bg-red-500/10 text-red-400 text-xs font-medium" title={error.message || "Authentication Error"}>
+      <div
+        className="flex items-center gap-2 p-2 rounded-full border border-red-500/20 bg-red-500/10 text-red-400 text-xs font-medium"
+        title={error.message || "Authentication Error"}
+      >
         <AlertCircle className="w-4 h-4" />
         <span className="hidden md:inline">Auth Error</span>
       </div>
@@ -66,7 +77,11 @@ export function UserMenu() {
       >
         <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-zinc-700 to-zinc-500 flex items-center justify-center text-white overflow-hidden">
           {session.user.image ? (
-            <img src={session.user.image} alt={session.user.name || ""} className="w-full h-full object-cover" />
+            <img
+              src={session.user.image}
+              alt={session.user.name || ""}
+              className="w-full h-full object-cover"
+            />
           ) : (
             <User className="w-5 h-5" />
           )}
@@ -75,11 +90,18 @@ export function UserMenu() {
 
       {isOpen && (
         <>
-          <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
+          <div
+            className="fixed inset-0 z-40"
+            onClick={() => setIsOpen(false)}
+          />
           <div className="absolute right-0 mt-2 w-56 bg-zinc-900 border border-white/10 rounded-xl shadow-2xl z-50 overflow-hidden py-1">
             <div className="px-4 py-3 border-b border-white/5">
-              <p className="text-sm font-semibold text-white truncate">{session.user.name}</p>
-              <p className="text-xs text-zinc-500 truncate">{session.user.email}</p>
+              <p className="text-sm font-semibold text-white truncate">
+                {session.user.name}
+              </p>
+              <p className="text-xs text-zinc-500 truncate">
+                {session.user.email}
+              </p>
             </div>
 
             <button
@@ -94,13 +116,13 @@ export function UserMenu() {
               <Settings className="w-4 h-4" />
               Preferences
             </button>
-            
+
             {/* @ts-expect-error - role is added by our auth schema but not in default types */}
             {session.user.role === "admin" && (
-                <button className="w-full flex items-center gap-2 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 transition-colors text-left font-medium">
-                    <Shield className="w-4 h-4" />
-                    Admin Panel
-                </button>
+              <button className="w-full flex items-center gap-2 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 transition-colors text-left font-medium">
+                <Shield className="w-4 h-4" />
+                Admin Panel
+              </button>
             )}
 
             <button

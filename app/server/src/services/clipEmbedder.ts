@@ -1,5 +1,5 @@
-import { pipeline, env } from '@xenova/transformers';
-import { readFileSync } from 'fs';
+import { pipeline, env } from "@xenova/transformers";
+import { readFileSync } from "fs";
 
 env.allowLocalModels = false;
 
@@ -9,7 +9,10 @@ let clipProcessor: any = null;
 export class ClipEmbedder {
   private async getModel() {
     if (!clipModel) {
-      clipModel = await pipeline('feature-extraction', 'Xenova/clip-vit-base-patch32');
+      clipModel = await pipeline(
+        "feature-extraction",
+        "Xenova/clip-vit-base-patch32",
+      );
     }
     return clipModel;
   }
@@ -17,7 +20,7 @@ export class ClipEmbedder {
   async computeEmbedding(imagePath: string): Promise<number[]> {
     const model = await this.getModel();
     const imageBuffer = readFileSync(imagePath);
-    
+
     const output = await model(imageBuffer, { image: true });
     return Array.from(output.data);
   }
@@ -30,7 +33,7 @@ export class ClipEmbedder {
 
   cosineSimilarity(embedding1: number[], embedding2: number[]): number {
     if (embedding1.length !== embedding2.length) {
-      throw new Error('Embeddings must have the same length');
+      throw new Error("Embeddings must have the same length");
     }
 
     let dotProduct = 0;
@@ -51,4 +54,3 @@ export class ClipEmbedder {
     return dotProduct / denominator;
   }
 }
-

@@ -4,19 +4,6 @@
   config,
   ...
 }:
-let
-  envOr = name: default:
-    let value = builtins.getEnv name;
-    in if value != "" then value else default;
-
-  projectHash = builtins.hashString "sha256" (toString ./.);
-  hashPrefix = lib.strings.substring 0 12 projectHash;
-  hashSuffix = lib.strings.substring 12 24 projectHash;
-
-  mysqlPassword = envOr "DEVENV_MYSQL_PASSWORD" "dev_${hashPrefix}_mysql";
-  minioAccessKey = envOr "DEVENV_MINIO_ACCESS_KEY" "dev_${hashPrefix}_minio";
-  minioSecretKey = envOr "DEVENV_MINIO_SECRET_KEY" "dev_${hashPrefix}_secret_${hashSuffix}";
-in
 {
   packages = [
     pkgs.lighthouse
@@ -24,7 +11,14 @@ in
     pkgs.vips
     pkgs.pkg-config
     pkgs.python3
+    pkgs.mysql84        # MySQL client for db access
+    pkgs.just           # Task runner
+    pkgs.netcat-gnu     # For wait-for-db TCP checks
+    pkgs.curl           # For health checks
   ];
+
+  # Force Sharp to use system-installed vips (prevents downloading broken binaries)
+  env.SHARP_IGNORE_GLOBAL_LIBVIPS = "0";
 
   env.LD_LIBRARY_PATH = lib.makeLibraryPath [
     pkgs.stdenv.cc.cc.lib
@@ -41,63 +35,32 @@ in
     };
   };
 
-  services = {
-    mysql = {
-      enable = true;
-      initialDatabases = [ { name = "bunny_auth"; } ];
-      ensureUsers = [
-        {
-          name = "user";
-          password = mysqlPassword;
-          ensurePermissions = {
-            "bunny_auth.*" = "ALL PRIVILEGES";
-          };
-        }
-      ];
-    };
-    redis = {
-      enable = true;
-      package = pkgs.valkey;
-      port = 6379;
-    };
-    minio = {
-      enable = true;
-      buckets = [ "uploads" ];
-    };
-    opentelemetry-collector = {
-      enable = true;
-      settings = {
-        receivers.otlp.protocols = {
-          grpc.endpoint = "127.0.0.1:4317";
-          http.endpoint = "127.0.0.1:4318";
-        };
-        exporters.debug = { };
-        service.pipelines.traces = {
-          receivers = [ "otlp" ];
-          exporters = [ "debug" ];
-        };
-      };
-    };
-  };
-
+  # Shared services - managed by data engineering/MLOps team
+  # Containers: cache.jupyter.dev.local, n4j.jupyter.dev.local, s3.jupyter.dev.local, mysql-scheduler.jupyter.dev.local
   env = {
+    # MySQL (shared: mysql-scheduler.jupyter.dev.local on port 3307)
     MYSQL_HOST = "localhost";
-    MYSQL_USER = "user";
-    MYSQL_PASSWORD = mysqlPassword;
+    MYSQL_PORT = "3307";
+    MYSQL_USER = "root";
+    MYSQL_PASSWORD = "secret";
     MYSQL_DATABASE = "bunny_auth";
 
+    # Valkey/Redis (shared: cache.jupyter.dev.local)
     REDIS_URL = "redis://localhost:6379";
     VALKEY_URL = "redis://localhost:6379";
 
+    # Neo4j (shared: n4j.jupyter.dev.local)
     NEO4J_URI = "bolt://localhost:7687";
     NEO4J_USER = "neo4j";
-    NEO4J_PASSWORD = "dev_password";
+    NEO4J_PASSWORD = "password";
 
+    # MinIO (shared: s3.jupyter.dev.local)
     MINIO_ENDPOINT = "http://localhost:9000";
-    MINIO_ACCESS_KEY = minioAccessKey;
-    MINIO_SECRET_KEY = minioSecretKey;
+    MINIO_ACCESS_KEY = "minioadmin";
+    MINIO_SECRET_KEY = "minioadmin";
     MINIO_BUCKET = "uploads";
 
+    # OpenTelemetry (optional)
     OTEL_EXPORTER_OTLP_ENDPOINT = "http://localhost:4318";
     OTEL_SERVICE_NAME = "bunny";
   };
@@ -108,36 +71,98 @@ in
     tui.enable = false;
   };
 
+  # Application processes only - backing services are shared
   processes = {
-    web.exec = "cd app/client && bun run dev";
+    web = {
+      exec = "cd app/client && bun run dev";
+      process-compose = {
+        depends_on.wait-for-db.condition = "process_completed_successfully";
+      };
+    };
     collab.exec = "cd app/client && node server/yjs-server.cjs";
-    neo4j = {
+
+    # Wait for shared MySQL to be ready (simple TCP check)
+    wait-for-db = {
       exec = ''
-        mkdir -p .devenv/state/neo4j/{data,logs,conf}
-        ${pkgs.docker}/bin/docker run --rm \
-          --name neo4j-devenv \
-          -p 7474:7474 \
-          -p 7687:7687 \
-          -v $(pwd)/.devenv/state/neo4j/data:/data \
-          -v $(pwd)/.devenv/state/neo4j/logs:/logs \
-          -e NEO4J_AUTH=neo4j/dev_password \
-          -e NEO4J_PLUGINS='["apoc", "graph-data-science"]' \
-          neo4j:5-community
+        echo "Waiting for shared MySQL (port 3307)..."
+        while ! nc -z localhost 3307 2>/dev/null; do
+          echo "MySQL not ready, waiting..."
+          sleep 2
+        done
+        sleep 1
+        echo "MySQL is ready!"
       '';
+      process-compose = {
+        is_tty = false;
+      };
     };
   };
 
   scripts = {
+    # Check shared services status
+    services-status.exec = ''
+      echo "Shared Services Status:"
+      echo ""
+      echo "MySQL (mysql-scheduler.jupyter.dev.local:3307):"
+      docker ps --filter name=mysql-scheduler.jupyter.dev.local --format "  {{.Status}}" || echo "  Not running"
+      echo ""
+      echo "Valkey (cache.jupyter.dev.local:6379):"
+      docker ps --filter name=cache.jupyter.dev.local --format "  {{.Status}}" || echo "  Not running"
+      echo ""
+      echo "Neo4j (n4j.jupyter.dev.local:7474/7687):"
+      docker ps --filter name=n4j.jupyter.dev.local --format "  {{.Status}}" || echo "  Not running"
+      echo ""
+      echo "MinIO (s3.jupyter.dev.local:9000):"
+      docker ps --filter name=s3.jupyter.dev.local --format "  {{.Status}}" || echo "  Not running"
+    '';
+
+    # Wait utilities (simple TCP checks for reliability)
+    wait-for-db.exec = ''
+      echo "Waiting for shared MySQL (port 3307)..."
+      while ! nc -z localhost 3307 2>/dev/null; do
+        sleep 2
+      done
+      echo "MySQL ready!"
+    '';
+
+    wait-for-all.exec = ''
+      echo "Checking shared services..."
+
+      echo "Checking MySQL (port 3307)..."
+      while ! nc -z localhost 3307 2>/dev/null; do sleep 2; done
+      echo "MySQL ready!"
+
+      echo "Checking Valkey (port 6379)..."
+      while ! nc -z localhost 6379 2>/dev/null; do sleep 2; done
+      echo "Valkey ready!"
+
+      echo "Checking Neo4j (port 7474)..."
+      while ! nc -z localhost 7474 2>/dev/null; do sleep 2; done
+      echo "Neo4j ready!"
+
+      echo "All shared services ready!"
+    '';
+
+    # Database operations
+    db-push.exec = "cd app/client && bun run db:push";
+    db-studio.exec = "cd app/client && bun run db:studio";
+    db-shell.exec = "mysql -h localhost -P 3307 -u root -psecret bunny_auth";
+    db-create.exec = ''
+      docker exec mysql-scheduler.jupyter.dev.local mysql -u root -psecret -e "CREATE DATABASE IF NOT EXISTS bunny_auth;"
+      echo "Database bunny_auth created/verified"
+    '';
+
+    # Build and test
     build-stack.exec = "cd app/client && bun run build";
     test-stack.exec = "cd app/client && bun test";
     e2e.exec = "cd app/client && bun run test:e2e";
     analyze-perf.exec = "lighthouse http://localhost:3000 --view";
-    db-push.exec = "cd app/client && bun run db:push";
-    db-studio.exec = "cd app/client && bun run db:studio";
-    server-start.exec = "cd app/server && docker-compose up -d";
-    server-stop.exec = "cd app/server && docker-compose down";
-    server-logs.exec = "cd app/server && docker-compose logs -f";
-    server-status.exec = "cd app/server && docker-compose ps";
+
+    # GraphQL server
+    server-start.exec = "cd app/server && docker compose up -d";
+    server-stop.exec = "cd app/server && docker compose down";
+    server-logs.exec = "cd app/server && docker compose logs -f";
+    server-status.exec = "cd app/server && docker compose ps";
   };
 
   git-hooks.hooks = {
@@ -211,6 +236,12 @@ in
         prompt = ''
           You architect database solutions across the Bunny stack.
 
+          Shared services (managed by data engineering/MLOps):
+          - MySQL: mysql-scheduler.jupyter.dev.local (port 3307)
+          - Valkey: cache.jupyter.dev.local (port 6379)
+          - Neo4j: n4j.jupyter.dev.local (ports 7474/7687)
+          - MinIO: s3.jupyter.dev.local (ports 9000/9001)
+
           Database roles:
           - MySQL: Relational data, user auth, sessions (Better Auth)
           - Valkey: Caching, session storage, pub/sub, rate limiting
@@ -222,8 +253,6 @@ in
           - Valkey: Set appropriate TTLs, use key prefixes (user:123:session), leverage pub/sub
           - Neo4j: Write efficient Cypher queries, use indexes, avoid Cartesian products
           - MinIO: Organize by bucket per environment, use presigned URLs for uploads
-
-          Choose the right database for each use case and explain your reasoning.
         '';
       };
 
@@ -234,29 +263,25 @@ in
         prompt = ''
           You handle infrastructure and deployment for the Bunny project.
 
-          Environment management:
-          - devenv.nix for local development services
-          - Docker Compose for production orchestration
-          - Multi-stage Dockerfiles for Bun applications
-          - Environment variable management (.env files, devenv env)
+          Shared services model:
+          - Backing services are managed by data engineering/MLOps team
+          - Bunny connects to shared MySQL, Valkey, Neo4j, MinIO
+          - Only application containers are project-specific
 
-          Tasks:
-          - Service configuration and troubleshooting
-          - Container optimization (multi-stage builds, Alpine images)
-          - Port management and conflict resolution
-          - Health checks and monitoring
-          - OTEL tracing configuration
-
-          Always test changes with 'devenv up' before committing.
+          Commands:
+          - services-status: Check shared service health
+          - wait-for-all: Wait for all shared services
+          - db-create: Create bunny_auth database if missing
+          - server-start/stop: Manage GraphQL server container
         '';
       };
     };
 
     commands = {
       dev-all = ''
-        Start all development services (MySQL, Valkey, MinIO, Neo4j, OTEL, Next.js, Yjs)
+        Start development (requires shared services to be running)
         ```bash
-        devenv up
+        wait-for-all && devenv up
         ```
       '';
 
@@ -342,28 +367,21 @@ in
   enterShell = ''
     echo "Bunny dev environment ready"
     echo ""
-    echo "Services managed by devenv:"
-    echo "  MySQL (bunny_auth)     - localhost:3306"
-    echo "  Valkey (cache)         - localhost:6379"
-    echo "  MinIO (storage)        - localhost:9000"
-    echo "  Neo4j (graph)          - bolt://localhost:7687 (http://localhost:7474)"
-    echo "  OpenTelemetry          - localhost:4318"
+    echo "Shared Services (managed by data engineering/MLOps):"
+    echo "  MySQL     - localhost:3307 (mysql-scheduler.jupyter.dev.local)"
+    echo "  Valkey    - localhost:6379 (cache.jupyter.dev.local)"
+    echo "  Neo4j     - localhost:7474/7687 (n4j.jupyter.dev.local)"
+    echo "  MinIO     - localhost:9000 (s3.jupyter.dev.local)"
     echo ""
-    echo "Available commands:"
-    echo "  build-stack     - Build Next.js app"
-    echo "  test-stack      - Run unit tests"
-    echo "  e2e             - Run E2E tests"
-    echo "  analyze-perf    - Lighthouse audit"
-    echo "  db-push         - Push MySQL schema"
-    echo "  db-studio       - Open Drizzle Studio"
+    echo "Commands:"
+    echo "  services-status  - Check shared service health"
+    echo "  wait-for-all     - Wait for all services to be ready"
+    echo "  devenv up        - Start Next.js and Yjs"
+    echo "  db-push          - Push MySQL schema"
+    echo "  db-studio        - Open Drizzle Studio"
+    echo "  db-shell         - MySQL CLI"
     echo ""
-    echo "GraphQL Server commands:"
-    echo "  server-start    - Start GraphQL server (Docker)"
-    echo "  server-stop     - Stop GraphQL server"
-    echo "  server-logs     - View server logs"
-    echo "  server-status   - Check server status"
-    echo ""
-    echo "Run 'devenv up' to start all services"
+    echo "Quick start: wait-for-all && devenv up"
     echo ""
     if [ ! -d "app/client/node_modules" ]; then
       echo "Installing client dependencies..."

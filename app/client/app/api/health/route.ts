@@ -1,22 +1,18 @@
 import { NextResponse } from "next/server";
-import { db } from "@/lib/db/mysql";
-import { user } from "@/lib/db/schema/mysql-auth";
+import { checkConnection } from "@/lib/db/mysql";
 
 export async function GET() {
   try {
     const startTime = Date.now();
+    const dbCheck = await checkConnection();
+
     const checks = {
-      database: false,
+      database: dbCheck.connected,
+      databaseError: dbCheck.error,
+      databaseLatencyMs: dbCheck.latencyMs,
       timestamp: new Date().toISOString(),
       responseTime: 0,
     };
-
-    try {
-      await db.select().from(user).limit(1);
-      checks.database = true;
-    } catch (error) {
-      console.error("Database health check failed:", error);
-    }
 
     checks.responseTime = Date.now() - startTime;
 
@@ -33,7 +29,7 @@ export async function GET() {
         headers: {
           "Cache-Control": "no-cache, no-store, must-revalidate",
         },
-      }
+      },
     );
   } catch (error) {
     console.error("Health check error:", error);
@@ -42,7 +38,7 @@ export async function GET() {
         status: "unhealthy",
         error: "Internal health check error",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

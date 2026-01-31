@@ -11,7 +11,7 @@ import type {
 
 const GRAPHQL_ENDPOINT =
   process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ||
-  "http://localhost:4003/api/graphql";
+  "http://localhost:4002/api/graphql";
 
 interface UseSourcesReturn {
   sources: Source[];

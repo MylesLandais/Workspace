@@ -10,7 +10,6 @@ import {
   bulkCreateSources,
   createUserFeedGroup,
 } from "../neo4j/queries/sources.js";
-import { ImageIngestionService } from "../services/imageIngestion.js";
 import { withSession } from "../lib/session.js";
 import { Resolvers } from "../schema/generated/resolvers.js";
 
@@ -364,6 +363,9 @@ export const mutationResolvers: Resolvers = {
       _,
       { image, postId, subreddit, author, title, createdAt },
     ) => {
+      const { ImageIngestionService } = await import(
+        "../services/imageIngestion.js"
+      );
       const ingestionService = new ImageIngestionService();
 
       const file = await image;

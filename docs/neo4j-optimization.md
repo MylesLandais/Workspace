@@ -3,7 +3,9 @@
 ## Current State
 
 ### Query Organization
+
 Queries are well-organized by domain:
+
 - `feed.ts` - Feed queries with filtering and pagination
 - `images.ts` - Image hash and cluster management
 - `creators.ts` - Creator identity queries
@@ -14,12 +16,14 @@ Queries are well-organized by domain:
 ### 1. Complex Feed Query (feed.ts)
 
 **Current Issues:**
+
 - 6 OPTIONAL MATCHes creating cartesian products
 - Dynamic WHERE clause building leads to suboptimal query plans
 - Multiple JOINs without proper indexing hints
 - Text search using CONTAINS (full-text search would be better)
 
 **Impact:**
+
 - Query time increases exponentially with filter combinations
 - Memory usage spikes with complex filters
 - Pagination cursor implementation inefficient
@@ -27,6 +31,7 @@ Queries are well-organized by domain:
 **Optimizations Needed:**
 
 1. **Use Query Parameters with Index Hints**
+
 ```cypher
 // Before: Dynamic query building
 // After: Use index hints and static queries
@@ -36,6 +41,7 @@ WHERE m.mime_type STARTS WITH 'image/'
 ```
 
 2. **Separate Query Paths**
+
 ```cypher
 // Current: One complex query
 // Better: Multiple focused queries combined in app layer
@@ -46,6 +52,7 @@ LIMIT 20
 ```
 
 3. **Implement Full-Text Search**
+
 ```cypher
 // Before: toLower(p.title) CONTAINS toLower($search)
 // After: Full-text index
@@ -56,11 +63,13 @@ YIELD node as p
 ### 2. Nested Queries in getImageLineage
 
 **Current Issues:**
+
 - Loops calling `getMediaById` for each member
 - N+1 query problem (1 query + N additional queries)
 - Multiple roundtrips to database
 
 **Impact:**
+
 - Linear time complexity O(n) instead of O(1)
 - High latency for large clusters
 - Unnecessary database roundtrips
@@ -81,11 +90,13 @@ RETURN c, members, canonical
 ### 3. Similar Images Query
 
 **Current Issues:**
+
 - Returns cluster members only (no actual similarity scoring)
 - Calls `getMediaById` for each result
 - No phash hamming distance calculation
 
 **Impact:**
+
 - False positives in results
 - N+1 query problem
 - No relevance ranking
@@ -108,12 +119,14 @@ RETURN similar, hammingDistance
 ## Performance Targets
 
 ### Current Baseline
+
 - Feed query (no filters): ~200-500ms
 - Feed query (complex filters): ~1-3s
 - Image lineage query: ~500ms-2s
 - Similar images query: ~200-1s
 
 ### Target Metrics
+
 - Feed query (no filters): <100ms
 - Feed query (complex filters): <300ms
 - Image lineage query: <200ms
@@ -122,16 +135,19 @@ RETURN similar, hammingDistance
 ## Implementation Plan
 
 ### Phase 1: Quick Wins (Week 1)
+
 1. Add index hints to feed query
 2. Implement static query patterns
 3. Add query logging for profiling
 
 ### Phase 2: Refactor Complex Queries (Week 2)
+
 1. Split feed query into focused queries
 2. Eliminate N+1 problems in lineage/similar queries
 3. Add pagination cursor optimization
 
 ### Phase 3: Advanced Features (Week 3-4)
+
 1. Implement full-text search index
 2. Add APOC procedures for phash comparison
 3. Implement query result caching
@@ -139,6 +155,7 @@ RETURN similar, hammingDistance
 ## Index Strategy
 
 ### Existing Indexes
+
 ```cypher
 CREATE INDEX post_created_utc IF NOT EXISTS FOR (p:Post) ON (p.created_utc)
 CREATE INDEX post_is_image IF NOT EXISTS FOR (p:Post) ON (p.is_image)
@@ -148,6 +165,7 @@ CREATE INDEX cluster_canonical IF NOT EXISTS FOR (c:ImageCluster) ON (c.canonica
 ```
 
 ### Recommended Additional Indexes
+
 ```cypher
 -- Composite indexes for common queries
 CREATE INDEX media_mime_created IF NOT EXISTS FOR (m:Media) ON (m.mime_type, m.created_at)
@@ -163,6 +181,7 @@ CREATE INDEX media_post IF NOT EXISTS FOR ()-[r:APPEARED_IN]-() ON (r.position)
 ## Query Caching
 
 ### Cache Keys
+
 ```
 feed:{cursor}:{limit}:{filters_hash}
 media:{mediaId}
@@ -172,6 +191,7 @@ similar:{mediaId}:{limit}
 ```
 
 ### Cache TTL
+
 - Feed queries: 5 minutes
 - Media metadata: 1 hour
 - Cluster data: 10 minutes
@@ -180,6 +200,7 @@ similar:{mediaId}:{limit}
 ## Monitoring
 
 ### Metrics to Track
+
 1. Query execution time (p50, p95, p99)
 2. Database rows examined per query
 3. Index usage (which indexes are hit)
@@ -187,6 +208,7 @@ similar:{mediaId}:{limit}
 5. Connection pool utilization
 
 ### Alerting Thresholds
+
 - Feed query >500ms
 - Lineage query >1s
 - Similar query >500ms
@@ -195,6 +217,7 @@ similar:{mediaId}:{limit}
 ## Best Practices
 
 ### Query Writing
+
 1. **Always use parameters** - Prevents injection, allows caching
 2. **Use specific labels** - Instead of generic `(n)`, use `(m:Media)`
 3. **Limit result sets early** - Use LIMIT, LIMIT in subqueries
@@ -202,6 +225,7 @@ similar:{mediaId}:{limit}
 5. **Avoid OPTIONAL MATCH when possible** - Use WHERE if relationship must exist
 
 ### Data Modeling
+
 1. **Denormalize frequently accessed fields** - Trade space for speed
 2. **Use composite indexes** - For multi-field queries
 3. **Keep relationship counts reasonable** - Avoid supernodes

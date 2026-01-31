@@ -12,10 +12,7 @@ export async function POST(request: NextRequest) {
     const body: UseInviteRequest = await request.json();
 
     if (!body.code) {
-      return NextResponse.json(
-        { error: "Code is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Code is required" }, { status: 400 });
     }
 
     const normalizedCode = body.code.toUpperCase().trim();
@@ -29,7 +26,7 @@ export async function POST(request: NextRequest) {
     if (codeEntry.length === 0) {
       return NextResponse.json(
         { error: "Invalid invite code" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -51,7 +48,7 @@ export async function POST(request: NextRequest) {
     console.error("Invite use error:", error);
     return NextResponse.json(
       { error: "Failed to process invite code" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

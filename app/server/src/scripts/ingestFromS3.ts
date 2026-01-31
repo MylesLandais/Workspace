@@ -1,12 +1,22 @@
-import 'dotenv/config';
-import { S3Client, ListObjectsV2Command, GetObjectCommand, GetObjectTaggingCommand } from '@aws-sdk/client-s3';
-import { getStorageBackend } from '../services/storage.js';
-import { ImageHasher } from '../services/imageHasher.js';
-import { DuplicateDetector } from '../services/duplicateDetector.js';
-import { ClipEmbedder } from '../services/clipEmbedder.js';
-import { getSession } from '../neo4j/driver.js';
-import { createMediaWithHashes, linkMediaToCluster, setCanonicalImage, createImageCluster } from '../neo4j/queries/images.js';
-import { v4 as uuidv4 } from 'uuid';
+import "dotenv/config";
+import {
+  S3Client,
+  ListObjectsV2Command,
+  GetObjectCommand,
+  GetObjectTaggingCommand,
+} from "@aws-sdk/client-s3";
+import { getStorageBackend } from "../services/storage.js";
+import { ImageHasher } from "../services/imageHasher.js";
+import { DuplicateDetector } from "../services/duplicateDetector.js";
+import { ClipEmbedder } from "../services/clipEmbedder.js";
+import { getSession } from "../neo4j/driver.js";
+import {
+  createMediaWithHashes,
+  linkMediaToCluster,
+  setCanonicalImage,
+  createImageCluster,
+} from "../neo4j/queries/images.js";
+import { v4 as uuidv4 } from "uuid";
 
 interface S3Object {
   key: string;
@@ -17,13 +27,13 @@ interface S3Object {
 
 async function listBucketObjects(bucket: string): Promise<S3Object[]> {
   const endpoint = process.env.S3_ENDPOINT;
-  const region = process.env.S3_REGION || 'us-east-1';
+  const region = process.env.S3_REGION || "us-east-1";
 
   const clientConfig: any = {
     region,
     credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "",
     },
   };
 
@@ -58,12 +68,15 @@ async function listBucketObjects(bucket: string): Promise<S3Object[]> {
         try {
           const tagsResponse = await client.send(tagsCommand);
           if (tagsResponse.TagSet) {
-            tags = tagsResponse.TagSet.reduce((acc, tag) => {
-              if (tag.Key && tag.Value) {
-                acc[tag.Key] = tag.Value;
-              }
-              return acc;
-            }, {} as Record<string, string>);
+            tags = tagsResponse.TagSet.reduce(
+              (acc, tag) => {
+                if (tag.Key && tag.Value) {
+                  acc[tag.Key] = tag.Value;
+                }
+                return acc;
+              },
+              {} as Record<string, string>,
+            );
           }
         } catch (error) {
           console.log(`No tags for ${obj.Key}`);
@@ -86,13 +99,13 @@ async function listBucketObjects(bucket: string): Promise<S3Object[]> {
 
 async function downloadObject(bucket: string, key: string): Promise<Buffer> {
   const endpoint = process.env.S3_ENDPOINT;
-  const region = process.env.S3_REGION || 'us-east-1';
+  const region = process.env.S3_REGION || "us-east-1";
 
   const clientConfig: any = {
     region,
     credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "",
     },
   };
 
@@ -122,7 +135,10 @@ async function downloadObject(bucket: string, key: string): Promise<Buffer> {
   return Buffer.concat(chunks);
 }
 
-async function createMediaNodeFromS3Object(obj: S3Object, bucket: string): Promise<void> {
+async function createMediaNodeFromS3Object(
+  obj: S3Object,
+  bucket: string,
+): Promise<void> {
   const session = getSession();
 
   try {
@@ -146,10 +162,14 @@ async function createMediaNodeFromS3Object(obj: S3Object, bucket: string): Promi
 
     const hasher = new ImageHasher();
     const hashes = await hasher.computeHashesFromBuffer(buffer);
-    console.log(`  Computed hashes: SHA256=${hashes.sha256.substring(0, 12)}...`);
+    console.log(
+      `  Computed hashes: SHA256=${hashes.sha256.substring(0, 12)}...`,
+    );
 
     const duplicateDetector = new DuplicateDetector();
-    const exactDuplicate = await duplicateDetector.checkExactDuplicate(hashes.sha256);
+    const exactDuplicate = await duplicateDetector.checkExactDuplicate(
+      hashes.sha256,
+    );
 
     if (exactDuplicate) {
       console.log(`  Duplicate found, skipping: ${exactDuplicate}`);
@@ -168,11 +188,15 @@ async function createMediaNodeFromS3Object(obj: S3Object, bucket: string): Promi
     }
 
     const storage = getStorageBackend();
-    const imageUrl = await storage.getPresignedUrl(hashes.sha256, hashes.mimeType);
+    const imageUrl = await storage.getPresignedUrl(
+      hashes.sha256,
+      hashes.mimeType,
+    );
 
-    const title = obj.tags.title || obj.tags.name || obj.key.split('/').pop() || 'Untitled';
-    const platform = obj.tags.platform || obj.tags.source || 'imageboard';
-    const author = obj.tags.author || obj.tags.creator || '♣';
+    const title =
+      obj.tags.title || obj.tags.name || obj.key.split("/").pop() || "Untitled";
+    const platform = obj.tags.platform || obj.tags.source || "imageboard";
+    const author = obj.tags.author || obj.tags.creator || "♣";
     const publishDate = obj.tags.publishDate || obj.lastModified.toISOString();
 
     const mediaId = await createMediaWithHashes({
@@ -193,9 +217,17 @@ async function createMediaNodeFromS3Object(obj: S3Object, bucket: string): Promi
     await linkMediaToCluster(mediaId, clusterId, 1.0);
     await setCanonicalImage(clusterId, mediaId);
 
-    await duplicateDetector.storeHashMapping(hashes.sha256, hashes.phash, hashes.dhash, clusterId, mediaId);
+    await duplicateDetector.storeHashMapping(
+      hashes.sha256,
+      hashes.phash,
+      hashes.dhash,
+      clusterId,
+      mediaId,
+    );
 
-    const tags = obj.tags.tags ? obj.tags.tags.split(',').map(t => t.trim()) : [];
+    const tags = obj.tags.tags
+      ? obj.tags.tags.split(",").map((t) => t.trim())
+      : [];
 
     const postId = uuidv4();
     const createPostQuery = `
@@ -261,7 +293,7 @@ async function createMediaNodeFromS3Object(obj: S3Object, bucket: string): Promi
       });
     }
 
-    if (author !== 'Unknown') {
+    if (author !== "Unknown") {
       const authorQuery = `
         MATCH (p:Post {id: $postId})
         MERGE (u:User {username: $username})
@@ -275,7 +307,7 @@ async function createMediaNodeFromS3Object(obj: S3Object, bucket: string): Promi
     }
 
     if (obj.tags.entities) {
-      const entities = obj.tags.entities.split(',').map(e => e.trim());
+      const entities = obj.tags.entities.split(",").map((e) => e.trim());
       const entityQuery = `
         MATCH (m:Media {id: $mediaId})
         FOREACH (entityName IN $entities |
@@ -302,27 +334,27 @@ async function main() {
   const bucket = process.env.S3_BUCKET;
 
   if (!bucket) {
-    console.error('S3_BUCKET environment variable not set');
+    console.error("S3_BUCKET environment variable not set");
     process.exit(1);
   }
 
   console.log(`Starting ingestion from bucket: ${bucket}`);
-  console.log('---');
+  console.log("---");
 
   const objects = await listBucketObjects(bucket);
   console.log(`Found ${objects.length} objects in bucket`);
-  console.log('---');
+  console.log("---");
 
   for (const obj of objects) {
     await createMediaNodeFromS3Object(obj, bucket);
   }
 
-  console.log('---');
-  console.log('Ingestion complete!');
+  console.log("---");
+  console.log("Ingestion complete!");
   process.exit(0);
 }
 
 main().catch((error) => {
-  console.error('Fatal error:', error);
+  console.error("Fatal error:", error);
   process.exit(1);
 });

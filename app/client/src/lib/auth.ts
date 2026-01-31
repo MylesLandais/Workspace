@@ -8,6 +8,8 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { mysqlDb } from "./db/mysql";
 import * as schema from "./db/schema/mysql-auth";
 
+import { sendPasswordResetEmail } from "./email";
+
 export const auth = betterAuth({
   database: drizzleAdapter(mysqlDb, {
     provider: "mysql",
@@ -19,10 +21,15 @@ export const auth = betterAuth({
     },
   }),
   baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
-  secret: process.env.BETTER_AUTH_SECRET || "development-secret-minimum-32-characters-long",
+  secret:
+    process.env.BETTER_AUTH_SECRET ||
+    "development-secret-minimum-32-characters-long",
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: false,
+    sendResetPassword: async ({ user, url }) => {
+      await sendPasswordResetEmail(user.email, url);
+    },
   },
   socialProviders: {
     github: {

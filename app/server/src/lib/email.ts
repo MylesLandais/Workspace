@@ -8,12 +8,12 @@ const getTransport = (): Transport => {
     // Stores emails in memory for assertion
     return new MockTransport();
   }
-  
+
   // Real sending for prod/staging
   return new SmtpTransport({
     host: "smtp.provider.com",
     port: 587,
-    auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
+    auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
   });
 };
 
@@ -22,13 +22,15 @@ export const mailer = getTransport();
 
 // 3. Helper to send the invite code
 export const sendInviteCode = async (email: string, code: string) => {
-  await mailer.send(createMessage({
-    from: "noreply@your-launch.com",
-    to: email,
-    subject: "Your Exclusive Invite Code",
-    content: {
-      text: `Welcome! Your invite code is: ${code}`,
-      html: `<p>Welcome! Your invite code is: <strong>${code}</strong></p>`
-    }
-  }));
+  await mailer.send(
+    createMessage({
+      from: "noreply@your-launch.com",
+      to: email,
+      subject: "Your Exclusive Invite Code",
+      content: {
+        text: `Welcome! Your invite code is: ${code}`,
+        html: `<p>Welcome! Your invite code is: <strong>${code}</strong></p>`,
+      },
+    }),
+  );
 };

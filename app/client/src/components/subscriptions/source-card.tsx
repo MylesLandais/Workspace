@@ -174,7 +174,10 @@ export function SourceCard({
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         if (entry.contentRect.height > 0) {
-          onHeightMeasured(source.id, entry.target.getBoundingClientRect().height);
+          onHeightMeasured(
+            source.id,
+            entry.target.getBoundingClientRect().height,
+          );
         }
       }
     });
@@ -215,7 +218,7 @@ export function SourceCard({
           ? "border-app-accent ring-2 ring-app-accent/20"
           : "border-white/5 hover:border-white/20",
         "hover:bg-white/10 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]",
-        source.isPaused && "opacity-60"
+        source.isPaused && "opacity-60",
       )}
       style={{
         width: columnWidth,
@@ -236,7 +239,7 @@ export function SourceCard({
               "w-5 h-5 rounded-md border-2 flex items-center justify-center transition-colors",
               isSelected
                 ? "bg-app-accent border-app-accent"
-                : "border-white/20 hover:border-white/40"
+                : "border-white/20 hover:border-white/40",
             )}
           >
             {isSelected && <Check className="w-3 h-3 text-black" />}
@@ -246,7 +249,7 @@ export function SourceCard({
           <div
             className={cn(
               "w-10 h-10 rounded-xl flex items-center justify-center border",
-              getSourceTypeColor(source.sourceType)
+              getSourceTypeColor(source.sourceType),
             )}
           >
             {getSourceIcon(source.sourceType)}
@@ -262,7 +265,9 @@ export function SourceCard({
             }}
             className={cn(
               "p-2 rounded-lg transition-colors",
-              menuOpen ? "bg-white/10" : "opacity-0 group-hover:opacity-100 hover:bg-white/10"
+              menuOpen
+                ? "bg-white/10"
+                : "opacity-0 group-hover:opacity-100 hover:bg-white/10",
             )}
           >
             <MoreHorizontal className="w-4 h-4 text-white/60" />
@@ -330,7 +335,9 @@ export function SourceCard({
         className="p-4 pt-3 cursor-pointer"
         onClick={() => onViewFeed(source.id)}
       >
-        <h3 className="text-sm font-semibold text-white truncate">{source.name}</h3>
+        <h3 className="text-sm font-semibold text-white truncate">
+          {source.name}
+        </h3>
         <p className="text-xs text-white/40 truncate mt-0.5">
           {getSourceHandle(source)}
         </p>
@@ -371,8 +378,15 @@ export function SourceCard({
           )}
         </div>
         <div className="flex items-center gap-1.5">
-          <div className={cn("w-2 h-2 rounded-full", getHealthColor(source.health))} />
-          <span className="text-[10px] text-white/40 capitalize">{source.health}</span>
+          <div
+            className={cn(
+              "w-2 h-2 rounded-full",
+              getHealthColor(source.health),
+            )}
+          />
+          <span className="text-[10px] text-white/40 capitalize">
+            {source.health}
+          </span>
         </div>
       </div>
     </div>

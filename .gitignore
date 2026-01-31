@@ -10,6 +10,8 @@ dist/
 .env
 .env.*
 !.env.example
+.devenv
+.direnv
 
 # Logs
 *.log
@@ -44,7 +46,36 @@ temp/
 # Agent and Tool files
 .roo/
 .kilocode/
+.ai/
+.claude/
+.cursor/
+.cursorrules
+.opencode/
 
+# devenv runtime files
+.devenv.*/
+.devenv.flake.nix
+*.pid
 
+# Sentry config docs (local)
+SENTRY_SETUP.md
 
+# Lighthouse reports
+lighthouse-report.*
+
+# Temporary dev scripts
+**/gen_*.ts
+**/get_*.ts
+**/check_*.ts
+**/reset_*.ts
+**/test_*.ts
+**/generate_*.ts
+**/diagnose.sh
+get_reset_url.sh
+tmp/
+
+# Review docs
+DEVENV_CHANGES.md
+DEVENV_REVIEW.md
+INTEGRATION_GUIDE.md
 

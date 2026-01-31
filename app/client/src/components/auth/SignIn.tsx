@@ -18,6 +18,24 @@
 import { useState } from "react";
 import { signIn, signUp } from "@/lib/auth-client";
 import { Github, Loader2, Globe } from "lucide-react";
+import { withSpan, addSpanEvent } from "@/lib/tracing/tracer";
+import { logError } from "@/lib/errorLogger";
+import * as Sentry from "@sentry/nextjs";
+import { AuthErrorFeedback } from "@/components/feedback";
+
+/**
+ * Expected auth error codes that shouldn't be logged to Sentry
+ * These are normal user errors, not bugs
+ */
+const EXPECTED_AUTH_ERROR_CODES = [
+  "INVALID_EMAIL_OR_PASSWORD",
+  "USER_NOT_FOUND",
+  "INVALID_PASSWORD",
+  "EMAIL_NOT_VERIFIED",
+  "INVALID_EMAIL",
+  "INVALID_CREDENTIALS",
+  "USER_WITH_EMAIL_ALREADY_EXISTS",
+];
 
 /**
  * Sign in/up form component
@@ -41,6 +59,12 @@ export function SignIn({
   const [loadingMessage, setLoadingMessage] = useState<string | null>(null);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [errorDetails, setErrorDetails] = useState<{
+    message?: string;
+    code?: string;
+    status?: number;
+    statusText?: string;
+  } | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
   const handleAuth = async (e: React.FormEvent) => {
@@ -73,6 +97,7 @@ export function SignIn({
     }
 
     setError(null);
+    setErrorDetails(null);
     const timeoutId = setTimeout(() => {
       if (loading) {
         setError("Request timed out. Please check server logs.");
@@ -82,109 +107,474 @@ export function SignIn({
 
     try {
       if (isSignUp) {
-        console.log("Attempting sign up with:", {
-          email,
-          name,
-          username,
-          inviteKey,
-        });
-        setLoadingMessage("Creating account...");
-        setLoadingProgress(0);
+        await withSpan(
+          "auth.signup.client",
+          async (span) => {
+            span.setAttributes({
+              "user.email": email,
+              "user.has_name": !!name,
+              "user.has_username": !!username,
+              "user.has_invite": !!inviteKey,
+              component: "auth-client",
+              operation: "signup",
+            });
 
-        const progressInterval = setInterval(() => {
-          setLoadingProgress((prev) => {
-            if (prev >= 90) return prev;
-            return prev + 10;
-          });
-        }, 500);
+            console.log("Attempting sign up with:", {
+              email,
+              name,
+              username,
+              inviteKey,
+            });
+            setLoadingMessage("Creating account...");
+            setLoadingProgress(0);
 
-        try {
-          const result = await signUp.email({
-            email,
-            password,
-            name,
-            callbackURL: "/dashboard",
-          });
-          clearInterval(progressInterval);
-          setLoadingProgress(100);
-          clearTimeout(timeoutId);
-          console.log("Sign up result:", JSON.stringify(result, null, 2));
-
-          // Handle the response structure
-          if (result.error) {
-            const error = result.error;
-            if (error.code === "USER_WITH_EMAIL_ALREADY_EXISTS") {
-              setError("This email is already in use. Try signing in instead.");
-            } else {
-              setError(error.message || "Failed to sign up");
-            }
-          } else if (result.data) {
-            setSuccess("Account created successfully! Redirecting...");
-            setError(null);
-
-            if (inviteKey && username) {
-              fetch("/api/user/complete-profile", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  userId: result.data.user.id,
-                  username,
-                  inviteCode: inviteKey,
-                }),
-              }).catch((profileErr) => {
-                console.error(
-                  "Background profile completion error:",
-                  profileErr,
-                );
+            const progressInterval = setInterval(() => {
+              setLoadingProgress((prev) => {
+                if (prev >= 90) return prev;
+                return prev + 10;
               });
-            }
+            }, 500);
 
-            window.location.href = "/dashboard";
-          } else {
-            console.warn("Sign up returned no error and no data");
-            setError("Unexpected response from server. Please try again.");
-          }
-        } catch (err) {
-          clearTimeout(timeoutId);
-          console.error("Sign up exception:", err);
-          setError(
-            err instanceof Error ? err.message : "An unexpected error occurred",
-          );
-        }
+            addSpanEvent(span, "signup.api.call.start");
+
+            try {
+              const result = await signUp.email({
+                email,
+                password,
+                name,
+                callbackURL: "/dashboard",
+              });
+              clearInterval(progressInterval);
+              setLoadingProgress(100);
+              clearTimeout(timeoutId);
+              console.log("Sign up result:", JSON.stringify(result, null, 2));
+
+              addSpanEvent(span, "signup.api.call.complete", {
+                hasError: !!result.error ? "1" : "0",
+                hasData: !!result.data ? "1" : "0",
+              });
+
+              // Handle the response structure
+              if (result.error) {
+                const error = result.error;
+
+                // Extract error details from various possible structures
+                let errorCode = "unknown";
+                let errorMessage = "Unknown error";
+                let errorStatus: number | undefined;
+                let errorData: unknown = null;
+
+                if (typeof error === "object" && error !== null) {
+                  // Better Auth error structure
+                  errorCode =
+                    (error as any).code || (error as any).status || "unknown";
+                  errorMessage =
+                    (error as any).message ||
+                    (error as any).statusText ||
+                    (error as any).error ||
+                    String(error);
+                  errorStatus =
+                    (error as any).status || (error as any).statusCode;
+                  errorData =
+                    (error as any).data || (error as any).body || error;
+                } else if (typeof error === "string") {
+                  errorMessage = error;
+                }
+
+                // Log full error details to console for debugging
+                console.error("Signup error details:", {
+                  error,
+                  errorCode,
+                  errorMessage,
+                  errorStatus,
+                  errorData,
+                  fullResult: result,
+                });
+
+                span.setAttribute("error", true);
+                span.setAttribute("error.code", String(errorCode));
+                span.setAttribute("error.message", errorMessage);
+                if (errorStatus) {
+                  span.setAttribute("error.status", errorStatus);
+                }
+
+                addSpanEvent(span, "signup.error", {
+                  code: String(errorCode),
+                  message: errorMessage,
+                  status: errorStatus ? String(errorStatus) : undefined,
+                });
+
+                // Build a clean error message for logging
+                const logMessage =
+                  errorCode !== "unknown" && errorMessage
+                    ? `Signup error: ${errorCode} - ${errorMessage}`
+                    : errorMessage || "Signup error: unknown";
+
+                // Store error details for feedback component
+                setErrorDetails({
+                  message: errorMessage,
+                  code: errorCode,
+                  status: errorStatus,
+                  statusText: errorStatus ? String(errorStatus) : undefined,
+                });
+
+                // Only log unexpected errors to Sentry (not user mistakes)
+                if (!EXPECTED_AUTH_ERROR_CODES.includes(errorCode)) {
+                  logError(new Error(logMessage), {
+                    tags: {
+                      auth_flow: "signup",
+                      error_code: String(errorCode),
+                      "feedback.source": "auth-signup",
+                      ...(errorStatus && { http_status: String(errorStatus) }),
+                    },
+                    extra: {
+                      email: email,
+                      error_message: errorMessage,
+                      error_code: errorCode,
+                      error_status: errorStatus,
+                      error_data: errorData,
+                      error_object: error,
+                      full_result: result,
+                    },
+                  });
+                } else {
+                  // Just log to console for debugging
+                  console.log(`[Auth] Expected signup error: ${errorCode}`, {
+                    message: errorMessage,
+                    status: errorStatus,
+                  });
+                }
+
+                if (errorCode === "USER_WITH_EMAIL_ALREADY_EXISTS") {
+                  setError(
+                    "This email is already in use. Try signing in instead.",
+                  );
+                } else {
+                  setError(errorMessage || "Failed to sign up");
+                }
+              } else if (result.data) {
+                span.setAttribute("signup.success", true);
+                span.setAttribute("user.id", result.data.user?.id || "unknown");
+
+                addSpanEvent(span, "signup.success", {
+                  userId: result.data.user?.id || "unknown",
+                });
+
+                setSuccess("Account created successfully! Redirecting...");
+                setError(null);
+                setErrorDetails(null);
+
+                if (inviteKey && username) {
+                  addSpanEvent(span, "profile.complete.start", {
+                    username,
+                    inviteCode: inviteKey,
+                  });
+
+                  fetch("/api/user/complete-profile", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      userId: result.data.user.id,
+                      username,
+                      inviteCode: inviteKey,
+                    }),
+                  })
+                    .then(() => {
+                      addSpanEvent(span, "profile.complete.success");
+                    })
+                    .catch((profileErr) => {
+                      span.setAttribute("profile.complete.error", true);
+                      addSpanEvent(span, "profile.complete.error", {
+                        error:
+                          profileErr instanceof Error
+                            ? profileErr.message
+                            : "Unknown error",
+                      });
+                      console.error(
+                        "Background profile completion error:",
+                        profileErr,
+                      );
+                    });
+                }
+
+                addSpanEvent(span, "signup.redirect");
+                window.location.href = "/dashboard";
+              } else {
+                span.setAttribute("error", true);
+                span.setAttribute("error.message", "Unexpected response");
+                addSpanEvent(span, "signup.unexpected-response");
+                console.warn("Sign up returned no error and no data");
+                setError("Unexpected response from server. Please try again.");
+              }
+            } catch (err) {
+              clearTimeout(timeoutId);
+
+              // Extract comprehensive error information
+              const errorMessage =
+                err instanceof Error ? err.message : "Unknown error";
+              const errorStack = err instanceof Error ? err.stack : undefined;
+              const errorName = err instanceof Error ? err.name : typeof err;
+
+              // Log full error details to console for debugging
+              console.error("Sign up exception details:", {
+                error: err,
+                errorMessage,
+                errorStack,
+                errorName,
+                errorType: typeof err,
+                errorString: String(err),
+              });
+
+              span.setAttribute("error", true);
+              span.setAttribute("error.message", errorMessage);
+              span.setAttribute("error.type", errorName);
+
+              addSpanEvent(span, "signup.exception", {
+                error: errorMessage,
+                errorType: errorName,
+              });
+
+              // Store error details for feedback component
+              setErrorDetails({
+                message: errorMessage,
+                code: errorName,
+              });
+
+              // Log signup exception for debugging with full context
+              logError(err, {
+                tags: {
+                  auth_flow: "signup",
+                  error_type: "exception",
+                  error_name: errorName,
+                  "feedback.source": "auth-signup",
+                },
+                extra: {
+                  email: email,
+                  error_message: errorMessage,
+                  error_stack: errorStack,
+                  error_name: errorName,
+                  error_type: typeof err,
+                  error_string: String(err),
+                  full_error: err,
+                },
+              });
+
+              setError(
+                err instanceof Error
+                  ? err.message
+                  : "An unexpected error occurred",
+              );
+            }
+          },
+          {
+            attributes: {
+              component: "auth-client",
+              operation: "signup",
+            },
+            kind: "client",
+          },
+        );
       } else {
         console.log("Attempting sign in with:", { email });
-        try {
-          const result = await signIn.email({
-            email,
-            password,
-            callbackURL: "/dashboard",
-          });
-          clearTimeout(timeoutId);
-          console.log("Sign in result:", JSON.stringify(result, null, 2));
 
-          if (result.error) {
-            setError(result.error.message || "Failed to sign in");
-          } else if (result.data) {
-            setSuccess("Signed in successfully! Redirecting...");
-            setError(null);
-            window.location.href = "/dashboard";
-          } else {
-            console.warn("Sign in returned no error and no data");
-            setError("Unexpected response from server. Please try again.");
-          }
-        } catch (err) {
-          clearTimeout(timeoutId);
-          console.error("Sign in exception:", err);
-          setError(
-            err instanceof Error && err.message?.includes("fetch")
-              ? "Network error: Make sure the server is reachable"
-              : "An unexpected error occurred",
-          );
-        }
+        // Start Sentry span for signin (using Performance Monitoring API)
+        await Sentry.startSpan(
+          {
+            name: "auth.signin",
+            op: "auth.signin",
+            attributes: {
+              auth_flow: "signin",
+            },
+          },
+          async (span) => {
+            try {
+              const result = await signIn.email({
+                email,
+                password,
+                callbackURL: "/dashboard",
+              });
+              clearTimeout(timeoutId);
+              console.log("Sign in result:", JSON.stringify(result, null, 2));
+
+              if (result.error) {
+                const error = result.error;
+
+                // Extract error details from various possible structures
+                let errorCode = "unknown";
+                let errorMessage = "Unknown error";
+                let errorStatus: number | undefined;
+                let errorData: unknown = null;
+
+                if (typeof error === "object" && error !== null) {
+                  // Better Auth error structure
+                  errorCode =
+                    (error as any).code || (error as any).status || "unknown";
+                  errorMessage =
+                    (error as any).message ||
+                    (error as any).statusText ||
+                    (error as any).error ||
+                    String(error);
+                  errorStatus =
+                    (error as any).status || (error as any).statusCode;
+                  errorData =
+                    (error as any).data || (error as any).body || error;
+                } else if (typeof error === "string") {
+                  errorMessage = error;
+                }
+
+                // Log full error details to console for debugging
+                console.error("Signin error details:", {
+                  error,
+                  errorCode,
+                  errorMessage,
+                  errorStatus,
+                  errorData,
+                  fullResult: result,
+                });
+
+                // Mark span as failed
+                span.setStatus({ status: "internal_error" });
+                span.setAttribute("error_code", String(errorCode));
+                span.setAttribute("error_message", errorMessage);
+                if (errorStatus) {
+                  span.setAttribute("error_status", errorStatus);
+                }
+
+                // Build a clean error message for logging
+                const logMessage =
+                  errorCode !== "unknown" && errorMessage
+                    ? `Signin error: ${errorCode} - ${errorMessage}`
+                    : errorMessage || "Signin error: unknown";
+
+                // Store error details for feedback component
+                setErrorDetails({
+                  message: errorMessage,
+                  code: errorCode,
+                  status: errorStatus,
+                  statusText: errorStatus ? String(errorStatus) : undefined,
+                });
+
+                // Only log unexpected errors to Sentry (not user mistakes)
+                if (!EXPECTED_AUTH_ERROR_CODES.includes(errorCode)) {
+                  logError(new Error(logMessage), {
+                    tags: {
+                      auth_flow: "signin",
+                      error_code: String(errorCode),
+                      "feedback.source": "auth-signin",
+                      ...(errorStatus && { http_status: String(errorStatus) }),
+                    },
+                    extra: {
+                      email: email,
+                      error_message: errorMessage,
+                      error_code: errorCode,
+                      error_status: errorStatus,
+                      error_data: errorData,
+                      error_object: error,
+                      full_result: result,
+                    },
+                  });
+                } else {
+                  // Just log to console for debugging
+                  console.log(`[Auth] Expected signin error: ${errorCode}`, {
+                    message: errorMessage,
+                    status: errorStatus,
+                  });
+                }
+                setError(errorMessage || "Failed to sign in");
+              } else if (result.data) {
+                // Mark span as successful
+                span.setStatus({ status: "ok" });
+                setSuccess("Signed in successfully! Redirecting...");
+                setError(null);
+                setErrorDetails(null);
+                window.location.href = "/dashboard";
+              } else {
+                span.setStatus({ status: "unknown_error" });
+                console.warn("Sign in returned no error and no data");
+                setError("Unexpected response from server. Please try again.");
+              }
+            } catch (err) {
+              clearTimeout(timeoutId);
+
+              // Extract comprehensive error information
+              const errorMessage =
+                err instanceof Error ? err.message : "Unknown error";
+              const errorStack = err instanceof Error ? err.stack : undefined;
+              const errorName = err instanceof Error ? err.name : typeof err;
+
+              // Log full error details to console for debugging
+              console.error("Sign in exception details:", {
+                error: err,
+                errorMessage,
+                errorStack,
+                errorName,
+                errorType: typeof err,
+                errorString: String(err),
+              });
+
+              // Mark span as failed
+              span.setStatus({ status: "internal_error" });
+              span.setAttribute("error_type", "exception");
+              span.setAttribute("error_message", errorMessage);
+              span.setAttribute("error_name", errorName);
+
+              // Store error details for feedback component
+              setErrorDetails({
+                message: errorMessage,
+                code: errorName,
+              });
+
+              // Log signin exception for debugging with full context
+              logError(err, {
+                tags: {
+                  auth_flow: "signin",
+                  error_type: "exception",
+                  error_name: errorName,
+                  "feedback.source": "auth-signin",
+                },
+                extra: {
+                  email: email,
+                  error_message: errorMessage,
+                  error_stack: errorStack,
+                  error_name: errorName,
+                  error_type: typeof err,
+                  error_string: String(err),
+                  full_error: err,
+                },
+              });
+
+              setError(
+                err instanceof Error && err.message?.includes("fetch")
+                  ? "Network error: Make sure the server is reachable"
+                  : "An unexpected error occurred",
+              );
+            }
+          },
+        );
       }
     } catch (err) {
       clearTimeout(timeoutId);
       console.error("Auth fetch exception:", err);
+
+      // Store error details for feedback component
+      const errorMessage = err instanceof Error ? err.message : "Unknown error";
+      setErrorDetails({
+        message: errorMessage,
+        code: err instanceof Error ? err.name : "unknown",
+      });
+
+      // Log outer auth exception for debugging
+      logError(err, {
+        tags: {
+          auth_flow: isSignUp ? "signup" : "signin",
+          error_type: "outer_exception",
+          "feedback.source": isSignUp ? "auth-signup" : "auth-signin",
+        },
+        extra: {
+          error_message: errorMessage,
+        },
+      });
+
       setError(
         err instanceof Error && err.message?.includes("fetch")
           ? "Network error: Make sure the server is reachable"
@@ -198,10 +588,36 @@ export function SignIn({
   const handleSocialSignIn = async (
     provider: "github" | "google" | "discord",
   ) => {
-    await signIn.social({
-      provider,
-      callbackURL: "/dashboard",
-    });
+    try {
+      await signIn.social({
+        provider,
+        callbackURL: "/dashboard",
+      });
+    } catch (err) {
+      // Log social signin exception for debugging
+      const errorMessage = err instanceof Error ? err.message : "Unknown error";
+
+      // Store error details for feedback component
+      setErrorDetails({
+        message: errorMessage,
+        code: err instanceof Error ? err.name : "unknown",
+      });
+      setError(`Failed to sign in with ${provider}. Please try again.`);
+
+      logError(err, {
+        tags: {
+          auth_flow: "social_signin",
+          provider: provider,
+          error_type: "exception",
+          "feedback.source": "auth-social-signin",
+        },
+        extra: {
+          error_message: errorMessage,
+          provider,
+        },
+      });
+      console.error(`Social sign-in error (${provider}):`, err);
+    }
   };
 
   return (
@@ -287,8 +703,16 @@ export function SignIn({
           />
         </div>
 
-        {error && <p className="text-xs text-red-500 px-1">{error}</p>}
         {success && <p className="text-xs text-green-500 px-1">{success}</p>}
+
+        {error && (
+          <AuthErrorFeedback
+            error={errorDetails}
+            authFlow={isSignUp ? "signup" : "signin"}
+            email={email}
+            className="mt-2"
+          />
+        )}
 
         {loading && loadingProgress > 0 && (
           <div className="w-full">
@@ -329,6 +753,7 @@ export function SignIn({
               setIsSignUp(!isSignUp);
               setSuccess(null);
               setError(null);
+              setErrorDetails(null);
             }}
             className="text-white hover:underline font-medium"
           >

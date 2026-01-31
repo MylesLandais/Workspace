@@ -1,15 +1,15 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { filename: string } }
+  context: { params: Promise<{ filename: string }> },
 ) {
-  const filename = params.filename;
-  
+  const { filename } = await context.params;
+
   if (!filename) {
     return NextResponse.json(
-      { error: 'Filename is required' },
-      { status: 400 }
+      { error: "Filename is required" },
+      { status: 400 },
     );
   }
 

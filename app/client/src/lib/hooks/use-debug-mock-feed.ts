@@ -53,22 +53,26 @@ function generateDebugItem(index: number): FeedItem {
   const type = random() > 0.7 ? MediaType.VIDEO : MediaType.IMAGE;
   const mediaUrl = `https://picsum.photos/seed/${index}/${aspectData.width}/${aspectData.height}`;
 
-  const redditData = source === "Reddit" ? {
-    id: `reddit-${index}`,
-    title: caption,
-    created_utc: date.toISOString(),
-    score: Math.floor(random() * 50000),
-    num_comments: Math.floor(random() * 1000),
-    upvote_ratio: 0.8 + random() * 0.2,
-    over_18: random() > 0.9,
-    url: mediaUrl,
-    selftext: random() > 0.5 ? "This is a mock selftext for testing." : "",
-    permalink: `/r/${source.toLowerCase()}/comments/${index}`,
-    subreddit: "artwork",
-    author: author.handle.replace('@', ''),
-    is_image: type === MediaType.IMAGE,
-    image_url: type === MediaType.IMAGE ? mediaUrl : null,
-  } : undefined;
+  const redditData =
+    source === "Reddit"
+      ? {
+          id: `reddit-${index}`,
+          title: caption,
+          created_utc: date.toISOString(),
+          score: Math.floor(random() * 50000),
+          num_comments: Math.floor(random() * 1000),
+          upvote_ratio: 0.8 + random() * 0.2,
+          over_18: random() > 0.9,
+          url: mediaUrl,
+          selftext:
+            random() > 0.5 ? "This is a mock selftext for testing." : "",
+          permalink: `/r/${source.toLowerCase()}/comments/${index}`,
+          subreddit: "artwork",
+          author: author.handle.replace("@", ""),
+          is_image: type === MediaType.IMAGE,
+          image_url: type === MediaType.IMAGE ? mediaUrl : null,
+        }
+      : undefined;
 
   return {
     id: `debug-item-${index}`,
@@ -87,7 +91,9 @@ function generateDebugItem(index: number): FeedItem {
 }
 
 // Generate 20 debug items synchronously at module load time
-const DEBUG_ITEMS: FeedItem[] = Array.from({ length: 20 }, (_, i) => generateDebugItem(i));
+const DEBUG_ITEMS: FeedItem[] = Array.from({ length: 20 }, (_, i) =>
+  generateDebugItem(i),
+);
 
 export function useDebugMockFeed(): FeedItem[] {
   return DEBUG_ITEMS;

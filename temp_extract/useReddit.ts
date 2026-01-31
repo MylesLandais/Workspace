@@ -1,13 +1,14 @@
-import { useState, useEffect, useCallback } from 'react';
-import type { 
-  RedditPost, 
-  RedditPostDetails, 
-  RedditSubreddit, 
+import { useState, useEffect, useCallback } from "react";
+import type {
+  RedditPost,
+  RedditPostDetails,
+  RedditSubreddit,
   RedditStats,
-  PostsQueryParams 
-} from '@/lib/types/reddit';
+  PostsQueryParams,
+} from "@/lib/types/reddit";
 
-const API_BASE = process.env.NEXT_PUBLIC_REDDIT_API_URL || 'http://localhost:8001';
+const API_BASE =
+  process.env.NEXT_PUBLIC_REDDIT_API_URL || "http://localhost:8001";
 
 interface UseRedditOptions {
   /** Auto-fetch on mount */
@@ -29,31 +30,33 @@ interface UseRedditResult<T> {
  * Custom fetch wrapper with error handling and retries
  */
 async function redditFetch<T>(
-  endpoint: string, 
-  retries = 3, 
-  delay = 1000
+  endpoint: string,
+  retries = 3,
+  delay = 1000,
 ): Promise<T> {
   let lastError: Error | null = null;
-  
+
   for (let attempt = 0; attempt < retries; attempt++) {
     try {
       const response = await fetch(`${API_BASE}${endpoint}`);
-      
+
       if (!response.ok) {
         throw new Error(`API Error: ${response.status} ${response.statusText}`);
       }
-      
+
       return await response.json();
     } catch (error) {
       lastError = error instanceof Error ? error : new Error(String(error));
-      
+
       if (attempt < retries - 1) {
-        await new Promise(resolve => setTimeout(resolve, delay * (attempt + 1)));
+        await new Promise((resolve) =>
+          setTimeout(resolve, delay * (attempt + 1)),
+        );
       }
     }
   }
-  
-  throw lastError || new Error('Request failed');
+
+  throw lastError || new Error("Request failed");
 }
 
 /**
@@ -61,7 +64,7 @@ async function redditFetch<T>(
  */
 export function useRedditPosts(
   params: PostsQueryParams = {},
-  options: UseRedditOptions = {}
+  options: UseRedditOptions = {},
 ): UseRedditResult<RedditPost[]> {
   const { immediate = true, retryCount = 3, retryDelay = 1000 } = options;
   const [data, setData] = useState<RedditPost[] | null>(null);
@@ -70,24 +73,34 @@ export function useRedditPosts(
 
   const buildQueryString = useCallback(() => {
     const searchParams = new URLSearchParams();
-    if (params.subreddit) searchParams.set('subreddit', params.subreddit);
-    if (params.min_score !== undefined) searchParams.set('min_score', String(params.min_score));
-    if (params.is_image !== undefined) searchParams.set('is_image', String(params.is_image));
-    if (params.limit !== undefined) searchParams.set('limit', String(params.limit));
-    if (params.offset !== undefined) searchParams.set('offset', String(params.offset));
+    if (params.subreddit) searchParams.set("subreddit", params.subreddit);
+    if (params.min_score !== undefined)
+      searchParams.set("min_score", String(params.min_score));
+    if (params.is_image !== undefined)
+      searchParams.set("is_image", String(params.is_image));
+    if (params.limit !== undefined)
+      searchParams.set("limit", String(params.limit));
+    if (params.offset !== undefined)
+      searchParams.set("offset", String(params.offset));
     const qs = searchParams.toString();
-    return qs ? `?${qs}` : '';
-  }, [params.subreddit, params.min_score, params.is_image, params.limit, params.offset]);
+    return qs ? `?${qs}` : "";
+  }, [
+    params.subreddit,
+    params.min_score,
+    params.is_image,
+    params.limit,
+    params.offset,
+  ]);
 
   const refetch = useCallback(async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const result = await redditFetch<RedditPost[]>(
         `/posts${buildQueryString()}`,
         retryCount,
-        retryDelay
+        retryDelay,
       );
       setData(result);
     } catch (err) {
@@ -111,7 +124,7 @@ export function useRedditPosts(
  */
 export function useRedditPost(
   postId: string | null,
-  options: UseRedditOptions = {}
+  options: UseRedditOptions = {},
 ): UseRedditResult<RedditPostDetails> {
   const { immediate = true, retryCount = 3, retryDelay = 1000 } = options;
   const [data, setData] = useState<RedditPostDetails | null>(null);
@@ -123,15 +136,15 @@ export function useRedditPost(
       setData(null);
       return;
     }
-    
+
     setLoading(true);
     setError(null);
-    
+
     try {
       const result = await redditFetch<RedditPostDetails>(
         `/post/${postId}`,
         retryCount,
-        retryDelay
+        retryDelay,
       );
       setData(result);
     } catch (err) {
@@ -156,7 +169,7 @@ export function useRedditPost(
 export function useSubredditPosts(
   subredditName: string | null,
   limit = 20,
-  options: UseRedditOptions = {}
+  options: UseRedditOptions = {},
 ): UseRedditResult<RedditPost[]> {
   const { immediate = true, retryCount = 3, retryDelay = 1000 } = options;
   const [data, setData] = useState<RedditPost[] | null>(null);
@@ -168,15 +181,15 @@ export function useSubredditPosts(
       setData(null);
       return;
     }
-    
+
     setLoading(true);
     setError(null);
-    
+
     try {
       const result = await redditFetch<RedditPost[]>(
         `/subreddit/${subredditName}/posts?limit=${limit}`,
         retryCount,
-        retryDelay
+        retryDelay,
       );
       setData(result);
     } catch (err) {
@@ -199,7 +212,7 @@ export function useSubredditPosts(
  * Hook: Fetch all subreddits
  */
 export function useSubreddits(
-  options: UseRedditOptions = {}
+  options: UseRedditOptions = {},
 ): UseRedditResult<RedditSubreddit[]> {
   const { immediate = true, retryCount = 3, retryDelay = 1000 } = options;
   const [data, setData] = useState<RedditSubreddit[] | null>(null);
@@ -209,12 +222,12 @@ export function useSubreddits(
   const refetch = useCallback(async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const result = await redditFetch<RedditSubreddit[]>(
-        '/subreddits',
+        "/subreddits",
         retryCount,
-        retryDelay
+        retryDelay,
       );
       setData(result);
     } catch (err) {
@@ -237,7 +250,7 @@ export function useSubreddits(
  * Hook: Fetch API stats
  */
 export function useRedditStats(
-  options: UseRedditOptions = {}
+  options: UseRedditOptions = {},
 ): UseRedditResult<RedditStats> {
   const { immediate = true, retryCount = 3, retryDelay = 1000 } = options;
   const [data, setData] = useState<RedditStats | null>(null);
@@ -247,12 +260,12 @@ export function useRedditStats(
   const refetch = useCallback(async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const result = await redditFetch<RedditStats>(
-        '/stats',
+        "/stats",
         retryCount,
-        retryDelay
+        retryDelay,
       );
       setData(result);
     } catch (err) {

@@ -25,10 +25,7 @@ export async function POST(request: NextRequest) {
     const file = formData.get("file") as File | null;
 
     if (!file) {
-      return NextResponse.json(
-        { error: "No file provided" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
     // Validate file type
@@ -36,7 +33,7 @@ export async function POST(request: NextRequest) {
     if (!fileName.endsWith(".opml") && !fileName.endsWith(".xml")) {
       return NextResponse.json(
         { error: "Invalid file type. Please upload an OPML or XML file." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -46,7 +43,7 @@ export async function POST(request: NextRequest) {
     if (!content.includes("<opml") && !content.includes("<outline")) {
       return NextResponse.json(
         { error: "Invalid OPML format" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -58,7 +55,7 @@ export async function POST(request: NextRequest) {
     console.error("OPML import error:", error);
     return NextResponse.json(
       { error: "Failed to parse OPML file" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -114,7 +111,7 @@ function parseOutlineLevel(
   content: string,
   parentCategory: string,
   feeds: OPMLFeed[],
-  categories: Set<string>
+  categories: Set<string>,
 ): void {
   const outlineRegex = /<outline\s+([^>]*)(?:\/>|>)/gi;
   let match: RegExpExecArray | null;
@@ -209,6 +206,6 @@ function decodeXMLEntities(text: string): string {
     .replace(/&apos;/g, "'")
     .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(parseInt(code, 10)))
     .replace(/&#x([0-9a-fA-F]+);/g, (_, code) =>
-      String.fromCharCode(parseInt(code, 16))
+      String.fromCharCode(parseInt(code, 16)),
     );
 }

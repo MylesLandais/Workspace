@@ -1,8 +1,12 @@
-'use client';
+"use client";
 
-import React, { useState, useCallback } from 'react';
-import type { RedditPost, RedditImage, RedditComment } from '@/lib/types/reddit';
-import { RedditPostCard } from './RedditPostCard';
+import React, { useState, useCallback } from "react";
+import type {
+  RedditPost,
+  RedditImage,
+  RedditComment,
+} from "@/lib/types/reddit";
+import { RedditPostCard } from "./RedditPostCard";
 
 interface RedditGalleryEmbedProps {
   post: RedditPost;
@@ -15,20 +19,20 @@ interface RedditGalleryEmbedProps {
 
 /**
  * RedditGalleryEmbed
- * 
+ *
  * Full-featured Reddit post embed with gallery support and optional
  * comment preview. Designed for embedding rich Reddit content in
  * client applications.
- * 
+ *
  * Features:
  * - Full-screen lightbox gallery
  * - Keyboard navigation (← → ESC)
  * - Touch/swipe support
  * - Comment preview
  * - NSFW handling
- * 
+ *
  * @example
- * <RedditGalleryEmbed 
+ * <RedditGalleryEmbed
  *   post={postDetails.post}
  *   images={postDetails.images}
  *   comments={postDetails.comments}
@@ -42,7 +46,7 @@ export function RedditGalleryEmbed({
   comments = [],
   showComments = false,
   maxComments = 3,
-  className = '',
+  className = "",
 }: RedditGalleryEmbedProps) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
@@ -50,22 +54,25 @@ export function RedditGalleryEmbed({
   const openLightbox = useCallback((image: RedditImage, index: number) => {
     setLightboxIndex(index);
     setLightboxOpen(true);
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
   }, []);
 
   const closeLightbox = useCallback(() => {
     setLightboxOpen(false);
-    document.body.style.overflow = '';
+    document.body.style.overflow = "";
   }, []);
 
-  const navigateLightbox = useCallback((direction: 'prev' | 'next') => {
-    setLightboxIndex((current) => {
-      if (direction === 'prev') {
-        return current > 0 ? current - 1 : images.length - 1;
-      }
-      return current < images.length - 1 ? current + 1 : 0;
-    });
-  }, [images.length]);
+  const navigateLightbox = useCallback(
+    (direction: "prev" | "next") => {
+      setLightboxIndex((current) => {
+        if (direction === "prev") {
+          return current > 0 ? current - 1 : images.length - 1;
+        }
+        return current < images.length - 1 ? current + 1 : 0;
+      });
+    },
+    [images.length],
+  );
 
   // Keyboard navigation
   React.useEffect(() => {
@@ -73,20 +80,20 @@ export function RedditGalleryEmbed({
 
     const handleKeyDown = (e: KeyboardEvent) => {
       switch (e.key) {
-        case 'Escape':
+        case "Escape":
           closeLightbox();
           break;
-        case 'ArrowLeft':
-          navigateLightbox('prev');
+        case "ArrowLeft":
+          navigateLightbox("prev");
           break;
-        case 'ArrowRight':
-          navigateLightbox('next');
+        case "ArrowRight":
+          navigateLightbox("next");
           break;
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [lightboxOpen, closeLightbox, navigateLightbox]);
 
   const formatTimeAgo = (isoDate: string): string => {
@@ -97,16 +104,18 @@ export function RedditGalleryEmbed({
     const diffHours = Math.floor(diffMins / 60);
     const diffDays = Math.floor(diffHours / 24);
 
-    if (diffDays > 30) return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    if (diffDays > 30)
+      return date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      });
     if (diffDays > 0) return `${diffDays}d`;
     if (diffHours > 0) return `${diffHours}h`;
     if (diffMins > 0) return `${diffMins}m`;
-    return 'now';
+    return "now";
   };
 
-  const displayComments = showComments 
-    ? comments.slice(0, maxComments)
-    : [];
+  const displayComments = showComments ? comments.slice(0, maxComments) : [];
 
   return (
     <div className={`reddit-gallery-embed ${className}`}>
@@ -132,16 +141,21 @@ export function RedditGalleryEmbed({
             {displayComments.map((comment) => (
               <li key={comment.id} className="reddit-gallery-embed__comment">
                 <div className="reddit-gallery-embed__comment-header">
-                  <span className={`reddit-gallery-embed__comment-author ${comment.is_submitter ? 'reddit-gallery-embed__comment-author--op' : ''}`}>
-                    {comment.author || '[deleted]'}
-                    {comment.is_submitter && <span className="reddit-gallery-embed__op-badge">OP</span>}
+                  <span
+                    className={`reddit-gallery-embed__comment-author ${comment.is_submitter ? "reddit-gallery-embed__comment-author--op" : ""}`}
+                  >
+                    {comment.author || "[deleted]"}
+                    {comment.is_submitter && (
+                      <span className="reddit-gallery-embed__op-badge">OP</span>
+                    )}
                   </span>
                   <span className="reddit-gallery-embed__comment-meta">
                     {comment.score} pts • {formatTimeAgo(comment.created_utc)}
                   </span>
                 </div>
                 <p className="reddit-gallery-embed__comment-body">
-                  {comment.body.slice(0, 200)}{comment.body.length > 200 ? '...' : ''}
+                  {comment.body.slice(0, 200)}
+                  {comment.body.length > 200 ? "..." : ""}
                 </p>
               </li>
             ))}
@@ -151,11 +165,8 @@ export function RedditGalleryEmbed({
 
       {/* Lightbox */}
       {lightboxOpen && images.length > 0 && (
-        <div 
-          className="reddit-gallery-embed__lightbox"
-          onClick={closeLightbox}
-        >
-          <button 
+        <div className="reddit-gallery-embed__lightbox" onClick={closeLightbox}>
+          <button
             className="reddit-gallery-embed__lightbox-close"
             onClick={closeLightbox}
             aria-label="Close gallery"
@@ -163,7 +174,7 @@ export function RedditGalleryEmbed({
             ✕
           </button>
 
-          <div 
+          <div
             className="reddit-gallery-embed__lightbox-content"
             onClick={(e) => e.stopPropagation()}
           >
@@ -180,7 +191,7 @@ export function RedditGalleryEmbed({
                 className="reddit-gallery-embed__lightbox-nav reddit-gallery-embed__lightbox-nav--prev"
                 onClick={(e) => {
                   e.stopPropagation();
-                  navigateLightbox('prev');
+                  navigateLightbox("prev");
                 }}
                 aria-label="Previous image"
               >
@@ -190,7 +201,7 @@ export function RedditGalleryEmbed({
                 className="reddit-gallery-embed__lightbox-nav reddit-gallery-embed__lightbox-nav--next"
                 onClick={(e) => {
                   e.stopPropagation();
-                  navigateLightbox('next');
+                  navigateLightbox("next");
                 }}
                 aria-label="Next image"
               >

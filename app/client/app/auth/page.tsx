@@ -50,7 +50,7 @@ export default async function AuthPage({
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-white/5 rounded-full blur-[120px]" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-zinc-500/5 rounded-full blur-[120px]" />
       </div>
-      
+
       <div className="w-full flex flex-col items-center gap-8 relative z-10">
         <div className="flex flex-col items-center space-y-4 text-center">
           <div className="w-16 h-16 bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center rounded-2xl rotate-3">

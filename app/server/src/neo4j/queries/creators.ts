@@ -1,4 +1,4 @@
-import { getSession } from '../driver.js';
+import { getSession } from "../driver.js";
 
 export interface Creator {
   id: string;
@@ -32,7 +32,10 @@ export interface Handle {
   hidden?: boolean;
 }
 
-export async function getCreators(query?: string, limit: number = 20): Promise<Creator[]> {
+export async function getCreators(
+  query?: string,
+  limit: number = 20,
+): Promise<Creator[]> {
   const session = getSession();
   try {
     let cypher = `
@@ -57,25 +60,28 @@ export async function getCreators(query?: string, limit: number = 20): Promise<C
     const result = await session.run(cypher, params);
 
     return result.records.map((record) => {
-      const entity = record.get('e').properties;
-      const sources = record.get('sources') || [];
+      const entity = record.get("e").properties;
+      const sources = record.get("sources") || [];
 
       const handles: Handle[] = sources.map((source: any) => {
         const props = source.properties;
-        const lastSynced = props.last_synced ? new Date(props.last_synced.toString()).toISOString() : null;
-        
-        let health = 'red';
+        const lastSynced = props.last_synced
+          ? new Date(props.last_synced.toString()).toISOString()
+          : null;
+
+        let health = "red";
         if (lastSynced) {
-          const hoursAgo = (Date.now() - new Date(lastSynced).getTime()) / (1000 * 60 * 60);
-          if (hoursAgo < 1) health = 'green';
-          else if (hoursAgo < 24) health = 'yellow';
+          const hoursAgo =
+            (Date.now() - new Date(lastSynced).getTime()) / (1000 * 60 * 60);
+          if (hoursAgo < 1) health = "green";
+          else if (hoursAgo < 24) health = "yellow";
         }
 
-        const platform = props.source_type || 'reddit';
-        let handleStr = '';
-        if (platform === 'reddit') {
+        const platform = props.source_type || "reddit";
+        let handleStr = "";
+        if (platform === "reddit") {
           handleStr = `r/${props.subreddit_name || props.name}`;
-        } else if (platform === 'youtube') {
+        } else if (platform === "youtube") {
           handleStr = props.youtube_channel_handle || `@${props.name}`;
         } else {
           handleStr = props.name;
@@ -84,11 +90,12 @@ export async function getCreators(query?: string, limit: number = 20): Promise<C
         return {
           id: props.id,
           platform,
-          username: props.subreddit_name || props.youtube_channel_handle || props.name,
+          username:
+            props.subreddit_name || props.youtube_channel_handle || props.name,
           handle: handleStr,
-          url: props.url || '',
+          url: props.url || "",
           verified: props.verified || false,
-          status: props.status || 'active',
+          status: props.status || "active",
           mediaCount: props.media_count || 0,
           lastSynced,
           health,
@@ -98,8 +105,8 @@ export async function getCreators(query?: string, limit: number = 20): Promise<C
       return {
         id: entity.id,
         slug: entity.id,
-        name: entity.name || '',
-        displayName: entity.name || '',
+        name: entity.name || "",
+        displayName: entity.name || "",
         bio: entity.description,
         avatarUrl: entity.avatar_url,
         verified: entity.verified || false,
@@ -114,7 +121,9 @@ export async function getCreators(query?: string, limit: number = 20): Promise<C
   }
 }
 
-export async function getHandlesForCreator(creatorId: string): Promise<Handle[]> {
+export async function getHandlesForCreator(
+  creatorId: string,
+): Promise<Handle[]> {
   const session = getSession();
   try {
     const query = `
@@ -125,21 +134,24 @@ export async function getHandlesForCreator(creatorId: string): Promise<Handle[]>
     const result = await session.run(query, { creatorId });
 
     return result.records.map((record) => {
-      const props = record.get('s').properties;
-      const lastSynced = props.last_synced ? new Date(props.last_synced.toString()).toISOString() : null;
-      
-      let health = 'red';
+      const props = record.get("s").properties;
+      const lastSynced = props.last_synced
+        ? new Date(props.last_synced.toString()).toISOString()
+        : null;
+
+      let health = "red";
       if (lastSynced) {
-        const hoursAgo = (Date.now() - new Date(lastSynced).getTime()) / (1000 * 60 * 60);
-        if (hoursAgo < 1) health = 'green';
-        else if (hoursAgo < 24) health = 'yellow';
+        const hoursAgo =
+          (Date.now() - new Date(lastSynced).getTime()) / (1000 * 60 * 60);
+        if (hoursAgo < 1) health = "green";
+        else if (hoursAgo < 24) health = "yellow";
       }
 
-      const platform = props.source_type || 'reddit';
-      let handleStr = '';
-      if (platform === 'reddit') {
+      const platform = props.source_type || "reddit";
+      let handleStr = "";
+      if (platform === "reddit") {
         handleStr = `r/${props.subreddit_name || props.name}`;
-      } else if (platform === 'youtube') {
+      } else if (platform === "youtube") {
         handleStr = props.youtube_channel_handle || `@${props.name}`;
       } else {
         handleStr = props.name;
@@ -148,11 +160,12 @@ export async function getHandlesForCreator(creatorId: string): Promise<Handle[]>
       return {
         id: props.id,
         platform,
-        username: props.subreddit_name || props.youtube_channel_handle || props.name,
+        username:
+          props.subreddit_name || props.youtube_channel_handle || props.name,
         handle: handleStr,
-        url: props.url || '',
+        url: props.url || "",
         verified: props.verified || false,
-        status: props.status || 'active',
+        status: props.status || "active",
         mediaCount: props.media_count || 0,
         lastSynced,
         health,
@@ -181,25 +194,28 @@ export async function getCreatorBySlug(slug: string): Promise<Creator | null> {
     }
 
     const record = result.records[0];
-    const entity = record.get('e').properties;
-    const sources = record.get('sources') || [];
+    const entity = record.get("e").properties;
+    const sources = record.get("sources") || [];
 
     const handles: Handle[] = sources.map((source: any) => {
       const props = source.properties;
-      const lastSynced = props.last_synced ? new Date(props.last_synced.toString()).toISOString() : null;
-      
-      let health = 'red';
+      const lastSynced = props.last_synced
+        ? new Date(props.last_synced.toString()).toISOString()
+        : null;
+
+      let health = "red";
       if (lastSynced) {
-        const hoursAgo = (Date.now() - new Date(lastSynced).getTime()) / (1000 * 60 * 60);
-        if (hoursAgo < 1) health = 'green';
-        else if (hoursAgo < 24) health = 'yellow';
+        const hoursAgo =
+          (Date.now() - new Date(lastSynced).getTime()) / (1000 * 60 * 60);
+        if (hoursAgo < 1) health = "green";
+        else if (hoursAgo < 24) health = "yellow";
       }
 
-      const platform = props.source_type || 'reddit';
-      let handleStr = '';
-      if (platform === 'reddit') {
+      const platform = props.source_type || "reddit";
+      let handleStr = "";
+      if (platform === "reddit") {
         handleStr = `r/${props.subreddit_name || props.name}`;
-      } else if (platform === 'youtube') {
+      } else if (platform === "youtube") {
         handleStr = props.youtube_channel_handle || `@${props.name}`;
       } else {
         handleStr = props.name;
@@ -208,11 +224,12 @@ export async function getCreatorBySlug(slug: string): Promise<Creator | null> {
       return {
         id: props.id,
         platform,
-        username: props.subreddit_name || props.youtube_channel_handle || props.name,
+        username:
+          props.subreddit_name || props.youtube_channel_handle || props.name,
         handle: handleStr,
-        url: props.url || '',
+        url: props.url || "",
         verified: props.verified || false,
-        status: props.status || 'active',
+        status: props.status || "active",
         mediaCount: props.media_count || 0,
         lastSynced,
         health,
@@ -222,8 +239,8 @@ export async function getCreatorBySlug(slug: string): Promise<Creator | null> {
     return {
       id: entity.id,
       slug: entity.id,
-      name: entity.name || '',
-      displayName: entity.name || '',
+      name: entity.name || "",
+      displayName: entity.name || "",
       bio: entity.description,
       avatarUrl: entity.avatar_url,
       verified: entity.verified || false,
@@ -236,5 +253,3 @@ export async function getCreatorBySlug(slug: string): Promise<Creator | null> {
     await session.close();
   }
 }
-
-

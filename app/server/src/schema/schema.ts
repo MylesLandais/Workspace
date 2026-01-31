@@ -242,6 +242,8 @@ export const typeDefs = `
     imageUrl: String
     imageWidth: Int
     imageHeight: Int
+    mediaUrl: String
+    isRead: Boolean
   }
 
   type NodeStats {
@@ -270,7 +272,7 @@ export const typeDefs = `
     getIdentityProfiles(query: String, limit: Int): [IdentityProfile!]!
     getIdentityProfile(id: ID!): IdentityProfile
     # Reddit post queries
-    redditPosts(subreddit: String!, limit: Int): [RedditPost!]!
+    redditPosts(subreddit: String!, limit: Int, offset: Int): [RedditPost!]!
     debugStats: NodeStats!
   }
 

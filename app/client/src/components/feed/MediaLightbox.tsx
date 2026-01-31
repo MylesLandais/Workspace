@@ -28,7 +28,7 @@ interface MediaLightboxProps {
 type SlideWithMetadata = Slide & {
   feedItemId?: string;
   isReddit?: boolean;
-}
+};
 
 function getFilename(url: string): string {
   const match = url.match(/\/([^/]+\.(jpg|jpeg|png|webm|gif|mp4))$/i);
@@ -39,7 +39,7 @@ function feedItemToSlides(item: FeedItemType): SlideWithMetadata[] {
   const isVideo = item.type === "video" || item.type === "short";
   const isImageboard = item.source.toLowerCase().includes("imageboard");
   const metaInfo = isImageboard
-    ? `/${(item.tags?.find(t => /^[a-z]$/.test(t)) || "b")}/ | ${item.tags?.find(t => /\d+ images/.test(t)) || ""}`
+    ? `/${item.tags?.find((t) => /^[a-z]$/.test(t)) || "b"}/ | ${item.tags?.find((t) => /\d+ images/.test(t)) || ""}`
     : `by ${item.author.name || item.author.handle} | ${item.source} | ${item.likes} likes${item.tags?.length ? ` | ${item.tags.join(", ")}` : ""}`;
 
   // Handle multi-image galleries (imageboard threads, etc.)
@@ -68,7 +68,9 @@ function feedItemToSlides(item: FeedItemType): SlideWithMetadata[] {
         height: item.height,
         sources: [{ src: item.mediaUrl, type: "video/mp4" }],
         title: item.caption,
-        description: (isImageboard && filename ? `${filename} | ` : "") + (item.tags?.join(", ") || metaInfo),
+        description:
+          (isImageboard && filename ? `${filename} | ` : "") +
+          (item.tags?.join(", ") || metaInfo),
         feedItemId: item.id,
         isReddit: item.source.toLowerCase() === "reddit" && !!item.redditData,
       },
@@ -83,7 +85,9 @@ function feedItemToSlides(item: FeedItemType): SlideWithMetadata[] {
       width: item.width,
       height: item.height,
       title: item.caption,
-      description: (isImageboard && filename ? `${filename} | ` : "") + (item.tags?.join(", ") || metaInfo),
+      description:
+        (isImageboard && filename ? `${filename} | ` : "") +
+        (item.tags?.join(", ") || metaInfo),
       alt: item.caption,
       feedItemId: item.id,
       isReddit: item.source.toLowerCase() === "reddit" && !!item.redditData,
@@ -117,7 +121,9 @@ function MediaLightboxContent({
     let slideCount = 0;
     for (const item of items) {
       const itemSlideCount =
-        item.galleryUrls && item.galleryUrls.length > 1 ? item.galleryUrls.length : 1;
+        item.galleryUrls && item.galleryUrls.length > 1
+          ? item.galleryUrls.length
+          : 1;
       if (sIndex < slideCount + itemSlideCount) {
         return item;
       }
@@ -128,8 +134,12 @@ function MediaLightboxContent({
 
   const currentItem = getItemFromSlideIndex(slideIndex);
   const currentRedditPost = currentItem?.redditData;
-  const threadData = currentRedditPost ? redditThreadData[currentRedditPost.id] : null;
-  const threadLoading = currentRedditPost ? isLoadingThread[currentRedditPost.id] : false;
+  const threadData = currentRedditPost
+    ? redditThreadData[currentRedditPost.id]
+    : null;
+  const threadLoading = currentRedditPost
+    ? isLoadingThread[currentRedditPost.id]
+    : false;
 
   // Handle custom keyboard shortcuts (lightbox handles arrow keys internally)
   useEffect(() => {
@@ -233,7 +243,9 @@ function MediaLightboxContent({
       {/* Keyboard Help Hint for Reddit Posts */}
       {currentRedditPost && (
         <div className="absolute bottom-4 left-4 text-xs text-white/40 pointer-events-none">
-          <kbd className="px-2 py-1 rounded bg-white/5 border border-white/10 mr-2">C</kbd>
+          <kbd className="px-2 py-1 rounded bg-white/5 border border-white/10 mr-2">
+            C
+          </kbd>
           <span>Comments</span>
         </div>
       )}

@@ -24,7 +24,7 @@ class EmailService {
 
       if (!smtpHost || !smtpUser || !smtpPassword) {
         logger.warn(
-          "Email service not fully configured. Emails will not be sent."
+          "Email service not fully configured. Emails will not be sent.",
         );
         return;
       }

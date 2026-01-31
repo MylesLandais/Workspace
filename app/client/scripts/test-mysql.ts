@@ -23,12 +23,12 @@ try {
   const connStart = Date.now();
   const connection = await pool.getConnection();
   console.log(`[MySQL] Got connection in ${Date.now() - connStart}ms`);
-  
+
   // Test query
   const queryStart = Date.now();
   const [rows] = await connection.execute("SELECT 1 as test");
   console.log(`[MySQL] Query executed in ${Date.now() - queryStart}ms`, rows);
-  
+
   connection.release();
   pool.end();
   console.log(`[MySQL] Total time: ${Date.now() - start}ms`);

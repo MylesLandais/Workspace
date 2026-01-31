@@ -2,19 +2,40 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Waitlist Form", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
+    page.on("console", (msg) => {
+      if (msg.type() === "error") {
+        console.error(`Browser console error: ${msg.text()}`);
+      }
+    });
+
+    page.on("pageerror", (error) => {
+      console.error(`Page error: ${error.message}`);
+    });
+
+    console.log(`Navigating to: ${page.url()}`);
+    await page.goto("/", { waitUntil: "domcontentloaded" });
+    console.log(`Page loaded: ${page.url()}`);
   });
 
   test("should display waitlist form on landing page", async ({ page }) => {
+    console.log("Test: Checking for waitlist form elements");
+
     const form = page.locator("form");
     const emailInput = page.locator('input[id="email"]');
     const nameInput = page.locator('input[id="name"]');
     const submitButton = page.locator('button[type="submit"]');
 
-    await expect(form).toBeVisible();
-    await expect(emailInput).toBeVisible();
-    await expect(nameInput).toBeVisible();
-    await expect(submitButton).toBeVisible();
+    await expect(form).toBeVisible({ timeout: 10000 });
+    console.log("Form is visible");
+
+    await expect(emailInput).toBeVisible({ timeout: 5000 });
+    console.log("Email input is visible");
+
+    await expect(nameInput).toBeVisible({ timeout: 5000 });
+    console.log("Name input is visible");
+
+    await expect(submitButton).toBeVisible({ timeout: 5000 });
+    console.log("Submit button is visible");
   });
 
   test("should submit waitlist form successfully", async ({ page }) => {
@@ -31,7 +52,7 @@ test.describe("Waitlist Form", () => {
     await submitButton.click();
 
     await expect(
-      page.locator("text=Success! We'll notify you when access is available.")
+      page.locator("text=Success! We'll notify you when access is available."),
     ).toBeVisible({ timeout: 5000 });
   });
 
@@ -57,7 +78,7 @@ test.describe("Waitlist Form", () => {
     await submitButton.click();
 
     await expect(
-      page.locator("text=Success! We'll notify you when access is available.")
+      page.locator("text=Success! We'll notify you when access is available."),
     ).toBeVisible({ timeout: 5000 });
 
     const emailInput2 = page.locator('input[id="email"]');
@@ -67,7 +88,7 @@ test.describe("Waitlist Form", () => {
     await submitButton2.click();
 
     await expect(
-      page.locator("text=You are already on the waitlist")
+      page.locator("text=You are already on the waitlist"),
     ).toBeVisible({ timeout: 5000 });
   });
 
@@ -79,7 +100,7 @@ test.describe("Waitlist Form", () => {
 
     const emailInput = page.locator('input[id="email"]');
     const isRequired = await emailInput.evaluate(
-      (el: HTMLInputElement) => el.required
+      (el: HTMLInputElement) => el.required,
     );
     expect(isRequired).toBe(true);
   });
@@ -107,7 +128,7 @@ test.describe("Waitlist Form", () => {
     await submitButton.click();
 
     await expect(
-      page.locator("text=Success! We'll notify you when access is available.")
+      page.locator("text=Success! We'll notify you when access is available."),
     ).toBeVisible({ timeout: 5000 });
 
     await expect(emailInput).toHaveValue("");
@@ -128,7 +149,7 @@ test.describe("Waitlist Form", () => {
     await submitButton.click();
 
     await expect(
-      page.locator("text=An error occurred. Please try again.")
+      page.locator("text=An error occurred. Please try again."),
     ).toBeVisible({ timeout: 5000 });
   });
 });
