@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
 import { mysqlDb as db } from "@/lib/db/mysql";
 import { inviteCode } from "@/lib/db/schema/mysql-auth";
 import { v4 as uuidv4 } from "uuid";
@@ -11,6 +12,15 @@ interface GenerateInviteRequest {
 }
 
 export async function POST(request: NextRequest) {
+  // Validate session - only authenticated users can generate invite codes
+  const session = await auth.api.getSession({
+    headers: request.headers,
+  });
+
+  if (!session?.user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const body: GenerateInviteRequest = await request.json();
 
@@ -29,6 +39,7 @@ export async function POST(request: NextRequest) {
       expiresAt,
       maxUses: body.maxUses || null,
       usedCount: 0,
+      createdBy: session.user.id,
       notes: body.notes || null,
       createdAt: new Date(),
       updatedAt: new Date(),

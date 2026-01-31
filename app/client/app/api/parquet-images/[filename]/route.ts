@@ -14,5 +14,6 @@ export async function GET(
   }
 
   // Redirect to static file in public directory
-  return NextResponse.redirect(`/parquet-images/${filename}`);
+  const url = new URL(`/parquet-images/${filename}`, request.url);
+  return NextResponse.redirect(url);
 }

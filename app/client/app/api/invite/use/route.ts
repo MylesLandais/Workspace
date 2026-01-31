@@ -32,6 +32,22 @@ export async function POST(request: NextRequest) {
 
     const invite = codeEntry[0];
 
+    // Check if invite code has expired
+    if (invite.expiresAt && new Date() > invite.expiresAt) {
+      return NextResponse.json(
+        { error: "Invite code has expired" },
+        { status: 410 },
+      );
+    }
+
+    // Check if invite code has reached max uses
+    if (invite.maxUses !== null && invite.usedCount >= invite.maxUses) {
+      return NextResponse.json(
+        { error: "Invite code has reached maximum usage limit" },
+        { status: 410 },
+      );
+    }
+
     await db
       .update(inviteCode)
       .set({

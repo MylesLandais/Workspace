@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
 import { mysqlDb as db } from "@/lib/db/mysql";
 import { user } from "@/lib/db/schema/mysql-auth";
 import { eq } from "drizzle-orm";
@@ -11,11 +12,28 @@ interface CompleteProfileRequest {
 }
 
 export async function POST(request: NextRequest) {
+  // Validate session first
+  const session = await auth.api.getSession({
+    headers: request.headers,
+  });
+
+  if (!session?.user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   return withSpan(
     "user.complete-profile",
     async (span) => {
       try {
         const body: CompleteProfileRequest = await request.json();
+
+        // Ensure user can only update their own profile
+        if (body.userId !== session.user.id) {
+          return NextResponse.json(
+            { error: "Cannot modify another user's profile" },
+            { status: 403 },
+          );
+        }
 
         span.setAttributes({
           "user.id": body.userId || "unknown",
