@@ -1,0 +1,51 @@
+services:
+  comfyui:
+    image: comfyui:latest
+    container_name: comfy
+    restart: unless-stopped
+    ports:
+      - "8188:8188"
+    networks:
+      - comfy-network
+    volumes:
+      - /home/warby/ComfyUI/user:/app/ComfyUI/user
+      - /home/warby/ComfyUI/custom_nodes:/app/ComfyUI/custom_nodes
+      - /home/warby/ComfyUI/models:/app/ComfyUI/models:rw
+      - /home/warby/ComfyUI/input:/app/ComfyUI/input:rw
+      - /home/warby/assets/output/comfy:/app/ComfyUI/output:rw
+    environment:
+      - COMFY_AUTO_INSTALL=1
+      - PGID=1000
+      - PUID=1000
+      - TZ=America/Chicago
+      - NVIDIA_VISIBLE_DEVICES=all
+    env_file:
+      - .env
+    ipc: host
+    command: ["python", "main.py", "--listen", "0.0.0.0"]
+    devices:
+      - nvidia.com/gpu=all
+
+  caddy:
+    image: caddy:latest
+    container_name: comfy-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - comfy-network
+    depends_on:
+      - comfyui
+
+networks:
+  comfy-network:
+    driver: bridge
+
+volumes:
+  caddy_data:
+  caddy_config:
