@@ -1,0 +1,46 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [".env"],
+  "globalEnv": [
+    "NODE_ENV",
+    "DATABASE_URL",
+    "REDIS_URL",
+    "AWS_ACCESS_KEY_ID",
+    "AWS_SECRET_ACCESS_KEY",
+    "AWS_REGION",
+    "S3_BUCKET_NAME",
+    "NEO4J_URI",
+    "NEO4J_USER",
+    "NEO4J_PASSWORD"
+  ],
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "test": {
+      "dependsOn": ["build"]
+    },
+    "test:ci": {
+      "dependsOn": ["build"]
+    },
+    "test:e2e": {
+      "dependsOn": ["build"]
+    },
+    "lint": {},
+    "typecheck": {},
+    "codegen": {
+      "outputs": ["src/generated/**"]
+    },
+    "db:generate": {},
+    "db:push": {},
+    "db:studio": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

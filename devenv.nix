@@ -74,12 +74,12 @@
   # Application processes only - backing services are shared
   processes = {
     web = {
-      exec = "cd app/client && bun run dev";
+      exec = "cd apps/web && bun run dev";
       process-compose = {
         depends_on.wait-for-db.condition = "process_completed_successfully";
       };
     };
-    collab.exec = "cd app/client && node server/yjs-server.cjs";
+    collab.exec = "cd apps/web && node server/yjs-server.cjs";
 
     # Wait for shared MySQL to be ready (simple TCP check)
     wait-for-db = {
@@ -144,8 +144,8 @@
     '';
 
     # Database operations
-    db-push.exec = "cd app/client && bun run db:push";
-    db-studio.exec = "cd app/client && bun run db:studio";
+    db-push.exec = "cd apps/web && bun run db:push";
+    db-studio.exec = "cd apps/web && bun run db:studio";
     db-shell.exec = "mysql -h localhost -P 3307 -u root -psecret bunny_auth";
     db-create.exec = ''
       docker exec mysql-scheduler.jupyter.dev.local mysql -u root -psecret -e "CREATE DATABASE IF NOT EXISTS bunny_auth;"
@@ -153,16 +153,16 @@
     '';
 
     # Build and test
-    build-stack.exec = "cd app/client && bun run build";
-    test-stack.exec = "cd app/client && bun test";
-    e2e.exec = "cd app/client && bun run test:e2e";
+    build-stack.exec = "cd apps/web && bun run build";
+    test-stack.exec = "cd apps/web && bun test";
+    e2e.exec = "cd apps/web && bun run test:e2e";
     analyze-perf.exec = "lighthouse http://localhost:3000 --view";
 
     # GraphQL server
-    server-start.exec = "cd app/server && docker compose up -d";
-    server-stop.exec = "cd app/server && docker compose down";
-    server-logs.exec = "cd app/server && docker compose logs -f";
-    server-status.exec = "cd app/server && docker compose ps";
+    server-start.exec = "cd apps/api && docker compose up -d";
+    server-stop.exec = "cd apps/api && docker compose down";
+    server-logs.exec = "cd apps/api && docker compose logs -f";
+    server-status.exec = "cd apps/api && docker compose ps";
   };
 
   git-hooks.hooks = {
@@ -194,10 +194,10 @@
           - Responsive design (mobile-first)
 
           File structure:
-          - Components: app/client/src/components/[feature]/[Component].tsx
-          - Hooks: app/client/src/hooks/[hookName].ts
-          - Utils: app/client/src/lib/utils/[utility].ts
-          - API routes: app/client/app/api/[endpoint]/route.ts
+          - Components: apps/web/src/components/[feature]/[Component].tsx
+          - Hooks: apps/web/src/hooks/[hookName].ts
+          - Utils: apps/web/src/lib/utils/[utility].ts
+          - API routes: apps/web/app/api/[endpoint]/route.ts
 
           Always verify component props via shadcn MCP before implementation.
         '';
@@ -220,10 +220,10 @@
           - GraphQL integration where appropriate
 
           File structure:
-          - Routes: app/server/src/routes/[resource].ts
-          - Services: app/server/src/services/[service].ts
-          - Neo4j queries: app/server/src/neo4j/queries/[domain].ts
-          - Bunny resolvers: app/server/src/bunny/resolvers.ts
+          - Routes: apps/api/src/routes/[resource].ts
+          - Services: apps/api/src/services/[service].ts
+          - Neo4j queries: apps/api/src/neo4j/queries/[domain].ts
+          - Bunny resolvers: apps/api/src/bunny/resolvers.ts
 
           Always use connection pooling for databases.
         '';
@@ -288,21 +288,21 @@
       test-suite = ''
         Run complete test suite (unit + E2E)
         ```bash
-        cd app/client && bun test && bun run e2e
+        cd apps/web && bun test && bun run e2e
         ```
       '';
 
       db-migrate = ''
         Run database migrations (Drizzle)
         ```bash
-        cd app/client && bun run db:push
+        cd apps/web && bun run db:push
         ```
       '';
 
       db-studio = ''
         Open Drizzle Studio for database inspection
         ```bash
-        cd app/client && bun run db:studio
+        cd apps/web && bun run db:studio
         ```
       '';
 
@@ -316,7 +316,7 @@
       server-logs = ''
         View GraphQL server logs
         ```bash
-        cd app/server && docker compose logs -f server
+        cd apps/api && docker compose logs -f server
         ```
       '';
     };
@@ -355,9 +355,9 @@
           json=$(cat)
           file_path=$(echo "$json" | ${pkgs.jq}/bin/jq -r '.file_path // empty')
 
-          if [[ "$file_path" =~ \.tsx?$ ]] && [[ "$file_path" =~ app/client/ ]]; then
+          if [[ "$file_path" =~ \.tsx?$ ]] && [[ "$file_path" =~ apps/web/ ]]; then
             echo "Running tests for modified TypeScript file..."
-            cd app/client && bun test --filter="**/*.test.ts" --bail
+            cd apps/web && bun test --filter="**/*.test.ts" --bail
           fi
         '';
       };
@@ -383,9 +383,9 @@
     echo ""
     echo "Quick start: wait-for-all && devenv up"
     echo ""
-    if [ ! -d "app/client/node_modules" ]; then
-      echo "Installing client dependencies..."
-      (cd app/client && bun install)
+    if [ ! -d "apps/web/node_modules" ]; then
+      echo "Installing web dependencies..."
+      (cd apps/web && bun install)
     fi
   '';
 

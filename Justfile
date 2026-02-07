@@ -53,8 +53,8 @@ dev: wait-for-db
 
 # Install all dependencies
 install:
-    cd app/client && bun install
-    cd app/server && bun install
+    cd apps/web && bun install
+    cd apps/api && bun install
 
 # === Database ===
 
@@ -65,11 +65,11 @@ db-create:
 
 # Push Drizzle schema to MySQL
 db-push: wait-for-db
-    cd app/client && bun run db:push
+    cd apps/web && bun run db:push
 
 # Open Drizzle Studio
 db-studio:
-    cd app/client && bun run db:studio
+    cd apps/web && bun run db:studio
 
 # Open MySQL shell
 db-shell:
@@ -79,11 +79,11 @@ db-shell:
 
 # Run unit tests
 test:
-    cd app/client && bun test
+    cd apps/web && bun test
 
 # Run E2E tests
 e2e:
-    cd app/client && bun run test:e2e
+    cd apps/web && bun run test:e2e
 
 # Run all tests
 test-all: test e2e
@@ -92,7 +92,7 @@ test-all: test e2e
 
 # Build Next.js app
 build:
-    cd app/client && bun run build
+    cd apps/web && bun run build
 
 # Run Lighthouse performance audit
 perf:
@@ -102,12 +102,12 @@ perf:
 
 # Start GraphQL server
 server-start:
-    cd app/server && docker compose up -d
+    cd apps/api && docker compose up -d
 
 # Stop GraphQL server
 server-stop:
-    cd app/server && docker compose down
+    cd apps/api && docker compose down
 
 # View GraphQL server logs
 server-logs:
-    cd app/server && docker compose logs -f
+    cd apps/api && docker compose logs -f
