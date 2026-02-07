@@ -24,7 +24,7 @@ services:
       - NEO4J_USER=neo4j
       - NEO4J_PASSWORD=password
       # Use localhost for browser-accessible URLs (MinIO is on host network)
-      - MINIO_ENDPOINT=http://localhost:9000
+      - MINIO_ENDPOINT=http://host.docker.internal:9000
       - MINIO_ACCESS_KEY=minioadmin
       - MINIO_SECRET_KEY=minioadmin
     extra_hosts:

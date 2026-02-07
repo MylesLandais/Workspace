@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { mysqlDb as db } from "@/lib/db/mysql";
 import { inviteCode } from "@/lib/db/schema/mysql-auth";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 
 interface UseInviteRequest {
   code: string;
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     await db
       .update(inviteCode)
       .set({
-        usedCount: invite.usedCount + 1,
+        usedCount: sql`${inviteCode.usedCount} + 1`,
         updatedAt: new Date(),
       })
       .where(eq(inviteCode.id, invite.id));

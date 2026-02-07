@@ -11,27 +11,6 @@ const recentLogs: Array<{
   context?: unknown;
 }> = [];
 
-const MAX_LOGS = 100;
-
-function addLog(
-  level: string,
-  namespace: string,
-  message: string,
-  context?: unknown,
-): void {
-  recentLogs.push({
-    timestamp: new Date().toISOString(),
-    level,
-    namespace,
-    message,
-    context,
-  });
-
-  if (recentLogs.length > MAX_LOGS) {
-    recentLogs.shift();
-  }
-}
-
 export async function GET(request: NextRequest) {
   log.info("Logs debug endpoint accessed");
 

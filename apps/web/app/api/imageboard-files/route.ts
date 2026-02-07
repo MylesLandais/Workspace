@@ -12,6 +12,14 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  // Prevent path traversal
+  if (thread.includes("..") || thread.includes("/") || thread.includes("\\")) {
+    return NextResponse.json(
+      { error: "Invalid thread parameter" },
+      { status: 400 },
+    );
+  }
+
   try {
     const imageDir = join(process.cwd(), "public", "imageboard", "b", thread);
 

@@ -164,14 +164,21 @@ async function captureAuthErrorToSentry(
   }
 }
 
-export async function POST(request: Request) {
+/**
+ * Shared handler for auth requests to reduce duplication
+ */
+async function handleAuthRequest(
+  request: Request,
+  operation: "get" | "post",
+  handler: (req: Request) => Promise<Response>,
+) {
   const url = new URL(request.url);
   const pathname = url.pathname;
+  const method = request.method;
 
   return withSpan(
-    `auth.POST ${pathname}`,
+    `auth.${operation.toUpperCase()} ${pathname}`,
     async (span) => {
-      const method = request.method;
       const searchParams = Object.fromEntries(url.searchParams.entries());
 
       span.setAttributes({
@@ -186,10 +193,10 @@ export async function POST(request: Request) {
       }
 
       addSpanEvent(span, "auth.request.start", { method, pathname });
-      console.log(`[Auth] POST ${pathname} started`, { method });
+      console.log(`[Auth] ${method} ${pathname} started`);
 
       try {
-        const response = await authPOST(request);
+        const response = await handler(request);
         const statusCode = response.status;
 
         span.setAttribute("http.status_code", statusCode);
@@ -198,113 +205,7 @@ export async function POST(request: Request) {
         });
 
         console.log(
-          `[Auth] POST ${pathname} completed with status ${statusCode}`,
-        );
-
-        // Capture HTTP error responses to Sentry (Better Auth doesn't throw)
-        if (statusCode >= 400) {
-          span.setAttribute("error", true);
-          await captureAuthErrorToSentry(response, pathname, method);
-        }
-
-        return response;
-      } catch (error) {
-        const errorMessage =
-          error instanceof Error ? error.message : "Unknown error";
-        const diagnosis = diagnoseDatabaseError(error);
-
-        span.setAttribute("error", true);
-        span.setAttribute("error.message", errorMessage);
-        span.setAttribute("error.is_database_error", diagnosis.isDatabaseError);
-        span.setAttribute("error.database_error_type", diagnosis.errorType);
-
-        addSpanEvent(span, "auth.request.error", {
-          error: errorMessage,
-          isDatabaseError: diagnosis.isDatabaseError ? "1" : "0",
-          errorType: diagnosis.errorType,
-        });
-
-        console.error(`[Auth] POST ${pathname} failed:`, {
-          error: errorMessage,
-          isDatabaseError: diagnosis.isDatabaseError,
-          errorType: diagnosis.errorType,
-          details: diagnosis.details,
-        });
-
-        // Capture thrown exceptions to Sentry with detailed diagnostic info
-        Sentry.captureException(error, {
-          tags: {
-            "auth.endpoint": pathname,
-            "auth.method": method,
-            "error.type": diagnosis.isDatabaseError
-              ? "database_error"
-              : "auth_exception",
-            "database.error_type": diagnosis.errorType,
-          },
-          extra: {
-            isDatabaseError: diagnosis.isDatabaseError,
-            errorType: diagnosis.errorType,
-            diagnostic: diagnosis.details,
-            errorMessage,
-          },
-          level: "error",
-          contexts: {
-            database: diagnosis.details,
-            auth_request: {
-              endpoint: pathname,
-              method,
-            },
-          },
-        });
-
-        throw error;
-      }
-    },
-    {
-      attributes: {
-        component: "auth-api",
-        operation: "post",
-      },
-      kind: "server",
-    },
-  );
-}
-
-export async function GET(request: Request) {
-  const url = new URL(request.url);
-  const pathname = url.pathname;
-
-  return withSpan(
-    `auth.GET ${pathname}`,
-    async (span) => {
-      const method = request.method;
-      const searchParams = Object.fromEntries(url.searchParams.entries());
-
-      span.setAttributes({
-        "http.method": method,
-        "http.url": url.toString(),
-        "http.target": pathname,
-        "auth.path": pathname,
-      });
-
-      if (Object.keys(searchParams).length > 0) {
-        span.setAttribute("http.query", JSON.stringify(searchParams));
-      }
-
-      addSpanEvent(span, "auth.request.start", { method, pathname });
-      console.log(`[Auth] GET ${pathname} started`);
-
-      try {
-        const response = await authGET(request);
-        const statusCode = response.status;
-
-        span.setAttribute("http.status_code", statusCode);
-        addSpanEvent(span, "auth.request.complete", {
-          status: statusCode,
-        });
-
-        console.log(
-          `[Auth] GET ${pathname} completed with status ${statusCode}`,
+          `[Auth] ${method} ${pathname} completed with status ${statusCode}`,
         );
 
         // Capture HTTP error responses to Sentry
@@ -330,7 +231,7 @@ export async function GET(request: Request) {
           errorType: diagnosis.errorType,
         });
 
-        console.error(`[Auth] GET ${pathname} failed:`, {
+        console.error(`[Auth] ${method} ${pathname} failed:`, {
           error: errorMessage,
           isDatabaseError: diagnosis.isDatabaseError,
           errorType: diagnosis.errorType,
@@ -369,9 +270,17 @@ export async function GET(request: Request) {
     {
       attributes: {
         component: "auth-api",
-        operation: "get",
+        operation,
       },
       kind: "server",
     },
   );
+}
+
+export async function POST(request: Request) {
+  return handleAuthRequest(request, "post", authPOST);
+}
+
+export async function GET(request: Request) {
+  return handleAuthRequest(request, "get", authGET);
 }

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { decodeHtmlEntities } from "@/lib/utils";
 
 interface OPMLFeed {
   title: string;
@@ -87,8 +88,8 @@ function parseOPMLContent(xml: string): OPMLParseResult {
             "Untitled Feed";
 
           feeds.push({
-            title: decodeXMLEntities(title),
-            xmlUrl: decodeXMLEntities(xmlUrl),
+            title: decodeHtmlEntities(title),
+            xmlUrl: decodeHtmlEntities(xmlUrl),
             htmlUrl: extractAttribute(match, "htmlUrl") || undefined,
             description: extractAttribute(match, "description") || undefined,
           });
@@ -131,16 +132,16 @@ function parseOutlineLevel(
       const description = extractAttribute(tagStr, "description");
 
       feeds.push({
-        title: decodeXMLEntities(title),
-        xmlUrl: decodeXMLEntities(xmlUrl),
-        htmlUrl: htmlUrl ? decodeXMLEntities(htmlUrl) : undefined,
+        title: decodeHtmlEntities(title),
+        xmlUrl: decodeHtmlEntities(xmlUrl),
+        htmlUrl: htmlUrl ? decodeHtmlEntities(htmlUrl) : undefined,
         category: parentCategory || undefined,
-        description: description ? decodeXMLEntities(description) : undefined,
+        description: description ? decodeHtmlEntities(description) : undefined,
       });
     } else if (!isSelfClosing) {
       // This is a category folder
       const text = extractAttribute(tagStr, "text");
-      const category = text ? decodeXMLEntities(text) : parentCategory;
+      const category = text ? decodeHtmlEntities(text) : parentCategory;
 
       if (category && category !== parentCategory) {
         categories.add(category);
@@ -195,17 +196,4 @@ function extractAttribute(tag: string, name: string): string | null {
   if (singleMatch) return singleMatch[1];
 
   return null;
-}
-
-function decodeXMLEntities(text: string): string {
-  return text
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&apos;/g, "'")
-    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(parseInt(code, 10)))
-    .replace(/&#x([0-9a-fA-F]+);/g, (_, code) =>
-      String.fromCharCode(parseInt(code, 16)),
-    );
 }

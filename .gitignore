@@ -79,3 +79,7 @@ DEVENV_CHANGES.md
 DEVENV_REVIEW.md
 INTEGRATION_GUIDE.md
 
+
+# Machine specific configs
+.pre-commit-config.yaml
+.mcp.json

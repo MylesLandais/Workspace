@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { mysqlDb as db } from "@/lib/db/mysql";
 import { inviteCode } from "@/lib/db/schema/mysql-auth";
-import { eq, and, gt } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 export async function GET(request: NextRequest) {
   try {

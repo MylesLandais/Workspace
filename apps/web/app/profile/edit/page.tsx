@@ -101,6 +101,7 @@ export default function EditProfilePage() {
           location,
           website,
           company,
+          customLink,
           links: JSON.stringify(links),
           profilePublic,
         }),
