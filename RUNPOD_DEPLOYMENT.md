@@ -56,7 +56,58 @@ The Dockerfile uses CUDA 12.8.1, but selecting all compatible versions increases
 
 **Required:** Attach your network volume ID for persistent model storage.
 
-**Warning:** Network volumes introduce latency and restrict workers to specific datacenters. Only use if your workload requires shared persistence or datasets larger than container limits.
+| Setting | Current Value |
+|---------|---------------|
+| **Volume ID** | `4wdzn7kf5p` |
+| **Volume Name** | `comfy_data` |
+| **Size** | 64 GB |
+| **Region** | EUR-NO-1 |
+
+**Warning:** Network volumes restrict workers to the volume's datacenter. Ensure the endpoint allows that region.
+
+Serverless workers mount the volume at `/runpod-volume`. The worker's `src/extra_model_paths.yaml` maps model subdirectories under that path so ComfyUI discovers them automatically.
+
+#### Model Directory Structure
+
+Models on the volume must follow ComfyUI's expected directory layout:
+
+```
+/runpod-volume/models/
+  checkpoints/
+  clip/                  # CLIPLoader (text encoders)
+  clip_vision/
+  diffusion_models/      # UNETLoader (z-image, flux, etc.)
+  loras/
+  unet/                  # legacy alias for diffusion_models
+  vae/
+```
+
+The directory names here must match the keys in `src/extra_model_paths.yaml`. If you add a new model type, add the corresponding entry to the yaml and rebuild.
+
+#### Volume Hydration
+
+Models are downloaded from HuggingFace and placed on the volume. Two methods:
+
+**On-pod hydration (fast, recommended for initial setup):**
+
+Spin up a pod in the same datacenter with the volume attached, then run:
+
+```bash
+pip install huggingface_hub
+python3 /runpod-volume/scripts/hydrate.py
+```
+
+The script lives on the volume itself. It downloads models, moves (not copies) them to avoid doubling disk usage, and cleans the HF cache between downloads.
+
+**Remote S3 hydration (slow, works from any machine):**
+
+```bash
+python scripts/hydrate_runpod_s3.py --dry-run   # preview
+python scripts/hydrate_runpod_s3.py              # upload all
+python scripts/hydrate_runpod_s3.py --list       # verify
+```
+
+Uploads go through the RunPod S3-compatible API. EUR-NO-1 uploads are slow (~1 GB/13 min). Both scripts reference the model manifest at `data/comfy-workflows/manifest.json` in the jupyter workspace.
 
 #### Environment Variables
 
@@ -66,7 +117,7 @@ The Dockerfile uses CUDA 12.8.1, but selecting all compatible versions increases
 
 #### Data Centers
 
-**Recommended:** Allow all datacenters for maximum availability.
+When a network volume is attached, workers can only schedule in the volume's datacenter. For volume `4wdzn7kf5p` this is EUR-NO-1.
 
 #### Expose HTTP/TCP Ports
 

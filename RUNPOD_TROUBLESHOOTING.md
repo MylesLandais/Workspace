@@ -4,10 +4,57 @@ This guide documents common deployment issues, their symptoms, and resolution st
 
 ## Table of Contents
 
+- [Models Not Found on Worker](#models-not-found-on-worker)
 - [Registry Push Failure (RISK-001)](#registry-push-failure-risk-001)
 - [Layer Locking Errors (RISK-002)](#layer-locking-errors-risk-002)
 - [Missing Git in Build Context (RISK-010)](#missing-git-in-build-context-risk-010)
 - [Incident Reporting](#incident-reporting)
+
+---
+
+## Models Not Found on Worker
+
+### Symptoms
+
+Workflow validation fails with errors like:
+
+```
+Node 66 (UNETLoader): unet_name: 'z_image_bf16.safetensors' not in []
+Node 62 (CLIPLoader): clip_name: 'qwen_3_4b.safetensors' not in []
+```
+
+The handler's `get_available_models()` shows empty lists or only built-in models (e.g. `pixel_space` for VAE).
+
+### Common Causes
+
+1. **Network volume not attached to endpoint.** Check endpoint config via GraphQL or console. The `networkVolumeId` field must be set.
+
+2. **Model directory name not in extra_model_paths.yaml.** ComfyUI only searches directories listed in this file. If you store models in `models/diffusion_models/` but the yaml only maps `unet`, UNETLoader won't find them. Add the missing key to `src/extra_model_paths.yaml` and rebuild.
+
+3. **Wrong datacenter.** The volume is in EUR-NO-1. If the endpoint allows other datacenters, workers may spin up in a region without access to the volume. Restrict the endpoint's datacenter to match the volume.
+
+4. **Volume mounted at unexpected path.** Serverless mounts at `/runpod-volume`, pods at `/workspace`. The yaml maps both paths. Verify the mount by checking worker logs for the `extra_model_paths` loading message.
+
+5. **Models not on the volume.** Verify by running `hydrate_runpod_s3.py --list` or spinning up a pod and checking `/runpod-volume/models/`.
+
+### Resolution
+
+```bash
+# Check if volume is attached
+python -c "
+import requests, os, json
+from dotenv import load_dotenv; load_dotenv()
+headers = {'Authorization': f'Bearer {os.getenv(\"RUNPOD_API_KEY\")}', 'Content-Type': 'application/json'}
+r = requests.post('https://api.runpod.io/graphql', headers=headers,
+    json={'query': '{ myself { endpoints { id name networkVolumeId } } }'})
+print(json.dumps(r.json(), indent=2))
+"
+
+# Check what's on the volume via S3
+python scripts/hydrate_runpod_s3.py --list
+```
+
+If `extra_model_paths.yaml` is missing a directory, add it and push to trigger a rebuild. See `RUNPOD_DEPLOYMENT.md` for the expected directory structure.
 
 ---
 
@@ -271,5 +318,5 @@ grep "layer-sha256:" build-logs-*.txt | cut -d: -f3 | sort -u
 
 ---
 
-*Last Updated: 2025-12-19 (Added RISK-010: Missing Git in Build Context)*
+*Last Updated: 2026-02-08 (Added models-not-found troubleshooting)*
 
