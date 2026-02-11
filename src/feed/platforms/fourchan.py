@@ -41,7 +41,8 @@ class ImageboardAdapter(PlatformAdapter):
         )
         self.delay_min = delay_min
         self.delay_max = delay_max
-        self.keywords = keywords or ["irl"]
+        # Default to empty list if None, caller should provide keywords
+        self.keywords = keywords if keywords is not None else []
         self.mock = mock
         self.headers = {"User-Agent": self.user_agent}
         self.base_url = "https://a.4cdn.org"

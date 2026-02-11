@@ -40,7 +40,25 @@ def poll_imageboard_board(
     print("IMAGEBOARD BOARD POLLER")
     print("=" * 70)
     print(f"Board: /{board}/")
-    print(f"Keywords: {keywords or ['irl']}")
+    
+    # Load keywords from config if not provided
+    if keywords is None:
+        config_path = project_root / "config" / "imageboard_keywords.json"
+        try:
+            if config_path.exists():
+                import json
+                with open(config_path, 'r') as f:
+                    config = json.load(f)
+                    keywords = config.get('keywords', ["irl"])
+                    print(f"Loaded keywords from config: {keywords}")
+            else:
+                keywords = ["irl"]
+                print("Warning: Config file not found, using minimal default: ['irl']")
+        except Exception as e:
+            print(f"Error loading config: {e}")
+            keywords = ["irl"]
+            
+    print(f"Keywords: {keywords}")
     print(f"Max threads: {max_threads}")
     print(f"Max posts: {max_posts}")
     if dry_run:

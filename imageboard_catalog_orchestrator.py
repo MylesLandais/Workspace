@@ -14,7 +14,28 @@ sys.path.insert(0, str(project_root))
 
 REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost:6379')
 BOARD = os.environ.get('IMAGEBOARD_BOARD', 'b')
-KEYWORDS = ["irl", "face", "celeb", "JJ", "girl", "girls", "feet", "cel", "panties", "gooning", "goon", "zoomers", "goddess", "built", "ss", "actresses", "tiny", "cosplay"]
+CONFIG_PATH = os.path.join(project_root, 'config', 'imageboard_keywords.json')
+
+def load_keywords():
+    """Load keywords from config file."""
+    if not os.path.exists(CONFIG_PATH):
+        print(f"Error: Configuration file not found at {CONFIG_PATH}")
+        print("Please create 'config/imageboard_keywords.json' with your desired keywords.")
+        # Fail fast if config is missing - this prevents silent failures or hidden behavior
+        sys.exit(1)
+        
+    try:
+        with open(CONFIG_PATH, 'r') as f:
+            config = json.load(f)
+            keywords = config.get('keywords', [])
+            if not keywords:
+                print("Warning: Keyword list in config is empty.")
+            return keywords
+    except Exception as e:
+        print(f"Error loading config: {e}")
+        sys.exit(1)
+
+KEYWORDS = load_keywords()
 SKIP_BOARDS = []  # Empty - we want to monitor /ss/ threads
 POLL_INTERVAL = int(os.environ.get('POLL_INTERVAL', 1800)) # 30 minutes default
 
