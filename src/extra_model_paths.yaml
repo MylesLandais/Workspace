@@ -11,6 +11,7 @@ runpod_worker_comfy:
   upscale_models: models/upscale_models/
   vae: models/vae/
   unet: models/unet/
+  Qwen3-TTS: models/Qwen3-TTS/
 
 # Network Volume support - RunPod mounts network volumes at /workspace
 runpod_network_volume:
@@ -26,3 +27,4 @@ runpod_network_volume:
   upscale_models: models/upscale_models/
   vae: models/vae/
   unet: models/unet/
+  Qwen3-TTS: models/Qwen3-TTS/

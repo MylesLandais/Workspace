@@ -91,7 +91,7 @@ RUN comfy-node-install https://github.com/Enemyx-net/VibeVoice-ComfyUI && \
     GIT_LFS_SKIP_SMUDGE=1 comfy-node-install https://github.com/snicolast/ComfyUI-IndexTTS2
 RUN comfy-node-install https://github.com/ru4ls/ComfyUI_Nano_Banana
 RUN comfy-node-install https://github.com/1038lab/ComfyUI-JoyCaption
-RUN comfy-node-install https://github.com/flybirdxx/ComfyUI-Qwen-TTS
+RUN comfy-node-install https://github.com/DarioFT/ComfyUI-Qwen3-TTS
 
 # Install llama-cpp-python with CUDA support for GGUF model inference
 RUN CMAKE_ARGS="-DGGML_CUDA=on" uv pip install llama-cpp-python
