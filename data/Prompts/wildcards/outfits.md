@@ -1,91 +1,41 @@
 # Outfits
 
-## casual_t_shirt
-- **Short**: "casual t-shirt"
-- **Description**: casual solid-color t-shirt, simple everyday wear
-- **Camera Notes**: any angle suitable
+## crouching_vinyl_jacket_set
+- **Short**: "transparent glossy vinyl jacket set"
+- **Description**: transparent glossy vinyl jacket with structured collar and soft light reflections
+- **Camera Notes**: fashion catalog photography, full-body shot to show fabric sheen
 
-## casual_button_up
-- **Short**: "casual button-up shirt"
-- **Description**: casual button-up shirt, relaxed fit, everyday wear
-- **Camera Notes**: any angle suitable
+## vinyl_jacket_only
+- **Short**: "transparent glossy vinyl jacket"
+- **Description**: transparent glossy vinyl jacket with structured collar and soft light reflections
+- **Camera Notes**: fashion catalog photography, detail shot recommended
 
-## casual_hoodie
-- **Short**: "casual hoodie"
-- **Description**: casual hoodie, comfortable everyday wear
-- **Camera Notes**: any angle suitable
+## vinyl_jacket_with_nude_top
+- **Short**: "transparent glossy vinyl jacket with nude top"
+- **Description**: transparent glossy vinyl jacket with structured collar and soft light reflections, nude top underneath
+- **Camera Notes**: fashion catalog photography, full-body shot
 
-## casual_sweater
-- **Short**: "casual sweater"
-- **Description**: casual sweater, comfortable indoor wear
-- **Camera Notes**: any angle suitable
+## nude_top_underneath
+- **Short**: "nude top underneath"
+- **Description**: nude top underneath transparent glossy vinyl jacket
+- **Camera Notes**: layering detail
 
-## dark_plain_crew_neck
-- **Short**: "dark plain crew-neck shirt"
-- **Description**: dark plain crew-neck shirt, simple and clean
-- **Camera Notes**: any angle suitable
+## white_and_blue_leather_streetwear_sneakers
+- **Short**: "white and blue leather streetwear sneakers"
+- **Description**: white and blue leather streetwear sneakers with a chunky sole and bold contrasting panels
+- **Camera Notes**: fashion catalog photography, footwear visible in full-body framing
 
-## light_blue_t_shirt
-- **Short**: "light blue t-shirt"
-- **Description**: casual light-blue t-shirt, simple and clean
-- **Camera Notes**: any angle suitable
+## sneakers_with_chunky_sole
+- **Short**: "sneakers with chunky sole"
+- **Description**: sneakers with a chunky sole and bold contrasting panels
+- **Camera Notes**: detail shot of footwear, fashion catalog photography
 
-## patterned_casual_shirt
-- **Short**: "patterned casual shirt"
-- **Description**: casual shirt with pattern, everyday wear
-- **Camera Notes**: any angle suitable
+## black_semi_sheer_micro_fishnet_tights
+- **Short**: "black semi-sheer micro fishnet tights"
+- **Description**: black semi-sheer micro fishnet tights tightly hugging legs
+- **Camera Notes**: fashion catalog photography, full-body shot to show leg coverage
 
-## dark_blazer_over_tshirt
-- **Short**: "dark blazer over t-shirt"
-- **Description**: dark blazer or formal jacket over a t-shirt, professional casual look
-- **Camera Notes**: any angle suitable, medium shot shows full outfit
-
-## casual_jacket
-- **Short**: "casual jacket"
-- **Description**: light casual jacket, outdoor wear
-- **Camera Notes**: any angle suitable, medium shot shows full outfit
-
-## dark_hoodie
-- **Short**: "dark hoodie"
-- **Description**: dark colored hoodie, comfortable everyday wear
-- **Camera Notes**: any angle suitable
-
-## plain_long_sleeve
-- **Short**: "plain long-sleeve shirt"
-- **Description**: plain long-sleeve shirt, simple and clean
-- **Camera Notes**: any angle suitable
-
-## home_loungewear
-- **Short**: "home loungewear"
-- **Description**: comfortable home loungewear, relaxed indoor clothing
-- **Camera Notes**: any angle suitable, indoor settings
-
-## blazer_formal
-- **Short**: "blazer formal"
-- **Description**: blazer or formal jacket over a shirt, professional formal look
-- **Camera Notes**: any angle suitable, medium shot shows full outfit
-
-## casual_jeans
-- **Short**: "casual jeans"
-- **Description**: casual t-shirt and jeans, everyday casual wear
-- **Camera Notes**: medium shot shows full outfit
-
-## stop_traffic
-- **Short**: "Stop Traffic police cop costume"
-- **Description**: Amscan "Stop Traffic" Police Cop Officer Sexy Catsuit Halloween Costume (SKU AS-8407473-S). Navy blue catsuit with crisp structured collar, cuffed sleeves, center-front zipper with silver badge pull tab, black side stripes along pant legs, and "Stop Traffic" name plate on chest. Includes police cap with silver badge decoration, faux leather gloves, and functional belt with adjustable leg-strap holster. Costume should appear accurate to retail catalog photography, properly fitted, showing natural body shape with realistic fabric tension and seams.
-- **Camera Notes**: full body shot required to show complete costume with all accessories. Eye-level camera angle recommended.
-
-## racy_referee
-- **Short**: "Racy Referee Halloween costume"
-- **Description**: Black and white vertically striped referee-style top with short sleeves and black trim. Features bright pink collar and lace-up front closure with hot pink laces. Fitted silhouette. Paired with short black flirty flared skirt with coordinating black and white striped ruffle trim at hem, edged with bright pink. Styled with white knee-high socks featuring pink and black horizontal stripes near top.
-- **Camera Notes**: full body shot required to show complete costume with all accessories. Eye-level camera angle recommended.
-
-
-
-
-
-
-
-
-
-
+## fishnet_tights_tight_hugging
+- **Short**: "fishnet tights, tight hugging legs"
+- **Description**: fishnet tights tightly hugging legs
+- **Camera Notes**: fashion catalog photography, legwear focus

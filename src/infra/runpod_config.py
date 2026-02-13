@@ -3,7 +3,7 @@ RunPod Deployment Configuration System
 Modular, functional approach for managing favorite images and GPU configurations.
 """
 from typing import Dict, List, Optional, NamedTuple
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from enum import Enum
 
 class GPUConfig(NamedTuple):
@@ -20,50 +20,6 @@ class ImageConfig(NamedTuple):
     description: str
     default_gpu: str
     tags: List[str]
-
-# Valid CUDA versions for RunPod builds
-# CUDA 13.x does not exist - latest is 12.8.x
-VALID_CUDA_VERSIONS = [
-    "11.8.0",
-    "12.1.0",
-    "12.4.0",
-    "12.6.0",
-    "12.8.0"
-]
-
-def validate_cuda_version(version: str) -> bool:
-    """
-    Validate that a CUDA version is supported.
-    
-    Args:
-        version: CUDA version string (e.g., "12.6.0")
-        
-    Returns:
-        True if version is valid, False otherwise
-    """
-    return version in VALID_CUDA_VERSIONS
-
-@dataclass
-class BuildConfig:
-    """Configuration for building custom Docker images on RunPod."""
-    cuda_version: str  # Validated against VALID_CUDA_VERSIONS
-    git_repo: str
-    git_branch: str = "main"
-    dockerfile_path: str = "Dockerfile.runpod"
-    build_context: str = "."
-    network_volume_id: Optional[str] = None
-    datacenter_id: Optional[str] = None
-    allowed_cuda_versions: List[str] = field(default_factory=list)
-    
-    def __post_init__(self):
-        """Validate CUDA version after initialization."""
-        if not validate_cuda_version(self.cuda_version):
-            raise ValueError(
-                f"Invalid CUDA version: {self.cuda_version}. "
-                f"Valid versions: {', '.join(VALID_CUDA_VERSIONS)}"
-            )
-        if not self.allowed_cuda_versions:
-            self.allowed_cuda_versions = VALID_CUDA_VERSIONS.copy()
 
 # Favorite Docker images for different use cases
 FAVORITE_IMAGES: Dict[str, ImageConfig] = {
@@ -140,27 +96,9 @@ GPU_CONFIGURATIONS: Dict[str, GPUConfig] = {
 }
 
 # Default deployment configurations based on use case
-# Can include either "image" (pre-built) or "build_config" (custom build)
 DEFAULT_DEPLOYMENT_CONFIGS: Dict[str, Dict] = {
     "comfyui-default": {
         "image": "comfyui",
-        "gpu": "NVIDIA RTX 3090",
-        "volume_in_gb": 100,
-        "ports": "8188/tcp",
-        "env": {
-            "WEB_ENABLE_WS": "true"
-        }
-    },
-    "comfyui-custom-build": {
-        "build_config": {
-            "cuda_version": "12.6.0",
-            "git_repo": "https://github.com/MylesLandais/ComfyUI",
-            "git_branch": "main",
-            "dockerfile_path": "Dockerfile.runpod",
-            "build_context": ".",
-            "network_volume_id": None,  # Set via environment or override
-            "datacenter_id": None  # Set via environment or override
-        },
         "gpu": "NVIDIA RTX 3090",
         "volume_in_gb": 100,
         "ports": "8188/tcp",
@@ -305,7 +243,7 @@ def get_gpu_details(gpu_key: str) -> Dict:
     config = get_gpu_config(gpu_key)
     if not config:
         return {}
-    
+
     return {
         "id": config.id,
         "name": config.name,
@@ -313,23 +251,3 @@ def get_gpu_details(gpu_key: str) -> Dict:
         "cost_effectiveness": config.cost_effectiveness,
         "use_cases": config.use_cases
     }
-
-__all__ = [
-    "GPUConfig",
-    "ImageConfig",
-    "BuildConfig",
-    "VALID_CUDA_VERSIONS",
-    "validate_cuda_version",
-    "FAVORITE_IMAGES",
-    "GPU_CONFIGURATIONS",
-    "DEFAULT_DEPLOYMENT_CONFIGS",
-    "get_gpu_by_vram",
-    "get_image_config",
-    "get_gpu_config",
-    "get_deployment_config",
-    "recommend_deployment_config",
-    "list_favorite_images",
-    "list_gpu_configs",
-    "get_image_details",
-    "get_gpu_details"
-]

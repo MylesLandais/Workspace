@@ -7,13 +7,14 @@ services:
     image: mysql:8.0
     container_name: crawler_mysql_control
     ports:
-      - "3307:3306"
+      - "3309:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=secret
       - MYSQL_DATABASE=crawler_control
     volumes:
       - mysql_control_data:/var/lib/mysql
-      - ./crawling_system/schema.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./crawling_system/schema.sql:/docker-entrypoint-initdb.d/01-control-schema.sql
+      - ./crawling_system/content_schema.sql:/docker-entrypoint-initdb.d/02-content-schema.sql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s

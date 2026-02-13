@@ -37,3 +37,32 @@ Luxury footwear options for fashion editorial styling.
 - **Short**: "black Mary Jane shoes with small platform"
 - **Description**: Classic black Mary Jane style shoes with small platform heel, costume-appropriate styling, coordinating with playful Halloween costume aesthetic
 - **Camera Notes**: shoes visible in full-body framing, proportionally accurate platform height
+
+---
+
+## Streetwear & Casual
+
+## white_and_blue_leather_streetwear_sneakers
+- **Short**: "white and blue leather streetwear sneakers"
+- **Description**: white and blue leather streetwear sneakers with a chunky sole and bold contrasting panels
+- **Camera Notes**: fashion catalog photography, footwear visible in full-body framing
+
+## sneakers_with_chunky_sole
+- **Short**: "sneakers with chunky sole"
+- **Description**: sneakers with a chunky sole and bold contrasting panels
+- **Camera Notes**: detail shot of footwear, fashion catalog photography
+
+## chunky_sole_sneakers
+- **Short**: "chunky sole sneakers"
+- **Description**: sneakers with chunky sole, fashion-forward design
+- **Camera Notes**: detail shot recommended for sole design
+
+## white_and_blue_leather_sneakers
+- **Short**: "white and blue leather sneakers"
+- **Description**: white and blue leather sneakers with bold contrasting panels
+- **Camera Notes**: fashion catalog photography, color-block design
+
+## streetwear_sneakers
+- **Short**: "streetwear sneakers"
+- **Description**: streetwear-style sneakers, casual fashion photography
+- **Camera Notes**: lifestyle fashion photography, casual setting

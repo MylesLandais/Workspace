@@ -3,3 +3,5 @@ opentelemetry-sdk
 opentelemetry-exporter-prometheus
 redis
 requests
+mysql-connector-python
+SQLAlchemy

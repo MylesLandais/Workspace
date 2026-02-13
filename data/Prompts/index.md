@@ -37,16 +37,16 @@ The prompt system consists of:
 ### Wildcard Categories
 
 - [Hairstyles](wildcards/hairstyles.md) - Hair styling variations (down, ponytail, claw clip, updo, etc.)
-- [Outfits](wildcards/outfits.md) - Clothing options and descriptions
-- [Footwear](wildcards/footwear.md) - Luxury footwear options (Louboutin stilettos, etc.)
-- [Hosiery & Accessories](wildcards/hosiery.md) - Hosiery, socks, and accessory options
-- [Poses](wildcards/poses.md) - Expression and angle combinations
+- [Outfits](wildcards/outfits.md) - Clothing options and descriptions (costumes, streetwear, vinyl jackets)
+- [Footwear](wildcards/footwear.md) - Luxury footwear options (Louboutin stilettos, chunky sneakers, streetwear)
+- [Hosiery & Accessories](wildcards/hosiery.md) - Hosiery, socks, and accessory options (fishnet tights, knee-high socks)
+- [Poses](wildcards/poses.md) - Expression and angle combinations (crouching, seated authority, VIP teasing)
   - [Yoga Poses](wildcards/yoga_poses.md) - Full-body yoga poses and sequences (universal templates)
 - [Actions & Props](wildcards/actions.md) - Hand and prop actions (whistle, clothing interactions, body movements)
 - [Props](wildcards/props.md) - Training props and police accessories (inversion table, ballet barre, baton, handcuffs)
-- [Expressions & Vibes](wildcards/expressions.md) - Emotional expressions and atmospheric vibes (romantic, tease, countdown, 2009 emo)
-- [Facial Features](wildcards/facial_features.md) - Facial analysis and beauty descriptors (face shape, symmetry, makeup styles)
-- [Framing](wildcards/framing.md) - Camera framing options (head-shoulders, medium-shot, back-view, etc.)
+- [Expressions & Vibes](wildcards/expressions.md) - Emotional expressions and atmospheric vibes (romantic, tease, countdown, 2009 emo, soft neutral)
+- [Facial Features](wildcards/facial_features.md) - Facial analysis and beauty descriptors (face shape, symmetry, eye style, barefaced, makeup)
+- [Composition](wildcards/composition.md) - Visual arrangement and shot composition (framing, balance, depth, perspective, dynamic vs static) **[NEW - replaces framing]**
 - [Lighting](wildcards/lighting.md) - Lighting scenarios, moods, and nostalgic camera styles
 - [Backgrounds](wildcards/backgrounds.md) - Background and environment options
 
@@ -87,18 +87,25 @@ All prompts are optimized for this model's natural language understanding and im
 ### Key Wildcard Counts
 
 - **Hairstyles**: 12 variations (5 standard + 7 2009 emo/scene asymmetric styles)
-- **Outfits**: 15 variations (including Stop Traffic and Racy Referee costumes)
-- **Footwear**: 4 variations (3 Louboutin + costume Mary Jane platform)
-- **Hosiery & Accessories**: 2 variations
-- **Poses**: 37 variations (facial expressions, head angles, Instagram, VIP, car window, basement, seated authority, seated teasing)
+- **Outfits**: 15 variations (including Stop Traffic and Racy Referee costumes + 5 streetwear/sneakers)
+- **Footwear**: 10 variations (3 Louboutin + costume Mary Jane platform + 6 streetwear/sneakers)
+- **Hosiery & Accessories**: 7 variations (2 basic + 5 fishnet/tights)
+- **Poses**: 37 variations (facial expressions, head angles, Instagram, VIP, car window, basement, seated authority, seated teasing + 7 crouching variations)
 - **Actions & Props**: 13 variations (whistle actions, costume interactions, body movements)
 - **Yoga Poses**: 37+ variations (full-body poses, sequences, and handstand progressions)
 - **Props**: 16 variations (9 police/sports accessories + 7 fitness/yoga props)
-- **Expressions & Vibes**: 19 variations (romantic, playful tease, countdown, 2009 emo, referee-specific, polished girlfriend messages)
+- **Expressions & Vibes**: 25 variations (romantic, playful tease, countdown, 2009 emo, referee-specific, polished girlfriend messages + 6 soft/neutral expressions)
 - **Facial Features**: 5 variations (face shape, symmetry, eye style, barefaced, makeup)
-- **Framing**: 16 variations (7 standard + 6 smartphone/Snapchat style + 3 polished girlfriend message)
+- **Composition**: 30+ variations (shot types, camera angles, balance & symmetry, dynamic vs static, intimacy & distance, framing within frame, smartphone/mobile style, polished girlfriend message)
 - **Lighting**: 18 variations (12 standard + 3 mood/nostalgic camera styles + 3 polished girlfriend touchup)
 - **Backgrounds**: 21 variations (20 standard + 1 Shay's bedroom specific)
+
+**Recent Updates (Feb 2026)**:
+- **Composition refactor**: `framing` → `composition` (broader art term covering framing, balance, depth, perspective)
+- **New streetwear wildcards**: vinyl jackets, chunky sneakers, fishnet tights
+- **New poses**: crouching variations for dynamic fashion photography
+- **New expressions**: soft neutral, looking down, contemplative, shy
+- **Updated batch_generator.py**: Now uses `composition` wildcard category
 
 **Note**: Yoga poses, actions, expressions, and vibes are universal templates and can be combined with any character identity and other wildcards. These abstract concepts are designed for reuse across different characters and scenarios.
 

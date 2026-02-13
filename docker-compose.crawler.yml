@@ -33,6 +33,17 @@ services:
       timeout: 5s
       retries: 5
 
+  valkey:
+    image: valkey/valkey:latest
+    container_name: valkey
+    networks:
+      - jupyter_jupyter-dev
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   worker:
     build:
       context: .
@@ -145,30 +156,55 @@ services:
       - ./datasets:/home/warby/Workspace/jupyter/datasets
     environment:
       - EXPORT_INTERVAL=21600
+      - RETENTION_DAYS=2555
     networks:
       - jupyter_jupyter-dev
     command: >
       bash -c "while true; do
-        echo "Starting scheduled parquet export...";
-        python create_imageboard_dataset.py --days 7 --name imageboard_weekly;
-        echo "Export complete. Sleeping for $${EXPORT_INTERVAL} seconds...";
-        sleep $${EXPORT_INTERVAL};
+        echo \"Starting scheduled parquet export (Retention: $${RETENTION_DAYS} days)...\"
+        python create_imageboard_dataset.py --days $${RETENTION_DAYS} --name imageboard_weekly
+        echo \"Export complete. Sleeping for $${EXPORT_INTERVAL} seconds...\"
+        sleep $${EXPORT_INTERVAL}
       done"
 
-  imageboard_dashboard:
+  postgres:
     build:
-      context: .
-      dockerfile: Dockerfile.crawler
-    container_name: imageboard_dashboard
+      context: ./postgres
+      dockerfile: Dockerfile
+    container_name: archive_postgres
     ports:
-      - "5001:5000"
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=archive_system
     volumes:
-      - ./cache:/home/warby/Workspace/jupyter/cache
-      - ./datasets:/home/warby/Workspace/jupyter/datasets
-      - ./imageboard_dashboard_v4.py:/home/warby/Workspace/jupyter/imageboard_dashboard_v4.py
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - jupyter_jupyter-dev
-    command: python imageboard_dashboard_v4.py
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  archive_web:
+    build:
+      context: ./archive/web
+      dockerfile: Dockerfile
+    container_name: archive_web
+    ports:
+      - "5005:5000"
+    volumes:
+      - ./cache:/data/cache
+      - ./datasets:/data/datasets
+      - ./archive/web:/app
+      - ./src:/app/src
+      - ./tests:/app/tests
+    environment:
+      - DATA_DIR=/data
+    networks:
+      - jupyter_jupyter-dev
+    restart: unless-stopped
 
   prometheus:
     image: prom/prometheus:latest
@@ -223,9 +259,9 @@ services:
       dockerfile: Dockerfile.playwright
     container_name: playwright_tests
     depends_on:
-      - imageboard_dashboard
+      - archive_web
     environment:
-      - DASHBOARD_URL=http://localhost:5001
+      - DASHBOARD_URL=http://localhost:5005
     network_mode: host
     command: >
       bash -c "echo 'Waiting for dashboard...' && sleep 25 && python3 tests/test_dashboard.py"
@@ -238,10 +274,6 @@ networks:
     driver: bridge
 
 volumes:
+  postgres_data:
   redis_data:
   prometheus_data: {}
-
-services:
-  valkey:
-    external: true
-    name: cache.jupyter.dev.local

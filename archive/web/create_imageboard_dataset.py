@@ -18,7 +18,7 @@ BASE_DATA_DIR = Path(os.environ.get('DATA_DIR', '/home/warby/Workspace/jupyter')
 CACHE_DIR = BASE_DATA_DIR / 'cache' / 'imageboard' / 'threads'
 OUTPUT_DIR = BASE_DATA_DIR / 'datasets' / 'parquet'
 
-def create_dataset(days=2555, output_name=None):
+def create_dataset(days=7, output_name=None):
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     
     print("=" * 70)

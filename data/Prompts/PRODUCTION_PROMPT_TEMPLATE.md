@@ -143,10 +143,10 @@ Replace `[COSTUME_NAME]` with wildcard from `wildcards/outfits.md`:
 [outfits: stop_traffic]
 ```
 
-Replace pose and framing elements with wildcards:
+Replace pose and composition elements with wildcards:
 ```
 [poses: hands_on_hips_confident]
-[framing: full_body_eye_level]
+[composition: full_body_eye_level]
 ```
 
 ## Example: Complete Prompt with Stop Traffic Costume

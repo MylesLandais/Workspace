@@ -92,7 +92,7 @@ def load_all_wildcards() -> Dict[str, Dict[str, Dict[str, str]]]:
         'hairstyles': 'hairstyles.md',
         'outfits': 'outfits.md',
         'poses': 'poses.md',
-        'framing': 'framing.md',
+        'composition': 'composition.md',
         'lighting': 'lighting.md',
         'backgrounds': 'backgrounds.md'
     }
@@ -111,7 +111,7 @@ def generate_prompt(
     hairstyle: Dict[str, str],
     outfit: Dict[str, str],
     pose: Dict[str, str],
-    framing: Dict[str, str],
+    composition: Dict[str, str],
     lighting: Dict[str, str],
     background: Dict[str, str]
 ) -> str:
@@ -120,43 +120,43 @@ def generate_prompt(
     """
     # Build the prompt variation
     variation_parts = []
-    
-    # Add framing/angle description
+
+    # Add composition/angle description
+    if composition['description']:
+        variation_parts.append(f"Composition: {composition['description']}")
+
+    # Add pose description
     if pose['description']:
         variation_parts.append(pose['description'])
-    
+
     # Add expression if not already in pose
     if 'expression' in pose['short'].lower():
         pass  # Already included
     else:
         # Extract expression from pose if available
         pass
-    
+
     # Add hairstyle
     if hairstyle['description']:
         variation_parts.append(f"Hair: {hairstyle['description']}")
-    
+
     # Add outfit
     if outfit['description']:
         variation_parts.append(f"Wearing: {outfit['description']}")
-    
+
     # Add lighting
     if lighting['description']:
         variation_parts.append(f"Lighting: {lighting['description']}")
-    
+
     # Add background
     if background['description']:
         variation_parts.append(f"Background: {background['description']}")
-    
-    # Add framing
-    if framing['description']:
-        variation_parts.append(f"Framing: {framing['description']}")
-    
+
     variation = ". ".join(variation_parts) + "."
-    
+
     # Combine with identity
     full_prompt = f"{identity}\n\n{variation}"
-    
+
     return full_prompt
 
 
@@ -186,18 +186,18 @@ def generate_combinations(
     hairstyles = list(all_wildcards['hairstyles'].values())
     outfits = list(all_wildcards['outfits'].values())
     poses = list(all_wildcards['poses'].values())
-    framings = list(all_wildcards['framing'].values())
+    compositions = list(all_wildcards['composition'].values())
     lightings = list(all_wildcards['lighting'].values())
     backgrounds = list(all_wildcards['backgrounds'].values())
-    
+
     if mode == "full":
         # Full cartesian product
-        combinations = list(product(hairstyles, outfits, poses, framings, lightings, backgrounds))
+        combinations = list(product(hairstyles, outfits, poses, compositions, lightings, backgrounds))
     elif mode == "curated":
         # Curated subset - prioritize diversity
         # Select diverse combinations manually
         combinations = _generate_curated_combinations(
-            hairstyles, outfits, poses, framings, lightings, backgrounds, max_combinations
+            hairstyles, outfits, poses, compositions, lightings, backgrounds, max_combinations
         )
     else:  # random
         # Random sampling
@@ -207,17 +207,17 @@ def generate_combinations(
                 random.choice(hairstyles),
                 random.choice(outfits),
                 random.choice(poses),
-                random.choice(framings),
+                random.choice(compositions),
                 random.choice(lightings),
                 random.choice(backgrounds)
             )
             combinations.append(combo)
-    
+
     # Generate prompts
     prompts = []
-    for i, (hairstyle, outfit, pose, framing, lighting, background) in enumerate(combinations[:max_combinations], 1):
-        prompt_text = generate_prompt(identity, hairstyle, outfit, pose, framing, lighting, background)
-        
+    for i, (hairstyle, outfit, pose, composition, lighting, background) in enumerate(combinations[:max_combinations], 1):
+        prompt_text = generate_prompt(identity, hairstyle, outfit, pose, composition, lighting, background)
+
         prompts.append({
             'id': f"P{i:03d}",
             'prompt': prompt_text,
@@ -225,7 +225,7 @@ def generate_combinations(
                 'hairstyle': hairstyle['id'],
                 'outfit': outfit['id'],
                 'pose': pose['id'],
-                'framing': framing['id'],
+                'composition': composition['id'],
                 'lighting': lighting['id'],
                 'background': background['id'],
                 'model': 'nanobanana-3'
@@ -234,12 +234,12 @@ def generate_combinations(
                 'hairstyle': hairstyle['short'],
                 'outfit': outfit['short'],
                 'pose': pose['short'],
-                'framing': framing['short'],
+                'composition': composition['short'],
                 'lighting': lighting['short'],
                 'background': background['short']
             }
         })
-    
+
     return prompts
 
 
@@ -247,7 +247,7 @@ def _generate_curated_combinations(
     hairstyles: List[Dict],
     outfits: List[Dict],
     poses: List[Dict],
-    framings: List[Dict],
+    compositions: List[Dict],
     lightings: List[Dict],
     backgrounds: List[Dict],
     max_count: int
@@ -256,13 +256,13 @@ def _generate_curated_combinations(
     Generate a curated subset that ensures diversity across all categories.
     """
     combinations = []
-    
+
     # Prioritize key variations for dataset diversity
     key_hairstyles = ['down', 'ponytail', 'claw_clip_half_up']
     key_poses = ['neutral_frontal', 'genuine_smile_frontal', 'slight_3_4_right', 'slight_3_4_left']
-    key_framings = ['head_shoulders', 'medium_shot']
+    key_compositions = ['head_shoulders', 'medium_shot', 'three_quarter_body', 'full_body_composition']
     key_lightings = ['soft_window_indoor', 'studio_professional', 'golden_hour_outdoor']
-    
+
     # Build diverse combinations
     for hairstyle in hairstyles:
         if len(combinations) >= max_count:
@@ -270,7 +270,7 @@ def _generate_curated_combinations(
         for pose in poses:
             if len(combinations) >= max_count:
                 break
-            for framing in framings:
+            for composition in compositions:
                 if len(combinations) >= max_count:
                     break
                 for lighting in lightings:
@@ -283,8 +283,8 @@ def _generate_curated_combinations(
                         for background in backgrounds[:3]:  # Limit background variety
                             if len(combinations) >= max_count:
                                 break
-                            combinations.append((hairstyle, outfit, pose, framing, lighting, background))
-    
+                            combinations.append((hairstyle, outfit, pose, composition, lighting, background))
+
     # If we need more, add random ones
     if len(combinations) < max_count:
         needed = max_count - len(combinations)
@@ -293,13 +293,13 @@ def _generate_curated_combinations(
                 random.choice(hairstyles),
                 random.choice(outfits),
                 random.choice(poses),
-                random.choice(framings),
+                random.choice(compositions),
                 random.choice(lightings),
                 random.choice(backgrounds)
             )
             if combo not in combinations:
                 combinations.append(combo)
-    
+
     return combinations[:max_count]
 
 

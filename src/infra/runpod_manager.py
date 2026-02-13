@@ -13,10 +13,7 @@ from .runpod_config import (
     get_deployment_config,
     recommend_deployment_config,
     GPU_CONFIGURATIONS,
-    FAVORITE_IMAGES,
-    BuildConfig,
-    validate_cuda_version,
-    VALID_CUDA_VERSIONS
+    FAVORITE_IMAGES
 )
 
 class RunPodManager:
@@ -189,106 +186,3 @@ class RunPodManager:
                 return pod
             time.sleep(5)
         return None
-
-    def build_and_deploy_custom_image(
-        self,
-        name: str,
-        build_config: BuildConfig,
-        gpu_type_id: Optional[str] = None,
-        **deployment_overrides
-    ) -> Dict:
-        """
-        Build a custom Docker image and deploy a pod with it.
-        
-        This method handles the full lifecycle:
-        1. Validates CUDA version (done in BuildConfig.__post_init__)
-        2. Submits build job to RunPod
-        3. Waits for build completion
-        4. Deploys pod with the built image
-        
-        Args:
-            name: Name for the pod
-            build_config: BuildConfig with git repo, branch, CUDA version, etc.
-            gpu_type_id: GPU type ID (optional, can be in deployment_overrides)
-            **deployment_overrides: Additional pod deployment parameters
-            
-        Returns:
-            Dictionary with build and deployment information
-            
-        Raises:
-            ValueError: If CUDA version is invalid (caught by BuildConfig)
-            RuntimeError: If build fails or deployment fails
-        """
-        # BuildConfig already validates CUDA version in __post_init__
-        # But we can double-check here for safety
-        if not validate_cuda_version(build_config.cuda_version):
-            raise ValueError(
-                f"Invalid CUDA version: {build_config.cuda_version}. "
-                f"Valid versions: {', '.join(VALID_CUDA_VERSIONS)}"
-            )
-        
-        # Prepare build parameters
-        build_params = {
-            "git_repo": build_config.git_repo,
-            "git_branch": build_config.git_branch,
-            "dockerfile_path": build_config.dockerfile_path,
-            "build_context": build_config.build_context,
-            "cuda_version": build_config.cuda_version,
-        }
-        
-        # Add network volume if specified
-        if build_config.network_volume_id:
-            build_params["network_volume_id"] = build_config.network_volume_id
-        
-        # Add datacenter if specified
-        if build_config.datacenter_id:
-            build_params["datacenter_id"] = build_config.datacenter_id
-        
-        # Submit build job
-        # Note: This is a placeholder - actual RunPod API may differ
-        # Check RunPod SDK documentation for exact method
-        try:
-            build_result = runpod.build_image(**build_params)
-            build_id = build_result.get("id")
-            
-            if not build_id:
-                raise RuntimeError(f"Build submission failed: {build_result}")
-            
-            # Wait for build to complete
-            # In real implementation, poll build status
-            print(f"Build submitted: {build_id}")
-            print("Waiting for build to complete...")
-            
-            # TODO: Implement build status polling
-            # build_status = self._wait_for_build_complete(build_id)
-            
-            # Get built image name
-            image_name = build_result.get("image_name") or f"{name}:latest"
-            
-            # Deploy pod with built image
-            deployment_params = {
-                "name": name,
-                "image_name": image_name,
-                "gpu_type_id": gpu_type_id,
-                **deployment_overrides
-            }
-            
-            # Add network volume to deployment if specified
-            if build_config.network_volume_id:
-                deployment_params["network_volume_id"] = build_config.network_volume_id
-            
-            pod = runpod.create_pod(**deployment_params)
-            
-            return {
-                "build_id": build_id,
-                "image_name": image_name,
-                "pod": pod,
-                "build_config": {
-                    "cuda_version": build_config.cuda_version,
-                    "git_repo": build_config.git_repo,
-                    "git_branch": build_config.git_branch
-                }
-            }
-            
-        except Exception as e:
-            raise RuntimeError(f"Build and deploy failed: {e}") from e
