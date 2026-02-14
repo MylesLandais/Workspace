@@ -1,0 +1,41 @@
+name: CI & Docker Autobuild
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build-and-docker:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Elixir
+      uses: erlef/setup-elixir@v1
+      with:
+        elixir-version: 1.18.4
+        otp-version: 27.2.2
+
+    - name: Set up system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ffmpeg python3-pip
+        python3 -m pip install -U yt-dlp
+
+    - name: Create ENV for CI
+      run: |
+        # Properly formatted fake Discord token (does not connect, but passes Nostrum validation)
+        echo "DISCORD_TOKEN=MjM0NTQzMTIzMTIzMTIzMTIz.MTIzMT.ZmFrZXRva2VuZm9yY2kuZmFrZWZvcmNpaWk" >> .env
+        echo "GUILD_ID=000000000000000000" >> .env
+
+    - name: Mix deps and compile
+      run: |
+        mix deps.get
+        mix compile
+
+    - name: Docker Build (Autobuild)
+      run: |
+        docker build -t nebulixir:latest .
