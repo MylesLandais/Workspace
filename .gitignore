@@ -1,0 +1,66 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+*.egg-info/
+.eggs/
+*.egg
+
+# Node
+node_modules/
+.npm/
+bun.lockb
+
+# Binaries & Models
+*.pth
+*.safetensors
+*.ckpt
+*.gguf
+*.onnx
+*.bin
+
+# Media outputs (generated content)
+data/outputs/
+data/downloads/
+
+# Models directory (large files, symlinked)
+data/models/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Build artifacts
+_build/
+dist/
+*.o
+*.out
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+tmp/
+*.tmp
+
+# Erlang/Elixir crash dumps
+erl_crash.dump
