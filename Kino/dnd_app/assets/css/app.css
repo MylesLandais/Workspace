@@ -1,0 +1,913 @@
+/* This file is for your main application CSS */
+
+/* General Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  color: #1A1A1A;
+  background-color: #F9F8F6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Nordic Atlas Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-in-out;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header */
+header {
+  background-color: #2c3e50;
+  color: white;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+header nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+header nav a:hover {
+  text-decoration: underline;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+}
+
+.btn-secondary {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #7f8c8d;
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+}
+
+.btn-small {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* Dice Roller */
+.dice-roller {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.quick-rolls {
+  margin-top: 2rem;
+}
+
+.quick-roll-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.dice-result {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: #ecf0f1;
+  border-radius: 4px;
+}
+
+.dice-result .total {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.result-details {
+  margin-top: 1rem;
+}
+
+.result-details p {
+  margin: 0.5rem 0;
+}
+
+/* Character Creation */
+.character-creation {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.step {
+  max-width: 800px;
+}
+
+/* Character Builder Container */
+.character-builder-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Progress Bar */
+.steps {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.steps span {
+  padding: 0.5rem 1.5rem;
+  color: #7f8c8d;
+  font-weight: 500;
+  position: relative;
+  cursor: default;
+}
+
+.steps span.active {
+  color: #2c3e50;
+  font-weight: bold;
+}
+
+.steps span.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1rem;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #3498db;
+  border-radius: 2px;
+}
+
+/* Character Builder Content Layout */
+.character-builder-content {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.character-builder-main {
+  min-width: 0;
+}
+
+/* Card-Based Selection */
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.card {
+  background: #f8f9fa;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.card:hover {
+  border-color: #3498db;
+  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.2);
+  transform: translateY(-2px);
+}
+
+.card.selected {
+  border-color: #3498db;
+  background: #ebf5fb;
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.card h3 {
+  margin: 0 0 1rem 0;
+  color: #2c3e50;
+  font-size: 1.25rem;
+}
+
+.card-bonuses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.bonus-badge {
+  background: #3498db;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.card.selected .bonus-badge {
+  background: #2980b9;
+}
+
+.card-details {
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.card-details p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Character Sheet Preview */
+.character-sheet-preview {
+  background: #f8f9fa;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  position: sticky;
+  top: 2rem;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+}
+
+.character-sheet-preview h3 {
+  margin: 0 0 1rem 0;
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 0.5rem;
+}
+
+.preview-content {
+  font-size: 0.9rem;
+}
+
+.preview-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.preview-name.placeholder {
+  color: #95a5a6;
+  font-style: italic;
+}
+
+.preview-info {
+  margin-bottom: 1.5rem;
+}
+
+.preview-info p {
+  margin: 0.5rem 0;
+  color: #555;
+}
+
+.preview-abilities {
+  margin-bottom: 1.5rem;
+}
+
+.preview-abilities h4 {
+  margin: 0 0 0.75rem 0;
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.preview-ability-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.preview-ability-item {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.preview-ability-label {
+  font-size: 0.75rem;
+  color: #7f8c8d;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.preview-ability-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.preview-ability-modifier {
+  font-size: 0.875rem;
+  color: #3498db;
+  font-weight: 500;
+}
+
+.preview-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.preview-stat {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.preview-stat label {
+  display: block;
+  font-size: 0.75rem;
+  color: #7f8c8d;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.preview-stat-value {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.preview-placeholder {
+  text-align: center;
+  color: #95a5a6;
+  font-style: italic;
+  padding: 2rem 0;
+}
+
+.score-assignment {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.score-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.score-button {
+  padding: 1rem;
+  font-size: 1.5rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.score-button:hover {
+  background-color: #2980b9;
+}
+
+.ability-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.ability-item {
+  padding: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.ability-item label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.assigned-score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.assigned-score span {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.empty-score {
+  color: #999;
+  font-size: 1.5rem;
+}
+
+.character-review {
+  background-color: #ecf0f1;
+  padding: 1.5rem;
+  border-radius: 4px;
+  margin-bottom: 2rem;
+}
+
+/* Character Sheet */
+.character-header {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.character-meta {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.character-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.character-sheet {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.sheet-section {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.sheet-section:last-child {
+  border-bottom: none;
+}
+
+.ability-scores-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.ability-score {
+  text-align: center;
+  padding: 1rem;
+  border: 2px solid #3498db;
+  border-radius: 4px;
+}
+
+.ability-label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.ability-value {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0.5rem 0;
+}
+
+.ability-modifier {
+  font-size: 1.25rem;
+  color: #7f8c8d;
+}
+
+.combat-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 1rem;
+  background-color: #ecf0f1;
+  border-radius: 4px;
+}
+
+.stat-item label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.info-item {
+  padding: 1rem;
+  background-color: #ecf0f1;
+  border-radius: 4px;
+}
+
+.info-item label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #7f8c8d;
+}
+
+/* Character List */
+.characters-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.characters-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.character-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.character-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.character-card-header h3 {
+  margin: 0;
+}
+
+.character-level {
+  background-color: #3498db;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+}
+
+.character-card-body {
+  margin-bottom: 1rem;
+}
+
+.character-card-body p {
+  margin: 0.5rem 0;
+}
+
+.character-card-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Alerts */
+.alert {
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.alert-info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Navigation */
+.navigation {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .score-assignment {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .ability-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .ability-scores-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .combat-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .characters-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .character-builder-content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .character-sheet-preview {
+    position: relative;
+    top: 0;
+    max-height: none;
+    margin-top: 1rem;
+  }
+
+  .grid-cards {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+
+  .steps {
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .steps span {
+    padding: 0.75rem 1rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Touch-friendly buttons */
+  .btn {
+    padding: 0.75rem 1.5rem;
+    min-height: 44px;
+    font-size: 1rem;
+  }
+
+  .score-button {
+    padding: 1.25rem;
+    font-size: 1.25rem;
+    min-height: 60px;
+  }
+
+  /* Wizard breadcrumb - stack vertically on mobile */
+  .wizard-breadcrumb {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .wizard-breadcrumb button {
+    width: 100%;
+    padding: 0.75rem;
+    min-height: 44px;
+  }
+
+  /* Point buy interface - responsive table */
+  .point-buy-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .point-buy-table table {
+    width: 100%;
+    min-width: 500px;
+  }
+
+  .point-buy-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .point-buy-controls button {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  /* Ability score inputs - larger on mobile */
+  .ability-item {
+    padding: 1.25rem;
+  }
+
+  .ability-item input,
+  .ability-item select {
+    font-size: 1.25rem;
+    padding: 0.75rem;
+    min-height: 44px;
+  }
+
+  /* Character preview - full width on mobile */
+  .character-sheet-preview {
+    width: 100%;
+  }
+
+  .preview-ability-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .preview-stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  /* Navigation buttons - full width on mobile */
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+  }
+
+  .navigation {
+    flex-direction: column;
+  }
+
+  .navigation .btn {
+    width: 100%;
+  }
+
+  /* Header navigation - stack on mobile */
+  header nav ul {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+
+  header nav a {
+    padding: 0.5rem;
+    display: block;
+    min-height: 44px;
+  }
+
+  /* Card grid - single column on very small screens */
+  @media (max-width: 480px) {
+    .grid-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .ability-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ability-scores-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .preview-ability-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+
+
+
+

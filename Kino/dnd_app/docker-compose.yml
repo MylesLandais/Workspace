@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  neo4j:
+    image: neo4j:5-community
+    container_name: neo4j-dnd
+    ports:
+      - "7474:7474"  # HTTP
+      - "7687:7687"  # Bolt
+    environment:
+      - NEO4J_AUTH=neo4j/password
+      - NEO4J_PLUGINS=["apoc"]
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:7474"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - dnd_network
+
+  dnd-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dnd-app
+    ports:
+      - "4000:4000"
+    environment:
+      - MIX_ENV=dev
+      - NEO4J_URL=bolt://neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=password
+      - PHX_HOST=localhost
+    volumes:
+      - .:/app
+      - dnd_build:/app/_build
+      - dnd_deps:/app/deps
+      - dnd_assets:/app/priv/static/assets
+    depends_on:
+      neo4j:
+        condition: service_healthy
+    networks:
+      - dnd_network
+    command: mix phx.server
+
+volumes:
+  neo4j_data:
+  neo4j_logs:
+  dnd_build:
+  dnd_deps:
+  dnd_assets:
+
+networks:
+  dnd_network:
+    driver: bridge
+

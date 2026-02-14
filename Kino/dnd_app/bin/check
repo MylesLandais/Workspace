@@ -1,0 +1,200 @@
+#!/bin/bash
+# Diagnostic script for D&D App
+# Checks all prerequisites and setup status
+
+set -e
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+PASSED=0
+FAILED=0
+WARNINGS=0
+
+# Function to print check results
+check_pass() {
+  echo -e "${GREEN}[PASS]${NC} $1"
+  PASSED=$((PASSED + 1))
+}
+
+check_fail() {
+  echo -e "${RED}[FAIL]${NC} $1"
+  FAILED=$((FAILED + 1))
+}
+
+check_warn() {
+  echo -e "${YELLOW}[WARN]${NC} $1"
+  WARNINGS=$((WARNINGS + 1))
+}
+
+check_info() {
+  echo -e "${BLUE}[INFO]${NC} $1"
+}
+
+echo "D&D App Diagnostic Check"
+echo "========================"
+echo ""
+
+# Change to dnd_app directory if not already there
+if [ ! -f "mix.exs" ]; then
+  if [ -f "dnd_app/mix.exs" ]; then
+    cd dnd_app
+    check_info "Changed to dnd_app directory"
+  else
+    check_fail "mix.exs not found. Please run this script from the project root or dnd_app directory"
+    exit 1
+  fi
+fi
+
+# Detect if we're in a container
+IN_CONTAINER=false
+USE_DOCKER_EXEC=false
+if [ -f /.dockerenv ] || [ -n "${CONTAINER}" ]; then
+  IN_CONTAINER=true
+  check_info "Running in container environment"
+fi
+
+if [ "$IN_CONTAINER" = false ] && docker ps --format '{{.Names}}' 2>/dev/null | grep -q "^jupyter$"; then
+  USE_DOCKER_EXEC=true
+  check_info "jupyter container detected - will use docker exec for commands"
+fi
+
+# Function to run commands (either directly or via docker exec)
+run_cmd() {
+  if [ "$USE_DOCKER_EXEC" = true ]; then
+    docker exec jupyter "$@"
+  else
+    "$@"
+  fi
+}
+
+# Check 1: Elixir/Mix installation
+echo "1. Checking Elixir/Mix installation..."
+if command -v mix &> /dev/null || [ "$USE_DOCKER_EXEC" = true ]; then
+  if ELIXIR_VER=$(run_cmd elixir --version 2>/dev/null | head -1); then
+    check_pass "Elixir installed: $ELIXIR_VER"
+  else
+    check_fail "Elixir/Mix not found"
+    echo "  -> Install Elixir: https://elixir-lang.org/install.html"
+  fi
+else
+  check_fail "Elixir/Mix not found in PATH"
+  echo "  -> Install Elixir: https://elixir-lang.org/install.html"
+  if docker ps --format '{{.Names}}' 2>/dev/null | grep -q "^jupyter$"; then
+    echo "  -> Or ensure jupyter container is running: docker ps | grep jupyter"
+  fi
+fi
+echo ""
+
+# Check 2: Dependencies
+echo "2. Checking dependencies..."
+if [ -d "deps" ] && [ -n "$(ls -A deps 2>/dev/null)" ]; then
+  DEP_COUNT=$(ls -1 deps | wc -l)
+  check_pass "Elixir dependencies installed ($DEP_COUNT packages)"
+else
+  check_fail "Elixir dependencies not installed"
+  echo "  -> Run: mix deps.get"
+fi
+echo ""
+
+# Check 3: Node.js dependencies
+echo "3. Checking Node.js dependencies..."
+if [ -d "assets/node_modules" ] && [ -n "$(ls -A assets/node_modules 2>/dev/null)" ]; then
+  check_pass "Node.js dependencies installed"
+else
+  check_fail "Node.js dependencies not installed"
+  echo "  -> Run: cd assets && npm install && cd .."
+fi
+echo ""
+
+# Check 4: Code compilation
+echo "4. Checking code compilation..."
+if run_cmd mix compile --warnings-as-errors=false &>/dev/null; then
+  check_pass "Code compiles successfully"
+else
+  COMPILE_OUTPUT=$(run_cmd mix compile --warnings-as-errors=false 2>&1 || true)
+  check_fail "Code has compilation errors"
+  echo "  -> Compilation output:"
+  echo "$COMPILE_OUTPUT" | sed 's/^/    /'
+fi
+echo ""
+
+# Check 5: Neo4j container/process
+echo "5. Checking Neo4j availability..."
+NEO4J_RUNNING=false
+NEO4J_CONTAINER=""
+if NEO4J_CONTAINER=$(docker ps --format '{{.Names}}' 2>/dev/null | grep neo4j | head -1); then
+  check_pass "Neo4j container running: $NEO4J_CONTAINER"
+  NEO4J_RUNNING=true
+elif command -v lsof &> /dev/null && lsof -i :7687 &> /dev/null; then
+  check_warn "Neo4j appears to be running on port 7687 (not in Docker)"
+  NEO4J_RUNNING=true
+elif netstat -tuln 2>/dev/null | grep -q :7687; then
+  check_warn "Neo4j appears to be running on port 7687 (not in Docker)"
+  NEO4J_RUNNING=true
+else
+  check_fail "Neo4j not detected"
+  echo "  -> Start Neo4j: docker run -d --name neo4j-dnd -p 7474:7474 -p 7687:7687 -e NEO4J_AUTH=neo4j/password neo4j:5-community"
+fi
+echo ""
+
+# Check 6: Neo4j connection test
+echo "6. Testing Neo4j connection..."
+if [ "$NEO4J_RUNNING" = true ]; then
+  # Try using cypher-shell if available (most reliable)
+  if [ -n "$NEO4J_CONTAINER" ] && docker exec "$NEO4J_CONTAINER" cypher-shell -u neo4j -p password "RETURN 1" &>/dev/null; then
+    check_pass "Neo4j connection successful (tested with cypher-shell)"
+  elif command -v cypher-shell &> /dev/null && echo "RETURN 1" | cypher-shell -u neo4j -p password &>/dev/null; then
+    check_pass "Neo4j connection successful (tested with cypher-shell)"
+  else
+    # Fallback: just check if we can reach the port (connection will be tested when app starts)
+    check_warn "Could not test Neo4j connection directly"
+    echo "  -> Connection will be tested when the application starts"
+    echo "  -> Verify credentials in config/config.exs match your Neo4j setup"
+    if [ -n "$NEO4J_CONTAINER" ]; then
+      echo "  -> Test manually: docker exec $NEO4J_CONTAINER cypher-shell -u neo4j -p password \"RETURN 1\""
+    fi
+  fi
+else
+  check_warn "Skipping Neo4j connection test (Neo4j not running)"
+fi
+echo ""
+
+# Check 7: Port 4000 availability
+echo "7. Checking port 4000 availability..."
+if command -v lsof &> /dev/null; then
+  if lsof -i :4000 &> /dev/null; then
+    PORT_PROCESS=$(lsof -i :4000 | tail -1 | awk '{print $2}')
+    check_warn "Port 4000 is in use (PID: $PORT_PROCESS)"
+    echo "  -> You may need to stop the existing process or change the port in config/dev.exs"
+  else
+    check_pass "Port 4000 is available"
+  fi
+elif netstat -tuln 2>/dev/null | grep -q :4000; then
+  check_warn "Port 4000 appears to be in use"
+else
+  check_pass "Port 4000 appears to be available"
+fi
+echo ""
+
+# Summary
+echo "========================"
+echo "Summary:"
+echo -e "  ${GREEN}Passed: $PASSED${NC}"
+echo -e "  ${YELLOW}Warnings: $WARNINGS${NC}"
+echo -e "  ${RED}Failed: $FAILED${NC}"
+echo ""
+
+if [ $FAILED -eq 0 ]; then
+  echo -e "${GREEN}All critical checks passed! You should be able to start the server.${NC}"
+  echo "Run: ./start.sh or mix phx.server"
+  exit 0
+else
+  echo -e "${RED}Some checks failed. Please fix the issues above before starting the server.${NC}"
+  exit 1
+fi
+
