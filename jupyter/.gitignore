@@ -1,0 +1,87 @@
+# Environment
+.env
+.env.*
+
+# Hidden directories (private datasets, etc.)
+.*/
+
+# Cache (imageboard, HF, etc.)
+cache/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg-info/
+dist/
+build/
+venv/
+.venv/
+.pytest_cache/
+
+# Media files
+*.mp3
+*.mp4
+*.webm
+*.mkv
+*.m4a
+*.wav
+*.flac
+*.vtt
+*.srt
+*.json3
+*.info.json
+*.description
+*.annotations.xml
+*.thumbnail
+*.jpg
+*.png
+*.webp
+
+# Downloads
+downloads/
+
+# yt-dlp cache
+.cache/yt-dlp/
+.cache/
+
+# Transcription outputs (keep clean versions but ignore raw downloads)
+transcriptions/*.mp3
+transcriptions/*.mp4
+transcriptions/*.webm
+transcriptions/*.vtt
+transcriptions/*.srt
+
+# ASR evaluation results
+results/
+*.txt
+leaderboard_results.json
+
+# Legacy cleanup
+*.livemd
+*_old.py
+*_simple.py
+test_db_connection.py
+test-pgconnection.py
+requirements-asr-eval.txt
+run_in_venv.sh
+
+# Temp and generated
+/tmp/
+eval_output/
+eval_outputs/
+
+# Talisman
+.talismanignore
+
+# Local training logs
+docs/.log_training.md.local
+docs/log_training.md
+**/log_training.md
+**/.log_training.md.local
+
+# Notebook runpod template history
+notebooks/runpod_deployments/.templates_history.json

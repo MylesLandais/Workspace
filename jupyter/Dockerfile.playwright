@@ -1,0 +1,16 @@
+FROM mcr.microsoft.com/playwright:latest
+
+WORKDIR /home/warby/Workspace/jupyter
+
+# Install python
+RUN apt-get update && apt-get install -y python3 python3-pip && rm -rf /var/lib/apt/lists/*
+
+# Install playwright
+RUN pip3 install --no-cache-dir playwright && python3 -m playwright install chromium
+
+COPY tests/ /home/warby/Workspace/jupyter/tests/
+COPY imageboard_dashboard.py /home/warby/Workspace/jupyter/
+
+RUN pip3 install requests pandas pyarrow
+
+CMD ["python3", "tests/test_dashboard.py"]

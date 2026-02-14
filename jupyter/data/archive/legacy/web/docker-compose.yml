@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  archive-web:
+    build: .
+    container_name: archive_web
+    ports:
+      - "5005:5000"
+    volumes:
+      - ../../cache:/data/cache
+      - ../../datasets:/data/datasets
+    environment:
+      - DATA_DIR=/data
+    restart: unless-stopped
+
+networks:
+  default:
+    name: jupyter_jupyter-dev
+    external: true

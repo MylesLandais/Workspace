@@ -1,0 +1,25 @@
+FROM python:3.11-slim
+
+WORKDIR /home/warby/Workspace/jupyter
+
+RUN pip install --no-cache-dir \
+    requests \
+    beautifulsoup4 \
+    redis \
+    rq \
+    flask \
+    schedule \
+    tenacity \
+    pandas \
+    pyarrow
+
+COPY requirements-otel.txt /home/warby/Workspace/jupyter/
+RUN pip install --no-cache-dir -r requirements-otel.txt
+
+COPY *.py /home/warby/Workspace/jupyter/
+COPY config/ /home/warby/Workspace/jupyter/config/
+COPY otel/ /home/warby/Workspace/jupyter/otel/
+
+RUN mkdir -p /var/lib/prometheus/metrics
+
+CMD ["python", "worker.py"]

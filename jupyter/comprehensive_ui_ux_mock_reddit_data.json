@@ -1,0 +1,109 @@
+{
+  "user_experience": {
+    "posts": [
+      {
+        "id": "ux_001",
+        "title": "Reddit mobile app crashes after update",
+        "score": 325,
+        "num_comments": 70,
+        "selftext": "The new update is causing frequent crashes on mobile devices. Users report app freezes and slow loading times.",
+        "author": "frustrated_mobile_user",
+        "subreddit": "MobileApps",
+        "created_utc": "2026-01-03 20:07:27.418464",
+        "url": "https://i.redd.it/mobile_crash_demo.jpg",
+        "permalink": "/r/MobileApps/comments/ux_001/",
+        "last_crawled_at": "2026-01-03 20:07:27.418464"
+      },
+      {
+        "id": "ux_002",
+        "title": "Comment system confusion",
+        "score": 156,
+        "num_comments": 89,
+        "selftext": "Users find the new threaded comment system difficult to navigate and follow discussions.",
+        "author": "confused_redditor",
+        "subreddit": "MobileApps",
+        "created_utc": "2026-01-03 21:17:27.418464",
+        "url": "https://i.redd.it/comment_confusion.jpg",
+        "permalink": "/r/MobileApps/comments/ux_002/",
+        "last_crawled_at": "2026-01-03 21:17:27.418464"
+      },
+      {
+        "id": "ux_003",
+        "title": "Dark mode enhancement request",
+        "score": 400,
+        "num_comments": 63,
+        "selftext": "Multiple users request a dark mode option for better nighttime viewing. Current white background causes eye strain.",
+        "author": "night_owl_user",
+        "subreddit": "MobileApps",
+        "created_utc": "2026-01-03 22:27:27.418464",
+        "url": "https://i.redd.it/dark_mode_demo.jpg",
+        "permalink": "/r/MobileApps/comments/ux_003/",
+        "last_crawled_at": "2026-01-03 22:27:27.418464"
+      }
+    ]
+  },
+  "custom_ui": {
+    "posts": [
+      {
+        "id": "ui_001",
+        "title": "Sidebar redesign A/B test results",
+        "score": 178,
+        "num_comments": 34,
+        "selftext": "A/B testing of the new sidebar design shows mixed results. Some users prefer the old layout while others like the new navigation.",
+        "author": "ui_designer_1",
+        "subreddit": "UI_Design",
+        "created_utc": "2026-01-03 21:17:27.418464",
+        "url": "https://i.redd.it/sidebar_test.jpg",
+        "permalink": "/r/UI_Design/comments/ui_001/",
+        "last_crawled_at": "2026-01-03 21:17:27.418464"
+      },
+      {
+        "id": "ui_002",
+        "title": "Search functionality improvement",
+        "score": 245,
+        "num_comments": 12,
+        "selftext": "Users report better search results and faster loading. New search bar placement tested positively.",
+        "author": "ux_designer_2",
+        "subreddit": "UI_Design",
+        "created_utc": "2026-01-03 22:27:27.418464",
+        "url": "https://i.redd.it/search_improvement.jpg",
+        "permalink": "/r/UI_Design/comments/ui_002/",
+        "last_crawled_at": "2026-01-03 22:27:27.418464"
+      }
+    ]
+  },
+  "user_interface": {
+    "posts": [
+      {
+        "id": "interface_001",
+        "title": "Touch gesture inconsistency",
+        "score": 89,
+        "num_comments": 23,
+        "selftext": "Users report inconsistent swipe gesture responses across different parts of the app.",
+        "author": "ux_tester_1",
+        "subreddit": "MobileApps",
+        "created_utc": "2026-01-03 22:27:27.418464",
+        "url": "https://i.redd.it/gesture_demo.gif",
+        "permalink": "/r/MobileApps/comments/interface_001/",
+        "last_crawled_at": "2026-01-03 22:27:27.418464"
+      }
+    ]
+  },
+  "navigation_patterns": {
+    "posts": [
+      {
+        "id": "nav_001",
+        "title": "Breadcrumb navigation issues",
+        "score": 67,
+        "num_comments": 15,
+        "selftext": "Users report getting lost in complex comment threads due to unclear breadcrumb navigation.",
+        "author": "nav_analyst",
+        "subreddit": "MobileApps",
+        "created_utc": "2026-01-03 22:27:27.418464",
+        "url": "https://i.redd.it/breadcrumb_demo.jpg",
+        "permalink": "/r/MobileApps/comments/nav_001/",
+        "last_crawled_at": "2026-01-03 22:27:27.418464"
+      }
+    ]
+  }
+}

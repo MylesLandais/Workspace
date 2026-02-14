@@ -1,0 +1,218 @@
+# ASR Model Configuration
+# Defines all supported ASR models and their parameters
+
+models:
+  # State-of-the-art accuracy models
+  canary_qwen:
+    name: "canary-qwen-2.5b"
+    model_id: "nvidia/canary-qwen-2.5b"
+    adapter_class: "CanaryQwenAdapter"
+    wer_target: 5.63  # Expected WER performance (%)
+    use_case: "highest_accuracy"
+    chunk_length: 30
+    parameters:
+      max_length: 512
+      num_beams: 5
+      do_sample: false
+      early_stopping: true
+      language: "en"
+      task: "transcribe"
+    device_requirements:
+      min_vram_gb: 8
+      recommended_vram_gb: 16
+      supports_cpu: true
+      supports_cuda: true
+    fallback_model: "openai/whisper-large-v3"
+  
+  whisper_large_v3:
+    name: "whisper-large-v3"
+    model_id: "openai/whisper-large-v3"
+    adapter_class: "CanaryQwenAdapter"  # Can use same adapter with fallback
+    wer_target: 8.4  # Expected WER performance (%)
+    use_case: "highest_accuracy"
+    chunk_length: 30
+    parameters:
+      max_length: 448
+      num_beams: 5
+      do_sample: false
+      early_stopping: true
+      language: "en"
+      task: "transcribe"
+    device_requirements:
+      min_vram_gb: 10
+      recommended_vram_gb: 16
+      supports_cpu: true
+      supports_cuda: true
+    
+  granite_speech:
+    name: "granite-speech-3.3b"
+    model_id: "ibm/granite-speech-3.3b"
+    adapter_class: "GraniteSpeechAdapter"
+    wer_target: 5.85
+    use_case: "robust_performance"
+    chunk_length: 30
+    parameters:
+      max_length: 448
+      num_beams: 5
+      do_sample: false
+    device_requirements:
+      min_vram_gb: 10
+      recommended_vram_gb: 20
+      supports_cpu: true
+      supports_cuda: true
+    
+  # Fast processing models
+  parakeet_tdt:
+    name: "parakeet-tdt-0.6b-v2"
+    model_id: "nvidia/parakeet-tdt-0.6b-v2"
+    adapter_class: "ParakeetTDTAdapter"
+    wer_target: 7.2
+    use_case: "real_time"
+    rtfx: "high"
+    chunk_length: 15
+    parameters:
+      streaming: true
+      low_latency: true
+    device_requirements:
+      min_vram_gb: 2
+      recommended_vram_gb: 4
+      supports_cpu: true
+      supports_cuda: true
+    
+  # Multilingual support
+  whisper_turbo:
+    name: "whisper-large-v3-turbo"
+    model_id: "openai/whisper-large-v3-turbo"
+    adapter_class: "WhisperTurboAdapter"
+    wer_target: 6.1
+    use_case: "multilingual"
+    languages: ["en", "es", "fr", "de", "zh", "ja", "ko"]
+    chunk_length: 30
+    parameters:
+      max_length: 448
+      num_beams: 5
+      language: "auto"
+      task: "transcribe"
+    device_requirements:
+      min_vram_gb: 6
+      recommended_vram_gb: 12
+      supports_cpu: true
+      supports_cuda: true
+    
+  # Existing models (maintained for compatibility)
+  olmoasr_large:
+    name: "olmoasr-large"
+    model_id: "allenai/OLMoASR-large.en-v2"
+    adapter_class: "OLMoASRAdapter"
+    wer_target: 8.5
+    use_case: "transparent"
+    chunk_length: 30
+    parameters:
+      max_length: 448
+      num_beams: 5
+      language: "en"
+      task: "transcribe"
+    device_requirements:
+      min_vram_gb: 4
+      recommended_vram_gb: 8
+      supports_cpu: true
+      supports_cuda: true
+  
+  faster_whisper_base:
+    name: "faster-whisper-base"
+    model_id: "base"
+    adapter_class: "FasterWhisperAdapter"
+    wer_target: 9.2
+    use_case: "fast_local"
+    chunk_length: 30
+    parameters:
+      model_size: "base"
+      compute_type: "int8"
+      beam_size: 5
+    device_requirements:
+      min_vram_gb: 1
+      recommended_vram_gb: 2
+      supports_cpu: true
+      supports_cuda: true
+  
+  faster_whisper_small:
+    name: "faster-whisper-small"
+    model_id: "small"
+    adapter_class: "FasterWhisperAdapter"
+    wer_target: 8.1
+    use_case: "fast_local"
+    chunk_length: 30
+    parameters:
+      model_size: "small"
+      compute_type: "int8"
+      beam_size: 5
+    device_requirements:
+      min_vram_gb: 2
+      recommended_vram_gb: 4
+      supports_cpu: true
+      supports_cuda: true
+
+# Processing modes configuration
+processing_modes:
+  transcript_only:
+    description: "Clean text for ML training"
+    output_format: "txt"
+    include_timing: false
+    include_confidence: false
+    
+  subtitles:
+    description: "Timed segments for video subtitling"
+    output_format: ["srt", "ass", "vtt"]
+    include_timing: true
+    include_confidence: true
+    
+  diarization:
+    description: "Speaker identification"
+    requires: ["pyannote.audio"]
+    output_format: "jsonl"
+    include_timing: true
+    include_speakers: true
+    
+  real_time:
+    description: "Streaming processing"
+    chunk_size: 5
+    latency_target: "low"
+    output_format: "streaming"
+
+# Model selection preferences
+model_selection:
+  # Preferred models by use case
+  highest_accuracy: ["canary_qwen", "granite_speech", "whisper_turbo"]
+  fastest_processing: ["parakeet_tdt", "faster_whisper_small", "faster_whisper_base"]
+  multilingual: ["whisper_turbo", "canary_qwen"]
+  transparent: ["olmoasr_large"]
+  
+  # Fallback order if preferred models fail
+  fallback_order: ["faster_whisper_base", "faster_whisper_small", "olmoasr_large"]
+  
+  # Device-specific preferences
+  cuda_preferred: ["canary_qwen", "granite_speech", "whisper_turbo"]
+  cpu_optimized: ["faster_whisper_base", "faster_whisper_small"]
+
+# Evaluation settings
+evaluation:
+  # Benchmark datasets
+  benchmark_datasets:
+    vaporeon:
+      name: "Vaporeon Copypasta"
+      audio_file: "transcriptions/-EWMgB26bmU_Vaporeon_copypasta_animated.mp3"
+      reference_file: "transcriptions/vaporeon_transcript_clean.txt"
+      duration: 164  # seconds
+      language: "en"
+      
+  # Quality thresholds
+  quality_thresholds:
+    excellent_wer: 5.0   # Below 5% WER
+    good_wer: 10.0       # Below 10% WER
+    acceptable_wer: 20.0 # Below 20% WER
+    
+  # Performance targets
+  performance_targets:
+    max_processing_time: 300  # seconds
+    min_confidence: 0.7
+    max_memory_usage_gb: 16

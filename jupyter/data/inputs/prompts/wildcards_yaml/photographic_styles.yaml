@@ -1,0 +1,262 @@
+# Photographic Styles - Context-driven aesthetic + camera + lighting setups
+# Each style encapsulates: genre, camera, lens, lighting rig, color grading, film simulation
+
+vogue_editorial:
+  id: "vogue_editorial"
+  context: "Vogue editorial fashion photography"
+  aesthetic: "high-fashion, aspirational, cinematic"
+
+  camera:
+    model: "Phase One XF or Hasselblad H6D"
+    sensor: "full-frame, ultra high-res, 80MP+"
+    era: "contemporary"
+    look: "clinical precision, ultra-sharp"
+
+  lens:
+    focal_length: "50-85mm"
+    aperture: "f/2.8-f/4"
+    depth_of_field: "shallow, creamy bokeh"
+    character: "professional fashion standard"
+
+  lighting:
+    key_light: "large softbox 45° above, diffused professional strobe"
+    fill_light: "subtle fill from opposite side, 2-3 stops down"
+    rim_light: "backlit hair/shoulder definition, 3-4 stops above key"
+    shadows: "deep, controlled, sculptural"
+    color_temp: "5500K neutral studio, tuned for skin tones"
+    contrast: "high contrast, dramatic"
+
+  background:
+    type: "seamless studio backdrop or carefully composed set"
+    blur: "sharp to slightly soft depending on depth"
+    options: ["white studio", "neutral gray", "textured wall", "minimalist set"]
+
+  post_production:
+    color_grading: "slightly desaturated, lifted blacks, warm skin tones"
+    contrast: "high midtone contrast"
+    film_sim: "none (digital clarity)"
+    grain: "minimal, clean"
+
+  prompt_keywords:
+    - "Vogue editorial fashion photography"
+    - "high-end fashion magazine"
+    - "professional studio lighting"
+    - "Phase One camera system"
+    - "85mm lens aesthetic"
+
+met_gala_red_carpet:
+  id: "met_gala_red_carpet"
+  context: "Met Gala red carpet paparazzi/official photography"
+  aesthetic: "dramatic, glamorous, high-contrast, theatrical"
+
+  camera:
+    model: "Canon EOS-1D X Mark III or Nikon D6"
+    sensor: "full-frame, 20MP, fast AF for motion"
+    era: "contemporary professional"
+    look: "sharp, saturated, dramatic"
+
+  lens:
+    focal_length: "35-70mm"
+    aperture: "f/1.4-f/2.8"
+    depth_of_field: "moderate, subject isolated"
+    character: "fast, responsive, cinematic"
+
+  lighting:
+    key_light: "intense directional strobes from multiple angles"
+    fill_light: "strong fill to reduce shadows on face"
+    rim_light: "powerful backlit definition, jewelry/texture enhancement"
+    shadows: "defined but not crushing blacks, high contrast"
+    color_temp: "mixed color temperatures (tungsten + daylight strobes), warm overall"
+    contrast: "very high, dramatic"
+
+  background:
+    type: "red carpet, blurred crowd, event backdrop"
+    blur: "heavily blurred, bokeh-heavy"
+    bokeh_type: "warm and cool lights mixed"
+
+  post_production:
+    color_grading: "saturated, warm, lifted shadows slightly"
+    contrast: "extreme contrast, crushed blacks"
+    film_sim: "Kodachrome-inspired saturation"
+    grain: "none"
+
+  prompt_keywords:
+    - "red carpet paparazzi photography"
+    - "Met Gala official documentation"
+    - "dramatic event lighting"
+    - "high-contrast glamour"
+    - "cinematic red carpet moment"
+
+runway_show:
+  id: "runway_show"
+  context: "Fashion runway/show photography"
+  aesthetic: "dramatic, fast-paced, theatrical lighting, motion"
+
+  camera:
+    model: "Canon EOS R5 or Sony A1"
+    sensor: "full-frame, high ISO tolerance"
+    era: "contemporary"
+    look: "fast shutter, sharp despite motion, saturated"
+
+  lens:
+    focal_length: "24-70mm"
+    aperture: "f/2.8-f/4"
+    depth_of_field: "moderate, subject sharp with blurred background"
+    character: "fast, versatile, capturing movement"
+
+  lighting:
+    key_light: "stage lights (colored gels, spotlights, moving lights)"
+    fill_light: "minimal fill, shadows are part of aesthetic"
+    rim_light: "stage backlit, colored lighting for drama"
+    shadows: "deep, theatrical, colored"
+    color_temp: "mixed, warm to cool stage lighting"
+    contrast: "very high, theatrical"
+
+  background:
+    type: "runway backdrop, audience blur, stage"
+    blur: "heavily blurred motion, bokeh from lights"
+    bokeh_type: "colored stage lights"
+
+  post_production:
+    color_grading: "saturated, warm, lifted in highlights"
+    contrast: "high, with colored shadows"
+    film_sim: "Fujifilm Provia-inspired vibrant saturation"
+    grain: "minimal"
+
+  prompt_keywords:
+    - "fashion runway show photography"
+    - "model on catwalk"
+    - "theatrical stage lighting"
+    - "high-contrast colored gels"
+    - "fast-paced dynamic moment"
+
+myspace_era_digital:
+  id: "myspace_era_digital"
+  context: "Low-quality point-and-shoot digital camera, 2005-2008 aesthetic"
+  aesthetic: "compressed JPEG artifacts, blown highlights, oversaturated colors, nostalgia"
+
+  camera:
+    model: "Generic point-and-shoot digital (Canon PowerShot, Nikon Coolpix)"
+    sensor: "small sensor, 2-3MP, harsh noise reduction"
+    era: "mid-2000s"
+    look: "over-compressed, blocky JPEG, blown out highlights"
+
+  lens:
+    focal_length: "fixed 4-6mm equivalent"
+    aperture: "f/3.5 fixed"
+    depth_of_field: "everything in focus, no bokeh capability"
+    character: "flat, plasticky, cheap"
+
+  lighting:
+    key_light: "harsh built-in flash, direct on-camera strobe"
+    fill_light: "none, harsh shadows behind subject"
+    rim_light: "flash creates harsh edge lighting"
+    shadows: "crushed blacks, no detail"
+    color_temp: "blue-white harsh flash"
+    contrast: "blown whites, crushed blacks"
+
+  background:
+    type: "typical bedroom/bathroom/car interior"
+    blur: "no bokeh, everything sharp but noisy"
+    typical_scenes: ["messy bedroom", "bathroom mirror", "car seat", "outdoor with overexposed sky"]
+
+  post_production:
+    color_grading: "over-saturated reds/blues, flat skin tones"
+    contrast: "crushed blacks and whites, no midtones"
+    film_sim: "aggressively compressed JPEG"
+    grain: "heavy JPEG compression artifacts, blocky"
+    artifacts: "strong JPEG blocking, color fringing, blown highlights"
+
+  prompt_keywords:
+    - "low-quality digital camera photo"
+    - "MySpace era 2006 aesthetic"
+    - "overexposed highlights"
+    - "harsh direct flash"
+    - "JPEG compression artifacts"
+    - "point-and-shoot plasticky look"
+    - "heavily saturated colors"
+
+cinematic_film_noir:
+  id: "cinematic_film_noir"
+  context: "Black & white film noir cinematic style"
+  aesthetic: "high-contrast monochrome, dramatic shadows, 1940s-1950s aesthetic"
+
+  camera:
+    model: "Simulated 35mm film camera (Panavision aesthetic)"
+    sensor: "film (simulated)"
+    era: "1940s-1950s"
+    look: "monochrome, grainy, dramatic"
+
+  lens:
+    focal_length: "50mm"
+    aperture: "f/2.0"
+    depth_of_field: "moderate"
+    character: "classic cinema"
+
+  lighting:
+    key_light: "strong side-light creating half-shadow on face (chiaroscuro)"
+    fill_light: "minimal fill, allowing dramatic shadows"
+    rim_light: "rim lighting edges of face/hair"
+    shadows: "very deep, obscuring half the face or more"
+    color_temp: "monochrome, no color temp"
+    contrast: "extreme high contrast"
+
+  background:
+    type: "venetian blinds, silhouettes, dramatic backdrops"
+    blur: "sharp with compositional depth"
+
+  post_production:
+    color_grading: "black & white"
+    contrast: "extreme"
+    film_sim: "Kodak Tri-X pushed in developer"
+    grain: "visible film grain, ~400 ISO"
+    tonal_range: "full range, crushed blacks to pure whites"
+
+  prompt_keywords:
+    - "film noir cinematic"
+    - "black and white dramatic"
+    - "high contrast monochrome"
+    - "1940s detective film aesthetic"
+    - "dramatic chiaroscuro lighting"
+
+direct_natural_daylight:
+  id: "direct_natural_daylight"
+  context: "Outdoor natural sunlight, direct and harsh"
+  aesthetic: "contrasty, warm, harsh shadows, documentary"
+
+  camera:
+    model: "Hasselblad 500C or contemporary DSLR"
+    sensor: "medium or full-frame"
+    era: "varies, timeless"
+    look: "sharp, saturated, contrasty"
+
+  lens:
+    focal_length: "50-80mm"
+    aperture: "f/5.6-f/8"
+    depth_of_field: "deep, full scene in focus"
+    character: "documentary, natural"
+
+  lighting:
+    key_light: "direct unfiltered sun"
+    fill_light: "reflector fill if available, otherwise minimal"
+    rim_light: "sun backlighting through hair/edges"
+    shadows: "deep, defined"
+    color_temp: "5500K+ depending on time of day, often warm"
+    contrast: "high"
+
+  background:
+    type: "natural outdoor environment"
+    blur: "minimal blur due to small aperture"
+
+  post_production:
+    color_grading: "warm, slight lift in shadows, saturated"
+    contrast: "high"
+    film_sim: "Kodachrome or Fujifilm Velvia"
+    grain: "minimal"
+
+  prompt_keywords:
+    - "natural daylight photography"
+    - "outdoor harsh sunlight"
+    - "documentary style"
+    - "warm golden tones"
+    - "sharp contrasty shadows"

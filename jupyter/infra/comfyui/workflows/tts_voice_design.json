@@ -1,0 +1,532 @@
+{
+  "id": "290d487a-00a1-4157-8ed7-2e50c859d0db",
+  "revision": 0,
+  "last_node_id": 16,
+  "last_link_id": 11,
+  "nodes": [
+    {
+      "id": 6,
+      "type": "Qwen3Loader",
+      "pos": [
+        187.0138611111117,
+        -8.261333333333454
+      ],
+      "size": [
+        270,
+        154
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "QWEN3_MODEL",
+          "links": [
+            7
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-qwen3-tts",
+        "ver": "fdc607cd710d099baf0a07497fcc399fbf4e13e8",
+        "Node name for S&R": "Qwen3Loader"
+      },
+      "widgets_values": [
+        "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
+        "HuggingFace",
+        "bf16",
+        "auto",
+        ""
+      ]
+    },
+    {
+      "id": 5,
+      "type": "Qwen3PromptMaker",
+      "pos": [
+        115.23886111111172,
+        203.51922222222242
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "QWEN3_MODEL",
+          "link": 7
+        },
+        {
+          "name": "ref_audio",
+          "type": "AUDIO",
+          "link": 6
+        }
+      ],
+      "outputs": [
+        {
+          "name": "QWEN3_PROMPT",
+          "type": "QWEN3_PROMPT",
+          "links": [
+            8
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-qwen3-tts",
+        "ver": "fdc607cd710d099baf0a07497fcc399fbf4e13e8",
+        "Node name for S&R": "Qwen3PromptMaker"
+      },
+      "widgets_values": [
+        "Look at these hands. They don’t shake because I’m afraid; they shake because they’ve forgotten how to hold anything lighter than a broadsword. I’ve buried three kings, two empires, and every friend I ever shared a fire with.",
+        30
+      ]
+    },
+    {
+      "id": 11,
+      "type": "Qwen3SavePrompt",
+      "pos": [
+        171.46261111111238,
+        458.0900833333328
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompt",
+          "type": "QWEN3_PROMPT",
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "filepath",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-qwen3-tts",
+        "ver": "fdc607cd710d099baf0a07497fcc399fbf4e13e8",
+        "Node name for S&R": "Qwen3SavePrompt"
+      },
+      "widgets_values": [
+        "old_man"
+      ]
+    },
+    {
+      "id": 1,
+      "type": "Qwen3Loader",
+      "pos": [
+        -265.6891944444439,
+        -98.63527500000001
+      ],
+      "size": [
+        270,
+        154
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "QWEN3_MODEL",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-qwen3-tts",
+        "ver": "6289ee949a75455e9fe1f90ac6d5f51445f03c73",
+        "Node name for S&R": "Qwen3Loader"
+      },
+      "widgets_values": [
+        "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+        "HuggingFace",
+        "bf16",
+        "auto",
+        ""
+      ]
+    },
+    {
+      "id": 12,
+      "type": "Qwen3Loader",
+      "pos": [
+        693.9429638888905,
+        14.630461111110503
+      ],
+      "size": [
+        270,
+        154
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "QWEN3_MODEL",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-qwen3-tts",
+        "ver": "fdc607cd710d099baf0a07497fcc399fbf4e13e8",
+        "Node name for S&R": "Qwen3Loader"
+      },
+      "widgets_values": [
+        "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
+        "HuggingFace",
+        "bf16",
+        "auto",
+        ""
+      ]
+    },
+    {
+      "id": 13,
+      "type": "Qwen3LoadPrompt",
+      "pos": [
+        693.9429638888914,
+        244.61616944444322
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "prompt",
+          "type": "QWEN3_PROMPT",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-qwen3-tts",
+        "ver": "fdc607cd710d099baf0a07497fcc399fbf4e13e8",
+        "Node name for S&R": "Qwen3LoadPrompt"
+      },
+      "widgets_values": [
+        "old_man.safetensors"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "Qwen3VoiceDesign",
+      "pos": [
+        -332.24724999999967,
+        99.84422222222211
+      ],
+      "size": [
+        398.2277777777779,
+        333.62499999999994
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "QWEN3_MODEL",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            5,
+            6
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-qwen3-tts",
+        "ver": "fdc607cd710d099baf0a07497fcc399fbf4e13e8",
+        "Node name for S&R": "Qwen3VoiceDesign"
+      },
+      "widgets_values": [
+        "Look at these hands. They don’t shake because I’m afraid; they shake because they’ve forgotten how to hold anything lighter than a broadsword. I’ve buried three kings, two empires, and every friend I ever shared a fire with.",
+        "Ancient old male, late 70s, bass-baritone range. Labored breath support—heavy, deliberate inhalations between phrases. The tone is textured with a thick, permanent gravel, though the vowels stay open and resonant, reflecting a lifetime of command. The pitch drops even lower when speaking of the past, vibrating with a weary, subterranean power.",
+        "English",
+        729754692978412,
+        "fixed"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "PreviewAudio",
+      "pos": [
+        -270.2194722222215,
+        487.0747777777775
+      ],
+      "size": [
+        270,
+        88
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 5
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.10.0",
+        "Node name for S&R": "PreviewAudio"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 15,
+      "type": "PreviewAudio",
+      "pos": [
+        896.8021527777796,
+        396.7605611111095
+      ],
+      "size": [
+        270,
+        88
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 11
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.10.0",
+        "Node name for S&R": "PreviewAudio"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 14,
+      "type": "Qwen3VoiceClone",
+      "pos": [
+        1015.9229555555584,
+        -34.904922222223476
+      ],
+      "size": [
+        396.46175833333336,
+        369.22659166666665
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "QWEN3_MODEL",
+          "link": 10
+        },
+        {
+          "name": "ref_audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "prompt",
+          "shape": 7,
+          "type": "QWEN3_PROMPT",
+          "link": 9
+        }
+      ],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-qwen3-tts",
+        "ver": "fdc607cd710d099baf0a07497fcc399fbf4e13e8",
+        "Node name for S&R": "Qwen3VoiceClone"
+      },
+      "widgets_values": [
+        "My mind is a graveyard, and every time I close my eyes, the residents start talking. I’m tired of winning, boy. Winning is just the privilege of being the one left to bury the losers. So don't ask me for a speech. Just give me my shield and get out of the light.",
+        646074913771561,
+        "randomize",
+        "English",
+        "",
+        2048,
+        30
+      ]
+    },
+    {
+      "id": 16,
+      "type": "Fast Groups Bypasser (rgthree)",
+      "pos": [
+        487.8993575000023,
+        -281.16654222222337
+      ],
+      "size": [
+        247.26666870117188,
+        82
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "OPT_CONNECTION",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "properties": {
+        "matchColors": "",
+        "matchTitle": "",
+        "showNav": true,
+        "sort": "position",
+        "customSortAlphabet": "",
+        "toggleRestriction": "default"
+      }
+    }
+  ],
+  "links": [
+    [
+      4,
+      1,
+      0,
+      9,
+      0,
+      "QWEN3_MODEL"
+    ],
+    [
+      5,
+      9,
+      0,
+      10,
+      0,
+      "AUDIO"
+    ],
+    [
+      6,
+      9,
+      0,
+      5,
+      1,
+      "AUDIO"
+    ],
+    [
+      7,
+      6,
+      0,
+      5,
+      0,
+      "QWEN3_MODEL"
+    ],
+    [
+      8,
+      5,
+      0,
+      11,
+      0,
+      "QWEN3_PROMPT"
+    ],
+    [
+      9,
+      13,
+      0,
+      14,
+      2,
+      "QWEN3_PROMPT"
+    ],
+    [
+      10,
+      12,
+      0,
+      14,
+      0,
+      "QWEN3_MODEL"
+    ],
+    [
+      11,
+      14,
+      0,
+      15,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "Voice Design + Saving",
+      "bounding": [
+        -425.3208166666648,
+        -178.7934166666676,
+        1036.3545555555556,
+        805.3395416666667
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "Voice Design Loading",
+      "bounding": [
+        625.5369583333355,
+        -176.43458888889026,
+        872.4160250000001,
+        802.980713888889
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "workflowRendererVersion": "LG",
+    "ue_links": [],
+    "ds": {
+      "scale": 0.7707988837975718,
+      "offset": [
+        564.2557727777755,
+        423.87562277777903
+      ]
+    },
+    "frontendVersion": "1.37.11"
+  },
+  "version": 0.4
+}

@@ -1,0 +1,92 @@
+{
+  "timestamp": "2025-09-06 20:48:57",
+  "validation_passed": false,
+  "comparison": {
+    "comparison_status": "success",
+    "validation_passed": false,
+    "canary_wer": 0.9178082191780822,
+    "olmo_wer": 0.9269406392694064,
+    "wer_improvement": 0.0091324200913242,
+    "canary_cer": 0.8628571428571429,
+    "olmo_cer": 0.8571428571428571,
+    "cer_improvement": -0.005714285714285783,
+    "canary_speed": 51.800135135650635,
+    "olmo_speed": 3.5142409801483154,
+    "speed_ratio": 14.740063481208525,
+    "canary_quality_score": 0.27638167217760984,
+    "olmo_quality_score": 0.3419178082191781,
+    "quality_improvement": -0.06553613604156827,
+    "canary_key_terms": [
+      "human",
+      "breeding",
+      "compatible"
+    ],
+    "olmo_key_terms": [
+      "pokemon",
+      "human",
+      "breeding",
+      "compatible"
+    ],
+    "validation_criteria": {
+      "wer_acceptable": false,
+      "word_overlap_good": false,
+      "key_terms_found": true,
+      "quality_score_good": false
+    }
+  },
+  "canary_qwen_results": {
+    "model_name": "Canary Qwen 2.5B",
+    "status": "success",
+    "transcription": "I'm so bored. When will Master come back? Hey guys! Did you know that in terms of male, human, and female Pok\u00e9mon breeding, we put on the most compatible Pok\u00e9mon for humans? Not only are they in the field egg group,",
+    "wer": 0.9178082191780822,
+    "cer": 0.8628571428571429,
+    "processing_time": 51.800135135650635,
+    "total_time": 51.82709050178528,
+    "word_overlap": 0.1793103448275862,
+    "key_terms_found": [
+      "human",
+      "breeding",
+      "compatible"
+    ],
+    "key_terms_count": 3,
+    "word_count": 41,
+    "char_count": 215,
+    "confidence_available": true,
+    "metadata": {
+      "model_name": "openai/whisper-large-v3",
+      "device": "cpu",
+      "audio_duration": 163.7935625,
+      "sample_rate": 16000,
+      "language": "en",
+      "task": "transcribe",
+      "beam_size": 5,
+      "max_length": 512
+    }
+  },
+  "olmoasr_results": {
+    "model_name": "OLMoASR (Whisper Base)",
+    "status": "success",
+    "transcription": "I'm so bored. One more master come back. Hmm? Hmm? Hey guys! Did you know that in terms of male human and female Pokemon breeding, we're poor young, most compatible Pokemon for humans? Not only are they in the field egg group,",
+    "wer": 0.9269406392694064,
+    "cer": 0.8571428571428571,
+    "processing_time": 3.5142409801483154,
+    "total_time": 3.514284610748291,
+    "word_overlap": 0.2,
+    "key_terms_found": [
+      "pokemon",
+      "human",
+      "breeding",
+      "compatible"
+    ],
+    "key_terms_count": 4,
+    "word_count": 42,
+    "char_count": 226,
+    "confidence_available": false,
+    "metadata": {
+      "model_name": "openai/whisper-base",
+      "device": "cpu",
+      "audio_duration": 163.7935625,
+      "sample_rate": 16000
+    }
+  }
+}

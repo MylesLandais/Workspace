@@ -1,0 +1,103 @@
+{
+  "version": "1.1",
+  "description": "Model manifest for RunPod ComfyUI workers",
+  "s3": {
+    "endpoint": "https://s3api-eur-no-1.runpod.io",
+    "bucket": "4wdzn7kf5p",
+    "region": "eur-no-1"
+  },
+  "models": [
+    {
+      "name": "z_image_bf16",
+      "filename": "z_image_bf16.safetensors",
+      "type": "diffusion_model",
+      "size_gb": 11.46,
+      "s3_path": "models/diffusion_models/z_image_bf16.safetensors",
+      "source": "https://huggingface.co/Comfy-Org/z_image/resolve/main/split_files/diffusion_models/z_image_bf16.safetensors",
+      "hf_repo": "Comfy-Org/z_image",
+      "hf_path": "split_files/diffusion_models/z_image_bf16.safetensors",
+      "node": "UNETLoader",
+      "workflows": ["image_z_image"]
+    },
+    {
+      "name": "z_image_turbo_bf16",
+      "filename": "z_image_turbo_bf16.safetensors",
+      "type": "diffusion_model",
+      "size_gb": 11.46,
+      "s3_path": "models/diffusion_models/z_image_turbo_bf16.safetensors",
+      "source": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/diffusion_models/z_image_turbo_bf16.safetensors",
+      "hf_repo": "Comfy-Org/z_image_turbo",
+      "hf_path": "split_files/diffusion_models/z_image_turbo_bf16.safetensors",
+      "node": "UNETLoader",
+      "workflows": ["image_z_image_turbo"]
+    },
+    {
+      "name": "qwen_3_4b",
+      "filename": "qwen_3_4b.safetensors",
+      "type": "text_encoder",
+      "size_gb": 7.49,
+      "s3_path": "models/clip/qwen_3_4b.safetensors",
+      "source": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/text_encoders/qwen_3_4b.safetensors",
+      "hf_repo": "Comfy-Org/z_image_turbo",
+      "hf_path": "split_files/text_encoders/qwen_3_4b.safetensors",
+      "node": "CLIPLoader",
+      "workflows": ["image_z_image", "image_z_image_turbo"]
+    },
+    {
+      "name": "ae",
+      "filename": "ae.safetensors",
+      "type": "vae",
+      "size_gb": 0.31,
+      "s3_path": "models/vae/ae.safetensors",
+      "source": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/vae/ae.safetensors",
+      "hf_repo": "Comfy-Org/z_image_turbo",
+      "hf_path": "split_files/vae/ae.safetensors",
+      "node": "VAELoader",
+      "workflows": ["image_z_image", "image_z_image_turbo"]
+    },
+    {
+      "name": "qwen3_tts_tokenizer",
+      "type": "tts",
+      "size_gb": 0.68,
+      "multi_file": true,
+      "s3_prefix": "models/Qwen3-TTS/Qwen3-TTS-Tokenizer-12Hz",
+      "source": "https://huggingface.co/Qwen/Qwen3-TTS-Tokenizer-12Hz",
+      "hf_repo": "Qwen/Qwen3-TTS-Tokenizer-12Hz",
+      "node": "DarioFT/ComfyUI-Qwen3-TTS",
+      "workflows": ["tts_qwen3"]
+    },
+    {
+      "name": "qwen3_tts_1.7b_base",
+      "type": "tts",
+      "size_gb": 3.86,
+      "multi_file": true,
+      "s3_prefix": "models/Qwen3-TTS/Qwen3-TTS-12Hz-1.7B-Base",
+      "source": "https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-Base",
+      "hf_repo": "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
+      "node": "DarioFT/ComfyUI-Qwen3-TTS",
+      "workflows": ["tts_qwen3"]
+    }
+  ],
+  "workflows": {
+    "z_image": {
+      "file": "z_image.json",
+      "template": "templates/image_z_image.json",
+      "description": "Z-Image base model (30-50 steps, CFG 3-5)",
+      "models": ["z_image_bf16", "qwen_3_4b", "ae"]
+    },
+    "z_image_turbo": {
+      "file": null,
+      "template": "templates/image_z_image_turbo.json",
+      "description": "Z-Image turbo model (fewer steps, faster inference)",
+      "note": "Uses custom bundled node - API format TBD",
+      "models": ["z_image_turbo_bf16", "qwen_3_4b", "ae"]
+    },
+    "tts_qwen3": {
+      "file": null,
+      "template": null,
+      "description": "Qwen3-TTS 1.7B voice cloning from reference audio",
+      "note": "Requires DarioFT/ComfyUI-Qwen3-TTS node",
+      "models": ["qwen3_tts_tokenizer", "qwen3_tts_1.7b_base"]
+    }
+  }
+}
