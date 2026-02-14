@@ -1,0 +1,6 @@
+# See https://devenv.sh/reference/yaml-options/
+inputs:
+  nixpkgs:
+    url: github:NixOS/nixpkgs/nixpkgs-unstable
+
+allowUnfree: true

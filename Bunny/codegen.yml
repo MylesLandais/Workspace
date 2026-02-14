@@ -1,0 +1,40 @@
+# GraphQL Code Generation Configuration
+
+# Schema location
+schema: app/server/src/schema/schema.ts
+
+# Documents to generate types for
+# documents:
+#  - app/client/src/**/*.{ts,tsx}
+
+# Where to write generated files
+generates:
+  # Generated types for use in server resolvers
+  app/server/src/schema/generated/resolvers.ts:
+    plugins:
+      - typescript
+      - typescript-resolvers
+    config:
+      contextType: ../../index.js#Context
+      useIndexSignature: true
+
+# Generated types for use in client
+#  app/client/src/lib/generated/graphql.ts:
+#    plugins:
+#      - typescript
+#      - typescript-operations
+#      - typescript-react-apollo
+#
+#    # Configurations for plugins
+#    config:
+#      # Use TypeScript strict mode
+#      strict: true
+#      # Add types for Query, Mutation, Subscription
+#      skipTypename: false
+#      # Make fragment mask types more ergonomic
+#      useTypeImports: true
+
+# Hooks to run during generation
+hooks:
+  afterOneFileWrite:
+    - prettier --write

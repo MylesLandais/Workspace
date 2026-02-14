@@ -1,0 +1,35 @@
+# GraphQL Server
+# Connects to shared backing services managed by data engineering/MLOps
+#
+# Start with: docker compose up -d
+# View logs: docker compose logs -f
+
+services:
+  server:
+    image: oven/bun:1.1-slim
+    container_name: bunny-graphql
+    ports:
+      - "4002:4002"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - ./storage:/app/storage
+    environment:
+      - NODE_ENV=development
+      - PORT=4002
+      # Shared services via host network
+      - VALKEY_URI=redis://host.docker.internal:6379
+      - REDIS_URL=redis://host.docker.internal:6379
+      - NEO4J_URI=bolt://host.docker.internal:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=password
+      # Use localhost for browser-accessible URLs (MinIO is on host network)
+      - MINIO_ENDPOINT=http://host.docker.internal:9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    working_dir: /app
+    command: bun run dev
+    stdin_open: true
+    tty: true

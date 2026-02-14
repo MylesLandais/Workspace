@@ -1,0 +1,88 @@
+/**
+ * OmniDash Theme: High Contrast
+ * Maximum readability and accessibility
+ * WCAG AAA compliant
+ */
+
+:root {
+  /* ===== LIGHT MODE ===== */
+  /* Pure whites and blacks */
+  --bg-base: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-elevated: #f5f5f5;
+  --bg-hover: #eeeeee;
+
+  /* Text - Pure black */
+  --text-primary: #000000;
+  --text-secondary: #1a1a1a;
+  --text-muted: #333333;
+  --text-faint: #666666;
+
+  /* Borders */
+  --border-default: #000000;
+  --border-muted: #333333;
+
+  /* Accent - Pure black */
+  --accent-primary: #000000;
+  --accent-primary-hover: #333333;
+  --accent-text: #ffffff;
+
+  /* Focus - High visibility */
+  --focus-ring: rgba(0, 0, 0, 0.8);
+
+  /* Status Colors - Saturated for visibility */
+  --status-success: #008000;
+  --status-warning: #cc7700;
+  --status-error: #cc0000;
+  --status-info: #0066cc;
+}
+
+.dark {
+  /* ===== DARK MODE ===== */
+  /* Pure black */
+  --bg-base: #000000;
+  --bg-surface: #0a0a0a;
+  --bg-elevated: #1a1a1a;
+  --bg-hover: #2a2a2a;
+
+  /* Text - Pure white */
+  --text-primary: #ffffff;
+  --text-secondary: #f5f5f5;
+  --text-muted: #cccccc;
+  --text-faint: #999999;
+
+  /* Borders */
+  --border-default: #ffffff;
+  --border-muted: #cccccc;
+
+  /* Accent - Pure white */
+  --accent-primary: #ffffff;
+  --accent-primary-hover: #f5f5f5;
+  --accent-text: #000000;
+
+  /* Focus */
+  --focus-ring: rgba(255, 255, 255, 0.8);
+}
+
+/* High contrast overrides */
+* {
+  text-rendering: optimizeLegibility;
+}
+
+/* Thicker borders for visibility */
+.border,
+[class*="border-"] {
+  border-width: 2px !important;
+}
+
+/* Larger focus rings */
+*:focus {
+  outline: 3px solid var(--focus-ring) !important;
+  outline-offset: 2px !important;
+}
+
+/* Underlined links */
+.dark a,
+a {
+  text-decoration: underline;
+}

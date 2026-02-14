@@ -1,0 +1,71 @@
+/**
+ * OmniDash Theme: Solarized
+ * Precision colors for machines and people
+ * Inspired by https://ethanschoonover.com/solarized/
+ */
+
+:root {
+  /* ===== LIGHT MODE ===== */
+  /* Base colors */
+  --bg-base: #fdf6e3;
+  --bg-surface: #eee8d5;
+  --bg-elevated: #eee8d5;
+  --bg-hover: #e0daca;
+
+  /* Text */
+  --text-primary: #657b83;
+  --text-secondary: #586e75;
+  --text-muted: #839496;
+  --text-faint: #93a1a1;
+
+  /* Borders */
+  --border-default: #eee8d5;
+  --border-muted: #fdf6e3;
+
+  /* Accent - Blue */
+  --accent-primary: #268bd2;
+  --accent-primary-hover: #1a6ba2;
+  --accent-text: #fdf6e3;
+
+  /* Focus */
+  --focus-ring: rgba(38, 139, 210, 0.4);
+
+  /* Status Colors */
+  --status-success: #859900;
+  --status-warning: #b58900;
+  --status-error: #dc322f;
+  --status-info: #2aa198;
+}
+
+.dark {
+  /* ===== DARK MODE ===== */
+  /* Base colors */
+  --bg-base: #002b36;
+  --bg-surface: #073642;
+  --bg-elevated: #073642;
+  --bg-hover: #094252;
+
+  /* Text */
+  --text-primary: #839496;
+  --text-secondary: #93a1a1;
+  --text-muted: #657b83;
+  --text-faint: #586e75;
+
+  /* Borders */
+  --border-default: #073642;
+  --border-muted: #002b36;
+
+  /* Accent - Cyan */
+  --accent-primary: #2aa198;
+  --accent-primary-hover: #35b8ae;
+  --accent-text: #002b36;
+
+  /* Focus */
+  --focus-ring: rgba(42, 161, 152, 0.3);
+}
+
+/* Solarized-specific syntax highlighting style */
+.dark code,
+.dark .font-mono {
+  color: #b58900;
+}
