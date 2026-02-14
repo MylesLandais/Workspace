@@ -1,0 +1,22 @@
+Metadata-Version: 2.4
+Name: jupyter-workspace
+Version: 0.1.0
+Summary: Tools and notebooks for rapid prototyping and tracking ai progress
+Author: Myles Landais
+Project-URL: Homepage, https://github.com/MylesLandais/jupyter
+Requires-Dist: google-genai>=1.16.1
+Requires-Dist: google-adk>=1.0.0
+Requires-Dist: litellm>=1.0.0
+Requires-Dist: typing_extensions>=4.5.0
+Requires-Dist: pydantic<3.0.0,>=2.0.0
+Requires-Dist: pydantic-core>=2.0.0
+Requires-Dist: requests>=2.31.0
+Requires-Dist: python-dotenv>=1.0.0
+Requires-Dist: Pillow>=10.0.0
+Requires-Dist: pandas>=2.0.0
+Requires-Dist: numpy>=1.24.0
+Requires-Dist: sentence-transformers>=2.2.0
+Requires-Dist: neo4j>=5.0.0
+Requires-Dist: fastapi>=0.100.0
+Requires-Dist: uvicorn[standard]>=0.23.0
+Requires-Dist: pydantic-settings>=2.8.1

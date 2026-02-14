@@ -1,0 +1,27 @@
+{
+  "timestamp": "2025-09-07 00:57:48",
+  "total_time": 266.6534526348114,
+  "results": [
+    {
+      "model": "faster-whisper-tiny",
+      "status": "SUCCESS",
+      "word_count": 1382,
+      "processing_time": 20.23938822746277,
+      "preview": "Hey, nice to see you again. You know, I saw that you left your number on the table after you left. And I was thinking, all this guy actually thinks he..."
+    },
+    {
+      "model": "faster-whisper-base",
+      "status": "SUCCESS",
+      "word_count": 1397,
+      "processing_time": 40.10702157020569,
+      "preview": "Hey, nice to see you again. You know, I saw that you left your number on the table after you left. And I was thinking, oh, this guy actually thinks he..."
+    },
+    {
+      "model": "transformers-whisper-base",
+      "status": "SUCCESS",
+      "word_count": 1321,
+      "processing_time": 204.75598669052124,
+      "preview": " Hey, nice to see you again. You know, I saw that you left your number on the table after you left. And I was thinking, oh, this guy actually thinks h..."
+    }
+  ]
+}

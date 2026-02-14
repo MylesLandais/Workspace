@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jupyter-workspace"
+version = "0.1.0"
+description = "Tools and notebooks for rapid prototyping and tracking ai progress"
+authors = [ { name = "Myles Landais" } ]
+dependencies = [
+    "google-genai>=1.16.1",
+    "google-adk>=1.0.0",  # Separate package providing google.adk module
+    "litellm>=1.0.0",
+    # Core dependencies (fix typing_extensions/pydantic compatibility)
+    "typing_extensions>=4.5.0",  # Required for pydantic-core Sentinel import
+    "pydantic>=2.0.0,<3.0.0",  # Explicit pydantic version for compatibility
+    "pydantic-core>=2.0.0",  # Required by pydantic
+    # HTTP and API utilities
+    "requests>=2.31.0",
+    "python-dotenv>=1.0.0",
+    # Image processing (used by runpod_runner)
+    "Pillow>=10.0.0",
+    # Data analysis
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    # ComfyUI metadata analysis
+    "sentence-transformers>=2.2.0",
+    # RPG Graph VTT - D&D 5e Character Management
+    "neo4j>=5.0.0",
+    "fastapi>=0.100.0",
+    "uvicorn[standard]>=0.23.0",
+    "pydantic-settings>=2.8.1",
+    # Task Scheduler - Celery + PostgreSQL
+    "celery[redis]>=5.3.0",
+    "celery-redbeat>=2.2.0",
+    "psycopg2-binary>=2.9.9",
+    "python-dateutil>=2.8.2",
+    "typer>=0.9.0",
+    "flower>=2.0.0",
+    "tabulate>=0.9.0",  # CLI table formatting
+]
+
+[project.urls]
+"Homepage" = "https://github.com/MylesLandais/jupyter"
+

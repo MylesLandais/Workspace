@@ -1,0 +1,18 @@
+# Assets Duplicate Cleanup - Cron Configuration
+# 
+# This script removes duplicate images from assets folder that already exist in cache.
+# Run this via: crontab -e
+#
+# Frequency: Run daily at 3 AM (adjust as needed)
+#
+# For docker compose execution:
+# The script runs inside the jupyterlab container, so paths are relative to /home/jovyan/workspaces
+
+# Daily cleanup at 3 AM (system time)
+0 3 * * * cd /home/jovyan/workspaces && docker compose exec -T jupyterlab python /home/jovyan/workspaces/cleanup_assets_duplicates.py --cleanup --quiet >> /tmp/assets_cleanup.log 2>&1
+
+# Weekly cleanup on Sunday at 2 AM
+# 0 2 * * 0 cd /home/jovyan/workspaces && docker compose exec -T jupyterlab python /home/jovyan/workspaces/cleanup_assets_duplicates.py --cleanup --quiet >> /tmp/assets_cleanup.log 2>&1
+
+# Hourly dry-run (test, safe, no changes)
+# 0 * * * * cd /home/jovyan/workspaces && docker compose exec -T jupyterlab python /home/jovyan/workspaces/cleanup_assets_duplicates.py --quiet

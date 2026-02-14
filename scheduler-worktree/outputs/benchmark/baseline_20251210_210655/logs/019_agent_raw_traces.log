@@ -1,0 +1,4 @@
+{"timestamp": "2025-12-10T21:23:32.162565", "event": "agent_start", "agent": "comfyui_image_generator", "query": "A gopher dressed as Goku powering up, anime style", "metadata": null}
+{"timestamp": "2025-12-10T21:23:32.162658", "event": "tool_call", "tool": "generate_image_with_runpod", "arguments": {"prompt": "A gopher dressed as Goku powering up, anime style", "seed": 863369147}, "metadata": null}
+{"timestamp": "2025-12-10T21:23:32.162690", "event": "tool_result", "tool": "generate_image_with_runpod", "elapsed": 0.0, "metadata": null}
+{"timestamp": "2025-12-10T21:23:32.162715", "event": "agent_complete", "agent": "comfyui_image_generator", "response_length": 92, "elapsed": 10.867882251739502, "metadata": null}

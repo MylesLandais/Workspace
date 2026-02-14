@@ -1,0 +1,15 @@
+[Unit]
+Description=Assets Duplicate Cleanup Service
+Documentation=Service for periodic cleanup of duplicate images in assets folder
+
+[Service]
+Type=oneshot
+User=warby
+WorkingDirectory=/home/warby/Workspace/jupyter
+ExecStart=/usr/bin/docker compose exec -T jupyterlab python /home/jovyan/workspaces/cleanup_assets_duplicates.py --cleanup
+ExecStartPre=/usr/bin/docker compose exec -T jupyterlab python /home/jovyan/workspaces/cleanup_assets_duplicates.py
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,136 @@
+==== Pulling from r/ ====
+/home/warby/Workspace/jupyter/pull_recent_posts.py:65: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  cutoff_time = datetime.utcnow() - timedelta(hours=hours)
+Pulling posts from r/Celebs for the last 48 hours...
+Fetching page 1...
+  -> Ingesting 72 posts to Neo4j...
+  -> Found 72 recent posts in this batch.
+Reached posts older than 2026-01-09 05:21:16.379119. Stopping.
+
+Total posts found in the last 48 hours: 72
+Total posts stored in Neo4j: 72
+1. [2026-01-10 23:03:54] Birthday girl Amanda Peet (https://i.redd.it/alrwyt9ckncg1.gif)
+2. [2026-01-10 22:59:47] Rachel Zegler (https://i.redd.it/xgxyjgpmjncg1.jpeg)
+3. [2026-01-10 22:54:29] Tate McRae (https://i.redd.it/o28vowmoincg1.jpeg)
+4. [2026-01-10 22:21:27] Millie Bobby Brown (https://i.redd.it/vkvg14hscncg1.jpeg)
+5. [2026-01-10 22:10:22] Sasha Calle (Supergirl) and Daisy Edgar-Jones (https://i.redd.it/8ilkzoorancg1.gif)
+6. [2026-01-10 20:46:33] Ella Purnell (https://www.reddit.com/gallery/1q9nplw)
+7. [2026-01-10 19:41:39] Betty Gilpin in "Roar" (https://www.reddit.com/gallery/1q9ct6r)
+8. [2026-01-10 19:00:20] Sydney Sweeney (https://www.reddit.com/gallery/1q9lc17)
+9. [2026-01-10 18:34:21] Lili Reinhart (https://www.reddit.com/gallery/1q9kqcg)
+10. [2026-01-10 18:15:19] Katherine Mcnamara (https://www.reddit.com/gallery/1q9ka8j)
+11. [2026-01-10 17:58:23] Lili Reinhart (https://i.redd.it/68ursoqt1mcg1.jpeg)
+12. [2026-01-10 17:26:21] Susan Sarandon &amp; Allison Janney (https://i.redd.it/ombxm555wlcg1.jpeg)
+13. [2026-01-10 17:19:09] Joey King (https://www.reddit.com/gallery/1q9iywq)
+14. [2026-01-10 17:05:05] Kiernan Shipka (https://i.redd.it/o5mvylhcslcg1.jpeg)
+15. [2026-01-10 16:42:00] Lili Reinhart (https://www.reddit.com/gallery/1q9i2zz)
+16. [2026-01-10 16:21:10] Sadie Sink and Sonny Charlton (https://www.reddit.com/gallery/1q9hkte)
+17. [2026-01-10 16:10:34] Lalisa Manoban (https://www.reddit.com/gallery/1q9hbew)
+18. [2026-01-10 15:09:40] Kiernan Shipka, IG Jan 2026 (https://www.reddit.com/gallery/1q9fr1j)
+19. [2026-01-10 14:12:36] Karolina Wydra (https://i.redd.it/44acjergxkcg1.jpeg)
+20. [2026-01-10 14:01:25] Kiernan Shipka (https://i.redd.it/wdeo5jwkvkcg1.jpeg)
+21. [2026-01-10 13:56:06] Kaley Cuoco (https://www.reddit.com/gallery/1q9du9g)
+22. [2026-01-10 13:45:50] Brie Larson (https://i.redd.it/bt4iksdsskcg1.jpeg)
+23. [2026-01-10 12:39:45] Alison Brie (https://i.redd.it/lfisby50hkcg1.jpeg)
+24. [2026-01-10 12:39:00] Maddie Ziegler (https://i.redd.it/k66rqtgvgkcg1.jpeg)
+25. [2026-01-10 11:40:13] Lea Seydoux (https://i.redd.it/uqmemumd6kcg1.jpeg)
+26. [2026-01-10 11:39:14] Ashley Benson, Selena Gomez, Vanessa Hudgens &amp; Rachel Korine (https://i.redd.it/u2yd4bo76kcg1.jpeg)
+27. [2026-01-10 11:19:18] Mckenna Grace (https://www.reddit.com/gallery/1q99qq1)
+28. [2026-01-10 10:08:54] Dakota Johnson (https://i.redd.it/bzamejg3qjcg1.jpeg)
+29. [2026-01-10 10:06:24] Marisa Abela (https://i.redd.it/rnjeclenpjcg1.gif)
+30. [2026-01-10 09:58:33] Maura Tierney (https://i.redd.it/fsjjkb26ojcg1.jpeg)
+31. [2026-01-10 09:21:32] Lili Reinhart (https://i.redd.it/2l2iromkhjcg1.gif)
+32. [2026-01-10 08:12:40] Debora Caprioglio (https://www.redgifs.com/watch/greenwobblyhoverfly)
+33. [2026-01-10 07:54:58] Jessica Biel (https://i.redd.it/zyoihz072jcg1.gif)
+34. [2026-01-10 05:54:00] Soyou (Kang Jihyun) (https://www.reddit.com/gallery/1q923sx)
+35. [2026-01-10 05:16:38] Maya Hawke. (https://i.redd.it/gi3psk7x9icg1.gif)
+36. [2026-01-10 04:39:33] Sydney Sweeney (https://www.reddit.com/gallery/1q90zvh)
+37. [2026-01-10 03:15:09] Dafne Keen (https://i.redd.it/qhw0zj28ohcg1.jpeg)
+38. [2026-01-10 02:45:01] Sydney Sweeney knows what she’s doing (https://www.redgifs.com/watch/redthosequadrisectus)
+39. [2026-01-10 01:59:25] Sarah Shahi (https://www.reddit.com/gallery/1q8yeck)
+40. [2026-01-10 01:54:07] Kathryn Bernardo (https://i.redd.it/xja47vbt9hcg1.png)
+41. [2026-01-10 01:45:22] Lili Reinhart (https://www.reddit.com/gallery/1q8y60g)
+42. [2026-01-10 01:36:00] Emma Watson (https://i.redd.it/po4985kk6hcg1.gif)
+43. [2026-01-10 01:33:41] Kathryn Bernardo (https://i.redd.it/m29iuq266hcg1.png)
+44. [2026-01-10 01:30:04] Elizabeth Olsen (https://i.redd.it/gbggek6i5hcg1.gif)
+45. [2026-01-10 01:02:23] Kathryn Bernardo (https://www.reddit.com/gallery/1q8xg84)
+46. [2026-01-10 00:59:49] Mckenna Grace (https://www.reddit.com/gallery/1q8xek4)
+47. [2026-01-09 23:56:11] Lili Reinhart (https://www.reddit.com/gallery/1q8w8yt)
+48. [2026-01-09 23:53:29] Maddie Ziegler (https://www.reddit.com/gallery/1q8w7ac)
+49. [2026-01-09 23:34:53] Liz Gillies (https://i.redd.it/3mrnfs6zkgcg1.png)
+50. [2026-01-09 20:38:05] Louisa Lytton (https://i.redd.it/bom5w6u2w8cg1.jpeg)
+51. [2026-01-09 20:27:53] Sasha Pieterse (https://www.reddit.com/gallery/1q8s106)
+52. [2026-01-09 19:41:01] Camila Mendes (https://i.redd.it/j1umgy09ffcg1.png)
+53. [2026-01-09 18:19:04] Tate McRae (https://www.reddit.com/gallery/1q8p3w1)
+54. [2026-01-09 17:37:09] Marisa Abela (https://i.redd.it/2urf6ci8hecg1.jpeg)
+55. [2026-01-09 16:56:32] Matilda De Angelis (https://i.redd.it/b8xej9utlecg1.jpeg)
+56. [2026-01-09 16:27:02] Imogen Poots and Kristen Stewart (https://i.redd.it/yvua2jzlgecg1.jpeg)
+57. [2026-01-09 16:04:44] Sabrina Carpenter (https://i.redd.it/8td0c42ocecg1.jpeg)
+58. [2026-01-09 15:38:31] Maria Menounos (https://i.redd.it/03bg4qvy7ecg1.png)
+59. [2026-01-09 15:34:07] Kiernan Shipka (https://i.redd.it/5p485di77ecg1.jpeg)
+60. [2026-01-09 14:01:17] Scarlett Johansson (https://www.redgifs.com/watch/franknauticaliberiannase)
+61. [2026-01-09 13:40:37] Olivia Rodrigo (https://i.redd.it/pwqmwu9ymdcg1.gif)
+62. [2026-01-09 12:51:36] Elizabeth Gillies (https://i.redd.it/i2gnkh47edcg1.gif)
+63. [2026-01-09 12:41:09] Hilary Duff (https://i.redd.it/jhz57o79cdcg1.gif)
+64. [2026-01-09 12:15:47] Eiza Gonzalez (https://i.redd.it/u93xg5ct7dcg1.jpeg)
+65. [2026-01-09 12:03:41] Alison Brie (https://i.redd.it/5x9y54wn5dcg1.jpeg)
+66. [2026-01-09 11:59:41] Hailee Steinfeld (https://www.reddit.com/gallery/1q8fcwy)
+67. [2026-01-09 11:48:55] Chynna Rae Shurts (https://i.redd.it/qs4qp5n03dcg1.gif)
+68. [2026-01-09 11:09:03] Lea Seydoux (https://i.redd.it/mcz5klrwvccg1.jpeg)
+69. [2026-01-09 10:04:21] Sydney Sweeney (https://www.redgifs.com/watch/oblongdarkskylark)
+70. [2026-01-09 09:01:19] Madelyn Cline (https://i.redd.it/lq7cb0k49ccg1.jpeg)
+71. [2026-01-09 06:59:01] Jennifer Love Hewitt (https://i.redd.it/hkawvay9nbcg1.gif)
+72. [2026-01-09 05:55:07] Nora Arnezeder (https://i.redd.it/tyehrrkwbbcg1.jpeg)
+
+==== Pulling from r/ ====
+/home/warby/Workspace/jupyter/pull_recent_posts.py:65: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  cutoff_time = datetime.utcnow() - timedelta(hours=hours)
+Pulling posts from r/OfflinetvGirls for the last 48 hours...
+Fetching page 1...
+  -> Ingesting 10 posts to Neo4j...
+  -> Found 10 recent posts in this batch.
+Reached posts older than 2026-01-09 05:21:25.416513. Stopping.
+
+Total posts found in the last 48 hours: 10
+Total posts stored in Neo4j: 10
+1. [2026-01-10 18:44:23] Jess (https://i.redd.it/0426r562amcg1.jpeg)
+2. [2026-01-10 15:31:30] Catgirl Emiru (https://i.redd.it/ox27edqmblcg1.gif)
+3. [2026-01-10 15:10:11] meow!~ (https://www.reddit.com/gallery/1q9frjz)
+4. [2026-01-10 14:50:56] Tuppeeyy &amp; Emiru (https://i.redd.it/y961e4xe4lcg1.jpeg)
+5. [2026-01-10 14:01:39] Emily (https://www.redgifs.com/watch/gummyintelligentfinwhale)
+6. [2026-01-10 13:50:43] She’s so beautiful (https://i.redd.it/5hacb96otkcg1.jpeg)
+7. [2026-01-10 13:36:45] Jodi (https://www.redgifs.com/watch/wetshinymalamute)
+8. [2026-01-09 15:01:39] Pokimane in Dior (https://www.reddit.com/gallery/1q8k71o)
+9. [2026-01-09 13:14:00] Emiru (https://www.reddit.com/gallery/1q8hdqj)
+10. [2026-01-09 09:34:18] Tina gatita (https://www.reddit.com/gallery/1q8be85)
+
+==== Pulling from r/ ====
+/home/warby/Workspace/jupyter/pull_recent_posts.py:65: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  cutoff_time = datetime.utcnow() - timedelta(hours=hours)
+Pulling posts from r/ElsaHosk for the last 48 hours...
+Fetching page 1...
+  -> Ingesting 2 posts to Neo4j...
+  -> Found 2 recent posts in this batch.
+Reached posts older than 2026-01-09 05:21:31.473145. Stopping.
+
+Total posts found in the last 48 hours: 2
+Total posts stored in Neo4j: 2
+1. [2026-01-10 13:31:03] IG Post/Story 11/1/26 - From the beach to the mountains in Alo (https://www.reddit.com/gallery/1q9d6xl)
+2. [2026-01-10 06:34:33] IG Story 10/1/26 (https://i.redd.it/gwn82rkunicg1.jpeg)
+
+==== Pulling from r/ ====
+/home/warby/Workspace/jupyter/pull_recent_posts.py:65: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  cutoff_time = datetime.utcnow() - timedelta(hours=hours)
+Pulling posts from r/KiraKosarinLewd for the last 48 hours...
+Fetching page 1...
+  -> Ingesting 4 posts to Neo4j...
+  -> Found 4 recent posts in this batch.
+Reached posts older than 2026-01-09 05:21:38.914696. Stopping.
+
+Total posts found in the last 48 hours: 4
+Total posts stored in Neo4j: 4
+1. [2026-01-10 13:19:29] ❤️ (https://i.redd.it/e6p2sbl3okcg1.jpeg)
+2. [2026-01-10 00:03:23] Big boobie Kira (https://i.redd.it/0evof4b2qgcg1.jpeg)
+3. [2026-01-09 17:32:53] Is she underrated,my people? (https://i.redd.it/t76zbk7esecg1.jpeg)
+4. [2026-01-09 06:29:39] Hot (https://www.reddit.com/gallery/1q870jy)
+
