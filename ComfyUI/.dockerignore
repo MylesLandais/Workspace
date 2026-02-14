@@ -1,0 +1,28 @@
+# Large model files - never bake into image
+*.safetensors
+*.ckpt
+*.bin
+*.pth
+*.gguf
+*.pt
+*.onnx
+
+# Model directories
+models/
+Input/
+output/
+temp/
+
+# Git and cache
+.git/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+
+# Logs and local dev
+logs/
+*.log
+.env
+*.egg-info/
+
