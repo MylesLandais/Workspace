@@ -1,6 +1,0 @@
-{"timestamp": "2025-12-10T19:38:56.134000", "event": "agent_start", "agent": "comfyui_image_generator", "query": "A cyberpunk gopher astronaut floating in space, digital art", "metadata": null}
-{"timestamp": "2025-12-10T19:38:56.134104", "event": "tool_call", "tool": "enhance_prompt", "arguments": {"user_request": "A cyberpunk gopher astronaut floating in space, digital art"}, "metadata": null}
-{"timestamp": "2025-12-10T19:38:56.134146", "event": "tool_result", "tool": "enhance_prompt", "elapsed": 0.0, "metadata": null}
-{"timestamp": "2025-12-10T19:38:56.134172", "event": "tool_call", "tool": "generate_image_with_runpod", "arguments": {"prompt": "A cyberpunk gopher astronaut floating in space, digital art", "seed": 4217269581}, "metadata": null}
-{"timestamp": "2025-12-10T19:38:56.134195", "event": "tool_result", "tool": "generate_image_with_runpod", "elapsed": 0.0, "metadata": null}
-{"timestamp": "2025-12-10T19:38:56.134216", "event": "agent_complete", "agent": "comfyui_image_generator", "response_length": 88, "elapsed": 88.07873678207397, "metadata": null}

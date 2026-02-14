@@ -1,4 +1,0 @@
-{"timestamp": "2025-12-10T21:11:01.746376", "event": "agent_start", "agent": "comfyui_image_generator", "query": "A gopher yoga instructor in a zen garden, minimalist style", "metadata": null}
-{"timestamp": "2025-12-10T21:11:01.746460", "event": "tool_call", "tool": "generate_image_with_runpod", "arguments": {"prompt": "A gopher yoga instructor in a zen garden, minimalist style", "seed": 1296962983}, "metadata": null}
-{"timestamp": "2025-12-10T21:11:01.746493", "event": "tool_result", "tool": "generate_image_with_runpod", "elapsed": 0.0, "metadata": null}
-{"timestamp": "2025-12-10T21:11:01.746519", "event": "agent_complete", "agent": "comfyui_image_generator", "response_length": 92, "elapsed": 11.026901483535767, "metadata": null}

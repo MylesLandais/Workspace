@@ -1,0 +1,78 @@
+# Yoga Pose Templates
+# Sanskrit names, anatomical variations, and lineage context
+
+vajrasana:
+  id: "vajrasana"
+  english_name: "Thunderbolt Pose"
+  sanskrit_name: "Vajrasana"
+  lineages: ["Hatha", "Yin"]
+  chakra: "Muladhara (Root)"
+  energy: "Apana Vayu (downward-moving)"
+
+  variations:
+    base:
+      id: "base"
+      name: "Traditional Thunderbolt Pose (Vajrasana Base)"
+      description: "kneeling on mat with both legs beneath, toes extended flat and relaxed behind, hips resting on heels, spine upright and aligned, shoulders relaxed back, crown reaching upward, arms resting naturally at sides"
+      pose_focus: "grounding, kneeling foundation"
+      anatomical_notes: "Apana Vayu activation, Root Chakra grounding, foundational ankle and knee awareness"
+
+    toe_squat_yin:
+      id: "toe_squat_yin"
+      name: "Toe Squat Yin (Vajrasana Toes Tucked)"
+      description: "kneeling on mat with both legs beneath, toes curled underneath the foot creating intense dorsiflexion, hips resting back toward heels with controlled weight distribution into toes, spine upright, shoulders relaxed, demonstrating Yin-style deep ankle and plantar fascia opening"
+      pose_focus: "dorsiflexion, plantar fascia, ankle mobility"
+      anatomical_notes: "Intense foot meridian activation, Yin yoga compression principle, calf and Achilles tendon engagement"
+
+    side_lunge_prep:
+      id: "side_lunge_prep"
+      name: "Kneeling Side Lunge (Parighasana Prep)"
+      description: "kneeling on mat with one knee grounded, opposite leg extended to side with foot flat and toes pointing forward, hips pulsing gently toward extended heel creating deep adductor and hip socket opening, torso upright with slight forward tilt, hands on mat or at heart center"
+      pose_focus: "hip socket opening, asymmetrical grounding"
+      anatomical_notes: "Skandasana variation, Vinyasa transition energy, adductor and hip external rotator activation"
+
+    forward_fold:
+      id: "forward_fold"
+      name: "Kneeling Forward Fold (Restorative Thunderbolt)"
+      description: "kneeling on mat with both legs beneath, hips resting on heels, torso folding forward over thighs, forehead resting gently on mat, arms extended forward or resting at sides, spine elongated in gentle flexion"
+      pose_focus: "spinal flexion, hip release, parasympathetic activation"
+      anatomical_notes: "Restorative compression, nervous system calming, mild hip opener"
+
+goddess_squat:
+  id: "goddess_squat"
+  english_name: "Goddess Squat"
+  sanskrit_name: "Utkata Konasana"
+  lineages: ["Vinyasa", "Hatha"]
+  chakra: "Manipura (Solar Plexus)"
+  energy: "Building fire, grounding legs"
+
+  variations:
+    wide_stance_supported:
+      id: "wide_stance_supported"
+      name: "Goddess Squat Supported (Utkata Konasana)"
+      description: "feet wider than hip-width with toes turned out 45 degrees, hips sinking straight down avoiding anterior pelvic tilt, knees tracking over second and third toe, hands resting on thighs for support, torso upright, core engaged"
+      pose_focus: "external hip rotation, quad and glute strength"
+      anatomical_notes: "Moon Salutation variation, emphasizes feminine cooling energy through hip opening"
+
+malasana:
+  id: "malasana"
+  english_name: "Garland Pose"
+  sanskrit_name: "Malasana"
+  lineages: ["Hatha", "Ashtanga", "Yin"]
+  chakra: "Muladhara (Root)"
+  energy: "Apana Vayu, grounding into earth"
+
+  variations:
+    deep_squat:
+      id: "deep_squat"
+      name: "Deep Squat with Hip Opening"
+      description: "deep squat with feet wider than hip-width, toes turned out 45 degrees, heels down or on blanket if needed, elbows pressing inner knees outward, hands in Anjali Mudra at heart, spine tall, tailbone grounding"
+      pose_focus: "hip external rotation, ankle dorsiflexion, spinal integrity"
+      anatomical_notes: "Integration of all four pillars (ankle, calf, hip, spine), Pada Bandha foot lock"
+
+    supported_block:
+      id: "supported_block"
+      name: "Malasana with Block Support"
+      description: "deep squat position with yoga block under hips for support, feet wider than hips, hips resting on block, gravity-assisted opening without strain, spine tall, hands at heart"
+      pose_focus: "gravity-assisted hip opening, accessible depth"
+      anatomical_notes: "Prop-assisted variation for limited mobility, Iyengar-style support"

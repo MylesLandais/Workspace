@@ -1,6 +1,0 @@
-{"timestamp": "2025-12-10T19:37:13.994165", "event": "agent_start", "agent": "comfyui_image_generator", "query": "A gopher chef preparing gourmet meals in a futuristic kitchen, digital art", "metadata": null}
-{"timestamp": "2025-12-10T19:37:13.994278", "event": "tool_call", "tool": "enhance_prompt", "arguments": {"user_request": "A gopher chef preparing gourmet meals in a futuristic kitchen, digital art"}, "metadata": null}
-{"timestamp": "2025-12-10T19:37:13.994328", "event": "tool_result", "tool": "enhance_prompt", "elapsed": 0.0, "metadata": null}
-{"timestamp": "2025-12-10T19:37:13.994360", "event": "tool_call", "tool": "generate_image_with_runpod", "arguments": {"prompt": "A gopher chef preparing gourmet meals in a futuristic kitchen, digital art", "seed": 1874192538}, "metadata": null}
-{"timestamp": "2025-12-10T19:37:13.994384", "event": "tool_result", "tool": "generate_image_with_runpod", "elapsed": 0.0, "metadata": null}
-{"timestamp": "2025-12-10T19:37:13.994412", "event": "agent_complete", "agent": "comfyui_image_generator", "response_length": 88, "elapsed": 581.8546512126923, "metadata": null}

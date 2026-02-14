@@ -1,4 +1,0 @@
-{"timestamp": "2025-12-10T21:19:24.590819", "event": "agent_start", "agent": "comfyui_image_generator", "query": "A gopher samurai with a katana, traditional Japanese art", "metadata": null}
-{"timestamp": "2025-12-10T21:19:24.590946", "event": "tool_call", "tool": "generate_image_with_runpod", "arguments": {"prompt": "A gopher samurai with a katana, traditional Japanese art", "seed": 1844790162}, "metadata": null}
-{"timestamp": "2025-12-10T21:19:24.590997", "event": "tool_result", "tool": "generate_image_with_runpod", "elapsed": 0.0, "metadata": null}
-{"timestamp": "2025-12-10T21:19:24.591034", "event": "agent_complete", "agent": "comfyui_image_generator", "response_length": 92, "elapsed": 11.83551025390625, "metadata": null}

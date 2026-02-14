@@ -1,4 +1,0 @@
-{"timestamp": "2025-12-10T21:25:11.956898", "event": "agent_start", "agent": "comfyui_image_generator", "query": "A gopher artist painting a masterpiece, artistic style", "metadata": null}
-{"timestamp": "2025-12-10T21:25:11.956978", "event": "tool_call", "tool": "generate_image_with_runpod", "arguments": {"prompt": "A gopher artist painting a masterpiece, artistic style", "seed": 3937684287}, "metadata": null}
-{"timestamp": "2025-12-10T21:25:11.957009", "event": "tool_result", "tool": "generate_image_with_runpod", "elapsed": 0.0, "metadata": null}
-{"timestamp": "2025-12-10T21:25:11.957034", "event": "agent_complete", "agent": "comfyui_image_generator", "response_length": 92, "elapsed": 10.96701169013977, "metadata": null}

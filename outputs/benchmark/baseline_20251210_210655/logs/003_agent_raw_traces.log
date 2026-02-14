@@ -1,4 +1,0 @@
-{"timestamp": "2025-12-10T21:09:23.951392", "event": "agent_start", "agent": "comfyui_image_generator", "query": "The Go gopher mascot debugging code, pixel art style", "metadata": null}
-{"timestamp": "2025-12-10T21:09:23.951556", "event": "tool_call", "tool": "generate_image_with_runpod", "arguments": {"prompt": "The Go gopher mascot debugging code, pixel art style", "seed": 1398941156}, "metadata": null}
-{"timestamp": "2025-12-10T21:09:23.951603", "event": "tool_result", "tool": "generate_image_with_runpod", "elapsed": 0.0, "metadata": null}
-{"timestamp": "2025-12-10T21:09:23.951644", "event": "agent_complete", "agent": "comfyui_image_generator", "response_length": 92, "elapsed": 11.292563915252686, "metadata": null}

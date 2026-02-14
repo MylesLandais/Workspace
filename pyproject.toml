@@ -4,25 +4,58 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "jupyter-workspace"
-version = "0.1.0"
-description = "Tools and notebooks for rapid prototyping and tracking ai progress"
+version = "0.2.0"
+description = "Monorepo for feed monitoring, VTT, image generation, and media tools"
 authors = [ { name = "Myles Landais" } ]
+requires-python = ">=3.11"
 
 [project.urls]
 "Homepage" = "https://github.com/MylesLandais/jupyter"
 
 dependencies = [
+    # AI/ML
     "google-genai>=1.16.1",
-    "google-adk>=1.0.0",  # Separate package providing google.adk module
+    "google-adk>=1.0.0",
     "litellm>=1.0.0",
-    # Core dependencies (fix typing_extensions/pydantic compatibility)
-    "typing_extensions>=4.5.0",  # Required for pydantic-core Sentinel import
-    "pydantic>=2.0.0,<3.0.0",  # Explicit pydantic version for compatibility
-    "pydantic-core>=2.0.0",  # Required by pydantic
-    # HTTP and API utilities
+    # Core
+    "typing_extensions>=4.5.0",
+    "pydantic>=2.0.0,<3.0.0",
+    "pydantic-core>=2.0.0",
+    # HTTP
     "requests>=2.31.0",
     "python-dotenv>=1.0.0",
-    # Image processing (used by runpod_runner)
+    # Image processing
     "Pillow>=10.0.0",
+    # Web framework
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.27.0",
+    # Database
+    "psycopg2-binary>=2.9.0",
+    "sqlalchemy>=2.0.0",
+    # Observability
+    "opentelemetry-api>=1.20.0",
+    "opentelemetry-sdk>=1.20.0",
+    "opentelemetry-exporter-otlp-proto-grpc>=1.20.0",
+    "opentelemetry-exporter-prometheus>=0.40b0",
+    "opentelemetry-instrumentation-fastapi>=0.40b0",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.0.0",
+    "pytest-cov>=5.0.0",
+    "pytest-asyncio>=0.23.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "strict"
+
+[tool.coverage.run]
+source = ["infra", "lib", "src"]
+
+[tool.coverage.report]
+fail_under = 0
+
+[tool.setuptools.packages.find]
+include = ["infra*", "lib*", "src*"]

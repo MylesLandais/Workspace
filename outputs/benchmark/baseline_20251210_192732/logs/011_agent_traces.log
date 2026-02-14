@@ -1,6 +1,0 @@
-{"timestamp": "2025-12-10T19:45:29.917148", "event": "agent_start", "agent": "comfyui_image_generator", "query": "A gopher superhero flying over a cityscape, comic book style", "metadata": null}
-{"timestamp": "2025-12-10T19:45:29.917512", "event": "tool_call", "tool": "enhance_prompt", "arguments": {"user_request": "A gopher superhero flying over a cityscape, comic book style"}, "metadata": null}
-{"timestamp": "2025-12-10T19:45:29.917761", "event": "tool_result", "tool": "enhance_prompt", "elapsed": 0.0, "metadata": null}
-{"timestamp": "2025-12-10T19:45:29.917831", "event": "tool_call", "tool": "generate_image_with_runpod", "arguments": {"prompt": "A gopher superhero flying over a cityscape, comic book style", "seed": 3158762243}, "metadata": null}
-{"timestamp": "2025-12-10T19:45:29.917876", "event": "tool_result", "tool": "generate_image_with_runpod", "elapsed": 0, "metadata": null}
-{"timestamp": "2025-12-10T19:45:29.917920", "event": "agent_error", "agent": "comfyui_image_generator", "error": "ComfyUI server (127.0.0.1:8188) not reachable after multiple retries.", "error_type": "Exception", "elapsed": 36.47989320755005, "metadata": null}
