@@ -1,0 +1,25 @@
+[project]
+name = "workspace"
+version = "0.1.0"
+requires-python = ">=3.11"
+description = "Polyglot monorepo for AI orchestration, RPG mechanics, and social data analysis"
+
+[tool.uv.workspace]
+members = [
+    "lib/*",
+    "src/*",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+
+[tool.coverage.run]
+source = ["lib", "src"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 33

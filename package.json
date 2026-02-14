@@ -1,0 +1,20 @@
+{
+  "name": "workspace",
+  "version": "0.1.0",
+  "description": "Polyglot monorepo for AI orchestration, RPG mechanics, and social data analysis",
+  "workspaces": [
+    "src/bunny/*",
+    "src/discord-bot"
+  ],
+  "scripts": {
+    "dev:bunny": "bun --filter @workspace/bunny dev",
+    "dev:discord": "bun --filter @workspace/discord-bot dev",
+    "test": "bun test",
+    "lint": "eslint src/ lib/"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "eslint": "^8.0.0",
+    "typescript": "^5.0.0"
+  }
+}
