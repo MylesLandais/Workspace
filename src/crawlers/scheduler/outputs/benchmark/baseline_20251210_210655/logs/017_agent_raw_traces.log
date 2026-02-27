@@ -1,4 +1,0 @@
-{"timestamp": "2025-12-10T21:21:54.067437", "event": "agent_start", "agent": "comfyui_image_generator", "query": "A gopher warrior in Saiyan armor, manga style", "metadata": null}
-{"timestamp": "2025-12-10T21:21:54.067524", "event": "tool_call", "tool": "generate_image_with_runpod", "arguments": {"prompt": "A gopher warrior in Saiyan armor, manga style", "seed": 2286034054}, "metadata": null}
-{"timestamp": "2025-12-10T21:21:54.067573", "event": "tool_result", "tool": "generate_image_with_runpod", "elapsed": 0.0, "metadata": null}
-{"timestamp": "2025-12-10T21:21:54.067601", "event": "agent_complete", "agent": "comfyui_image_generator", "response_length": 92, "elapsed": 11.02249526977539, "metadata": null}

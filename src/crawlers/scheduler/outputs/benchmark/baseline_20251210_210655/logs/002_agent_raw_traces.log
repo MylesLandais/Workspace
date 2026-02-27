@@ -1,4 +1,0 @@
-{"timestamp": "2025-12-10T21:08:34.136665", "event": "agent_start", "agent": "comfyui_image_generator", "query": "A steampunk gopher mechanic repairing a clockwork machine, digital art", "metadata": null}
-{"timestamp": "2025-12-10T21:08:34.136761", "event": "tool_call", "tool": "generate_image_with_runpod", "arguments": {"prompt": "A steampunk gopher mechanic repairing a clockwork machine, digital art", "seed": 393112258}, "metadata": null}
-{"timestamp": "2025-12-10T21:08:34.136796", "event": "tool_result", "tool": "generate_image_with_runpod", "elapsed": 0.0, "metadata": null}
-{"timestamp": "2025-12-10T21:08:34.136822", "event": "agent_complete", "agent": "comfyui_image_generator", "response_length": 92, "elapsed": 11.109840393066406, "metadata": null}

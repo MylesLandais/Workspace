@@ -1,6 +1,0 @@
-{"timestamp": "2025-12-10T19:41:37.887065", "event": "agent_start", "agent": "comfyui_image_generator", "query": "A medieval gopher knight in shining armor, fantasy art", "metadata": null}
-{"timestamp": "2025-12-10T19:41:37.887151", "event": "tool_call", "tool": "enhance_prompt", "arguments": {"user_request": "A medieval gopher knight in shining armor, fantasy art"}, "metadata": null}
-{"timestamp": "2025-12-10T19:41:37.887182", "event": "tool_result", "tool": "enhance_prompt", "elapsed": 0.0, "metadata": null}
-{"timestamp": "2025-12-10T19:41:37.887206", "event": "tool_call", "tool": "generate_image_with_runpod", "arguments": {"prompt": "A medieval gopher knight in shining armor, fantasy art", "seed": 3055873695}, "metadata": null}
-{"timestamp": "2025-12-10T19:41:37.887229", "event": "tool_result", "tool": "generate_image_with_runpod", "elapsed": 0.0, "metadata": null}
-{"timestamp": "2025-12-10T19:41:37.887250", "event": "agent_complete", "agent": "comfyui_image_generator", "response_length": 88, "elapsed": 16.364992141723633, "metadata": null}

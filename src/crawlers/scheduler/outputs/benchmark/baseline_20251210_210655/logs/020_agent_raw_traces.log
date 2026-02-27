@@ -1,4 +1,0 @@
-{"timestamp": "2025-12-10T21:24:20.776455", "event": "agent_start", "agent": "comfyui_image_generator", "query": "A gopher in Naruto's orange jumpsuit with headband, anime style", "metadata": null}
-{"timestamp": "2025-12-10T21:24:20.776544", "event": "tool_call", "tool": "generate_image_with_runpod", "arguments": {"prompt": "A gopher in Naruto's orange jumpsuit with headband, anime style", "seed": 4151821391}, "metadata": null}
-{"timestamp": "2025-12-10T21:24:20.776577", "event": "tool_result", "tool": "generate_image_with_runpod", "elapsed": 0.0, "metadata": null}
-{"timestamp": "2025-12-10T21:24:20.776603", "event": "agent_complete", "agent": "comfyui_image_generator", "response_length": 92, "elapsed": 11.019973039627075, "metadata": null}

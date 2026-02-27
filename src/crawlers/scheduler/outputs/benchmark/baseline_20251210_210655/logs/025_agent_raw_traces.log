@@ -1,4 +1,0 @@
-{"timestamp": "2025-12-10T21:28:47.694955", "event": "agent_start", "agent": "comfyui_image_generator", "query": "A gopher superhero flying over a cityscape, comic book style", "metadata": null}
-{"timestamp": "2025-12-10T21:28:47.695067", "event": "tool_call", "tool": "generate_image_with_runpod", "arguments": {"prompt": "A gopher superhero flying over a cityscape, comic book style", "seed": 4216446429}, "metadata": null}
-{"timestamp": "2025-12-10T21:28:47.695111", "event": "tool_result", "tool": "generate_image_with_runpod", "elapsed": 0.0, "metadata": null}
-{"timestamp": "2025-12-10T21:28:47.695146", "event": "agent_complete", "agent": "comfyui_image_generator", "response_length": 92, "elapsed": 11.399338722229004, "metadata": null}

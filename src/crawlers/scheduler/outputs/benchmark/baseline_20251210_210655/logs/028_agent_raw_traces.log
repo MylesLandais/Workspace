@@ -1,4 +1,0 @@
-{"timestamp": "2025-12-10T21:31:18.401092", "event": "agent_start", "agent": "comfyui_image_generator", "query": "A gopher cowboy riding through the desert, western art", "metadata": null}
-{"timestamp": "2025-12-10T21:31:18.401176", "event": "tool_call", "tool": "generate_image_with_runpod", "arguments": {"prompt": "A gopher cowboy riding through the desert, western art", "seed": 3094873310}, "metadata": null}
-{"timestamp": "2025-12-10T21:31:18.401206", "event": "tool_result", "tool": "generate_image_with_runpod", "elapsed": 0.0, "metadata": null}
-{"timestamp": "2025-12-10T21:31:18.401230", "event": "agent_complete", "agent": "comfyui_image_generator", "response_length": 92, "elapsed": 10.972500562667847, "metadata": null}

@@ -1,1 +1,0 @@
-"""Model adapters for different ASR implementations."""
