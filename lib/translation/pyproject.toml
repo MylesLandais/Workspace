@@ -1,0 +1,14 @@
+[project]
+name = "translation"
+version = "0.1.0"
+description = "Translation backend adapters (TranslateGemma, NLLB)"
+requires-python = ">=3.11"
+dependencies = [
+    "deep-translator>=1.11.4",
+]
+
+[tool.setuptools]
+packages = ["translation", "translation.adapters"]
+
+[tool.setuptools.package-dir]
+"translation" = "."

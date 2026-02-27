@@ -3,11 +3,37 @@ name = "workspace"
 version = "0.1.0"
 requires-python = ">=3.11"
 description = "Polyglot monorepo for AI orchestration, RPG mechanics, and social data analysis"
+dependencies = [
+    "asr",
+    "comfy",
+    "dubbing",
+    "maya",
+    "ocr",
+    "silly-png",
+    "translation",
+    "util",
+]
+
+[tool.uv.sources]
+asr = { workspace = true }
+comfy = { workspace = true }
+dubbing = { workspace = true }
+imageboards = { workspace = true }
+maya = { workspace = true }
+ocr = { workspace = true }
+silly-png = { workspace = true }
+snek = { workspace = true }
+translation = { workspace = true }
+util = { workspace = true }
 
 [tool.uv.workspace]
 members = [
     "lib/*",
+    "lib/sources/*",
     "src/*",
+]
+exclude = [
+    "lib/sources",
 ]
 
 [tool.pytest.ini_options]
@@ -23,3 +49,10 @@ branch = true
 
 [tool.coverage.report]
 fail_under = 33
+
+[dependency-groups]
+dev = [
+    "numpy>=2.4.2",
+    "pillow>=12.1.1",
+    "pytest>=9.0.2",
+]

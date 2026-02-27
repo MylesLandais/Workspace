@@ -1,0 +1,15 @@
+[project]
+name = "ocr"
+version = "0.1.0"
+description = "OCR backend adapters (EasyOCR)"
+requires-python = ">=3.11"
+dependencies = [
+    "easyocr>=1.7.1",
+    "pillow>=10.0",
+]
+
+[tool.setuptools]
+packages = ["ocr", "ocr.adapters"]
+
+[tool.setuptools.package-dir]
+"ocr" = "."

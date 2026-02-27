@@ -1,4 +1,4 @@
 [project]
-name = "nebulixir"
+name = "tts-lib"
 version = "0.1.0"
 dependencies = []

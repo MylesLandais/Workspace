@@ -1,0 +1,14 @@
+[project]
+name = "util"
+version = "0.1.0"
+dependencies = [
+    "pyyaml>=6.0",
+    "imagehash>=4.3",
+    "Pillow>=10.0",
+]
+
+[tool.setuptools]
+packages = ["util"]
+
+[tool.setuptools.package-dir]
+"util" = "."

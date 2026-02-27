@@ -13,6 +13,9 @@ pkgs.mkShell {
     pkgs.stdenv.cc.cc.lib
     pkgs.zlib
     pkgs.ffmpeg
+    pkgs.awscli2
+    pkgs.yt-dlp
+    pkgs.ripgrep  # for Maya memory_recall
   ];
 
   shellHook = ''

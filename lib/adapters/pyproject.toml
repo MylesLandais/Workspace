@@ -1,7 +1,4 @@
 [project]
-name = "placeholder"
+name = "adapters"
 version = "0.1.0"
 dependencies = []
-
-[tool.uv]
-workspace = true

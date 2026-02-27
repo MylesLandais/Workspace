@@ -1,0 +1,14 @@
+[project]
+name = "silly_png"
+version = "0.1.0"
+description = "SillyTavern character card toolkit"
+dependencies = [
+    "pillow>=10.0.0",
+    "pyyaml>=6.0",
+]
+
+[tool.setuptools]
+packages = ["silly_png"]
+
+[tool.setuptools.package-dir]
+"silly_png" = "."

@@ -1,7 +1,47 @@
 [project]
-name = "placeholder"
-version = "0.1.0"
-dependencies = []
+name = "agents"
+version = "0.2.0"
+description = "Maya agent runtime — LLM loop with tool execution, YAML skills, and memory management"
+requires-python = ">=3.11"
+dependencies = [
+    # Core
+    "aiohttp>=3.9",
+    "python-dotenv>=1.0.0",
+    "pyyaml>=6.0.1",
+    "pydantic>=2.0.0",
+    
+    # LLM & Agent Framework
+    "litellm>=1.57.0",
+    "langchain>=0.3.0,<1.0",
+    "langchain-core>=0.3.0,<1.0",
+    "langchain-community>=0.3.0,<1.0",
+    "langchain-openai>=0.2.0,<1.0",
+    "openai>=1.30.0,<2.0",
+    
+    # OpenTelemetry (hard requirement)
+    "opentelemetry-api>=1.22.0",
+    "opentelemetry-sdk>=1.22.0",
+    "opentelemetry-exporter-otlp>=1.22.0",
+    "opentelemetry-instrumentation>=0.43b0",
+    
+    # GitHub API
+    "pygithub>=2.1.0",
+    
+    # Discord (for daemon notifications)
+    "discord.py>=2.3.0",
+]
 
-[tool.uv]
-workspace = true
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "ruff>=0.2.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["agent"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+asyncio_mode = "auto"
