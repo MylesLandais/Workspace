@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  api:
+    build: ./server
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./server:/app
+      - kuroba_images:/app/static/images
+      - ./server/kuroba.db:/app/kuroba.db
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+
+  worker:
+    build: ./server
+    command: celery -A worker.celery_app worker --loglevel=info
+    volumes:
+      - ./server:/app
+      - kuroba_images:/app/static/images
+      - ./server/kuroba.db:/app/kuroba.db
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+volumes:
+  kuroba_images:

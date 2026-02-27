@@ -137,11 +137,11 @@ def main():
         text = f.read()
     
     voices = {
-        'maya': 'comfyui_projects/reference_audio/maya.wav',
-        'selena': 'comfyui_projects/reference_audio/selena.wav',
-        'emma': 'comfyui_projects/reference_audio/Emma_8s.wav',
-        'kirk': 'comfyui_projects/reference_audio/kirk.wav',
-        'lexie': 'comfyui_projects/reference_audio/lexie_8s.wav',
+        'maya': 'data/inputs/voices/maya.wav',
+        'selena': 'data/inputs/voices/selena.wav',
+        'emma': 'data/inputs/voices/Emma_8s.wav',
+        'kirk': 'data/inputs/voices/kirk.wav',
+        'lexie': 'data/inputs/voices/lexie_8s.wav',
     }
     
     print(f"Voice Comparison - Full Essay Test")

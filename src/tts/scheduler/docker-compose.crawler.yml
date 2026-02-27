@@ -1,0 +1,246 @@
+version: '3.8'
+
+services:
+  flaresolverr:
+    image: flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    ports:
+      - "8191:8191"
+      - "8192:8192"
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+    networks:
+      - jupyter_jupyter-dev
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8191/v1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: crawler_redis
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - crawler_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.crawler
+    container_name: coomer_worker
+    volumes:
+      - ./downloads:/home/warby/Workspace/jupyter/downloads
+      - ./cache:/home/warby/Workspace/jupyter/cache
+      - ./config:/home/warby/Workspace/jupyter/config:ro
+      - ./logs:/home/warby/Workspace/jupyter/logs
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - FLARESOLVERR_URL=http://flaresolverr:8191
+      - WORKER_CONCURRENCY=4
+      - MAX_RETRIES=3
+      - REQUEST_DELAY=0.5
+    networks:
+      - crawler_network
+    depends_on:
+      redis:
+        condition: service_healthy
+      flaresolverr:
+        condition: service_healthy
+    command: python worker.py --queue jobs --verbose
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile.crawler
+    container_name: coomer_scheduler
+    volumes:
+      - ./downloads:/home/warby/Workspace/jupyter/downloads
+      - ./cache:/home/warby/Workspace/jupyter/cache
+      - ./config:/home/warby/Workspace/jupyter/config:ro
+      - ./logs:/home/warby/Workspace/jupyter/logs
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - FLARESOLVERR_URL=http://flaresolverr:8191
+    networks:
+      - crawler_network
+    depends_on:
+      redis:
+        condition: service_healthy
+    command: python scheduler.py --schedule config/schedule.json --loop 60
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.crawler
+    container_name: coomer_api
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./downloads:/home/warby/Workspace/jupyter/downloads
+      - ./cache:/home/warby/Workspace/jupyter/cache
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - API_HOST=0.0.0.0
+      - API_PORT=8080
+    networks:
+      - crawler_network
+    depends_on:
+      redis:
+        condition: service_healthy
+    command: python api.py
+
+  imageboard_orchestrator:
+    build:
+      context: .
+      dockerfile: Dockerfile.crawler
+    container_name: imageboard_orchestrator
+    volumes:
+      - ./cache:/home/warby/Workspace/jupyter/cache
+    environment:
+      - REDIS_URL=redis://valkey:6379
+      - IMAGEBOARD_BOARD=b
+      - POLL_INTERVAL=1800
+    networks:
+      - jupyter_jupyter-dev
+    command: python -u imageboard_catalog_orchestrator.py
+    depends_on:
+      valkey:
+        condition: service_healthy
+
+  imageboard_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.crawler
+    container_name: imageboard_worker
+    volumes:
+      - ./cache:/home/warby/Workspace/jupyter/cache
+    environment:
+      - REDIS_URL=redis://valkey:6379
+      - PYTHONUNBUFFERED=1
+    networks:
+      - jupyter_jupyter-dev
+    command: python -u imageboard_monitor_worker.py
+    depends_on:
+      valkey:
+        condition: service_healthy
+
+  imageboard_pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile.crawler
+    container_name: imageboard_pipeline
+    volumes:
+      - ./cache:/home/warby/Workspace/jupyter/cache
+      - ./datasets:/home/warby/Workspace/jupyter/datasets
+    environment:
+      - EXPORT_INTERVAL=21600
+    networks:
+      - jupyter_jupyter-dev
+    command: >
+      bash -c "while true; do
+        echo "Starting scheduled parquet export...";
+        python create_imageboard_dataset.py --days 7 --name imageboard_weekly;
+        echo "Export complete. Sleeping for $${EXPORT_INTERVAL} seconds...";
+        sleep $${EXPORT_INTERVAL};
+      done"
+
+  imageboard_dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.crawler
+    container_name: imageboard_dashboard
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./cache:/home/warby/Workspace/jupyter/cache
+      - ./datasets:/home/warby/Workspace/jupyter/datasets
+      - ./imageboard_dashboard_v4.py:/home/warby/Workspace/jupyter/imageboard_dashboard_v4.py
+    networks:
+      - jupyter_jupyter-dev
+    command: python imageboard_dashboard_v4.py
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: imageboard_prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./otel/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=24h'
+    networks:
+      - jupyter_jupyter-dev
+    restart: unless-stopped
+
+  pushgateway:
+    image: prom/pushgateway:latest
+    container_name: imageboard_pushgateway
+    ports:
+      - "9091:9091"
+    networks:
+      - jupyter_jupyter-dev
+    restart: unless-stopped
+
+  metrics_collector:
+    build:
+      context: .
+      dockerfile: Dockerfile.crawler
+    container_name: imageboard_metrics_collector
+    volumes:
+      - ./otel:/home/warby/Workspace/jupyter/otel
+      - ./logs/metrics:/var/lib/prometheus/metrics
+    environment:
+      - REDIS_URL=redis://valkey:6379
+      - PUSHGATEWAY_URL=http://pushgateway:9091
+      - COLLECTION_INTERVAL=30
+    command: python otel_metrics_collector.py
+    depends_on:
+      - pushgateway
+      - valkey
+      - imageboard_orchestrator
+      - imageboard_worker
+    networks:
+      - jupyter_jupyter-dev
+    restart: unless-stopped
+
+  playwright_tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.playwright
+    container_name: playwright_tests
+    depends_on:
+      - imageboard_dashboard
+    environment:
+      - DASHBOARD_URL=http://localhost:5001
+    network_mode: host
+    command: >
+      bash -c "echo 'Waiting for dashboard...' && sleep 25 && python3 tests/test_dashboard.py"
+
+networks:
+  jupyter_jupyter-dev:
+    external: true
+    name: jupyter_jupyter-dev
+  crawler_network:
+    driver: bridge
+
+volumes:
+  redis_data:
+  prometheus_data: {}
+
+services:
+  valkey:
+    external: true
+    name: cache.jupyter.dev.local

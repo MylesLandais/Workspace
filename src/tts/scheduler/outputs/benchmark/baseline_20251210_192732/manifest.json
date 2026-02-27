@@ -1,0 +1,700 @@
+{
+  "baseline_dir": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732",
+  "timestamp": "20251210_192732",
+  "prompts": [
+    {
+      "prompt_id": "001",
+      "raw_prompt": "A gopher chef preparing gourmet meals in a futuristic kitchen, digital art",
+      "seed": 1874192538,
+      "conditions": {
+        "B": {
+          "status": "success",
+          "message": "Image generated successfully in 0.0s",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/001_B_agent.png",
+          "filename": "001_B_agent.png",
+          "seed": 1874192538,
+          "width": 1152,
+          "height": 2048,
+          "workflow": null,
+          "prompt_length": 74,
+          "job_id": "1a605459-8e06-4b1c-9c9e-1d4538fdbe74-u1",
+          "elapsed_seconds": 0.0,
+          "enhanced_prompt": "A gopher chef preparing gourmet meals in a futuristic kitchen, digital art",
+          "original_prompt": "A gopher chef preparing gourmet meals in a futuristic kitchen, digital art"
+        },
+        "A": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/001_A_legacy_raw.png",
+          "filename": "001_A_legacy_raw.png",
+          "seed": 1874192538,
+          "job_id": "6e80f7c0-fe81-4804-b131-8785e8e90886-u1",
+          "elapsed_seconds": 6.724203824996948
+        },
+        "C": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/001_C_legacy_enhanced.png",
+          "filename": "001_C_legacy_enhanced.png",
+          "seed": 1874192538,
+          "job_id": "43398900-e5c6-4225-82f4-5d42e58a3395-u1",
+          "elapsed_seconds": 6.672322511672974
+        }
+      },
+      "enhanced_prompt": "A gopher chef preparing gourmet meals in a futuristic kitchen, digital art",
+      "similarities": {
+        "A_vs_B": 0.0,
+        "B_vs_C": 0.0,
+        "A_vs_C": 0.0
+      },
+      "within_threshold": true
+    },
+    {
+      "prompt_id": "002",
+      "raw_prompt": "A cyberpunk gopher astronaut floating in space, digital art",
+      "seed": 4217269581,
+      "conditions": {
+        "B": {
+          "status": "success",
+          "message": "Image generated successfully in 0.0s",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/002_B_agent.png",
+          "filename": "002_B_agent.png",
+          "seed": 4217269581,
+          "width": 1152,
+          "height": 2048,
+          "workflow": null,
+          "prompt_length": 59,
+          "job_id": "5779ce9e-7983-44ec-8407-128467e788e6-u1",
+          "elapsed_seconds": 0.0,
+          "enhanced_prompt": "A cyberpunk gopher astronaut floating in space, digital art",
+          "original_prompt": "A cyberpunk gopher astronaut floating in space, digital art"
+        },
+        "A": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/002_A_legacy_raw.png",
+          "filename": "002_A_legacy_raw.png",
+          "seed": 4217269581,
+          "job_id": "c2762b4a-561f-468f-afbd-5254caafb6b2-u1",
+          "elapsed_seconds": 7.125570774078369
+        },
+        "C": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/002_C_legacy_enhanced.png",
+          "filename": "002_C_legacy_enhanced.png",
+          "seed": 4217269581,
+          "job_id": "21a2394e-5bbc-4933-be25-339f0b25d2aa-u2",
+          "elapsed_seconds": 27.299595832824707
+        }
+      },
+      "enhanced_prompt": "A cyberpunk gopher astronaut floating in space, digital art",
+      "similarities": {
+        "A_vs_B": 0.0,
+        "B_vs_C": 0.0,
+        "A_vs_C": 0.0
+      },
+      "within_threshold": true
+    },
+    {
+      "prompt_id": "003",
+      "raw_prompt": "A gopher ninja in a bamboo forest, martial arts style",
+      "seed": 1407830620,
+      "conditions": {
+        "B": {
+          "status": "success",
+          "message": "Image generated successfully in 0.0s",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/003_B_agent.png",
+          "filename": "003_B_agent.png",
+          "seed": 1407830620,
+          "width": 1152,
+          "height": 2048,
+          "workflow": null,
+          "prompt_length": 53,
+          "job_id": "bf95268a-ee05-454e-9397-da8b98162481-u2",
+          "elapsed_seconds": 0.0,
+          "enhanced_prompt": "A gopher ninja in a bamboo forest, martial arts style",
+          "original_prompt": "A gopher ninja in a bamboo forest, martial arts style"
+        },
+        "A": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/003_A_legacy_raw.png",
+          "filename": "003_A_legacy_raw.png",
+          "seed": 1407830620,
+          "job_id": "bf5fc005-9771-488c-a053-12afc1716b38-u1",
+          "elapsed_seconds": 6.8107147216796875
+        },
+        "C": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/003_C_legacy_enhanced.png",
+          "filename": "003_C_legacy_enhanced.png",
+          "seed": 1407830620,
+          "job_id": "a4912c1e-ee24-4d07-939c-41ac7a04f719-u1",
+          "elapsed_seconds": 6.786715745925903
+        }
+      },
+      "enhanced_prompt": "A gopher ninja in a bamboo forest, martial arts style",
+      "similarities": {
+        "A_vs_B": 0.0,
+        "B_vs_C": 0.0,
+        "A_vs_C": 0.0
+      },
+      "within_threshold": true
+    },
+    {
+      "prompt_id": "004",
+      "raw_prompt": "A gopher detective solving mysteries in a noir city, digital art",
+      "seed": 3674837869,
+      "conditions": {
+        "B": {
+          "status": "success",
+          "message": "Image generated successfully in 0.0s",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/004_B_agent.png",
+          "filename": "004_B_agent.png",
+          "seed": 3674837869,
+          "width": 1152,
+          "height": 2048,
+          "workflow": null,
+          "prompt_length": 64,
+          "job_id": "60dd41f7-9810-4158-b24a-55f4b5187633-u1",
+          "elapsed_seconds": 0.0,
+          "enhanced_prompt": "A gopher detective solving mysteries in a noir city, digital art",
+          "original_prompt": "A gopher detective solving mysteries in a noir city, digital art"
+        },
+        "A": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/004_A_legacy_raw.png",
+          "filename": "004_A_legacy_raw.png",
+          "seed": 3674837869,
+          "job_id": "5e13af55-6051-464e-92aa-bf5305a7ea70-u1",
+          "elapsed_seconds": 6.677143096923828
+        },
+        "C": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/004_C_legacy_enhanced.png",
+          "filename": "004_C_legacy_enhanced.png",
+          "seed": 3674837869,
+          "job_id": "2936d902-b5b9-4a4a-a9c9-e0ec46ac9f32-u1",
+          "elapsed_seconds": 11.663984298706055
+        }
+      },
+      "enhanced_prompt": "A gopher detective solving mysteries in a noir city, digital art",
+      "similarities": {
+        "A_vs_B": 0.0,
+        "B_vs_C": 0.0,
+        "A_vs_C": 0.0
+      },
+      "within_threshold": true
+    },
+    {
+      "prompt_id": "005",
+      "raw_prompt": "A gopher time traveler in a steampunk time machine, sci-fi art",
+      "seed": 473036816,
+      "conditions": {
+        "B": {
+          "status": "success",
+          "message": "Image generated successfully in 0.0s",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/005_B_agent.png",
+          "filename": "005_B_agent.png",
+          "seed": 473036816,
+          "width": 1152,
+          "height": 2048,
+          "workflow": null,
+          "prompt_length": 62,
+          "job_id": "8ffbfdb9-3dd5-42a4-bf98-c220be839c32-u2",
+          "elapsed_seconds": 0.0,
+          "enhanced_prompt": "A gopher time traveler in a steampunk time machine, sci-fi art",
+          "original_prompt": "A gopher time traveler in a steampunk time machine, sci-fi art"
+        },
+        "A": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/005_A_legacy_raw.png",
+          "filename": "005_A_legacy_raw.png",
+          "seed": 473036816,
+          "job_id": "4a4d2df2-881f-4050-aec9-282324f847a1-u1",
+          "elapsed_seconds": 6.7462005615234375
+        },
+        "C": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/005_C_legacy_enhanced.png",
+          "filename": "005_C_legacy_enhanced.png",
+          "seed": 473036816,
+          "job_id": "0422f663-b623-427c-9b30-674f6c540c52-u1",
+          "elapsed_seconds": 6.783552169799805
+        }
+      },
+      "enhanced_prompt": "A gopher time traveler in a steampunk time machine, sci-fi art",
+      "similarities": {
+        "A_vs_B": 0.0,
+        "B_vs_C": 0.0,
+        "A_vs_C": 0.0
+      },
+      "within_threshold": true
+    },
+    {
+      "prompt_id": "006",
+      "raw_prompt": "A gopher samurai with a katana, traditional Japanese art",
+      "seed": 3276395895,
+      "conditions": {
+        "B": {
+          "status": "success",
+          "message": "Image generated successfully in 0.0s",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/006_B_agent.png",
+          "filename": "006_B_agent.png",
+          "seed": 3276395895,
+          "width": 1152,
+          "height": 2048,
+          "workflow": null,
+          "prompt_length": 56,
+          "job_id": "078ac167-c8b0-420c-8c70-1b02b4c66196-u2",
+          "elapsed_seconds": 0.0,
+          "enhanced_prompt": "A gopher samurai with a katana, traditional Japanese art",
+          "original_prompt": "A gopher samurai with a katana, traditional Japanese art"
+        },
+        "A": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/006_A_legacy_raw.png",
+          "filename": "006_A_legacy_raw.png",
+          "seed": 3276395895,
+          "job_id": "b839b4eb-cd6e-4edb-b200-eb19195cdbd1-u2",
+          "elapsed_seconds": 6.765976190567017
+        },
+        "C": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/006_C_legacy_enhanced.png",
+          "filename": "006_C_legacy_enhanced.png",
+          "seed": 3276395895,
+          "job_id": "b62f9db5-8530-4376-a302-ebf736cd599a-u1",
+          "elapsed_seconds": 11.915154218673706
+        }
+      },
+      "enhanced_prompt": "A gopher samurai with a katana, traditional Japanese art",
+      "similarities": {
+        "A_vs_B": 0.0,
+        "B_vs_C": 0.0,
+        "A_vs_C": 0.0
+      },
+      "within_threshold": true
+    },
+    {
+      "prompt_id": "007",
+      "raw_prompt": "A medieval gopher knight in shining armor, fantasy art",
+      "seed": 3055873695,
+      "conditions": {
+        "B": {
+          "status": "success",
+          "message": "Image generated successfully in 0.0s",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/007_B_agent.png",
+          "filename": "007_B_agent.png",
+          "seed": 3055873695,
+          "width": 1152,
+          "height": 2048,
+          "workflow": null,
+          "prompt_length": 54,
+          "job_id": "1d660aa0-6e38-44fa-8b30-1cec5c2bb7a8-u1",
+          "elapsed_seconds": 0.0,
+          "enhanced_prompt": "A medieval gopher knight in shining armor, fantasy art",
+          "original_prompt": "A medieval gopher knight in shining armor, fantasy art"
+        },
+        "A": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/007_A_legacy_raw.png",
+          "filename": "007_A_legacy_raw.png",
+          "seed": 3055873695,
+          "job_id": "097ac88a-511e-486e-bac2-edd4a56915a7-u2",
+          "elapsed_seconds": 6.944544315338135
+        },
+        "C": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/007_C_legacy_enhanced.png",
+          "filename": "007_C_legacy_enhanced.png",
+          "seed": 3055873695,
+          "job_id": "ea2134fa-765a-42e9-9d35-ea8d7ae0ae35-u2",
+          "elapsed_seconds": 11.908682584762573
+        }
+      },
+      "enhanced_prompt": "A medieval gopher knight in shining armor, fantasy art",
+      "similarities": {
+        "A_vs_B": 0.0,
+        "B_vs_C": 0.0,
+        "A_vs_C": 0.0
+      },
+      "within_threshold": true
+    },
+    {
+      "prompt_id": "008",
+      "raw_prompt": "A steampunk gopher mechanic repairing a clockwork machine, digital art",
+      "seed": 1468785308,
+      "conditions": {
+        "B": {
+          "status": "success",
+          "message": "Image generated successfully in 0.0s",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/008_B_agent.png",
+          "filename": "008_B_agent.png",
+          "seed": 1468785308,
+          "width": 1152,
+          "height": 2048,
+          "workflow": null,
+          "prompt_length": 70,
+          "job_id": "167addb3-8df8-42eb-8aa2-46f3e8508985-u1",
+          "elapsed_seconds": 0.0,
+          "enhanced_prompt": "A steampunk gopher mechanic repairing a clockwork machine, digital art",
+          "original_prompt": "A steampunk gopher mechanic repairing a clockwork machine, digital art"
+        },
+        "A": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/008_A_legacy_raw.png",
+          "filename": "008_A_legacy_raw.png",
+          "seed": 1468785308,
+          "job_id": "42412b59-ead8-4b8e-92bf-f7fbf9efab77-u1",
+          "elapsed_seconds": 6.683000326156616
+        },
+        "C": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/008_C_legacy_enhanced.png",
+          "filename": "008_C_legacy_enhanced.png",
+          "seed": 1468785308,
+          "job_id": "0ae907dd-3fd2-4f32-ab73-208b67a9d154-u1",
+          "elapsed_seconds": 11.810091495513916
+        }
+      },
+      "enhanced_prompt": "A steampunk gopher mechanic repairing a clockwork machine, digital art",
+      "similarities": {
+        "A_vs_B": 0.0,
+        "B_vs_C": 0.0,
+        "A_vs_C": 0.0
+      },
+      "within_threshold": true
+    },
+    {
+      "prompt_id": "009",
+      "raw_prompt": "A gopher musician playing a grand piano in a concert hall, digital art",
+      "seed": 376976370,
+      "conditions": {
+        "B": {
+          "status": "success",
+          "message": "Image generated successfully in 0.0s",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/009_B_agent.png",
+          "filename": "009_B_agent.png",
+          "seed": 376976370,
+          "width": 1152,
+          "height": 2048,
+          "workflow": null,
+          "prompt_length": 70,
+          "job_id": "c2faa675-5df6-4c9a-94fe-d18c70456986-u2",
+          "elapsed_seconds": 0.0,
+          "enhanced_prompt": "A gopher musician playing a grand piano in a concert hall, digital art",
+          "original_prompt": "A gopher musician playing a grand piano in a concert hall, digital art"
+        },
+        "A": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/009_A_legacy_raw.png",
+          "filename": "009_A_legacy_raw.png",
+          "seed": 376976370,
+          "job_id": "33a49d99-31a2-479c-be91-62174b1717c5-u2",
+          "elapsed_seconds": 6.772709369659424
+        },
+        "C": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/009_C_legacy_enhanced.png",
+          "filename": "009_C_legacy_enhanced.png",
+          "seed": 376976370,
+          "job_id": "fdee0a1f-f795-4700-9577-a487a6b799fd-u2",
+          "elapsed_seconds": 6.915999412536621
+        }
+      },
+      "enhanced_prompt": "A gopher musician playing a grand piano in a concert hall, digital art",
+      "similarities": {
+        "A_vs_B": 0.0,
+        "B_vs_C": 0.0,
+        "A_vs_C": 0.0
+      },
+      "within_threshold": true
+    },
+    {
+      "prompt_id": "010",
+      "raw_prompt": "A gopher cowboy riding through the desert, western art",
+      "seed": 254521261,
+      "conditions": {
+        "B": {
+          "status": "success",
+          "message": "Image generated successfully in 0.0s",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/010_B_agent.png",
+          "filename": "010_B_agent.png",
+          "seed": 254521261,
+          "width": 1152,
+          "height": 2048,
+          "workflow": null,
+          "prompt_length": 54,
+          "job_id": "6d0f97a5-ae8f-4099-8343-898f8d3ba94b-u2",
+          "elapsed_seconds": 0.0,
+          "enhanced_prompt": "A gopher cowboy riding through the desert, western art",
+          "original_prompt": "A gopher cowboy riding through the desert, western art"
+        },
+        "A": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/010_A_legacy_raw.png",
+          "filename": "010_A_legacy_raw.png",
+          "seed": 254521261,
+          "job_id": "0e0b882f-0012-45d1-8e5d-061fca1b127c-u2",
+          "elapsed_seconds": 6.6067893505096436
+        },
+        "C": {
+          "status": "error",
+          "message": "Job failed with status: FAILED",
+          "error": "ComfyUI server (127.0.0.1:8188) not reachable after multiple retries.",
+          "job_id": "f1a2207b-50a4-4499-a0a8-8dc6740b57af-u2",
+          "elapsed_seconds": 77.39263129234314
+        }
+      },
+      "enhanced_prompt": "A gopher cowboy riding through the desert, western art",
+      "similarities": {
+        "A_vs_B": 0.0
+      },
+      "within_threshold": true
+    },
+    {
+      "prompt_id": "011",
+      "raw_prompt": "A gopher superhero flying over a cityscape, comic book style",
+      "seed": 3158762243,
+      "conditions": {
+        "B": {
+          "status": "error",
+          "message": "Image generation failed",
+          "error": "ComfyUI server (127.0.0.1:8188) not reachable after multiple retries.",
+          "job_id": "d4cc9726-f9db-4419-830f-e49c1dc4e946-u2",
+          "enhanced_prompt": "A gopher superhero flying over a cityscape, comic book style",
+          "original_prompt": "A gopher superhero flying over a cityscape, comic book style"
+        }
+      },
+      "enhanced_prompt": "A gopher superhero flying over a cityscape, comic book style"
+    },
+    {
+      "prompt_id": "012",
+      "raw_prompt": "A gopher astronaut exploring an alien planet, space art",
+      "seed": 1106890653,
+      "conditions": {
+        "B": {
+          "status": "success",
+          "message": "Image generated successfully in 0.0s",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/012_B_agent.png",
+          "filename": "012_B_agent.png",
+          "seed": 1106890653,
+          "width": 1152,
+          "height": 2048,
+          "workflow": null,
+          "prompt_length": 55,
+          "job_id": "5ca583c0-1007-4216-8c63-c50552b28ceb-u1",
+          "elapsed_seconds": 0.0,
+          "enhanced_prompt": "A gopher astronaut exploring an alien planet, space art",
+          "original_prompt": "A gopher astronaut exploring an alien planet, space art"
+        },
+        "A": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/012_A_legacy_raw.png",
+          "filename": "012_A_legacy_raw.png",
+          "seed": 1106890653,
+          "job_id": "73f5eee9-fd88-4833-b7f2-754433b33044-u2",
+          "elapsed_seconds": 6.885274648666382
+        },
+        "C": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/012_C_legacy_enhanced.png",
+          "filename": "012_C_legacy_enhanced.png",
+          "seed": 1106890653,
+          "job_id": "26630598-eb12-4213-9be6-ad612d55f901-u2",
+          "elapsed_seconds": 6.734758138656616
+        }
+      },
+      "enhanced_prompt": "A gopher astronaut exploring an alien planet, space art",
+      "similarities": {
+        "A_vs_B": 0.0,
+        "B_vs_C": 0.0,
+        "A_vs_C": 0.0
+      },
+      "within_threshold": true
+    },
+    {
+      "prompt_id": "013",
+      "raw_prompt": "A gopher wizard casting spells in a magical forest, fantasy art",
+      "seed": 1528633900,
+      "conditions": {
+        "B": {
+          "status": "success",
+          "message": "Image generated successfully in 0.0s",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/013_B_agent.png",
+          "filename": "013_B_agent.png",
+          "seed": 1528633900,
+          "width": 1152,
+          "height": 2048,
+          "workflow": null,
+          "prompt_length": 63,
+          "job_id": "a8a32b9f-379f-408e-8804-cf5a2baefcf4-u1",
+          "elapsed_seconds": 0.0,
+          "enhanced_prompt": "A gopher wizard casting spells in a magical forest, fantasy art",
+          "original_prompt": "A gopher wizard casting spells in a magical forest, fantasy art"
+        },
+        "A": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/013_A_legacy_raw.png",
+          "filename": "013_A_legacy_raw.png",
+          "seed": 1528633900,
+          "job_id": "16ec710c-05be-4934-a4e5-41a47ec98610-u1",
+          "elapsed_seconds": 114.61139869689941
+        },
+        "C": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/013_C_legacy_enhanced.png",
+          "filename": "013_C_legacy_enhanced.png",
+          "seed": 1528633900,
+          "job_id": "b46cb723-d8b9-4b4b-8f1b-fcec4f19ff9a-u2",
+          "elapsed_seconds": 58.08095359802246
+        }
+      },
+      "enhanced_prompt": "A gopher wizard casting spells in a magical forest, fantasy art",
+      "similarities": {
+        "A_vs_B": 0.0,
+        "B_vs_C": 0.0,
+        "A_vs_C": 0.0
+      },
+      "within_threshold": true
+    },
+    {
+      "prompt_id": "014",
+      "raw_prompt": "A gopher pirate sailing the high seas, adventure art",
+      "seed": 858469182,
+      "conditions": {
+        "B": {
+          "status": "success",
+          "message": "Image generated successfully in 0.0s",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/014_B_agent.png",
+          "filename": "014_B_agent.png",
+          "seed": 858469182,
+          "width": 1152,
+          "height": 2048,
+          "workflow": null,
+          "prompt_length": 52,
+          "job_id": "351bfabb-2c82-4373-b2b3-e6b83d155972-u1",
+          "elapsed_seconds": 0.0,
+          "enhanced_prompt": "A gopher pirate sailing the high seas, adventure art",
+          "original_prompt": "A gopher pirate sailing the high seas, adventure art"
+        },
+        "A": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/014_A_legacy_raw.png",
+          "filename": "014_A_legacy_raw.png",
+          "seed": 858469182,
+          "job_id": "4cacb431-e784-4057-aeac-1daeccd17a02-u2",
+          "elapsed_seconds": 33.04305672645569
+        },
+        "C": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/014_C_legacy_enhanced.png",
+          "filename": "014_C_legacy_enhanced.png",
+          "seed": 858469182,
+          "job_id": "6026b796-421e-42dd-b6da-c48d8712079d-u2",
+          "elapsed_seconds": 130.25610303878784
+        }
+      },
+      "enhanced_prompt": "A gopher pirate sailing the high seas, adventure art",
+      "similarities": {
+        "A_vs_B": 0.0,
+        "B_vs_C": 0.0,
+        "A_vs_C": 0.0
+      },
+      "within_threshold": true
+    },
+    {
+      "prompt_id": "015",
+      "raw_prompt": "A gopher artist painting a masterpiece, artistic style",
+      "seed": 1819635214,
+      "conditions": {
+        "B": {
+          "status": "success",
+          "message": "Image generated successfully in 0.0s",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/015_B_agent.png",
+          "filename": "015_B_agent.png",
+          "seed": 1819635214,
+          "width": 1152,
+          "height": 2048,
+          "workflow": null,
+          "prompt_length": 54,
+          "job_id": "6f116386-6ecf-468d-8376-e9b4296b91b3-u1",
+          "elapsed_seconds": 0.0,
+          "enhanced_prompt": "A gopher artist painting a masterpiece, artistic style",
+          "original_prompt": "A gopher artist painting a masterpiece, artistic style"
+        },
+        "A": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/015_A_legacy_raw.png",
+          "filename": "015_A_legacy_raw.png",
+          "seed": 1819635214,
+          "job_id": "f5b74297-52d8-42c2-8b28-2c4e2d47f5b8-u1",
+          "elapsed_seconds": 17.079934120178223
+        },
+        "C": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/015_C_legacy_enhanced.png",
+          "filename": "015_C_legacy_enhanced.png",
+          "seed": 1819635214,
+          "job_id": "077d37b6-a6c1-4e7f-94b7-c081a2698785-u1",
+          "elapsed_seconds": 6.680130481719971
+        }
+      },
+      "enhanced_prompt": "A gopher artist painting a masterpiece, artistic style",
+      "similarities": {
+        "A_vs_B": 0.0,
+        "B_vs_C": 0.0,
+        "A_vs_C": 0.0
+      },
+      "within_threshold": true
+    },
+    {
+      "prompt_id": "016",
+      "raw_prompt": "A gopher scientist in a laboratory with glowing beakers, sci-fi art",
+      "seed": 1766387867,
+      "conditions": {
+        "B": {
+          "status": "success",
+          "message": "Image generated successfully in 0.0s",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/016_B_agent.png",
+          "filename": "016_B_agent.png",
+          "seed": 1766387867,
+          "width": 1152,
+          "height": 2048,
+          "workflow": null,
+          "prompt_length": 67,
+          "job_id": "37200bd8-706e-4754-9357-19383ce41cfe-u2",
+          "elapsed_seconds": 0.0,
+          "enhanced_prompt": "A gopher scientist in a laboratory with glowing beakers, sci-fi art",
+          "original_prompt": "A gopher scientist in a laboratory with glowing beakers, sci-fi art"
+        },
+        "A": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/016_A_legacy_raw.png",
+          "filename": "016_A_legacy_raw.png",
+          "seed": 1766387867,
+          "job_id": "a0d6d19f-686c-4533-9a21-dd3d7572af49-u1",
+          "elapsed_seconds": 58.07022976875305
+        },
+        "C": {
+          "status": "success",
+          "filepath": "/home/jovyan/workspace/outputs/benchmark/baseline_20251210_192732/images/016_C_legacy_enhanced.png",
+          "filename": "016_C_legacy_enhanced.png",
+          "seed": 1766387867,
+          "job_id": "8cfb6365-f8ae-407e-8e9f-6f4e03720441-u2",
+          "elapsed_seconds": 6.774303197860718
+        }
+      },
+      "enhanced_prompt": "A gopher scientist in a laboratory with glowing beakers, sci-fi art",
+      "similarities": {
+        "A_vs_B": 0.0,
+        "B_vs_C": 0.0,
+        "A_vs_C": 0.0
+      },
+      "within_threshold": true
+    }
+  ],
+  "summary": {
+    "total": 16,
+    "successful": 14,
+    "failed": 2,
+    "similarity_threshold": 10.0
+  }
+}

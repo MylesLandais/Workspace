@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imageboard Analytics - Most Reposted Images</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-value.highlight {
+            color: #28a745;
+        }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .chart-card h2 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .images-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            color: #333;
+        }
+
+        .sort-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .sort-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            background: #667eea;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .sort-btn:hover {
+            background: #5568d3;
+        }
+
+        .sort-btn.active {
+            background: #28a745;
+        }
+
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .image-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .image-card:hover {
+            transform: scale(1.02);
+        }
+
+        .image-wrapper {
+            position: relative;
+            padding-top: 75%;
+            overflow: hidden;
+            background: #ddd;
+        }
+
+        .image-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-info {
+            padding: 15px;
+        }
+
+        .repost-count {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 5px;
+        }
+
+        .image-details {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .space-saved {
+            color: #dc3545;
+            font-weight: 500;
+        }
+
+        .first-thread {
+            color: #667eea;
+            font-size: 0.85em;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: white;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Imageboard Analytics Dashboard</h1>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Image References</div>
+                <div class="stat-value" id="totalReferences">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Unique Images</div>
+                <div class="stat-value" id="uniqueImages">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Duplicates Prevented</div>
+                <div class="stat-value highlight" id="duplicatesPrevented">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Storage Used</div>
+                <div class="stat-value" id="storageUsed">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Space Saved</div>
+                <div class="stat-value highlight" id="spaceSaved">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Threads Crawled</div>
+                <div class="stat-value" id="threadsCrawled">-</div>
+            </div>
+        </div>
+
+        <div class="charts-container">
+            <div class="chart-card">
+                <h2>📈 Image Reuse Distribution</h2>
+                <canvas id="reuseChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h2>💾 Storage Analysis</h2>
+                <canvas id="storageChart"></canvas>
+            </div>
+        </div>
+
+        <div class="images-section">
+            <div class="section-header">
+                <h2>🔄 Most Reposted Images (Top 100)</h2>
+                <div class="sort-buttons">
+                    <button class="sort-btn active" onclick="sortImages('count')">By Reposts</button>
+                    <button class="sort-btn" onclick="sortImages('size')">By Size</button>
+                    <button class="sort-btn" onclick="sortImages('saved')">By Space Saved</button>
+                </div>
+            </div>
+            <div class="images-grid" id="imagesGrid"></div>
+        </div>
+
+        <div class="footer">
+            <p>Generated by Imageboard Offline Tool • Deduplication Analysis</p>
+        </div>
+    </div>
+
+    <script>
+        // Analytics data
+        const analyticsData = {"total_references": 17237, "unique_images": 15299, "duplicates_prevented": 1938, "total_storage_gb": 6.421880966983736, "space_saved_gb": 0.7846422381699085, "top_reposted": [{"filename": "09311ef37167c0d327f847b8333e09bd852aa8525a6097fc1f773b0528e1c227.jpg", "count": 15, "size_bytes": 224970, "size_mb": 0.21454811096191406, "first_thread": "944597327", "space_saved_mb": 3.003673553466797}, {"filename": "281f51f248a6b7eb513ee62226c9710ab40e6374e8930a8a35554379ebacbc05.jpg", "count": 14, "size_bytes": 914298, "size_mb": 0.8719425201416016, "first_thread": "944517398", "space_saved_mb": 11.33525276184082}, {"filename": "1459a51dcb5d227a537100260887c72d7b5db0de9fde86d9fffbaae84a1d85a7.jpg", "count": 13, "size_bytes": 86464, "size_mb": 0.08245849609375, "first_thread": "944490271", "space_saved_mb": 0.989501953125}, {"filename": "50c82772206d851a5320795312a47babde3e358422f25623194e4345335cc29b.jpg", "count": 9, "size_bytes": 194977, "size_mb": 0.1859445571899414, "first_thread": "944428051", "space_saved_mb": 1.4875564575195312}, {"filename": "e733975455bd46aa927b40e0a862eff4108bb534a55fd463f784e4e4bfacc153.jpg", "count": 9, "size_bytes": 348294, "size_mb": 0.33215904235839844, "first_thread": "944499791", "space_saved_mb": 2.6572723388671875}, {"filename": "05f73a8a6235d05914ae15570c894b53b47e28564a4d8dca23c9938ff34742ff.jpg", "count": 8, "size_bytes": 412884, "size_mb": 0.3937568664550781, "first_thread": "944613094", "space_saved_mb": 2.756298065185547}, {"filename": "9bdcdc73ffd13766663f46d14812b06e5b7b45ab5374577dfd2bb97d2e994815.jpg", "count": 8, "size_bytes": 336417, "size_mb": 0.3208322525024414, "first_thread": "944522554", "space_saved_mb": 2.24582576751709}, {"filename": "07cb950056b4f1e9813dc4e5693d9ad5d25c4f9b685b14b47465f2507851ca55.jpg", "count": 7, "size_bytes": 77856, "size_mb": 0.074249267578125, "first_thread": "944540677", "space_saved_mb": 0.44549560546875}, {"filename": "87b2d42f75ce3fcb1b5628a3a31f976403bef126cdae41db00d0ccc5215c6deb.jpg", "count": 7, "size_bytes": 269116, "size_mb": 0.2566490173339844, "first_thread": "944597327", "space_saved_mb": 1.5398941040039062}, {"filename": "c95e3890b1dad6fc956b858e95ccd998510d3df2a28c57734276c01508964485.jpg", "count": 7, "size_bytes": 420683, "size_mb": 0.40119457244873047, "first_thread": "944613094", "space_saved_mb": 2.407167434692383}, {"filename": "e21ed6de10bca6736e61b0b0b829a0184e099c5214dc3d2b266f70f818e5cbc2.jpg", "count": 7, "size_bytes": 338199, "size_mb": 0.32253170013427734, "first_thread": "944613094", "space_saved_mb": 1.935190200805664}, {"filename": "16ef4a6eaacb4b3abd2e55437f4291eb6d36687d3106bf483190fee268ef3898.jpg", "count": 7, "size_bytes": 85123, "size_mb": 0.08117961883544922, "first_thread": "944428051", "space_saved_mb": 0.4870777130126953}, {"filename": "0c32feea006d35a930f0ec6251889e42951bed133dc615e9f1a147d38721e0c0.webm", "count": 7, "size_bytes": 230648, "size_mb": 0.21996307373046875, "first_thread": "944559838", "space_saved_mb": 1.3197784423828125}, {"filename": "bda47792c3d73df1e8926856f824aaa85d93d8f3da7b2f39f244b935cd16ae2a.png", "count": 7, "size_bytes": 714462, "size_mb": 0.6813640594482422, "first_thread": "944585263", "space_saved_mb": 4.088184356689453}, {"filename": "82667ad2fd682bd96588d53f1435f5c3967d33d8c1df2f8073383fd362b2fdb2.jpg", "count": 7, "size_bytes": 287409, "size_mb": 0.2740945816040039, "first_thread": "944594648", "space_saved_mb": 1.6445674896240234}, {"filename": "e6527e83caf616ad7f54d12dd46d1e23e73558e709a9ba34b3239d69f4c68801.jpg", "count": 7, "size_bytes": 225925, "size_mb": 0.21545886993408203, "first_thread": "944499791", "space_saved_mb": 1.2927532196044922}, {"filename": "90c2a4a28af740a58ef79518bb375146a5dac54363a6aee0507a0cc13a2fccef.jpg", "count": 7, "size_bytes": 210084, "size_mb": 0.20035171508789062, "first_thread": "944602160", "space_saved_mb": 1.2021102905273438}, {"filename": "7b4ab8dd9cbe71841351831a7eb5c00e383976b79140f056a95baccfd2a06bc4.jpg", "count": 7, "size_bytes": 157452, "size_mb": 0.15015792846679688, "first_thread": "944614702", "space_saved_mb": 0.9009475708007812}, {"filename": "a5bc915811d11cbb747eb1c21a4290f45d643d5c7582016bcfaec699c6866ed5.jpg", "count": 7, "size_bytes": 195586, "size_mb": 0.1865253448486328, "first_thread": "944490385", "space_saved_mb": 1.1191520690917969}, {"filename": "afb154a812560171f27322b1a4551a9c66ae092e80228ac05dfffeeb2177184d.png", "count": 7, "size_bytes": 458592, "size_mb": 0.437347412109375, "first_thread": "944490385", "space_saved_mb": 2.62408447265625}, {"filename": "393763869e52ad3cfa38ac5d33860f84a857bb105edda893e462fd2b7c959f77.jpg", "count": 6, "size_bytes": 485229, "size_mb": 0.4627504348754883, "first_thread": "944613094", "space_saved_mb": 2.3137521743774414}, {"filename": "ca30726f759ede6c604e1fa2ca5fd2f02d2308e6825d53b9af0079ca0c919c28.jpg", "count": 6, "size_bytes": 47219, "size_mb": 0.04503154754638672, "first_thread": "944428051", "space_saved_mb": 0.2251577377319336}, {"filename": "a95e975f927770ab56d84e90a86c0909ed2c9cd644f06a3e6ffa4246abffb67e.png", "count": 6, "size_bytes": 605638, "size_mb": 0.5775814056396484, "first_thread": "944436690", "space_saved_mb": 2.887907028198242}, {"filename": "705c649c11f2fc46ca3e8d7305092d59735f497880a35d791137031b96f9a3ad.jpg", "count": 6, "size_bytes": 157936, "size_mb": 0.1506195068359375, "first_thread": "944535168", "space_saved_mb": 0.7530975341796875}, {"filename": "253a255877fc08f69fe70532e7c7dcddd9399200199025e13a2bef8d65cb4d3a.jpg", "count": 6, "size_bytes": 322023, "size_mb": 0.30710506439208984, "first_thread": "944485776", "space_saved_mb": 1.5355253219604492}, {"filename": "71a1e09e5ffb1220e58b2ce515c796a31ce06df6a7a43815ec90c7b8d3dac839.jpg", "count": 6, "size_bytes": 436909, "size_mb": 0.4166688919067383, "first_thread": "944611480", "space_saved_mb": 2.0833444595336914}, {"filename": "2a72c1feb0c1162f8e81abc77a302c11151d28553bb8a75c7fb1dce1e7c24e77.jpg", "count": 6, "size_bytes": 632955, "size_mb": 0.603632926940918, "first_thread": "944509511", "space_saved_mb": 3.01816463470459}, {"filename": "bea85d68066d7e61981ca3abb6e8efabf8428cd4b766d96e918099018cb2f1e1.mp4", "count": 6, "size_bytes": 588219, "size_mb": 0.560969352722168, "first_thread": "944490385", "space_saved_mb": 2.80484676361084}, {"filename": "98f74d2670fcad057364868fe9ed16402c4139d97aa50b640c80d84ad6bfa1e0.png", "count": 6, "size_bytes": 1402271, "size_mb": 1.3373098373413086, "first_thread": "944490385", "space_saved_mb": 6.686549186706543}, {"filename": "e9d444ee081ca05af78227ccd2b4c8b22fff1e5852b9082c8f825882d5aa3f71.jpg", "count": 5, "size_bytes": 115358, "size_mb": 0.11001396179199219, "first_thread": "944540677", "space_saved_mb": 0.44005584716796875}, {"filename": "e53320577f578a15b427e9cd0bfb25f96776d7fe286b5909a12b50b1a80b2ca8.jpg", "count": 5, "size_bytes": 1147546, "size_mb": 1.0943851470947266, "first_thread": "944613094", "space_saved_mb": 4.377540588378906}, {"filename": "fcfaf678f8bfc672f59273e5593b59604ce5040ac7d4a1d42bde29d03a429d69.jpg", "count": 5, "size_bytes": 646673, "size_mb": 0.6167154312133789, "first_thread": "944613094", "space_saved_mb": 2.4668617248535156}, {"filename": "a7267ab08121c0243bda856d7994a28672be77881d9b7992381ef239cfd93e14.jpg", "count": 5, "size_bytes": 174385, "size_mb": 0.1663064956665039, "first_thread": "944428051", "space_saved_mb": 0.6652259826660156}, {"filename": "19c32336d943b9c2764d332a1984cc258097974a4feb3e17eac4684753dfc06b.jpg", "count": 5, "size_bytes": 174614, "size_mb": 0.16652488708496094, "first_thread": "944428051", "space_saved_mb": 0.6660995483398438}, {"filename": "c5526e69c374f6a035d9f8604213d2dde20592175eb13250b64f78a1af98e18d.jpg", "count": 5, "size_bytes": 86846, "size_mb": 0.08282279968261719, "first_thread": "944428051", "space_saved_mb": 0.33129119873046875}, {"filename": "98486221a6175ed56e7cca0b04280c09c49f5cf77613a06df3abeb3812fa3174.jpg", "count": 5, "size_bytes": 129595, "size_mb": 0.12359142303466797, "first_thread": "944428051", "space_saved_mb": 0.4943656921386719}, {"filename": "5a1576b4822a29dc1cfb7f4f1a8b7be0fd8cf511f98ebb9870bd8b67cd312830.jpg", "count": 5, "size_bytes": 107865, "size_mb": 0.10286808013916016, "first_thread": "944428051", "space_saved_mb": 0.4114723205566406}, {"filename": "ac18109bfefd8c66339cd96e05c4b8c31132aef6b7361051bc70ba0ce9dc548c.jpg", "count": 5, "size_bytes": 336981, "size_mb": 0.32137012481689453, "first_thread": "944428051", "space_saved_mb": 1.2854804992675781}, {"filename": "bdfe4e1f0c1bfbbe6feb54f414f857fe46a0924e413ffd7ada97e497fa20ae50.jpg", "count": 5, "size_bytes": 1035095, "size_mb": 0.9871435165405273, "first_thread": "944517398", "space_saved_mb": 3.9485740661621094}, {"filename": "f6fc8ab5ccf8856109d474b9677e6dcf75ad5a9eaa98502c7f6d3289716761ce.jpg", "count": 5, "size_bytes": 439415, "size_mb": 0.41905879974365234, "first_thread": "944489287", "space_saved_mb": 1.6762351989746094}, {"filename": "481cb72f6fc80789eb49c8b69fd881d4e7628a34b3e3227193af668c8e07d447.jpg", "count": 5, "size_bytes": 337999, "size_mb": 0.3223409652709961, "first_thread": "944485776", "space_saved_mb": 1.2893638610839844}, {"filename": "c4b2743be7605efe34763944a1c3e5b58b22f0ead28c6685720f03ee00b2961a.jpg", "count": 5, "size_bytes": 339556, "size_mb": 0.3238258361816406, "first_thread": "944519093", "space_saved_mb": 1.2953033447265625}, {"filename": "9e7348841973f63de89d847f64e0a4efec36addd955ffe906c8013bb2afe4408.jpg", "count": 5, "size_bytes": 87665, "size_mb": 0.0836038589477539, "first_thread": "944594648", "space_saved_mb": 0.3344154357910156}, {"filename": "61250edc48d968ab9d08f8ec73fa03c9afd3efdd3e51394b7f3c85a5f0061222.jpg", "count": 5, "size_bytes": 437217, "size_mb": 0.4169626235961914, "first_thread": "944514253", "space_saved_mb": 1.6678504943847656}, {"filename": "5698c94d1dc80fb05448d7251669465998dbd1d11ff243f9b829972152eed165.jpg", "count": 5, "size_bytes": 1095183, "size_mb": 1.044447898864746, "first_thread": "944514253", "space_saved_mb": 4.177791595458984}, {"filename": "5fc96f1c504eb82c168df51a054b1644ca14f6dc24cd9cfdc2cc855386988b72.jpg", "count": 5, "size_bytes": 927433, "size_mb": 0.8844690322875977, "first_thread": "944514253", "space_saved_mb": 3.5378761291503906}, {"filename": "b8f069317e1578c9be4f41b4cdf63ad8d3187535c78cf7bdd29e2f616ff7d2cf.jpg", "count": 5, "size_bytes": 173272, "size_mb": 0.16524505615234375, "first_thread": "944602160", "space_saved_mb": 0.660980224609375}, {"filename": "b1057fccbc1f03769c4b2f6792e7903f1ef708766a739b78233218d5495471c6.jpg", "count": 5, "size_bytes": 1419817, "size_mb": 1.3540430068969727, "first_thread": "944476929", "space_saved_mb": 5.416172027587891}, {"filename": "a01286645532d9478e7f39749a1f5b2363c6a4b680d2da017d5471cb51095841.jpg", "count": 5, "size_bytes": 162551, "size_mb": 0.15502071380615234, "first_thread": "944429267", "space_saved_mb": 0.6200828552246094}, {"filename": "4a40c8ab4f1431656d85d112b81abb5bb192dc216eced4119de716ffd19930d3.jpg", "count": 5, "size_bytes": 263285, "size_mb": 0.25108814239501953, "first_thread": "944490385", "space_saved_mb": 1.0043525695800781}, {"filename": "b611608f57f3a0a0de8f847b00432075f3689b94c39b350b68ab8de92e43d086.jpg", "count": 5, "size_bytes": 167791, "size_mb": 0.1600179672241211, "first_thread": "944420642", "space_saved_mb": 0.6400718688964844}, {"filename": "0bb2d2e99ff60aca8cb5c5b04e08ebd20909a44f83563ab4893fcb15afd3d9e6.jpg", "count": 5, "size_bytes": 91823, "size_mb": 0.0875692367553711, "first_thread": "944586688", "space_saved_mb": 0.3502769470214844}, {"filename": "97a244ca69f5d7af35af2befaa064c8c1a0ad7f6a5874d102956caa4ca60f791.jpg", "count": 5, "size_bytes": 1134972, "size_mb": 1.0823936462402344, "first_thread": "944578979", "space_saved_mb": 4.3295745849609375}, {"filename": "37c208d89d436a0bdca02f7e840d682017ae93135630f4d3585f5f95d6606949.jpg", "count": 4, "size_bytes": 386476, "size_mb": 0.3685722351074219, "first_thread": "944540677", "space_saved_mb": 1.1057167053222656}, {"filename": "cf22c9f4adc6d2aa246e939b30b4b0a6530ac7164237c8fd569244420487222b.jpg", "count": 4, "size_bytes": 115479, "size_mb": 0.11012935638427734, "first_thread": "944540677", "space_saved_mb": 0.33038806915283203}, {"filename": "3974007a0ef17a8ab8af98d6e7033d7f273c5b7f56577e411bac72bacdf13a15.jpg", "count": 4, "size_bytes": 455320, "size_mb": 0.43422698974609375, "first_thread": "944597327", "space_saved_mb": 1.3026809692382812}, {"filename": "3d07f8246daad057b83ef774a69a970ed87e73af0e644b943ab4f8438ba205f9.jpg", "count": 4, "size_bytes": 345159, "size_mb": 0.32916927337646484, "first_thread": "944613094", "space_saved_mb": 0.9875078201293945}, {"filename": "a5b869d280a76297a9bac62be2921305074a71dfec5dc3e16e01236dde69ce4e.jpg", "count": 4, "size_bytes": 310286, "size_mb": 0.2959117889404297, "first_thread": "944613094", "space_saved_mb": 0.8877353668212891}, {"filename": "6d76c7b95779726f63116748b5fe5101b75ab82b282fcfde3bc07ff48775363e.jpg", "count": 4, "size_bytes": 774347, "size_mb": 0.7384748458862305, "first_thread": "944613094", "space_saved_mb": 2.2154245376586914}, {"filename": "fbff5ee92f12194249a6a02718033b64368b6424b1fa96058917a1364070f658.jpg", "count": 4, "size_bytes": 1162430, "size_mb": 1.1085796356201172, "first_thread": "944613094", "space_saved_mb": 3.3257389068603516}, {"filename": "16536aea249b7d069e2986d7894e662fe832e570e0007a88368bf8f891a9b130.jpg", "count": 4, "size_bytes": 114707, "size_mb": 0.10939311981201172, "first_thread": "944529807", "space_saved_mb": 0.32817935943603516}, {"filename": "ae77523b9973b7f5d93f9fb4c71766c83480da4135ec5fecab74624a1ecdb935.jpg", "count": 4, "size_bytes": 522540, "size_mb": 0.4983329772949219, "first_thread": "944428051", "space_saved_mb": 1.4949989318847656}, {"filename": "9ec0ce9c0f16e0aa2c621967269ad18ec85696d8eaa5becbe0a30146bd4bb4c7.jpg", "count": 4, "size_bytes": 380620, "size_mb": 0.3629875183105469, "first_thread": "944428051", "space_saved_mb": 1.0889625549316406}, {"filename": "94466d4925321611ce967728400f758c50d5f736ace50560803cee3c71efd112.jpg", "count": 4, "size_bytes": 130277, "size_mb": 0.12424182891845703, "first_thread": "944428051", "space_saved_mb": 0.3727254867553711}, {"filename": "d9487275b921c4d6225e79bcb1666ec7aa79884e0a1fc023a41604f8e79a7a77.jpg", "count": 4, "size_bytes": 423442, "size_mb": 0.4038257598876953, "first_thread": "944428051", "space_saved_mb": 1.211477279663086}, {"filename": "d4e65bdf301e94bb2e09b7e99434c7b1889d03bcb3af054859fb9a0b12de273b.jpg", "count": 4, "size_bytes": 164474, "size_mb": 0.15685462951660156, "first_thread": "944428051", "space_saved_mb": 0.4705638885498047}, {"filename": "32bbd5788afbb08e2c31a7a131db6dda3e79f7e27b08872468d737768d0b55ec.jpg", "count": 4, "size_bytes": 223647, "size_mb": 0.2132863998413086, "first_thread": "944517398", "space_saved_mb": 0.6398591995239258}, {"filename": "44e186df54e5ce93838aa09bc449020958f8617e86e5710e2c55232c5f24206b.jpg", "count": 4, "size_bytes": 240897, "size_mb": 0.2297372817993164, "first_thread": "944517398", "space_saved_mb": 0.6892118453979492}, {"filename": "6c965191405bbb6fdd0aa88c4bc846cca418cb74f024f0a281c6990ed771b235.jpg", "count": 4, "size_bytes": 1036307, "size_mb": 0.9882993698120117, "first_thread": "944517398", "space_saved_mb": 2.964898109436035}, {"filename": "416f7722d437b8a398dbfb790f2478a94f827e02bf20c0d2dc700ac38435227c.jpg", "count": 4, "size_bytes": 194667, "size_mb": 0.18564891815185547, "first_thread": "944424184", "space_saved_mb": 0.5569467544555664}, {"filename": "b8beaa547cd45712df5d6127cfd5e54a1f12684bcfec366b87db9c0c802f46b6.jpg", "count": 4, "size_bytes": 128579, "size_mb": 0.12262248992919922, "first_thread": "944424184", "space_saved_mb": 0.36786746978759766}, {"filename": "458f0f39884f91664fcbb9d8482aa34171a480d4d0c240b898961bd9668eb82a.jpg", "count": 4, "size_bytes": 206031, "size_mb": 0.1964864730834961, "first_thread": "944489287", "space_saved_mb": 0.5894594192504883}, {"filename": "1bdfcbc8ffb9060a22da527285e45169070c7c438622512353b4a8203c4129a5.mp4", "count": 4, "size_bytes": 1694180, "size_mb": 1.6156959533691406, "first_thread": "944489287", "space_saved_mb": 4.847087860107422}, {"filename": "f7c72bce34e9eece57c82e64a741634cafb1fc562a8b50d077f66bb722214aea.jpg", "count": 4, "size_bytes": 1234668, "size_mb": 1.1774711608886719, "first_thread": "944489287", "space_saved_mb": 3.5324134826660156}, {"filename": "f39f067140c7341a39280668f30c3504ec3c0126469d0cb32aab1575bdfad497.jpg", "count": 4, "size_bytes": 366835, "size_mb": 0.3498411178588867, "first_thread": "944582238", "space_saved_mb": 1.0495233535766602}, {"filename": "6eafcb7c6d6068769f35bd7f93d47006ed8956e00da427054cf8fee0c2b4584b.jpg", "count": 4, "size_bytes": 972144, "size_mb": 0.9271087646484375, "first_thread": "944522554", "space_saved_mb": 2.7813262939453125}, {"filename": "8bef6c2a305ec184a660f8c92b8287e61a210fbe910bd35768c445d2bf611d7f.jpg", "count": 4, "size_bytes": 1092485, "size_mb": 1.041874885559082, "first_thread": "944613992", "space_saved_mb": 3.125624656677246}, {"filename": "c688d1a463251da567fc72f8afc2be7d3a3ca77356e1a5ad58cbf38a477b97bf.jpg", "count": 4, "size_bytes": 326237, "size_mb": 0.3111238479614258, "first_thread": "944559735", "space_saved_mb": 0.9333715438842773}, {"filename": "ac5686b9d994690c21bae6ad1cc0130e5ccb7282a1dadfe0885ee19340359a7d.jpg", "count": 4, "size_bytes": 170665, "size_mb": 0.16275882720947266, "first_thread": "944519093", "space_saved_mb": 0.48827648162841797}, {"filename": "6abffa19a527aa2aa53454b2facf5c3d48e98293e2c62fcdb3a7255f4b597105.jpg", "count": 4, "size_bytes": 127703, "size_mb": 0.12178707122802734, "first_thread": "944611480", "space_saved_mb": 0.36536121368408203}, {"filename": "1e8b1c341a4ccae1bb79190b15944ce98c2c70afa0c41faa97c4c3f2e2a17e87.jpg", "count": 4, "size_bytes": 332460, "size_mb": 0.3170585632324219, "first_thread": "944612965", "space_saved_mb": 0.9511756896972656}, {"filename": "7fbc1160ffd56b546fbdb394505cd68dab34505fba81c6cd3b2933a550316c76.jpg", "count": 4, "size_bytes": 808475, "size_mb": 0.771021842956543, "first_thread": "944594648", "space_saved_mb": 2.313065528869629}, {"filename": "82ad4b071622c9f2efe33ecc2166fe5a5d1a2a2597b388a57089bf5e8f101009.jpg", "count": 4, "size_bytes": 221839, "size_mb": 0.2115621566772461, "first_thread": "944594648", "space_saved_mb": 0.6346864700317383}, {"filename": "3c12ce22715bfd8a30524013266c12838c98e4e6b4ac4cd066376230ba07a982.jpg", "count": 4, "size_bytes": 512445, "size_mb": 0.4887056350708008, "first_thread": "944594648", "space_saved_mb": 1.4661169052124023}, {"filename": "cd7b5971eb9d8cf63fc20536d721f00c1a3e5a76b137d3999b1289827ec3d4ce.jpg", "count": 4, "size_bytes": 99988, "size_mb": 0.09535598754882812, "first_thread": "944594648", "space_saved_mb": 0.2860679626464844}, {"filename": "d0d47f22e51d71c36f7eb08f72ff623bf18544a8d6b538e06e1ff3e6f6900854.jpg", "count": 4, "size_bytes": 500996, "size_mb": 0.4777870178222656, "first_thread": "944594648", "space_saved_mb": 1.4333610534667969}, {"filename": "ab5fc7fe94aaf7aea9b353eca07f8a75015053c3950fe4a7cc5a5c8b7ccaf15c.jpg", "count": 4, "size_bytes": 34464, "size_mb": 0.032867431640625, "first_thread": "944514253", "space_saved_mb": 0.098602294921875}, {"filename": "11ecc5dcd71bf9b47da16ad41d08739d52f09d0fd68faedd86ebec4fafc94a79.jpg", "count": 4, "size_bytes": 704760, "size_mb": 0.6721115112304688, "first_thread": "944499791", "space_saved_mb": 2.0163345336914062}, {"filename": "894207ebb0e82cd08a611f41beb85e2ec7e817ecda5d8a021b9663e1918001a3.jpg", "count": 4, "size_bytes": 198633, "size_mb": 0.18943119049072266, "first_thread": "944602160", "space_saved_mb": 0.568293571472168}, {"filename": "90577c1d06b1c88bf71ee5210d1111e6cf1e51b9bd9623545727410510423d81.jpg", "count": 4, "size_bytes": 97560, "size_mb": 0.09304046630859375, "first_thread": "944602160", "space_saved_mb": 0.27912139892578125}, {"filename": "d26c90a1498da8b2a58900b03f19f1c9cff2ecd711d184191350dda41d0c250d.jpg", "count": 4, "size_bytes": 410933, "size_mb": 0.39189624786376953, "first_thread": "944603321", "space_saved_mb": 1.1756887435913086}, {"filename": "8ae3427371324dfc8177ceddba6370007d874216587fe243e796cb745d3cb1b9.jpg", "count": 4, "size_bytes": 1566820, "size_mb": 1.4942359924316406, "first_thread": "944614702", "space_saved_mb": 4.482707977294922}, {"filename": "5f4f7e54957ba4162013abaa4b1a8d9ae1380ee1b85b6f7a626c0567f95093f0.jpg", "count": 4, "size_bytes": 77754, "size_mb": 0.07415199279785156, "first_thread": "944429267", "space_saved_mb": 0.2224559783935547}, {"filename": "88eac8706656782a83680af156e52a6f1c2093cad397192b22d315197cc7c666.jpg", "count": 4, "size_bytes": 102408, "size_mb": 0.09766387939453125, "first_thread": "944429267", "space_saved_mb": 0.29299163818359375}, {"filename": "3caf24525d0ef606c7e3686fd4101957c1955212607789ef20fbc28d37a0ad0f.jpg", "count": 4, "size_bytes": 246665, "size_mb": 0.23523807525634766, "first_thread": "944516001", "space_saved_mb": 0.705714225769043}, {"filename": "e4bc4327fd70309f65bdb8342f5c53b642b61a689fb4fef665b3768baa80bb3c.png", "count": 4, "size_bytes": 915954, "size_mb": 0.8735218048095703, "first_thread": "944509511", "space_saved_mb": 2.620565414428711}, {"filename": "47abcc2225588b0f6fa31730c138b9dbda08ae0ecac0bc367c764661d421f59e.jpg", "count": 4, "size_bytes": 852072, "size_mb": 0.8125991821289062, "first_thread": "944509511", "space_saved_mb": 2.4377975463867188}, {"filename": "5191a5de86c24cfd19702c5f2c20c0d533e1e6c26207cb2fb04803b276d28ba4.jpg", "count": 4, "size_bytes": 253162, "size_mb": 0.24143409729003906, "first_thread": "944490385", "space_saved_mb": 0.7243022918701172}, {"filename": "08faf08c59806abc1a26ed37c9f97764224c8a7fd5a48e8b97ce209bfd194e2e.png", "count": 4, "size_bytes": 207918, "size_mb": 0.1982860565185547, "first_thread": "944420642", "space_saved_mb": 0.5948581695556641}, {"filename": "4e7044d999fec32307c40ec024275b71c647453bea5fc44cd56d4f099b866a8b.jpg", "count": 4, "size_bytes": 38994, "size_mb": 0.03718757629394531, "first_thread": "944420642", "space_saved_mb": 0.11156272888183594}], "reuse_distribution": {"1": 13915, "2": 1065, "3": 213, "7": 13, "4": 53, "5": 24, "15": 1, "6": 9, "8": 2, "9": 2, "14": 1, "13": 1}, "threads_crawled": 298};
+
+        // Format numbers
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function formatSize(bytes) {
+            if (bytes >= 1024 ** 3) {
+                return (bytes / (1024 ** 3)).toFixed(2) + " GB";
+            } else if (bytes >= 1024 ** 2) {
+                return (bytes / (1024 ** 2)).toFixed(2) + " MB";
+            } else if (bytes >= 1024) {
+                return (bytes / 1024).toFixed(2) + " KB";
+            }
+            return bytes + " B";
+        }
+
+        // Update stats
+        document.getElementById('totalReferences').textContent = formatNumber(analyticsData.total_references);
+        document.getElementById('uniqueImages').textContent = formatNumber(analyticsData.unique_images);
+        document.getElementById('duplicatesPrevented').textContent = formatNumber(analyticsData.duplicates_prevented);
+        document.getElementById('storageUsed').textContent = formatSize(analyticsData.total_storage_gb * 1024 ** 3);
+        document.getElementById('spaceSaved').textContent = formatSize(analyticsData.space_saved_gb * 1024 ** 3);
+        document.getElementById('threadsCrawled').textContent = formatNumber(analyticsData.threads_crawled);
+
+        // Reuse distribution chart
+        const reuseCtx = document.getElementById('reuseChart').getContext('2d');
+        const reuseLabels = Object.keys(analyticsData.reuse_distribution).sort((a, b) => a - b);
+        const reuseValues = reuseLabels.map(k => analyticsData.reuse_distribution[k]);
+
+        new Chart(reuseCtx, {
+            type: 'bar',
+            data: {
+                labels: reuseLabels.map(l => l + ' use' + (l > 1 ? 's' : '')),
+                datasets: [{
+                    label: 'Number of Images',
+                    data: reuseValues,
+                    backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                    borderColor: 'rgba(102, 126, 234, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Count'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Times Reused'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Storage analysis chart
+        const storageCtx = document.getElementById('storageChart').getContext('2d');
+        new Chart(storageCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Unique Storage', 'Space Saved'],
+                datasets: [{
+                    data: [
+                        analyticsData.total_storage_gb,
+                        analyticsData.space_saved_gb
+                    ],
+                    backgroundColor: [
+                        'rgba(102, 126, 234, 0.8)',
+                        'rgba(40, 167, 69, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(102, 126, 234, 1)',
+                        'rgba(40, 167, 69, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed.toFixed(2) + ' GB';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Images grid
+        let currentSort = 'count';
+        let images = [...analyticsData.top_reposted];
+
+        function sortImages(sortBy) {
+            currentSort = sortBy;
+            
+            // Update active button
+            document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Sort images
+            switch(sortBy) {
+                case 'count':
+                    images.sort((a, b) => b.count - a.count);
+                    break;
+                case 'size':
+                    images.sort((a, b) => b.size_bytes - a.size_bytes);
+                    break;
+                case 'saved':
+                    images.sort((a, b) => b.space_saved_mb - a.space_saved_mb);
+                    break;
+            }
+
+            renderImages();
+        }
+
+        function renderImages() {
+            const grid = document.getElementById('imagesGrid');
+            grid.innerHTML = '';
+
+            images.forEach(img => {
+                const card = document.createElement('div');
+                card.className = 'image-card';
+                card.innerHTML = `
+                    <div class="image-wrapper">
+                        <img src="/static/images/${img.filename}" alt="Reposted image" loading="lazy">
+                    </div>
+                    <div class="image-info">
+                        <div class="repost-count">🔄 ${img.count} reposts</div>
+                        <div class="image-details">
+                            <div>📁 ${img.size_mb.toFixed(2)} MB</div>
+                            <div class="space-saved">💾 ${img.space_saved_mb.toFixed(2)} MB saved</div>
+                            <div class="first-thread">📌 Thread: ${img.first_thread}</div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Initial render
+        renderImages();
+    </script>
+</body>
+</html>

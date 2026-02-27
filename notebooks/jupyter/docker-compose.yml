@@ -11,8 +11,13 @@ services:
       - "8888:8888"
     depends_on:
       - pgvector
+      - seaweedfs
     env_file:
       - .env
+    environment:
+      - S3_ENDPOINT=http://seaweedfs:8333
+      - S3_ACCESS_KEY=${S3_ACCESS_KEY:-admin}
+      - S3_SECRET_KEY=${S3_SECRET_KEY:-password}
     # GPU support enabled
     deploy:
       resources:
@@ -33,6 +38,37 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  seaweedfs:
+    image: chrislusf/seaweedfs:latest
+    command: >
+      server
+      -s3
+      -filer
+      -volume.max=0
+      -volume.fileSizeLimitMB=2048
+      -dir=/data
+      -s3.port=8333
+      -filer.port=8080
+      -master.port=9333
+    ports:
+      - "8333:8333"
+      - "9333:9333"
+    environment:
+      - POSTGRES_HOST=pgvector
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=jupyter-dev
+    volumes:
+      - seaweed_data:/data
+    depends_on:
+      - pgvector
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:8333/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
   # Optional heavy GPU service for vllm builds. Disabled by default; enable with
   # `docker compose --profile vllm up --build vllm` when you want to build/run vllm.
   vllm:
@@ -52,3 +88,4 @@ services:
 
 volumes:
   postgres_data: {}
+  seaweed_data: {}

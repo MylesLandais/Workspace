@@ -4,12 +4,12 @@
       vars = {
   version = "1.11.2";
   system = "x86_64-linux";
-  devenv_root = "/home/warby/Workspace/jupyter";
-  project_input_ref = "path:/home/warby/Workspace/jupyter";
-  devenv_dotfile = "/home/warby/Workspace/jupyter/.devenv";
+  devenv_root = "/home/warby/Workspace/notebooks/jupyter";
+  project_input_ref = "path:/home/warby/Workspace/notebooks/jupyter";
+  devenv_dotfile = "/home/warby/Workspace/notebooks/jupyter/.devenv";
   devenv_dotfile_path = ./.devenv;
   devenv_tmpdir = "/run/user/1000";
-  devenv_runtime = "/run/user/1000/devenv-a184e77";
+  devenv_runtime = "/run/user/1000/devenv-3a33628";
   devenv_istesting = false;
   devenv_direnvrc_latest_version = 1;
   container_name = null;
@@ -17,7 +17,7 @@
   ];
   hostname = "cerberus-nix";
   username = "warby";
-  git_root = "/home/warby/Workspace/jupyter";
+  git_root = "/home/warby/Workspace";
   secretspec = null;
 };
     in
@@ -41,12 +41,12 @@
       vars = {
   version = "1.11.2";
   system = "x86_64-linux";
-  devenv_root = "/home/warby/Workspace/jupyter";
-  project_input_ref = "path:/home/warby/Workspace/jupyter";
-  devenv_dotfile = "/home/warby/Workspace/jupyter/.devenv";
+  devenv_root = "/home/warby/Workspace/notebooks/jupyter";
+  project_input_ref = "path:/home/warby/Workspace/notebooks/jupyter";
+  devenv_dotfile = "/home/warby/Workspace/notebooks/jupyter/.devenv";
   devenv_dotfile_path = ./.devenv;
   devenv_tmpdir = "/run/user/1000";
-  devenv_runtime = "/run/user/1000/devenv-a184e77";
+  devenv_runtime = "/run/user/1000/devenv-3a33628";
   devenv_istesting = false;
   devenv_direnvrc_latest_version = 1;
   container_name = null;
@@ -54,7 +54,7 @@
   ];
   hostname = "cerberus-nix";
   username = "warby";
-  git_root = "/home/warby/Workspace/jupyter";
+  git_root = "/home/warby/Workspace";
   secretspec = null;
 };
       devenv =

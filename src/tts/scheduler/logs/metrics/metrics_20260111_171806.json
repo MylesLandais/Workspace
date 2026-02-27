@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-01-11T17:18:06.252698",
+  "metrics": {
+    "timestamp": 1768151886,
+    "orchestrator_cpu_percent": 0.0,
+    "orchestrator_memory_percent": 0.0,
+    "worker_cpu_percent": 0.0,
+    "worker_memory_percent": 0.0,
+    "queue_depth": 0,
+    "collection_interval": 30
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "tests": [
+    {
+      "id": "gemini_image_001",
+      "workflow": "api_google_gemini_image.json",
+      "inputs": {
+        "38.inputs.prompt": "A futuristic nano banana dish",
+        "38.inputs.image_count": 1
+      },
+      "timeout": 120
+    },
+    {
+      "id": "z_image_turbo_001",
+      "workflow": "Z_Image_Turbo (GGUF).json",
+      "prompt": "A cyberpunk gopher astronaut floating in space",
+      "timeout": 180
+    },
+    {
+      "id": "basic_z_image_001",
+      "workflow": "Basic Z-image turbo -Icekiub.json",
+      "prompt": "A steampunk gopher mechanic repairing a clockwork machine",
+      "timeout": 180
+    }
+  ]
+}
+
+

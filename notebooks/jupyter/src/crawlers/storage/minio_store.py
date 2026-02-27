@@ -12,7 +12,13 @@ class MinioStore(ObjectStore):
     Stores raw data in MinIO/S3.
     """
 
-    def __init__(self, endpoint: str, access_key: str, secret_key: str, secure: bool = False, bucket: str = "raw-data"):
+    def __init__(self, endpoint: str = None, access_key: str = None, secret_key: str = None, secure: bool = False, bucket: str = "raw-data"):
+        if endpoint is None:
+            endpoint = os.environ.get("S3_ENDPOINT", os.environ.get("MINIO_ENDPOINT", "localhost:8333"))
+        if access_key is None:
+            access_key = os.environ.get("S3_ACCESS_KEY", os.environ.get("MINIO_ACCESS_KEY", "admin"))
+        if secret_key is None:
+            secret_key = os.environ.get("S3_SECRET_KEY", os.environ.get("MINIO_SECRET_KEY", "password"))
         self.client = Minio(
             endpoint,
             access_key=access_key,

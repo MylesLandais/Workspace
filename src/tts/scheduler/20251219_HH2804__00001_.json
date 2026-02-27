@@ -1,0 +1,180 @@
+{
+  "38": {
+    "inputs": {
+      "model_name": "gemini-3-pro-image-preview",
+      "prompt": "[SHAY_ID] = \"A hyper-realistic portrait of Shay, a young Polish-American woman with a balanced oval face, soft defined jawline, and slightly rounded chin. She has fair skin (Fitzpatrick Type II) with warm peachy undertones and a dusting of light natural freckles concentrated on her nose and upper cheeks. Her eyes are almond-shaped and warm brown/hazel with a slight upward tilt at the outer corners. She has medium-thick, dark brown eyebrows with a gentle natural arch. Her nose has a straight bridge and slightly rounded tip. She has medium-full lips with a natural pink tone. HAIR BASE: She possesses long, fine-to-medium thickness dark brown hair (approximate hex #3B2820) with a natural shine. Texture is straight with a slight natural body.\"\n\n[CHARACTER PREFIX SET TO SHAY_ID]\n\nAthletic outfit: Athletic leggings, sports bra, flow styling.\n\nYoga Pose: Upward-Facing Dog (Urdhva Mukha Svanasana). Lying face-down transitioning to chest lifted high, arms straight pressing into mat, tops of feet on mat, thighs lifted off floor, chest opening forward and up, shoulders down away from ears, backbend demonstration.\n\nCamera Angle: Side profile showing lifted chest, straight arms, backbend curve.\n\nPhotography: Clean studio, bright lighting, 85mm f/2.8, flow sequence demonstration.\n\nStyle: Dynamic yoga flow photography, sun salutation sequence.",
+      "image_count": 4,
+      "use_search": false,
+      "aspect_ratio": "1:1",
+      "image_size": "1K",
+      "temperature": 1,
+      "image_1": [
+        "46",
+        0
+      ],
+      "image_2": [
+        "42",
+        0
+      ],
+      "image_3": [
+        "43",
+        0
+      ],
+      "image_4": [
+        "53",
+        0
+      ],
+      "image_5": [
+        "50",
+        0
+      ],
+      "image_6": [
+        "52",
+        0
+      ]
+    },
+    "class_type": "NanoBananaAIO",
+    "_meta": {
+      "title": "Nano Banana AIO"
+    }
+  },
+  "40": {
+    "inputs": {
+      "filename_prefix": "2025-12-28/nanobanana/20251228_HH2420_",
+      "images": [
+        "38",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "41": {
+    "inputs": {
+      "image": "23-08-24 16-33-04 0572.mov_snapshot_00.00.02_[23.08.27_15.10.24].png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "42": {
+    "inputs": {
+      "image": "ComfyUI_00089_.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "43": {
+    "inputs": {
+      "image": "ComfyUI_00016_.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "44": {
+    "inputs": {
+      "image": "23-08-25 11-04-08 0591.mov_snapshot_00.00.55_[23.08.27_14.32.36].png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "45": {
+    "inputs": {
+      "image": "23-08-25 11-04-08 0591.mov_snapshot_00.13.13_[23.08.27_15.04.31].png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "46": {
+    "inputs": {
+      "image": "ComfyUI_00048_.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "47": {
+    "inputs": {
+      "image": "23-08-27 08-41-58 0641.mov_snapshot_00.00.01_[23.08.27_13.30.18].png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "48": {
+    "inputs": {
+      "image": "24-07-06 17-23-38 1864.mov-00.00.00.167.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "49": {
+    "inputs": {
+      "image": "24-07-06 17-38-20 1866.mov-00.00.16.043.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "50": {
+    "inputs": {
+      "image": "ComfyUI_00068_.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "51": {
+    "inputs": {
+      "image": "mpv-shot0298.jpg"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "52": {
+    "inputs": {
+      "image": "00269-0-307971244_116253411223957_9073911295547166139_n.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "53": {
+    "inputs": {
+      "image": "1766955105409567.jpg"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "54": {
+    "inputs": {
+      "image": "23-08-24 16-28-12 0571.mov_snapshot_00.02.05_[23.08.27_15.11.16].png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  }
+}

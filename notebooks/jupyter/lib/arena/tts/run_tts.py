@@ -67,7 +67,7 @@ if __name__ == "__main__":
     if len(sys.argv) < 3:
         print("Usage: python src/audio/run_tts.py <text_file> <ref_audio> [output_name]")
         print("\nExample:")
-        print("  python src/audio/run_tts.py hermione_slytherin_script.txt comfyui_projects/reference_audio/Emma.wav hermione_test")
+        print("  python src/audio/run_tts.py hermione_slytherin_script.txt data/inputs/voices/Emma.wav hermione_test")
         sys.exit(1)
     
     text_file = sys.argv[1]

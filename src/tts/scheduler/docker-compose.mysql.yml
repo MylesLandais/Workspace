@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  # Control Plane Database
+  # Access: mysql://root:secret@localhost:3307/crawler_control
+  mysql_control:
+    image: mysql:8.0
+    container_name: crawler_mysql_control
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=crawler_control
+    volumes:
+      - mysql_control_data:/var/lib/mysql
+      - ./crawling_system/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - jupyter_jupyter-dev
+
+volumes:
+  mysql_control_data:
+
+networks:
+  jupyter_jupyter-dev:
+    external: true

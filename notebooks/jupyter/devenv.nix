@@ -44,6 +44,14 @@ let
     matplotlib
     seaborn
 
+    # TTS / Audio (CUDA-enabled)
+    (torch.override { cudaSupport = true; })
+    torchaudio
+    transformers
+    soundfile
+    accelerate
+    bitsandbytes
+
     # Web/API
     fastapi
     uvicorn
@@ -101,10 +109,21 @@ in
 
     # Add uv for Python dependency management
     pkgs.uv
+    pkgs.awscli2
+
+    # SeaweedFS FUSE mount (provides the `weed` binary)
+    pkgs.seaweedfs
+
+    # CUDA support for PyTorch
+    pkgs.cudaPackages.cudatoolkit
+    pkgs.linuxPackages.nvidia_x11
   ];
 
   # Commands to run on entering the shell
   enterShell = ''
+    # NixOS: expose system libs needed by pip-installed torch/numpy binaries.
+    export LD_LIBRARY_PATH="$(ls -d /nix/store/*-gcc-*-lib/lib 2>/dev/null | head -1):$(ls -d /nix/store/*-zlib-*/lib 2>/dev/null | head -1):/run/opengl-driver/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+
     echo "========================================================================"
     echo "Welcome to jupyter-workspace Nix development environment!"
     echo "========================================================================"
@@ -125,7 +144,23 @@ in
     echo "  2. uv sync               # Install Python dependencies"
     echo "  3. psql -U scheduler -d feed_scheduler -h localhost  # Connect to PostgreSQL"
     echo ""
+    echo "TTS (Qwen3-TTS):"
+    echo "  install-tts              # Install Qwen3-TTS (one-time setup)"
+    echo "  test-tts                 # Test TTS with Emma voice"
+    echo ""
     echo "========================================================================"
+
+    # Function to install TTS dependencies
+    install-tts() {
+      pip install git+https://github.com/QwenLM/Qwen3-TTS.git
+    }
+    export -f install-tts
+
+    # Function to test TTS
+    test-tts() {
+      python /home/warby/Workspace/scripts/test_tts_local.py
+    }
+    export -f test-tts
   '';
 
   # Services managed by devenv
@@ -134,6 +169,19 @@ in
     port = 8888;
     # Uses the command from your Dockerfile to run JupyterLab
     command = "${pkgs.python311}/bin/jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''";
+  };
+
+  # SeaweedFS FUSE mount — exposes archived files at ~/Weed/
+  # Requires: SEAWEEDFS_FILER env var (default: localhost:8888)
+  # Files land at: ~/Weed/yt/<channelname>/YYYYMMDD-channelname-videotitle.mkv
+  processes.seaweed-mount = {
+    exec = ''
+      mkdir -p $HOME/Weed
+      exec weed mount \
+        -filer=''${SEAWEEDFS_FILER:-localhost:8888} \
+        -dir=$HOME/Weed \
+        -filer.path=/
+    '';
   };
 
   # PostgreSQL development service (optional, can also use Docker)

@@ -1,0 +1,155 @@
+{
+  "pack_name": "reddit-all",
+  "domain": "reddit",
+  "created_at": "2026-01-05T01:19:52.380656",
+  "description": "Single unified Reddit dataset",
+  "statistics": {
+    "total_posts": 2048,
+    "total_comments": 215,
+    "total_images": 148
+  },
+  "subreddits": {
+    "count": 37,
+    "list": [
+      "JordynJonesCandy",
+      "TaylorSwift",
+      "JordynJonesBooty",
+      "jordynjonesbody",
+      "JordynJones_gooners",
+      "jordynjones",
+      "JordynJonesSnark",
+      "JordynJonesSimp",
+      "BrookeMonkTheSecond",
+      "BestOfBrookeMonk",
+      "BrookeMonkNSFWHub",
+      "victorious",
+      "nina-dobrev",
+      "olivia-dunne",
+      "celebs",
+      "bunny-girls",
+      "hogwarts-gone-wild",
+      "olivia-rodrigo-nsfw",
+      "ana-de-armas",
+      "melissa-benoist",
+      "tos-girls",
+      "girlsfromchess",
+      "marin-kitagawa-r34",
+      "VolleyballGirls",
+      "OfflinetvGirls",
+      "KiraKosarinLewd",
+      "KiraKosarin",
+      "RachelCook",
+      "MarinKitagawaR34",
+      "AnadeArmas",
+      "WatchItForThePlot",
+      "HaileeSteinfeld",
+      "lululemon",
+      "TaylorSwiftPictures",
+      "Zoids",
+      "sunisalee",
+      "GWNerdy"
+    ]
+  },
+  "entities": {
+    "count": 23,
+    "list": [
+      {
+        "name": "@paige.anastasi",
+        "slug": "paige_anastasi"
+      },
+      {
+        "name": "Jordyn Jones",
+        "slug": "jordyn-jones"
+      },
+      {
+        "name": "Brooke Monk",
+        "slug": "brooke-monk"
+      },
+      {
+        "name": "Maddie Teeuws",
+        "slug": "maddie-teeuws"
+      },
+      {
+        "name": "Victorious",
+        "slug": "victorious"
+      },
+      {
+        "name": "Nina Dobrev",
+        "slug": "nina-dobrev"
+      },
+      {
+        "name": "Olivia Dunne",
+        "slug": "olivia-dunne"
+      },
+      {
+        "name": "Celebs",
+        "slug": "celebs"
+      },
+      {
+        "name": "BunnyGirls",
+        "slug": "bunny-girls"
+      },
+      {
+        "name": "HogwartsGoneWild",
+        "slug": "hogwarts-gone-wild"
+      },
+      {
+        "name": "OliviaRodrigoNSFW",
+        "slug": "olivia-rodrigo-nsfw"
+      },
+      {
+        "name": "Ana de Armas",
+        "slug": "ana-de-armas"
+      },
+      {
+        "name": "MelissaBenoist",
+        "slug": "melissa-benoist"
+      },
+      {
+        "name": "TOS_girls",
+        "slug": "tos-girls"
+      },
+      {
+        "name": "GirlsfromChess",
+        "slug": "girlsfromchess"
+      },
+      {
+        "name": "MarinKitagawaR34",
+        "slug": "marin-kitagawa-r34"
+      },
+      {
+        "name": "VolleyballGirls",
+        "slug": "volleyball-girls"
+      },
+      {
+        "name": "OfflinetvGirls",
+        "slug": "offlinetv-girls"
+      },
+      {
+        "name": "KiraKosarinLewd",
+        "slug": "kira-kosarin-lewd"
+      },
+      {
+        "name": "KiraKosarin",
+        "slug": "kira-kosarin"
+      },
+      {
+        "name": "RachelCook",
+        "slug": "rachel-cook"
+      },
+      {
+        "name": "WatchItForThePlot",
+        "slug": "watch-it-for-the-plot"
+      },
+      {
+        "name": "HaileeSteinfeld",
+        "slug": "hailee-steinfeld"
+      }
+    ]
+  },
+  "files": {
+    "main_parquet": "reddit.parquet",
+    "images_folder": "images/"
+  },
+  "image_files_copied": 14
+}
